@@ -22,6 +22,7 @@ import java.util.Properties;
 
 
 
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 //import io.appium.java_client.android.AndroidDriver;
@@ -31,6 +32,7 @@ import io.appium.java_client.MobileElement;
 //import io.selendroid.SelendroidDriver;
 import io.selendroid.SelendroidKeys;
 //import io.selendroid.exceptions.NoSuchElementException;
+
 
 
 
@@ -53,6 +55,7 @@ import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.Dimension;
 //import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
 //import org.openqa.selenium.WebDriver;
@@ -168,11 +171,19 @@ public class LDSTools {
 		//Collapse the search 
 		clickButtonByXpath("SearchCollapse");
 		
-		//Directory items that should not be visible
-		//clickItemByXpathRoboText("Allen, Brad & Melissa");
-		//clickItemByXpathRoboText("Allen, Brad");
+		clickButtonByXpath("SpinnerNav");
 		
-		/*
+		//Make sure that the directory is on Ash Point Ward
+		scrollDownDistance(1000);
+		clickButtonByXpathTitleName("Ash Point Ward");
+		Thread.sleep(1000);
+		
+		
+		//Directory items that should not be visible
+		clickItemByXpathRoboText("Allen, Brad & Melissa");
+		clickItemByXpathRoboText("Allen, Brad");
+		
+		
 		Assert.assertTrue(checkElementTextViewReturn("Brad Allen"));
 		Assert.assertTrue(checkElementTextViewReturn("Ash Point Ward"));
 		Assert.assertTrue(checkElementTextViewReturn("Primary Teacher"));
@@ -203,8 +214,9 @@ public class LDSTools {
 		Assert.assertTrue(checkElementTextViewReturn("Ordinances"));
 		Assert.assertTrue(checkElementTextViewReturn("Marriage"));
 		Assert.assertTrue(checkElementTextViewReturn("Other Information"));
-		*/
 		
+		pressBackKey();
+		Thread.sleep(1000);
 		//Check the Drawer items
 		clickButtonByXpath("Drawer");
 		Assert.assertTrue(checkElementTextViewReturn("Directory"));
@@ -217,7 +229,7 @@ public class LDSTools {
 		
 		//Reports
 		clickButtonByXpath("DrawerReports");
-		Assert.assertTrue(checkElementTextViewReturn("Action and Interview List"));
+		//Assert.assertTrue(checkElementTextViewReturn("Action and Interview List"));
 		Assert.assertTrue(checkElementTextViewReturn("Birthday List"));
 		Assert.assertTrue(checkElementTextViewReturn("Members Moved In"));
 		Assert.assertTrue(checkElementTextViewReturn("Members Moved Out"));
@@ -406,7 +418,7 @@ public class LDSTools {
 		Boolean myReturnStatus;
 		List<WebElement> options= driver.findElements(By.xpath("//TextView[@value='" + textElement + "']"));
 		if (options.isEmpty()) {
-			myReturnStatus = false;
+			myReturnStatus = false;	
 		} else {
 			myReturnStatus = true;
 		}
@@ -540,7 +552,8 @@ public class LDSTools {
 		
 		System.out.println("Element: " + textElement );
 		//driver.findElement(By.xpath("//TintCheckedTextView[@value='" + textElement + "']")).click();
-		driver.findElement(By.xpath("//CheckedTextView[@value='" + textElement + "']")).click();
+		//driver.findElement(By.xpath("//CheckedTextView[@value='" + textElement + "']")).click();
+		driver.findElement(By.xpath("//*[@value='" + textElement + "']")).click();
 		
 		//I don't really like this sleep but it seems to be needed 
 		try {
@@ -710,19 +723,34 @@ public class LDSTools {
 	 * @param scrollDistance - Distance to scroll
 	 */
 	private void scrollDownDistance(int scrollDistance ){
-		//WebElement myElement = driver.findElement(By.xpath("//TextView[@value='']"));
-		//WebElement myElement = driver.findElement(By.id("pager"));
 		TouchActions actions = new TouchActions(driver);
-		//Point p=myElement.getLocation();
-		//actions.down(p.x, p.y);
-		//actions.move(p.x, p.y - scrollDistance);
-		//actions.up(p.x, p.y );
-		//actions.perform();
+		/*
+		Dimension dimensions = driver.manage().window().getSize();
+		int screenWidth = dimensions.getWidth();
+		int screenHeight = dimensions.getHeight();
 		
-		actions.down(1000, 1000);
-		actions.move(1000, 1000 - scrollDistance);
-		actions.up(1000, 1000 - scrollDistance);
+		System.out.println("Trying to move!");
+		System.out.println("Width: " + screenWidth);
+		System.out.println("Height: " + screenHeight);
+		
+		screenWidth = screenWidth - 10;
+		screenHeight = screenHeight - 10;
+		
+		actions.down(screenWidth, screenHeight);
+		actions.pause(3000);
+		actions.move(screenWidth, screenHeight - scrollDistance);
+		actions.pause(2000);
+		actions.up(screenWidth, screenHeight - scrollDistance);
+		*/
+		actions.flick(driver.findElement(By.id("title")), 0, scrollDistance, 100);
+		
+		//actions.flick(0, -1000);
+		//actions.scroll(0, scrollDistance);
+		
+
+		
 		actions.perform();
+		
 	}
 	
 	
@@ -818,7 +846,7 @@ public class LDSTools {
 			//Thread.sleep(1000);
 			//scrollDown("Sign Out", 40 );
 			Thread.sleep(2000);
-			scrollDown("Network Environment", 40 );
+			scrollDown("Network Environment", -1000 );
 			Thread.sleep(2000);
 			clickButtonByXpathPopoutMenu("UAT");
 			clickButtonByXpath("Back");
