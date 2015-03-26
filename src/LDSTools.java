@@ -124,7 +124,7 @@ public class LDSTools {
 
     }	
 
-	
+	/*
     
 	@Test
 	public void simpleTest() throws Exception {
@@ -132,9 +132,10 @@ public class LDSTools {
 		justForTesting();	
 	}
 	
-	
+	*/
 
 	public void justForTesting() throws Exception {
+		int myCheck;
 		//LDSTools3 is Bishopric Counselor and Ward Clerk
 		syncLogIn("LDSTools3", "toolstester", "UAT" );
 		Thread.sleep(2000);
@@ -171,17 +172,21 @@ public class LDSTools {
 		//Collapse the search 
 		clickButtonByXpath("SearchCollapse");
 		
-		clickButtonByXpath("SpinnerNav");
-		
 		//Make sure that the directory is on Ash Point Ward
+		clickButtonByXpath("SpinnerNav");
 		scrollDownDistance(1000);
 		clickButtonByXpathTitleName("Ash Point Ward");
 		Thread.sleep(1000);
 		
 		
+		//Search for logged in user
+		clickButtonByID("MenuSearch");
+		sendTextbyXpath("SearchArea", "Allen, Brad");
+		
+		
 		//Directory items that should not be visible
 		clickItemByXpathRoboText("Allen, Brad & Melissa");
-		clickItemByXpathRoboText("Allen, Brad");
+		clickLastTextViewRoboReturn("Allen, Brad");
 		
 		
 		Assert.assertTrue(checkElementTextViewReturn("Brad Allen"));
@@ -215,7 +220,21 @@ public class LDSTools {
 		Assert.assertTrue(checkElementTextViewReturn("Marriage"));
 		Assert.assertTrue(checkElementTextViewReturn("Other Information"));
 		
+
+		/*
+		//This is needed if the test is running on a tablet. 
+		myCheck = checkElementXpathReturn("Drawer");
+		if (myCheck == 0) {
+			pressBackKey();
+		}
+		System.out.println("Drawer Found: " + myCheck);
+		*/
+		
 		pressBackKey();
+		
+		//Collapse the search 
+		clickButtonByXpath("SearchCollapse");
+		
 		Thread.sleep(1000);
 		//Check the Drawer items
 		clickButtonByXpath("Drawer");
@@ -246,25 +265,18 @@ public class LDSTools {
 		
 	
 	
-	/*
-    @Rule
-    public Retry retry = new Retry(3);
+	
+    //@Rule
+    //public Retry retry = new Retry(3);
 	
 	@Test
 	public void under18HeadofHouseTest() throws Exception {
 		under18HeadofHouse();	
 	}
 	
-	
-
-	@Test
-	public void NewTestamentTest() throws Exception {
-		firstPages();
-		ScriptuesNewTestamentTest();
-	}
 
 	
-	*/
+	
 	
 //**************************************************************
 //**************** Start of tests ******************************
@@ -282,7 +294,7 @@ public class LDSTools {
 		pinPage("1", "1", "3", "3", true);
 		
 		//Check to see if the user can view the directory
-		Assert.assertTrue(checkElementTextViewRoboReturn("Allen, Brad & Melissa"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Aaron, Jane"));
 		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
 		
 		//Search for logged in user
@@ -300,29 +312,32 @@ public class LDSTools {
 		Assert.assertTrue(checkElementTextCustom("MEMBERSHIP INFORMATION", "CapitalizedTextView"));
 		Assert.assertTrue(checkElementTextViewReturn("888-0028-7066"));
 		
+		pressBackKey();
+		
 		//Collapse the search 
 		clickButtonByXpath("SearchCollapse");
 		
+		//Search for logged in user
+		clickButtonByID("MenuSearch");
+		sendTextbyXpath("SearchArea", "Aaron, Jane");
+		
 		//Directory items that should not be visible
-		clickItemByXpathRoboText("Allen, Brad & Melissa");
-		clickItemByXpathRoboText("Allen, Brad");
+		clickItemByXpathRoboText("Aaron, Jane");
+		clickLastTextViewRoboReturn("Aaron, Jane");
 		
 		
-		Assert.assertTrue(checkElementTextViewReturn("Brad Allen"));
-		Assert.assertTrue(checkElementTextViewReturn("Ash Point Ward"));
-		Assert.assertTrue(checkElementTextViewReturn("Primary Teacher"));
+		Assert.assertTrue(checkElementTextViewReturn("Jane Aaron"));
+		Assert.assertTrue(checkElementTextViewReturn("Fagamalo 1st Ward"));
 		Assert.assertTrue(checkElementTextCustom("CONTACT INFORMATION", "CapitalizedTextView"));
-		Assert.assertTrue(checkElementTextViewReturn("916-501-4412"));
+		Assert.assertTrue(checkElementTextViewReturn("555-555-5555"));
 		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD", "TextView"));
-		Assert.assertTrue(checkElementTextViewReturn("bradleyjayallen@yahoo.com"));
+		Assert.assertTrue(checkElementTextViewReturn("no-reply@ldschurch.org"));
 		Assert.assertTrue(checkElementTextCustom("PERSONAL", "TextView"));
 		//Assert.assertTrue(checkElementTextViewReturn("2778 E Saddle Rock Rd Eagle Mountain, Utah 84005"));
 		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD MEMBERS", "CapitalizedTextView"));
 		
-		Assert.assertTrue(checkElementTextViewReturn("Brad Allen"));
-		Assert.assertTrue(checkElementTextViewReturn("Melissa Allen"));
-		Assert.assertTrue(checkElementTextViewReturn("Elizabeth Allen"));
-		Assert.assertTrue(checkElementTextViewReturn("Maggie June Allen"));
+		Assert.assertTrue(checkElementTextViewReturn("Jane Aaron"));
+
 		
 		//Assert.assertFalse(checkElementTextCustom("MEMBERSHIP INFORMATION", "CapitalizedTextView"));
 		Assert.assertFalse(checkElementTextViewReturn("Allen, Bradley Jay"));
@@ -338,6 +353,11 @@ public class LDSTools {
 		Assert.assertFalse(checkElementTextViewReturn("Ordinances"));
 		Assert.assertFalse(checkElementTextViewReturn("Marriage"));
 		Assert.assertFalse(checkElementTextViewReturn("Other Information"));
+		
+		pressBackKey();
+		
+		//Collapse the search 
+		clickButtonByXpath("SearchCollapse");
 		
 		
 		//Check the Drawer items
@@ -402,10 +422,6 @@ public class LDSTools {
 	}
 
 
-
-	//Check that element exists by XPATH TextView - return false if no element, 
-	//true if element is found. 
-	
 	
 	/** checkElementTextViewReturn(String textElement)
 	 * Check to see if the element is found using the xpath of //TextView[@value=" SOME TEXT "]
@@ -550,7 +566,7 @@ public class LDSTools {
 	private void clickButtonByXpathPopoutMenu(String textElement ) {
 		//WebElement element;
 		
-		System.out.println("Element: " + textElement );
+		//System.out.println("Element: " + textElement );
 		//driver.findElement(By.xpath("//TintCheckedTextView[@value='" + textElement + "']")).click();
 		//driver.findElement(By.xpath("//CheckedTextView[@value='" + textElement + "']")).click();
 		driver.findElement(By.xpath("//*[@value='" + textElement + "']")).click();
@@ -858,6 +874,7 @@ public class LDSTools {
 		sendTextbyXpath("LoginPassword", loginPassword);
 		Thread.sleep(1000);
 		clickButtonByXpath("SignInButton");
+		Thread.sleep(4000);
 		waitForTextToDisappear("SyncText", 500 );
 		Thread.sleep(2000);
 	}
