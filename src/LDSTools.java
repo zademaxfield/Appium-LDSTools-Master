@@ -95,7 +95,7 @@ public class LDSTools {
         File classpathRoot = new File(System.getProperty("user.dir"));
         //File appDir = new File(classpathRoot, "..\\..\\..\\..\\Selenium");
         //MAC Path
-        File appDir = new File(classpathRoot, "../../../Selenium");
+        File appDir = new File(classpathRoot, "../../Selenium");
         File app = new File(appDir, "ldstools-release-20150227-1832.apk");
         DesiredCapabilities capabilities = new DesiredCapabilities();
         //capabilities.setCapability(CapabilityType.BROWSER_NAME, "");
@@ -124,7 +124,7 @@ public class LDSTools {
 
     }	
 
-	/*
+	
     
 	@Test
 	public void simpleTest() throws Exception {
@@ -132,132 +132,18 @@ public class LDSTools {
 		justForTesting();	
 	}
 	
-	*/
+	
 
 	public void justForTesting() throws Exception {
-		int myCheck;
 		//LDSTools3 is Bishopric Counselor and Ward Clerk
 		syncLogIn("LDSTools3", "toolstester", "UAT" );
 		Thread.sleep(2000);
+		Assert.assertFalse(checkElementTextViewReturn("LDS Tools Services are unavailable. Please try again later."));
+		
 		
 		//true will setup ping for a non-leader
-		pinPage("1", "1", "3", "3", true);
+		//pinPage("1", "1", "3", "3", true);
 		
-		//Check to see if the user can view the directory
-		Assert.assertTrue(checkElementTextViewRoboReturn("Aaron, Jane"));
-		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
-		
-		//Search for logged in user
-		clickButtonByID("MenuSearch");
-		sendTextbyXpath("SearchArea", "Tools, LDS3");
-		
-		//Select the user
-		clickItemByXpathRoboText("Tools, LDS3");
-		clickLastTextViewRoboReturn("Tools, LDS3");
-		Thread.sleep(1000);
-		
-		//Check the users name, address membership number etc...
-		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS3"));
-		//clickButtonByXpathTitleName("Show Record Number");
-		Assert.assertTrue(checkElementTextCustom("MEMBERSHIP INFORMATION", "CapitalizedTextView"));
-		Assert.assertTrue(checkElementTextViewReturn("888-0028-7031"));
-		Assert.assertTrue(checkElementTextCustom("RECORD NUMBER", "TextView"));
-		//Assert.assertTrue(checkElementTextViewReturn("January 1, 1980 (35)"));
-		//Assert.assertTrue(checkElementTextCustom("BIRTH DATE", "TextView"));
-		//clickButtonByXpathTitleName("Ordinances");
-		//Need to test the Ordinances
-		pressBackKey();
-		
-		
-		//Collapse the search 
-		clickButtonByXpath("SearchCollapse");
-		
-		//Make sure that the directory is on Ash Point Ward
-		clickButtonByXpath("SpinnerNav");
-		scrollDownDistance(1000);
-		clickButtonByXpathTitleName("Ash Point Ward");
-		Thread.sleep(1000);
-		
-		
-		//Search for logged in user
-		clickButtonByID("MenuSearch");
-		sendTextbyXpath("SearchArea", "Allen, Brad");
-		
-		
-		//Directory items that should not be visible
-		clickItemByXpathRoboText("Allen, Brad & Melissa");
-		clickLastTextViewRoboReturn("Allen, Brad");
-		
-		
-		Assert.assertTrue(checkElementTextViewReturn("Brad Allen"));
-		Assert.assertTrue(checkElementTextViewReturn("Ash Point Ward"));
-		Assert.assertTrue(checkElementTextViewReturn("Primary Teacher"));
-		Assert.assertTrue(checkElementTextCustom("CONTACT INFORMATION", "CapitalizedTextView"));
-		Assert.assertTrue(checkElementTextViewReturn("916-501-4412"));
-		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD", "TextView"));
-		Assert.assertTrue(checkElementTextViewReturn("bradleyjayallen@yahoo.com"));
-		Assert.assertTrue(checkElementTextCustom("PERSONAL", "TextView"));
-		//Assert.assertTrue(checkElementTextViewReturn("2778 E Saddle Rock Rd Eagle Mountain, Utah 84005"));
-		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD MEMBERS", "CapitalizedTextView"));
-		
-		Assert.assertTrue(checkElementTextViewReturn("Brad Allen (35)"));
-		Assert.assertTrue(checkElementTextViewReturn("Melissa Allen (32)"));
-		Assert.assertTrue(checkElementTextViewReturn("Elizabeth Allen (2)"));
-		Assert.assertTrue(checkElementTextViewReturn("Maggie June Allen (0)"));
-		
-		//Assert.assertFalse(checkElementTextCustom("MEMBERSHIP INFORMATION", "CapitalizedTextView"));
-		Assert.assertTrue(checkElementTextViewReturn("Allen, Bradley Jay"));
-		Assert.assertTrue(checkElementTextCustom("FULL NAME", "TextView"));
-		Assert.assertTrue(checkElementTextViewReturn("000-3597-284A"));
-		Assert.assertTrue(checkElementTextCustom("RECORD NUMBER", "TextView"));
-		Assert.assertTrue(checkElementTextViewReturn("June 24, 1979 (35)"));
-		Assert.assertTrue(checkElementTextCustom("BIRTH DATE", "TextView"));
-		Assert.assertTrue(checkElementTextViewReturn("Elder"));
-		Assert.assertTrue(checkElementTextCustom("PRIESTHOOD OFFICE", "TextView"));
-		Assert.assertTrue(checkElementTextViewReturn("Oct 2014 (Expired)"));
-		Assert.assertTrue(checkElementTextCustom("TEMPLE RECOMMEND", "TextView"));
-		Assert.assertTrue(checkElementTextViewReturn("Ordinances"));
-		Assert.assertTrue(checkElementTextViewReturn("Marriage"));
-		Assert.assertTrue(checkElementTextViewReturn("Other Information"));
-		
-
-		/*
-		//This is needed if the test is running on a tablet. 
-		myCheck = checkElementXpathReturn("Drawer");
-		if (myCheck == 0) {
-			pressBackKey();
-		}
-		System.out.println("Drawer Found: " + myCheck);
-		*/
-		
-		pressBackKey();
-		
-		//Collapse the search 
-		clickButtonByXpath("SearchCollapse");
-		
-		Thread.sleep(1000);
-		//Check the Drawer items
-		clickButtonByXpath("Drawer");
-		Assert.assertTrue(checkElementTextViewReturn("Directory"));
-		Assert.assertTrue(checkElementTextViewReturn("Callings"));
-		Assert.assertTrue(checkElementTextViewReturn("Missionary"));
-		Assert.assertTrue(checkElementTextViewReturn("Lists"));
-		Assert.assertTrue(checkElementTextViewReturn("Calendar"));
-		Assert.assertTrue(checkElementTextViewReturn("Meetinghouses"));
-		Assert.assertTrue(checkElementTextViewReturn("Reports"));
-		
-		//Reports
-		clickButtonByXpath("DrawerReports");
-		//Assert.assertTrue(checkElementTextViewReturn("Action and Interview List"));
-		Assert.assertTrue(checkElementTextViewReturn("Birthday List"));
-		Assert.assertTrue(checkElementTextViewReturn("Members Moved In"));
-		Assert.assertTrue(checkElementTextViewReturn("Members Moved Out"));
-		Assert.assertTrue(checkElementTextViewReturn("Members with Callings"));
-		Assert.assertTrue(checkElementTextViewReturn("Members without Callings"));
-		Assert.assertTrue(checkElementTextViewReturn("New Members"));
-		Assert.assertTrue(checkElementTextViewReturn("Temple Recommend Status"));
-		Assert.assertTrue(checkElementTextViewReturn("Unit Statistics"));
-		Assert.assertFalse(checkElementTextViewReturn("Death Star Reports"));
 		
 		Thread.sleep(10000);
 		
@@ -265,14 +151,21 @@ public class LDSTools {
 		
 	
 	
-	
-    //@Rule
-    //public Retry retry = new Retry(3);
+	/*
+    @Rule
+    public Retry retry = new Retry(3);
 	
 	@Test
 	public void under18HeadofHouseTest() throws Exception {
 		under18HeadofHouse();	
 	}
+	
+	@Test
+	public void under18HeadofHouseTest() throws Exception {
+		under18HeadofHouse();	
+	}
+	
+	*/
 	
 
 	
@@ -373,9 +266,163 @@ public class LDSTools {
 		
 		//Assert.assertTrue(checkElementTextViewReturn("Action and Interview List"));
 		//Assert.assertFalse(checkElementTextViewReturn("Screaming Goats"));
-		
-		Thread.sleep(10000);
+
 	}
+	
+	/** bishopricCounselorAndWardClerk()
+	 * This will test a user that is a member of the Bishopric and a Ward Clerk
+	 * 
+	 * @throws Exception
+	 */
+	public void bishopricCounselorAndWardClerk() throws Exception {
+		//int myCheck;
+		//LDSTools3 is Bishopric Counselor and Ward Clerk
+		syncLogIn("LDSTools3", "toolstester", "UAT" );
+		Thread.sleep(2000);
+		
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		//Check to see if the user can view the directory
+		Assert.assertTrue(checkElementTextViewRoboReturn("Aaron, Jane"));
+		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
+		
+		//Search for logged in user
+		clickButtonByID("MenuSearch");
+		sendTextbyXpath("SearchArea", "Tools, LDS3");
+		
+		//Select the user
+		clickItemByXpathRoboText("Tools, LDS3");
+		clickLastTextViewRoboReturn("Tools, LDS3");
+		Thread.sleep(1000);
+		
+		//Check the users name, address membership number etc...
+		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS3"));
+		//clickButtonByXpathTitleName("Show Record Number");
+		Assert.assertTrue(checkElementTextCustom("MEMBERSHIP INFORMATION", "CapitalizedTextView"));
+		Assert.assertTrue(checkElementTextViewReturn("888-0028-7031"));
+		Assert.assertTrue(checkElementTextCustom("RECORD NUMBER", "TextView"));
+		//Assert.assertTrue(checkElementTextViewReturn("January 1, 1980 (35)"));
+		//Assert.assertTrue(checkElementTextCustom("BIRTH DATE", "TextView"));
+		//clickButtonByXpathTitleName("Ordinances");
+		//Need to test the Ordinances
+		pressBackKey();
+		
+		
+		//Collapse the search 
+		clickButtonByXpath("SearchCollapse");
+		
+		//Make sure that the directory is on Ash Point Ward
+		clickButtonByXpath("SpinnerNav");
+		scrollDownDistance(1000);
+		clickButtonByXpathTitleName("Ash Point Ward");
+		Thread.sleep(1000);
+		
+		
+		//Search for logged in user
+		clickButtonByID("MenuSearch");
+		sendTextbyXpath("SearchArea", "Allen, Brad");
+		
+		
+		//Directory items that should not be visible
+		clickItemByXpathRoboText("Allen, Brad & Melissa");
+		clickLastTextViewRoboReturn("Allen, Brad");
+		
+		
+		Assert.assertTrue(checkElementTextViewReturn("Brad Allen"));
+		Assert.assertTrue(checkElementTextViewReturn("Ash Point Ward"));
+		Assert.assertTrue(checkElementTextViewReturn("Primary Teacher"));
+		Assert.assertTrue(checkElementTextCustom("CONTACT INFORMATION", "CapitalizedTextView"));
+		Assert.assertTrue(checkElementTextViewReturn("916-501-4412"));
+		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD", "TextView"));
+		Assert.assertTrue(checkElementTextViewReturn("bradleyjayallen@yahoo.com"));
+		Assert.assertTrue(checkElementTextCustom("PERSONAL", "TextView"));
+		//Assert.assertTrue(checkElementTextViewReturn("2778 E Saddle Rock Rd Eagle Mountain, Utah 84005"));
+		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD MEMBERS", "CapitalizedTextView"));
+		
+		Assert.assertTrue(checkElementTextViewReturn("Brad Allen (35)"));
+		Assert.assertTrue(checkElementTextViewReturn("Melissa Allen (32)"));
+		Assert.assertTrue(checkElementTextViewReturn("Elizabeth Allen (2)"));
+		Assert.assertTrue(checkElementTextViewReturn("Maggie June Allen (0)"));
+		
+		//Assert.assertFalse(checkElementTextCustom("MEMBERSHIP INFORMATION", "CapitalizedTextView"));
+		Assert.assertTrue(checkElementTextViewReturn("Allen, Bradley Jay"));
+		Assert.assertTrue(checkElementTextCustom("FULL NAME", "TextView"));
+		Assert.assertTrue(checkElementTextViewReturn("000-3597-284A"));
+		Assert.assertTrue(checkElementTextCustom("RECORD NUMBER", "TextView"));
+		Assert.assertTrue(checkElementTextViewReturn("June 24, 1979 (35)"));
+		Assert.assertTrue(checkElementTextCustom("BIRTH DATE", "TextView"));
+		Assert.assertTrue(checkElementTextViewReturn("Elder"));
+		Assert.assertTrue(checkElementTextCustom("PRIESTHOOD OFFICE", "TextView"));
+		Assert.assertTrue(checkElementTextViewReturn("Oct 2014 (Expired)"));
+		Assert.assertTrue(checkElementTextCustom("TEMPLE RECOMMEND", "TextView"));
+		Assert.assertTrue(checkElementTextViewReturn("Ordinances"));
+		Assert.assertTrue(checkElementTextViewReturn("Marriage"));
+		Assert.assertTrue(checkElementTextViewReturn("Other Information"));
+		
+		pressBackKey();
+		
+		//Collapse the search 
+		clickButtonByXpath("SearchCollapse");
+		
+		Thread.sleep(1000);
+		//Check the Drawer items
+		clickButtonByXpath("Drawer");
+		Assert.assertTrue(checkElementTextViewReturn("Directory"));
+		Assert.assertTrue(checkElementTextViewReturn("Callings"));
+		Assert.assertTrue(checkElementTextViewReturn("Missionary"));
+		Assert.assertTrue(checkElementTextViewReturn("Lists"));
+		Assert.assertTrue(checkElementTextViewReturn("Calendar"));
+		Assert.assertTrue(checkElementTextViewReturn("Meetinghouses"));
+		Assert.assertTrue(checkElementTextViewReturn("Reports"));
+		
+		//Reports
+		clickButtonByXpath("DrawerReports");
+		//Assert.assertTrue(checkElementTextViewReturn("Action and Interview List"));
+		Assert.assertTrue(checkElementTextViewReturn("Birthday List"));
+		Assert.assertTrue(checkElementTextViewReturn("Members Moved In"));
+		Assert.assertTrue(checkElementTextViewReturn("Members Moved Out"));
+		Assert.assertTrue(checkElementTextViewReturn("Members with Callings"));
+		Assert.assertTrue(checkElementTextViewReturn("Members without Callings"));
+		Assert.assertTrue(checkElementTextViewReturn("New Members"));
+		Assert.assertTrue(checkElementTextViewReturn("Temple Recommend Status"));
+		Assert.assertTrue(checkElementTextViewReturn("Unit Statistics"));
+		Assert.assertFalse(checkElementTextViewReturn("Death Star Reports"));
+		
+		
+		//Check the members moved out report
+		//Should have a ( ) with the age by the birth date
+		clickButtonByXpathTitleName("Members Moved Out");
+		Assert.assertTrue(checkElementTextViewReturn("Payne, John"));
+		//Birth Date
+		//TODO need to have the age calculated
+		Assert.assertTrue(checkElementTextViewReturn("April 15, 1979 (35)"));
+		Assert.assertTrue(checkElementTextViewReturn("February 15, 2015"));
+		Assert.assertFalse(checkElementTextViewReturn("Solo, Han"));
+		
+		pressBackKey();
+		//clickButtonByXpath("Drawer");
+		//clickButtonByXpath("DrawerReports");
+		
+		//Members Moved In
+		clickButtonByXpathTitleName("Members Moved In");
+		Assert.assertTrue(checkElementTextViewReturn("Jeffs"));
+		Assert.assertTrue(checkElementTextViewReturn("Travis (39)"));
+		Assert.assertTrue(checkElementTextViewReturn("Head of household"));
+
+		
+		pressBackKey();
+		//clickButtonByXpath("Drawer");
+		//clickButtonByXpath("DrawerReports");
+		
+		//Members with Callings
+		clickButtonByXpathTitleName("Members with Callings");
+		Assert.assertTrue(checkElementTextViewReturn("Allen, Brad"));
+		Assert.assertTrue(checkElementTextViewReturn("Primary Teacher (2 years)"));
+		clickButtonByXpathTitleName("ORGANIZATION");
+
+	}
+	
 	
 	
 	//**************************************************************
