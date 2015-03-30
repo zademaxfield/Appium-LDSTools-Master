@@ -135,16 +135,34 @@ public class LDSTools {
 	
 
 	public void justForTesting() throws Exception {
-		//LDSTools3 is Bishopric Counselor and Ward Clerk
-		syncLogIn("LDSTools3", "toolstester", "UAT" );
-		Thread.sleep(2000);
-		Assert.assertFalse(checkElementTextViewReturn("LDS Tools Services are unavailable. Please try again later."));
+		String password1 = "toolstester";
+		String password2 = "password1";
 		
 		
-		//true will setup ping for a non-leader
-		//pinPage("1", "1", "3", "3", true);
+		for (int myCounter = 2 ; myCounter <= 47; myCounter++ ){
+			System.out.println("USER: LDSTools" + myCounter);
+			if (myCounter <= 15){
+				syncLogIn("LDSTools" + myCounter, password1, "UAT" );
+			} else {
+				syncLogIn("LDSTools" + myCounter, password2, "UAT" );
+			}
+			
+			Thread.sleep(2000);
+			Assert.assertFalse(checkElementTextViewReturn("LDS Tools Services are unavailable. Please try again later."));
+			
+			
+			//true will setup pin for a non-leader
+			pinPage("1", "1", "3", "3", true);
+			
+			clickButtonByXpath("Drawer");
+			clickButtonByXpath("DrawerSETTINGS");
+			
+			clickButtonByXpathTitleName("Sign Out");
+			clickButtonByXpath("SignOutOK");
+			
+		}
 		
-		
+
 		Thread.sleep(10000);
 		
 	}
@@ -161,13 +179,16 @@ public class LDSTools {
 	}
 	
 	@Test
-	public void under18HeadofHouseTest() throws Exception {
-		under18HeadofHouse();	
+	public void bishopricCounselorAndWardClerkTest() throws Exception {
+		bishopricCounselorAndWardClerk();	
+	}
+	
+	@Test
+	public void loginCheckTest() throws Exception {
+		loginCheck();	
 	}
 	
 	*/
-	
-
 	
 	
 	
@@ -423,7 +444,39 @@ public class LDSTools {
 
 	}
 	
-	
+	/**loginCheck()
+	 * Go through All LDSTools users to make sure they can login
+	 * 
+	 * @throws Exception
+	 */
+	public void loginCheck() throws Exception {
+		String password1 = "toolstester";
+		String password2 = "password1";
+		
+		
+		for (int myCounter = 2 ; myCounter <= 47; myCounter++ ){
+			System.out.println("USER: LDSTools" + myCounter);
+			if (myCounter <= 15){
+				syncLogIn("LDSTools" + myCounter, password1, "UAT" );
+			} else {
+				syncLogIn("LDSTools" + myCounter, password2, "UAT" );
+			}
+			
+			Thread.sleep(2000);
+			Assert.assertFalse(checkElementTextViewReturn("LDS Tools Services are unavailable. Please try again later."));
+			
+			
+			//true will setup pin for a non-leader
+			pinPage("1", "1", "3", "3", true);
+			
+			clickButtonByXpath("Drawer");
+			clickButtonByXpath("DrawerSETTINGS");
+			
+			clickButtonByXpathTitleName("Sign Out");
+			clickButtonByXpath("SignOutOK");
+			
+		}
+	}
 	
 	//**************************************************************
 	//**************** Start of Methods ****************************
