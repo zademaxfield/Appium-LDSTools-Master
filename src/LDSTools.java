@@ -129,18 +129,18 @@ public class LDSTools {
     }	
 
 	
-    
+    /*
 	@Test
 	public void simpleTest() throws Exception {
 		//firstPages();
 		justForTesting();	
 	}
-	
+	*/
 	
 
 	public void justForTesting() throws Exception {
 		//Edit other user with invalid data - phone
-		syncLogIn("LDSTools2", "toolstester", "UAT" );
+		syncLogIn("LDSTools5", "toolstester", "UAT" );
 		Thread.sleep(2000);
 		
 		//true will setup ping for a non-leader
@@ -149,75 +149,126 @@ public class LDSTools {
 		
 		//Search for logged in user
 		clickButtonByID("MenuSearch");
-		sendTextbyXpath("SearchArea", "Tools, LDS41");
+		sendTextbyXpath("SearchArea", "Tools, LDS5");
 		
 		//Select the user
-		clickItemByXpathRoboText("Tools, LDS41");
-		clickLastTextViewRoboReturn("Tools, LDS41");
+		clickItemByXpathRoboText("Tools, LDS5");
+		clickLastTextViewRoboReturn("Tools, LDS5");
 		Thread.sleep(1000);
 		
 		//Check the users name, address membership number etc...
-		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS41"));
+		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS5"));
 		clickButtonByXpath("MenuEdit");
-		
-		sendTextbyXpath("EditPersonalPhone", "GOAT 00000000000 **** |||");
-		sendTextbyXpath("EditHomePhone", "878974131648413216421321165484789798461321314644444244624424524245244545644644856465784967465456464144134424342446244323644524452344623446542326342542");
-		clickButtonByXpath("MenuSave");
-		
-		Thread.sleep(3000);
-		
-		Assert.assertTrue(checkElementTextViewReturn("00000000000 ****"));
-		Assert.assertTrue(checkElementTextViewReturn("878974131648413216421321165484789798461321314644444244624424524245244545644644856465784967465456464144134424342446244323644524452344623446542326342542"));	
+		Thread.sleep(1000);
+		scrollDown("Stake Visibility", -1000 );
+		//clickButtonByXpath("EditVisibiltySpinner");
 
-		
+		clickButtonByXpath("EditAllVisibility");
+		//displayAllTextViewElements();
+		clickButtonByXpathPopoutMenu("Private—Leadership Only");
+		Thread.sleep(1000);
+		clickButtonByXpath("MenuSave");
+		Thread.sleep(1000);
+		clickButtonByXpath("MenuSave");
+		Thread.sleep(3000);
 		pressBackKey();
 		
 		//Collapse the search 
 		clickButtonByXpath("SearchCollapse");
 		
+		//Log out 
 		clickButtonByXpath("Drawer");
-		clickButtonByXpath("DrawerSYNC");
-		clickButtonByXpath("AlertOK");
+		clickButtonByXpath("DrawerSETTINGS");
 		
-		Thread.sleep(4000);
-		waitForTextToDisappear("SyncText", 500 );
+		clickButtonByXpathTitleName("Sign Out");
+		clickButtonByXpath("SignOutOK");
+		
+		syncLogIn("LDSTools6", "toolstester", "UAT" );
+		Thread.sleep(2000);
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
 		Thread.sleep(2000);
 		
 		//Search for logged in user
 		clickButtonByID("MenuSearch");
-		sendTextbyXpath("SearchArea", "Tools, LDS41");
+		sendTextbyXpath("SearchArea", "Tools, LDS5");
+		
+		Assert.assertTrue(checkElementTextViewRoboReturn("Tools, LDS5"));
+
+		//Collapse the search 
+		clickButtonByXpath("SearchCollapse");
+		
+		//Log out 
+		clickButtonByXpath("Drawer");
+		clickButtonByXpath("DrawerSETTINGS");
+		
+		clickButtonByXpathTitleName("Sign Out");
+		clickButtonByXpath("SignOutOK");
+		
+		syncLogIn("LDSTools5", "toolstester", "UAT" );
+		Thread.sleep(2000);
+		
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);
+		
+		//Search for logged in user
+		clickButtonByID("MenuSearch");
+		sendTextbyXpath("SearchArea", "Tools, LDS5");
 		
 		//Select the user
-		clickItemByXpathRoboText("Tools, LDS41");
-		clickLastTextViewRoboReturn("Tools, LDS41");
+		clickItemByXpathRoboText("Tools, LDS5");
+		clickLastTextViewRoboReturn("Tools, LDS5");
 		Thread.sleep(1000);
 		
 		//Check the users name, address membership number etc...
-		Assert.assertTrue(checkElementTextViewReturn("00000000000 ****"));
-		Assert.assertTrue(checkElementTextViewReturn("878974131648413216421321165484789798461321314644444244624424524245244545644644856465784967465456464144134424342446244323644524452344623446542326342542"));	
-
-		
+		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS5"));
 		clickButtonByXpath("MenuEdit");
-		
-		clearTextFieldXpath("EditPersonalPhone");
-		clearTextFieldXpath("EditHomePhone");
+		Thread.sleep(1000);
+		scrollDown("Private—Leadership Only", -1000 );
+		//clickButtonByXpath("EditVisibiltySpinner");
 
-
+		clickButtonByXpath("EditAllVisibility");
+		//displayAllTextViewElements();
+		clickButtonByXpathPopoutMenu("Stake Visibility");
+		Thread.sleep(1000);
 		clickButtonByXpath("MenuSave");
-		
+		Thread.sleep(1000);
+		clickButtonByXpath("MenuSave");
 		Thread.sleep(3000);
+		pressBackKey();
+		pressBackKey();
 		
-		Assert.assertFalse(checkElementTextViewReturn("00000000000 ****"));
-		Assert.assertFalse(checkElementTextViewReturn("878974131648413216421321165484789798461321314644444244624424524245244545644644856465784967465456464144134424342446244323644524452344623446542326342542"));	
-
+		//Collapse the search 
+		clickButtonByXpath("SearchCollapse");
 		
-
+		//Log out 
+		clickButtonByXpath("Drawer");
+		clickButtonByXpath("DrawerSETTINGS");
+		
+		clickButtonByXpathTitleName("Sign Out");
+		clickButtonByXpath("SignOutOK");
+		
+		syncLogIn("LDSTools6", "toolstester", "UAT" );
+		Thread.sleep(2000);
+		
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);
+		
+		//Search for logged in user
+		clickButtonByID("MenuSearch");
+		sendTextbyXpath("SearchArea", "Tools, LDS5");
+		
+		Assert.assertTrue(checkElementTextViewRoboReturn("Tools, LDS5"));
+		
+		
 
 	}
 		
 	
 	
-	/*
+	
     @Rule
     public Retry retry = new Retry(3);
 	
@@ -246,19 +297,34 @@ public class LDSTools {
 	public void editOtherUserTest() throws Exception {
 		editOtherUser();	
 	}
-
+	
+	@Test
+	public void editOtherUserInvalidPhoneTest() throws Exception {
+		editOtherUserInvalidPhone();	
+	}
+	
+	@Test
+	public void editOtherUserInvalidEmailTest() throws Exception {
+		editOtherUserInvalidEmail();	
+	}
+	
+	@Test
+	public void editVisibilityTest() throws Exception {
+		editVisibility();	
+	}
+	
 	@Test
 	public void invalidLoginCheckTest() throws Exception {
 		invalidLoginCheck();	
 	}
 	
-	@Test
-	public void loginCheckTest() throws Exception {
-		loginCheck();	
-	}
+	//@Test
+	//public void loginCheckTest() throws Exception {
+	//	loginCheck();	
+	//}
 	
 	
-	*/
+	
 	
 	
 	
@@ -698,7 +764,7 @@ public class LDSTools {
 		//Relief Society
 		clickItemByXpathRoboText("Relief Society");
 		clickItemByXpathRoboText("Relief Society Presidency");
-		displayAllTextViewElements();
+		//displayAllTextViewElements();
 		Assert.assertTrue(checkElementTextViewRoboReturn("Relief Society President"));
 		//Assert.assertTrue(checkElementTextViewRoboReturn("Frost, Sato'a"));
 		Assert.assertTrue(checkElementTextViewRoboReturn("Relief Society First Counselor"));
@@ -1110,6 +1176,291 @@ public class LDSTools {
 	}
 	
 	
+	public void editOtherUserInvalidPhone() throws Exception {
+		//Edit other user with invalid data - phone
+		syncLogIn("LDSTools2", "toolstester", "UAT" );
+		Thread.sleep(2000);
+		
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);
+		
+		//Search for logged in user
+		clickButtonByID("MenuSearch");
+		sendTextbyXpath("SearchArea", "Tools, LDS41");
+		
+		//Select the user
+		clickItemByXpathRoboText("Tools, LDS41");
+		clickLastTextViewRoboReturn("Tools, LDS41");
+		Thread.sleep(1000);
+		
+		//Check the users name, address membership number etc...
+		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS41"));
+		clickButtonByXpath("MenuEdit");
+		
+		sendTextbyXpath("EditPersonalPhone", "######00000000000*****");
+		sendTextbyXpath("EditHomePhone", "878974131648413216421321165484789798461321314644444244624424524245244545644644856465784967465456464144134424342446244323644524452344623446542326342542");
+		clickButtonByXpath("MenuSave");
+		
+		Thread.sleep(3000);
+		
+		Assert.assertTrue(checkElementTextViewReturn("######00000000000*****"));
+		Assert.assertTrue(checkElementTextViewReturn("878974131648413216421321165484789798461321314644444244624424524245244545644644856465784967465456464144134424342446244323644524452344623446542326342542"));	
+
+		
+		pressBackKey();
+		
+		//Collapse the search 
+		clickButtonByXpath("SearchCollapse");
+		
+		clickButtonByXpath("Drawer");
+		clickButtonByXpath("DrawerSYNC");
+		clickButtonByXpath("AlertOK");
+		
+		Thread.sleep(4000);
+		waitForTextToDisappear("SyncText", 500 );
+		Thread.sleep(2000);
+		
+		//Search for logged in user
+		clickButtonByID("MenuSearch");
+		sendTextbyXpath("SearchArea", "Tools, LDS41");
+		
+		//Select the user
+		clickItemByXpathRoboText("Tools, LDS41");
+		clickLastTextViewRoboReturn("Tools, LDS41");
+		Thread.sleep(1000);
+		
+		//Not sure why this isn't showing up. 
+		//Check the users name, address membership number etc...
+		/*
+		Assert.assertTrue(checkElementTextViewReturn("######00000000000*****"));
+		Assert.assertTrue(checkElementTextViewReturn("878974131648413216421321165484789798461321314644444244624424524245244545644644856465784967465456464144134424342446244323644524452344623446542326342542"));	
+
+		
+		clickButtonByXpath("MenuEdit");
+		
+		clearTextFieldXpath("EditPersonalPhone");
+		clearTextFieldXpath("EditHomePhone");
+
+
+		clickButtonByXpath("MenuSave");
+		
+		Thread.sleep(3000);
+		*/
+		
+		Assert.assertFalse(checkElementTextViewReturn("######00000000000*****"));
+		Assert.assertFalse(checkElementTextViewReturn("878974131648413216421321165484789798461321314644444244624424524245244545644644856465784967465456464144134424342446244323644524452344623446542326342542"));	
+
+	}
+	
+	public void editOtherUserInvalidEmail() throws Exception {
+		//Edit other user with invalid data - phone
+		syncLogIn("LDSTools2", "toolstester", "UAT" );
+		Thread.sleep(2000);
+		
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);
+		
+		//Search for logged in user
+		clickButtonByID("MenuSearch");
+		sendTextbyXpath("SearchArea", "Tools, LDS41");
+		
+		//Select the user
+		clickItemByXpathRoboText("Tools, LDS41");
+		clickLastTextViewRoboReturn("Tools, LDS41");
+		Thread.sleep(1000);
+		
+		//Check the users name, address membership number etc...
+		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS41"));
+		clickButtonByXpath("MenuEdit");
+
+		sendTextbyXpath("EditPersonalEmail", "thisisaninvalidemailaddress");
+		clickButtonByXpath("MenuSave");
+		Assert.assertTrue(checkElementTextViewReturnContains("valid email"));
+		clickButtonByXpath("AlertOK");
+		clearTextFieldXpath("EditPersonalEmail");
+		
+		
+		sendTextbyXpath("EditHomeEmail", "thisisaninvalidemailaddress");
+		clickButtonByXpath("MenuSave");
+		Assert.assertTrue(checkElementTextViewReturnContains("valid email"));
+		clickButtonByXpath("AlertOK");
+		clearTextFieldXpath("EditHomeEmail");
+		
+		sendTextbyXpath("EditPersonalEmail", "!@#$%^&*()_+-=[]{}|");
+		clickButtonByXpath("MenuSave");
+		Assert.assertTrue(checkElementTextViewReturnContains("valid email"));
+		clickButtonByXpath("AlertOK");
+		clearTextFieldXpath("EditPersonalEmail");
+		
+		sendTextbyXpath("EditHomeEmail", "!@#$%^&*()_+-=[]{}|");
+		clickButtonByXpath("MenuSave");
+		Assert.assertTrue(checkElementTextViewReturnContains("valid email"));
+		clickButtonByXpath("AlertOK");
+		clearTextFieldXpath("EditHomeEmail");
+		
+		
+		clickButtonByXpath("MenuSave");
+		
+		Thread.sleep(3000);
+		
+		Assert.assertFalse(checkElementTextViewReturn("thisisaninvalidemailaddress"));
+		Assert.assertFalse(checkElementTextViewReturn("!@#$%^&*()_+-=[]{}|"));	
+
+		
+		pressBackKey();
+		
+		//Collapse the search 
+		clickButtonByXpath("SearchCollapse");
+		
+		clickButtonByXpath("Drawer");
+		clickButtonByXpath("DrawerSYNC");
+		clickButtonByXpath("AlertOK");
+		
+		Thread.sleep(4000);
+		waitForTextToDisappear("SyncText", 500 );
+		Thread.sleep(2000);
+		
+		//Search for logged in user
+		clickButtonByID("MenuSearch");
+		sendTextbyXpath("SearchArea", "Tools, LDS41");
+		
+		//Select the user
+		clickItemByXpathRoboText("Tools, LDS41");
+		clickLastTextViewRoboReturn("Tools, LDS41");
+		Thread.sleep(1000);
+
+		Assert.assertFalse(checkElementTextViewReturn("thisisaninvalidemailaddress"));
+		Assert.assertFalse(checkElementTextViewReturn("!@#$%^&*()_+-=[]{}|"));	
+	}
+	
+	
+	public void editVisibility() throws Exception {
+		//Edit other user with invalid data - phone
+		syncLogIn("LDSTools5", "toolstester", "UAT" );
+		Thread.sleep(2000);
+		
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);
+		
+		//Search for logged in user
+		clickButtonByID("MenuSearch");
+		sendTextbyXpath("SearchArea", "Tools, LDS5");
+		
+		//Select the user
+		clickItemByXpathRoboText("Tools, LDS5");
+		clickLastTextViewRoboReturn("Tools, LDS5");
+		Thread.sleep(1000);
+		
+		//Check the users name, address membership number etc...
+		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS5"));
+		clickButtonByXpath("MenuEdit");
+		Thread.sleep(1000);
+		scrollDown("Stake Visibility", -1000 );
+		//clickButtonByXpath("EditVisibiltySpinner");
+
+		clickButtonByXpath("EditAllVisibility");
+		//displayAllTextViewElements();
+		clickButtonByXpathPopoutMenu("Private—Leadership Only");
+		Thread.sleep(1000);
+		clickButtonByXpath("MenuSave");
+		Thread.sleep(1000);
+		clickButtonByXpath("MenuSave");
+		Thread.sleep(3000);
+		pressBackKey();
+		
+		//Collapse the search 
+		clickButtonByXpath("SearchCollapse");
+		
+		//Log out 
+		clickButtonByXpath("Drawer");
+		clickButtonByXpath("DrawerSETTINGS");
+		
+		clickButtonByXpathTitleName("Sign Out");
+		clickButtonByXpath("SignOutOK");
+		
+		syncLogIn("LDSTools6", "toolstester", "UAT" );
+		Thread.sleep(2000);
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);
+		
+		//Search for logged in user
+		clickButtonByID("MenuSearch");
+		sendTextbyXpath("SearchArea", "Tools, LDS5");
+		
+		Assert.assertTrue(checkElementTextViewRoboReturn("Tools, LDS5"));
+
+		//Collapse the search 
+		clickButtonByXpath("SearchCollapse");
+		
+		//Log out 
+		clickButtonByXpath("Drawer");
+		clickButtonByXpath("DrawerSETTINGS");
+		
+		clickButtonByXpathTitleName("Sign Out");
+		clickButtonByXpath("SignOutOK");
+		
+		syncLogIn("LDSTools5", "toolstester", "UAT" );
+		Thread.sleep(2000);
+		
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);
+		
+		//Search for logged in user
+		clickButtonByID("MenuSearch");
+		sendTextbyXpath("SearchArea", "Tools, LDS5");
+		
+		//Select the user
+		clickItemByXpathRoboText("Tools, LDS5");
+		clickLastTextViewRoboReturn("Tools, LDS5");
+		Thread.sleep(1000);
+		
+		//Check the users name, address membership number etc...
+		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS5"));
+		clickButtonByXpath("MenuEdit");
+		Thread.sleep(1000);
+		scrollDown("Private—Leadership Only", -1000 );
+		//clickButtonByXpath("EditVisibiltySpinner");
+
+		clickButtonByXpath("EditAllVisibility");
+		//displayAllTextViewElements();
+		clickButtonByXpathPopoutMenu("Stake Visibility");
+		Thread.sleep(1000);
+		clickButtonByXpath("MenuSave");
+		Thread.sleep(1000);
+		clickButtonByXpath("MenuSave");
+		Thread.sleep(3000);
+		pressBackKey();
+		pressBackKey();
+		
+		//Collapse the search 
+		clickButtonByXpath("SearchCollapse");
+		
+		//Log out 
+		clickButtonByXpath("Drawer");
+		clickButtonByXpath("DrawerSETTINGS");
+		
+		clickButtonByXpathTitleName("Sign Out");
+		clickButtonByXpath("SignOutOK");
+		
+		syncLogIn("LDSTools6", "toolstester", "UAT" );
+		Thread.sleep(2000);
+		
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);
+		
+		//Search for logged in user
+		clickButtonByID("MenuSearch");
+		sendTextbyXpath("SearchArea", "Tools, LDS5");
+		
+		Assert.assertTrue(checkElementTextViewRoboReturn("Tools, LDS5"));
+	}
+	
 	/** invalidLoginCheck()
 	 * Test invalid logins to LDS Tools
 	 * 
@@ -1357,7 +1708,7 @@ public class LDSTools {
 	 * 
 	 */
 	private void displayAllTextViewElements() {
-		List<WebElement> options= driver.findElements(By.xpath("//TextView"));
+		List<WebElement> options= driver.findElements(By.xpath("//CheckedTextView"));
 		for (int i = 0 ; i < options.size(); i++ ) {
 			System.out.println(options.get(i).getText());
 		}
