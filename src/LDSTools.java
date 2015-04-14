@@ -100,7 +100,7 @@ public class LDSTools {
         //File appDir = new File(classpathRoot, "..\\..\\..\\..\\Selenium");
         //MAC Path
         File appDir = new File(classpathRoot, "../../Selenium");
-        File app = new File(appDir, "ldstools-beta-20150403-2140.apk");
+        File app = new File(appDir, "ldstools-alpha-20150414-1906.apk");
         DesiredCapabilities capabilities = new DesiredCapabilities();
         //capabilities.setCapability(CapabilityType.BROWSER_NAME, "");
         capabilities.setCapability("platformName", "Android");
@@ -278,10 +278,12 @@ public class LDSTools {
 		under18HeadofHouse();	
 	}
 	
+	
 	@Test
 	public void bishopricCounselorAndWardClerkTest() throws Exception {
 		bishopricCounselorAndWardClerk();	
 	}
+	
 	
 	@Test
 	public void bishopMemberOfSeparateStakeTest() throws Exception {
@@ -550,11 +552,11 @@ public class LDSTools {
 		//Check the members moved out report
 		//Should have a ( ) with the age by the birth date
 		clickButtonByXpathTitleName("Members Moved Out");
-		Assert.assertTrue(checkElementTextViewReturn("Payne, John"));
+		Assert.assertTrue(checkElementTextViewReturn("Warehime, John"));
 		//Birth Date
 		//TODO need to have the age calculated
-		Assert.assertTrue(checkElementTextViewReturn("April 15, 1979 (35)"));
-		Assert.assertTrue(checkElementTextViewReturn("February 15, 2015"));
+		Assert.assertTrue(checkElementTextViewReturn("August 8, 1969 (45)"));
+		Assert.assertTrue(checkElementTextViewReturn("March 29, 2015"));
 		Assert.assertFalse(checkElementTextViewReturn("Solo, Han"));
 		
 		pressBackKey();
