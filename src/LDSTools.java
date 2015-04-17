@@ -100,20 +100,20 @@ public class LDSTools {
         //File appDir = new File(classpathRoot, "..\\..\\..\\..\\Selenium");
         //MAC Path
         File appDir = new File(classpathRoot, "../../Selenium");
-        File app = new File(appDir, "ldstools-alpha-20150414-1906.apk");
+        File app = new File(appDir, "ldstools-beta-20150416-2315.apk");
         DesiredCapabilities capabilities = new DesiredCapabilities();
         //capabilities.setCapability(CapabilityType.BROWSER_NAME, "");
         capabilities.setCapability("platformName", "Android");
         //Samsung Galaxy Tab
-        capabilities.setCapability("deviceName","41031b0b89e93163");
+        //capabilities.setCapability("deviceName","41031b0b89e93163");
         //HTC Nexus 9
         //capabilities.setCapability("deviceName","HT4ASJT02851");
         //Nexus 5
-        //capabilities.setCapability("deviceName","03aadbed215c8e5f");
+        capabilities.setCapability("deviceName","03aadbed215c8e5f");
         // Android Emulator
         //capabilities.setCapability("deviceName","Android Emulator");
         //Samsung Galaxy Note 4
-        //capabilities.setCapability("deviceName","");
+        //capabilities.setCapability("deviceName","751bc6f2");
         
         
         capabilities.setCapability("automationName","selendroid");
@@ -129,13 +129,26 @@ public class LDSTools {
     }	
 
 	
-    /*
+   
 	@Test
 	public void simpleTest() throws Exception {
+		Thread.sleep(4000);
 		//firstPages();
-		justForTesting();	
+		//justForTesting();	
+
+		//under18HeadofHouse();	
+		bishopricCounselorAndWardClerk();	
+		//bishopMemberOfSeparateStake();	
+		//editCurrentUser();	
+		//editOtherUser();	
+		//editOtherUserInvalidPhone();	
+		//editOtherUserInvalidEmail();	
+		//editVisibility();	
+		//invalidLoginCheck();	
+		//loginCheck();	
+
 	}
-	*/
+	
 	
 
 	public void justForTesting() throws Exception {
@@ -268,7 +281,7 @@ public class LDSTools {
 		
 	
 	
-	
+	/*
     @Rule
     public Retry retry = new Retry(3);
 	
@@ -325,7 +338,7 @@ public class LDSTools {
 	//	loginCheck();	
 	//}
 	
-	
+	*/
 	
 	
 	
@@ -436,7 +449,7 @@ public class LDSTools {
 	public void bishopricCounselorAndWardClerk() throws Exception {
 		//int myCheck;
 		//LDSTools3 is Bishopric Counselor and Ward Clerk
-		syncLogIn("LDSTools3", "toolstester", "UAT" );
+		syncLogIn("ngiBPC1", "password1", "UAT" );
 		Thread.sleep(2000);
 		
 		//true will setup ping for a non-leader
@@ -448,18 +461,23 @@ public class LDSTools {
 		
 		//Search for logged in user
 		clickButtonByID("MenuSearch");
-		sendTextbyXpath("SearchArea", "Tools, LDS3");
-		
+		sendTextbyXpath("SearchArea", "Venasio, Fainu'u");
+		Thread.sleep(2000);
+		//displayAllTextViewElements();
 		//Select the user
-		clickItemByXpathRoboText("Tools, LDS3");
-		clickLastTextViewRoboReturn("Tools, LDS3");
+		clickItemByXpathRoboTextContains("Venasio, Fainu");
+		//clickItemByXpathRoboText("Venasio, Fainu'u & Moliga");
+		clickLastTextViewRoboReturnContains("Venasio, Fainu");
+		//clickLastTextViewRoboReturn("Venasio, Fainu'u");
 		Thread.sleep(1000);
 		
 		//Check the users name, address membership number etc...
-		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS3"));
+		
+		//Appium had a real problem with apostrophes
+		//Assert.assertTrue(checkElementTextViewReturn("Venasio, Fainu'u"));
 		//clickButtonByXpathTitleName("Show Record Number");
 		Assert.assertTrue(checkElementTextCustom("MEMBERSHIP INFORMATION", "CapitalizedTextView"));
-		Assert.assertTrue(checkElementTextViewReturn("888-0028-7031"));
+		Assert.assertTrue(checkElementTextViewReturn("052-0013-5651"));
 		Assert.assertTrue(checkElementTextCustom("RECORD NUMBER", "TextView"));
 		//Assert.assertTrue(checkElementTextViewReturn("January 1, 1980 (35)"));
 		//Assert.assertTrue(checkElementTextCustom("BIRTH DATE", "TextView"));
@@ -471,114 +489,29 @@ public class LDSTools {
 		//Collapse the search 
 		clickButtonByXpath("SearchCollapse");
 		
-		//Make sure that the directory is on Ash Point Ward
-		clickButtonByXpath("SpinnerNav");
-		scrollDownDistance(1000);
-		clickButtonByXpathTitleName("Ash Point Ward");
-		Thread.sleep(1000);
-		
-		
-		//Search for logged in user
-		clickButtonByID("MenuSearch");
-		sendTextbyXpath("SearchArea", "Allen, Brad");
-		
-		
-		//Directory items that should not be visible
-		clickItemByXpathRoboText("Allen, Brad & Melissa");
-		clickLastTextViewRoboReturn("Allen, Brad");
-		
-		
-		Assert.assertTrue(checkElementTextViewReturn("Brad Allen"));
-		Assert.assertTrue(checkElementTextViewReturn("Ash Point Ward"));
-		Assert.assertTrue(checkElementTextViewReturn("Primary Teacher"));
-		Assert.assertTrue(checkElementTextCustom("CONTACT INFORMATION", "CapitalizedTextView"));
-		Assert.assertTrue(checkElementTextViewReturn("916-501-4412"));
-		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD", "TextView"));
-		Assert.assertTrue(checkElementTextViewReturn("bradleyjayallen@yahoo.com"));
-		Assert.assertTrue(checkElementTextCustom("PERSONAL", "TextView"));
-		//Assert.assertTrue(checkElementTextViewReturn("2778 E Saddle Rock Rd Eagle Mountain, Utah 84005"));
-		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD MEMBERS", "CapitalizedTextView"));
-		
-		Assert.assertTrue(checkElementTextViewReturn("Brad Allen (35)"));
-		Assert.assertTrue(checkElementTextViewReturn("Melissa Allen (32)"));
-		Assert.assertTrue(checkElementTextViewReturn("Elizabeth Allen (2)"));
-		Assert.assertTrue(checkElementTextViewReturn("Maggie June Allen (0)"));
-		
-		//Assert.assertFalse(checkElementTextCustom("MEMBERSHIP INFORMATION", "CapitalizedTextView"));
-		Assert.assertTrue(checkElementTextViewReturn("Allen, Bradley Jay"));
-		Assert.assertTrue(checkElementTextCustom("FULL NAME", "TextView"));
-		Assert.assertTrue(checkElementTextViewReturn("000-3597-284A"));
-		Assert.assertTrue(checkElementTextCustom("RECORD NUMBER", "TextView"));
-		Assert.assertTrue(checkElementTextViewReturn("June 24, 1979 (35)"));
-		Assert.assertTrue(checkElementTextCustom("BIRTH DATE", "TextView"));
-		Assert.assertTrue(checkElementTextViewReturn("Elder"));
-		Assert.assertTrue(checkElementTextCustom("PRIESTHOOD OFFICE", "TextView"));
-		Assert.assertTrue(checkElementTextViewReturn("Oct 2014 (Expired)"));
-		Assert.assertTrue(checkElementTextCustom("TEMPLE RECOMMEND", "TextView"));
-		Assert.assertTrue(checkElementTextViewReturn("Ordinances"));
-		Assert.assertTrue(checkElementTextViewReturn("Marriage"));
-		Assert.assertTrue(checkElementTextViewReturn("Other Information"));
-		
-		pressBackKey();
-		
-		//Collapse the search 
-		clickButtonByXpath("SearchCollapse");
+		//Check Directory user - should be able to view everything
+		checkDirectoryUser(true, true, true, true, true);
 		
 		Thread.sleep(1000);
-		//Check the Drawer items
-		clickButtonByXpath("Drawer");
-		Assert.assertTrue(checkElementTextViewReturn("Directory"));
-		Assert.assertTrue(checkElementTextViewReturn("Callings"));
-		Assert.assertTrue(checkElementTextViewReturn("Missionary"));
-		Assert.assertTrue(checkElementTextViewReturn("Lists"));
-		Assert.assertTrue(checkElementTextViewReturn("Calendar"));
-		Assert.assertTrue(checkElementTextViewReturn("Meetinghouses"));
-		Assert.assertTrue(checkElementTextViewReturn("Reports"));
 		
-		//Reports
-		clickButtonByXpath("DrawerReports");
-		//Assert.assertTrue(checkElementTextViewReturn("Action and Interview List"));
-		Assert.assertTrue(checkElementTextViewReturn("Birthday List"));
-		Assert.assertTrue(checkElementTextViewReturn("Members Moved In"));
-		Assert.assertTrue(checkElementTextViewReturn("Members Moved Out"));
-		Assert.assertTrue(checkElementTextViewReturn("Members with Callings"));
-		Assert.assertTrue(checkElementTextViewReturn("Members without Callings"));
-		Assert.assertTrue(checkElementTextViewReturn("New Members"));
-		Assert.assertTrue(checkElementTextViewReturn("Temple Recommend Status"));
-		Assert.assertTrue(checkElementTextViewReturn("Unit Statistics"));
-		Assert.assertFalse(checkElementTextViewReturn("Death Star Reports"));
+		//Check Drawer Items - If leader there should be a Reports item
+		checkDrawerItems(true);
 		
+		Thread.sleep(1000);
 		
-		//Check the members moved out report
-		//Should have a ( ) with the age by the birth date
-		clickButtonByXpathTitleName("Members Moved Out");
-		Assert.assertTrue(checkElementTextViewReturn("Warehime, John"));
-		//Birth Date
-		//TODO need to have the age calculated
-		Assert.assertTrue(checkElementTextViewReturn("August 8, 1969 (45)"));
-		Assert.assertTrue(checkElementTextViewReturn("March 29, 2015"));
-		Assert.assertFalse(checkElementTextViewReturn("Solo, Han"));
+		//Check various callings - all users should be able to access this information
+		checkCallings();
 		
-		pressBackKey();
-		//clickButtonByXpath("Drawer");
-		//clickButtonByXpath("DrawerReports");
+		Thread.sleep(1000);
 		
-		//Members Moved In
-		clickButtonByXpathTitleName("Members Moved In");
-		Assert.assertTrue(checkElementTextViewReturn("Jeffs"));
-		Assert.assertTrue(checkElementTextViewReturn("Travis (39)"));
-		Assert.assertTrue(checkElementTextViewReturn("Head of household"));
-
+		//Check Missionary drawer items - all user access
+		checkMissionary();
+	
+		Thread.sleep(1000);
 		
-		pressBackKey();
-		//clickButtonByXpath("Drawer");
-		//clickButtonByXpath("DrawerReports");
+		//Check the reports - leadership only
+		checkReports(false);
 		
-		//Members with Callings
-		clickButtonByXpathTitleName("Members with Callings");
-		Assert.assertTrue(checkElementTextViewReturn("Allen, Brad"));
-		Assert.assertTrue(checkElementTextViewReturn("Primary Teacher (2 years)"));
-		clickButtonByXpathTitleName("ORGANIZATION");
 
 	}
 	
@@ -645,362 +578,29 @@ public class LDSTools {
 		clickButtonByXpath("Back");
 		clickButtonByXpath("SearchCollapse");
 		
-
-		//Search for logged in user
-		clickButtonByID("MenuSearch");
-		sendTextbyXpath("SearchArea", "Aaron, Jane");
-		
-		
-		//Directory items that should not be visible
-		clickItemByXpathRoboText("Aaron, Jane");
-		clickLastTextViewRoboReturn("Aaron, Jane");
-		
-		
-		Assert.assertTrue(checkElementTextViewReturn("Jane Aaron"));
-		Assert.assertTrue(checkElementTextViewReturn("Fagamalo 1st Ward"));
-
-		Assert.assertTrue(checkElementTextCustom("CONTACT INFORMATION", "CapitalizedTextView"));
-		Assert.assertTrue(checkElementTextViewReturn("555-555-5555"));
-		Assert.assertTrue(checkElementTextCustom("PERSONAL", "TextView"));
-		Assert.assertTrue(checkElementTextViewReturn("555-555-1234"));
-		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD", "TextView"));
-		Assert.assertTrue(checkElementTextViewReturn("no-reply@ldschurch.org"));
-		Assert.assertTrue(checkElementTextCustom("PERSONAL", "TextView"));
-		//Assert.assertTrue(checkElementTextViewReturn("2778 E Saddle Rock Rd Eagle Mountain, Utah 84005"));
-		
-		Assert.assertTrue(checkElementTextCustom("MEMBERSHIP INFORMATION", "CapitalizedTextView"));
-		Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member2"));
-		Assert.assertTrue(checkElementTextCustom("FULL NAME", "TextView"));
-		Assert.assertTrue(checkElementTextViewReturn("888-0028-4326"));
-		Assert.assertTrue(checkElementTextCustom("RECORD NUMBER", "TextView"));
-		Assert.assertTrue(checkElementTextViewReturn("November 11, 1960 (54)"));
-		
-		//Check Ordinances
-		clickButtonByXpathTitleName("Ordinances");
-		Assert.assertTrue(checkElementTextViewReturn("Baptism"));
-		Assert.assertTrue(checkElementTextViewReturn("November 11, 1970"));
-		Assert.assertTrue(checkElementTextViewReturn("Confirmation"));
-		Assert.assertTrue(checkElementTextViewReturn("November 11, 1970"));
-		pressBackKey();
-		
-		/*
-		//Check Other Information
-		clickButtonByXpathTitleName("Other Information");
-		Assert.assertTrue(checkElementTextViewReturn("Gender"));
-		Assert.assertTrue(checkElementTextViewReturn("Female"));
-		Assert.assertTrue(checkElementTextViewReturn("Birth Country"));
-		Assert.assertTrue(checkElementTextViewReturn("United States"));
-		pressBackKey();
-		*/
-
-		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD MEMBERS", "CapitalizedTextView"));
-		
-		Assert.assertTrue(checkElementTextViewReturn("Jane Aaron (54)"));
-
-		pressBackKey();
-		
-		//Collapse the search 
-		clickButtonByXpath("SearchCollapse");
+		//Check Directory user - should be able to view everything
+		checkDirectoryUser(true, true, true, true, true);
 		
 		Thread.sleep(1000);
-		//Check the Drawer items
-		clickButtonByXpath("Drawer");
-		Assert.assertTrue(checkElementTextViewReturn("Directory"));
-		Assert.assertTrue(checkElementTextViewReturn("Callings"));
-		Assert.assertTrue(checkElementTextViewReturn("Missionary"));
-		Assert.assertTrue(checkElementTextViewReturn("Lists"));
-		Assert.assertTrue(checkElementTextViewReturn("Calendar"));
-		Assert.assertTrue(checkElementTextViewReturn("Meetinghouses"));
-		Assert.assertTrue(checkElementTextViewReturn("Reports"));
-
 		
-		//Callings
-		//clickButtonByXpath("Drawer");
-		clickButtonByXpath("DrawerCallings");
-		Assert.assertTrue(checkElementTextViewRoboReturn("Bishopric"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("High Priests Group"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Elders Quorum"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Relief Society"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Young Men"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Young Women"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Sunday School"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Primary"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Ward Missionaries"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Other Callings"));
+		//Check Drawer Items - If leader there should be a Reports item
+		checkDrawerItems(true);
 		
-		//Bishopric
-		clickItemByXpathRoboText("Bishopric");
-		Assert.assertTrue(checkElementTextViewRoboReturn("Bishop"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Ami, Samu"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Bishopric First Counselor"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Atia, Aviata Seualuga"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Bishopric Second Counselor"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Faapili, Muipu"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Ward Executive Secretary"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Sitivi, Sitivi"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Ward Clerk"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Tutunoa, Ualesi Junior, Jr"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Ward Assistant Clerk"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Sitivi, Tama Kiliona"));
-		pressBackKey();
+		Thread.sleep(1000);
 		
-		//High Priests Group
-		clickItemByXpathRoboText("High Priests Group");
-		clickItemByXpathRoboText("High Priests Group Leadership");
-		Assert.assertTrue(checkElementTextViewRoboReturn("High Priests Group Leader"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Faamoe, Panapa Filifili"));
-		pressBackKey();
-		Thread.sleep(2000);
-		pressBackKey();
+		//Check various callings - all users should be able to access this information
+		checkCallings();
 		
-		//Elders Quorum
-		clickItemByXpathRoboText("Elders Quorum");
-		clickItemByXpathRoboText("Elders Quorum Presidency");
-		Assert.assertTrue(checkElementTextViewRoboReturn("Elders Quorum President"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Kitara, Peaulele"));
-		pressBackKey();
-		Thread.sleep(2000);
-		pressBackKey();
+		Thread.sleep(1000);
 		
+		//Check Missionary drawer items - all user access
+		checkMissionary();
+	
+		Thread.sleep(1000);
 		
-		//Relief Society
-		clickItemByXpathRoboText("Relief Society");
-		clickItemByXpathRoboText("Relief Society Presidency");
-		//displayAllTextViewElements();
-		Assert.assertTrue(checkElementTextViewRoboReturn("Relief Society President"));
-		//Assert.assertTrue(checkElementTextViewRoboReturn("Frost, Sato'a"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Relief Society First Counselor"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Faamoetauloa, Fiasili"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Relief Society Second Counselor"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Faapili, Baby"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Relief Society Secretary"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Patiole, Luafa"));
-		pressBackKey();
-		Thread.sleep(2000);
-		pressBackKey();
+		//Check the reports - leadership only
+		checkReports(true);
 		
-		//Young Men
-		clickItemByXpathRoboText("Young Men");
-		clickItemByXpathRoboText("Young Men Presidency");
-		Assert.assertTrue(checkElementTextViewRoboReturn("Young Men President"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Lavea, Vaelaa"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Young Men First Counselor"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Kitara, Peaulele"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Young Men Second Counselor"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Venasio Fainuu, Fogavai"));
-		pressBackKey();
-		clickItemByXpathRoboText("Priests Quorum");
-		clickItemByXpathRoboText("Priests Quorum Presidency");
-		Assert.assertTrue(checkElementTextViewRoboReturn("Priests Quorum President"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Ami, Samu"));
-		pressBackKey();
-		Thread.sleep(2000);
-		pressBackKey();
-		Thread.sleep(2000);
-		pressBackKey();
-		
-		
-		//Young Women
-		clickItemByXpathRoboText("Young Women");
-		clickItemByXpathRoboText("Young Women Presidency");
-		Assert.assertTrue(checkElementTextViewRoboReturn("Young Women President"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Tutunoa, Lusi"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Young Women Second Counselor"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Lavea, Meise"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Young Women Secretary"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Lavea, Lonise"));
-		pressBackKey();
-		Thread.sleep(2000);
-		pressBackKey();
-		
-		
-		//Sunday School
-		clickItemByXpathRoboText("Sunday School");
-		clickItemByXpathRoboText("Sunday School Presidency");
-		Assert.assertTrue(checkElementTextViewRoboReturn("Sunday School President"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Lealaiauloto, Uana Iosefa Sao"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Sunday School First Counselor"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Mene, Sitivi"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Sunday School Second Counselor"));
-		//Assert.assertTrue(checkElementTextViewRoboReturn("Apofasa, Sasa'a"));
-		pressBackKey();
-		Thread.sleep(2000);
-		pressBackKey();
-		
-		//Primary
-		clickItemByXpathRoboText("Primary");
-		clickItemByXpathRoboText("Primary Presidency");
-		Assert.assertTrue(checkElementTextViewRoboReturn("Primary President"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Kitara, Tutulu"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Primary First Counselor"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Ami, Lealofi"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Primary Second Counselor"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Fepuleai, Malele Seuamuli"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Primary Secretary"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Samu, Luisa"));
-		pressBackKey();
-		Thread.sleep(2000);
-		pressBackKey();
-		
-		
-		//Ward Missionaries
-		clickItemByXpathRoboText("Ward Missionaries");
-		Assert.assertTrue(checkElementTextViewRoboReturn("Mission Leader"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Kitara, Lafaele"));
-		pressBackKey();
-		
-		
-		//Other Callings
-		clickItemByXpathRoboText("Other Callings");
-		clickItemByXpathRoboText("Young Single Adult");
-		Assert.assertTrue(checkElementTextViewRoboReturn("Young Single Adult Leader"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Solomona, Solomona"));
-		pressBackKey();
-		clickItemByXpathRoboText("Music");
-		Assert.assertTrue(checkElementTextViewRoboReturn("Music Adviser"));
-		//Assert.assertTrue(checkElementTextViewRoboReturn("Frost,Sato'a"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Organist or Pianist"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Betham, Maria"));
-		pressBackKey();
-		Thread.sleep(2000);
-		pressBackKey();
-		
-		//Missionary
-		clickButtonByXpath("Drawer");
-		clickButtonByXpath("DrawerMissionary");
-		Assert.assertTrue(checkElementTextViewRoboReturn("Elder Tearoa Tuala"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Samoa Apia Mission"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Elder Wyatt Wallwork"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Samoa Apia Mission"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Kitara, Lafaele"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Mission Leader"));
-		//pressBackKey();
-		
-		
-		//Reports
-		clickButtonByXpath("Drawer");
-		clickButtonByXpath("DrawerReports");
-		//Assert.assertTrue(checkElementTextViewReturn("Action and Interview List"));
-		Assert.assertTrue(checkElementTextViewReturn("Birthday List"));
-		Assert.assertTrue(checkElementTextViewReturn("Members Moved In"));
-		Assert.assertTrue(checkElementTextViewReturn("Members Moved Out"));
-		Assert.assertTrue(checkElementTextViewReturn("Members with Callings"));
-		Assert.assertTrue(checkElementTextViewReturn("Members without Callings"));
-		Assert.assertTrue(checkElementTextViewReturn("New Members"));
-		Assert.assertTrue(checkElementTextViewReturn("Temple Recommend Status"));
-		Assert.assertTrue(checkElementTextViewReturn("Unit Statistics"));
-		Assert.assertFalse(checkElementTextViewReturn("Death Star Reports"));
-		
-		
-		//Check the members moved out report
-		//Should have a ( ) with the age by the birth date
-		clickButtonByXpathTitleName("Members Moved Out");
-		Assert.assertTrue(checkElementTextViewReturn("Fosi-Seuoti, Malologa"));
-		//Birth Date
-		//TODO need to have the age calculated
-		Assert.assertTrue(checkElementTextViewReturn("April 16, 1990 (24)"));
-		Assert.assertTrue(checkElementTextViewReturn("February 21, 2015"));
-		Assert.assertTrue(checkElementTextViewReturn("Fagamalo  2nd Ward"));
-		Assert.assertFalse(checkElementTextViewReturn("Solo, Han"));
-		
-		pressBackKey();
-		//clickButtonByXpath("Drawer");
-		//clickButtonByXpath("DrawerReports");
-		
-		//Members Moved In
-		clickButtonByXpathTitleName("Members Moved In");
-		Assert.assertTrue(checkElementTextViewReturn("Eubank"));
-		Assert.assertTrue(checkElementTextViewReturn("Kent (41)"));
-		Assert.assertTrue(checkElementTextViewReturn("Head of household"));
-		Assert.assertFalse(checkElementTextViewReturn("Skywalker, Luke"));
-
-		
-		pressBackKey();
-		//clickButtonByXpath("Drawer");
-		//clickButtonByXpath("DrawerReports");
-		
-		//Members with Callings
-		clickButtonByXpathTitleName("Members with Callings");
-		Assert.assertTrue(checkElementTextViewReturn("Ami, Lealofi"));
-		Assert.assertTrue(checkElementTextViewReturn("Primary First Counselor (1 year, 1 month)"));
-		Assert.assertFalse(checkElementTextViewReturn("Skywalker, Anakin"));
-		
-		clickButtonByXpathTitleName("ORGANIZATION");
-		Assert.assertTrue(checkElementTextViewReturn("Bishop"));
-		Assert.assertTrue(checkElementTextViewReturn("Ami, Samu (1 year, 6 months)"));
-		Assert.assertFalse(checkElementTextViewReturn("Kenobi, Obi-Wan"));
-		
-		clickButtonByXpathTitleName("DURATION");
-		Assert.assertTrue(checkElementTextViewReturn("Sunday School President"));
-		Assert.assertTrue(checkElementTextViewReturn("Lealaiauloto, Uana Iosefa Sao"));
-		Assert.assertFalse(checkElementTextViewReturn("Amidala, Padme"));
-		
-		clickButtonByXpathTitleName("NOT SET APART");
-		Assert.assertTrue(checkElementTextViewReturn("Ward Assistant Clerk (3 years, 1 month)"));
-		Assert.assertTrue(checkElementTextViewReturn("Sitivi, Tama Kiliona"));
-		Assert.assertFalse(checkElementTextViewReturn("P0, C3"));
-		pressBackKey();
-		
-		//Members without Callings
-		clickButtonByXpathTitleName("Members without Callings");
-		//displayAllTextViewElements();
-		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEleven, Member"));
-		Assert.assertFalse(checkElementTextViewRoboReturn("D2, R2"));
-		
-		clickButtonByXpathTitleName("MALE");
-		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEleven, Member"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("AFPFifteen, Member"));
-		Assert.assertFalse(checkElementTextViewRoboReturn("Binks, Jarjar"));
-		
-		clickButtonByXpathTitleName("FEMALE");
-		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("AFPFive, Wife"));
-		Assert.assertFalse(checkElementTextViewRoboReturn("Organa, Leia"));
-		
-		pressBackKey();
-		
-		
-		//New Members
-		clickButtonByXpathTitleName("New Members");
-		Assert.assertTrue(checkElementTextViewReturn("Joezmal, Loana"));
-		Assert.assertTrue(checkElementTextViewReturn("13"));
-		Assert.assertTrue(checkElementTextViewReturn("F"));
-		Assert.assertTrue(checkElementTextViewReturn("March 15, 2015"));
-		Assert.assertTrue(checkElementTextViewReturn("Member"));
-		Assert.assertFalse(checkElementTextViewReturn("Hutt, Jabba"));
-		pressBackKey();
-		
-		//Temple Recommend Status
-		clickButtonByXpathTitleName("Temple Recommend Status");
-		Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member15"));
-		Assert.assertFalse(checkElementTextViewReturn("Ahsoka, Tano"));
-		//Assert.assertTrue(checkElementTextViewReturn("Expired"));
-		
-		clickButtonByXpathTitleName("ACTIVE");
-		Assert.assertTrue(checkElementTextViewReturn("Betham, Maria"));
-		Assert.assertTrue(checkElementTextViewReturn("Jul 2016"));
-		Assert.assertFalse(checkElementTextViewReturn("Maul, Darth"));
-		
-		clickButtonByXpathTitleName("EXPIRING");
-		Assert.assertTrue(checkElementTextViewReturn("Ami, Lealofi"));
-		Assert.assertFalse(checkElementTextViewReturn("Windu, Mace"));
-		
-		clickButtonByXpathTitleName("EXPIRED");
-		Assert.assertTrue(checkElementTextViewReturn("Alavaa, Toetoe"));
-		Assert.assertFalse(checkElementTextViewReturn("Jinn, Qui-Gon"));
-		
-		clickButtonByXpathTitleName("OTHER");
-		Assert.assertTrue(checkElementTextViewReturn("Mene, Matagalu"));
-		Assert.assertFalse(checkElementTextViewReturn("Calrissian, Lando"));
-		pressBackKey();
-		
-		//Unit Statistics
-		clickButtonByXpathTitleName("Unit Statistics");
-		Assert.assertTrue(checkElementTextViewReturn("631"));
-		Assert.assertTrue(checkElementTextViewReturn("286"));
-		Assert.assertTrue(checkElementTextViewReturn("14"));
-		Assert.assertFalse(checkElementTextViewReturn("8675309"));
 		
 	}
 	
@@ -1029,6 +629,18 @@ public class LDSTools {
 		
 		//Check the users name, address membership number etc...
 		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS100"));
+		
+		clickButtonByXpath("MenuEdit");
+		
+		clearTextFieldXpath("EditPersonalPhone");
+		clearTextFieldXpath("EditHomePhone");
+		clearTextFieldXpath("EditPersonalEmail");
+		clearTextFieldXpath("EditHomeEmail");
+
+		clickButtonByXpath("MenuSave");
+		
+		
+		
 		clickButtonByXpath("MenuEdit");
 		
 		sendTextbyXpath("EditPersonalPhone", "1(801)240-0104");
@@ -1198,6 +810,18 @@ public class LDSTools {
 		
 		//Check the users name, address membership number etc...
 		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS41"));
+		
+		clickButtonByXpath("MenuEdit");
+		
+		clearTextFieldXpath("EditPersonalPhone");
+		clearTextFieldXpath("EditHomePhone");
+		clearTextFieldXpath("EditPersonalEmail");
+		clearTextFieldXpath("EditHomeEmail");
+
+		clickButtonByXpath("MenuSave");
+		
+		
+		
 		clickButtonByXpath("MenuEdit");
 		
 		sendTextbyXpath("EditPersonalPhone", "######00000000000*****");
@@ -1275,6 +899,18 @@ public class LDSTools {
 		
 		//Check the users name, address membership number etc...
 		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS41"));
+		
+		clickButtonByXpath("MenuEdit");
+		
+		clearTextFieldXpath("EditPersonalPhone");
+		clearTextFieldXpath("EditHomePhone");
+		clearTextFieldXpath("EditPersonalEmail");
+		clearTextFieldXpath("EditHomeEmail");
+
+		clickButtonByXpath("MenuSave");
+		
+		
+		
 		clickButtonByXpath("MenuEdit");
 
 		sendTextbyXpath("EditPersonalEmail", "thisisaninvalidemailaddress");
@@ -1710,7 +1346,7 @@ public class LDSTools {
 	 * 
 	 */
 	private void displayAllTextViewElements() {
-		List<WebElement> options= driver.findElements(By.xpath("//CheckedTextView"));
+		List<WebElement> options= driver.findElements(By.xpath("//RobotoTextView"));
 		for (int i = 0 ; i < options.size(); i++ ) {
 			System.out.println(options.get(i).getText());
 		}
@@ -1731,6 +1367,18 @@ public class LDSTools {
 		options.get(myCounter).click();
 	
 	}
+	
+	private void clickLastTextViewRoboReturnContains(String textElement) {
+		int myCounter;
+		List<WebElement> options= driver.findElements(By.xpath("//RobotoTextView[contains(@value, '" + textElement + "')]"));
+		//driver.findElement(By.xpath("//RobotoTextView[contains(@value='" + textElement + "')]")).click();
+		myCounter = options.size() - 1;
+		options.get(myCounter).click();
+	
+	}
+	
+	
+	
 	
 
 	/** clickButtonByID(String textElement )
@@ -1780,7 +1428,7 @@ public class LDSTools {
 	 */
 	private void clickItemByXpathRoboText(String textElement ) {
 		//WebElement element;
-		
+		//System.out.println("TEXT ELEMENT: " + textElement);
 		driver.findElement(By.xpath("//RobotoTextView[@value='" + textElement + "']")).click();
 		
 		//I don't really like this sleep but it seems to be needed 
@@ -1790,6 +1438,20 @@ public class LDSTools {
 			e.printStackTrace();
 		}
 	}
+	
+	private void clickItemByXpathRoboTextContains(String textElement ) {
+		//WebElement element;
+		//System.out.println("TEXT ELEMENT: " + textElement);
+		driver.findElement(By.xpath("//RobotoTextView[contains(@value, '" + textElement + "')]")).click();
+
+		//I don't really like this sleep but it seems to be needed 
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 
 	
@@ -2155,6 +1817,450 @@ public class LDSTools {
 			clickButtonByXpath("AlertNotNow");
 		}
 
+	}
+	
+	/**  checkDirectoryUser(boolean memberShipInfo, boolean fullName, boolean birthDate, boolean recordNumber, boolean ordinances )
+	 * Check the directory user "Aaron, Jane"
+	 * 
+	 * All params are boolean - true item is displayed 
+	 * @param memberShipInfo
+	 * @param fullName
+	 * @param birthDate
+	 * @param recordNumber
+	 * @param ordinances
+	 * @throws Exception
+	 */
+	private void checkDirectoryUser(boolean memberShipInfo, boolean fullName, boolean birthDate, boolean recordNumber, boolean ordinances ) throws Exception {
+		//Search for logged in user
+		clickButtonByID("MenuSearch");
+		sendTextbyXpath("SearchArea", "Aaron, Jane");
+		
+		
+		//Directory items that should not be visible
+		clickItemByXpathRoboText("Aaron, Jane");
+		clickLastTextViewRoboReturn("Aaron, Jane");
+		
+		//All Members should be able to view the following information
+		Assert.assertTrue(checkElementTextViewReturn("Jane Aaron"));
+		Assert.assertTrue(checkElementTextViewReturn("Fagamalo 1st Ward"));
+
+		Assert.assertTrue(checkElementTextCustom("CONTACT INFORMATION", "CapitalizedTextView"));
+		Assert.assertTrue(checkElementTextViewReturn("555-555-5555"));
+		Assert.assertTrue(checkElementTextCustom("PERSONAL", "TextView"));
+		Assert.assertTrue(checkElementTextViewReturn("555-555-1234"));
+		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD", "TextView"));
+		Assert.assertTrue(checkElementTextViewReturn("no-reply@ldschurch.org"));
+		Assert.assertTrue(checkElementTextCustom("PERSONAL", "TextView"));
+		//Assert.assertTrue(checkElementTextViewReturn("2778 E Saddle Rock Rd Eagle Mountain, Utah 84005"));
+		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD MEMBERS", "CapitalizedTextView"));
+		Assert.assertTrue(checkElementTextViewReturn("Jane Aaron (54)"));
+		
+		
+		
+		
+		
+		//Leadership Should be able to see this information
+		//Membership Information
+		if (memberShipInfo == true ) {
+			Assert.assertTrue(checkElementTextCustom("MEMBERSHIP INFORMATION", "CapitalizedTextView"));
+		} else {
+			Assert.assertFalse(checkElementTextCustom("MEMBERSHIP INFORMATION", "CapitalizedTextView"));
+		}
+		
+		//Full Name
+		if (fullName == true){
+			Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member2"));
+			Assert.assertTrue(checkElementTextCustom("FULL NAME", "TextView"));
+		} else {
+			Assert.assertFalse(checkElementTextViewReturn("AFPMisc, Member2"));
+			Assert.assertFalse(checkElementTextCustom("FULL NAME", "TextView"));
+		}
+
+		//Birth Date
+		if (birthDate == true){
+			Assert.assertTrue(checkElementTextViewReturn("November 11, 1960 (54)"));
+			Assert.assertTrue(checkElementTextCustom("BIRTH DATE", "TextView"));
+		} else {
+			Assert.assertFalse(checkElementTextViewReturn("November 11, 1960 (54)"));
+			Assert.assertFalse(checkElementTextCustom("BIRTH DATE", "TextView"));
+		}
+		
+		//Record Number
+		if (recordNumber == true ){
+			Assert.assertTrue(checkElementTextViewReturn("888-0028-4326"));
+			Assert.assertTrue(checkElementTextCustom("RECORD NUMBER", "TextView"));
+		} else {
+			Assert.assertFalse(checkElementTextViewReturn("888-0028-4326"));
+			Assert.assertFalse(checkElementTextCustom("RECORD NUMBER", "TextView"));
+		}
+
+		//Check Ordinances
+		if (ordinances == true ){
+			clickButtonByXpathTitleName("Ordinances");
+			Assert.assertTrue(checkElementTextViewReturn("Baptism"));
+			Assert.assertTrue(checkElementTextViewReturn("November 11, 1970"));
+			Assert.assertTrue(checkElementTextViewReturn("Confirmation"));
+			Assert.assertTrue(checkElementTextViewReturn("November 11, 1970"));
+			pressBackKey();
+		} else {
+			Assert.assertFalse(checkElementTextViewReturn("Ordinances"));
+		}
+
+
+		
+		/*
+		//Check Other Information
+		clickButtonByXpathTitleName("Other Information");
+		Assert.assertTrue(checkElementTextViewReturn("Gender"));
+		Assert.assertTrue(checkElementTextViewReturn("Female"));
+		Assert.assertTrue(checkElementTextViewReturn("Birth Country"));
+		Assert.assertTrue(checkElementTextViewReturn("United States"));
+		pressBackKey();
+		*/
+
+		Thread.sleep(2000);
+
+		pressBackKey();
+		
+		//Collapse the search 
+		clickButtonByXpath("SearchCollapse");
+	}
+	
+	/** checkDrawerItems (boolean leader)
+	 * Check the drawer items - non leaders should not have the reports item
+	 * 
+	 * @param leader
+	 * @throws Exception
+	 */
+	private void checkDrawerItems (boolean leader) throws Exception {
+		//Check the Drawer items
+		clickButtonByXpath("Drawer");
+		Assert.assertTrue(checkElementTextViewReturn("Directory"));
+		Assert.assertTrue(checkElementTextViewReturn("Callings"));
+		Assert.assertTrue(checkElementTextViewReturn("Missionary"));
+		Assert.assertTrue(checkElementTextViewReturn("Lists"));
+		Assert.assertTrue(checkElementTextViewReturn("Calendar"));
+		Assert.assertTrue(checkElementTextViewReturn("Meetinghouses"));
+		if (leader == true) {
+			Assert.assertTrue(checkElementTextViewReturn("Reports"));
+		} else {
+			Assert.assertFalse(checkElementTextViewReturn("Reports"));
+		}
+		
+	}
+	
+	/** checkCallings()
+	 * Check the callings all users should have access to this
+	 * 
+	 * @throws Exception
+	 */
+	private void checkCallings() throws Exception {
+		//Callings
+		//clickButtonByXpath("Drawer");
+		clickButtonByXpath("DrawerCallings");
+		Assert.assertTrue(checkElementTextViewRoboReturn("Bishopric"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("High Priests Group"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Elders Quorum"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Relief Society"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Young Men"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Young Women"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Sunday School"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Primary"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Ward Missionaries"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Other Callings"));
+		
+		//Bishopric
+		clickItemByXpathRoboText("Bishopric");
+		Assert.assertTrue(checkElementTextViewRoboReturn("Bishop"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Ami, Samu"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Bishopric First Counselor"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Atia, Aviata Seualuga"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Bishopric Second Counselor"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Faapili, Muipu"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Ward Executive Secretary"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Sitivi, Sitivi"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Ward Clerk"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Tutunoa, Ualesi Junior, Jr"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Ward Assistant Clerk"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Sitivi, Tama Kiliona"));
+		pressBackKey();
+		
+		//High Priests Group
+		clickItemByXpathRoboText("High Priests Group");
+		clickItemByXpathRoboText("High Priests Group Leadership");
+		Assert.assertTrue(checkElementTextViewRoboReturn("High Priests Group Leader"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Faamoe, Panapa Filifili"));
+		pressBackKey();
+		Thread.sleep(2000);
+		pressBackKey();
+		
+		//Elders Quorum
+		clickItemByXpathRoboText("Elders Quorum");
+		clickItemByXpathRoboText("Elders Quorum Presidency");
+		Assert.assertTrue(checkElementTextViewRoboReturn("Elders Quorum President"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Kitara, Peaulele"));
+		pressBackKey();
+		Thread.sleep(2000);
+		pressBackKey();
+		
+		
+		//Relief Society
+		clickItemByXpathRoboText("Relief Society");
+		clickItemByXpathRoboText("Relief Society Presidency");
+		//displayAllTextViewElements();
+		Assert.assertTrue(checkElementTextViewRoboReturn("Relief Society President"));
+		//Assert.assertTrue(checkElementTextViewRoboReturn("Frost, Sato'a"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Relief Society First Counselor"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Faamoetauloa, Fiasili"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Relief Society Second Counselor"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Faapili, Baby"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Relief Society Secretary"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Patiole, Luafa"));
+		pressBackKey();
+		Thread.sleep(2000);
+		pressBackKey();
+		
+		//Young Men
+		clickItemByXpathRoboText("Young Men");
+		clickItemByXpathRoboText("Young Men Presidency");
+		Assert.assertTrue(checkElementTextViewRoboReturn("Young Men President"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Lavea, Vaelaa"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Young Men First Counselor"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Kitara, Peaulele"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Young Men Second Counselor"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Venasio Fainuu, Fogavai"));
+		pressBackKey();
+		clickItemByXpathRoboText("Priests Quorum");
+		clickItemByXpathRoboText("Priests Quorum Presidency");
+		Assert.assertTrue(checkElementTextViewRoboReturn("Priests Quorum President"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Ami, Samu"));
+		pressBackKey();
+		Thread.sleep(2000);
+		pressBackKey();
+		Thread.sleep(2000);
+		pressBackKey();
+		
+		
+		//Young Women
+		clickItemByXpathRoboText("Young Women");
+		clickItemByXpathRoboText("Young Women Presidency");
+		Assert.assertTrue(checkElementTextViewRoboReturn("Young Women President"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Tutunoa, Lusi"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Young Women Second Counselor"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Lavea, Meise"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Young Women Secretary"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Lavea, Lonise"));
+		pressBackKey();
+		Thread.sleep(2000);
+		pressBackKey();
+		
+		
+		//Sunday School
+		clickItemByXpathRoboText("Sunday School");
+		clickItemByXpathRoboText("Sunday School Presidency");
+		Assert.assertTrue(checkElementTextViewRoboReturn("Sunday School President"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Lealaiauloto, Uana Iosefa Sao"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Sunday School First Counselor"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Mene, Sitivi"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Sunday School Second Counselor"));
+		//Assert.assertTrue(checkElementTextViewRoboReturn("Apofasa, Sasa'a"));
+		pressBackKey();
+		Thread.sleep(2000);
+		pressBackKey();
+		
+		//Primary
+		clickItemByXpathRoboText("Primary");
+		clickItemByXpathRoboText("Primary Presidency");
+		Assert.assertTrue(checkElementTextViewRoboReturn("Primary President"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Kitara, Tutulu"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Primary First Counselor"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Ami, Lealofi"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Primary Second Counselor"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Fepuleai, Malele Seuamuli"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Primary Secretary"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Samu, Luisa"));
+		pressBackKey();
+		Thread.sleep(2000);
+		pressBackKey();
+		
+
+		//Ward Missionaries
+		clickItemByXpathRoboText("Ward Missionaries");
+		Assert.assertTrue(checkElementTextViewRoboReturn("Mission Leader"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Kitara, Lafaele"));
+		pressBackKey();
+		
+		
+		//Other Callings
+		clickItemByXpathRoboText("Other Callings");
+		clickItemByXpathRoboText("Young Single Adult");
+		Assert.assertTrue(checkElementTextViewRoboReturn("Young Single Adult Leader"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Solomona, Solomona"));
+		pressBackKey();
+		clickItemByXpathRoboText("Music");
+		Assert.assertTrue(checkElementTextViewRoboReturn("Music Adviser"));
+		//Assert.assertTrue(checkElementTextViewRoboReturn("Frost,Sato'a"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Organist or Pianist"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Betham, Maria"));
+		pressBackKey();
+		Thread.sleep(2000);
+		pressBackKey();
+	}
+	
+	/** checkMissionary()
+	 * Check the missionary drawer items
+	 * 
+	 * @throws Exception
+	 */
+	private void checkMissionary() throws Exception {
+		//Missionary
+		clickButtonByXpath("Drawer");
+		clickButtonByXpath("DrawerMissionary");
+		Assert.assertTrue(checkElementTextViewRoboReturn("Elder Tearoa Tuala"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Samoa Apia Mission"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Elder Afa Avelima Alaivaa"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Samoa Apia Mission"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Kitara, Lafaele"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Mission Leader"));
+		//pressBackKey();
+	}
+	
+	/** checkReports()
+	 * Check reports for leaders
+	 * 
+	 * @throws Exception
+	 */
+	private void checkReports(boolean newUnit) throws Exception {
+		//Reports
+		clickButtonByXpath("Drawer");
+		clickButtonByXpath("DrawerReports");
+		//Assert.assertTrue(checkElementTextViewReturn("Action and Interview List"));
+		Assert.assertTrue(checkElementTextViewReturn("Birthday List"));
+		Assert.assertTrue(checkElementTextViewReturn("Members Moved In"));
+		Assert.assertTrue(checkElementTextViewReturn("Members Moved Out"));
+		Assert.assertTrue(checkElementTextViewReturn("Members with Callings"));
+		Assert.assertTrue(checkElementTextViewReturn("Members without Callings"));
+		Assert.assertTrue(checkElementTextViewReturn("New Members"));
+		Assert.assertTrue(checkElementTextViewReturn("Temple Recommend Status"));
+		Assert.assertTrue(checkElementTextViewReturn("Unit Statistics"));
+		Assert.assertFalse(checkElementTextViewReturn("Death Star Reports"));
+		
+		
+		//Check the members moved out report
+		//Should have a ( ) with the age by the birth date
+		clickButtonByXpathTitleName("Members Moved Out");
+		Assert.assertTrue(checkElementTextViewReturn("Fosi-Seuoti, Malologa"));
+		//Birth Date
+		//TODO need to have the age calculated
+		Assert.assertTrue(checkElementTextViewReturn("April 16, 1990 (25)"));
+		Assert.assertTrue(checkElementTextViewReturn("February 21, 2015"));
+		
+		//The new unit is only available for bishop
+		if (newUnit == true){
+			Assert.assertTrue(checkElementTextViewReturn("Fagamalo  2nd Ward"));
+		} else {
+			Assert.assertFalse(checkElementTextViewReturn("Fagamalo  2nd Ward"));
+		}
+		Assert.assertFalse(checkElementTextViewReturn("Solo, Han"));
+		
+		pressBackKey();
+		//clickButtonByXpath("Drawer");
+		//clickButtonByXpath("DrawerReports");
+		
+		//Members Moved In
+		clickButtonByXpathTitleName("Members Moved In");
+		Assert.assertTrue(checkElementTextViewReturn("Eubank"));
+		Assert.assertTrue(checkElementTextViewReturn("Kent (41)"));
+		Assert.assertTrue(checkElementTextViewReturn("Head of household"));
+		Assert.assertFalse(checkElementTextViewReturn("Skywalker, Luke"));
+
+		
+		pressBackKey();
+		//clickButtonByXpath("Drawer");
+		//clickButtonByXpath("DrawerReports");
+		
+		//Members with Callings
+		clickButtonByXpathTitleName("Members with Callings");
+		Assert.assertTrue(checkElementTextViewReturn("Ami, Lealofi"));
+		Assert.assertTrue(checkElementTextViewReturn("Primary First Counselor (No date)"));
+		Assert.assertFalse(checkElementTextViewReturn("Skywalker, Anakin"));
+		
+		clickButtonByXpathTitleName("ORGANIZATION");
+		Assert.assertTrue(checkElementTextViewReturn("Bishop"));
+		Assert.assertTrue(checkElementTextViewReturn("Ami, Samu (No date)"));
+		Assert.assertFalse(checkElementTextViewReturn("Kenobi, Obi-Wan"));
+		
+		clickButtonByXpathTitleName("DURATION");
+		Assert.assertTrue(checkElementTextViewReturn("Primary First Counselor"));
+		Assert.assertTrue(checkElementTextViewReturn("Ami, Lealofi"));
+		Assert.assertFalse(checkElementTextViewReturn("Amidala, Padme"));
+		
+		clickButtonByXpathTitleName("NOT SET APART");
+		Assert.assertTrue(checkElementTextViewReturn("Ward Assistant Clerk (No date)"));
+		Assert.assertTrue(checkElementTextViewReturn("Sitivi, Tama Kiliona"));
+		Assert.assertFalse(checkElementTextViewReturn("P0, C3"));
+		pressBackKey();
+		
+		//Members without Callings
+		clickButtonByXpathTitleName("Members without Callings");
+		//displayAllTextViewElements();
+		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEleven, Member"));
+		Assert.assertFalse(checkElementTextViewRoboReturn("D2, R2"));
+		
+		clickButtonByXpathTitleName("MALE");
+		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEleven, Member"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("AFPFifteen, Member"));
+		Assert.assertFalse(checkElementTextViewRoboReturn("Binks, Jarjar"));
+		
+		clickButtonByXpathTitleName("FEMALE");
+		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("AFPFive, Wife"));
+		Assert.assertFalse(checkElementTextViewRoboReturn("Organa, Leia"));
+		
+		pressBackKey();
+		
+		
+		//New Members
+		clickButtonByXpathTitleName("New Members");
+		Assert.assertTrue(checkElementTextViewReturn("Joezmal, Loana"));
+		Assert.assertTrue(checkElementTextViewReturn("13"));
+		Assert.assertTrue(checkElementTextViewReturn("F"));
+		Assert.assertTrue(checkElementTextViewReturn("March 15, 2015"));
+		Assert.assertTrue(checkElementTextViewReturn("Member"));
+		Assert.assertFalse(checkElementTextViewReturn("Hutt, Jabba"));
+		pressBackKey();
+		
+		//Temple Recommend Status
+		clickButtonByXpathTitleName("Temple Recommend Status");
+		Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member15"));
+		Assert.assertFalse(checkElementTextViewReturn("Ahsoka, Tano"));
+		//Assert.assertTrue(checkElementTextViewReturn("Expired"));
+		
+		clickButtonByXpathTitleName("ACTIVE");
+		Assert.assertTrue(checkElementTextViewReturn("Betham, Maria"));
+		Assert.assertTrue(checkElementTextViewReturn("Jul 2016"));
+		Assert.assertFalse(checkElementTextViewReturn("Maul, Darth"));
+		
+		clickButtonByXpathTitleName("EXPIRING");
+		Assert.assertTrue(checkElementTextViewReturn("Ami, Lealofi"));
+		Assert.assertFalse(checkElementTextViewReturn("Windu, Mace"));
+		
+		clickButtonByXpathTitleName("EXPIRED");
+		Assert.assertTrue(checkElementTextViewReturn("Alavaa, Toetoe"));
+		Assert.assertFalse(checkElementTextViewReturn("Jinn, Qui-Gon"));
+		
+		clickButtonByXpathTitleName("OTHER");
+		Assert.assertTrue(checkElementTextViewReturn("Mene, Matagalu"));
+		Assert.assertFalse(checkElementTextViewReturn("Calrissian, Lando"));
+		pressBackKey();
+		
+		//Unit Statistics
+		clickButtonByXpathTitleName("Unit Statistics");
+		Assert.assertTrue(checkElementTextViewReturn("631"));
+		Assert.assertTrue(checkElementTextViewReturn("286"));
+		Assert.assertTrue(checkElementTextViewReturn("14"));
+		Assert.assertFalse(checkElementTextViewReturn("8675309"));
 	}
 	
 
