@@ -3,6 +3,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 //import java.util.ArrayList;
 //import java.util.Arrays;
 //import java.util.Dictionary;
@@ -10,6 +11,7 @@ import java.net.URL;
 import java.util.List;
 //import java.net.URL;
 import java.util.Properties;
+
 
 
 
@@ -34,6 +36,7 @@ import io.appium.java_client.MobileElement;
 //import io.selendroid.SelendroidDriver;
 import io.selendroid.SelendroidKeys;
 //import io.selendroid.exceptions.NoSuchElementException;
+
 
 
 
@@ -133,11 +136,10 @@ public class LDSTools {
 	@Test
 	public void simpleTest() throws Exception {
 		Thread.sleep(4000);
-		//firstPages();
-		//justForTesting();	
+		justForTesting();	
 
 		//under18HeadofHouse();	
-		bishopricCounselorAndWardClerk();	
+		//bishopricCounselorAndWardClerk();	
 		//bishopMemberOfSeparateStake();	
 		//editCurrentUser();	
 		//editOtherUser();	
@@ -146,142 +148,96 @@ public class LDSTools {
 		//editVisibility();	
 		//invalidLoginCheck();	
 		//loginCheck();	
+		
+		
+		//Header Check
+		//ChristieWhiting();
+		//CliffHigby();
+		//KevinPalmer();
 
 	}
 	
 	
 
 	public void justForTesting() throws Exception {
-		//Edit other user with invalid data - phone
-		syncLogIn("LDSTools5", "toolstester", "UAT" );
-		Thread.sleep(2000);
+		loginProxyData("3182767230",
+				"/7u56030/5u524735/",
+				"p13/5u524735/",
+				"Proxy - Test", "TestPatriarch");
 		
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
-		Thread.sleep(2000);
 		
-		//Search for logged in user
+		//Check to see if the user can view the directory
+		Assert.assertTrue(checkElementTextViewRoboReturn("Aaron, Jane"));
+		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
+		
+		//Search for a user that has children
 		clickButtonByID("MenuSearch");
-		sendTextbyXpath("SearchArea", "Tools, LDS5");
+		sendTextbyXpath("SearchArea", "Sefulu, Isaako");
 		
 		//Select the user
-		clickItemByXpathRoboText("Tools, LDS5");
-		clickLastTextViewRoboReturn("Tools, LDS5");
+		//Check that the children are visible
+		clickItemByXpathRoboText("Sefulu, Isaako & Telesia");
+		clickLastTextViewRoboReturn("Sefulu, Isaako");
 		Thread.sleep(1000);
-		
-		//Check the users name, address membership number etc...
-		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS5"));
-		clickButtonByXpath("MenuEdit");
-		Thread.sleep(1000);
-		scrollDown("Stake Visibility", -1000 );
-		//clickButtonByXpath("EditVisibiltySpinner");
-
-		clickButtonByXpath("EditAllVisibility");
-		//displayAllTextViewElements();
-		clickButtonByXpathPopoutMenu("Private—Leadership Only");
-		Thread.sleep(1000);
-		clickButtonByXpath("MenuSave");
-		Thread.sleep(1000);
-		clickButtonByXpath("MenuSave");
-		Thread.sleep(3000);
-		pressBackKey();
-		
-		//Collapse the search 
+		Assert.assertTrue(checkElementTextViewReturn("Isaako Sefulu"));
+		Assert.assertTrue(checkElementTextViewReturn("Telesia Sefulu"));
+		Assert.assertTrue(checkElementTextViewReturn("Vaileta Sefulu"));
+		Assert.assertTrue(checkElementTextViewReturn("Satalaka Isaako"));
+		Assert.assertTrue(checkElementTextViewReturn("Logoipule Sefulu"));
+		Assert.assertTrue(checkElementTextViewReturn("Asiasiga Isaako"));
+		Assert.assertTrue(checkElementTextViewReturn("Eseta Isaako"));
+		clickButtonByXpath("Back");
 		clickButtonByXpath("SearchCollapse");
+		//pressBackKey();
 		
-		//Log out 
-		clickButtonByXpath("Drawer");
-		clickButtonByXpath("DrawerSETTINGS");
-		
-		clickButtonByXpathTitleName("Sign Out");
-		clickButtonByXpath("SignOutOK");
-		
-		syncLogIn("LDSTools6", "toolstester", "UAT" );
+		//Change to another Ward
+		//Check to see that the children are visible
+		clickButtonByXpath("SpinnerNav");
 		Thread.sleep(2000);
-		//true will setup ping for a non-leader
-		pinPage("1", "1", "3", "3", true);
-		Thread.sleep(2000);
+		clickButtonByXpathTitleName("Fagamalo 2nd Ward");
 		
-		//Search for logged in user
+		
+		//Search for a user that has children
 		clickButtonByID("MenuSearch");
-		sendTextbyXpath("SearchArea", "Tools, LDS5");
-		
-		Assert.assertTrue(checkElementTextViewRoboReturn("Tools, LDS5"));
-
-		//Collapse the search 
-		clickButtonByXpath("SearchCollapse");
-		
-		//Log out 
-		clickButtonByXpath("Drawer");
-		clickButtonByXpath("DrawerSETTINGS");
-		
-		clickButtonByXpathTitleName("Sign Out");
-		clickButtonByXpath("SignOutOK");
-		
-		syncLogIn("LDSTools5", "toolstester", "UAT" );
-		Thread.sleep(2000);
-		
-		//true will setup ping for a non-leader
-		pinPage("1", "1", "3", "3", true);
-		Thread.sleep(2000);
-		
-		//Search for logged in user
-		clickButtonByID("MenuSearch");
-		sendTextbyXpath("SearchArea", "Tools, LDS5");
+		sendTextbyXpath("SearchArea", "Alofa, Pasi");
 		
 		//Select the user
-		clickItemByXpathRoboText("Tools, LDS5");
-		clickLastTextViewRoboReturn("Tools, LDS5");
+		//Check that the children are visible
+		clickItemByXpathRoboText("Alofa, Pasi & Rowena");
+		clickLastTextViewRoboReturn("Alofa, Pasi");
 		Thread.sleep(1000);
-		
-		//Check the users name, address membership number etc...
-		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS5"));
-		clickButtonByXpath("MenuEdit");
-		Thread.sleep(1000);
-		scrollDown("Private—Leadership Only", -1000 );
-		//clickButtonByXpath("EditVisibiltySpinner");
-
-		clickButtonByXpath("EditAllVisibility");
-		//displayAllTextViewElements();
-		clickButtonByXpathPopoutMenu("Stake Visibility");
-		Thread.sleep(1000);
-		clickButtonByXpath("MenuSave");
-		Thread.sleep(1000);
-		clickButtonByXpath("MenuSave");
-		Thread.sleep(3000);
-		pressBackKey();
-		pressBackKey();
-		
-		//Collapse the search 
+		Assert.assertTrue(checkElementTextViewReturn("Pasi Alofa"));
+		Assert.assertTrue(checkElementTextViewReturn("Rowena Alofa"));
+		Assert.assertTrue(checkElementTextViewReturn("Rozarnah Alofa"));
+		Assert.assertTrue(checkElementTextViewReturn("Leativaosalafai Shaleen Alofa"));
+		//Assert.assertTrue(checkElementTextViewReturn("Pioneer Aumoto"));
+		clickButtonByXpath("Back");
 		clickButtonByXpath("SearchCollapse");
+		//pressBackKey();
 		
-		//Log out 
+		
+		clickButtonByXpath("Drawer");
+		clickButtonByXpath("DrawerHELP");
+		Thread.sleep(2000);
+		clickButtonByXpath("About");
+		Assert.assertTrue(checkElementTextViewReturnContains("TestPatriarch"));
+
+		Thread.sleep(2000);
+
+		pressBackKey();
 		clickButtonByXpath("Drawer");
 		clickButtonByXpath("DrawerSETTINGS");
 		
 		clickButtonByXpathTitleName("Sign Out");
 		clickButtonByXpath("SignOutOK");
-		
-		syncLogIn("LDSTools6", "toolstester", "UAT" );
-		Thread.sleep(2000);
-		
-		//true will setup ping for a non-leader
-		pinPage("1", "1", "3", "3", true);
-		Thread.sleep(2000);
-		
-		//Search for logged in user
-		clickButtonByID("MenuSearch");
-		sendTextbyXpath("SearchArea", "Tools, LDS5");
-		
-		Assert.assertTrue(checkElementTextViewRoboReturn("Tools, LDS5"));
-		
-		
 
 	}
 		
 	
-	
 	/*
+	
     @Rule
     public Retry retry = new Retry(3);
 	
@@ -331,6 +287,13 @@ public class LDSTools {
 	@Test
 	public void invalidLoginCheckTest() throws Exception {
 		invalidLoginCheck();	
+	}
+	
+	@Test
+	public void HeaderTest() throws Exception {
+		ChristieWhiting();
+		CliffHigby();
+		KevinPalmer();	
 	}
 	
 	//@Test
@@ -1178,6 +1141,85 @@ public class LDSTools {
 	}
 	
 	
+	public void ChristieWhiting() throws Exception {
+		loginProxyData("3446450099",
+				"/7u189715/5u511293/",
+				"p1175/1151u1000047/:p143/7u189715/5u511293/",
+				"Proxy - Test", "ChristieWhiting");
+		
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		clickButtonByXpath("Drawer");
+		clickButtonByXpath("DrawerHELP");
+		Thread.sleep(2000);
+		clickButtonByXpath("About");
+		Assert.assertTrue(checkElementTextViewReturnContains("ChristieWhiting"));
+		
+		
+		Thread.sleep(2000);
+		pressBackKey();
+		clickButtonByXpath("Drawer");
+		clickButtonByXpath("DrawerSETTINGS");
+		
+		clickButtonByXpathTitleName("Sign Out");
+		clickButtonByXpath("SignOutOK");
+	
+	}
+	
+	public void CliffHigby() throws Exception {
+		List<String> StakeWard = new ArrayList<String>();
+		loginProxyData("295740465",
+				"/7u191/5u504505/",
+				"p428/467u376892/28u381772/:p1711/59u1004603/22u388300/:p1788/467u376892/28u381772/:p1680/32u1326376/:p789/8u1006967/1u563013/:p1887/14u1004816/467u376892/",
+				"Proxy - Test", "CliffHigby");
+		
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		checkAllWardDirectories();
+		
+		clickButtonByXpath("Drawer");
+		clickButtonByXpath("DrawerHELP");
+		Thread.sleep(2000);
+		clickButtonByXpath("About");
+		Assert.assertTrue(checkElementTextViewReturnContains("CliffHigby"));
+
+		Thread.sleep(2000);
+
+		pressBackKey();
+		clickButtonByXpath("Drawer");
+		clickButtonByXpath("DrawerSETTINGS");
+		
+		clickButtonByXpathTitleName("Sign Out");
+		clickButtonByXpath("SignOutOK");
+	}
+	
+	public void KevinPalmer() throws Exception {
+		loginProxyData("3182767230",
+				"/7u50482/5u511846/",
+				"p222/7u50482/5u511846/:p39/3u2019809/1u790206/:p2/5u511846/1u790206/",
+				"Proxy - Test", "KevinPalmer");
+		
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		clickButtonByXpath("Drawer");
+		clickButtonByXpath("DrawerHELP");
+		Thread.sleep(2000);
+		clickButtonByXpath("About");
+		Assert.assertTrue(checkElementTextViewReturnContains("KevinPalmer"));
+
+		Thread.sleep(2000);
+
+		pressBackKey();
+		clickButtonByXpath("Drawer");
+		clickButtonByXpath("DrawerSETTINGS");
+		
+		clickButtonByXpathTitleName("Sign Out");
+		clickButtonByXpath("SignOutOK");
+	}
+	
 	/**loginCheck()
 	 * Go through All LDSTools users to make sure they can login
 	 * 
@@ -1231,6 +1273,7 @@ public class LDSTools {
 	private void checkTextByXpath(String textElement, String textToCheck ) {
 		Assert.assertEquals(driver.findElement(By.xpath(this.prop.getProperty(textElement))).getText(),(textToCheck));	
 	}
+	
 	
 	
 	/** checkTextByXpathReturn(String textElement, String textToCheck )
@@ -1376,7 +1419,6 @@ public class LDSTools {
 		options.get(myCounter).click();
 	
 	}
-	
 	
 	
 	
@@ -1768,7 +1810,7 @@ public class LDSTools {
 			Thread.sleep(2000);
 			scrollDown("Network Environment", -1000 );
 			Thread.sleep(2000);
-			clickButtonByXpathPopoutMenu("UAT");
+			clickButtonByXpathPopoutMenu(chooseNetwork);
 			clickButtonByXpath("Back");
 			Thread.sleep(5000);
 		}
@@ -1781,6 +1823,56 @@ public class LDSTools {
 		Thread.sleep(4000);
 		waitForTextToDisappear("SyncText", 500 );
 		Thread.sleep(2000);
+	}
+	
+	private void loginProxyData(String IndividualId, String units, String positions, String chooseNetwork, String userName )  throws Exception {
+		//If the login is using any of the test networks we need to chagne it. 
+		//valid enteries "Production", "UAT", "Proxy - UAT", "Proxy - Test"
+		if (!chooseNetwork.equals("Production")) {
+			Thread.sleep(1000);
+			longPressByTextView("Sign in to your LDS Account");
+			Thread.sleep(1000);
+			longPressByTextView("Sign in to your LDS Account");
+			Thread.sleep(1000);
+			clickButtonByXpath("Menu");
+			clickButtonByXpathTitleName("Settings");
+			//Thread.sleep(1000);
+			//scrollDown("Sign Out", 40 );
+			Thread.sleep(2000);
+			scrollDown("Network Environment", -1000 );
+			Thread.sleep(2000);
+			clickButtonByXpathPopoutMenu(chooseNetwork);
+			Thread.sleep(2000);
+			scrollDown("px_i", -1000 );
+			Thread.sleep(2000);
+			sendTextbyXpath("AlertEditText", IndividualId);
+			clickButtonByXpath("AlertOK");
+			Thread.sleep(2000);
+			scrollDown("px_u", -1000 );
+			Thread.sleep(2000);
+			sendTextbyXpath("AlertEditText", units);
+			clickButtonByXpath("AlertOK");
+			Thread.sleep(2000);
+			scrollDown("px_p", -1000 );
+			Thread.sleep(2000);
+			sendTextbyXpath("AlertEditText", positions);
+			clickButtonByXpath("AlertOK");
+			clickButtonByXpath("Back");
+			Thread.sleep(5000);
+		}
+		//sendTextbyXpath("LoginUsername", "LDSTools14");
+		//sendTextbyXpath("LoginPassword", "toolstester");
+		sendTextbyXpath("LoginUsername", userName );
+		sendTextbyXpath("LoginPassword", "password1");
+		Thread.sleep(1000);
+		clickButtonByXpath("SignInButton");
+		Thread.sleep(4000);
+		waitForTextToDisappear("SyncText", 500 );
+		Thread.sleep(2000);
+		
+		//Calendar doesn't work with proxy data so we will just clear the alert. 
+		clickButtonByXpath("AlertOK");
+		
 	}
 
 	
@@ -2263,6 +2355,31 @@ public class LDSTools {
 		Assert.assertFalse(checkElementTextViewReturn("8675309"));
 	}
 	
+	private void checkAllWardDirectories() throws Exception {
+		List<String> StakeWard = new ArrayList<String>();
+		clickButtonByXpath("SpinnerNav");
+		Thread.sleep(2000);
+		
+		//Get Stake and all Wards
+		List<WebElement> options= driver.findElements(By.xpath("//*[@id='title']"));
+		for (int i = 0 ; i < options.size(); i++ ) {
+			//System.out.println(options.get(i).getText());
+			StakeWard.add(options.get(i).getText());
+		}
+		pressBackKey();
+		
+		//Go through each Stake and Ward to make sure it isn't blank
+		for(String StakeWardItem : StakeWard){
+			clickButtonByXpath("SpinnerNav");
+			Thread.sleep(2000);
+			clickButtonByXpathTitleName(StakeWardItem);
+			//displayAllTextViewElements();
+			
+			//Should be a better way to do this. 
+			Assert.assertTrue(checkElementTextViewReturnContains("e"));
+			Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
+		}
+	}
 
 	@After
 	public void teardown() {
