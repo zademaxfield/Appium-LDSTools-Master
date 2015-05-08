@@ -103,7 +103,7 @@ public class LDSTools {
         //File appDir = new File(classpathRoot, "..\\..\\..\\..\\Selenium");
         //MAC Path
         File appDir = new File(classpathRoot, "../../Selenium");
-        File app = new File(appDir, "ldstools-alpha-20150430-2132.apk");
+        File app = new File(appDir, "ldstools-alpha-20150502-0802.apk");
         DesiredCapabilities capabilities = new DesiredCapabilities();
         //capabilities.setCapability(CapabilityType.BROWSER_NAME, "");
         capabilities.setCapability("platformName", "Android");
@@ -140,12 +140,12 @@ public class LDSTools {
 
 		//under18HeadofHouse();	
 		//bishopricCounselorAndWardClerk();	
-		bishopMemberOfSeparateStake();	
+		//bishopMemberOfSeparateStake();	
 		//editCurrentUser();	
 		//editOtherUser();	
 		//editOtherUserInvalidPhone();	
 		//editOtherUserInvalidEmail();	
-		//editVisibility();	
+		editVisibility();	
 		//invalidLoginCheck();	
 		//loginCheck();	
 		
@@ -170,7 +170,8 @@ public class LDSTools {
 		pinPage("1", "1", "3", "3", true);
 		
 		//Check to see if the user can view the directory
-		Assert.assertTrue(checkElementTextViewRoboReturn("Aaron, Jane"));
+		//Assert.assertTrue(checkElementTextViewRoboReturn("Aaron, Jane"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
 		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
 		
 		
@@ -258,8 +259,8 @@ public class LDSTools {
 	//public void loginCheckTest() throws Exception {
 	//	loginCheck();	
 	//}
-	
 	*/
+	
 	
 	
 	
@@ -280,7 +281,8 @@ public class LDSTools {
 		pinPage("1", "1", "3", "3", true);
 		
 		//Check to see if the user can view the directory
-		Assert.assertTrue(checkElementTextViewRoboReturn("Aaron, Jane"));
+		//Assert.assertTrue(checkElementTextViewRoboReturn("Aaron, Jane"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
 		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
 		
 		//Search for logged in user
@@ -288,7 +290,8 @@ public class LDSTools {
 		sendTextbyXpath("SearchArea", "Tools, LDS6");
 		
 		//Select the user
-		clickItemByXpathRoboText("Tools, LDS6");
+		//clickItemByXpathRoboText("Tools, LDS6");
+		clickLastTextViewRoboReturn("Tools, LDS6");
 		clickLastTextViewRoboReturn("Tools, LDS6");
 		Thread.sleep(1000);
 		
@@ -308,17 +311,17 @@ public class LDSTools {
 		sendTextbyXpath("SearchArea", "Aaron, Jane");
 		
 		//Directory items that should not be visible
-		clickItemByXpathRoboText("Aaron, Jane");
+		//clickItemByXpathRoboText("Aaron, Jane");
 		clickLastTextViewRoboReturn("Aaron, Jane");
-		
+		clickLastTextViewRoboReturn("Aaron, Jane");
 		
 		Assert.assertTrue(checkElementTextViewReturn("Jane Aaron"));
 		Assert.assertTrue(checkElementTextViewReturn("Fagamalo 1st Ward"));
 		Assert.assertTrue(checkElementTextCustom("CONTACT INFORMATION", "CapitalizedTextView"));
 		Assert.assertTrue(checkElementTextViewReturn("555-555-5555"));
-		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD", "TextView"));
+		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD", "*"));
 		Assert.assertTrue(checkElementTextViewReturn("no-reply@ldschurch.org"));
-		Assert.assertTrue(checkElementTextCustom("PERSONAL", "TextView"));
+		Assert.assertTrue(checkElementTextCustom("PERSONAL", "*"));
 		//Assert.assertTrue(checkElementTextViewReturn("2778 E Saddle Rock Rd Eagle Mountain, Utah 84005"));
 		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD MEMBERS", "CapitalizedTextView"));
 		
@@ -349,7 +352,7 @@ public class LDSTools {
 		//Check the Drawer items
 		clickButtonByXpath("Drawer");
 		Assert.assertTrue(checkElementTextViewReturn("Directory"));
-		Assert.assertTrue(checkElementTextViewReturn("Callings"));
+		Assert.assertTrue(checkElementTextViewReturn("Organizations"));
 		Assert.assertTrue(checkElementTextViewReturn("Missionary"));
 		Assert.assertTrue(checkElementTextViewReturn("Lists"));
 		Assert.assertTrue(checkElementTextViewReturn("Calendar"));
@@ -377,7 +380,7 @@ public class LDSTools {
 		pinPage("1", "1", "3", "3", true);
 		
 		//Check to see if the user can view the directory
-		Assert.assertTrue(checkElementTextViewRoboReturn("Aaron, Jane"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
 		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
 		
 		//Search for logged in user
@@ -386,8 +389,9 @@ public class LDSTools {
 		Thread.sleep(2000);
 		//displayAllTextViewElements();
 		//Select the user
-		clickItemByXpathRoboTextContains("Venasio, Fainu");
+		//clickItemByXpathRoboTextContains("Venasio, Fainu");
 		//clickItemByXpathRoboText("Venasio, Fainu'u & Moliga");
+		clickLastTextViewRoboReturnContains("Venasio, Fainu");
 		clickLastTextViewRoboReturnContains("Venasio, Fainu");
 		//clickLastTextViewRoboReturn("Venasio, Fainu'u");
 		Thread.sleep(1000);
@@ -397,9 +401,9 @@ public class LDSTools {
 		//Appium had a real problem with apostrophes
 		//Assert.assertTrue(checkElementTextViewReturn("Venasio, Fainu'u"));
 		//clickButtonByXpathTitleName("Show Record Number");
-		Assert.assertTrue(checkElementTextCustom("MEMBERSHIP INFORMATION", "CapitalizedTextView"));
+		Assert.assertTrue(checkElementTextCustom("MEMBERSHIP INFORMATION", "*"));
 		Assert.assertTrue(checkElementTextViewReturn("052-0013-5651"));
-		Assert.assertTrue(checkElementTextCustom("RECORD NUMBER", "TextView"));
+		Assert.assertTrue(checkElementTextCustom("RECORD NUMBER", "*"));
 		//Assert.assertTrue(checkElementTextViewReturn("January 1, 1980 (35)"));
 		//Assert.assertTrue(checkElementTextCustom("BIRTH DATE", "TextView"));
 		//clickButtonByXpathTitleName("Ordinances");
@@ -546,7 +550,8 @@ public class LDSTools {
 		sendTextbyXpath("SearchArea", "Tools, LDS100");
 		
 		//Select the user
-		clickItemByXpathRoboText("Tools, LDS100");
+		//clickItemByXpathRoboText("Tools, LDS100");
+		clickLastTextViewRoboReturn("Tools, LDS100");
 		clickLastTextViewRoboReturn("Tools, LDS100");
 		Thread.sleep(1000);
 		
@@ -597,7 +602,8 @@ public class LDSTools {
 		sendTextbyXpath("SearchArea", "Tools, LDS100");
 		
 		//Select the user
-		clickItemByXpathRoboText("Tools, LDS100");
+		//clickItemByXpathRoboText("Tools, LDS100");
+		clickLastTextViewRoboReturn("Tools, LDS100");
 		clickLastTextViewRoboReturn("Tools, LDS100");
 		Thread.sleep(1000);
 		
@@ -644,7 +650,8 @@ public class LDSTools {
 		sendTextbyXpath("SearchArea", "Tools, LDS41");
 		
 		//Select the user
-		clickItemByXpathRoboText("Tools, LDS41");
+		//clickItemByXpathRoboText("Tools, LDS41");
+		clickLastTextViewRoboReturn("Tools, LDS41");
 		clickLastTextViewRoboReturn("Tools, LDS41");
 		Thread.sleep(1000);
 		
@@ -683,7 +690,8 @@ public class LDSTools {
 		sendTextbyXpath("SearchArea", "Tools, LDS41");
 		
 		//Select the user
-		clickItemByXpathRoboText("Tools, LDS41");
+		//clickItemByXpathRoboText("Tools, LDS41");
+		clickLastTextViewRoboReturn("Tools, LDS41");
 		clickLastTextViewRoboReturn("Tools, LDS41");
 		Thread.sleep(1000);
 		
@@ -727,7 +735,8 @@ public class LDSTools {
 		sendTextbyXpath("SearchArea", "Tools, LDS41");
 		
 		//Select the user
-		clickItemByXpathRoboText("Tools, LDS41");
+		//clickItemByXpathRoboText("Tools, LDS41");
+		clickLastTextViewRoboReturn("Tools, LDS41");
 		clickLastTextViewRoboReturn("Tools, LDS41");
 		Thread.sleep(1000);
 		
@@ -775,7 +784,8 @@ public class LDSTools {
 		sendTextbyXpath("SearchArea", "Tools, LDS41");
 		
 		//Select the user
-		clickItemByXpathRoboText("Tools, LDS41");
+		//clickItemByXpathRoboText("Tools, LDS41");
+		clickLastTextViewRoboReturn("Tools, LDS41");
 		clickLastTextViewRoboReturn("Tools, LDS41");
 		Thread.sleep(1000);
 		
@@ -816,7 +826,8 @@ public class LDSTools {
 		sendTextbyXpath("SearchArea", "Tools, LDS41");
 		
 		//Select the user
-		clickItemByXpathRoboText("Tools, LDS41");
+		//clickItemByXpathRoboText("Tools, LDS41");
+		clickLastTextViewRoboReturn("Tools, LDS41");
 		clickLastTextViewRoboReturn("Tools, LDS41");
 		Thread.sleep(1000);
 		
@@ -888,7 +899,8 @@ public class LDSTools {
 		sendTextbyXpath("SearchArea", "Tools, LDS41");
 		
 		//Select the user
-		clickItemByXpathRoboText("Tools, LDS41");
+		//clickItemByXpathRoboText("Tools, LDS41");
+		clickLastTextViewRoboReturn("Tools, LDS41");
 		clickLastTextViewRoboReturn("Tools, LDS41");
 		Thread.sleep(1000);
 
@@ -911,7 +923,9 @@ public class LDSTools {
 		sendTextbyXpath("SearchArea", "Tools, LDS5");
 		
 		//Select the user
-		clickItemByXpathRoboText("Tools, LDS5");
+		//clickItemByXpathRoboText("Tools, LDS5");
+		clickLastTextViewRoboReturn("Tools, LDS5");
+		Thread.sleep(2000);
 		clickLastTextViewRoboReturn("Tools, LDS5");
 		Thread.sleep(1000);
 		
@@ -922,11 +936,12 @@ public class LDSTools {
 		scrollDown("Stake Visibility", -1000 );
 		//clickButtonByXpath("EditVisibiltySpinner");
 
-		clickButtonByXpath("EditAllVisibility");
+		//clickButtonByXpath("EditAllVisibility");
 		//displayAllTextViewElements();
+		Thread.sleep(2000);
 		clickButtonByXpathPopoutMenu("Private—Leadership Only");
-		Thread.sleep(1000);
-		clickButtonByXpath("MenuSave");
+		//Thread.sleep(1000);
+		//clickButtonByXpath("MenuSave");
 		Thread.sleep(1000);
 		clickButtonByXpath("MenuSave");
 		Thread.sleep(3000);
@@ -938,7 +953,7 @@ public class LDSTools {
 		//Log out 
 		clickButtonByXpath("Drawer");
 		clickButtonByXpath("DrawerSETTINGS");
-		
+		Thread.sleep(1000);
 		clickButtonByXpathTitleName("Sign Out");
 		clickButtonByXpath("SignOutOK");
 		
@@ -977,6 +992,8 @@ public class LDSTools {
 		
 		//Select the user
 		clickItemByXpathRoboText("Tools, LDS5");
+		//clickLastTextViewRoboReturn("Tools, LDS5");
+		Thread.sleep(2000);
 		clickLastTextViewRoboReturn("Tools, LDS5");
 		Thread.sleep(1000);
 		
@@ -1190,7 +1207,7 @@ public class LDSTools {
 		pinPage("1", "1", "3", "3", true);
 		
 		//Check to see if the user can view the directory
-		Assert.assertTrue(checkElementTextViewRoboReturn("Aaron, Jane"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
 		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
 		
 		//Search for a user that has children
@@ -1441,7 +1458,7 @@ public class LDSTools {
 	 */
 	private void clickLastTextViewRoboReturn(String textElement) {
 		int myCounter;
-		displayAllTextViewElements(textElement);
+		//displayAllTextViewElements(textElement);
 		List<WebElement> options= driver.findElements(By.xpath("//RobotoTextView[@id='text1'][@value='" + textElement + "']"));
 		//List<WebElement> options= driver.findElements(By.xpath("//*[@value='" + textElement + "']"));
 		myCounter = options.size() - 1;
@@ -2391,7 +2408,7 @@ public class LDSTools {
 		Assert.assertFalse(checkElementTextViewReturn("Windu, Mace"));
 		
 		clickButtonByXpathTitleName("EXPIRED");
-		Assert.assertTrue(checkElementTextViewReturn("Alavaa, Toetoe"));
+		//Assert.assertTrue(checkElementTextViewReturn("Alavaa, Toetoe"));
 		Assert.assertFalse(checkElementTextViewReturn("Jinn, Qui-Gon"));
 		
 		clickButtonByXpathTitleName("OTHER");
