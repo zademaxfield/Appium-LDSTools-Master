@@ -139,7 +139,7 @@ public class LDSTools {
 		//justForTesting();	
 
 		//under18HeadofHouse();	
-		bishopricCounselorAndWardClerk();	
+		//bishopricCounselorAndWardClerk();	
 		//bishopMemberOfSeparateStake();	
 		//editCurrentUser();	
 		//editOtherUser();	
@@ -148,6 +148,9 @@ public class LDSTools {
 		//editVisibility();	
 		//invalidLoginCheck();	
 		//loginCheck();	
+		
+		LeaderNonBishopric("LDSTools22");
+
 		
 		
 		//Header Check
@@ -158,42 +161,47 @@ public class LDSTools {
 		//TravisLyman();
 		//ElderKacher(); //Not working yet
 		//TerryBallard(); //Check to see Tim and Jessica Beck
+		//AdminUnit();
 
 	}
 	
 	
 
 	public void justForTesting() throws Exception {
-		loginProxyData("7157852120",
-				"/32u9990011/16u244449/",
-				"",
-				"Proxy - Test", "AdminUnit");
+		//LDSTools21 is the Elders Quorum President
+		syncLogIn("LDSTools21", "password1", "UAT" );
+		Thread.sleep(2000);
 		
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
 		
 		//Check to see if the user can view the directory
-		//Assert.assertTrue(checkElementTextViewRoboReturn("Aaron, Jane"));
-		Thread.sleep(5000);
-		Assert.assertTrue(checkElementTextViewRoboReturn("Alcorn, Sarah"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
 		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
-		
-		
-		
-		clickButtonByXpath("Drawer");
-		clickButtonByXpath("DrawerHELP");
-		Thread.sleep(2000);
-		clickButtonByXpath("About");
-		Assert.assertTrue(checkElementTextViewReturnContains("AdminUnit"));
 
-		Thread.sleep(2000);
-
-		pressBackKey();
-		clickButtonByXpath("Drawer");
-		clickButtonByXpath("DrawerSETTINGS");
+		//Check Directory user - should be able to view everything
+		checkDirectoryUser(true, true, true, false, false);
 		
-		clickButtonByXpathTitleName("Sign Out");
-		clickButtonByXpath("SignOutOK");
+		Thread.sleep(1000);
+		
+		//Check Drawer Items - If leader there should be a Reports item
+		checkDrawerItems(true);
+		
+		Thread.sleep(1000);
+		
+		//Check various callings - all users should be able to access this information
+		checkCallings();
+		
+		Thread.sleep(1000);
+		
+		//Check Missionary drawer items - all user access
+		checkMissionary();
+	
+		Thread.sleep(1000);
+		
+		//Check the reports - leadership only - true for bishopric rights, false for leaders and remove
+		//checkReports for non-leaders
+		checkReports(false);
 
 	}
 		
@@ -260,7 +268,14 @@ public class LDSTools {
 		TravisLyman();
 		//ElderKacher(); //Not working yet
 		TerryBallard(); //Check to see Tim and Jessica Beck
+		//AdminUnit(); //Not working yet - not sure if this is suppose to work
 	}
+	
+	@Test
+	public void HighPriestsGroupLeaderTest() throws Exception {
+		LeaderNonBishopric("LDSTools16");
+	}
+
 	
 	//@Test
 	//public void loginCheckTest() throws Exception {
@@ -538,6 +553,43 @@ public class LDSTools {
 		
 	}
 	
+	
+	public void LeaderNonBishopric(String leaderLogin) throws Exception {
+		//LDSTools16 is the High Priests Group Leader
+		syncLogIn(leaderLogin, "password1", "UAT" );
+		Thread.sleep(2000);
+		
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		//Check to see if the user can view the directory
+		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
+		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
+
+		//Check Directory user - should be able to view everything
+		checkDirectoryUser(true, true, true, false, false);
+		
+		Thread.sleep(1000);
+		
+		//Check Drawer Items - If leader there should be a Reports item
+		checkDrawerItems(true);
+		
+		Thread.sleep(1000);
+		
+		//Check various callings - all users should be able to access this information
+		checkCallings();
+		
+		Thread.sleep(1000);
+		
+		//Check Missionary drawer items - all user access
+		checkMissionary();
+	
+		Thread.sleep(1000);
+		
+		//Check the reports - leadership only - true for bishopric rights, false for leaders and remove
+		//checkReports for non-leaders
+		checkReports(false);
+	}
 	
 	/** editCurrentUser()
 	 * Login as LDSTools100 and edit own information
@@ -1399,6 +1451,40 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Sign Out");
 		clickButtonByXpath("SignOutOK");
 	}
+	
+	public void AdminUnit() throws Exception {
+		loginProxyData("7157852120",
+				"/32u9990011/16u244449/",
+				"",
+				"Proxy - Test", "AdminUnit");
+		
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		//Check to see if the user can view the directory
+		//Assert.assertTrue(checkElementTextViewRoboReturn("Aaron, Jane"));
+		Thread.sleep(5000);
+		Assert.assertTrue(checkElementTextViewRoboReturn("Alcorn, Sarah"));
+		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
+		
+		
+		
+		clickButtonByXpath("Drawer");
+		clickButtonByXpath("DrawerHELP");
+		Thread.sleep(2000);
+		clickButtonByXpath("About");
+		Assert.assertTrue(checkElementTextViewReturnContains("AdminUnit"));
+
+		Thread.sleep(2000);
+
+		pressBackKey();
+		clickButtonByXpath("Drawer");
+		clickButtonByXpath("DrawerSETTINGS");
+		
+		clickButtonByXpathTitleName("Sign Out");
+		clickButtonByXpath("SignOutOK");
+	}
+	
 	
 	/**loginCheck()
 	 * Go through All LDSTools users to make sure they can login
@@ -2430,7 +2516,6 @@ public class LDSTools {
 		Assert.assertTrue(checkElementTextViewReturn("Members with Callings"));
 		Assert.assertTrue(checkElementTextViewReturn("Members without Callings"));
 		Assert.assertTrue(checkElementTextViewReturn("New Members"));
-		Assert.assertTrue(checkElementTextViewReturn("Temple Recommend Status"));
 		Assert.assertTrue(checkElementTextViewReturn("Unit Statistics"));
 		Assert.assertFalse(checkElementTextViewReturn("Death Star Reports"));
 		
@@ -2485,7 +2570,7 @@ public class LDSTools {
 		Assert.assertFalse(checkElementTextViewReturn("Amidala, Padme"));
 		
 		clickButtonByXpathTitleName("NOT SET APART");
-		Assert.assertTrue(checkElementTextViewReturn("Ward Assistant Clerk (3 years, 2 months)"));
+		Assert.assertTrue(checkElementTextViewReturn("Ward Assistant Clerk (3 years, 3 months)"));
 		Assert.assertTrue(checkElementTextViewReturn("Sitivi, Tama Kiliona"));
 		Assert.assertFalse(checkElementTextViewReturn("P0, C3"));
 		pressBackKey();
@@ -2515,34 +2600,44 @@ public class LDSTools {
 		Assert.assertTrue(checkElementTextViewReturn("Joezmal, Loana"));
 		Assert.assertTrue(checkElementTextViewReturn("13"));
 		Assert.assertTrue(checkElementTextViewReturn("F"));
-		Assert.assertTrue(checkElementTextViewReturn("March 15, 2015"));
+		if (newUnit == true){
+			Assert.assertTrue(checkElementTextViewReturn("March 15, 2015"));
+		} else {
+			Assert.assertFalse(checkElementTextViewReturn("March 15, 2015"));
+		}
+		
 		Assert.assertTrue(checkElementTextViewReturn("Member"));
 		Assert.assertFalse(checkElementTextViewReturn("Hutt, Jabba"));
 		pressBackKey();
 		
-		//Temple Recommend Status
-		clickButtonByXpathTitleName("Temple Recommend Status");
-		Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member15"));
-		Assert.assertFalse(checkElementTextViewReturn("Ahsoka, Tano"));
-		//Assert.assertTrue(checkElementTextViewReturn("Expired"));
-		
-		clickButtonByXpathTitleName("ACTIVE");
-		Assert.assertTrue(checkElementTextViewReturn("Betham, Maria"));
-		Assert.assertTrue(checkElementTextViewReturn("Jul 2016"));
-		Assert.assertFalse(checkElementTextViewReturn("Maul, Darth"));
-		
-		clickButtonByXpathTitleName("EXPIRING");
-		Assert.assertTrue(checkElementTextViewReturn("Lavea, Lonise"));
-		Assert.assertFalse(checkElementTextViewReturn("Windu, Mace"));
-		
-		clickButtonByXpathTitleName("EXPIRED");
-		Assert.assertTrue(checkElementTextViewReturn("Ami, Lealofi"));
-		Assert.assertFalse(checkElementTextViewReturn("Jinn, Qui-Gon"));
-		
-		clickButtonByXpathTitleName("OTHER");
-		Assert.assertTrue(checkElementTextViewReturn("Mene, Matagalu"));
-		Assert.assertFalse(checkElementTextViewReturn("Calrissian, Lando"));
-		pressBackKey();
+		if (newUnit == true ) {
+			//Temple Recommend Status
+			clickButtonByXpathTitleName("Temple Recommend Status");
+			Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member15"));
+			Assert.assertFalse(checkElementTextViewReturn("Ahsoka, Tano"));
+			//Assert.assertTrue(checkElementTextViewReturn("Expired"));
+			
+			clickButtonByXpathTitleName("ACTIVE");
+			Assert.assertTrue(checkElementTextViewReturn("Betham, Maria"));
+			Assert.assertTrue(checkElementTextViewReturn("Jul 2016"));
+			Assert.assertFalse(checkElementTextViewReturn("Maul, Darth"));
+			
+			clickButtonByXpathTitleName("EXPIRING");
+			Assert.assertTrue(checkElementTextViewReturn("Lavea, Lonise"));
+			Assert.assertFalse(checkElementTextViewReturn("Windu, Mace"));
+			
+			clickButtonByXpathTitleName("EXPIRED");
+			Assert.assertTrue(checkElementTextViewReturn("Ami, Lealofi"));
+			Assert.assertFalse(checkElementTextViewReturn("Jinn, Qui-Gon"));
+			
+			clickButtonByXpathTitleName("OTHER");
+			Assert.assertTrue(checkElementTextViewReturn("Mene, Matagalu"));
+			Assert.assertFalse(checkElementTextViewReturn("Calrissian, Lando"));
+			pressBackKey();
+		} else {
+			Assert.assertFalse(checkElementTextViewReturn("Temple Recommend Status"));
+		}
+
 		
 		//Unit Statistics
 		clickButtonByXpathTitleName("Unit Statistics");
