@@ -275,6 +275,17 @@ public class LDSTools {
 	public void HighPriestsGroupLeaderTest() throws Exception {
 		LeaderNonBishopric("LDSTools16");
 	}
+	
+	@Test
+	public void HighPriestsGroupLeaderTest() throws Exception {
+		LeaderNonBishopric("LDSTools16");
+	}
+	
+	@Test
+	public void HighPriestsGroupLeaderTest() throws Exception {
+		LeaderNonBishopric("LDSTools16");
+	}
+	
 
 	
 	//@Test
