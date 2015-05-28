@@ -201,7 +201,7 @@ public class LDSTools {
 		
 		//Check the reports - leadership only - true for bishopric rights, false for leaders and remove
 		//checkReports for non-leaders
-		checkReports(false);
+		checkReports(false, false);
 
 	}
 		
@@ -272,29 +272,167 @@ public class LDSTools {
 	}
 	
 	@Test
-	public void HighPriestsGroupLeaderTest() throws Exception {
+	public void HighPriestsGroupLeader() throws Exception {
 		LeaderNonBishopric("LDSTools16");
 	}
 	
 	@Test
-	public void HighPriestsGroupLeaderTest() throws Exception {
-		LeaderNonBishopric("LDSTools16");
+	public void HighPriestsGroupFirstAssistant() throws Exception {
+		LeaderNonBishopric("LDSTools17");
 	}
 	
 	@Test
-	public void HighPriestsGroupLeaderTest() throws Exception {
-		LeaderNonBishopric("LDSTools16");
+	public void HighPriestsGroupSecondAssistant() throws Exception {
+		LeaderNonBishopric("LDSTools18");
 	}
 	
+	@Test
+	public void HighPriestsGroupSecretary() throws Exception {
+		LeaderNonBishopric("LDSTools19");
+	}
+	
+	@Test
+	public void HighPriestsGroupAssistantSecretary() throws Exception {
+		LeaderNonBishopric("LDSTools20");
+	}
+	
+	@Test
+	public void EldersQuorumPresident() throws Exception {
+		LeaderNonBishopric("LDSTools21");
+	}
+	
+	@Test
+	public void EldersQuorumFirstCounselor() throws Exception {
+		LeaderNonBishopric("LDSTools22");
+	}
+	
+	@Test
+	public void EldersQuorumSecondCounselor() throws Exception {
+		LeaderNonBishopric("LDSTools23");
+	}
+	
+	@Test
+	public void EldersQuorumSecretary() throws Exception {
+		LeaderNonBishopric("LDSTools24");
+	}
+	
+	@Test
+	public void EldersQuorumAssistantSecretary() throws Exception {
+		LeaderNonBishopric("LDSTools25");
+	}
+	
+	@Test
+	public void ReliefSocietyPresident() throws Exception {
+		LeaderNonBishopric("LDSTools26");
+	}
+	
+	@Test
+	public void ReliefSocietyFirstCounselor() throws Exception {
+		LeaderNonBishopric("LDSTools27");
+	}
+	
+	@Test
+	public void ReliefSocietySecondCounselor() throws Exception {
+		LeaderNonBishopric("LDSTools28");
+	}
+	
+		@Test
+	public void ReliefSocietySecretary() throws Exception {
+		LeaderNonBishopric("LDSTools29");
+	}
+	
+	@Test
+	public void ReliefSocietyAssistantSecretary() throws Exception {
+		LeaderNonBishopric("LDSTools30");
+	}
+	
+	@Test
+	public void YoungMenPresident() throws Exception {
+		LeaderNonBishopric("LDSTools31");
+	}
+	
+	@Test
+	public void YoungMenFirstCounselor() throws Exception {
+		LeaderNonBishopric("LDSTools32");
+	}
+	
+	@Test
+	public void YoungMenSecondCounselor() throws Exception {
+		LeaderNonBishopric("LDSTools33");
+	}
+	
+	@Test
+	public void YoungMenSecretary() throws Exception {
+		LeaderNonBishopric("LDSTools34");
+	}
+	
+	@Test
+	public void YoungWomenPresident() throws Exception {
+		LeaderNonBishopric("LDSTools35");
+	}
+	
+	@Test
+	public void YoungWomenFirstCounselor() throws Exception {
+		LeaderNonBishopric("LDSTools36");
+	}
+	
+	@Test
+	public void YoungWomenSecondCounselor() throws Exception {
+		LeaderNonBishopric("LDSTools37");
+	}
+	
+	@Test
+	public void YoungWomenSecretary() throws Exception {
+		LeaderNonBishopric("LDSTools38");
+	}
+	
+	@Test
+	public void SundaySchoolPresident() throws Exception {
+		LeaderNonBishopric("LDSTools39");
+	}
+	
+	@Test
+	public void SundaySchoolFirstCounselor() throws Exception {
+		LeaderNonBishopric("LDSTools40");
+	}
+	
+	@Test
+	public void SundaySchoolSecondCounselor() throws Exception {
+		LeaderNonBishopric("LDSTools41");
+	}
+	
+	@Test
+	public void SundaySchoolSecretary() throws Exception {
+		LeaderNonBishopric("LDSTools42");
+	}
+	
+	@Test
+	public void PrimaryPresident() throws Exception {
+		LeaderNonBishopric("LDSTools43");
+	}
+	
+	@Test
+	public void PrimaryFirstCounselor() throws Exception {
+		LeaderNonBishopric("LDSTools44");
+	}
+	
+	@Test
+	public void PrimarySecondCounselor() throws Exception {
+		LeaderNonBishopric("LDSTools45");
+	}
+	
+	@Test
+	public void PrimarySecretary() throws Exception {
+		LeaderNonBishopric("LDSTools46");
+	}
 
-	
 	//@Test
 	//public void loginCheckTest() throws Exception {
 	//	loginCheck();	
 	//}
 	
-	
 	*/
+	
 	
 	
 	
@@ -468,7 +606,7 @@ public class LDSTools {
 		Thread.sleep(1000);
 		
 		//Check the reports - leadership only
-		checkReports(false);
+		checkReports(true, false);
 		
 
 	}
@@ -559,7 +697,7 @@ public class LDSTools {
 		Thread.sleep(1000);
 		
 		//Check the reports - leadership only
-		checkReports(true);
+		checkReports(true, true);
 		
 		
 	}
@@ -567,39 +705,61 @@ public class LDSTools {
 	
 	public void LeaderNonBishopric(String leaderLogin) throws Exception {
 		//LDSTools16 is the High Priests Group Leader
+		//long startTime = System.currentTimeMillis();
 		syncLogIn(leaderLogin, "password1", "UAT" );
-		Thread.sleep(2000);
+		//Thread.sleep(2000);
+		//long endTime = System.currentTimeMillis();
+		//System.out.println("Log in:" + (endTime - startTime));
 		
+		
+		//startTime = System.currentTimeMillis();
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
+		//endTime = System.currentTimeMillis();
+		//System.out.println("Pin Page:" + (endTime - startTime));
 		
+		//startTime = System.currentTimeMillis();
 		//Check to see if the user can view the directory
 		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
 		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
-
+		//endTime = System.currentTimeMillis();
+		//System.out.println("After Login, Check user:" + (endTime - startTime));
+		
+		
+		//startTime = System.currentTimeMillis();
 		//Check Directory user - should be able to view everything
 		checkDirectoryUser(true, true, true, false, false);
+		//endTime = System.currentTimeMillis();
+		//System.out.println("Check Directory User:" + (endTime - startTime));
 		
+		//startTime = System.currentTimeMillis();
 		Thread.sleep(1000);
-		
 		//Check Drawer Items - If leader there should be a Reports item
 		checkDrawerItems(true);
-		
-		Thread.sleep(1000);
-		
+		//endTime = System.currentTimeMillis();
+		//System.out.println("Check Drawer Items:" + (endTime - startTime));
+	
+		//startTime = System.currentTimeMillis();
+		Thread.sleep(1000);	
 		//Check various callings - all users should be able to access this information
 		checkCallings();
+		//endTime = System.currentTimeMillis();
+		//System.out.println("Check Callings:" + (endTime - startTime));
 		
+		//startTime = System.currentTimeMillis();
 		Thread.sleep(1000);
-		
 		//Check Missionary drawer items - all user access
 		checkMissionary();
+		//endTime = System.currentTimeMillis();
+		//System.out.println("Check Missionary:" + (endTime - startTime));
 	
+		//startTime = System.currentTimeMillis();
 		Thread.sleep(1000);
-		
 		//Check the reports - leadership only - true for bishopric rights, false for leaders and remove
 		//checkReports for non-leaders
-		checkReports(false);
+		checkReports(false, false);
+		//endTime = System.currentTimeMillis();
+		//System.out.println("Check Reports:" + (endTime - startTime));
 	}
 	
 	/** editCurrentUser()
@@ -2516,7 +2676,7 @@ public class LDSTools {
 	 * 
 	 * @throws Exception
 	 */
-	private void checkReports(boolean newUnit) throws Exception {
+	private void checkReports(boolean newUnit, boolean bishop) throws Exception {
 		//Reports
 		clickButtonByXpath("Drawer");
 		clickButtonByXpath("DrawerReports");
@@ -2541,7 +2701,7 @@ public class LDSTools {
 		Assert.assertTrue(checkElementTextViewReturn("May 17, 2015"));
 		
 		//The new unit is only available for bishop
-		if (newUnit == true){
+		if (bishop == true){
 			Assert.assertTrue(checkElementTextViewReturn("Johnstone Ward"));
 		} else {
 			Assert.assertFalse(checkElementTextViewReturn("Johnstone Ward"));
