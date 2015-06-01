@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 //import java.util.ArrayList;
 //import java.util.Arrays;
 //import java.util.Dictionary;
@@ -11,15 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 //import java.net.URL;
 import java.util.Properties;
-
-
-
-
-
-
-
-
-
 
 
 
@@ -42,15 +34,7 @@ import io.selendroid.SelendroidKeys;
 
 
 
-
-
-
-
-
-
-
-
-
+import org.apache.commons.io.FileUtils;
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
 import org.junit.Assert;
@@ -63,8 +47,10 @@ import org.junit.runners.model.Statement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.OutputType;
 //import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.TakesScreenshot;
 //import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -79,6 +65,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 //Not used yet
 //import org.openqa.selenium.WebElement;
+
+
+
 
 /** LDSTools class - suite of tests to test LDSTools app
  * 
@@ -705,61 +694,61 @@ public class LDSTools {
 	
 	public void LeaderNonBishopric(String leaderLogin) throws Exception {
 		//LDSTools16 is the High Priests Group Leader
-		//long startTime = System.currentTimeMillis();
+		long startTime = System.currentTimeMillis();
 		syncLogIn(leaderLogin, "password1", "UAT" );
 		//Thread.sleep(2000);
-		//long endTime = System.currentTimeMillis();
-		//System.out.println("Log in:" + (endTime - startTime));
+		long endTime = System.currentTimeMillis();
+		System.out.println("Log in:" + (endTime - startTime));
 		
 		
-		//startTime = System.currentTimeMillis();
+		startTime = System.currentTimeMillis();
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
-		//endTime = System.currentTimeMillis();
-		//System.out.println("Pin Page:" + (endTime - startTime));
+		endTime = System.currentTimeMillis();
+		System.out.println("Pin Page:" + (endTime - startTime));
 		
-		//startTime = System.currentTimeMillis();
+		startTime = System.currentTimeMillis();
 		//Check to see if the user can view the directory
 		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
 		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
-		//endTime = System.currentTimeMillis();
-		//System.out.println("After Login, Check user:" + (endTime - startTime));
+		endTime = System.currentTimeMillis();
+		System.out.println("After Login, Check user:" + (endTime - startTime));
 		
 		
-		//startTime = System.currentTimeMillis();
+		startTime = System.currentTimeMillis();
 		//Check Directory user - should be able to view everything
 		checkDirectoryUser(true, true, true, false, false);
-		//endTime = System.currentTimeMillis();
-		//System.out.println("Check Directory User:" + (endTime - startTime));
+		endTime = System.currentTimeMillis();
+		System.out.println("Check Directory User:" + (endTime - startTime));
 		
-		//startTime = System.currentTimeMillis();
+		startTime = System.currentTimeMillis();
 		Thread.sleep(1000);
 		//Check Drawer Items - If leader there should be a Reports item
 		checkDrawerItems(true);
-		//endTime = System.currentTimeMillis();
-		//System.out.println("Check Drawer Items:" + (endTime - startTime));
+		endTime = System.currentTimeMillis();
+		System.out.println("Check Drawer Items:" + (endTime - startTime));
 	
-		//startTime = System.currentTimeMillis();
+		startTime = System.currentTimeMillis();
 		Thread.sleep(1000);	
 		//Check various callings - all users should be able to access this information
 		checkCallings();
-		//endTime = System.currentTimeMillis();
-		//System.out.println("Check Callings:" + (endTime - startTime));
+		endTime = System.currentTimeMillis();
+		System.out.println("Check Callings:" + (endTime - startTime));
 		
-		//startTime = System.currentTimeMillis();
+		startTime = System.currentTimeMillis();
 		Thread.sleep(1000);
 		//Check Missionary drawer items - all user access
 		checkMissionary();
-		//endTime = System.currentTimeMillis();
-		//System.out.println("Check Missionary:" + (endTime - startTime));
+		endTime = System.currentTimeMillis();
+		System.out.println("Check Missionary:" + (endTime - startTime));
 	
-		//startTime = System.currentTimeMillis();
+		startTime = System.currentTimeMillis();
 		Thread.sleep(1000);
 		//Check the reports - leadership only - true for bishopric rights, false for leaders and remove
 		//checkReports for non-leaders
 		checkReports(false, false);
-		//endTime = System.currentTimeMillis();
-		//System.out.println("Check Reports:" + (endTime - startTime));
+		endTime = System.currentTimeMillis();
+		System.out.println("Check Reports:" + (endTime - startTime));
 	}
 	
 	/** editCurrentUser()
@@ -1730,6 +1719,8 @@ public class LDSTools {
 		return myReturn;
 	}
 	
+
+	
 	
 	/** checkTextByID(String textElement, String textToCheck )
 	 * Find the element by ID using uiMap
@@ -1752,7 +1743,6 @@ public class LDSTools {
 	 */
 	private Boolean checkElementTextViewReturn(String textElement) {
 		Boolean myReturnStatus;
-		//List<WebElement> options= driver.findElements(By.xpath("//TextView[@value='" + textElement + "']"));
 		List<WebElement> options= driver.findElements(By.xpath("//*[@value='" + textElement + "']"));
 		if (options.isEmpty()) {
 			myReturnStatus = false;	
@@ -1834,6 +1824,18 @@ public class LDSTools {
 			System.out.println(options.get(i).getText());
 		}
 	}
+	
+	private List<String> getAllText() {
+		List<WebElement> options= driver.findElements(By.xpath("//*"));
+		List<String> allText = new ArrayList<String>();
+		for (int i = 0 ; i < options.size(); i++ ) {
+			//System.out.println(options.get(i).getText());
+			allText.add(i, options.get(i).getText());
+		}
+
+		return allText;
+	}
+	
 
 	
 	/** clickLastTextViewRoboReturn(String textElement)
@@ -2500,88 +2502,102 @@ public class LDSTools {
 	 */
 	private void checkCallings() throws Exception {
 		//Callings
+		List<String> checkReportText = new ArrayList<String>();
 		//clickButtonByXpath("Drawer");
 		//clickButtonByXpath("DrawerCallings");
 		clickButtonByXpath("DrawerOrganizations");
-		
-		Assert.assertTrue(checkElementTextViewRoboReturn("Bishopric"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("High Priests Group"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Elders Quorum"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Relief Society"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Young Men"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Young Women"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Sunday School"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Primary"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Ward Missionaries"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Other Callings"));
+		Thread.sleep(1000);
+		checkReportText = getAllText();
+		Assert.assertTrue(checkReportText.contains("Bishopric"));
+		Assert.assertTrue(checkReportText.contains("High Priests Group"));
+		Assert.assertTrue(checkReportText.contains("Elders Quorum"));
+		Assert.assertTrue(checkReportText.contains("Relief Society"));
+		Assert.assertTrue(checkReportText.contains("Young Men"));
+		Assert.assertTrue(checkReportText.contains("Young Women"));
+		Assert.assertTrue(checkReportText.contains("Sunday School"));
+		Assert.assertTrue(checkReportText.contains("Primary"));
+		Assert.assertTrue(checkReportText.contains("Ward Missionaries"));
+		Assert.assertTrue(checkReportText.contains("Other Callings"));
 		
 		//Bishopric
 		clickItemByXpathRoboText("Bishopric");
-		Assert.assertTrue(checkElementTextViewRoboReturn("Bishop"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Ami, Samu"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Bishopric First Counselor"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Atia, Aviata Seualuga"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Bishopric Second Counselor"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Faapili, Muipu"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Ward Executive Secretary"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Sitivi, Sitivi"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Ward Clerk"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Tutunoa, Ualesi Junior, Jr"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Ward Assistant Clerk"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Sitivi, Tama Kiliona"));
+		//Thread.sleep(1000);
+		checkReportText = getAllText();
+		Assert.assertTrue(checkReportText.contains("Bishop"));
+		Assert.assertTrue(checkReportText.contains("Ami, Samu"));
+		Assert.assertTrue(checkReportText.contains("Bishopric First Counselor"));
+		Assert.assertTrue(checkReportText.contains("Atia, Aviata Seualuga"));
+		Assert.assertTrue(checkReportText.contains("Bishopric Second Counselor"));
+		Assert.assertTrue(checkReportText.contains("Faapili, Muipu"));
+		Assert.assertTrue(checkReportText.contains("Ward Executive Secretary"));
+		Assert.assertTrue(checkReportText.contains("Sitivi, Sitivi"));
+		Assert.assertTrue(checkReportText.contains("Ward Clerk"));
+		Assert.assertTrue(checkReportText.contains("Tutunoa, Ualesi Junior, Jr"));
+		Assert.assertTrue(checkReportText.contains("Ward Assistant Clerk"));
+		Assert.assertTrue(checkReportText.contains("Sitivi, Tama Kiliona"));
 		pressBackKey();
 		
 		//High Priests Group
 		clickItemByXpathRoboText("High Priests Group");
 		clickItemByXpathRoboText("High Priests Group Leadership");
-		Assert.assertTrue(checkElementTextViewRoboReturn("High Priests Group Leader"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Faamoe, Panapa Filifili"));
+		//Thread.sleep(1000);
+		checkReportText = getAllText();
+		Assert.assertTrue(checkReportText.contains("High Priests Group Leader"));
+		Assert.assertTrue(checkReportText.contains("Faamoe, Panapa Filifili"));
 		pressBackKey();
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 		pressBackKey();
 		
 		//Elders Quorum
 		clickItemByXpathRoboText("Elders Quorum");
 		clickItemByXpathRoboText("Elders Quorum Presidency");
-		Assert.assertTrue(checkElementTextViewRoboReturn("Elders Quorum President"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Kitara, Peaulele"));
+		//Thread.sleep(1000);
+		checkReportText = getAllText();
+		Assert.assertTrue(checkReportText.contains("Elders Quorum President"));
+		Assert.assertTrue(checkReportText.contains("Kitara, Peaulele"));
 		pressBackKey();
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 		pressBackKey();
 		
 		
 		//Relief Society
 		clickItemByXpathRoboText("Relief Society");
 		clickItemByXpathRoboText("Relief Society Presidency");
+		//Thread.sleep(1000);
+		checkReportText = getAllText();
 		//displayAllTextViewElements();
-		Assert.assertTrue(checkElementTextViewRoboReturn("Relief Society President"));
+		Assert.assertTrue(checkReportText.contains("Relief Society President"));
 		//Assert.assertTrue(checkElementTextViewRoboReturn("Frost, Sato'a"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Relief Society First Counselor"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Faamoetauloa, Fiasili"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Relief Society Second Counselor"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Faapili, Baby"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Relief Society Secretary"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Patiole, Luafa"));
+		Assert.assertTrue(checkReportText.contains("Relief Society First Counselor"));
+		Assert.assertTrue(checkReportText.contains("Faamoetauloa, Fiasili"));
+		Assert.assertTrue(checkReportText.contains("Relief Society Second Counselor"));
+		Assert.assertTrue(checkReportText.contains("Faapili, Baby"));
+		Assert.assertTrue(checkReportText.contains("Relief Society Secretary"));
+		Assert.assertTrue(checkReportText.contains("Patiole, Luafa"));
 		pressBackKey();
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 		pressBackKey();
 		
 		//Young Men
 		clickItemByXpathRoboText("Young Men");
 		clickItemByXpathRoboText("Young Men Presidency");
-		Assert.assertTrue(checkElementTextViewRoboReturn("Young Men President"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Lavea, Vaelaa"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Young Men First Counselor"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Kitara, Peaulele"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Young Men Second Counselor"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Venasio Fainuu, Fogavai"));
+		//Thread.sleep(1000);
+		checkReportText = getAllText();
+		Assert.assertTrue(checkReportText.contains("Young Men President"));
+		Assert.assertTrue(checkReportText.contains("Lavea, Vaelaa"));
+		Assert.assertTrue(checkReportText.contains("Young Men First Counselor"));
+		Assert.assertTrue(checkReportText.contains("Kitara, Peaulele"));
+		Assert.assertTrue(checkReportText.contains("Young Men Second Counselor"));
+		Assert.assertTrue(checkReportText.contains("Venasio Fainuu, Fogavai"));
 		pressBackKey();
 		clickItemByXpathRoboText("Priests Quorum");
+		Thread.sleep(1000);
+		checkReportText = getAllText();
 		//clickItemByXpathRoboText("Priests Quorum Presidency");
-		Assert.assertTrue(checkElementTextViewRoboReturn("Priests Quorum President"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Ami, Samu"));
+		Assert.assertTrue(checkReportText.contains("Priests Quorum President"));
+		Assert.assertTrue(checkReportText.contains("Ami, Samu"));
 		pressBackKey();
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 		pressBackKey();
 		//Thread.sleep(2000);
 		//pressBackKey();
@@ -2590,64 +2606,76 @@ public class LDSTools {
 		//Young Women
 		clickItemByXpathRoboText("Young Women");
 		clickItemByXpathRoboText("Young Women Presidency");
-		Assert.assertTrue(checkElementTextViewRoboReturn("Young Women President"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Tutunoa, Lusi"));
+		//Thread.sleep(1000);
+		checkReportText = getAllText();
+		Assert.assertTrue(checkReportText.contains("Young Women President"));
+		Assert.assertTrue(checkReportText.contains("Tutunoa, Lusi"));
 		//Assert.assertTrue(checkElementTextViewRoboReturn("Young Women Second Counselor"));
 		//Assert.assertTrue(checkElementTextViewRoboReturn("Lavea, Meise"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Young Women Secretary"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Lavea, Lonise"));
+		Assert.assertTrue(checkReportText.contains("Young Women Secretary"));
+		Assert.assertTrue(checkReportText.contains("Lavea, Lonise"));
 		pressBackKey();
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 		pressBackKey();
 		
 		
 		//Sunday School
 		clickItemByXpathRoboText("Sunday School");
 		clickItemByXpathRoboText("Sunday School Presidency");
-		Assert.assertTrue(checkElementTextViewRoboReturn("Sunday School President"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Lealaiauloto, Uana Iosefa Sao"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Sunday School First Counselor"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Mene, Sitivi"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Sunday School Second Counselor"));
+		//Thread.sleep(1000);
+		checkReportText = getAllText();
+		Assert.assertTrue(checkReportText.contains("Sunday School President"));
+		Assert.assertTrue(checkReportText.contains("Lealaiauloto, Uana Iosefa Sao"));
+		Assert.assertTrue(checkReportText.contains("Sunday School First Counselor"));
+		Assert.assertTrue(checkReportText.contains("Mene, Sitivi"));
+		Assert.assertTrue(checkReportText.contains("Sunday School Second Counselor"));
 		//Assert.assertTrue(checkElementTextViewRoboReturn("Apofasa, Sasa'a"));
 		pressBackKey();
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 		pressBackKey();
 		
 		//Primary
 		clickItemByXpathRoboText("Primary");
 		clickItemByXpathRoboText("Primary Presidency");
-		Assert.assertTrue(checkElementTextViewRoboReturn("Primary President"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Kitara, Tutulu"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Primary First Counselor"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Ami, Lealofi"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Primary Second Counselor"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Fepuleai, Malele Seuamuli"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Primary Secretary"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Samu, Luisa"));
+		//Thread.sleep(1000);
+		checkReportText = getAllText();
+		Assert.assertTrue(checkReportText.contains("Primary President"));
+		Assert.assertTrue(checkReportText.contains("Kitara, Tutulu"));
+		Assert.assertTrue(checkReportText.contains("Primary First Counselor"));
+		Assert.assertTrue(checkReportText.contains("Ami, Lealofi"));
+		Assert.assertTrue(checkReportText.contains("Primary Second Counselor"));
+		Assert.assertTrue(checkReportText.contains("Fepuleai, Malele Seuamuli"));
+		Assert.assertTrue(checkReportText.contains("Primary Secretary"));
+		Assert.assertTrue(checkReportText.contains("Samu, Luisa"));
 		pressBackKey();
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 		pressBackKey();
 		
 
 		//Ward Missionaries
 		clickItemByXpathRoboText("Ward Missionaries");
-		Assert.assertTrue(checkElementTextViewRoboReturn("Mission Leader"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Kitara, Lafaele"));
+		//Thread.sleep(1000);
+		checkReportText = getAllText();
+		Assert.assertTrue(checkReportText.contains("Mission Leader"));
+		Assert.assertTrue(checkReportText.contains("Kitara, Lafaele"));
 		pressBackKey();
 		
 		
 		//Other Callings
 		clickItemByXpathRoboText("Other Callings");
 		clickItemByXpathRoboText("Young Single Adult");
-		Assert.assertTrue(checkElementTextViewRoboReturn("Young Single Adult Leader"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Solomona, Solomona"));
+		//Thread.sleep(1000);
+		checkReportText = getAllText();
+		Assert.assertTrue(checkReportText.contains("Young Single Adult Leader"));
+		Assert.assertTrue(checkReportText.contains("Solomona, Solomona"));
 		pressBackKey();
 		clickItemByXpathRoboText("Music");
-		Assert.assertTrue(checkElementTextViewRoboReturn("Music Adviser"));
+		//Thread.sleep(1000);
+		checkReportText = getAllText();
+		Assert.assertTrue(checkReportText.contains("Music Adviser"));
 		//Assert.assertTrue(checkElementTextViewRoboReturn("Frost,Sato'a"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Organist or Pianist"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Betham, Maria"));
+		Assert.assertTrue(checkReportText.contains("Organist or Pianist"));
+		Assert.assertTrue(checkReportText.contains("Betham, Maria"));
 		pressBackKey();
 		Thread.sleep(2000);
 		pressBackKey();
@@ -2678,8 +2706,47 @@ public class LDSTools {
 	 */
 	private void checkReports(boolean newUnit, boolean bishop) throws Exception {
 		//Reports
+		List<String> checkReportText = new ArrayList<String>();
+		//boolean myTestbool;
+		
 		clickButtonByXpath("Drawer");
 		clickButtonByXpath("DrawerReports");
+		Thread.sleep(2000);
+		checkReportText = getAllText();
+
+		
+		/*
+		for(String s: checkReportText) {
+			System.out.println(s);
+			//if (s.equals("Birthday List")) {
+			if ("Birthday List".equals(s)) {
+				System.out.println("Found!!!!");
+			}
+		}
+		
+		//myTestbool = Arrays.asList(checkReportText).contains("Birthday List");
+		myTestbool = checkReportText.contains("Birthday List");
+		//myTestbool = "Birtday List".equals(checkReportText);
+		System.out.println("TEST Bool: " + myTestbool);
+		
+		if (myTestbool == true){
+			System.out.println("TEST Bool: " + myTestbool);
+			System.out.println("FOUND!");
+		}
+		*/
+		
+		Assert.assertTrue(checkReportText.contains("Birthday List"));
+		Assert.assertTrue(checkReportText.contains("Members Moved In"));
+		Assert.assertTrue(checkReportText.contains("Members Moved Out"));
+		Assert.assertTrue(checkReportText.contains("Members with Callings"));
+		Assert.assertTrue(checkReportText.contains("Members without Callings"));
+		Assert.assertTrue(checkReportText.contains("New Members"));
+		Assert.assertTrue(checkReportText.contains("Unit Statistics"));
+		Assert.assertFalse(checkReportText.contains("Death Star Reports"));
+		
+		
+		
+		/*
 		//Assert.assertTrue(checkElementTextViewReturn("Action and Interview List"));
 		Assert.assertTrue(checkElementTextViewReturn("Birthday List"));
 		Assert.assertTrue(checkElementTextViewReturn("Members Moved In"));
@@ -2689,11 +2756,34 @@ public class LDSTools {
 		Assert.assertTrue(checkElementTextViewReturn("New Members"));
 		Assert.assertTrue(checkElementTextViewReturn("Unit Statistics"));
 		Assert.assertFalse(checkElementTextViewReturn("Death Star Reports"));
+		*/
+		
+		
+		
 		
 		
 		//Check the members moved out report
 		//Should have a ( ) with the age by the birth date
 		clickButtonByXpathTitleName("Members Moved Out");
+		
+		Thread.sleep(1000);
+		checkReportText = getAllText();
+		
+		Assert.assertTrue(checkReportText.contains("Wilson, Nora"));
+		//Birth Date
+		//TODO need to have the age calculated
+		Assert.assertTrue(checkReportText.contains("October 10, 1936 (78)"));
+		Assert.assertTrue(checkReportText.contains("May 17, 2015"));
+		
+		//The new unit is only available for bishop
+		if (bishop == true){
+			Assert.assertTrue(checkReportText.contains("Johnstone Ward"));
+		} else {
+			Assert.assertFalse(checkReportText.contains("Johnstone Ward"));
+		}
+		Assert.assertFalse(checkReportText.contains("Solo, Han"));
+		
+		/*
 		Assert.assertTrue(checkElementTextViewReturn("Wilson, Nora"));
 		//Birth Date
 		//TODO need to have the age calculated
@@ -2708,17 +2798,31 @@ public class LDSTools {
 		}
 		Assert.assertFalse(checkElementTextViewReturn("Solo, Han"));
 		
+		*/
+		
+		
+		
+		
+		
+		
 		pressBackKey();
 		//clickButtonByXpath("Drawer");
 		//clickButtonByXpath("DrawerReports");
 		
 		//Members Moved In
 		clickButtonByXpathTitleName("Members Moved In");
+		checkReportText = getAllText();
+		Assert.assertTrue(checkReportText.contains("Whitesel"));
+		Assert.assertTrue(checkReportText.contains("Becky (39)"));
+		Assert.assertTrue(checkReportText.contains("Head of household"));
+		Assert.assertFalse(checkReportText.contains("Skywalker, Luke"));
+		
+		/*
 		Assert.assertTrue(checkElementTextViewReturn("Whitesel"));
 		Assert.assertTrue(checkElementTextViewReturn("Becky (39)"));
 		Assert.assertTrue(checkElementTextViewReturn("Head of household"));
 		Assert.assertFalse(checkElementTextViewReturn("Skywalker, Luke"));
-
+		*/
 		
 		pressBackKey();
 		//clickButtonByXpath("Drawer");
@@ -2726,48 +2830,107 @@ public class LDSTools {
 		
 		//Members with Callings
 		clickButtonByXpathTitleName("Members with Callings");
+		checkReportText = getAllText();
+		Assert.assertTrue(checkReportText.contains("Ami, Lealofi"));
+		Assert.assertTrue(checkReportText.contains("Primary First Counselor (1 year, 3 months)"));
+		Assert.assertFalse(checkReportText.contains("Skywalker, Anakin"));
+		
+		/*
 		Assert.assertTrue(checkElementTextViewReturn("Ami, Lealofi"));
 		Assert.assertTrue(checkElementTextViewReturn("Primary First Counselor (1 year, 3 months)"));
 		Assert.assertFalse(checkElementTextViewReturn("Skywalker, Anakin"));
+		*/
+		
 		
 		clickButtonByXpathTitleName("ORGANIZATION");
+		checkReportText = getAllText();
+		Assert.assertTrue(checkReportText.contains("Bishop"));
+		Assert.assertTrue(checkReportText.contains("Ami, Samu (1 year, 8 months)"));
+		Assert.assertFalse(checkReportText.contains("Kenobi, Obi-Wan"));
+		
+		/*
 		Assert.assertTrue(checkElementTextViewReturn("Bishop"));
 		Assert.assertTrue(checkElementTextViewReturn("Ami, Samu (1 year, 8 months)"));
 		Assert.assertFalse(checkElementTextViewReturn("Kenobi, Obi-Wan"));
+		*/
 		
 		clickButtonByXpathTitleName("DURATION");
+		checkReportText = getAllText();
+		Assert.assertTrue(checkReportText.contains("Ward Assistant Clerk"));
+		Assert.assertTrue(checkReportText.contains("Sitivi, Tama Kiliona"));
+		Assert.assertFalse(checkReportText.contains("Amidala, Padme"));
+		
+		/*
 		Assert.assertTrue(checkElementTextViewReturn("Ward Assistant Clerk"));
 		Assert.assertTrue(checkElementTextViewReturn("Sitivi, Tama Kiliona"));
 		Assert.assertFalse(checkElementTextViewReturn("Amidala, Padme"));
+		*/
 		
 		clickButtonByXpathTitleName("NOT SET APART");
+		checkReportText = getAllText();
+		Assert.assertTrue(checkReportText.contains("Ward Assistant Clerk (3 years, 3 months)"));
+		Assert.assertTrue(checkReportText.contains("Sitivi, Tama Kiliona"));
+		Assert.assertFalse(checkReportText.contains("P0, C3"));
+		
+		/*
 		Assert.assertTrue(checkElementTextViewReturn("Ward Assistant Clerk (3 years, 3 months)"));
 		Assert.assertTrue(checkElementTextViewReturn("Sitivi, Tama Kiliona"));
 		Assert.assertFalse(checkElementTextViewReturn("P0, C3"));
+		*/
 		pressBackKey();
 		
 		//Members without Callings
 		clickButtonByXpathTitleName("Members without Callings");
-		//displayAllTextViewElements();
+		checkReportText = getAllText();
+		Assert.assertTrue(checkReportText.contains("AFPEighteen, Member"));
+		Assert.assertTrue(checkReportText.contains("AFPEleven, Member"));
+		Assert.assertFalse(checkReportText.contains("D2, R2"));
+		/*
 		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
 		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEleven, Member"));
 		Assert.assertFalse(checkElementTextViewRoboReturn("D2, R2"));
+		*/
 		
 		clickButtonByXpathTitleName("MALE");
+		checkReportText = getAllText();
+		Assert.assertTrue(checkReportText.contains("AFPEleven, Member"));
+		Assert.assertTrue(checkReportText.contains("AFPFifteen, Member"));
+		Assert.assertFalse(checkReportText.contains("Binks, Jarjar"));
+		/*
 		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEleven, Member"));
 		Assert.assertTrue(checkElementTextViewRoboReturn("AFPFifteen, Member"));
 		Assert.assertFalse(checkElementTextViewRoboReturn("Binks, Jarjar"));
+		*/
 		
 		clickButtonByXpathTitleName("FEMALE");
+		checkReportText = getAllText();
+		Assert.assertTrue(checkReportText.contains("AFPEighteen, Member"));
+		Assert.assertTrue(checkReportText.contains("AFPFive, Wife"));
+		Assert.assertFalse(checkReportText.contains("Organa, Leia"));
+		/*
 		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
 		Assert.assertTrue(checkElementTextViewRoboReturn("AFPFive, Wife"));
 		Assert.assertFalse(checkElementTextViewRoboReturn("Organa, Leia"));
-		
+		*/
 		pressBackKey();
 		
 		
 		//New Members
 		clickButtonByXpathTitleName("New Members");
+		checkReportText = getAllText();
+		Assert.assertTrue(checkReportText.contains("Joezmal, Loana"));
+		Assert.assertTrue(checkReportText.contains("13"));
+		Assert.assertTrue(checkReportText.contains("F"));
+		if (newUnit == true){
+			Assert.assertTrue(checkReportText.contains("March 15, 2015"));
+		} else {
+			Assert.assertFalse(checkReportText.contains("March 15, 2015"));
+		}
+		
+		Assert.assertTrue(checkReportText.contains("Member"));
+		Assert.assertFalse(checkReportText.contains("Hutt, Jabba"));
+		
+		/*
 		Assert.assertTrue(checkElementTextViewReturn("Joezmal, Loana"));
 		Assert.assertTrue(checkElementTextViewReturn("13"));
 		Assert.assertTrue(checkElementTextViewReturn("F"));
@@ -2779,6 +2942,7 @@ public class LDSTools {
 		
 		Assert.assertTrue(checkElementTextViewReturn("Member"));
 		Assert.assertFalse(checkElementTextViewReturn("Hutt, Jabba"));
+		*/
 		pressBackKey();
 		
 		if (newUnit == true ) {
@@ -2846,8 +3010,17 @@ public class LDSTools {
 
 	@After
 	public void teardown() {
+		File screenshotFile = driver.getScreenshotAs(OutputType.FILE);
+		try {
+			FileUtils.copyFile(screenshotFile,new File("/home/zmaxfield/Selenium/Screenshot/lastErrorScreenshot.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		driver.quit();
 	}
+	
+
 	
 	
 	@Before
