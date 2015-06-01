@@ -694,61 +694,61 @@ public class LDSTools {
 	
 	public void LeaderNonBishopric(String leaderLogin) throws Exception {
 		//LDSTools16 is the High Priests Group Leader
-		long startTime = System.currentTimeMillis();
+		//long startTime = System.currentTimeMillis();
 		syncLogIn(leaderLogin, "password1", "UAT" );
 		//Thread.sleep(2000);
-		long endTime = System.currentTimeMillis();
-		System.out.println("Log in:" + (endTime - startTime));
+		//long endTime = System.currentTimeMillis();
+		//System.out.println("Log in:" + (endTime - startTime));
 		
 		
-		startTime = System.currentTimeMillis();
+		//startTime = System.currentTimeMillis();
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
-		endTime = System.currentTimeMillis();
-		System.out.println("Pin Page:" + (endTime - startTime));
+		//endTime = System.currentTimeMillis();
+		//System.out.println("Pin Page:" + (endTime - startTime));
 		
-		startTime = System.currentTimeMillis();
+		//startTime = System.currentTimeMillis();
 		//Check to see if the user can view the directory
 		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
 		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
-		endTime = System.currentTimeMillis();
-		System.out.println("After Login, Check user:" + (endTime - startTime));
+		//endTime = System.currentTimeMillis();
+		//System.out.println("After Login, Check user:" + (endTime - startTime));
 		
 		
-		startTime = System.currentTimeMillis();
+		//startTime = System.currentTimeMillis();
 		//Check Directory user - should be able to view everything
 		checkDirectoryUser(true, true, true, false, false);
-		endTime = System.currentTimeMillis();
-		System.out.println("Check Directory User:" + (endTime - startTime));
+		//endTime = System.currentTimeMillis();
+		//System.out.println("Check Directory User:" + (endTime - startTime));
 		
-		startTime = System.currentTimeMillis();
+		//startTime = System.currentTimeMillis();
 		Thread.sleep(1000);
 		//Check Drawer Items - If leader there should be a Reports item
 		checkDrawerItems(true);
-		endTime = System.currentTimeMillis();
-		System.out.println("Check Drawer Items:" + (endTime - startTime));
+		//endTime = System.currentTimeMillis();
+		//System.out.println("Check Drawer Items:" + (endTime - startTime));
 	
-		startTime = System.currentTimeMillis();
+		//startTime = System.currentTimeMillis();
 		Thread.sleep(1000);	
 		//Check various callings - all users should be able to access this information
 		checkCallings();
-		endTime = System.currentTimeMillis();
-		System.out.println("Check Callings:" + (endTime - startTime));
+		//endTime = System.currentTimeMillis();
+		//System.out.println("Check Callings:" + (endTime - startTime));
 		
-		startTime = System.currentTimeMillis();
+		//startTime = System.currentTimeMillis();
 		Thread.sleep(1000);
 		//Check Missionary drawer items - all user access
 		checkMissionary();
-		endTime = System.currentTimeMillis();
-		System.out.println("Check Missionary:" + (endTime - startTime));
+		//endTime = System.currentTimeMillis();
+		//System.out.println("Check Missionary:" + (endTime - startTime));
 	
-		startTime = System.currentTimeMillis();
+		//startTime = System.currentTimeMillis();
 		Thread.sleep(1000);
 		//Check the reports - leadership only - true for bishopric rights, false for leaders and remove
 		//checkReports for non-leaders
 		checkReports(false, false);
-		endTime = System.currentTimeMillis();
-		System.out.println("Check Reports:" + (endTime - startTime));
+		//endTime = System.currentTimeMillis();
+		//System.out.println("Check Reports:" + (endTime - startTime));
 	}
 	
 	/** editCurrentUser()
