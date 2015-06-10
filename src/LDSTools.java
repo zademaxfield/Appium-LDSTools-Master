@@ -91,7 +91,7 @@ public class LDSTools {
         File classpathRoot = new File(System.getProperty("user.dir"));
         //File appDir = new File(classpathRoot, "..\\..\\..\\..\\Selenium");
         //MAC Path
-        File appDir = new File(classpathRoot, "../../Selenium");
+        File appDir = new File(classpathRoot, "../../../Selenium");
         File app = new File(appDir, "ldstools-beta-20150522-1618.apk");
         DesiredCapabilities capabilities = new DesiredCapabilities();
         //capabilities.setCapability(CapabilityType.BROWSER_NAME, "");
@@ -110,7 +110,7 @@ public class LDSTools {
         
         capabilities.setCapability("automationName","selendroid");
         capabilities.setCapability("newCommandTimeout","600");
-        capabilities.setCapability("platformVersion", "4.4");
+        capabilities.setCapability("platformVersion", "5.1");
         capabilities.setCapability("app", app.getAbsolutePath());
         capabilities.setCapability("appPackage", "org.lds.ldstools");
         //capabilities.setCapability("appActivity", "org.lds.ldstools.ui.StartupActivity");
@@ -125,7 +125,7 @@ public class LDSTools {
 	@Test
 	public void simpleTest() throws Exception {
 		Thread.sleep(4000);
-		//justForTesting();	
+		justForTesting();	
 
 		//under18HeadofHouse();	
 		//bishopricCounselorAndWardClerk();	
@@ -138,7 +138,7 @@ public class LDSTools {
 		//invalidLoginCheck();	
 		//loginCheck();	
 		
-		LeaderNonBishopric("LDSTools22");
+		//LeaderNonBishopric("LDSTools24");
 
 		
 		
@@ -151,52 +151,48 @@ public class LDSTools {
 		//ElderKacher(); //Not working yet
 		//TerryBallard(); //Check to see Tim and Jessica Beck
 		//AdminUnit();
+		//WardStakeCouncilor();
 
 	}
 	
 	
 
 	public void justForTesting() throws Exception {
-		//LDSTools21 is the Elders Quorum President
-		syncLogIn("LDSTools21", "password1", "UAT" );
-		Thread.sleep(2000);
+		loginProxyData("8999999998916734",
+				"/7u56030/5u524735/",
+				"p135/7u56030/5u524735/:p94/5u524735/",
+				"Proxy - Test", "WardStakeCounilor");
 		
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
 		
 		//Check to see if the user can view the directory
-		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
+		//Assert.assertTrue(checkElementTextViewRoboReturn("Aaron, Jane"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEleven, Member"));
 		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
+		
+		
+		
+		clickButtonByXpath("Drawer");
+		clickButtonByXpath("DrawerHELP");
+		Thread.sleep(2000);
+		clickButtonByXpath("About");
+		Assert.assertTrue(checkElementTextViewReturnContains("WardStakeCounilor"));
 
-		//Check Directory user - should be able to view everything
-		checkDirectoryUser(true, true, true, false, false);
+		Thread.sleep(2000);
+
+		pressBackKey();
+		clickButtonByXpath("Drawer");
+		clickButtonByXpath("DrawerSETTINGS");
 		
-		Thread.sleep(1000);
-		
-		//Check Drawer Items - If leader there should be a Reports item
-		checkDrawerItems(true);
-		
-		Thread.sleep(1000);
-		
-		//Check various callings - all users should be able to access this information
-		checkCallings();
-		
-		Thread.sleep(1000);
-		
-		//Check Missionary drawer items - all user access
-		checkMissionary();
-	
-		Thread.sleep(1000);
-		
-		//Check the reports - leadership only - true for bishopric rights, false for leaders and remove
-		//checkReports for non-leaders
-		checkReports(false, false);
+		clickButtonByXpathTitleName("Sign Out");
+		clickButtonByXpath("SignOutOK");
 
 	}
 		
 	
-	
 	/*
+	
     @Rule
     public Retry retry = new Retry(3);
 	
@@ -258,6 +254,7 @@ public class LDSTools {
 		//ElderKacher(); //Not working yet
 		TerryBallard(); //Check to see Tim and Jessica Beck
 		//AdminUnit(); //Not working yet - not sure if this is suppose to work
+		WardStakeCouncilor();
 	}
 	
 	@Test
@@ -419,8 +416,8 @@ public class LDSTools {
 	//public void loginCheckTest() throws Exception {
 	//	loginCheck();	
 	//}
-	
 	*/
+	
 	
 	
 	
@@ -452,6 +449,7 @@ public class LDSTools {
 		//Select the user
 		//clickItemByXpathRoboText("Tools, LDS6");
 		clickLastTextViewRoboReturn("Tools, LDS6");
+		Thread.sleep(1000);
 		clickLastTextViewRoboReturn("Tools, LDS6");
 		Thread.sleep(1000);
 		
@@ -473,6 +471,7 @@ public class LDSTools {
 		//Directory items that should not be visible
 		//clickItemByXpathRoboText("Aaron, Jane");
 		clickLastTextViewRoboReturn("Aaron, Jane");
+		Thread.sleep(1000);
 		clickLastTextViewRoboReturn("Aaron, Jane");
 		
 		Assert.assertTrue(checkElementTextViewReturn("Jane Aaron"));
@@ -552,6 +551,7 @@ public class LDSTools {
 		//clickItemByXpathRoboTextContains("Venasio, Fainu");
 		//clickItemByXpathRoboText("Venasio, Fainu'u & Moliga");
 		clickLastTextViewRoboReturnContains("Venasio, Fainu");
+		Thread.sleep(1000);
 		clickLastTextViewRoboReturnContains("Venasio, Fainu");
 		//clickLastTextViewRoboReturn("Venasio, Fainu'u");
 		Thread.sleep(1000);
@@ -626,6 +626,7 @@ public class LDSTools {
 		//Select the user
 		//clickItemByXpathRoboText("Tools, LDS2");
 		clickLastTextViewRoboReturn("Tools, LDS2");
+		Thread.sleep(1000);
 		clickLastTextViewRoboReturn("Tools, LDS2");
 		Thread.sleep(1000);
 		
@@ -771,6 +772,7 @@ public class LDSTools {
 		//Select the user
 		//clickItemByXpathRoboText("Tools, LDS100");
 		clickLastTextViewRoboReturn("Tools, LDS100");
+		Thread.sleep(1000);
 		clickLastTextViewRoboReturn("Tools, LDS100");
 		Thread.sleep(1000);
 		
@@ -823,6 +825,7 @@ public class LDSTools {
 		//Select the user
 		//clickItemByXpathRoboText("Tools, LDS100");
 		clickLastTextViewRoboReturn("Tools, LDS100");
+		Thread.sleep(1000);
 		clickLastTextViewRoboReturn("Tools, LDS100");
 		Thread.sleep(1000);
 		
@@ -871,6 +874,7 @@ public class LDSTools {
 		//Select the user
 		//clickItemByXpathRoboText("Tools, LDS41");
 		clickLastTextViewRoboReturn("Tools, LDS41");
+		Thread.sleep(1000);
 		clickLastTextViewRoboReturn("Tools, LDS41");
 		Thread.sleep(1000);
 		
@@ -911,6 +915,7 @@ public class LDSTools {
 		//Select the user
 		//clickItemByXpathRoboText("Tools, LDS41");
 		clickLastTextViewRoboReturn("Tools, LDS41");
+		Thread.sleep(1000);
 		clickLastTextViewRoboReturn("Tools, LDS41");
 		Thread.sleep(1000);
 		
@@ -956,6 +961,7 @@ public class LDSTools {
 		//Select the user
 		//clickItemByXpathRoboText("Tools, LDS41");
 		clickLastTextViewRoboReturn("Tools, LDS41");
+		Thread.sleep(1000);
 		clickLastTextViewRoboReturn("Tools, LDS41");
 		Thread.sleep(1000);
 		
@@ -1005,6 +1011,7 @@ public class LDSTools {
 		//Select the user
 		//clickItemByXpathRoboText("Tools, LDS41");
 		clickLastTextViewRoboReturn("Tools, LDS41");
+		Thread.sleep(1000);
 		clickLastTextViewRoboReturn("Tools, LDS41");
 		Thread.sleep(1000);
 		
@@ -1047,6 +1054,7 @@ public class LDSTools {
 		//Select the user
 		//clickItemByXpathRoboText("Tools, LDS41");
 		clickLastTextViewRoboReturn("Tools, LDS41");
+		Thread.sleep(1000);
 		clickLastTextViewRoboReturn("Tools, LDS41");
 		Thread.sleep(1000);
 		
@@ -1120,6 +1128,7 @@ public class LDSTools {
 		//Select the user
 		//clickItemByXpathRoboText("Tools, LDS41");
 		clickLastTextViewRoboReturn("Tools, LDS41");
+		Thread.sleep(1000);
 		clickLastTextViewRoboReturn("Tools, LDS41");
 		Thread.sleep(1000);
 
@@ -1584,6 +1593,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 
 		clickLastTextViewRoboReturnContains("Beck, Tim & Jessica");
+		Thread.sleep(1000);
 		clickLastTextViewRoboReturnContains("Beck, Tim");
 		Assert.assertTrue(checkElementTextViewReturn("Tim Beck (40)"));
 		Assert.assertTrue(checkElementTextViewReturn("Jessica Beck (37)"));
@@ -1634,6 +1644,38 @@ public class LDSTools {
 		Thread.sleep(2000);
 		clickButtonByXpath("About");
 		Assert.assertTrue(checkElementTextViewReturnContains("AdminUnit"));
+
+		Thread.sleep(2000);
+
+		pressBackKey();
+		clickButtonByXpath("Drawer");
+		clickButtonByXpath("DrawerSETTINGS");
+		
+		clickButtonByXpathTitleName("Sign Out");
+		clickButtonByXpath("SignOutOK");
+	}
+	
+	public void WardStakeCouncilor() throws Exception {
+		loginProxyData("8999999998916734",
+				"/7u56030/5u524735/",
+				"p135/7u56030/5u524735/:p94/5u524735/",
+				"Proxy - Test", "WardStakeCounilor");
+		
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		//Check to see if the user can view the directory
+		//Assert.assertTrue(checkElementTextViewRoboReturn("Aaron, Jane"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEleven, Member"));
+		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
+		
+		
+		
+		clickButtonByXpath("Drawer");
+		clickButtonByXpath("DrawerHELP");
+		Thread.sleep(2000);
+		clickButtonByXpath("About");
+		Assert.assertTrue(checkElementTextViewReturnContains("WardStakeCounilor"));
 
 		Thread.sleep(2000);
 
@@ -2384,6 +2426,7 @@ public class LDSTools {
 		//Directory items that should not be visible
 		//clickItemByXpathRoboText("Aaron, Jane");
 		clickLastTextViewRoboReturn("Aaron, Jane");
+		Thread.sleep(2000);
 		clickLastTextViewRoboReturn("Aaron, Jane");
 		
 		//All Members should be able to view the following information
@@ -2606,7 +2649,7 @@ public class LDSTools {
 		//Young Women
 		clickItemByXpathRoboText("Young Women");
 		clickItemByXpathRoboText("Young Women Presidency");
-		//Thread.sleep(1000);
+		Thread.sleep(1000);
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Young Women President"));
 		Assert.assertTrue(checkReportText.contains("Tutunoa, Lusi"));
@@ -3009,15 +3052,17 @@ public class LDSTools {
 	}
 
 	@After
-	public void teardown() {
+	public void teardown() throws Exception {
 		File screenshotFile = driver.getScreenshotAs(OutputType.FILE);
 		try {
-			FileUtils.copyFile(screenshotFile,new File("/home/zmaxfield/Selenium/Screenshot/lastErrorScreenshot.png"));
+			FileUtils.copyFile(screenshotFile,new File("/Users/zademaxfield/Selenium/Screenshot/lastErrorScreenshot.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		driver.quit();
+		Thread.sleep(5000);
+		
 	}
 	
 
