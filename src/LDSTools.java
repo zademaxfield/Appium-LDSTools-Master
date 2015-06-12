@@ -121,11 +121,11 @@ public class LDSTools {
     }	
 
 	
-    
+    /*
 	@Test
 	public void simpleTest() throws Exception {
 		Thread.sleep(4000);
-		justForTesting();	
+		//justForTesting();	
 
 		//under18HeadofHouse();	
 		//bishopricCounselorAndWardClerk();	
@@ -134,7 +134,7 @@ public class LDSTools {
 		//editOtherUser();	
 		//editOtherUserInvalidPhone();	
 		//editOtherUserInvalidEmail();	
-		//editVisibility();	
+		editVisibility();	
 		//invalidLoginCheck();	
 		//loginCheck();	
 		
@@ -154,7 +154,7 @@ public class LDSTools {
 		//WardStakeCouncilor();
 
 	}
-	
+	*/
 	
 
 	public void justForTesting() throws Exception {
@@ -191,7 +191,7 @@ public class LDSTools {
 	}
 		
 	
-	/*
+	
 	
     @Rule
     public Retry retry = new Retry(3);
@@ -416,7 +416,6 @@ public class LDSTools {
 	//public void loginCheckTest() throws Exception {
 	//	loginCheck();	
 	//}
-	*/
 	
 	
 	
@@ -880,6 +879,19 @@ public class LDSTools {
 		
 		//Check the users name, address membership number etc...
 		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS41"));
+		
+		
+		clickButtonByXpath("MenuEdit");
+		
+		clearTextFieldXpath("EditPersonalPhone");
+		clearTextFieldXpath("EditHomePhone");
+		clearTextFieldXpath("EditPersonalEmail");
+		clearTextFieldXpath("EditHomeEmail");
+
+		clickButtonByXpath("MenuSave");
+		
+		
+		
 		clickButtonByXpath("MenuEdit");
 		
 		sendTextbyXpath("EditPersonalPhone", "1(801)240-0104");
@@ -889,6 +901,8 @@ public class LDSTools {
 		clickButtonByXpath("MenuSave");
 		
 		Thread.sleep(3000);
+		
+		//displayAllTextViewElements("*");
 		
 		Assert.assertTrue(checkElementTextViewReturn("1(801)240-0104"));
 		Assert.assertTrue(checkElementTextViewReturn("(801) 867-5309"));	
@@ -1861,7 +1875,7 @@ public class LDSTools {
 	 * 
 	 */
 	private void displayAllTextViewElements(String textElement) {
-		List<WebElement> options= driver.findElements(By.xpath("//RobotoTextView[@value='" + textElement + "']"));
+		List<WebElement> options= driver.findElements(By.xpath("//" + textElement ));
 		for (int i = 0 ; i < options.size(); i++ ) {
 			System.out.println(options.get(i).getText());
 		}
@@ -3019,8 +3033,8 @@ public class LDSTools {
 		
 		//Unit Statistics
 		clickButtonByXpathTitleName("Unit Statistics");
-		Assert.assertTrue(checkElementTextViewReturn("599"));
-		Assert.assertTrue(checkElementTextViewReturn("270"));
+		Assert.assertTrue(checkElementTextViewReturn("600"));
+		Assert.assertTrue(checkElementTextViewReturn("271"));
 		Assert.assertTrue(checkElementTextViewReturn("14"));
 		Assert.assertFalse(checkElementTextViewReturn("8675309"));
 	}
