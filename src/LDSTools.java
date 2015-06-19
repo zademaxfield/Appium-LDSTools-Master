@@ -19,6 +19,9 @@ import java.util.Properties;
 
 
 
+
+
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 //import io.appium.java_client.android.AndroidDriver;
@@ -34,6 +37,9 @@ import io.selendroid.SelendroidKeys;
 
 
 
+
+
+
 import org.apache.commons.io.FileUtils;
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
@@ -43,6 +49,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
+import org.junit.runner.JUnitCore;
+import org.junit.runner.Request;
 import org.junit.runners.model.Statement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
@@ -65,6 +73,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 //Not used yet
 //import org.openqa.selenium.WebElement;
+
+import com.opera.core.systems.scope.protos.SelftestProtos.SelftestResult.Result;
 
 
 
@@ -92,7 +102,7 @@ public class LDSTools {
         //File appDir = new File(classpathRoot, "..\\..\\..\\..\\Selenium");
         //MAC Path
         File appDir = new File(classpathRoot, "../../../Selenium");
-        File app = new File(appDir, "ldstools-beta-20150522-1618.apk");
+        File app = new File(appDir, "ldstools-alpha-20150617-1540.apk");
         DesiredCapabilities capabilities = new DesiredCapabilities();
         //capabilities.setCapability(CapabilityType.BROWSER_NAME, "");
         capabilities.setCapability("platformName", "Android");
@@ -112,7 +122,7 @@ public class LDSTools {
         capabilities.setCapability("newCommandTimeout","600");
         capabilities.setCapability("platformVersion", "5.1");
         capabilities.setCapability("app", app.getAbsolutePath());
-        capabilities.setCapability("appPackage", "org.lds.ldstools");
+        capabilities.setCapability("appPackage", "org.lds.ldstools.dev");
         //capabilities.setCapability("appActivity", "org.lds.ldstools.ui.StartupActivity");
         //driver = new AndroidDriver(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
         driver = new AppiumSwipeableDriver(new URL("http://127.0.0.1:4444/wd/hub"),capabilities);
@@ -121,7 +131,7 @@ public class LDSTools {
     }	
 
 	
-    /*
+   
 	@Test
 	public void simpleTest() throws Exception {
 		Thread.sleep(4000);
@@ -134,11 +144,11 @@ public class LDSTools {
 		//editOtherUser();	
 		//editOtherUserInvalidPhone();	
 		//editOtherUserInvalidEmail();	
-		editVisibility();	
+		//editVisibility();	
 		//invalidLoginCheck();	
 		//loginCheck();	
 		
-		//LeaderNonBishopric("LDSTools24");
+		//LeaderNonBishopric("LDSTools17");
 
 		
 		
@@ -149,12 +159,12 @@ public class LDSTools {
 		//PatriarchOtherWards();
 		//TravisLyman();
 		//ElderKacher(); //Not working yet
-		//TerryBallard(); //Check to see Tim and Jessica Beck
+		TerryBallard(); //Check to see Tim and Jessica Beck
 		//AdminUnit();
 		//WardStakeCouncilor();
 
 	}
-	*/
+	
 	
 
 	public void justForTesting() throws Exception {
@@ -191,7 +201,7 @@ public class LDSTools {
 	}
 		
 	
-	
+	/*
 	
     @Rule
     public Retry retry = new Retry(3);
@@ -417,7 +427,7 @@ public class LDSTools {
 	//	loginCheck();	
 	//}
 	
-	
+	*/
 	
 	
 	
@@ -2586,12 +2596,12 @@ public class LDSTools {
 		Assert.assertTrue(checkReportText.contains("Atia, Aviata Seualuga"));
 		Assert.assertTrue(checkReportText.contains("Bishopric Second Counselor"));
 		Assert.assertTrue(checkReportText.contains("Faapili, Muipu"));
-		Assert.assertTrue(checkReportText.contains("Ward Executive Secretary"));
-		Assert.assertTrue(checkReportText.contains("Sitivi, Sitivi"));
+		//Assert.assertTrue(checkReportText.contains("Ward Executive Secretary"));
+		//Assert.assertTrue(checkReportText.contains("Sitivi, Sitivi"));
 		Assert.assertTrue(checkReportText.contains("Ward Clerk"));
 		Assert.assertTrue(checkReportText.contains("Tutunoa, Ualesi Junior, Jr"));
-		Assert.assertTrue(checkReportText.contains("Ward Assistant Clerk"));
-		Assert.assertTrue(checkReportText.contains("Sitivi, Tama Kiliona"));
+		//Assert.assertTrue(checkReportText.contains("Ward Assistant Clerk"));
+		//Assert.assertTrue(checkReportText.contains("Sitivi, Tama Kiliona"));
 		pressBackKey();
 		
 		//High Priests Group
@@ -2641,10 +2651,12 @@ public class LDSTools {
 		//Thread.sleep(1000);
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Young Men President"));
-		Assert.assertTrue(checkReportText.contains("Lavea, Vaelaa"));
+		Assert.assertTrue(checkReportText.contains("Kitara, Lafaele"));
 		Assert.assertTrue(checkReportText.contains("Young Men First Counselor"));
-		Assert.assertTrue(checkReportText.contains("Kitara, Peaulele"));
+		Assert.assertTrue(checkReportText.contains("Poai, Mikaele"));
 		Assert.assertTrue(checkReportText.contains("Young Men Second Counselor"));
+		Assert.assertTrue(checkReportText.contains("Faamoetauloa Panapa Jr, Panapa Jnr"));
+		Assert.assertTrue(checkReportText.contains("Young Men Secretary"));
 		Assert.assertTrue(checkReportText.contains("Venasio Fainuu, Fogavai"));
 		pressBackKey();
 		clickItemByXpathRoboText("Priests Quorum");
@@ -2667,10 +2679,10 @@ public class LDSTools {
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Young Women President"));
 		Assert.assertTrue(checkReportText.contains("Tutunoa, Lusi"));
-		//Assert.assertTrue(checkElementTextViewRoboReturn("Young Women Second Counselor"));
-		//Assert.assertTrue(checkElementTextViewRoboReturn("Lavea, Meise"));
-		Assert.assertTrue(checkReportText.contains("Young Women Secretary"));
-		Assert.assertTrue(checkReportText.contains("Lavea, Lonise"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Young Women First Counselor"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Kitara, Etevise"));
+		//Assert.assertTrue(checkReportText.contains("Young Women Secretary"));
+		//Assert.assertTrue(checkReportText.contains("Lavea, Lonise"));
 		pressBackKey();
 		Thread.sleep(1000);
 		pressBackKey();
@@ -2684,8 +2696,8 @@ public class LDSTools {
 		Assert.assertTrue(checkReportText.contains("Sunday School President"));
 		Assert.assertTrue(checkReportText.contains("Lealaiauloto, Uana Iosefa Sao"));
 		Assert.assertTrue(checkReportText.contains("Sunday School First Counselor"));
-		Assert.assertTrue(checkReportText.contains("Mene, Sitivi"));
-		Assert.assertTrue(checkReportText.contains("Sunday School Second Counselor"));
+		//Assert.assertTrue(checkReportText.contains("Apofasa, S"));
+		//Assert.assertTrue(checkReportText.contains("Sunday School Second Counselor"));
 		//Assert.assertTrue(checkElementTextViewRoboReturn("Apofasa, Sasa'a"));
 		pressBackKey();
 		Thread.sleep(1000);
@@ -2697,11 +2709,11 @@ public class LDSTools {
 		//Thread.sleep(1000);
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Primary President"));
-		Assert.assertTrue(checkReportText.contains("Kitara, Tutulu"));
+		Assert.assertTrue(checkReportText.contains("Faamoe, Talalelagi"));
 		Assert.assertTrue(checkReportText.contains("Primary First Counselor"));
-		Assert.assertTrue(checkReportText.contains("Ami, Lealofi"));
-		Assert.assertTrue(checkReportText.contains("Primary Second Counselor"));
 		Assert.assertTrue(checkReportText.contains("Fepuleai, Malele Seuamuli"));
+		Assert.assertTrue(checkReportText.contains("Primary Second Counselor"));
+		Assert.assertTrue(checkReportText.contains("Tulia, Faagalo"));
 		Assert.assertTrue(checkReportText.contains("Primary Secretary"));
 		Assert.assertTrue(checkReportText.contains("Samu, Luisa"));
 		pressBackKey();
@@ -2888,8 +2900,8 @@ public class LDSTools {
 		//Members with Callings
 		clickButtonByXpathTitleName("Members with Callings");
 		checkReportText = getAllText();
-		Assert.assertTrue(checkReportText.contains("Ami, Lealofi"));
-		Assert.assertTrue(checkReportText.contains("Primary First Counselor (1 year, 3 months)"));
+		Assert.assertTrue(checkReportText.contains("Ami, Samu"));
+		Assert.assertTrue(checkReportText.contains("Bishop (1 year, 8 months)"));
 		Assert.assertFalse(checkReportText.contains("Skywalker, Anakin"));
 		
 		/*
@@ -2913,8 +2925,8 @@ public class LDSTools {
 		
 		clickButtonByXpathTitleName("DURATION");
 		checkReportText = getAllText();
-		Assert.assertTrue(checkReportText.contains("Ward Assistant Clerk"));
-		Assert.assertTrue(checkReportText.contains("Sitivi, Tama Kiliona"));
+		Assert.assertTrue(checkReportText.contains("Ward Clerk"));
+		Assert.assertTrue(checkReportText.contains("Tutunoa, Ualesi Junior, Jr"));
 		Assert.assertFalse(checkReportText.contains("Amidala, Padme"));
 		
 		/*
@@ -2925,8 +2937,8 @@ public class LDSTools {
 		
 		clickButtonByXpathTitleName("NOT SET APART");
 		checkReportText = getAllText();
-		Assert.assertTrue(checkReportText.contains("Ward Assistant Clerk (3 years, 3 months)"));
-		Assert.assertTrue(checkReportText.contains("Sitivi, Tama Kiliona"));
+		Assert.assertTrue(checkReportText.contains("Elders Quorum First Counselor (2 months)"));
+		Assert.assertTrue(checkReportText.contains("Tautali, Tamafaiga"));
 		Assert.assertFalse(checkReportText.contains("P0, C3"));
 		
 		/*
@@ -3126,7 +3138,7 @@ public class LDSTools {
 			return null;
 		}
 	}
-	
+
 	
 	//Retry Test needed so the system will retry a failed test
     public class Retry implements TestRule {
