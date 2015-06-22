@@ -102,7 +102,7 @@ public class LDSTools {
         //File appDir = new File(classpathRoot, "..\\..\\..\\..\\Selenium");
         //MAC Path
         File appDir = new File(classpathRoot, "../../../Selenium");
-        File app = new File(appDir, "ldstools-alpha-20150617-1540.apk");
+        File app = new File(appDir, "ldstools-alpha-20150621-1626.apk");
         DesiredCapabilities capabilities = new DesiredCapabilities();
         //capabilities.setCapability(CapabilityType.BROWSER_NAME, "");
         capabilities.setCapability("platformName", "Android");
@@ -131,7 +131,7 @@ public class LDSTools {
     }	
 
 	
-   
+   /*
 	@Test
 	public void simpleTest() throws Exception {
 		Thread.sleep(4000);
@@ -148,7 +148,7 @@ public class LDSTools {
 		//invalidLoginCheck();	
 		//loginCheck();	
 		
-		//LeaderNonBishopric("LDSTools17");
+		LeaderNonBishopric("LDSTools17");
 
 		
 		
@@ -159,12 +159,12 @@ public class LDSTools {
 		//PatriarchOtherWards();
 		//TravisLyman();
 		//ElderKacher(); //Not working yet
-		TerryBallard(); //Check to see Tim and Jessica Beck
+		//TerryBallard(); //Check to see Tim and Jessica Beck
 		//AdminUnit();
 		//WardStakeCouncilor();
 
 	}
-	
+	*/
 	
 
 	public void justForTesting() throws Exception {
@@ -201,7 +201,7 @@ public class LDSTools {
 	}
 		
 	
-	/*
+	
 	
     @Rule
     public Retry retry = new Retry(3);
@@ -427,7 +427,7 @@ public class LDSTools {
 	//	loginCheck();	
 	//}
 	
-	*/
+	
 	
 	
 	
@@ -2901,7 +2901,7 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Members with Callings");
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Ami, Samu"));
-		Assert.assertTrue(checkReportText.contains("Bishop (1 year, 8 months)"));
+		Assert.assertTrue(checkReportText.contains("Bishop (1 year, 9 months)"));
 		Assert.assertFalse(checkReportText.contains("Skywalker, Anakin"));
 		
 		/*
@@ -2914,7 +2914,7 @@ public class LDSTools {
 		clickButtonByXpathTitleName("ORGANIZATION");
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Bishop"));
-		Assert.assertTrue(checkReportText.contains("Ami, Samu (1 year, 8 months)"));
+		Assert.assertTrue(checkReportText.contains("Ami, Samu (1 year, 9 months)"));
 		Assert.assertFalse(checkReportText.contains("Kenobi, Obi-Wan"));
 		
 		/*
