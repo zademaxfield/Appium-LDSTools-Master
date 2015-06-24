@@ -130,8 +130,8 @@ public class LDSTools {
 
     }	
 
-	
-   /*
+	/*
+   
 	@Test
 	public void simpleTest() throws Exception {
 		Thread.sleep(4000);
@@ -2593,9 +2593,9 @@ public class LDSTools {
 		Assert.assertTrue(checkReportText.contains("Bishop"));
 		Assert.assertTrue(checkReportText.contains("Ami, Samu"));
 		Assert.assertTrue(checkReportText.contains("Bishopric First Counselor"));
-		Assert.assertTrue(checkReportText.contains("Atia, Aviata Seualuga"));
-		Assert.assertTrue(checkReportText.contains("Bishopric Second Counselor"));
-		Assert.assertTrue(checkReportText.contains("Faapili, Muipu"));
+		Assert.assertTrue(checkReportText.contains("AFPMisc, Member15"));
+		//Assert.assertTrue(checkReportText.contains("Bishopric Second Counselor"));
+		//Assert.assertTrue(checkReportText.contains("Faapili, Muipu"));
 		//Assert.assertTrue(checkReportText.contains("Ward Executive Secretary"));
 		//Assert.assertTrue(checkReportText.contains("Sitivi, Sitivi"));
 		Assert.assertTrue(checkReportText.contains("Ward Clerk"));
@@ -2663,8 +2663,12 @@ public class LDSTools {
 		Thread.sleep(1000);
 		checkReportText = getAllText();
 		//clickItemByXpathRoboText("Priests Quorum Presidency");
-		Assert.assertTrue(checkReportText.contains("Priests Quorum President"));
-		Assert.assertTrue(checkReportText.contains("Ami, Samu"));
+		Assert.assertTrue(checkReportText.contains("Priests Quorum First Assistant"));
+		Assert.assertTrue(checkReportText.contains("Tulia, Tiueni"));
+		Assert.assertTrue(checkReportText.contains("Priests Quorum Second Assistant"));
+		Assert.assertTrue(checkReportText.contains("Kitara, Tumua"));
+		Assert.assertTrue(checkReportText.contains("Priests Quorum Secretary"));
+		//Assert.assertTrue(checkReportText.contains("Matulino-loane, Tau"));
 		pressBackKey();
 		Thread.sleep(1000);
 		pressBackKey();
@@ -3045,7 +3049,7 @@ public class LDSTools {
 		
 		//Unit Statistics
 		clickButtonByXpathTitleName("Unit Statistics");
-		Assert.assertTrue(checkElementTextViewReturn("600"));
+		Assert.assertTrue(checkElementTextViewReturn("602"));
 		Assert.assertTrue(checkElementTextViewReturn("271"));
 		Assert.assertTrue(checkElementTextViewReturn("14"));
 		Assert.assertFalse(checkElementTextViewReturn("8675309"));
