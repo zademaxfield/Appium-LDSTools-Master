@@ -102,7 +102,7 @@ public class LDSTools {
         //File appDir = new File(classpathRoot, "..\\..\\..\\..\\Selenium");
         //MAC Path
         File appDir = new File(classpathRoot, "../../../Selenium");
-        File app = new File(appDir, "ldstools-alpha-20150621-1626.apk");
+        File app = new File(appDir, "ldstools-alpha-20150728-0006.apk");
         DesiredCapabilities capabilities = new DesiredCapabilities();
         //capabilities.setCapability(CapabilityType.BROWSER_NAME, "");
         capabilities.setCapability("platformName", "Android");
@@ -130,8 +130,8 @@ public class LDSTools {
 
     }	
 
-	/*
-   
+	
+    
 	@Test
 	public void simpleTest() throws Exception {
 		Thread.sleep(4000);
@@ -164,7 +164,7 @@ public class LDSTools {
 		//WardStakeCouncilor();
 
 	}
-	*/
+	
 	
 
 	public void justForTesting() throws Exception {
@@ -202,7 +202,7 @@ public class LDSTools {
 		
 	
 	
-	
+	/*
     @Rule
     public Retry retry = new Retry(3);
 	
@@ -426,7 +426,7 @@ public class LDSTools {
 	//public void loginCheckTest() throws Exception {
 	//	loginCheck();	
 	//}
-	
+	*/
 	
 	
 	
@@ -623,6 +623,7 @@ public class LDSTools {
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
 		
+		Thread.sleep(2000);
 		//Check to see if the user can view the directory
 		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
 		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
@@ -672,6 +673,7 @@ public class LDSTools {
 		
 		//pressBackKey();
 		//Collapse the search 
+		Thread.sleep(1000);
 		clickButtonByXpath("Back");
 		clickButtonByXpath("SearchCollapse");
 		
@@ -719,6 +721,7 @@ public class LDSTools {
 		
 		//startTime = System.currentTimeMillis();
 		//Check to see if the user can view the directory
+		Thread.sleep(2000);
 		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
 		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
 		//endTime = System.currentTimeMillis();
@@ -2045,6 +2048,7 @@ public class LDSTools {
 	 * @param textToSend - Text to send to the element
 	 */
 	private void sendTextbyXpath(String textElement, String textToSend ) {
+		//System.out.println("Text to send: " + textToSend);
 		driver.findElement(By.xpath(this.prop.getProperty(textElement))).sendKeys(textToSend);
 	}
 	
@@ -2444,6 +2448,7 @@ public class LDSTools {
 	private void checkDirectoryUser(boolean memberShipInfo, boolean fullName, boolean birthDate, boolean recordNumber, boolean ordinances ) throws Exception {
 		//Search for logged in user
 		clickButtonByID("MenuSearch");
+		Thread.sleep(2000);
 		sendTextbyXpath("SearchArea", "Aaron, Jane");
 		
 		
@@ -2452,7 +2457,7 @@ public class LDSTools {
 		clickLastTextViewRoboReturn("Aaron, Jane");
 		Thread.sleep(2000);
 		clickLastTextViewRoboReturn("Aaron, Jane");
-		
+		Thread.sleep(2000);
 		//All Members should be able to view the following information
 		Assert.assertTrue(checkElementTextViewReturn("Jane Aaron"));
 		Assert.assertTrue(checkElementTextViewReturn("Fagamalo 1st Ward"));
@@ -2534,7 +2539,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 
 		pressBackKey();
-		
+		Thread.sleep(2000);
 		//Collapse the search 
 		clickButtonByXpath("SearchCollapse");
 	}
@@ -2588,26 +2593,30 @@ public class LDSTools {
 		
 		//Bishopric
 		clickItemByXpathRoboText("Bishopric");
-		//Thread.sleep(1000);
+		Thread.sleep(1000);
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Bishop"));
 		Assert.assertTrue(checkReportText.contains("Ami, Samu"));
-		Assert.assertTrue(checkReportText.contains("Bishopric First Counselor"));
-		Assert.assertTrue(checkReportText.contains("AFPMisc, Member15"));
-		//Assert.assertTrue(checkReportText.contains("Bishopric Second Counselor"));
-		//Assert.assertTrue(checkReportText.contains("Faapili, Muipu"));
+		//Assert.assertTrue(checkReportText.contains("Bishopric First Counselor"));
+		//Assert.assertTrue(checkReportText.contains("AFPMisc, Member15"));
+		Assert.assertTrue(checkReportText.contains("Bishopric Second Counselor"));
+		Assert.assertTrue(checkReportText.contains("Faapili, Muipu"));
 		//Assert.assertTrue(checkReportText.contains("Ward Executive Secretary"));
 		//Assert.assertTrue(checkReportText.contains("Sitivi, Sitivi"));
 		Assert.assertTrue(checkReportText.contains("Ward Clerk"));
 		Assert.assertTrue(checkReportText.contains("Tutunoa, Ualesi Junior, Jr"));
 		//Assert.assertTrue(checkReportText.contains("Ward Assistant Clerk"));
 		//Assert.assertTrue(checkReportText.contains("Sitivi, Tama Kiliona"));
+		//Assert.assertTrue(checkReportText.contains("Ward Assistant Clerk--Membership"));
+		//Assert.assertTrue(checkReportText.contains("Whitesel, Jason Raymond"));
+		Thread.sleep(1000);
 		pressBackKey();
+		Thread.sleep(1000);
 		
 		//High Priests Group
 		clickItemByXpathRoboText("High Priests Group");
 		clickItemByXpathRoboText("High Priests Group Leadership");
-		//Thread.sleep(1000);
+		Thread.sleep(1000);
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("High Priests Group Leader"));
 		Assert.assertTrue(checkReportText.contains("Faamoe, Panapa Filifili"));
@@ -2618,7 +2627,7 @@ public class LDSTools {
 		//Elders Quorum
 		clickItemByXpathRoboText("Elders Quorum");
 		clickItemByXpathRoboText("Elders Quorum Presidency");
-		//Thread.sleep(1000);
+		Thread.sleep(1000);
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Elders Quorum President"));
 		Assert.assertTrue(checkReportText.contains("Kitara, Peaulele"));
@@ -2630,7 +2639,7 @@ public class LDSTools {
 		//Relief Society
 		clickItemByXpathRoboText("Relief Society");
 		clickItemByXpathRoboText("Relief Society Presidency");
-		//Thread.sleep(1000);
+		Thread.sleep(1000);
 		checkReportText = getAllText();
 		//displayAllTextViewElements();
 		Assert.assertTrue(checkReportText.contains("Relief Society President"));
@@ -2648,7 +2657,7 @@ public class LDSTools {
 		//Young Men
 		clickItemByXpathRoboText("Young Men");
 		clickItemByXpathRoboText("Young Men Presidency");
-		//Thread.sleep(1000);
+		Thread.sleep(1000);
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Young Men President"));
 		Assert.assertTrue(checkReportText.contains("Kitara, Lafaele"));
@@ -2659,6 +2668,7 @@ public class LDSTools {
 		Assert.assertTrue(checkReportText.contains("Young Men Secretary"));
 		Assert.assertTrue(checkReportText.contains("Venasio Fainuu, Fogavai"));
 		pressBackKey();
+		Thread.sleep(1000);
 		clickItemByXpathRoboText("Priests Quorum");
 		Thread.sleep(1000);
 		checkReportText = getAllText();
@@ -2695,7 +2705,7 @@ public class LDSTools {
 		//Sunday School
 		clickItemByXpathRoboText("Sunday School");
 		clickItemByXpathRoboText("Sunday School Presidency");
-		//Thread.sleep(1000);
+		Thread.sleep(1000);
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Sunday School President"));
 		Assert.assertTrue(checkReportText.contains("Lealaiauloto, Uana Iosefa Sao"));
@@ -2710,7 +2720,7 @@ public class LDSTools {
 		//Primary
 		clickItemByXpathRoboText("Primary");
 		clickItemByXpathRoboText("Primary Presidency");
-		//Thread.sleep(1000);
+		Thread.sleep(1000);
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Primary President"));
 		Assert.assertTrue(checkReportText.contains("Faamoe, Talalelagi"));
@@ -2727,7 +2737,7 @@ public class LDSTools {
 
 		//Ward Missionaries
 		clickItemByXpathRoboText("Ward Missionaries");
-		//Thread.sleep(1000);
+		Thread.sleep(1000);
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Mission Leader"));
 		Assert.assertTrue(checkReportText.contains("Kitara, Lafaele"));
@@ -2737,13 +2747,13 @@ public class LDSTools {
 		//Other Callings
 		clickItemByXpathRoboText("Other Callings");
 		clickItemByXpathRoboText("Young Single Adult");
-		//Thread.sleep(1000);
+		Thread.sleep(1000);
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Young Single Adult Leader"));
 		Assert.assertTrue(checkReportText.contains("Solomona, Solomona"));
 		pressBackKey();
 		clickItemByXpathRoboText("Music");
-		//Thread.sleep(1000);
+		Thread.sleep(1000);
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Music Adviser"));
 		//Assert.assertTrue(checkElementTextViewRoboReturn("Frost,Sato'a"));
@@ -2763,9 +2773,10 @@ public class LDSTools {
 		//Missionary
 		clickButtonByXpath("Drawer");
 		clickButtonByXpath("DrawerMissionary");
-		Assert.assertTrue(checkElementTextViewRoboReturn("Elder Tearoa Tuala"));
+		Thread.sleep(1000);
+		Assert.assertTrue(checkElementTextViewRoboReturn("Elder Dallin Fawcett"));
 		Assert.assertTrue(checkElementTextViewRoboReturn("Samoa Apia Mission"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Elder Afa Avelima Alaivaa"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Elder Kawika Tupuola"));
 		Assert.assertTrue(checkElementTextViewRoboReturn("Samoa Apia Mission"));
 		Assert.assertTrue(checkElementTextViewRoboReturn("Kitara, Lafaele"));
 		Assert.assertTrue(checkElementTextViewRoboReturn("Mission Leader"));
@@ -2842,17 +2853,17 @@ public class LDSTools {
 		Thread.sleep(1000);
 		checkReportText = getAllText();
 		
-		Assert.assertTrue(checkReportText.contains("Wilson, Nora"));
+		Assert.assertTrue(checkReportText.contains("Brimley, Steve"));
 		//Birth Date
 		//TODO need to have the age calculated
-		Assert.assertTrue(checkReportText.contains("October 10, 1936 (78)"));
-		Assert.assertTrue(checkReportText.contains("May 17, 2015"));
+		Assert.assertTrue(checkReportText.contains("July 2, 1963 (52)"));
+		Assert.assertTrue(checkReportText.contains("July 6, 2015"));
 		
 		//The new unit is only available for bishop
 		if (bishop == true){
-			Assert.assertTrue(checkReportText.contains("Johnstone Ward"));
+			Assert.assertTrue(checkReportText.contains("Cedar Hills  8th Ward"));
 		} else {
-			Assert.assertFalse(checkReportText.contains("Johnstone Ward"));
+			Assert.assertFalse(checkReportText.contains("Cedar Hills 8th Ward"));
 		}
 		Assert.assertFalse(checkReportText.contains("Solo, Han"));
 		
@@ -2883,10 +2894,12 @@ public class LDSTools {
 		//clickButtonByXpath("DrawerReports");
 		
 		//Members Moved In
+		Thread.sleep(1000);
 		clickButtonByXpathTitleName("Members Moved In");
+		Thread.sleep(1000);
 		checkReportText = getAllText();
-		Assert.assertTrue(checkReportText.contains("Whitesel"));
-		Assert.assertTrue(checkReportText.contains("Becky (39)"));
+		Assert.assertTrue(checkReportText.contains("Sa"));
+		Assert.assertTrue(checkReportText.contains("Seti (55)"));
 		Assert.assertTrue(checkReportText.contains("Head of household"));
 		Assert.assertFalse(checkReportText.contains("Skywalker, Luke"));
 		
@@ -2896,16 +2909,17 @@ public class LDSTools {
 		Assert.assertTrue(checkElementTextViewReturn("Head of household"));
 		Assert.assertFalse(checkElementTextViewReturn("Skywalker, Luke"));
 		*/
-		
+		Thread.sleep(1000);
 		pressBackKey();
+		Thread.sleep(1000);
 		//clickButtonByXpath("Drawer");
 		//clickButtonByXpath("DrawerReports");
 		
 		//Members with Callings
 		clickButtonByXpathTitleName("Members with Callings");
 		checkReportText = getAllText();
-		Assert.assertTrue(checkReportText.contains("Ami, Samu"));
-		Assert.assertTrue(checkReportText.contains("Bishop (1 year, 9 months)"));
+		Assert.assertTrue(checkReportText.contains("AFPMisc, Member15"));
+		Assert.assertTrue(checkReportText.contains("Bishopric First Counselor (1 month)"));
 		Assert.assertFalse(checkReportText.contains("Skywalker, Anakin"));
 		
 		/*
@@ -2917,8 +2931,8 @@ public class LDSTools {
 		
 		clickButtonByXpathTitleName("ORGANIZATION");
 		checkReportText = getAllText();
-		Assert.assertTrue(checkReportText.contains("Bishop"));
-		Assert.assertTrue(checkReportText.contains("Ami, Samu (1 year, 9 months)"));
+		Assert.assertTrue(checkReportText.contains("Ward Clerk"));
+		Assert.assertTrue(checkReportText.contains("Tutunoa, Ualesi Junior, Jr (3 years, 5 months)"));
 		Assert.assertFalse(checkReportText.contains("Kenobi, Obi-Wan"));
 		
 		/*
@@ -2941,7 +2955,7 @@ public class LDSTools {
 		
 		clickButtonByXpathTitleName("NOT SET APART");
 		checkReportText = getAllText();
-		Assert.assertTrue(checkReportText.contains("Elders Quorum First Counselor (2 months)"));
+		Assert.assertTrue(checkReportText.contains("Elders Quorum First Counselor (3 months)"));
 		Assert.assertTrue(checkReportText.contains("Tautali, Tamafaiga"));
 		Assert.assertFalse(checkReportText.contains("P0, C3"));
 		
@@ -2950,8 +2964,9 @@ public class LDSTools {
 		Assert.assertTrue(checkElementTextViewReturn("Sitivi, Tama Kiliona"));
 		Assert.assertFalse(checkElementTextViewReturn("P0, C3"));
 		*/
+		Thread.sleep(1000);
 		pressBackKey();
-		
+		Thread.sleep(1000);
 		//Members without Callings
 		clickButtonByXpathTitleName("Members without Callings");
 		checkReportText = getAllText();
@@ -2985,8 +3000,9 @@ public class LDSTools {
 		Assert.assertTrue(checkElementTextViewRoboReturn("AFPFive, Wife"));
 		Assert.assertFalse(checkElementTextViewRoboReturn("Organa, Leia"));
 		*/
+		Thread.sleep(1000);
 		pressBackKey();
-		
+		Thread.sleep(1000);
 		
 		//New Members
 		clickButtonByXpathTitleName("New Members");
@@ -3016,7 +3032,9 @@ public class LDSTools {
 		Assert.assertTrue(checkElementTextViewReturn("Member"));
 		Assert.assertFalse(checkElementTextViewReturn("Hutt, Jabba"));
 		*/
+		Thread.sleep(1000);
 		pressBackKey();
+		Thread.sleep(1000);
 		
 		if (newUnit == true ) {
 			//Temple Recommend Status
@@ -3041,7 +3059,9 @@ public class LDSTools {
 			clickButtonByXpathTitleName("OTHER");
 			Assert.assertTrue(checkElementTextViewReturn("Mene, Matagalu"));
 			Assert.assertFalse(checkElementTextViewReturn("Calrissian, Lando"));
+			Thread.sleep(1000);
 			pressBackKey();
+			Thread.sleep(1000);
 		} else {
 			Assert.assertFalse(checkElementTextViewReturn("Temple Recommend Status"));
 		}
@@ -3049,9 +3069,9 @@ public class LDSTools {
 		
 		//Unit Statistics
 		clickButtonByXpathTitleName("Unit Statistics");
-		Assert.assertTrue(checkElementTextViewReturn("602"));
+		Assert.assertTrue(checkElementTextViewReturn("603"));
 		Assert.assertTrue(checkElementTextViewReturn("271"));
-		Assert.assertTrue(checkElementTextViewReturn("14"));
+		Assert.assertTrue(checkElementTextViewReturn("15"));
 		Assert.assertFalse(checkElementTextViewReturn("8675309"));
 	}
 	
@@ -3066,7 +3086,9 @@ public class LDSTools {
 			//System.out.println(options.get(i).getText());
 			StakeWard.add(options.get(i).getText());
 		}
+		Thread.sleep(1000);
 		pressBackKey();
+		Thread.sleep(1000);
 		
 		//Go through each Stake and Ward to make sure it isn't blank
 		for(String StakeWardItem : StakeWard){
