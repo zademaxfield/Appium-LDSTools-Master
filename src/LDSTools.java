@@ -102,7 +102,7 @@ public class LDSTools {
         //File appDir = new File(classpathRoot, "..\\..\\..\\..\\Selenium");
         //MAC Path
         File appDir = new File(classpathRoot, "../../../Selenium");
-        File app = new File(appDir, "ldstools-alpha-20150728-0006.apk");
+        File app = new File(appDir, "ldstools-alpha-20150820-1808.apk");
         DesiredCapabilities capabilities = new DesiredCapabilities();
         //capabilities.setCapability(CapabilityType.BROWSER_NAME, "");
         capabilities.setCapability("platformName", "Android");
@@ -111,7 +111,9 @@ public class LDSTools {
         //HTC Nexus 9
         //capabilities.setCapability("deviceName","HT4ASJT02851");
         //Nexus 5
-        capabilities.setCapability("deviceName","03aadbed215c8e5f");
+        //capabilities.setCapability("deviceName","03aadbed215c8e5f");
+        //Samsung Tab
+        capabilities.setCapability("deviceName","42f7920b622d9fa3");
         // Android Emulator
         //capabilities.setCapability("deviceName","Android Emulator");
         //Samsung Galaxy Note 4
@@ -144,11 +146,11 @@ public class LDSTools {
 		//editOtherUser();	
 		//editOtherUserInvalidPhone();	
 		//editOtherUserInvalidEmail();	
-		//editVisibility();	
+		editVisibility();	
 		//invalidLoginCheck();	
 		//loginCheck();	
 		
-		LeaderNonBishopric("LDSTools17");
+		//LeaderNonBishopric("LDSTools17");
 
 		
 		
@@ -426,9 +428,9 @@ public class LDSTools {
 	//public void loginCheckTest() throws Exception {
 	//	loginCheck();	
 	//}
+	
+	
 	*/
-	
-	
 	
 	
 //**************************************************************
@@ -547,6 +549,7 @@ public class LDSTools {
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
 		
+		Thread.sleep(2000);
 		//Check to see if the user can view the directory
 		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
 		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
@@ -578,7 +581,7 @@ public class LDSTools {
 		//clickButtonByXpathTitleName("Ordinances");
 		//Need to test the Ordinances
 		pressBackKey();
-		
+		Thread.sleep(1000);
 		
 		//Collapse the search 
 		clickButtonByXpath("SearchCollapse");
@@ -790,9 +793,9 @@ public class LDSTools {
 		
 		//Check the users name, address membership number etc...
 		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS100"));
-		
+		Thread.sleep(2000);
 		clickButtonByXpath("MenuEdit");
-		
+		Thread.sleep(2000);
 		clearTextFieldXpath("EditPersonalPhone");
 		clearTextFieldXpath("EditHomePhone");
 		clearTextFieldXpath("EditPersonalEmail");
@@ -801,8 +804,9 @@ public class LDSTools {
 		clickButtonByXpath("MenuSave");
 		
 		
-		
+		Thread.sleep(2000);
 		clickButtonByXpath("MenuEdit");
+		Thread.sleep(2000);
 		
 		sendTextbyXpath("EditPersonalPhone", "1(801)240-0104");
 		sendTextbyXpath("EditHomePhone", "(801) 867-5309");
@@ -818,7 +822,7 @@ public class LDSTools {
 		Assert.assertTrue(checkElementTextViewReturn("home@nospam.com"));
 		
 		pressBackKey();
-		
+		Thread.sleep(2000);
 		//Collapse the search 
 		clickButtonByXpath("SearchCollapse");
 		
@@ -848,7 +852,9 @@ public class LDSTools {
 		Assert.assertTrue(checkElementTextViewReturn("personal@nospam.com"));
 		Assert.assertTrue(checkElementTextViewReturn("home@nospam.com"));
 		
+		Thread.sleep(1000);
 		clickButtonByXpath("MenuEdit");
+		Thread.sleep(1000);
 		
 		clearTextFieldXpath("EditPersonalPhone");
 		clearTextFieldXpath("EditHomePhone");
@@ -893,8 +899,9 @@ public class LDSTools {
 		//Check the users name, address membership number etc...
 		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS41"));
 		
-		
+		Thread.sleep(1000);
 		clickButtonByXpath("MenuEdit");
+		Thread.sleep(1000);
 		
 		clearTextFieldXpath("EditPersonalPhone");
 		clearTextFieldXpath("EditHomePhone");
@@ -904,8 +911,9 @@ public class LDSTools {
 		clickButtonByXpath("MenuSave");
 		
 		
-		
+		Thread.sleep(1000);
 		clickButtonByXpath("MenuEdit");
+		Thread.sleep(1000);
 		
 		sendTextbyXpath("EditPersonalPhone", "1(801)240-0104");
 		sendTextbyXpath("EditHomePhone", "(801) 867-5309");
@@ -921,9 +929,9 @@ public class LDSTools {
 		Assert.assertTrue(checkElementTextViewReturn("(801) 867-5309"));	
 		Assert.assertTrue(checkElementTextViewReturn("personal@nospam.com"));
 		Assert.assertTrue(checkElementTextViewReturn("home@nospam.com"));
-		
+		Thread.sleep(1000);
 		pressBackKey();
-		
+		Thread.sleep(1000);
 		//Collapse the search 
 		clickButtonByXpath("SearchCollapse");
 		
@@ -953,13 +961,15 @@ public class LDSTools {
 		Assert.assertTrue(checkElementTextViewReturn("personal@nospam.com"));
 		Assert.assertTrue(checkElementTextViewReturn("home@nospam.com"));
 		
+		Thread.sleep(1000);
 		clickButtonByXpath("MenuEdit");
+		Thread.sleep(1000);
 		
 		clearTextFieldXpath("EditPersonalPhone");
 		clearTextFieldXpath("EditHomePhone");
 		clearTextFieldXpath("EditPersonalEmail");
 		clearTextFieldXpath("EditHomeEmail");
-
+		Thread.sleep(3000);
 		clickButtonByXpath("MenuSave");
 		
 		Thread.sleep(3000);
@@ -995,18 +1005,21 @@ public class LDSTools {
 		//Check the users name, address membership number etc...
 		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS41"));
 		
+		Thread.sleep(1000);
 		clickButtonByXpath("MenuEdit");
+		Thread.sleep(1000);
 		
 		clearTextFieldXpath("EditPersonalPhone");
 		clearTextFieldXpath("EditHomePhone");
 		clearTextFieldXpath("EditPersonalEmail");
 		clearTextFieldXpath("EditHomeEmail");
-
+		Thread.sleep(1000);
 		clickButtonByXpath("MenuSave");
 		
 		
-		
+		Thread.sleep(2000);
 		clickButtonByXpath("MenuEdit");
+		Thread.sleep(2000);
 		
 		sendTextbyXpath("EditPersonalPhone", "######00000000000*****");
 		sendTextbyXpath("EditHomePhone", "878974131648413216421321165484789798461321314644444244624424524245244545644644856465784967465456464144134424342446244323644524452344623446542326342542");
@@ -1021,7 +1034,9 @@ public class LDSTools {
 		pressBackKey();
 		
 		//Collapse the search 
+		Thread.sleep(1000);
 		clickButtonByXpath("SearchCollapse");
+		Thread.sleep(1000);
 		
 		clickButtonByXpath("Drawer");
 		clickButtonByXpath("DrawerSYNC");
@@ -1088,7 +1103,9 @@ public class LDSTools {
 		//Check the users name, address membership number etc...
 		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS41"));
 		
+		Thread.sleep(1000);
 		clickButtonByXpath("MenuEdit");
+		Thread.sleep(1000);
 		
 		clearTextFieldXpath("EditPersonalPhone");
 		clearTextFieldXpath("EditHomePhone");
@@ -1098,9 +1115,10 @@ public class LDSTools {
 		clickButtonByXpath("MenuSave");
 		
 		
-		
+		Thread.sleep(2000);
 		clickButtonByXpath("MenuEdit");
-
+		Thread.sleep(2000);
+		
 		sendTextbyXpath("EditPersonalEmail", "thisisaninvalidemailaddress");
 		clickButtonByXpath("MenuSave");
 		Assert.assertTrue(checkElementTextViewReturnContains("valid email"));
@@ -1136,10 +1154,10 @@ public class LDSTools {
 
 		
 		pressBackKey();
-		
+		Thread.sleep(2000);
 		//Collapse the search 
 		clickButtonByXpath("SearchCollapse");
-		
+		Thread.sleep(2000);
 		clickButtonByXpath("Drawer");
 		clickButtonByXpath("DrawerSYNC");
 		clickButtonByXpath("AlertOK");
@@ -1179,6 +1197,7 @@ public class LDSTools {
 		
 		//Select the user
 		//clickItemByXpathRoboText("Tools, LDS5");
+		Thread.sleep(2000);
 		clickLastTextViewRoboReturn("Tools, LDS5");
 		Thread.sleep(2000);
 		clickLastTextViewRoboReturn("Tools, LDS5");
@@ -1186,8 +1205,9 @@ public class LDSTools {
 		
 		//Check the users name, address membership number etc...
 		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS5"));
-		clickButtonByXpath("MenuEdit");
 		Thread.sleep(1000);
+		clickButtonByXpath("MenuEdit");
+		Thread.sleep(2000);
 		scrollDown("Stake Visibility", -1000 );
 		//clickButtonByXpath("EditVisibiltySpinner");
 
@@ -1202,8 +1222,10 @@ public class LDSTools {
 		Thread.sleep(3000);
 		pressBackKey();
 		
+		Thread.sleep(1000);
 		//Collapse the search 
 		clickButtonByXpath("SearchCollapse");
+		Thread.sleep(1000);
 		
 		//Log out 
 		clickButtonByXpath("Drawer");
@@ -1231,6 +1253,7 @@ public class LDSTools {
 		clickButtonByXpath("Drawer");
 		clickButtonByXpath("DrawerSETTINGS");
 		
+		Thread.sleep(1000);
 		clickButtonByXpathTitleName("Sign Out");
 		clickButtonByXpath("SignOutOK");
 		
@@ -1254,6 +1277,7 @@ public class LDSTools {
 		
 		//Check the users name, address membership number etc...
 		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS5"));
+		Thread.sleep(1000);
 		clickButtonByXpath("MenuEdit");
 		
 		Thread.sleep(3000);
@@ -1277,16 +1301,18 @@ public class LDSTools {
 		//pressBackKey();
 		pressBackKey();
 		
+		Thread.sleep(1000);
 		//Collapse the search 
 		clickButtonByXpath("SearchCollapse");
+		Thread.sleep(1000);
 		
 		//Log out 
 		clickButtonByXpath("Drawer");
 		clickButtonByXpath("DrawerSETTINGS");
-		
+		Thread.sleep(1000);
 		clickButtonByXpathTitleName("Sign Out");
 		clickButtonByXpath("SignOutOK");
-		
+		Thread.sleep(1000);
 		syncLogIn("LDSTools6", "toolstester", "UAT" );
 		Thread.sleep(2000);
 		
@@ -2630,7 +2656,9 @@ public class LDSTools {
 		Thread.sleep(1000);
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Elders Quorum President"));
-		Assert.assertTrue(checkReportText.contains("Kitara, Peaulele"));
+		Assert.assertTrue(checkReportText.contains("Tutunoa, Joe Liuafi"));
+		Assert.assertTrue(checkReportText.contains("Elders Quorum First Counselor"));
+		Assert.assertTrue(checkReportText.contains("Tautali, Tamafaiga"));
 		pressBackKey();
 		Thread.sleep(1000);
 		pressBackKey();
@@ -2918,8 +2946,8 @@ public class LDSTools {
 		//Members with Callings
 		clickButtonByXpathTitleName("Members with Callings");
 		checkReportText = getAllText();
-		Assert.assertTrue(checkReportText.contains("AFPMisc, Member15"));
-		Assert.assertTrue(checkReportText.contains("Bishopric First Counselor (1 month)"));
+		Assert.assertTrue(checkReportText.contains("Ami, Christian"));
+		Assert.assertTrue(checkReportText.contains("Beehive President (3 months)"));
 		Assert.assertFalse(checkReportText.contains("Skywalker, Anakin"));
 		
 		/*
@@ -2955,7 +2983,7 @@ public class LDSTools {
 		
 		clickButtonByXpathTitleName("NOT SET APART");
 		checkReportText = getAllText();
-		Assert.assertTrue(checkReportText.contains("Elders Quorum First Counselor (3 months)"));
+		Assert.assertTrue(checkReportText.contains("Elders Quorum First Counselor (4 months)"));
 		Assert.assertTrue(checkReportText.contains("Tautali, Tamafaiga"));
 		Assert.assertFalse(checkReportText.contains("P0, C3"));
 		
@@ -3070,7 +3098,7 @@ public class LDSTools {
 		//Unit Statistics
 		clickButtonByXpathTitleName("Unit Statistics");
 		Assert.assertTrue(checkElementTextViewReturn("603"));
-		Assert.assertTrue(checkElementTextViewReturn("271"));
+		Assert.assertTrue(checkElementTextViewReturn("270"));
 		Assert.assertTrue(checkElementTextViewReturn("15"));
 		Assert.assertFalse(checkElementTextViewReturn("8675309"));
 	}
