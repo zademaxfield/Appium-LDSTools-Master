@@ -102,7 +102,7 @@ public class LDSTools {
         //File appDir = new File(classpathRoot, "..\\..\\..\\..\\Selenium");
         //MAC Path
         File appDir = new File(classpathRoot, "../../../Selenium");
-        File app = new File(appDir, "ldstools-alpha-20150820-1808.apk");
+        File app = new File(appDir, "ldstools-alpha-20150821-1531.apk");
         DesiredCapabilities capabilities = new DesiredCapabilities();
         //capabilities.setCapability(CapabilityType.BROWSER_NAME, "");
         capabilities.setCapability("platformName", "Android");
@@ -133,7 +133,7 @@ public class LDSTools {
     }	
 
 	
-    
+    /*
 	@Test
 	public void simpleTest() throws Exception {
 		Thread.sleep(4000);
@@ -146,11 +146,11 @@ public class LDSTools {
 		//editOtherUser();	
 		//editOtherUserInvalidPhone();	
 		//editOtherUserInvalidEmail();	
-		editVisibility();	
+		//editVisibility();	
 		//invalidLoginCheck();	
 		//loginCheck();	
 		
-		//LeaderNonBishopric("LDSTools17");
+		LeaderNonBishopric("LDSTools17");
 
 		
 		
@@ -166,7 +166,7 @@ public class LDSTools {
 		//WardStakeCouncilor();
 
 	}
-	
+	*/
 	
 
 	public void justForTesting() throws Exception {
@@ -204,7 +204,7 @@ public class LDSTools {
 		
 	
 	
-	/*
+	
     @Rule
     public Retry retry = new Retry(3);
 	
@@ -430,7 +430,6 @@ public class LDSTools {
 	//}
 	
 	
-	*/
 	
 	
 //**************************************************************
@@ -471,9 +470,10 @@ public class LDSTools {
 		Assert.assertTrue(checkElementTextViewReturn("888-0028-7066"));
 		
 		pressBackKey();
-		
+		Thread.sleep(1000);
 		//Collapse the search 
 		clickButtonByXpath("SearchCollapse");
+		Thread.sleep(1000);
 		
 		//Search for logged in user
 		clickButtonByID("MenuSearch");
@@ -907,11 +907,11 @@ public class LDSTools {
 		clearTextFieldXpath("EditHomePhone");
 		clearTextFieldXpath("EditPersonalEmail");
 		clearTextFieldXpath("EditHomeEmail");
-
+		Thread.sleep(1000);
 		clickButtonByXpath("MenuSave");
 		
 		
-		Thread.sleep(1000);
+		Thread.sleep(2000);
 		clickButtonByXpath("MenuEdit");
 		Thread.sleep(1000);
 		
@@ -941,6 +941,8 @@ public class LDSTools {
 		
 		Thread.sleep(4000);
 		waitForTextToDisappear("SyncText", 500 );
+		
+		//This is just for testing
 		Thread.sleep(2000);
 		
 		//Search for logged in user
@@ -952,7 +954,7 @@ public class LDSTools {
 		clickLastTextViewRoboReturn("Tools, LDS41");
 		Thread.sleep(1000);
 		clickLastTextViewRoboReturn("Tools, LDS41");
-		Thread.sleep(1000);
+		Thread.sleep(3000);
 		
 		//Check the users name, address membership number etc...
 		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS41"));
