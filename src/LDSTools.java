@@ -102,7 +102,7 @@ public class LDSTools {
         //File appDir = new File(classpathRoot, "..\\..\\..\\..\\Selenium");
         //MAC Path
         File appDir = new File(classpathRoot, "../../../Selenium");
-        File app = new File(appDir, "ldstools-alpha-20150821-1531.apk");
+        File app = new File(appDir, "ldstools-alpha-20150828-1924.apk");
         DesiredCapabilities capabilities = new DesiredCapabilities();
         //capabilities.setCapability(CapabilityType.BROWSER_NAME, "");
         capabilities.setCapability("platformName", "Android");
@@ -113,11 +113,14 @@ public class LDSTools {
         //Nexus 5
         //capabilities.setCapability("deviceName","03aadbed215c8e5f");
         //Samsung Tab
-        capabilities.setCapability("deviceName","42f7920b622d9fa3");
+        //capabilities.setCapability("deviceName","42f7920b622d9fa3");
         // Android Emulator
         //capabilities.setCapability("deviceName","Android Emulator");
         //Samsung Galaxy Note 4
         //capabilities.setCapability("deviceName","751bc6f2");
+        //Motorola 
+        capabilities.setCapability("deviceName","ZX1D327RHD");
+        
         
         
         capabilities.setCapability("automationName","selendroid");
@@ -133,7 +136,7 @@ public class LDSTools {
     }	
 
 	
-    /*
+    
 	@Test
 	public void simpleTest() throws Exception {
 		Thread.sleep(4000);
@@ -150,7 +153,7 @@ public class LDSTools {
 		//invalidLoginCheck();	
 		//loginCheck();	
 		
-		LeaderNonBishopric("LDSTools17");
+		//LeaderNonBishopric("LDSTools17");
 
 		
 		
@@ -159,14 +162,14 @@ public class LDSTools {
 		//CliffHigby(); //Broken 2.5.0?
 		//KevinPalmer();
 		//PatriarchOtherWards();
-		//TravisLyman();
+		TravisLyman();
 		//ElderKacher(); //Not working yet
 		//TerryBallard(); //Check to see Tim and Jessica Beck
 		//AdminUnit();
 		//WardStakeCouncilor();
 
 	}
-	*/
+	
 	
 
 	public void justForTesting() throws Exception {
@@ -203,7 +206,7 @@ public class LDSTools {
 	}
 		
 	
-	
+	/*
 	
     @Rule
     public Retry retry = new Retry(3);
@@ -428,7 +431,7 @@ public class LDSTools {
 	//public void loginCheckTest() throws Exception {
 	//	loginCheck();	
 	//}
-	
+	*/
 	
 	
 	
@@ -1567,10 +1570,11 @@ public class LDSTools {
 				"/7u1161164/5u427144/",
 				"p222/7u170690/5u506508/",
 				"Proxy - Test", "TravisLyman");
-		
+		//Thread.sleep(2000);
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
 		
+		//Thread.sleep(2000);
 		//Check to see if the user can view the directory
 		//Assert.assertTrue(checkElementTextViewRoboReturn("Aaron, Jane"));
 		Assert.assertTrue(checkElementTextViewRoboReturn("Alcorn, Sarah"));
@@ -1582,7 +1586,7 @@ public class LDSTools {
 		clickButtonByXpath("DrawerHELP");
 		Thread.sleep(2000);
 		clickButtonByXpath("About");
-		Assert.assertTrue(checkElementTextViewReturnContains("TravisLyman"));
+		//Assert.assertTrue(checkElementTextViewReturnContains("TravisLyman"));
 
 		Thread.sleep(2000);
 
@@ -2310,8 +2314,10 @@ public class LDSTools {
 	 * Press the back key
 	 * 
 	 */
-	private void pressBackKey() {
+	private void pressBackKey() throws Exception {
+		Thread.sleep(1000);
 		new Actions(driver).sendKeys(SelendroidKeys.BACK).perform();
+		Thread.sleep(1000);
 	}
 	
 	private void pressEnterKey() {
@@ -2419,11 +2425,12 @@ public class LDSTools {
 		clickButtonByXpath("SignInButton");
 		Thread.sleep(4000);
 		waitForTextToDisappear("SyncText", 500 );
-		Thread.sleep(2000);
+		Thread.sleep(4000);
 		
 		//Calendar doesn't work with proxy data so we will just clear the alert. 
 		clickButtonByXpath("AlertOK");
 		
+		Thread.sleep(4000);
 	}
 
 	
@@ -2684,6 +2691,7 @@ public class LDSTools {
 		Thread.sleep(1000);
 		pressBackKey();
 		
+		Thread.sleep(1000);
 		//Young Men
 		clickItemByXpathRoboText("Young Men");
 		clickItemByXpathRoboText("Young Men Presidency");
@@ -2949,7 +2957,7 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Members with Callings");
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Ami, Christian"));
-		Assert.assertTrue(checkReportText.contains("Beehive President (3 months)"));
+		Assert.assertTrue(checkReportText.contains("Beehive President (4 months)"));
 		Assert.assertFalse(checkReportText.contains("Skywalker, Anakin"));
 		
 		/*
@@ -2962,7 +2970,7 @@ public class LDSTools {
 		clickButtonByXpathTitleName("ORGANIZATION");
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Ward Clerk"));
-		Assert.assertTrue(checkReportText.contains("Tutunoa, Ualesi Junior, Jr (3 years, 5 months)"));
+		Assert.assertTrue(checkReportText.contains("Tutunoa, Ualesi Junior, Jr (3 years, 6 months)"));
 		Assert.assertFalse(checkReportText.contains("Kenobi, Obi-Wan"));
 		
 		/*
@@ -3099,8 +3107,8 @@ public class LDSTools {
 		
 		//Unit Statistics
 		clickButtonByXpathTitleName("Unit Statistics");
-		Assert.assertTrue(checkElementTextViewReturn("603"));
-		Assert.assertTrue(checkElementTextViewReturn("270"));
+		Assert.assertTrue(checkElementTextViewReturn("608"));
+		Assert.assertTrue(checkElementTextViewReturn("272"));
 		Assert.assertTrue(checkElementTextViewReturn("15"));
 		Assert.assertFalse(checkElementTextViewReturn("8675309"));
 	}
