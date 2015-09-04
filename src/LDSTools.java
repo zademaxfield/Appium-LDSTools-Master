@@ -74,7 +74,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 //Not used yet
 //import org.openqa.selenium.WebElement;
 
-import com.opera.core.systems.scope.protos.SelftestProtos.SelftestResult.Result;
+//import com.opera.core.systems.scope.protos.SelftestProtos.SelftestResult.Result;
 
 
 
@@ -102,7 +102,7 @@ public class LDSTools {
         //File appDir = new File(classpathRoot, "..\\..\\..\\..\\Selenium");
         //MAC Path
         File appDir = new File(classpathRoot, "../../../Selenium");
-        File app = new File(appDir, "ldstools-alpha-20150821-1531.apk");
+        File app = new File(appDir, "ldstools-beta-20150904-1753.apk");
         DesiredCapabilities capabilities = new DesiredCapabilities();
         //capabilities.setCapability(CapabilityType.BROWSER_NAME, "");
         capabilities.setCapability("platformName", "Android");
@@ -113,18 +113,21 @@ public class LDSTools {
         //Nexus 5
         //capabilities.setCapability("deviceName","03aadbed215c8e5f");
         //Samsung Tab
-        capabilities.setCapability("deviceName","42f7920b622d9fa3");
+        //capabilities.setCapability("deviceName","42f7920b622d9fa3");
         // Android Emulator
         //capabilities.setCapability("deviceName","Android Emulator");
         //Samsung Galaxy Note 4
         //capabilities.setCapability("deviceName","751bc6f2");
+        //Motorola
+        capabilities.setCapability("deviceName","ZX1D327RHD");
+        
         
         
         capabilities.setCapability("automationName","selendroid");
         capabilities.setCapability("newCommandTimeout","600");
         capabilities.setCapability("platformVersion", "5.1");
         capabilities.setCapability("app", app.getAbsolutePath());
-        capabilities.setCapability("appPackage", "org.lds.ldstools.dev");
+        capabilities.setCapability("appPackage", "org.lds.ldstools");
         //capabilities.setCapability("appActivity", "org.lds.ldstools.ui.StartupActivity");
         //driver = new AndroidDriver(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
         driver = new AppiumSwipeableDriver(new URL("http://127.0.0.1:4444/wd/hub"),capabilities);
@@ -2310,8 +2313,10 @@ public class LDSTools {
 	 * Press the back key
 	 * 
 	 */
-	private void pressBackKey() {
+	private void pressBackKey() throws Exception {
+		Thread.sleep(1000);
 		new Actions(driver).sendKeys(SelendroidKeys.BACK).perform();
+		Thread.sleep(1000);
 	}
 	
 	private void pressEnterKey() {
@@ -2949,7 +2954,7 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Members with Callings");
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Ami, Christian"));
-		Assert.assertTrue(checkReportText.contains("Beehive President (3 months)"));
+		Assert.assertTrue(checkReportText.contains("Beehive President (4 months)"));
 		Assert.assertFalse(checkReportText.contains("Skywalker, Anakin"));
 		
 		/*
@@ -2962,7 +2967,7 @@ public class LDSTools {
 		clickButtonByXpathTitleName("ORGANIZATION");
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Ward Clerk"));
-		Assert.assertTrue(checkReportText.contains("Tutunoa, Ualesi Junior, Jr (3 years, 5 months)"));
+		Assert.assertTrue(checkReportText.contains("Tutunoa, Ualesi Junior, Jr (3 years, 6 months)"));
 		Assert.assertFalse(checkReportText.contains("Kenobi, Obi-Wan"));
 		
 		/*
@@ -3038,7 +3043,7 @@ public class LDSTools {
 		clickButtonByXpathTitleName("New Members");
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Joezmal, Loana"));
-		Assert.assertTrue(checkReportText.contains("13"));
+		Assert.assertTrue(checkReportText.contains("14"));
 		Assert.assertTrue(checkReportText.contains("F"));
 		if (newUnit == true){
 			Assert.assertTrue(checkReportText.contains("March 15, 2015"));
@@ -3099,8 +3104,11 @@ public class LDSTools {
 		
 		//Unit Statistics
 		clickButtonByXpathTitleName("Unit Statistics");
-		Assert.assertTrue(checkElementTextViewReturn("603"));
-		Assert.assertTrue(checkElementTextViewReturn("270"));
+		Thread.sleep(1000);
+		clickButtonByXpath("AlertOK");
+		Thread.sleep(1000);
+		Assert.assertTrue(checkElementTextViewReturn("610"));
+		Assert.assertTrue(checkElementTextViewReturn("273"));
 		Assert.assertTrue(checkElementTextViewReturn("15"));
 		Assert.assertFalse(checkElementTextViewReturn("8675309"));
 	}
@@ -3137,7 +3145,7 @@ public class LDSTools {
 	public void teardown() throws Exception {
 		File screenshotFile = driver.getScreenshotAs(OutputType.FILE);
 		try {
-			FileUtils.copyFile(screenshotFile,new File("/Users/zademaxfield/Selenium/Screenshot/lastErrorScreenshot.png"));
+			FileUtils.copyFile(screenshotFile,new File("/Users/zmaxfield/Selenium/Screenshot/lastErrorScreenshot.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
