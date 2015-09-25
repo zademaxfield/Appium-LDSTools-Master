@@ -102,7 +102,7 @@ public class LDSTools {
         //File appDir = new File(classpathRoot, "..\\..\\..\\..\\Selenium");
         //MAC Path
         File appDir = new File(classpathRoot, "../../../Selenium");
-        File app = new File(appDir, "ldstools-alpha-20150915-2314.apk");
+        File app = new File(appDir, "ldstools-beta-20150921-2109.apk");
         DesiredCapabilities capabilities = new DesiredCapabilities();
         //capabilities.setCapability(CapabilityType.BROWSER_NAME, "");
         capabilities.setCapability("platformName", "Android");
@@ -127,7 +127,7 @@ public class LDSTools {
         capabilities.setCapability("newCommandTimeout","600");
         capabilities.setCapability("platformVersion", "5.1");
         capabilities.setCapability("app", app.getAbsolutePath());
-        capabilities.setCapability("appPackage", "org.lds.ldstools.dev");
+        capabilities.setCapability("appPackage", "org.lds.ldstools");
         //capabilities.setCapability("appActivity", "org.lds.ldstools.ui.StartupActivity");
         //driver = new AndroidDriver(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
         driver = new AppiumSwipeableDriver(new URL("http://127.0.0.1:4444/wd/hub"),capabilities);
@@ -149,11 +149,11 @@ public class LDSTools {
 		//editOtherUser();	
 		//editOtherUserInvalidPhone();	
 		//editOtherUserInvalidEmail();	
-		//editVisibility();	
+		editVisibility();	
 		//invalidLoginCheck();	
 		//loginCheck();	
 		
-		LeaderNonBishopric("LDSTools17");
+		//LeaderNonBishopric("LDSTools17");
 
 		
 		
@@ -458,7 +458,7 @@ public class LDSTools {
 		//Search for logged in user
 		clickButtonByID("MenuSearch");
 		sendTextbyXpath("SearchArea", "Tools, LDS6");
-		
+		Thread.sleep(1000);
 		//Select the user
 		//clickItemByXpathRoboText("Tools, LDS6");
 		clickLastTextViewRoboReturn("Tools, LDS6");
@@ -1188,6 +1188,7 @@ public class LDSTools {
 	
 	
 	public void editVisibility() throws Exception {
+		int myCheck = 0;
 		//Edit other user with invalid data - phone
 		syncLogIn("LDSTools5", "toolstester", "UAT" );
 		Thread.sleep(2000);
@@ -1213,6 +1214,23 @@ public class LDSTools {
 		Thread.sleep(1000);
 		clickButtonByXpath("MenuEdit");
 		Thread.sleep(2000);
+		
+		//This is just in case something went wrong - put visibility back to Stake. 
+		myCheck = checkTextByXpathContainsReturn("AlertMessage", "Household visible to Private");
+		if (myCheck == 1){
+			clickButtonByXpath("AlertOK");
+			scrollDown("Private—Leadership Only", -1000 );
+			Thread.sleep(2000);
+			clickButtonByXpathPopoutMenu("Stake Visibility");
+			Thread.sleep(1000);
+			clickButtonByXpath("MenuSave");
+			Thread.sleep(2000);
+			clickButtonByXpath("MenuEdit");
+			Thread.sleep(2000);
+		}
+		
+		
+		
 		scrollDown("Stake Visibility", -1000 );
 		//clickButtonByXpath("EditVisibiltySpinner");
 
@@ -1503,11 +1521,11 @@ public class LDSTools {
 		clickItemByXpathRoboText("Faapili, Muipu & Baby");
 		clickLastTextViewRoboReturn("Faapili, Muipu");
 		Thread.sleep(1000);
-		Assert.assertTrue(checkElementTextViewReturn("Muipu Faapili"));
-		Assert.assertTrue(checkElementTextViewReturn("Baby Faapili"));
-		Assert.assertTrue(checkElementTextViewReturn("Muipu Jnr Faapili"));
-		Assert.assertTrue(checkElementTextViewReturn("Tautinoga Faapili"));
-		Assert.assertTrue(checkElementTextViewReturn("Mapusaga Faapili"));
+		Assert.assertTrue(checkElementTextViewReturn("Muipu Faapili (32)"));
+		Assert.assertTrue(checkElementTextViewReturn("Baby Faapili (35)"));
+		Assert.assertTrue(checkElementTextViewReturn("Muipu Jnr Faapili (12)"));
+		Assert.assertTrue(checkElementTextViewReturn("Tautinoga Faapili (10)"));
+		Assert.assertTrue(checkElementTextViewReturn("Mapusaga Faapili (4)"));
 		clickButtonByXpath("Back");
 		clickButtonByXpath("SearchCollapse");
 		//pressBackKey();
@@ -1528,12 +1546,13 @@ public class LDSTools {
 		clickItemByXpathRoboText("Alofa, Pasi & Rowena");
 		clickLastTextViewRoboReturn("Alofa, Pasi");
 		Thread.sleep(1000);
-		Assert.assertTrue(checkElementTextViewReturn("Pasi Alofa"));
-		Assert.assertTrue(checkElementTextViewReturn("Rowena Alofa"));
-		Assert.assertTrue(checkElementTextViewReturn("Rozarnah Alofa"));
-		Assert.assertTrue(checkElementTextViewReturn("Leativaosalafai Shaleen Alofa"));
+		Assert.assertTrue(checkElementTextViewReturn("Pasi Alofa (32)"));
+		Assert.assertTrue(checkElementTextViewReturn("Rowena Alofa (26)"));
+		Assert.assertTrue(checkElementTextViewReturn("Rozarnah Alofa (4)"));
+		Assert.assertTrue(checkElementTextViewReturn("Leativaosalafai Shaleen Alofa (2)"));
 		//Assert.assertTrue(checkElementTextViewReturn("Pioneer Aumoto"));
 		clickButtonByXpath("Back");
+		Thread.sleep(1000);
 		clickButtonByXpath("SearchCollapse");
 		//pressBackKey();
 		
@@ -1821,6 +1840,20 @@ public class LDSTools {
 		}
 		
 		return myReturnStatus;
+	}
+	
+	
+	private int checkTextByXpathContainsReturn(String textElement, String textToCheck ) {
+		String myText;
+		int myReturn = 0;
+		Boolean myElementBool = driver.findElements(By.xpath(this.prop.getProperty(textElement))).size() > 0;
+		if (myElementBool == true ) {
+			myText = driver.findElement(By.xpath(this.prop.getProperty(textElement))).getText();
+			if (myText.contains(textToCheck) ) {
+				myReturn = 1;
+			}
+		}
+		return myReturn;
 	}
 
 	
@@ -2439,7 +2472,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		sendTextbyXpath("SearchArea", "Aaron, Jane");
 		
-		
+		Thread.sleep(2000);
 		//Directory items that should not be visible
 		//clickItemByXpathRoboText("Aaron, Jane");
 		clickLastTextViewRoboReturn("Aaron, Jane");
@@ -2748,8 +2781,8 @@ public class LDSTools {
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Music Adviser"));
 		//Assert.assertTrue(checkElementTextViewRoboReturn("Frost,Sato'a"));
-		Assert.assertTrue(checkReportText.contains("Organist or Pianist"));
-		Assert.assertTrue(checkReportText.contains("Betham, Maria"));
+		//Assert.assertTrue(checkReportText.contains("Organist or Pianist"));
+		//Assert.assertTrue(checkReportText.contains("Betham, Maria"));
 		pressBackKey();
 		Thread.sleep(2000);
 		pressBackKey();
@@ -2844,11 +2877,11 @@ public class LDSTools {
 		Thread.sleep(1000);
 		checkReportText = getAllText();
 		
-		Assert.assertTrue(checkReportText.contains("Aabala, Lola"));
+		Assert.assertTrue(checkReportText.contains("Betham, Scott"));
 		//Birth Date
 		//TODO need to have the age calculated
-		Assert.assertTrue(checkReportText.contains("November 11, 1960 (54)"));
-		Assert.assertTrue(checkReportText.contains("September 6, 2015"));
+		Assert.assertTrue(checkReportText.contains("January 20, 1982 (33)"));
+		Assert.assertTrue(checkReportText.contains("September 21, 2015"));
 		
 		//The new unit is only available for bishop
 		if (bishop == true){
@@ -3035,16 +3068,16 @@ public class LDSTools {
 			//Assert.assertTrue(checkElementTextViewReturn("Expired"));
 			
 			clickButtonByXpathTitleName("ACTIVE");
-			Assert.assertTrue(checkElementTextViewReturn("Betham, Maria"));
+			Assert.assertTrue(checkElementTextViewReturn("Ami, Samu"));
 			Assert.assertTrue(checkElementTextViewReturn("Jul 2016"));
 			Assert.assertFalse(checkElementTextViewReturn("Maul, Darth"));
 			
 			clickButtonByXpathTitleName("EXPIRING");
-			Assert.assertTrue(checkElementTextViewReturn("Lavea, Lonise"));
+			Assert.assertTrue(checkElementTextViewReturn("Puleiai, Siva"));
 			Assert.assertFalse(checkElementTextViewReturn("Windu, Mace"));
 			
 			clickButtonByXpathTitleName("EXPIRED");
-			Assert.assertTrue(checkElementTextViewReturn("Ami, Lealofi"));
+			Assert.assertTrue(checkElementTextViewReturn("Tutunoa, Lusi"));
 			Assert.assertFalse(checkElementTextViewReturn("Jinn, Qui-Gon"));
 			
 			clickButtonByXpathTitleName("OTHER");
@@ -3063,8 +3096,8 @@ public class LDSTools {
 		Thread.sleep(1000);
 		clickButtonByXpath("AlertOK");
 		Thread.sleep(1000);
-		Assert.assertTrue(checkElementTextViewReturn("601"));
-		Assert.assertTrue(checkElementTextViewReturn("269"));
+		Assert.assertTrue(checkElementTextViewReturn("596"));
+		Assert.assertTrue(checkElementTextViewReturn("268"));
 		Assert.assertTrue(checkElementTextViewReturn("15"));
 		Assert.assertFalse(checkElementTextViewReturn("8675309"));
 	}
