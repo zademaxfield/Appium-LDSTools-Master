@@ -135,8 +135,8 @@ public class LDSTools {
 
     }	
 
-	
-    /*
+	/*
+    
 	@Test
 	public void simpleTest() throws Exception {
 		Thread.sleep(4000);
@@ -149,11 +149,11 @@ public class LDSTools {
 		//editOtherUser();	
 		//editOtherUserInvalidPhone();	
 		//editOtherUserInvalidEmail();	
-		editVisibility();	
+		//editVisibility();	
 		//invalidLoginCheck();	
 		//loginCheck();	
 		
-		//LeaderNonBishopric("LDSTools17");
+		LeaderNonBishopric("LDSTools17");
 
 		
 		
@@ -169,8 +169,8 @@ public class LDSTools {
 		//WardStakeCouncilor();
 
 	}
-	*/
 	
+	*/
 
 	public void justForTesting() throws Exception {
 		loginProxyData("8999999998916734",
@@ -432,7 +432,7 @@ public class LDSTools {
 	//	loginCheck();	
 	//}
 	
-	
+
 	
 	
 //**************************************************************
@@ -2652,8 +2652,8 @@ public class LDSTools {
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Elders Quorum President"));
 		Assert.assertTrue(checkReportText.contains("Tutunoa, Joe Liuafi"));
-		Assert.assertTrue(checkReportText.contains("Elders Quorum First Counselor"));
-		Assert.assertTrue(checkReportText.contains("Tautali, Tamafaiga"));
+		//Assert.assertTrue(checkReportText.contains("Elders Quorum First Counselor"));
+		//Assert.assertTrue(checkReportText.contains("Tautali, Tamafaiga"));
 		pressBackKey();
 		Thread.sleep(1000);
 		pressBackKey();
@@ -2943,7 +2943,7 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Members with Callings");
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Ami, Christian"));
-		Assert.assertTrue(checkReportText.contains("Beehive President (4 months)"));
+		Assert.assertTrue(checkReportText.contains("Beehive President (5 months)"));
 		Assert.assertFalse(checkReportText.contains("Skywalker, Anakin"));
 		
 		/*
@@ -2956,7 +2956,7 @@ public class LDSTools {
 		clickButtonByXpathTitleName("ORGANIZATION");
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Ward Clerk"));
-		Assert.assertTrue(checkReportText.contains("Tutunoa, Ualesi Junior, Jr (3 years, 6 months)"));
+		Assert.assertTrue(checkReportText.contains("Tutunoa, Ualesi Junior, Jr (3 years, 7 months)"));
 		Assert.assertFalse(checkReportText.contains("Kenobi, Obi-Wan"));
 		
 		/*
@@ -2979,8 +2979,8 @@ public class LDSTools {
 		
 		clickButtonByXpathTitleName("NOT SET APART");
 		checkReportText = getAllText();
-		Assert.assertTrue(checkReportText.contains("Elders Quorum First Counselor (5 months)"));
-		Assert.assertTrue(checkReportText.contains("Tautali, Tamafaiga"));
+		Assert.assertTrue(checkReportText.contains("Elders Quorum President (2 months)"));
+		Assert.assertTrue(checkReportText.contains("Tutunoa, Joe Liuafi"));
 		Assert.assertFalse(checkReportText.contains("P0, C3"));
 		
 		/*
