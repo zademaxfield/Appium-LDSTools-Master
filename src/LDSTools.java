@@ -140,7 +140,7 @@ public class LDSTools {
 	@Test
 	public void simpleTest() throws Exception {
 		Thread.sleep(4000);
-		//justForTesting();	
+		justForTesting();	
 
 		//under18HeadofHouse();	
 		//bishopricCounselorAndWardClerk();	
@@ -153,7 +153,7 @@ public class LDSTools {
 		//invalidLoginCheck();	
 		//loginCheck();	
 		
-		LeaderNonBishopric("LDSTools17");
+		//LeaderNonBishopric("LDSTools17");
 
 		
 		
@@ -173,36 +173,164 @@ public class LDSTools {
 	
 
 	public void justForTesting() throws Exception {
-		loginProxyData("8999999998916734",
-				"/7u56030/5u524735/",
-				"p135/7u56030/5u524735/:p94/5u524735/",
-				"Proxy - Test", "WardStakeCounilor");
+		int myCheck = 0;
+		//Edit other user with invalid data - phone
+		syncLogIn("LDSTools5", "toolstester", "UAT" );
+		Thread.sleep(2000);
 		
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
-		
-		//Check to see if the user can view the directory
-		//Assert.assertTrue(checkElementTextViewRoboReturn("Aaron, Jane"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEleven, Member"));
-		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
-		
-		
-		
-		clickButtonByXpath("Drawer");
-		clickButtonByXpath("DrawerHELP");
 		Thread.sleep(2000);
-		clickButtonByXpath("About");
-		Assert.assertTrue(checkElementTextViewReturnContains("WardStakeCounilor"));
-
+		
+		//Search for logged in user
+		clickButtonByID("MenuSearch");
+		sendTextbyXpath("SearchArea", "Tools, LDS5");
+		
+		//Select the user
+		//clickItemByXpathRoboText("Tools, LDS5");
 		Thread.sleep(2000);
-
+		clickLastTextViewRoboReturn("Tools, LDS5");
+		Thread.sleep(2000);
+		clickLastTextViewRoboReturn("Tools, LDS5");
+		Thread.sleep(1000);
+		
+		//Check the users name, address membership number etc...
+		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS5"));
+		Thread.sleep(1000);
+		clickButtonByXpath("MenuEdit");
+		Thread.sleep(2000);
+		
+		//This will reset the visibility back to Stake
+		resetVisibility();
+		
+		
+		//scrollDown("Stake Visibility", -1000 );
+		//scrollDown("HOUSEHOLD", -1000 );
+		//Thread.sleep(20000);
+		clickButtonByXpath("PrivateSettings");
+		clickButtonByXpath("EditAllVisibility");
+		Thread.sleep(2000);
+		clickButtonByXpathPopoutMenu("Private—Leadership Only");
+		Thread.sleep(1000);
+		clickButtonByXpath("MenuSave");
+		Thread.sleep(1000);
+		clickButtonByXpath("MenuSave");
+		Thread.sleep(3000);
 		pressBackKey();
-		clickButtonByXpath("Drawer");
-		clickButtonByXpath("DrawerSETTINGS");
 		
-		clickButtonByXpathTitleName("Sign Out");
-		clickButtonByXpath("SignOutOK");
+		Thread.sleep(1000);
+		//Collapse the search 
+		clickButtonByXpath("SearchCollapse");
+		Thread.sleep(1000);
+		
+		//Log out 
+		drawerSignOut();
+		
+		syncLogIn("LDSTools6", "toolstester", "UAT" );
+		Thread.sleep(2000);
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);
+		
+		//Search for logged in user
+		clickButtonByID("MenuSearch");
+		sendTextbyXpath("SearchArea", "Tools, LDS5 ");
+		
+		Thread.sleep(2000);
+		clickLastTextViewRoboReturn("Tools, LDS5");
+		Thread.sleep(2000);
+		clickLastTextViewRoboReturn("Tools, LDS5");
+		Thread.sleep(2000);
+		
+		//Check the users name, address membership number etc...
+		Assert.assertTrue(checkElementTextViewReturn("LDS5 Tools"));
+		Assert.assertTrue(checkElementTextViewReturn("Fagamalo 1st Ward"));
 
+		Assert.assertTrue(checkElementTextCustom("CONTACT INFORMATION", "CapitalizedTextView"));
+		Assert.assertFalse(checkElementTextViewReturn("1224589900887"));
+		Assert.assertFalse(checkElementTextCustom("PERSONAL", "*"));
+		Assert.assertTrue(checkElementTextViewReturn("5551234555"));
+		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD", "*"));
+		Assert.assertFalse(checkElementTextViewReturn("Z@z.com"));
+		Assert.assertFalse(checkElementTextCustom("PERSONAL", "*"));
+		Assert.assertTrue(checkElementTextViewReturn("test@test.com"));
+		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD", "*"));
+		
+		Thread.sleep(3000);
+		pressBackKey();
+		
+		//Collapse the search 
+		clickButtonByXpath("SearchCollapse");
+		
+		//Log out 
+		drawerSignOut();
+		
+		syncLogIn("LDSTools5", "toolstester", "UAT" );
+		Thread.sleep(2000);
+		
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);
+		
+		//Search for logged in user
+		clickButtonByID("MenuSearch");
+		sendTextbyXpath("SearchArea", "Tools, LDS5");
+		
+		//Select the user
+		clickItemByXpathRoboText("Tools, LDS5");
+		clickLastTextViewRoboReturn("Tools, LDS5");
+		Thread.sleep(2000);
+		clickLastTextViewRoboReturn("Tools, LDS5");
+		Thread.sleep(1000);
+		
+		//Check the users name, address membership number etc...
+		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS5"));
+		Thread.sleep(1000);
+		clickButtonByXpath("MenuEdit");
+		
+		Thread.sleep(3000);
+		//checkTextByXpath("AlertMessage", "Household visible to Private—Leadership Only Your household information is currently visible to your stake presidency, bishopric, and ward quorum and auxiliary leaders. Visibility can be edited globally or individually.");
+		//Assert.assertTrue(checkElementTextViewReturn("Household visible to Private—Leadership Only Your household information is currently visible to your stake presidency, bishopric, and ward quorum and auxiliary leaders. Visibility can be edited globally or individually."));
+		clickButtonByXpath("AlertOK");	
+		
+		
+		Thread.sleep(1000);
+		scrollDown("Private—Leadership Only", -1000 );
+		//clickButtonByXpath("EditVisibiltySpinner");
+
+		//clickButtonByXpath("EditAllVisibility");
+		//displayAllTextViewElements();
+		clickButtonByXpathPopoutMenu("Stake Visibility");
+		Thread.sleep(1000);
+		clickButtonByXpath("MenuSave");
+		//Thread.sleep(1000);
+		//clickButtonByXpath("MenuSave");
+		Thread.sleep(3000);
+		//pressBackKey();
+		pressBackKey();
+		
+		Thread.sleep(1000);
+		//Collapse the search 
+		clickButtonByXpath("SearchCollapse");
+		Thread.sleep(1000);
+		
+		//Log out 
+		drawerSignOut();
+		
+		
+		Thread.sleep(1000);
+		syncLogIn("LDSTools6", "toolstester", "UAT" );
+		Thread.sleep(2000);
+		
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);
+		
+		//Search for logged in user
+		clickButtonByID("MenuSearch");
+		sendTextbyXpath("SearchArea", "Tools, LDS5");
+		
+		Assert.assertTrue(checkElementTextViewRoboReturn("Tools, LDS5"));
 	}
 		
 	
@@ -1215,20 +1343,8 @@ public class LDSTools {
 		clickButtonByXpath("MenuEdit");
 		Thread.sleep(2000);
 		
-		//This is just in case something went wrong - put visibility back to Stake. 
-		myCheck = checkTextByXpathContainsReturn("AlertMessage", "Household visible to Private");
-		if (myCheck == 1){
-			clickButtonByXpath("AlertOK");
-			scrollDown("Private—Leadership Only", -1000 );
-			Thread.sleep(2000);
-			clickButtonByXpathPopoutMenu("Stake Visibility");
-			Thread.sleep(1000);
-			clickButtonByXpath("MenuSave");
-			Thread.sleep(2000);
-			clickButtonByXpath("MenuEdit");
-			Thread.sleep(2000);
-		}
-		
+		//This will reset the visibility back to Stake
+		resetVisibility();
 		
 		
 		scrollDown("Stake Visibility", -1000 );
@@ -1251,11 +1367,7 @@ public class LDSTools {
 		Thread.sleep(1000);
 		
 		//Log out 
-		clickButtonByXpath("Drawer");
-		clickButtonByXpath("DrawerSETTINGS");
-		Thread.sleep(1000);
-		clickButtonByXpathTitleName("Sign Out");
-		clickButtonByXpath("SignOutOK");
+		drawerSignOut();
 		
 		syncLogIn("LDSTools6", "toolstester", "UAT" );
 		Thread.sleep(2000);
@@ -1273,12 +1385,7 @@ public class LDSTools {
 		clickButtonByXpath("SearchCollapse");
 		
 		//Log out 
-		clickButtonByXpath("Drawer");
-		clickButtonByXpath("DrawerSETTINGS");
-		
-		Thread.sleep(1000);
-		clickButtonByXpathTitleName("Sign Out");
-		clickButtonByXpath("SignOutOK");
+		drawerSignOut();
 		
 		syncLogIn("LDSTools5", "toolstester", "UAT" );
 		Thread.sleep(2000);
@@ -1330,11 +1437,9 @@ public class LDSTools {
 		Thread.sleep(1000);
 		
 		//Log out 
-		clickButtonByXpath("Drawer");
-		clickButtonByXpath("DrawerSETTINGS");
-		Thread.sleep(1000);
-		clickButtonByXpathTitleName("Sign Out");
-		clickButtonByXpath("SignOutOK");
+		drawerSignOut();
+		
+		
 		Thread.sleep(1000);
 		syncLogIn("LDSTools6", "toolstester", "UAT" );
 		Thread.sleep(2000);
@@ -3139,6 +3244,24 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Sign Out");
 		clickButtonByXpath("SignOutOK");
 	}
+	
+	private void resetVisibility() throws Exception {
+		int myCheck;
+		//This is just in case something went wrong - put visibility back to Stake. 
+		myCheck = checkTextByXpathContainsReturn("AlertMessage", "Household visible to Private");
+		if (myCheck == 1){
+			clickButtonByXpath("AlertOK");
+			scrollDown("Private—Leadership Only", -1000 );
+			Thread.sleep(2000);
+			clickButtonByXpathPopoutMenu("Stake Visibility");
+			Thread.sleep(1000);
+			clickButtonByXpath("MenuSave");
+			Thread.sleep(2000);
+			clickButtonByXpath("MenuEdit");
+			Thread.sleep(2000);
+		}
+	}
+	
 
 	@After
 	public void teardown() throws Exception {
