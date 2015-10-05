@@ -102,7 +102,7 @@ public class LDSTools {
         //File appDir = new File(classpathRoot, "..\\..\\..\\..\\Selenium");
         //MAC Path
         File appDir = new File(classpathRoot, "../../../Selenium");
-        File app = new File(appDir, "ldstools-beta-20150921-2109.apk");
+        File app = new File(appDir, "ldstools-alpha-20150930-1722.apk");
         DesiredCapabilities capabilities = new DesiredCapabilities();
         //capabilities.setCapability(CapabilityType.BROWSER_NAME, "");
         capabilities.setCapability("platformName", "Android");
@@ -127,7 +127,7 @@ public class LDSTools {
         capabilities.setCapability("newCommandTimeout","600");
         capabilities.setCapability("platformVersion", "5.1");
         capabilities.setCapability("app", app.getAbsolutePath());
-        capabilities.setCapability("appPackage", "org.lds.ldstools");
+        capabilities.setCapability("appPackage", "org.lds.ldstools.dev");
         //capabilities.setCapability("appActivity", "org.lds.ldstools.ui.StartupActivity");
         //driver = new AndroidDriver(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
         driver = new AppiumSwipeableDriver(new URL("http://127.0.0.1:4444/wd/hub"),capabilities);
@@ -135,7 +135,7 @@ public class LDSTools {
 
     }	
 
-	/*
+	
     
 	@Test
 	public void simpleTest() throws Exception {
@@ -170,7 +170,7 @@ public class LDSTools {
 
 	}
 	
-	*/
+	
 
 	public void justForTesting() throws Exception {
 		loginProxyData("8999999998916734",
@@ -207,7 +207,7 @@ public class LDSTools {
 		
 	
 	
-	
+	/*
     @Rule
     public Retry retry = new Retry(3);
 	
@@ -431,7 +431,7 @@ public class LDSTools {
 	//public void loginCheckTest() throws Exception {
 	//	loginCheck();	
 	//}
-	
+	*/
 
 	
 	
@@ -2800,7 +2800,7 @@ public class LDSTools {
 		Thread.sleep(1000);
 		Assert.assertTrue(checkElementTextViewRoboReturn("Elder Dallin Fawcett"));
 		Assert.assertTrue(checkElementTextViewRoboReturn("Samoa Apia Mission"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Elder Kawika Tupuola"));
+		//Assert.assertTrue(checkElementTextViewRoboReturn("Elder Kawika Tupuola"));
 		Assert.assertTrue(checkElementTextViewRoboReturn("Samoa Apia Mission"));
 		Assert.assertTrue(checkElementTextViewRoboReturn("Kitara, Lafaele"));
 		Assert.assertTrue(checkElementTextViewRoboReturn("Mission Leader"));
