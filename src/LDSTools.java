@@ -150,6 +150,8 @@ public class LDSTools {
 		//editOtherUserInvalidPhone();	
 		//editOtherUserInvalidEmail();	
 		//editVisibility();	
+		//editVisibiltyPersonal();
+		//editVisibiltyHousehold();
 		//invalidLoginCheck();	
 		//loginCheck();	
 		
@@ -173,164 +175,100 @@ public class LDSTools {
 	
 
 	public void justForTesting() throws Exception {
-		int myCheck = 0;
-		//Edit other user with invalid data - phone
-		syncLogIn("LDSTools5", "toolstester", "UAT" );
-		Thread.sleep(2000);
-		
-		//true will setup ping for a non-leader
-		pinPage("1", "1", "3", "3", true);
-		Thread.sleep(2000);
-		
-		//Search for logged in user
-		clickButtonByID("MenuSearch");
-		sendTextbyXpath("SearchArea", "Tools, LDS5");
-		
-		//Select the user
-		//clickItemByXpathRoboText("Tools, LDS5");
-		Thread.sleep(2000);
-		clickLastTextViewRoboReturn("Tools, LDS5");
-		Thread.sleep(2000);
-		clickLastTextViewRoboReturn("Tools, LDS5");
-		Thread.sleep(1000);
-		
-		//Check the users name, address membership number etc...
-		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS5"));
-		Thread.sleep(1000);
-		clickButtonByXpath("MenuEdit");
-		Thread.sleep(2000);
-		
-		//This will reset the visibility back to Stake
-		resetVisibility();
-		
-		
-		//scrollDown("Stake Visibility", -1000 );
-		//scrollDown("HOUSEHOLD", -1000 );
-		//Thread.sleep(20000);
-		clickButtonByXpath("PrivateSettings");
-		clickButtonByXpath("EditAllVisibility");
-		Thread.sleep(2000);
-		clickButtonByXpathPopoutMenu("Private—Leadership Only");
-		Thread.sleep(1000);
-		clickButtonByXpath("MenuSave");
-		Thread.sleep(1000);
-		clickButtonByXpath("MenuSave");
-		Thread.sleep(3000);
-		pressBackKey();
-		
-		Thread.sleep(1000);
-		//Collapse the search 
-		clickButtonByXpath("SearchCollapse");
-		Thread.sleep(1000);
-		
-		//Log out 
-		drawerSignOut();
-		
-		syncLogIn("LDSTools6", "toolstester", "UAT" );
-		Thread.sleep(2000);
-		//true will setup ping for a non-leader
-		pinPage("1", "1", "3", "3", true);
-		Thread.sleep(2000);
-		
-		//Search for logged in user
-		clickButtonByID("MenuSearch");
-		sendTextbyXpath("SearchArea", "Tools, LDS5 ");
-		
-		Thread.sleep(2000);
-		clickLastTextViewRoboReturn("Tools, LDS5");
-		Thread.sleep(2000);
-		clickLastTextViewRoboReturn("Tools, LDS5");
-		Thread.sleep(2000);
-		
-		//Check the users name, address membership number etc...
-		Assert.assertTrue(checkElementTextViewReturn("LDS5 Tools"));
-		Assert.assertTrue(checkElementTextViewReturn("Fagamalo 1st Ward"));
 
-		Assert.assertTrue(checkElementTextCustom("CONTACT INFORMATION", "CapitalizedTextView"));
-		Assert.assertFalse(checkElementTextViewReturn("1224589900887"));
-		Assert.assertFalse(checkElementTextCustom("PERSONAL", "*"));
-		Assert.assertTrue(checkElementTextViewReturn("5551234555"));
-		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD", "*"));
-		Assert.assertFalse(checkElementTextViewReturn("Z@z.com"));
-		Assert.assertFalse(checkElementTextCustom("PERSONAL", "*"));
-		Assert.assertTrue(checkElementTextViewReturn("test@test.com"));
-		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD", "*"));
-		
-		Thread.sleep(3000);
-		pressBackKey();
-		
-		//Collapse the search 
-		clickButtonByXpath("SearchCollapse");
-		
-		//Log out 
-		drawerSignOut();
-		
-		syncLogIn("LDSTools5", "toolstester", "UAT" );
-		Thread.sleep(2000);
-		
-		//true will setup ping for a non-leader
+		syncLogIn("LDSTools2", "toolstester", "UAT" );
 		pinPage("1", "1", "3", "3", true);
 		Thread.sleep(2000);
-		
-		//Search for logged in user
-		clickButtonByID("MenuSearch");
-		sendTextbyXpath("SearchArea", "Tools, LDS5");
-		
-		//Select the user
-		clickItemByXpathRoboText("Tools, LDS5");
-		clickLastTextViewRoboReturn("Tools, LDS5");
-		Thread.sleep(2000);
-		clickLastTextViewRoboReturn("Tools, LDS5");
-		Thread.sleep(1000);
-		
-		//Check the users name, address membership number etc...
-		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS5"));
-		Thread.sleep(1000);
-		clickButtonByXpath("MenuEdit");
-		
-		Thread.sleep(3000);
-		//checkTextByXpath("AlertMessage", "Household visible to Private—Leadership Only Your household information is currently visible to your stake presidency, bishopric, and ward quorum and auxiliary leaders. Visibility can be edited globally or individually.");
-		//Assert.assertTrue(checkElementTextViewReturn("Household visible to Private—Leadership Only Your household information is currently visible to your stake presidency, bishopric, and ward quorum and auxiliary leaders. Visibility can be edited globally or individually."));
-		clickButtonByXpath("AlertOK");	
-		
-		
-		Thread.sleep(1000);
-		scrollDown("Private—Leadership Only", -1000 );
-		//clickButtonByXpath("EditVisibiltySpinner");
+		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
+		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
 
-		//clickButtonByXpath("EditAllVisibility");
-		//displayAllTextViewElements();
-		clickButtonByXpathPopoutMenu("Stake Visibility");
-		Thread.sleep(1000);
-		clickButtonByXpath("MenuSave");
-		//Thread.sleep(1000);
-		//clickButtonByXpath("MenuSave");
-		Thread.sleep(3000);
-		//pressBackKey();
+		clickButtonByXpath("Drawer");
+		clickButtonByXpath("DrawerReports");
+		Thread.sleep(2000);
+		
+		//Need something to check the various settings to see HT/VT
+		Assert.assertTrue(checkElementTextViewReturn("Home Teaching"));
+		Assert.assertTrue(checkElementTextViewReturn("Visiting Teaching"));
+
+		clickButtonByXpathTitleName("Home Teaching");
+		Thread.sleep(2000);
+		
+		//High Priests
+		clickButtonByXpathTitleName("Households Not Visited");
+		Thread.sleep(2000);
+		Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member17"));
+		Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member4"));
+		Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member5"));
+		
+		clickButtonByXpath("6Months");
+		Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member17"));
+		Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member4"));
+		Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member5"));
+		
+		clickButtonByXpath("3Months");
+		Assert.assertTrue(checkElementTextViewReturn("AFPEighteen, Member"));
+		Assert.assertTrue(checkElementTextViewReturn("AFPEleven, Member"));
+		Assert.assertTrue(checkElementTextViewReturn("AFPFifteen, Member"));
+		
+		clickButtonByXpath("1Month");
+		Assert.assertTrue(checkElementTextViewReturn("AFPEighteen, Member"));
+		Assert.assertTrue(checkElementTextViewReturn("AFPEleven, Member"));
+		Assert.assertTrue(checkElementTextViewReturn("AFPFifteen, Member"));
 		pressBackKey();
 		
-		Thread.sleep(1000);
-		//Collapse the search 
-		clickButtonByXpath("SearchCollapse");
-		Thread.sleep(1000);
-		
-		//Log out 
-		drawerSignOut();
-		
-		
-		Thread.sleep(1000);
-		syncLogIn("LDSTools6", "toolstester", "UAT" );
+		clickButtonByXpathTitleName("Unassigned Households");
 		Thread.sleep(2000);
+		Assert.assertTrue(checkElementTextViewReturn("AFPEleven, Member"));
+		Assert.assertTrue(checkElementTextViewReturn("AFPFive, Wife"));
+		Assert.assertTrue(checkElementTextViewReturn("AFPFourteen, Member"));
+		pressBackKey();
 		
-		//true will setup ping for a non-leader
-		pinPage("1", "1", "3", "3", true);
+		clickButtonByXpathTitleName("Potential Home Teachers");
 		Thread.sleep(2000);
+		Assert.assertTrue(checkElementTextViewReturn("Ami, Samu (42)"));
+		Assert.assertTrue(checkElementTextViewReturn("Faamoe, Panapa Filifili (62)"));
+		Assert.assertTrue(checkElementTextViewReturn("Faamoetauloa, Ennie (35)"));
+		pressBackKey();
 		
-		//Search for logged in user
-		clickButtonByID("MenuSearch");
-		sendTextbyXpath("SearchArea", "Tools, LDS5");
 		
-		Assert.assertTrue(checkElementTextViewRoboReturn("Tools, LDS5"));
+		
+		//Elders Quorum
+		clickLastTextViewRoboReturnContains("Households Not Visited");
+		Thread.sleep(2000);
+		Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member15"));
+		Assert.assertTrue(checkElementTextViewReturn("Faamoeolo, Akisa"));
+		Assert.assertTrue(checkElementTextViewReturn("Lavea, Muaau Alavaa"));
+		
+		clickButtonByXpath("6Months");
+		Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member15"));
+		Assert.assertTrue(checkElementTextViewReturn("Faamoeolo, Akisa"));
+		Assert.assertTrue(checkElementTextViewReturn("Lavea, Muaau Alavaa"));
+		
+		clickButtonByXpath("3Months");
+		Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member15"));
+		Assert.assertTrue(checkElementTextViewReturn("AFPSix, Husband"));
+		Assert.assertTrue(checkElementTextViewReturn("AFPTen, Husband"));
+		
+		clickButtonByXpath("1Month");
+		Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member15"));
+		Assert.assertTrue(checkElementTextViewReturn("AFPSix, Husband"));
+		Assert.assertTrue(checkElementTextViewReturn("AFPTen, Husband"));
+		pressBackKey();
+		
+		clickLastTextViewRoboReturnContains("Unassigned Households");
+		Thread.sleep(2000);
+		Assert.assertTrue(checkElementTextViewReturn("Faamoeolo, Akisa"));
+		Assert.assertTrue(checkElementTextViewReturn("Lavea, Muaau Alavaa"));
+		Assert.assertTrue(checkElementTextViewReturn("Maiava, Semi"));
+		pressBackKey();
+		
+		clickLastTextViewRoboReturnContains("Potential Home Teachers");
+		Thread.sleep(2000);
+		Assert.assertTrue(checkElementTextViewReturn("AFPTen, Husband (54)"));
+		Assert.assertTrue(checkElementTextViewReturn("Ami, Samu Junior (22)"));
+		Assert.assertTrue(checkElementTextViewReturn("Endemann, Eddie (81)"));
+		pressBackKey();
+
 	}
 		
 	
@@ -383,22 +321,68 @@ public class LDSTools {
 	}
 	
 	@Test
+	public void editVisibiltyPersonalTest() throws Exception {
+		editVisibiltyPersonal();	
+	}
+	
+	@Test
+	public void editVisibiltyHouseholdTest() throws Exception {
+		editVisibiltyHousehold();	
+	}
+	
+
+	
+	@Test
 	public void invalidLoginCheckTest() throws Exception {
 		invalidLoginCheck();	
 	}
 	
 	@Test
-	public void HeaderTest() throws Exception {
-		ChristieWhiting();
-		CliffHigby();
-		KevinPalmer();
-		PatriarchOtherWards();	
-		TravisLyman();
-		ElderKacher(); 
-		TerryBallard(); //Check to see Tim and Jessica Beck
-		//AdminUnit(); //Not working yet - not sure if this is suppose to work
-		WardStakeCouncilor();
+	public ChristieWhitingTest() throws Exception {
+		ChristieWhiting();	
 	}
+	
+	@Test
+	public CliffHigbyTest() throws Exception {
+		CliffHigby();	
+	}
+	
+	@Test
+	public KevinPalmerTest() throws Exception {
+		KevinPalmer();	
+	}
+	
+	@Test
+	public PatriarchOtherWardsTest() throws Exception {
+		PatriarchOtherWards();	
+	}
+	
+	@Test
+	public TravisLymanTest() throws Exception {
+		TravisLyman();	
+	}
+	
+	@Test
+	public ElderKacherTest() throws Exception {
+		ElderKacher();	
+	}
+	
+	@Test
+	public TerryBallardTest() throws Exception {
+		TerryBallard();	
+	}
+	
+	@Test
+	public WardStakeCouncilorTest() throws Exception {
+		WardStakeCouncilor();	
+	}
+	
+	//Not working yet
+	//@Test
+	//public AdminUnitTest() throws Exception {
+	//	AdminUnit();	
+	//}
+	
 	
 	@Test
 	public void HighPriestsGroupLeader() throws Exception {
@@ -1316,7 +1300,7 @@ public class LDSTools {
 	
 	
 	public void editVisibility() throws Exception {
-		int myCheck = 0;
+		//int myCheck = 0;
 		//Edit other user with invalid data - phone
 		syncLogIn("LDSTools5", "toolstester", "UAT" );
 		Thread.sleep(2000);
@@ -1454,6 +1438,300 @@ public class LDSTools {
 		
 		Assert.assertTrue(checkElementTextViewRoboReturn("Tools, LDS5"));
 	}
+	
+	public void editVisibiltyPersonal() throws Exception {
+		//Set the PERSONAL phone and email to Private-Leadership Only
+		//Change LDSTools5 then check the privacy settings with LDSTools6
+		syncLogIn("LDSTools5", "toolstester", "UAT" );
+		Thread.sleep(2000);
+		
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);
+		
+		//Search and open Tools, LDS5
+		searchForUser("Tools, LDS5");
+		
+		//Check user name and open the Edit menu
+		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS5"));
+		Thread.sleep(1000);
+		clickButtonByXpath("MenuEdit");
+		Thread.sleep(2000);
+		
+		//This will reset the visibility back to Stake (just in case something went wrong)
+		resetVisibility();
+		
+		//Set the Personal Settings to Private-Leadership Only
+		clickButtonByXpath("PersonalSettings");
+		clickButtonByXpath("EditAllVisibility");
+		Thread.sleep(2000);
+		clickButtonByXpathPopoutMenu("Private—Leadership Only");
+		Thread.sleep(1000);
+		clickButtonByXpath("MenuSave");
+		Thread.sleep(1000);
+		clickButtonByXpath("MenuSave");
+		Thread.sleep(3000);
+		pressBackKey();
+		Thread.sleep(1000);
+		//Collapse the search 
+		clickButtonByXpath("SearchCollapse");
+		Thread.sleep(1000);
+		
+		//Log out 
+		drawerSignOut();
+		
+		//Login with LDSTools6 to check the Personal settings
+		syncLogIn("LDSTools6", "toolstester", "UAT" );
+		Thread.sleep(2000);
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);
+	
+		searchForUser("Tools, LDS5");
+		
+		//Check the users name Phone and email
+		Assert.assertTrue(checkElementTextViewReturn("LDS5 Tools"));
+		Assert.assertTrue(checkElementTextViewReturn("Fagamalo 1st Ward"));
+
+		Assert.assertTrue(checkElementTextCustom("CONTACT INFORMATION", "CapitalizedTextView"));
+		Assert.assertFalse(checkElementTextViewReturn("1224589900887"));
+		Assert.assertFalse(checkElementTextCustom("PERSONAL", "*"));
+		Assert.assertTrue(checkElementTextViewReturn("5551234555"));
+		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD", "*"));
+		Assert.assertFalse(checkElementTextViewReturn("Z@z.com"));
+		Assert.assertFalse(checkElementTextCustom("PERSONAL", "*"));
+		Assert.assertTrue(checkElementTextViewReturn("test@test.com"));
+		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD", "*"));
+		
+		Thread.sleep(3000);
+		pressBackKey();
+		
+		//Collapse the search 
+		clickButtonByXpath("SearchCollapse");
+		
+		//Log out 
+		drawerSignOut();
+		
+		
+		//Change the settings back to default
+		syncLogIn("LDSTools5", "toolstester", "UAT" );
+		Thread.sleep(2000);
+		
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);
+		
+		searchForUser("Tools, LDS5");
+		
+		//Check the users name, address membership number etc...
+		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS5"));
+		Thread.sleep(1000);
+		clickButtonByXpath("MenuEdit");
+		
+		Thread.sleep(3000);
+		clickButtonByXpath("PersonalSettings");
+		clickButtonByXpath("EditAllVisibility");
+		Thread.sleep(2000);
+		clickButtonByXpathPopoutMenu("Stake Visibility");
+		
+		Thread.sleep(1000);
+		clickButtonByXpath("MenuSave");
+		Thread.sleep(1000);
+		clickButtonByXpath("MenuSave");
+		Thread.sleep(3000);
+		//pressBackKey();
+		pressBackKey();
+		
+		Thread.sleep(1000);
+		//Collapse the search 
+		clickButtonByXpath("SearchCollapse");
+		Thread.sleep(1000);
+		
+		//Log out 
+		drawerSignOut();
+		Thread.sleep(1000);
+		
+		
+		//Make sure things are back to default
+		syncLogIn("LDSTools6", "toolstester", "UAT" );
+		Thread.sleep(2000);
+		
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);
+		
+		//Search for logged in user
+		clickButtonByID("MenuSearch");
+		sendTextbyXpath("SearchArea", "Tools, LDS5");
+		
+		Thread.sleep(2000);
+		clickLastTextViewRoboReturn("Tools, LDS5");
+		Thread.sleep(2000);
+		clickLastTextViewRoboReturn("Tools, LDS5");
+		Thread.sleep(2000);
+		
+		//Check the users name, address membership number etc...
+		Assert.assertTrue(checkElementTextViewReturn("LDS5 Tools"));
+		Assert.assertTrue(checkElementTextViewReturn("Fagamalo 1st Ward"));
+
+		Assert.assertTrue(checkElementTextCustom("CONTACT INFORMATION", "CapitalizedTextView"));
+		Assert.assertTrue(checkElementTextViewReturn("1224589900887"));
+		Assert.assertTrue(checkElementTextCustom("PERSONAL", "*"));
+		Assert.assertTrue(checkElementTextViewReturn("5551234555"));
+		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD", "*"));
+		Assert.assertTrue(checkElementTextViewReturn("Z@z.com"));
+		Assert.assertTrue(checkElementTextCustom("PERSONAL", "*"));
+		Assert.assertTrue(checkElementTextViewReturn("test@test.com"));
+		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD", "*"));
+	}
+	
+	
+	public void editVisibiltyHousehold() throws Exception {
+		//Set the HOUSEHOLD phone and email to Private-Leadership Only
+		//Change LDSTools5 then check the privacy settings with LDSTools6
+		syncLogIn("LDSTools5", "toolstester", "UAT" );
+		Thread.sleep(2000);
+		
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);
+		
+		//Search and open Tools, LDS5
+		searchForUser("Tools, LDS5");
+		
+		//Check user name and open the Edit menu
+		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS5"));
+		Thread.sleep(1000);
+		clickButtonByXpath("MenuEdit");
+		Thread.sleep(2000);
+		
+		//This will reset the visibility back to Stake (just in case something went wrong)
+		resetVisibility();
+		
+		//Set the Personal Settings to Private-Leadership Only
+		clickButtonByXpath("HouseholdSettings");
+		clickButtonByXpath("EditAllVisibility");
+		Thread.sleep(2000);
+		clickButtonByXpathPopoutMenu("Private—Leadership Only");
+		Thread.sleep(1000);
+		clickButtonByXpath("MenuSave");
+		Thread.sleep(1000);
+		clickButtonByXpath("MenuSave");
+		Thread.sleep(3000);
+		pressBackKey();
+		Thread.sleep(1000);
+		//Collapse the search 
+		clickButtonByXpath("SearchCollapse");
+		Thread.sleep(1000);
+		
+		//Log out 
+		drawerSignOut();
+		
+		//Login with LDSTools6 to check the Personal settings
+		syncLogIn("LDSTools6", "toolstester", "UAT" );
+		Thread.sleep(2000);
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);
+	
+		searchForUser("Tools, LDS5");
+		
+		//Check the users name Phone and email
+		Assert.assertTrue(checkElementTextViewReturn("LDS5 Tools"));
+		Assert.assertTrue(checkElementTextViewReturn("Fagamalo 1st Ward"));
+
+		Assert.assertTrue(checkElementTextCustom("CONTACT INFORMATION", "CapitalizedTextView"));
+		Assert.assertTrue(checkElementTextViewReturn("1224589900887"));
+		Assert.assertTrue(checkElementTextCustom("PERSONAL", "*"));
+		Assert.assertFalse(checkElementTextViewReturn("5551234555"));
+		Assert.assertFalse(checkElementTextCustom("HOUSEHOLD", "*"));
+		Assert.assertTrue(checkElementTextViewReturn("Z@z.com"));
+		Assert.assertTrue(checkElementTextCustom("PERSONAL", "*"));
+		Assert.assertFalse(checkElementTextViewReturn("test@test.com"));
+		Assert.assertFalse(checkElementTextCustom("HOUSEHOLD", "*"));
+		
+		Thread.sleep(3000);
+		pressBackKey();
+		
+		//Collapse the search 
+		clickButtonByXpath("SearchCollapse");
+		
+		//Log out 
+		drawerSignOut();
+		
+		
+		//Change the settings back to default
+		syncLogIn("LDSTools5", "toolstester", "UAT" );
+		Thread.sleep(2000);
+		
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);
+		
+		searchForUser("Tools, LDS5");
+		
+		//Check the users name, address membership number etc...
+		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS5"));
+		Thread.sleep(1000);
+		clickButtonByXpath("MenuEdit");
+		
+		Thread.sleep(3000);
+		clickButtonByXpath("HouseholdSettings");
+		clickButtonByXpath("EditAllVisibility");
+		Thread.sleep(2000);
+		clickButtonByXpathPopoutMenu("Stake Visibility");
+		Thread.sleep(3000);
+		clickButtonByXpath("MenuSave");
+		Thread.sleep(1000);
+		clickButtonByXpath("MenuSave");
+		Thread.sleep(3000);
+		//pressBackKey();
+		pressBackKey();
+		
+		Thread.sleep(1000);
+		//Collapse the search 
+		clickButtonByXpath("SearchCollapse");
+		Thread.sleep(1000);
+		
+		//Log out 
+		drawerSignOut();
+		Thread.sleep(1000);
+		
+		
+		//Make sure things are back to default
+		syncLogIn("LDSTools6", "toolstester", "UAT" );
+		Thread.sleep(2000);
+		
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);
+		
+		//Search for logged in user
+		clickButtonByID("MenuSearch");
+		sendTextbyXpath("SearchArea", "Tools, LDS5");
+		
+		Thread.sleep(2000);
+		clickLastTextViewRoboReturn("Tools, LDS5");
+		Thread.sleep(2000);
+		clickLastTextViewRoboReturn("Tools, LDS5");
+		Thread.sleep(2000);
+		
+		//Check the users name, address membership number etc...
+		Assert.assertTrue(checkElementTextViewReturn("LDS5 Tools"));
+		Assert.assertTrue(checkElementTextViewReturn("Fagamalo 1st Ward"));
+
+		Assert.assertTrue(checkElementTextCustom("CONTACT INFORMATION", "CapitalizedTextView"));
+		Assert.assertTrue(checkElementTextViewReturn("1224589900887"));
+		Assert.assertTrue(checkElementTextCustom("PERSONAL", "*"));
+		Assert.assertTrue(checkElementTextViewReturn("5551234555"));
+		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD", "*"));
+		Assert.assertTrue(checkElementTextViewReturn("Z@z.com"));
+		Assert.assertTrue(checkElementTextCustom("PERSONAL", "*"));
+		Assert.assertTrue(checkElementTextViewReturn("test@test.com"));
+		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD", "*"));
+	}
+	
+	
 	
 	/** invalidLoginCheck()
 	 * Test invalid logins to LDS Tools
@@ -3260,6 +3538,22 @@ public class LDSTools {
 			clickButtonByXpath("MenuEdit");
 			Thread.sleep(2000);
 		}
+	}
+	
+	
+	private void searchForUser(String userToSearch) throws Exception {
+		//Search for logged in user
+		clickButtonByID("MenuSearch");
+		sendTextbyXpath("SearchArea", userToSearch );
+		
+		//Select the user
+		Thread.sleep(2000);
+		//Expand on the search 
+		clickLastTextViewRoboReturn(userToSearch);
+		Thread.sleep(2000);
+		//Select the expanded user
+		clickLastTextViewRoboReturn(userToSearch);
+		Thread.sleep(1000);
 	}
 	
 
