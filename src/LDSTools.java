@@ -22,6 +22,7 @@ import java.util.Properties;
 
 
 
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 //import io.appium.java_client.android.AndroidDriver;
@@ -31,6 +32,7 @@ import io.appium.java_client.MobileElement;
 //import io.selendroid.SelendroidDriver;
 import io.selendroid.SelendroidKeys;
 //import io.selendroid.exceptions.NoSuchElementException;
+
 
 
 
@@ -71,6 +73,8 @@ import org.openqa.selenium.remote.RemoteTouchScreen;
 //import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.thoughtworks.selenium.Wait;
 //Not used yet
 //import org.openqa.selenium.WebElement;
 
@@ -176,14 +180,14 @@ public class LDSTools {
 
 	public void justForTesting() throws Exception {
 
-		syncLogIn("LDSTools40", "password1", "UAT" );
+		syncLogIn("LDSTools2", "toolstester", "UAT" );
 		pinPage("1", "1", "3", "3", true);
 		Thread.sleep(2000);
 		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
 		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
+
 		
-		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
-		checkHTVTBasic("Ward Council");
+		checkHTVTHouseholds("Bishopric");
 			
 
 	}
@@ -489,7 +493,7 @@ public class LDSTools {
 		sendTextbyXpath("SearchArea", "Tools, LDS6");
 		Thread.sleep(1000);
 		//Select the user
-		//clickItemByXpathRoboText("Tools, LDS6");
+		//clickButtonByXpathTitleName("Tools, LDS6");
 		clickLastTextViewRoboReturn("Tools, LDS6");
 		Thread.sleep(1000);
 		clickLastTextViewRoboReturn("Tools, LDS6");
@@ -512,7 +516,7 @@ public class LDSTools {
 		sendTextbyXpath("SearchArea", "Aaron, Jane");
 		
 		//Directory items that should not be visible
-		//clickItemByXpathRoboText("Aaron, Jane");
+		//clickButtonByXpathTitleName("Aaron, Jane");
 		clickLastTextViewRoboReturn("Aaron, Jane");
 		Thread.sleep(1000);
 		clickLastTextViewRoboReturn("Aaron, Jane");
@@ -592,8 +596,8 @@ public class LDSTools {
 		Thread.sleep(2000);
 		//displayAllTextViewElements();
 		//Select the user
-		//clickItemByXpathRoboTextContains("Venasio, Fainu");
-		//clickItemByXpathRoboText("Venasio, Fainu'u & Moliga");
+		//clickButtonByXpathTitleNameContains("Venasio, Fainu");
+		//clickButtonByXpathTitleName("Venasio, Fainu'u & Moliga");
 		clickLastTextViewRoboReturnContains("Venasio, Fainu");
 		Thread.sleep(1000);
 		clickLastTextViewRoboReturnContains("Venasio, Fainu");
@@ -669,7 +673,7 @@ public class LDSTools {
 		pressEnterKey();
 		
 		//Select the user
-		//clickItemByXpathRoboText("Tools, LDS2");
+		//clickButtonByXpathTitleName("Tools, LDS2");
 		clickLastTextViewRoboReturn("Tools, LDS2");
 		Thread.sleep(1000);
 		clickLastTextViewRoboReturn("Tools, LDS2");
@@ -773,6 +777,12 @@ public class LDSTools {
 		//Check Home Teaching - Visiting Teaching
 		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
 		checkHTVTBasic(userCalling);
+		
+		Thread.sleep(1000);
+		//Check Home Teaching - Visiting Teaching Household - Sisters and Filters
+		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
+		checkHTVTHouseholds(userCalling);
+		
 
 	}
 	
@@ -794,7 +804,7 @@ public class LDSTools {
 		sendTextbyXpath("SearchArea", "Tools, LDS100");
 		
 		//Select the user
-		//clickItemByXpathRoboText("Tools, LDS100");
+		//clickButtonByXpathTitleName("Tools, LDS100");
 		clickLastTextViewRoboReturn("Tools, LDS100");
 		Thread.sleep(1000);
 		clickLastTextViewRoboReturn("Tools, LDS100");
@@ -848,7 +858,7 @@ public class LDSTools {
 		sendTextbyXpath("SearchArea", "Tools, LDS100");
 		
 		//Select the user
-		//clickItemByXpathRoboText("Tools, LDS100");
+		//clickButtonByXpathTitleName("Tools, LDS100");
 		clickLastTextViewRoboReturn("Tools, LDS100");
 		Thread.sleep(1000);
 		clickLastTextViewRoboReturn("Tools, LDS100");
@@ -899,7 +909,7 @@ public class LDSTools {
 		sendTextbyXpath("SearchArea", "Tools, LDS41");
 		
 		//Select the user
-		//clickItemByXpathRoboText("Tools, LDS41");
+		//clickButtonByXpathTitleName("Tools, LDS41");
 		clickLastTextViewRoboReturn("Tools, LDS41");
 		Thread.sleep(1000);
 		clickLastTextViewRoboReturn("Tools, LDS41");
@@ -959,7 +969,7 @@ public class LDSTools {
 		sendTextbyXpath("SearchArea", "Tools, LDS41");
 		
 		//Select the user
-		//clickItemByXpathRoboText("Tools, LDS41");
+		//clickButtonByXpathTitleName("Tools, LDS41");
 		clickLastTextViewRoboReturn("Tools, LDS41");
 		Thread.sleep(1000);
 		clickLastTextViewRoboReturn("Tools, LDS41");
@@ -1007,7 +1017,7 @@ public class LDSTools {
 		sendTextbyXpath("SearchArea", "Tools, LDS41");
 		
 		//Select the user
-		//clickItemByXpathRoboText("Tools, LDS41");
+		//clickButtonByXpathTitleName("Tools, LDS41");
 		clickLastTextViewRoboReturn("Tools, LDS41");
 		Thread.sleep(1000);
 		clickLastTextViewRoboReturn("Tools, LDS41");
@@ -1062,7 +1072,7 @@ public class LDSTools {
 		sendTextbyXpath("SearchArea", "Tools, LDS41");
 		
 		//Select the user
-		//clickItemByXpathRoboText("Tools, LDS41");
+		//clickButtonByXpathTitleName("Tools, LDS41");
 		clickLastTextViewRoboReturn("Tools, LDS41");
 		Thread.sleep(1000);
 		clickLastTextViewRoboReturn("Tools, LDS41");
@@ -1105,7 +1115,7 @@ public class LDSTools {
 		sendTextbyXpath("SearchArea", "Tools, LDS41");
 		
 		//Select the user
-		//clickItemByXpathRoboText("Tools, LDS41");
+		//clickButtonByXpathTitleName("Tools, LDS41");
 		clickLastTextViewRoboReturn("Tools, LDS41");
 		Thread.sleep(1000);
 		clickLastTextViewRoboReturn("Tools, LDS41");
@@ -1182,7 +1192,7 @@ public class LDSTools {
 		sendTextbyXpath("SearchArea", "Tools, LDS41");
 		
 		//Select the user
-		//clickItemByXpathRoboText("Tools, LDS41");
+		//clickButtonByXpathTitleName("Tools, LDS41");
 		clickLastTextViewRoboReturn("Tools, LDS41");
 		Thread.sleep(1000);
 		clickLastTextViewRoboReturn("Tools, LDS41");
@@ -1208,7 +1218,7 @@ public class LDSTools {
 		sendTextbyXpath("SearchArea", "Tools, LDS5");
 		
 		//Select the user
-		//clickItemByXpathRoboText("Tools, LDS5");
+		//clickButtonByXpathTitleName("Tools, LDS5");
 		Thread.sleep(2000);
 		clickLastTextViewRoboReturn("Tools, LDS5");
 		Thread.sleep(2000);
@@ -1231,7 +1241,7 @@ public class LDSTools {
 		//clickButtonByXpath("EditAllVisibility");
 		//displayAllTextViewElements();
 		Thread.sleep(2000);
-		clickButtonByXpathPopoutMenu("Private—Leadership Only");
+		clickButtonByXpathTitleName("Private—Leadership Only");
 		//Thread.sleep(1000);
 		//clickButtonByXpath("MenuSave");
 		Thread.sleep(1000);
@@ -1277,7 +1287,7 @@ public class LDSTools {
 		sendTextbyXpath("SearchArea", "Tools, LDS5");
 		
 		//Select the user
-		clickItemByXpathRoboText("Tools, LDS5");
+		clickButtonByXpathTitleName("Tools, LDS5");
 		clickLastTextViewRoboReturn("Tools, LDS5");
 		Thread.sleep(2000);
 		clickLastTextViewRoboReturn("Tools, LDS5");
@@ -1300,7 +1310,7 @@ public class LDSTools {
 
 		//clickButtonByXpath("EditAllVisibility");
 		//displayAllTextViewElements();
-		clickButtonByXpathPopoutMenu("Stake Visibility");
+		clickButtonByXpathTitleName("Stake Visibility");
 		Thread.sleep(1000);
 		clickButtonByXpath("MenuSave");
 		//Thread.sleep(1000);
@@ -1359,7 +1369,7 @@ public class LDSTools {
 		clickButtonByXpath("PersonalSettings");
 		clickButtonByXpath("EditAllVisibility");
 		Thread.sleep(2000);
-		clickButtonByXpathPopoutMenu("Private—Leadership Only");
+		clickButtonByXpathTitleName("Private—Leadership Only");
 		Thread.sleep(1000);
 		clickButtonByXpath("MenuSave");
 		Thread.sleep(1000);
@@ -1426,7 +1436,7 @@ public class LDSTools {
 		clickButtonByXpath("PersonalSettings");
 		clickButtonByXpath("EditAllVisibility");
 		Thread.sleep(2000);
-		clickButtonByXpathPopoutMenu("Stake Visibility");
+		clickButtonByXpathTitleName("Stake Visibility");
 		
 		Thread.sleep(1000);
 		clickButtonByXpath("MenuSave");
@@ -1506,7 +1516,7 @@ public class LDSTools {
 		clickButtonByXpath("HouseholdSettings");
 		clickButtonByXpath("EditAllVisibility");
 		Thread.sleep(2000);
-		clickButtonByXpathPopoutMenu("Private—Leadership Only");
+		clickButtonByXpathTitleName("Private—Leadership Only");
 		Thread.sleep(1000);
 		clickButtonByXpath("MenuSave");
 		Thread.sleep(1000);
@@ -1573,7 +1583,7 @@ public class LDSTools {
 		clickButtonByXpath("HouseholdSettings");
 		clickButtonByXpath("EditAllVisibility");
 		Thread.sleep(2000);
-		clickButtonByXpathPopoutMenu("Stake Visibility");
+		clickButtonByXpathTitleName("Stake Visibility");
 		Thread.sleep(3000);
 		clickButtonByXpath("MenuSave");
 		Thread.sleep(1000);
@@ -1795,7 +1805,7 @@ public class LDSTools {
 		
 		//Select the user
 		//Check that the children are visible
-		clickItemByXpathRoboText("Faapili, Muipu & Baby");
+		clickButtonByXpathTitleName("Faapili, Muipu & Baby");
 		clickLastTextViewRoboReturn("Faapili, Muipu");
 		Thread.sleep(1000);
 		Assert.assertTrue(checkElementTextViewReturn("Muipu Faapili (32)"));
@@ -1820,7 +1830,7 @@ public class LDSTools {
 		
 		//Select the user
 		//Check that the children are visible
-		clickItemByXpathRoboText("Alofa, Pasi & Rowena");
+		clickButtonByXpathTitleName("Alofa, Pasi & Rowena");
 		clickLastTextViewRoboReturn("Alofa, Pasi");
 		Thread.sleep(1000);
 		Assert.assertTrue(checkElementTextViewReturn("Pasi Alofa (32)"));
@@ -2005,7 +2015,7 @@ public class LDSTools {
 		
 		
 		for (int myCounter = 2 ; myCounter <= 47; myCounter++ ){
-			System.out.println("USER: LDSTools" + myCounter);
+			//System.out.println("USER: LDSTools" + myCounter);
 			if (myCounter <= 15){
 				syncLogIn("LDSTools" + myCounter, password1, "UAT" );
 			} else {
@@ -2243,7 +2253,11 @@ public class LDSTools {
 	 * @param textElement - Xpath of element must be found if uiMap
 	 */
 	private void clickButtonByXpath(String textElement) {
-		driver.findElement(By.xpath(this.prop.getProperty(textElement))).click();
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		WebElement myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(this.prop.getProperty(textElement))));
+		myElement.click();
+		
+		//driver.findElement(By.xpath(this.prop.getProperty(textElement))).click();
 	}
 	
 	
@@ -2255,28 +2269,12 @@ public class LDSTools {
 	 * @param textElement - text of element
 	 */
 	private void clickButtonByXpathTitleName(String textElement ) {
-		//WebElement element;
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		WebElement myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@value='" + textElement + "']")));
+		myElement.click();
 		
-		driver.findElement(By.xpath("//*[@value='" + textElement + "']")).click();
 		
-		//I don't really like this sleep but it seems to be needed 
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	/** clickItemByXpathRoboText(String textElement )
-	 * Click the button that has the xpath of //RobotoTextView[@value" TEXT OF ELEMENT "]
-	 * 
-	 * @param textElement - text of element
-	 */
-	private void clickItemByXpathRoboText(String textElement ) {
-		//WebElement element;
-		//System.out.println("TEXT ELEMENT: " + textElement);
-		//driver.findElement(By.xpath("//RobotoTextView[@value='" + textElement + "']")).click();
-		driver.findElement(By.xpath("//*[@value='" + textElement + "']")).click();
+		//driver.findElement(By.xpath("//*[@value='" + textElement + "']")).click();
 		
 		//I don't really like this sleep but it seems to be needed 
 		try {
@@ -2285,12 +2283,15 @@ public class LDSTools {
 			e.printStackTrace();
 		}
 	}
+
 	
-	private void clickItemByXpathRoboTextContains(String textElement ) {
-		//WebElement element;
-		//System.out.println("TEXT ELEMENT: " + textElement);
-		//driver.findElement(By.xpath("//RobotoTextView[contains(@value, '" + textElement + "')]")).click();
-		driver.findElement(By.xpath("//*[contains(@value, '" + textElement + "')]")).click();
+	private void clickButtonByXpathTitleNameContains(String textElement ) {
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		WebElement myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@value, '" + textElement + "')]")));
+		myElement.click();
+		
+
+		//driver.findElement(By.xpath("//*[contains(@value, '" + textElement + "')]")).click();
 
 		//I don't really like this sleep but it seems to be needed 
 		try {
@@ -2300,29 +2301,6 @@ public class LDSTools {
 		}
 	}
 	
-	
-
-	
-	/**clickButtonByXpathPopoutMenu(String textElement )
-	 * Click elements by xpath on the popout menu
-	 * 
-	 * @param textElement - text of the element
-	 */
-	private void clickButtonByXpathPopoutMenu(String textElement ) {
-		//WebElement element;
-		
-		//System.out.println("Element: " + textElement );
-		//driver.findElement(By.xpath("//TintCheckedTextView[@value='" + textElement + "']")).click();
-		//driver.findElement(By.xpath("//CheckedTextView[@value='" + textElement + "']")).click();
-		driver.findElement(By.xpath("//*[@value='" + textElement + "']")).click();
-		
-		//I don't really like this sleep but it seems to be needed 
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
 	
 
 	/** sendTextbyID(String textElement, String textToSend )
@@ -2621,15 +2599,14 @@ public class LDSTools {
 			longPressByTextView("Sign in to your LDS Account");
 			Thread.sleep(1000);
 			longPressByTextView("Sign in to your LDS Account");
-			Thread.sleep(1000);
 			clickButtonByXpath("Menu");
 			clickButtonByXpathTitleName("Settings");
 			//Thread.sleep(1000);
 			//scrollDown("Sign Out", 40 );
 			Thread.sleep(2000);
 			scrollDown("Network Environment", -1000 );
-			Thread.sleep(2000);
-			clickButtonByXpathPopoutMenu(chooseNetwork);
+			//Thread.sleep(2000);
+			clickButtonByXpathTitleName(chooseNetwork);
 			clickButtonByXpath("Back");
 			Thread.sleep(5000);
 		}
@@ -2637,7 +2614,7 @@ public class LDSTools {
 		//sendTextbyXpath("LoginPassword", "toolstester");
 		sendTextbyXpath("LoginUsername", loginName);
 		sendTextbyXpath("LoginPassword", loginPassword);
-		Thread.sleep(1000);
+		//Thread.sleep(1000);
 		clickButtonByXpath("SignInButton");
 		Thread.sleep(4000);
 		waitForTextToDisappear("SyncText", 500 );
@@ -2652,15 +2629,15 @@ public class LDSTools {
 			longPressByTextView("Sign in to your LDS Account");
 			Thread.sleep(1000);
 			longPressByTextView("Sign in to your LDS Account");
-			Thread.sleep(1000);
+			//Thread.sleep(1000);
 			clickButtonByXpath("Menu");
 			clickButtonByXpathTitleName("Settings");
 			//Thread.sleep(1000);
 			//scrollDown("Sign Out", 40 );
 			Thread.sleep(2000);
 			scrollDown("Network Environment", -1000 );
-			Thread.sleep(2000);
-			clickButtonByXpathPopoutMenu(chooseNetwork);
+			//Thread.sleep(2000);
+			clickButtonByXpathTitleName(chooseNetwork);
 			Thread.sleep(2000);
 			scrollDown("px_i", -1000 );
 			Thread.sleep(2000);
@@ -2683,7 +2660,7 @@ public class LDSTools {
 		//sendTextbyXpath("LoginPassword", "toolstester");
 		sendTextbyXpath("LoginUsername", userName );
 		sendTextbyXpath("LoginPassword", "password1");
-		Thread.sleep(1000);
+		//Thread.sleep(1000);
 		clickButtonByXpath("SignInButton");
 		Thread.sleep(4000);
 		waitForTextToDisappear("SyncText", 500 );
@@ -2751,7 +2728,7 @@ public class LDSTools {
 		
 		Thread.sleep(2000);
 		//Directory items that should not be visible
-		//clickItemByXpathRoboText("Aaron, Jane");
+		//clickButtonByXpathTitleName("Aaron, Jane");
 		clickLastTextViewRoboReturn("Aaron, Jane");
 		Thread.sleep(2000);
 		clickLastTextViewRoboReturn("Aaron, Jane");
@@ -2837,7 +2814,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 
 		pressBackKey();
-		Thread.sleep(2000);
+		//Thread.sleep(2000);
 		//Collapse the search 
 		clickButtonByXpath("SearchCollapse");
 	}
@@ -2890,7 +2867,7 @@ public class LDSTools {
 		Assert.assertTrue(checkReportText.contains("Other Callings"));
 		
 		//Bishopric
-		clickItemByXpathRoboText("Bishopric");
+		clickButtonByXpathTitleName("Bishopric");
 		Thread.sleep(1000);
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Bishop"));
@@ -2912,8 +2889,8 @@ public class LDSTools {
 		Thread.sleep(1000);
 		
 		//High Priests Group
-		clickItemByXpathRoboText("High Priests Group");
-		clickItemByXpathRoboText("High Priests Group Leadership");
+		clickButtonByXpathTitleName("High Priests Group");
+		clickButtonByXpathTitleName("High Priests Group Leadership");
 		Thread.sleep(1000);
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("High Priests Group Leader"));
@@ -2923,8 +2900,8 @@ public class LDSTools {
 		pressBackKey();
 		
 		//Elders Quorum
-		clickItemByXpathRoboText("Elders Quorum");
-		clickItemByXpathRoboText("Elders Quorum Presidency");
+		clickButtonByXpathTitleName("Elders Quorum");
+		clickButtonByXpathTitleName("Elders Quorum Presidency");
 		Thread.sleep(1000);
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Elders Quorum President"));
@@ -2937,8 +2914,8 @@ public class LDSTools {
 		
 		
 		//Relief Society
-		clickItemByXpathRoboText("Relief Society");
-		clickItemByXpathRoboText("Relief Society Presidency");
+		clickButtonByXpathTitleName("Relief Society");
+		clickButtonByXpathTitleName("Relief Society Presidency");
 		Thread.sleep(1000);
 		checkReportText = getAllText();
 		//displayAllTextViewElements();
@@ -2956,8 +2933,8 @@ public class LDSTools {
 		
 		Thread.sleep(1000);
 		//Young Men
-		clickItemByXpathRoboText("Young Men");
-		clickItemByXpathRoboText("Young Men Presidency");
+		clickButtonByXpathTitleName("Young Men");
+		clickButtonByXpathTitleName("Young Men Presidency");
 		Thread.sleep(1000);
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Young Men President"));
@@ -2969,11 +2946,11 @@ public class LDSTools {
 		Assert.assertTrue(checkReportText.contains("Young Men Secretary"));
 		Assert.assertTrue(checkReportText.contains("Venasio Fainuu, Fogavai"));
 		pressBackKey();
-		Thread.sleep(1000);
-		clickItemByXpathRoboText("Priests Quorum");
+		//Thread.sleep(1000);
+		clickButtonByXpathTitleName("Priests Quorum");
 		Thread.sleep(1000);
 		checkReportText = getAllText();
-		//clickItemByXpathRoboText("Priests Quorum Presidency");
+		//clickButtonByXpathTitleName("Priests Quorum Presidency");
 		Assert.assertTrue(checkReportText.contains("Priests Quorum First Assistant"));
 		Assert.assertTrue(checkReportText.contains("Tulia, Tiueni"));
 		Assert.assertTrue(checkReportText.contains("Priests Quorum Second Assistant"));
@@ -2988,8 +2965,8 @@ public class LDSTools {
 		
 		
 		//Young Women
-		clickItemByXpathRoboText("Young Women");
-		clickItemByXpathRoboText("Young Women Presidency");
+		clickButtonByXpathTitleName("Young Women");
+		clickButtonByXpathTitleName("Young Women Presidency");
 		Thread.sleep(1000);
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Young Women President"));
@@ -3004,8 +2981,8 @@ public class LDSTools {
 		
 		
 		//Sunday School
-		clickItemByXpathRoboText("Sunday School");
-		clickItemByXpathRoboText("Sunday School Presidency");
+		clickButtonByXpathTitleName("Sunday School");
+		clickButtonByXpathTitleName("Sunday School Presidency");
 		Thread.sleep(1000);
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Sunday School President"));
@@ -3019,8 +2996,8 @@ public class LDSTools {
 		pressBackKey();
 		
 		//Primary
-		clickItemByXpathRoboText("Primary");
-		clickItemByXpathRoboText("Primary Presidency");
+		clickButtonByXpathTitleName("Primary");
+		clickButtonByXpathTitleName("Primary Presidency");
 		Thread.sleep(1000);
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Primary President"));
@@ -3037,7 +3014,7 @@ public class LDSTools {
 		
 
 		//Ward Missionaries
-		clickItemByXpathRoboText("Ward Missionaries");
+		clickButtonByXpathTitleName("Ward Missionaries");
 		Thread.sleep(1000);
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Mission Leader"));
@@ -3046,14 +3023,14 @@ public class LDSTools {
 		
 		
 		//Other Callings
-		clickItemByXpathRoboText("Other Callings");
-		clickItemByXpathRoboText("Young Single Adult");
+		clickButtonByXpathTitleName("Other Callings");
+		clickButtonByXpathTitleName("Young Single Adult");
 		Thread.sleep(1000);
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Young Single Adult Leader"));
 		Assert.assertTrue(checkReportText.contains("Solomona, Solomona"));
 		pressBackKey();
-		clickItemByXpathRoboText("Music");
+		clickButtonByXpathTitleName("Music");
 		Thread.sleep(1000);
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Music Adviser"));
@@ -3195,7 +3172,7 @@ public class LDSTools {
 		//clickButtonByXpath("DrawerReports");
 		
 		//Members Moved In
-		Thread.sleep(1000);
+		//Thread.sleep(1000);
 		clickButtonByXpathTitleName("Members Moved In");
 		Thread.sleep(1000);
 		checkReportText = getAllText();
@@ -3218,6 +3195,7 @@ public class LDSTools {
 		
 		//Members with Callings
 		clickButtonByXpathTitleName("Members with Callings");
+		Thread.sleep(2000);
 		checkReportText = getAllText();
 		Assert.assertTrue(checkReportText.contains("Ami, Christian"));
 		Assert.assertTrue(checkReportText.contains("Beehive President (5 months)"));
@@ -3303,7 +3281,7 @@ public class LDSTools {
 		*/
 		Thread.sleep(1000);
 		pressBackKey();
-		Thread.sleep(1000);
+		//Thread.sleep(1000);
 		
 		//New Members
 		clickButtonByXpathTitleName("New Members");
@@ -3370,7 +3348,7 @@ public class LDSTools {
 		
 		//Unit Statistics
 		clickButtonByXpathTitleName("Unit Statistics");
-		Thread.sleep(1000);
+		//Thread.sleep(1000);
 		clickButtonByXpath("AlertOK");
 		Thread.sleep(1000);
 		Assert.assertTrue(checkElementTextViewReturn("596"));
@@ -3410,7 +3388,7 @@ public class LDSTools {
 		
 		if ((userCalling.equals("Bishopric")) || (userCalling.equals("High Priest Group")) || (userCalling.equals("Elders Quorum Pres"))) {
 			clickButtonByXpathTitleName("Home Teaching");
-			Thread.sleep(2000);
+			//Thread.sleep(2000);
 			
 			//High Priests
 			clickButtonByXpathTitleName("Households Not Visited");
@@ -3485,6 +3463,7 @@ public class LDSTools {
 			Assert.assertTrue(checkElementTextViewReturn("Ami, Samu Junior (22)"));
 			Assert.assertTrue(checkElementTextViewReturn("Endemann, Eddie (81)"));
 			pressBackKey();
+			pressBackKey();
 		}
 		
 		if ((userCalling.equals("Relief Society Pres")) || (userCalling.equals("Bishopric"))) {
@@ -3527,6 +3506,7 @@ public class LDSTools {
 			Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Frank (54)"));
 			Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member12 (54)"));
 			pressBackKey();
+			pressBackKey();
 
 		}
 		
@@ -3534,7 +3514,267 @@ public class LDSTools {
 		
 	}
 	
-	
+	private void checkHTVTHouseholds(String userCalling ) throws Exception {
+		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
+		clickButtonByXpath("Drawer");
+		clickButtonByXpath("DrawerReports");
+		Thread.sleep(2000);
+		
+		
+		
+		if ((userCalling.equals("Bishopric")) || (userCalling.equals("High Priest Group")) || (userCalling.equals("Elders Quorum Pres"))) {
+			clickButtonByXpathTitleName("Home Teaching");
+			Thread.sleep(2000);
+			
+			//High Priests
+			clickButtonByXpathTitleName("Households");
+			Thread.sleep(2000);
+			Assert.assertTrue(checkElementTextViewReturn("AFPEighteen, Member"));
+			Assert.assertTrue(checkElementTextViewReturn("AFPEleven, Member"));
+			Assert.assertTrue(checkElementTextViewReturn("AFPFifteen, Member"));
+			
+			//Test Assigned Home Teachers
+			clickButtonByXpath("MenuFilter");
+			clickButtonByXpath("AssignedHomeTeachersBox");
+			clickButtonByXpath("HTVTApply");
+			checkTextByXpath("HTVTFiltersApplied", "Assigned Home Teachers");
+			Assert.assertTrue(checkElementTextViewReturn("AFPEighteen, Member"));
+			Assert.assertTrue(checkElementTextViewReturn("AFPFifteen, Member"));
+			Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member16"));
+			clickButtonByXpath("HTVTRemoveFiltersButton");
+		
+			//Test NOT Assigned Home Teachers
+			clickButtonByXpath("MenuFilter");
+			clickButtonByXpath("NotAssignedHomeTeachersBox");
+			clickButtonByXpath("HTVTApply");
+			checkTextByXpath("HTVTFiltersApplied", "Not Assigned Home Teachers");
+			Assert.assertTrue(checkElementTextViewReturn("AFPEleven, Member"));
+			Assert.assertTrue(checkElementTextViewReturn("AFPFive, Wife"));
+			Assert.assertTrue(checkElementTextViewReturn("AFPFourteen, Member"));
+			clickButtonByXpath("HTVTRemoveFiltersButton");
+
+			//New and Moved in Members
+			clickButtonByXpath("MenuFilter");
+			clickButtonByXpath("NewAndMovedInMembersBox");
+			clickButtonByXpath("HTVTApply");
+			checkTextByXpath("HTVTFiltersApplied", "New & Moved-In Members");
+			Assert.assertFalse(checkElementTextViewReturn("AFPEleven, Member"));
+			Assert.assertFalse(checkElementTextViewReturn("AFPFive, Wife"));
+			Assert.assertFalse(checkElementTextViewReturn("AFPFourteen, Member"));
+			clickButtonByXpath("HTVTRemoveFiltersButton");
+
+			
+			//Single Sisters 18-30 years old
+			clickButtonByXpath("MenuFilter");
+			clickButtonByXpath("SingleSisters1830");
+			clickButtonByXpath("HTVTApply");
+			//checkTextByXpath("HTVTFiltersApplied", "Single Sisters 18-30 years old");
+			Assert.assertTrue(checkElementTextViewReturn("Fiamatai, Solomua"));
+			Assert.assertTrue(checkElementTextViewReturn("Ielv, Gasolo"));
+			Assert.assertTrue(checkElementTextViewReturn("Lagaaia, Fofogafetalaililomaiava"));
+			clickButtonByXpath("HTVTRemoveFiltersButton");
+		
+			
+			
+			//Single Sisters 31 and over
+			clickButtonByXpath("MenuFilter");
+			clickButtonByXpath("SingleSisters31over");
+			clickButtonByXpath("HTVTApply");
+			//checkTextByXpath("HTVTFiltersApplied", "Single Sisters 31 and over");
+			Assert.assertTrue(checkElementTextViewReturn("AFPEighteen, Member"));
+			Assert.assertTrue(checkElementTextViewReturn("AFPFive, Wife"));
+			Assert.assertTrue(checkElementTextViewReturn("AFPFourteen, Member"));
+			clickButtonByXpath("HTVTRemoveFiltersButton");
+			
+			
+			//Single Brothers 18-30 years old
+			clickButtonByXpath("MenuFilter");
+			clickButtonByXpath("SingleBrothers1830");
+			clickButtonByXpath("HTVTApply");
+			//checkTextByXpath("HTVTFiltersApplied", "Single Brothers 18-30 years old");
+			Assert.assertTrue(checkElementTextViewReturn("Anderson, Edward"));
+			Assert.assertTrue(checkElementTextViewReturn("Etene, Max"));
+			Assert.assertTrue(checkElementTextViewReturn("Faivaa, Tepa"));
+			clickButtonByXpath("HTVTRemoveFiltersButton");
+			
+			//Single Brothers 31 and over
+			clickButtonByXpath("MenuFilter");
+			clickButtonByXpath("SingleBrohters31over");
+			clickButtonByXpath("HTVTApply");
+			//checkTextByXpath("HTVTFiltersApplied", "Single Sisters 31 and over");
+			Assert.assertTrue(checkElementTextViewReturn("AFPEleven, Member"));
+			Assert.assertTrue(checkElementTextViewReturn("AFPFifteen, Member"));
+			Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member1"));
+			clickButtonByXpath("HTVTRemoveFiltersButton");
+			
+			//Need a test for Households not visisted slider.
+			
+			pressBackKey();
+			
+			//Elders Quorum
+			clickLastTextViewRoboReturnContains("Households");
+			Thread.sleep(2000);
+			Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member15"));
+			Assert.assertTrue(checkElementTextViewReturn("Faamoeolo, Akisa"));
+			Assert.assertTrue(checkElementTextViewReturn("Lavea, Muaau Alavaa"));
+			
+			//Test Assigned Home Teachers
+			clickButtonByXpath("MenuFilter");
+			clickButtonByXpath("AssignedHomeTeachersBox");
+			clickButtonByXpath("HTVTApply");
+			checkTextByXpath("HTVTFiltersApplied", "Assigned Home Teachers");
+			Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member15"));
+			Assert.assertTrue(checkElementTextViewReturn("AFPSix, Husband"));
+			Assert.assertTrue(checkElementTextViewReturn("AFPTen, Husband"));
+			clickButtonByXpath("HTVTRemoveFiltersButton");
+		
+			//Test NOT Assigned Home Teachers
+			clickButtonByXpath("MenuFilter");
+			clickButtonByXpath("NotAssignedHomeTeachersBox");
+			clickButtonByXpath("HTVTApply");
+			checkTextByXpath("HTVTFiltersApplied", "Not Assigned Home Teachers");
+			Assert.assertTrue(checkElementTextViewReturn("Faamoeolo, Akisa"));
+			Assert.assertTrue(checkElementTextViewReturn("Lavea, Muaau Alavaa"));
+			Assert.assertTrue(checkElementTextViewReturn("Maiava, Semi"));
+			clickButtonByXpath("HTVTRemoveFiltersButton");
+
+			//New and Moved in Members
+			clickButtonByXpath("MenuFilter");
+			clickButtonByXpath("NewAndMovedInMembersBox");
+			clickButtonByXpath("HTVTApply");
+			checkTextByXpath("HTVTFiltersApplied", "New & Moved-In Members");
+			Assert.assertFalse(checkElementTextViewReturn("AFPMisc, Member15"));
+			Assert.assertFalse(checkElementTextViewReturn("AFPSix, Husband"));
+			Assert.assertFalse(checkElementTextViewReturn("AFPTen, Husband"));
+			clickButtonByXpath("HTVTRemoveFiltersButton");
+
+
+			//Single Sisters 18-30 years old
+			clickButtonByXpath("MenuFilter");
+			clickButtonByXpath("SingleSisters1830");
+			clickButtonByXpath("HTVTApply");
+			//checkTextByXpath("HTVTFiltersApplied", "Single Sisters 18-30 years old");
+			Assert.assertFalse(checkElementTextViewReturn("Fiamatai, Solomua"));
+			Assert.assertFalse(checkElementTextViewReturn("Ielv, Gasolo"));
+			Assert.assertFalse(checkElementTextViewReturn("Lagaaia, Fofogafetalaililomaiava"));
+			clickButtonByXpath("HTVTRemoveFiltersButton");
+		
+			
+			//Single Sisters 31 and over
+			clickButtonByXpath("MenuFilter");
+			clickButtonByXpath("SingleSisters31over");
+			clickButtonByXpath("HTVTApply");
+			//checkTextByXpath("HTVTFiltersApplied", "Single Sisters 31 and over");
+			Assert.assertFalse(checkElementTextViewReturn("AFPEighteen, Member"));
+			Assert.assertFalse(checkElementTextViewReturn("AFPFive, Wife"));
+			Assert.assertFalse(checkElementTextViewReturn("AFPFourteen, Member"));
+			clickButtonByXpath("HTVTRemoveFiltersButton");
+			
+			
+			//Single Brothers 18-30 years old
+			clickButtonByXpath("MenuFilter");
+			clickButtonByXpath("SingleBrothers1830");
+			clickButtonByXpath("HTVTApply");
+			//checkTextByXpath("HTVTFiltersApplied", "Single Brothers 18-30 years old");
+			Assert.assertTrue(checkElementTextViewReturn("Mene, Taavili Maalona"));
+			Assert.assertFalse(checkElementTextViewReturn("Etene, Max"));
+			Assert.assertFalse(checkElementTextViewReturn("Faivaa, Tepa"));
+			clickButtonByXpath("HTVTRemoveFiltersButton");
+			
+			//Single Brothers 31 and over
+			clickButtonByXpath("MenuFilter");
+			clickButtonByXpath("SingleBrohters31over");
+			clickButtonByXpath("HTVTApply");
+			//checkTextByXpath("HTVTFiltersApplied", "Single Sisters 31 and over");
+			Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member15"));
+			Assert.assertTrue(checkElementTextViewReturn("AFPSix, Husband"));
+			Assert.assertTrue(checkElementTextViewReturn("AFPTen, Husband"));
+			clickButtonByXpath("HTVTRemoveFiltersButton");
+			
+			//Need a test for Households not visisted slider.
+			
+			
+			pressBackKey();
+			pressBackKey();
+		
+		}
+		
+		if ((userCalling.equals("Relief Society Pres")) || (userCalling.equals("Bishopric"))) {
+			clickButtonByXpathTitleName("Visiting Teaching");
+			Thread.sleep(2000);
+
+			//Visiting Teaching
+			clickButtonByXpathTitleName("Sisters");
+			Thread.sleep(2000);
+			Assert.assertTrue(checkElementTextViewReturn("AFPFourteen, Member"));
+			Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member12"));
+			Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member14"));
+
+			//Test Assigned Visiting Teachers
+			clickButtonByXpath("MenuFilter");
+			clickButtonByXpath("AssignedHomeTeachersBox");
+			clickButtonByXpath("HTVTApply");
+			checkTextByXpath("HTVTFiltersApplied", "Assigned Visiting Teachers");
+			Assert.assertTrue(checkElementTextViewReturn("AFPEighteen, Member"));
+			Assert.assertTrue(checkElementTextViewReturn("AFPFive, Wife"));
+			Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Frank"));
+			clickButtonByXpath("HTVTRemoveFiltersButton");
+		
+			//Test NOT Assigned Visiting Teachers
+			clickButtonByXpath("MenuFilter");
+			clickButtonByXpath("NotAssignedHomeTeachersBox");
+			clickButtonByXpath("HTVTApply");
+			checkTextByXpath("HTVTFiltersApplied", "Not Assigned Visiting Teachers");
+			Assert.assertTrue(checkElementTextViewReturn("AFPFourteen, Member"));
+			Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member12"));
+			Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member14"));
+			clickButtonByXpath("HTVTRemoveFiltersButton");
+
+			//New and Moved in Members
+			clickButtonByXpath("MenuFilter");
+			clickButtonByXpath("NewAndMovedInMembersBox");
+			clickButtonByXpath("HTVTApply");
+			checkTextByXpath("HTVTFiltersApplied", "New & Moved-In Members");
+			Assert.assertFalse(checkElementTextViewReturn("AFPMisc, Member15"));
+			Assert.assertFalse(checkElementTextViewReturn("AFPSix, Husband"));
+			Assert.assertFalse(checkElementTextViewReturn("AFPTen, Husband"));
+			clickButtonByXpath("HTVTRemoveFiltersButton");
+
+
+			//Single Sisters 18-30 years old
+			clickButtonByXpath("MenuFilter");
+			clickButtonByXpath("SingleSisters1830");
+			clickButtonByXpath("HTVTApply");
+			//checkTextByXpath("HTVTFiltersApplied", "Single Sisters 18-30 years old");
+			Assert.assertTrue(checkElementTextViewReturn("Aitusavali, Solofuti Saluatai"));
+			Assert.assertTrue(checkElementTextViewReturn("Ami, Faleatafa"));
+			Assert.assertTrue(checkElementTextViewReturn("Etene, Foketi Faamoe"));
+			clickButtonByXpath("HTVTRemoveFiltersButton");
+		
+			
+			//Single Sisters 31 and over
+			clickButtonByXpath("MenuFilter");
+			clickButtonByXpath("SingleSisters31over");
+			clickButtonByXpath("HTVTApply");
+			//checkTextByXpath("HTVTFiltersApplied", "Single Sisters 31 and over");
+			Assert.assertTrue(checkElementTextViewReturn("AFPEighteen, Member"));
+			Assert.assertTrue(checkElementTextViewReturn("AFPFive, Wife"));
+			Assert.assertTrue(checkElementTextViewReturn("AFPFourteen, Member"));
+			clickButtonByXpath("HTVTRemoveFiltersButton");
+			
+			
+			//Need a test for Households not visisted slider.
+			
+			
+			pressBackKey();
+			pressBackKey();
+			
+
+		}
+		
+		
+		
+	}
 	
 	
 	
@@ -3587,7 +3827,7 @@ public class LDSTools {
 			clickButtonByXpath("AlertOK");
 			scrollDown("Private—Leadership Only", -1000 );
 			Thread.sleep(2000);
-			clickButtonByXpathPopoutMenu("Stake Visibility");
+			clickButtonByXpathTitleName("Stake Visibility");
 			Thread.sleep(1000);
 			clickButtonByXpath("MenuSave");
 			Thread.sleep(2000);
