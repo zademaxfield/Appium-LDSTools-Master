@@ -223,9 +223,10 @@ public class LDSTools {
 		
 		//editOtherUserInvalidPhone(os);	
 		//editOtherUserInvalidEmail(os);	
-		editVisibility(os);	
 		
-		//editVisibiltyPersonal();
+		//editVisibility(os);	
+		
+		editVisibiltyPersonal(os);
 		//editVisibiltyHousehold();
 		//invalidLoginCheck();	
 		//loginCheck();	
@@ -1216,6 +1217,8 @@ public class LDSTools {
 		//Log out 
 		drawerSignOut();
 		
+		checkForAlert();
+		
 		syncLogIn("LDSTools6", "toolstester", "UAT", os );
 		Thread.sleep(2000);
 		//true will setup ping for a non-leader
@@ -1223,7 +1226,6 @@ public class LDSTools {
 		Thread.sleep(2000);
 		
 		//Search for logged in user
-		clickButtonByID("MenuSearch");
 		testForElement = checkElementExistsByID("MenuDefaultDirectory");
 		//System.out.println("testForElement: " + "Tools, LDS5");
 		if (testForElement == true ) {
@@ -1232,7 +1234,7 @@ public class LDSTools {
 			clickButtonByID("MenuSearch");
 		}
 
-		sendTextbyXpath("SearchArea", "Tools, LDS5" );
+		sendTextbyXpath("SearchArea", "Tools, LDS5 " );
 		
 		Thread.sleep(2000);
 		
@@ -1243,6 +1245,7 @@ public class LDSTools {
 		
 		//Log out 
 		drawerSignOut();
+		checkForAlert();
 		
 		syncLogIn("LDSTools5", "toolstester", "UAT", os );
 		Thread.sleep(2000);
@@ -1264,9 +1267,10 @@ public class LDSTools {
 		
 		
 		Thread.sleep(1000);
-		scrollDown("Private—Leadership Only", -1000 );
-		clickButtonByXpathTitleName("Stake Visibility");
-		Thread.sleep(1000);
+		resetVisibility();
+		//scrollDown("Private—Leadership Only", -1000 );
+		//clickButtonByXpathTitleName("Stake Visibility");
+		//Thread.sleep(1000);
 		
 		
 		
@@ -1284,7 +1288,7 @@ public class LDSTools {
 		
 		//Log out 
 		drawerSignOut();
-		
+		checkForAlert();
 		
 		Thread.sleep(1000);
 		syncLogIn("LDSTools6", "toolstester", "UAT", os );
@@ -1296,7 +1300,7 @@ public class LDSTools {
 		
 		//Search for logged in user
 		searchForUser("Tools, LDS5");
-		resetVisibility();
+		
 		
 		
 
@@ -1307,6 +1311,8 @@ public class LDSTools {
 	public void editVisibiltyPersonal(String os) throws Exception {
 		//Set the PERSONAL phone and email to Private-Leadership Only
 		//Change LDSTools5 then check the privacy settings with LDSTools6
+		String pageSource;
+
 		syncLogIn("LDSTools5", "toolstester", "UAT", os );
 		Thread.sleep(2000);
 		
@@ -1325,12 +1331,13 @@ public class LDSTools {
 		
 		//This will reset the visibility back to Stake (just in case something went wrong)
 		resetVisibility();
+
 		
 		//Set the Personal Settings to Private-Leadership Only
 		clickButtonByXpath("PersonalSettings");
 		clickButtonByXpath("EditAllVisibility");
 		Thread.sleep(2000);
-		clickButtonByXpathTitleName("Private—Leadership Only");
+		clickButtonByXpathTitleNameContains("Private");
 		Thread.sleep(1000);
 		clickButtonByXpath("MenuSave");
 		Thread.sleep(1000);
@@ -1344,6 +1351,7 @@ public class LDSTools {
 		
 		//Log out 
 		drawerSignOut();
+		checkForAlert();
 		
 		//Login with LDSTools6 to check the Personal settings
 		syncLogIn("LDSTools6", "toolstester", "UAT", os );
@@ -1355,18 +1363,20 @@ public class LDSTools {
 		searchForUser("Tools, LDS5");
 		
 		//Check the users name Phone and email
-		Assert.assertTrue(checkElementTextViewReturn("LDS5 Tools"));
-		Assert.assertTrue(checkElementTextViewReturn("Fagamalo 1st Ward"));
+		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource));
+		Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource));
 
-		Assert.assertTrue(checkElementTextCustom("CONTACT INFORMATION", "CapitalizedTextView"));
-		Assert.assertFalse(checkElementTextViewReturn("1224589900887"));
-		Assert.assertFalse(checkElementTextCustom("PERSONAL", "*"));
-		Assert.assertTrue(checkElementTextViewReturn("5551234555"));
-		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD", "*"));
-		Assert.assertFalse(checkElementTextViewReturn("Z@z.com"));
-		Assert.assertFalse(checkElementTextCustom("PERSONAL", "*"));
-		Assert.assertTrue(checkElementTextViewReturn("test@test.com"));
-		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD", "*"));
+		Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource));
+		Assert.assertFalse(checkNoCaseList("1224589900887", pageSource));
+		Assert.assertFalse(checkNoCaseList("PERSONAL", pageSource));
+		Assert.assertTrue(checkNoCaseList("5551234555", pageSource));
+		//This is showing up as household email or household phone
+		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource));
+		Assert.assertFalse(checkNoCaseList("Z@z.com", pageSource));
+		Assert.assertFalse(checkNoCaseList("PERSONAL", pageSource));
+		Assert.assertTrue(checkNoCaseList("test@test.com", pageSource));
+		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource));
 		
 		Thread.sleep(3000);
 		pressBackKey();
@@ -1376,6 +1386,7 @@ public class LDSTools {
 		
 		//Log out 
 		drawerSignOut();
+		checkForAlert();
 		
 		
 		//Change the settings back to default
@@ -1414,6 +1425,7 @@ public class LDSTools {
 		
 		//Log out 
 		drawerSignOut();
+		checkForAlert();
 		Thread.sleep(1000);
 		
 		
@@ -1436,18 +1448,19 @@ public class LDSTools {
 		Thread.sleep(2000);
 		
 		//Check the users name, address membership number etc...
-		Assert.assertTrue(checkElementTextViewReturn("LDS5 Tools"));
-		Assert.assertTrue(checkElementTextViewReturn("Fagamalo 1st Ward"));
+		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource));
+		Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource));
 
-		Assert.assertTrue(checkElementTextCustom("CONTACT INFORMATION", "CapitalizedTextView"));
-		Assert.assertTrue(checkElementTextViewReturn("1224589900887"));
-		Assert.assertTrue(checkElementTextCustom("PERSONAL", "*"));
-		Assert.assertTrue(checkElementTextViewReturn("5551234555"));
-		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD", "*"));
-		Assert.assertTrue(checkElementTextViewReturn("Z@z.com"));
-		Assert.assertTrue(checkElementTextCustom("PERSONAL", "*"));
-		Assert.assertTrue(checkElementTextViewReturn("test@test.com"));
-		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD", "*"));
+		Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource));
+		Assert.assertTrue(checkNoCaseList("1224589900887", pageSource));
+		Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource));
+		Assert.assertTrue(checkNoCaseList("5551234555", pageSource));
+		Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource));
+		Assert.assertTrue(checkNoCaseList("Z@z.com", pageSource));
+		Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource));
+		Assert.assertTrue(checkNoCaseList("test@test.com", pageSource));
+		Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource));
 	}
 	
 	@Parameters({"os"})
@@ -2320,11 +2333,33 @@ public class LDSTools {
 	
 	private void clickButtonByXpathTitleNameContains(String textElement ) {
 		WebDriverWait wait = new WebDriverWait(driver, 10);
-		WebElement myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@value, '" + textElement + "')]")));
+		WebElement myElement;
+		if (getRunningOS().equals("mac")){
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@name, '" + textElement + "')]")));
+		} else {
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@value, '" + textElement + "')]")));
+		}
 		myElement.click();
 		
 
 		//driver.findElement(By.xpath("//*[contains(@value, '" + textElement + "')]")).click();
+
+		//I don't really like this sleep but it seems to be needed 
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void clickItemByXpathRoboTextContains(String textElement ) {
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		WebElement myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@name, '" + textElement + "')]")));
+		myElement.click();
+		//WebElement element;
+		//System.out.println("TEXT ELEMENT: " + textElement);
+		//driver.findElement(By.xpath("//RobotoTextView[contains(@value, '" + textElement + "')]")).click();
+		//driver.findElement(By.xpath("//*[contains(@name, '" + textElement + "')]")).click();
 
 		//I don't really like this sleep but it seems to be needed 
 		try {
@@ -2671,17 +2706,25 @@ public class LDSTools {
 				Thread.sleep(1000);
 				clickButtonByXpath("TopHelp");
 				
-				//New way to enable dev settings
-				for (int x = 1; x <= 5; x++ ) {
-					clickButtonByXpath("EnableDevSettings");
+				
+				if (checkElementExistsByXpath("DeveloperSettings") == true) {
+					clickButtonByXpath("DeveloperSettings");
+				} else {
+					//New way to enable dev settings
+					for (int x = 1; x <= 5; x++ ) {
+						clickButtonByXpath("EnableDevSettings");
+					}
 				}
+
 				
 				clickButtonByXpath("Environment");
+				clickButtonByXpath("Stage");
 				clickButtonByXpath(chooseNetwork);
 				clickButtonByXpath("TopDeveloper");
 				clickButtonByXpath("TopHelp");
 				clickButtonByXpath("TopSignIn");
 			}
+			
 			//sendTextbyXpath("LoginUsername", "LDSTools14");
 			//sendTextbyXpath("LoginPassword", "toolstester");
 			sendTextbyXpath2("LoginUsername", loginName);
@@ -2770,6 +2813,7 @@ public class LDSTools {
 		//Check to see if we are getting a warning
 		myCheck = checkTextByXpathReturn("AlertMessage", "Warning");
 		if (myCheck == 1) {
+			System.out.println("Found Warning: " + myCheck);
 			clickButtonByXpath("OK");
 		}
 		
@@ -4137,7 +4181,7 @@ public class LDSTools {
 	private void resetVisibility() throws Exception {
 		int myCheck;
 		//This is just in case something went wrong - put visibility back to Stake. 
-		myCheck = checkTextByXpathContainsReturn("AlertMessage", "Household visible to Private");
+		myCheck = checkTextByXpathContainsReturn("AlertMessageView", "Household visible to Private");
 		System.out.println("Alert Found: " + myCheck);
 		if (myCheck == 1){
 			clickButtonByXpath("AlertOK");
@@ -4145,7 +4189,7 @@ public class LDSTools {
 			if (getRunningOS().equals("mac")) {
 				Thread.sleep(1000);
 				clickButtonByXpath("HouseholdVisibilityLimit");
-				clickButtonByXpathTitleNameContains("Stake");
+				clickItemByXpathRoboTextContains("Stake");
 				Thread.sleep(1000);
 			} else {
 				scrollDown("Private—Leadership Only", -1000 );
@@ -4166,7 +4210,7 @@ public class LDSTools {
 		boolean testForElement;
 		
 		testForElement = checkElementExistsByID("MenuDefaultDirectory");
-		System.out.println("testForElement: " + testForElement);
+		//System.out.println("testForElement: " + testForElement);
 		if (testForElement == true ) {
 			clickButtonByID("MenuDefaultDirectory");
 			clickButtonByXpathTitleName("Individuals");
@@ -4180,6 +4224,12 @@ public class LDSTools {
 		Thread.sleep(2000);
 	}
 	
+	private void checkForAlert() throws Exception {
+		//Check to see if we are getting a warning
+		if (checkElementExistsByXpath("AlertMessageCheck") == true) {
+			clickButtonByXpath("OK");
+		}
+	}
 
 	@AfterMethod(alwaysRun = true)
 	public void teardown() throws Exception {
