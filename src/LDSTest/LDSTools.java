@@ -226,8 +226,8 @@ public class LDSTools {
 		
 		//editVisibility(os);	
 		
-		editVisibiltyPersonal(os);
-		//editVisibiltyHousehold();
+		//editVisibiltyPersonal(os);
+		editVisibiltyHousehold(os);
 		//invalidLoginCheck();	
 		//loginCheck();	
 		
@@ -1217,7 +1217,6 @@ public class LDSTools {
 		//Log out 
 		drawerSignOut();
 		
-		checkForAlert();
 		
 		syncLogIn("LDSTools6", "toolstester", "UAT", os );
 		Thread.sleep(2000);
@@ -1245,7 +1244,7 @@ public class LDSTools {
 		
 		//Log out 
 		drawerSignOut();
-		checkForAlert();
+		
 		
 		syncLogIn("LDSTools5", "toolstester", "UAT", os );
 		Thread.sleep(2000);
@@ -1288,7 +1287,7 @@ public class LDSTools {
 		
 		//Log out 
 		drawerSignOut();
-		checkForAlert();
+		
 		
 		Thread.sleep(1000);
 		syncLogIn("LDSTools6", "toolstester", "UAT", os );
@@ -1337,7 +1336,8 @@ public class LDSTools {
 		clickButtonByXpath("PersonalSettings");
 		clickButtonByXpath("EditAllVisibility");
 		Thread.sleep(2000);
-		clickButtonByXpathTitleNameContains("Private");
+		clickButtonByXpath("PrivateVisibility");
+		//clickButtonByXpathTitleNameContains("Private");
 		Thread.sleep(1000);
 		clickButtonByXpath("MenuSave");
 		Thread.sleep(1000);
@@ -1351,7 +1351,7 @@ public class LDSTools {
 		
 		//Log out 
 		drawerSignOut();
-		checkForAlert();
+
 		
 		//Login with LDSTools6 to check the Personal settings
 		syncLogIn("LDSTools6", "toolstester", "UAT", os );
@@ -1386,7 +1386,7 @@ public class LDSTools {
 		
 		//Log out 
 		drawerSignOut();
-		checkForAlert();
+
 		
 		
 		//Change the settings back to default
@@ -1406,9 +1406,11 @@ public class LDSTools {
 		
 		Thread.sleep(3000);
 		clickButtonByXpath("PersonalSettings");
+		Thread.sleep(2000);
 		clickButtonByXpath("EditAllVisibility");
 		Thread.sleep(2000);
-		clickButtonByXpathTitleName("Stake Visibility");
+		//clickButtonByXpathTitleName("Stake Visibility");
+		clickButtonByXpath("StakeVisibility");
 		
 		Thread.sleep(1000);
 		clickButtonByXpath("MenuSave");
@@ -1425,7 +1427,6 @@ public class LDSTools {
 		
 		//Log out 
 		drawerSignOut();
-		checkForAlert();
 		Thread.sleep(1000);
 		
 		
@@ -1438,14 +1439,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		
 		//Search for logged in user
-		clickButtonByID("MenuSearch");
-		sendTextbyXpath("SearchArea", "Tools, LDS5");
-		
-		Thread.sleep(2000);
-		clickLastTextViewRoboReturn("Tools, LDS5");
-		Thread.sleep(2000);
-		clickLastTextViewRoboReturn("Tools, LDS5");
-		Thread.sleep(2000);
+		searchForUser("Tools, LDS5");
 		
 		//Check the users name, address membership number etc...
 		pageSource = getSourceOfPage();
@@ -1454,18 +1448,19 @@ public class LDSTools {
 
 		Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource));
 		Assert.assertTrue(checkNoCaseList("1224589900887", pageSource));
-		Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource));
+		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource));
 		Assert.assertTrue(checkNoCaseList("5551234555", pageSource));
-		Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource));
+		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource));
 		Assert.assertTrue(checkNoCaseList("Z@z.com", pageSource));
-		Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource));
+		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource));
 		Assert.assertTrue(checkNoCaseList("test@test.com", pageSource));
-		Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource));
+		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource));
 	}
 	
 	@Parameters({"os"})
 	@Test (groups= {"smoke", "editSettings"})
 	public void editVisibiltyHousehold(String os) throws Exception {
+		String pageSource;
 		//Set the HOUSEHOLD phone and email to Private-Leadership Only
 		//Change LDSTools5 then check the privacy settings with LDSTools6
 		syncLogIn("LDSTools5", "toolstester", "UAT", os );
@@ -1491,7 +1486,8 @@ public class LDSTools {
 		clickButtonByXpath("HouseholdSettings");
 		clickButtonByXpath("EditAllVisibility");
 		Thread.sleep(2000);
-		clickButtonByXpathTitleName("Private—Leadership Only");
+		clickButtonByXpath("PrivateVisibility");
+		//clickButtonByXpathTitleName("Private—Leadership Only");
 		Thread.sleep(1000);
 		clickButtonByXpath("MenuSave");
 		Thread.sleep(1000);
@@ -1516,18 +1512,19 @@ public class LDSTools {
 		searchForUser("Tools, LDS5");
 		
 		//Check the users name Phone and email
-		Assert.assertTrue(checkElementTextViewReturn("LDS5 Tools"));
-		Assert.assertTrue(checkElementTextViewReturn("Fagamalo 1st Ward"));
+		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource));
+		Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource));
 
-		Assert.assertTrue(checkElementTextCustom("CONTACT INFORMATION", "CapitalizedTextView"));
-		Assert.assertTrue(checkElementTextViewReturn("1224589900887"));
-		Assert.assertTrue(checkElementTextCustom("PERSONAL", "*"));
-		Assert.assertFalse(checkElementTextViewReturn("5551234555"));
-		Assert.assertFalse(checkElementTextCustom("HOUSEHOLD", "*"));
-		Assert.assertTrue(checkElementTextViewReturn("Z@z.com"));
-		Assert.assertTrue(checkElementTextCustom("PERSONAL", "*"));
-		Assert.assertFalse(checkElementTextViewReturn("test@test.com"));
-		Assert.assertFalse(checkElementTextCustom("HOUSEHOLD", "*"));
+		Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource));
+		Assert.assertTrue(checkNoCaseList("1224589900887", pageSource));
+		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource));
+		Assert.assertFalse(checkNoCaseList("5551234555", pageSource));
+		//Assert.assertFalse(checkNoCaseList("HOUSEHOLD", pageSource));
+		Assert.assertTrue(checkNoCaseList("Z@z.com", pageSource));
+		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource));
+		Assert.assertFalse(checkNoCaseList("test@test.com", pageSource));
+		//Assert.assertFalse(checkNoCaseList("HOUSEHOLD", pageSource));
 		
 		Thread.sleep(3000);
 		pressBackKey();
@@ -1558,7 +1555,8 @@ public class LDSTools {
 		clickButtonByXpath("HouseholdSettings");
 		clickButtonByXpath("EditAllVisibility");
 		Thread.sleep(2000);
-		clickButtonByXpathTitleName("Stake Visibility");
+		//clickButtonByXpathTitleName("Stake Visibility");
+		clickButtonByXpath("StakeVisibility");
 		Thread.sleep(3000);
 		clickButtonByXpath("MenuSave");
 		Thread.sleep(1000);
@@ -1586,28 +1584,22 @@ public class LDSTools {
 		Thread.sleep(2000);
 		
 		//Search for logged in user
-		clickButtonByID("MenuSearch");
-		sendTextbyXpath("SearchArea", "Tools, LDS5");
-		
-		Thread.sleep(2000);
-		clickLastTextViewRoboReturn("Tools, LDS5");
-		Thread.sleep(2000);
-		clickLastTextViewRoboReturn("Tools, LDS5");
-		Thread.sleep(2000);
+		searchForUser("Tools, LDS5");
 		
 		//Check the users name, address membership number etc...
-		Assert.assertTrue(checkElementTextViewReturn("LDS5 Tools"));
-		Assert.assertTrue(checkElementTextViewReturn("Fagamalo 1st Ward"));
+		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource));
+		Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource));
 
-		Assert.assertTrue(checkElementTextCustom("CONTACT INFORMATION", "CapitalizedTextView"));
-		Assert.assertTrue(checkElementTextViewReturn("1224589900887"));
-		Assert.assertTrue(checkElementTextCustom("PERSONAL", "*"));
-		Assert.assertTrue(checkElementTextViewReturn("5551234555"));
-		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD", "*"));
-		Assert.assertTrue(checkElementTextViewReturn("Z@z.com"));
-		Assert.assertTrue(checkElementTextCustom("PERSONAL", "*"));
-		Assert.assertTrue(checkElementTextViewReturn("test@test.com"));
-		Assert.assertTrue(checkElementTextCustom("HOUSEHOLD", "*"));
+		Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource));
+		Assert.assertTrue(checkNoCaseList("1224589900887", pageSource));
+		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource));
+		Assert.assertTrue(checkNoCaseList("5551234555", pageSource));
+		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource));
+		Assert.assertTrue(checkNoCaseList("Z@z.com", pageSource));
+		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource));
+		Assert.assertTrue(checkNoCaseList("test@test.com", pageSource));
+		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource));
 	}
 	
 	
@@ -4163,6 +4155,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		clickButtonByXpathTitleName("Sign Out");
 		clickButtonByXpath("SignOutOK");
+		checkForAlert();
 	}
 	
 	//TODO: Need to be able to select 1 to 12 units
@@ -4180,16 +4173,27 @@ public class LDSTools {
 	
 	private void resetVisibility() throws Exception {
 		int myCheck;
+		int householdCheck;
+		int personalCheck;
+		
 		//This is just in case something went wrong - put visibility back to Stake. 
 		myCheck = checkTextByXpathContainsReturn("AlertMessageView", "Household visible to Private");
-		System.out.println("Alert Found: " + myCheck);
-		if (myCheck == 1){
-			clickButtonByXpath("AlertOK");
+		//System.out.println("Alert Found: " + myCheck);
+		householdCheck = checkTextByXpathContainsReturn("HouseholdSettings", "Private");
+		personalCheck = checkTextByXpathContainsReturn("PersonalSettings", "Private");
+		
+		
+		if ((myCheck == 1) || (householdCheck == 1) || (personalCheck == 1)) {
+			if (myCheck ==1 ) {
+				clickButtonByXpath("AlertOK");
+			}
+			
 			
 			if (getRunningOS().equals("mac")) {
 				Thread.sleep(1000);
 				clickButtonByXpath("HouseholdVisibilityLimit");
-				clickItemByXpathRoboTextContains("Stake");
+				clickButtonByXpath("StakeVisibility");
+				//clickItemByXpathRoboTextContains("Stake");
 				Thread.sleep(1000);
 			} else {
 				scrollDown("Private—Leadership Only", -1000 );
