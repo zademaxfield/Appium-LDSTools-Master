@@ -40,6 +40,9 @@ import java.util.Properties;
 
 
 
+
+
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 //import io.appium.java_client.android.AndroidDriver;
@@ -49,6 +52,9 @@ import io.appium.java_client.MobileElement;
 //import io.selendroid.SelendroidDriver;
 import io.selendroid.SelendroidKeys;
 //import io.selendroid.exceptions.NoSuchElementException;
+
+
+
 
 
 
@@ -219,6 +225,7 @@ public class LDSTools {
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		//editCurrentUser(os);	
+		editCurrentUserCancel(os);
 		//editOtherUser(os);
 		
 		//editOtherUserInvalidPhone(os);	
@@ -227,12 +234,10 @@ public class LDSTools {
 		//editVisibility(os);	
 		
 		//editVisibiltyPersonal(os);
-		editVisibiltyHousehold(os);
-		//invalidLoginCheck();	
-		//loginCheck();	
-		
-		
+		//editVisibiltyHousehold(os);
+		//invalidLoginCheck(os);	
 
+	
 		
 		
 		//Header Check
@@ -292,279 +297,195 @@ public class LDSTools {
 
 	}
 		
-	
-	
-	/*
-    @Rule
-    public Retry retry = new Retry(3);
-	
-   
-	@Test
-	public void under18HeadofHouseTest() throws Exception {
-		under18HeadofHouse();	
-	}
-	
-	
-	@Test
-	public void bishopricCounselorAndWardClerkTest() throws Exception {
-		bishopricCounselorAndWardClerk();	
-	}
-	
-	
-	@Test
-	public void bishopMemberOfSeparateStakeTest() throws Exception {
-		bishopMemberOfSeparateStake();	
-	}
-	
-	@Test
-	public void editCurrentUserTest() throws Exception {
-		editCurrentUser();	
-	}
-	
-	@Test
-	public void editOtherUserTest() throws Exception {
-		editOtherUser();	
-	}
-	
-	@Test
-	public void editOtherUserInvalidPhoneTest() throws Exception {
-		editOtherUserInvalidPhone();	
-	}
-	
-	@Test
-	public void editOtherUserInvalidEmailTest() throws Exception {
-		editOtherUserInvalidEmail();	
-	}
-	
-	@Test
-	public void editVisibilityTest() throws Exception {
-		editVisibility();	
-	}
-	
-	@Test
-	public void editVisibiltyPersonalTest() throws Exception {
-		editVisibiltyPersonal();	
-	}
-	
-	@Test
-	public void editVisibiltyHouseholdTest() throws Exception {
-		editVisibiltyHousehold();	
-	}
-	
 
 	
-	@Test
-	public void invalidLoginCheckTest() throws Exception {
-		invalidLoginCheck();	
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "high priest"})
+	public void HighPriestsGroupLeader(String os) throws Exception {
+		LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 	}
 	
-	@Test
-	public ChristieWhitingTest() throws Exception {
-		ChristieWhiting();	
+	@Parameters({"os"})
+	@Test (groups= {"high priest"})
+	public void HighPriestsGroupFirstAssistant(String os) throws Exception {
+		LeaderNonBishopric("LDSTools17", "High Priest Group", os);
 	}
 	
-	@Test
-	public CliffHigbyTest() throws Exception {
-		CliffHigby();	
+	@Parameters({"os"})
+	@Test (groups= {"high priest"})
+	public void HighPriestsGroupSecondAssistant(String os) throws Exception {
+		LeaderNonBishopric("LDSTools18", "High Priest Group", os);
 	}
 	
-	@Test
-	public KevinPalmerTest() throws Exception {
-		KevinPalmer();	
+	@Parameters({"os"})
+	@Test (groups= {"high priest"})
+	public void HighPriestsGroupSecretary(String os) throws Exception {
+		LeaderNonBishopric("LDSTools19", "High Priest Group", os);
 	}
 	
-	@Test
-	public PatriarchOtherWardsTest() throws Exception {
-		PatriarchOtherWards();	
+	@Parameters({"os"})
+	@Test (groups= {"high priest"})
+	public void HighPriestsGroupAssistantSecretary(String os) throws Exception {
+		LeaderNonBishopric("LDSTools20", "High Priest Group", os);
 	}
 	
-	@Test
-	public TravisLymanTest() throws Exception {
-		TravisLyman();	
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "elders quorum"})
+	public void EldersQuorumPresident(String os) throws Exception {
+		LeaderNonBishopric("LDSTools21", "Elders Quorum Pres", os);
 	}
 	
-	@Test
-	public ElderKacherTest() throws Exception {
-		ElderKacher();	
+	@Parameters({"os"})
+	@Test (groups= {"elders quorum"})
+	public void EldersQuorumFirstCounselor(String os) throws Exception {
+		LeaderNonBishopric("LDSTools22", "Elders Quorum Pres", os);
 	}
 	
-	@Test
-	public TerryBallardTest() throws Exception {
-		TerryBallard();	
+	@Parameters({"os"})
+	@Test (groups= {"elders quorum"})
+	public void EldersQuorumSecondCounselor(String os) throws Exception {
+		LeaderNonBishopric("LDSTools23", "Elders Quorum Pres", os);
 	}
 	
-	@Test
-	public WardStakeCouncilorTest() throws Exception {
-		WardStakeCouncilor();	
+	@Parameters({"os"})
+	@Test (groups= {"elders quorum"})
+	public void EldersQuorumSecretary(String os) throws Exception {
+		LeaderNonBishopric("LDSTools24", "Elders Quorum Pres", os);
 	}
 	
-	//Not working yet
-	//@Test
-	//public AdminUnitTest() throws Exception {
-	//	AdminUnit();	
-	//}
-	
-	
-	@Test
-	public void HighPriestsGroupLeader() throws Exception {
-		LeaderNonBishopric("LDSTools16", "High Priest Group");
+	@Parameters({"os"})
+	@Test (groups= {"elders quorum"})
+	public void EldersQuorumAssistantSecretary(String os) throws Exception {
+		LeaderNonBishopric("LDSTools25", "Elders Quorum Pres", os);
 	}
 	
-	@Test
-	public void HighPriestsGroupFirstAssistant() throws Exception {
-		LeaderNonBishopric("LDSTools17", "High Priest Group");
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "relief society"})
+	public void ReliefSocietyPresident(String os) throws Exception {
+		LeaderNonBishopric("LDSTools26", "Relief Society Pres", os);
 	}
 	
-	@Test
-	public void HighPriestsGroupSecondAssistant() throws Exception {
-		LeaderNonBishopric("LDSTools18", "High Priest Group");
+	@Parameters({"os"})
+	@Test (groups= {"relief society"})
+	public void ReliefSocietyFirstCounselor(String os) throws Exception {
+		LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
 	}
 	
-	@Test
-	public void HighPriestsGroupSecretary() throws Exception {
-		LeaderNonBishopric("LDSTools19", "High Priest Group");
+	@Parameters({"os"})
+	@Test (groups= {"relief society"})
+	public void ReliefSocietySecondCounselor(String os) throws Exception {
+		LeaderNonBishopric("LDSTools28", "Relief Society Pres", os);
 	}
 	
-	@Test
-	public void HighPriestsGroupAssistantSecretary() throws Exception {
-		LeaderNonBishopric("LDSTools20", "High Priest Group");
+	@Parameters({"os"})
+	@Test (groups= {"relief society"})
+	public void ReliefSocietySecretary(String os) throws Exception {
+		LeaderNonBishopric("LDSTools29", "Relief Society Pres", os);
 	}
 	
-	@Test
-	public void EldersQuorumPresident() throws Exception {
-		LeaderNonBishopric("LDSTools21", "Elders Quorum Pres");
+	@Parameters({"os"})
+	@Test (groups= {"relief society"})
+	public void ReliefSocietyAssistantSecretary(String os) throws Exception {
+		LeaderNonBishopric("LDSTools30", "Relief Society Pres", os);
 	}
 	
-	@Test
-	public void EldersQuorumFirstCounselor() throws Exception {
-		LeaderNonBishopric("LDSTools22", "Elders Quorum Pres");
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "young men"})
+	public void YoungMenPresident(String os) throws Exception {
+		LeaderNonBishopric("LDSTools31", "Ward Council", os);
 	}
 	
-	@Test
-	public void EldersQuorumSecondCounselor() throws Exception {
-		LeaderNonBishopric("LDSTools23", "Elders Quorum Pres");
+	@Parameters({"os"})
+	@Test (groups= {"young men"})
+	public void YoungMenFirstCounselor(String os) throws Exception {
+		LeaderNonBishopric("LDSTools32", "Ward Council", os);
 	}
 	
-	@Test
-	public void EldersQuorumSecretary() throws Exception {
-		LeaderNonBishopric("LDSTools24", "Elders Quorum Pres");
+	@Parameters({"os"})
+	@Test (groups= {"young men"})
+	public void YoungMenSecondCounselor(String os) throws Exception {
+		LeaderNonBishopric("LDSTools33", "Ward Council", os);
 	}
 	
-	@Test
-	public void EldersQuorumAssistantSecretary() throws Exception {
-		LeaderNonBishopric("LDSTools25", "Elders Quorum Pres");
+	@Parameters({"os"})
+	@Test (groups= {"young men"})
+	public void YoungMenSecretary(String os) throws Exception {
+		LeaderNonBishopric("LDSTools34", "Ward Council", os);
 	}
 	
-	@Test
-	public void ReliefSocietyPresident() throws Exception {
-		LeaderNonBishopric("LDSTools26", "Relief Society Pres");
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "young women"})
+	public void YoungWomenPresident(String os) throws Exception {
+		LeaderNonBishopric("LDSTools35", "Ward Council", os);
 	}
 	
-	@Test
-	public void ReliefSocietyFirstCounselor() throws Exception {
-		LeaderNonBishopric("LDSTools27", "Relief Society Pres");
+	@Parameters({"os"})
+	@Test (groups= {"young women"})
+	public void YoungWomenFirstCounselor(String os) throws Exception {
+		LeaderNonBishopric("LDSTools36", "Ward Council", os);
 	}
 	
-	@Test
-	public void ReliefSocietySecondCounselor() throws Exception {
-		LeaderNonBishopric("LDSTools28", "Relief Society Pres");
+	@Parameters({"os"})
+	@Test (groups= {"young women"})
+	public void YoungWomenSecondCounselor(String os) throws Exception {
+		LeaderNonBishopric("LDSTools37", "Ward Council", os);
 	}
 	
-		@Test
-	public void ReliefSocietySecretary() throws Exception {
-		LeaderNonBishopric("LDSTools29", "Relief Society Pres");
+	@Parameters({"os"})
+	@Test (groups= {"young women"})
+	public void YoungWomenSecretary(String os) throws Exception {
+		LeaderNonBishopric("LDSTools38", "Ward Council", os);
 	}
 	
-	@Test
-	public void ReliefSocietyAssistantSecretary() throws Exception {
-		LeaderNonBishopric("LDSTools30", "Relief Society Pres");
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "sunday school"})
+	public void SundaySchoolPresident(String os) throws Exception {
+		LeaderNonBishopric("LDSTools39", "Ward Council", os);
 	}
 	
-	@Test
-	public void YoungMenPresident() throws Exception {
-		LeaderNonBishopric("LDSTools31", "Ward Council");
+	@Parameters({"os"})
+	@Test (groups= {"sunday school"})
+	public void SundaySchoolFirstCounselor(String os) throws Exception {
+		LeaderNonBishopric("LDSTools40", "Ward Council", os);
 	}
 	
-	@Test
-	public void YoungMenFirstCounselor() throws Exception {
-		LeaderNonBishopric("LDSTools32", "Ward Council");
+	@Parameters({"os"})
+	@Test (groups= {"sunday school"})
+	public void SundaySchoolSecondCounselor(String os) throws Exception {
+		LeaderNonBishopric("LDSTools41", "Ward Council", os);
 	}
 	
-	@Test
-	public void YoungMenSecondCounselor() throws Exception {
-		LeaderNonBishopric("LDSTools33", "Ward Council");
+	@Parameters({"os"})
+	@Test (groups= {"sunday school"})
+	public void SundaySchoolSecretary(String os) throws Exception {
+		LeaderNonBishopric("LDSTools42", "Ward Council", os);
 	}
 	
-	@Test
-	public void YoungMenSecretary() throws Exception {
-		LeaderNonBishopric("LDSTools34", "Ward Council");
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "primary"})
+	public void PrimaryPresident(String os) throws Exception {
+		LeaderNonBishopric("LDSTools43", "Ward Council", os);
 	}
 	
-	@Test
-	public void YoungWomenPresident() throws Exception {
-		LeaderNonBishopric("LDSTools35", "Ward Council");
+	@Parameters({"os"})
+	@Test (groups= {"primary"})
+	public void PrimaryFirstCounselor(String os) throws Exception {
+		LeaderNonBishopric("LDSTools44", "Ward Council", os);
 	}
 	
-	@Test
-	public void YoungWomenFirstCounselor() throws Exception {
-		LeaderNonBishopric("LDSTools36", "Ward Council");
+	@Parameters({"os"})
+	@Test (groups= {"primary"})
+	public void PrimarySecondCounselor(String os) throws Exception {
+		LeaderNonBishopric("LDSTools45", "Ward Council", os);
 	}
 	
-	@Test
-	public void YoungWomenSecondCounselor() throws Exception {
-		LeaderNonBishopric("LDSTools37", "Ward Council");
-	}
-	
-	@Test
-	public void YoungWomenSecretary() throws Exception {
-		LeaderNonBishopric("LDSTools38", "Ward Council");
-	}
-	
-	@Test
-	public void SundaySchoolPresident() throws Exception {
-		LeaderNonBishopric("LDSTools39", "Ward Council");
-	}
-	
-	@Test
-	public void SundaySchoolFirstCounselor() throws Exception {
-		LeaderNonBishopric("LDSTools40", "Ward Council");
-	}
-	
-	@Test
-	public void SundaySchoolSecondCounselor() throws Exception {
-		LeaderNonBishopric("LDSTools41", "Ward Council");
-	}
-	
-	@Test
-	public void SundaySchoolSecretary() throws Exception {
-		LeaderNonBishopric("LDSTools42", "Ward Council");
-	}
-	
-	@Test
-	public void PrimaryPresident() throws Exception {
-		LeaderNonBishopric("LDSTools43", "Ward Council");
-	}
-	
-	@Test
-	public void PrimaryFirstCounselor() throws Exception {
-		LeaderNonBishopric("LDSTools44", "Ward Council");
-	}
-	
-	@Test
-	public void PrimarySecondCounselor() throws Exception {
-		LeaderNonBishopric("LDSTools45", "Ward Council");
-	}
-	
-	@Test
-	public void PrimarySecretary() throws Exception {
-		LeaderNonBishopric("LDSTools46", "Ward Council");
+	@Parameters({"os"})
+	@Test (groups= {"primary"})
+	public void PrimarySecretary(String os) throws Exception {
+		LeaderNonBishopric("LDSTools46", "Ward Council", os);
 	}
 
-	//@Test
-	//public void loginCheckTest() throws Exception {
-	//	loginCheck();	
-	//}
-	*/
+
 
 	
 	
@@ -577,7 +498,7 @@ public class LDSTools {
 	 * @throws Exception
 	 */
 	@Parameters({"os"})
-	@Test (groups= {"smoke", "noCalling"})
+	@Test (groups= {"noCalling"})
 	public void under18HeadofHouse(String os) throws Exception {
 		String pageSource;
 		syncLogIn("LDSTools6", "toolstester", "UAT", os );
@@ -664,7 +585,7 @@ public class LDSTools {
 	 * @throws Exception
 	 */
 	@Parameters({"os"})
-	@Test (groups= {"smoke", "bishopric"})
+	@Test (groups= {"bishopric"})
 	public void bishopMemberOfSeparateStake(String os) throws Exception {
 		String pageSource;
 		//int myCheck;
@@ -753,9 +674,7 @@ public class LDSTools {
 		
 		
 	}
-	
-	@Parameters({"os"})
-	@Test (groups= {"smoke", "WardCouncil"})
+
 	public void LeaderNonBishopric(String leaderLogin, String userCalling, String os) throws Exception {
 
 		syncLogIn(leaderLogin, "password1", "UAT", os );
@@ -892,13 +811,62 @@ public class LDSTools {
 		Assert.assertFalse(checkNoCaseList("home@nospam.com", pageSource));
 	}
 	
+	@Parameters({"os"})
+	@Test (groups= {"editSetings"})
+	public void editCurrentUserCancel(String os) throws Exception {
+		String pageSource;
+		//Edit own information
+		syncLogIn("LDSTools44", "password1", "UAT", os );
+		Thread.sleep(2000);
+		
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		searchForUser("Tools, LDS44");
+		
+		
+		//Check the users name, address membership number etc...
+		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS44"));
+		Thread.sleep(2000);
+		clickButtonByXpath("MenuEdit");
+		Thread.sleep(2000);
+		clearTextFieldXpath("EditPersonalPhone");
+		clearTextFieldXpath("EditHomePhone");
+		clearTextFieldXpath("EditPersonalEmail");
+		clearTextFieldXpath("EditHomeEmail");
+
+		clickButtonByXpath("MenuSave");
+		
+		
+		Thread.sleep(2000);
+		clickButtonByXpath("MenuEdit");
+		Thread.sleep(2000);
+		
+		sendTextbyXpath("EditPersonalPhone", "1(801)240-0104");
+		sendTextbyXpath("EditHomePhone", "(801) 867-5309");
+		sendTextbyXpath("EditPersonalEmail", "personal@nospam.com");
+		sendTextbyXpath("EditHomeEmail", "home@nospam.com");
+		
+		//Need MenuCancel
+		clickButtonByXpath("MenuCancel");
+		checkForAlertOK();
+		
+		Thread.sleep(3000);
+		
+		pageSource = getSourceOfPage();
+		Assert.assertFalse(checkNoCaseList("1(801)240-0104", pageSource));
+		Assert.assertFalse(checkNoCaseList("(801) 867-5309", pageSource));	
+		Assert.assertFalse(checkNoCaseList("personal@nospam.com", pageSource));
+		Assert.assertFalse(checkNoCaseList("home@nospam.com", pageSource));
+	}
+	
 	/** editOtherUser()
 	 * Edit a user that you are not logged in as. 
 	 * 
 	 * @throws Exception
 	 */
 	@Parameters({"os"})
-	@Test (groups= {"smoke", "editSettings"})
+	@Test (groups= {"editSettings"})
 	public void editOtherUser(String os) throws Exception {
 		String pageSource;
 		//Edit other user
@@ -994,7 +962,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"smoke", "editSettings"})
+	@Test (groups= {"editSettings"})
 	public void editOtherUserInvalidPhone(String os) throws Exception {
 		String pageSource;
 		//Edit other user with invalid data - phone
@@ -1079,7 +1047,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"smoke", "editSettings"})
+	@Test (groups= {"editSettings"})
 	public void editOtherUserInvalidEmail(String os) throws Exception {
 		String pageSource;
 		//Edit other user with invalid data - phone
@@ -1306,7 +1274,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"smoke", "editSettings"})
+	@Test (groups= {"editSettings"})
 	public void editVisibiltyPersonal(String os) throws Exception {
 		//Set the PERSONAL phone and email to Private-Leadership Only
 		//Change LDSTools5 then check the privacy settings with LDSTools6
@@ -1458,7 +1426,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"smoke", "editSettings"})
+	@Test (groups= {"editSettings"})
 	public void editVisibiltyHousehold(String os) throws Exception {
 		String pageSource;
 		//Set the HOUSEHOLD phone and email to Private-Leadership Only
@@ -1612,10 +1580,18 @@ public class LDSTools {
 	@Parameters({"os"})
 	@Test (groups= {"smoke"})
 	public void invalidLoginCheck(String os) throws Exception {
+		String errorMessage;
+		
+		if (getRunningOS().equals("mac")) {
+			errorMessage = "Sign-In Failed";
+		} else {
+			errorMessage = "Incorrect username or password";
+		}
+		
 		//Invalid login test
 		syncLogIn("LDSTools2", "<login>", "UAT", os );
 		Thread.sleep(2000);
-		Assert.assertTrue(checkElementTextViewReturn("Incorrect username or password"));
+		Assert.assertTrue(checkElementTextViewReturn(errorMessage));
 		clickButtonByXpath("AlertOK");	
 		
 		//Clear the login and password fields
@@ -1625,7 +1601,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		syncLogIn("LDSTools2", "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&", "UAT", os );
 		Thread.sleep(2000);
-		Assert.assertTrue(checkElementTextViewReturn("Incorrect username or password"));
+		Assert.assertTrue(checkElementTextViewReturn(errorMessage));
 		clickButtonByXpath("AlertOK");
 		
 		//Clear the login and password fields
@@ -1634,7 +1610,7 @@ public class LDSTools {
 		
 		syncLogIn("0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789", "0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789", "UAT", os );
 		Thread.sleep(2000);
-		Assert.assertTrue(checkElementTextViewReturn("Incorrect username or password"));
+		Assert.assertTrue(checkElementTextViewReturn(errorMessage));
 		clickButtonByXpath("AlertOK");
 		
 		//Clear the login and password fields
@@ -1643,7 +1619,7 @@ public class LDSTools {
 		
 		syncLogIn("LDSTools2", "test|test|test$$$$test|||||||test", "UAT", os );
 		Thread.sleep(2000);
-		Assert.assertTrue(checkElementTextViewReturn("Incorrect username or password"));
+		Assert.assertTrue(checkElementTextViewReturn(errorMessage));
 		clickButtonByXpath("AlertOK");
 		
 		//Clear the login and password fields
@@ -1652,14 +1628,14 @@ public class LDSTools {
 		
 		syncLogIn("zmaxfield", "%%%test%%%% & ||||||| select * from household;", "Production", os );
 		Thread.sleep(2000);
-		Assert.assertTrue(checkElementTextViewReturn("Incorrect username or password"));
+		Assert.assertTrue(checkElementTextViewReturn(errorMessage));
 		clickButtonByXpath("AlertOK");
 		
 		//Clear the login and password fields
 		clearTextFieldXpath("LoginUsername");
 		clearTextFieldXpath("LoginPassword");
 		
-		
+		/*
 		syncLogIn("", "", "UAT", os );
 		Thread.sleep(2000);
 		Assert.assertTrue(checkElementTextViewReturn("Sign in to your LDS Account (UAT)"));
@@ -1683,6 +1659,7 @@ public class LDSTools {
 		//Clear the login and password fields
 		clearTextFieldXpath("LoginUsername");
 		clearTextFieldXpath("LoginPassword");
+		*/
 	}
 	
 	
@@ -1894,6 +1871,7 @@ public class LDSTools {
 		drawerSignOut();
 	}
 	
+	/*
 	@Parameters({"os"})
 	@Test (groups= {"header"})
 	public void AdminUnit(String os) throws Exception {
@@ -1914,6 +1892,7 @@ public class LDSTools {
 
 		drawerSignOut();
 	}
+	*/
 	
 	@Parameters({"os"})
 	@Test (groups= {"header"})
@@ -2739,52 +2718,112 @@ public class LDSTools {
 	private void loginProxyData(String IndividualId, String units, String positions, String chooseNetwork, String userName )  throws Exception {
 		//If the login is using any of the test networks we need to chagne it. 
 		//valid enteries "Production", "UAT", "Proxy - UAT", "Proxy - Test"
-		if (!chooseNetwork.equals("Production")) {
-			Thread.sleep(1000);
-			longPressByTextView("Sign in to your LDS Account");
-			Thread.sleep(1000);
-			longPressByTextView("Sign in to your LDS Account");
-			//Thread.sleep(1000);
-			clickButtonByXpath("Menu");
-			clickButtonByXpathTitleName("Settings");
-			//Thread.sleep(1000);
-			//scrollDown("Sign Out", 40 );
-			Thread.sleep(2000);
-			scrollDown("Network Environment", -1000 );
-			//Thread.sleep(2000);
-			clickButtonByXpathTitleName(chooseNetwork);
-			Thread.sleep(2000);
-			scrollDown("px_i", -1000 );
-			Thread.sleep(2000);
-			sendTextbyXpath("AlertEditText", IndividualId);
-			clickButtonByXpath("AlertOK");
-			Thread.sleep(2000);
-			scrollDown("px_u", -1000 );
-			Thread.sleep(2000);
-			sendTextbyXpath("AlertEditText", units);
-			clickButtonByXpath("AlertOK");
-			Thread.sleep(2000);
-			scrollDown("px_p", -1000 );
-			Thread.sleep(2000);
-			sendTextbyXpath("AlertEditText", positions);
-			clickButtonByXpath("AlertOK");
-			clickButtonByXpath("Back");
-			Thread.sleep(5000);
+		if (getRunningOS().equals("android")) {
+			if (!chooseNetwork.equals("Production")) {
+				Thread.sleep(1000);
+				longPressByTextView("Sign in to your LDS Account");
+				Thread.sleep(1000);
+				longPressByTextView("Sign in to your LDS Account");
+				//Thread.sleep(1000);
+				clickButtonByXpath("Menu");
+				clickButtonByXpathTitleName("Settings");
+				//Thread.sleep(1000);
+				//scrollDown("Sign Out", 40 );
+				Thread.sleep(2000);
+				scrollDown("Network Environment", -1000 );
+				//Thread.sleep(2000);
+				clickButtonByXpathTitleName(chooseNetwork);
+				Thread.sleep(2000);
+				scrollDown("px_i", -1000 );
+				Thread.sleep(2000);
+				sendTextbyXpath("AlertEditText", IndividualId);
+				clickButtonByXpath("AlertOK");
+				Thread.sleep(2000);
+				scrollDown("px_u", -1000 );
+				Thread.sleep(2000);
+				sendTextbyXpath("AlertEditText", units);
+				clickButtonByXpath("AlertOK");
+				Thread.sleep(2000);
+				scrollDown("px_p", -1000 );
+				Thread.sleep(2000);
+				sendTextbyXpath("AlertEditText", positions);
+				clickButtonByXpath("AlertOK");
+				clickButtonByXpath("Back");
+				Thread.sleep(5000);
+				
+				sendTextbyXpath("LoginUsername", userName);
+				sendTextbyXpath("LoginPassword", "toolstester");
+				clickButtonByXpath("SignInButton");
+				Thread.sleep(4000);
+				waitForTextToDisappear("SyncText", 500 );
+				Thread.sleep(2000);
+			}
 		}
-		//sendTextbyXpath("LoginUsername", "LDSTools14");
-		//sendTextbyXpath("LoginPassword", "toolstester");
-		sendTextbyXpath("LoginUsername", userName );
-		sendTextbyXpath("LoginPassword", "password1");
-		//Thread.sleep(1000);
-		clickButtonByXpath("SignInButton");
-		Thread.sleep(4000);
-		waitForTextToDisappear("SyncText", 500 );
-		Thread.sleep(4000);
-		
-		//Calendar doesn't work with proxy data so we will just clear the alert. 
-		clickButtonByXpath("AlertOK");
-		
-		Thread.sleep(4000);
+		if (getRunningOS().equals("mac")) {
+			userName = "proxyt";
+			chooseNetwork = "P-TEST";
+			if (!chooseNetwork.equals("Production")) {
+				Thread.sleep(1000);
+				clickButtonByXpath("TopHelp");
+				
+				
+				if (checkElementExistsByXpath("DeveloperSettings") == true) {
+					clickButtonByXpath("DeveloperSettings");
+				} else {
+					//New way to enable dev settings
+					for (int x = 1; x <= 5; x++ ) {
+						clickButtonByXpath("EnableDevSettings");
+					}
+				}
+
+				
+				clickButtonByXpath("Environment");
+				
+				
+				clickButtonByXpath(chooseNetwork);
+				
+				clickButtonByXpath("TopDeveloper");
+				//Thread.sleep(2000);
+				
+				//Set the ID
+				clickButtonByXpath("Id");
+				sendTextbyXpath("HeaderAlertTextId", IndividualId );
+				clickButtonByXpath("HeaderOK");
+				
+				//Set the Positions
+				clickButtonByXpath("Units");
+				sendTextbyXpath("HeaderAlertTextUnits", units );
+				clickButtonByXpath("HeaderOK");
+				
+				//Set the Positions
+				clickButtonByXpath("Positions");
+				sendTextbyXpath("HeaderAlertTextPositions", positions );
+				clickButtonByXpath("HeaderOK");
+				
+
+				
+				clickButtonByXpath("TopHelp");
+				//Thread.sleep(4000);
+				clickButtonByXpath("TopSignIn");
+				
+				//sendTextbyXpath("LoginUsername", "LDSTools14");
+				//sendTextbyXpath("LoginPassword", "toolstester");
+				sendTextbyXpath2("LoginUsername", "proxyt" );
+				sendTextbyXpath2("LoginPassword", "toolstester");
+				
+				//Thread.sleep(1000);
+				clickButtonByXpath("DoneButton");
+				//Thread.sleep(1000);
+				//clickButtonByXpath("SignInButton");
+				Thread.sleep(4000);
+				
+				
+				unitsToSync();
+				
+				waitForTextToDisappear("DownloadingSync", 500 );
+				Thread.sleep(8000);
+			}
+		}
 	}
 
 	
@@ -4121,30 +4160,76 @@ public class LDSTools {
 	
 	private void checkAllWardDirectories() throws Exception {
 		List<String> StakeWard = new ArrayList<String>();
-		clickButtonByXpath("SpinnerNav");
+		List<WebElement> options = new ArrayList<WebElement>();
 		Thread.sleep(2000);
 		
-		//Get Stake and all Wards
-		List<WebElement> options= driver.findElements(By.xpath("//*[@id='title']"));
-		for (int i = 0 ; i < options.size(); i++ ) {
-			//System.out.println(options.get(i).getText());
-			StakeWard.add(options.get(i).getText());
-		}
-		Thread.sleep(1000);
-		pressBackKey();
-		Thread.sleep(1000);
-		
-		//Go through each Stake and Ward to make sure it isn't blank
-		for(String StakeWardItem : StakeWard){
-			clickButtonByXpath("SpinnerNav");
-			Thread.sleep(2000);
-			clickButtonByXpathTitleName(StakeWardItem);
-			//displayAllTextViewElements();
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpath("SpinnerSubTitle");
+			//Get Stake and all Wards
+			options= driver.findElements(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell/UIAStaticText"));
+			for (int i = 0 ; i < options.size(); i++ ) {
+				//System.out.println(options.get(i).getText());
+				StakeWard.add(options.get(i).getText());
+			}
+			clickButtonByXpath("TopCancel");
 			
-			//Should be a better way to do this. 
-			Assert.assertTrue(checkElementTextViewReturnContains("e"));
-			Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
+			
+			//Go through each Stake and Ward to make sure it isn't blank
+			for(String StakeWardItem : StakeWard){
+				//clickButtonByXpath("SpinnerNav");
+				clickButtonByXpath("SpinnerSubTitle");
+				Thread.sleep(2000);
+				//System.out.println("To Click: " + StakeWardItem);
+				clickButtonByXpathTitleName(StakeWardItem);
+				//displayAllTextViewElements();
+				
+				//This will check to see if the first user has text.  
+				Assert.assertTrue(checkFirstDirectoryUser());
+				
+				//Assert.assertTrue(checkElementTextViewReturnContains("e"));
+				//Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
+			}
+		} else {
+			clickButtonByXpath("SpinnerNav");
+			//Get Stake and all Wards
+			options= driver.findElements(By.xpath("//*[@id='title']"));
+			for (int i = 0 ; i < options.size(); i++ ) {
+				//System.out.println(options.get(i).getText());
+				StakeWard.add(options.get(i).getText());
+			}
+			
+			Thread.sleep(1000);
+			pressBackKey();
+			Thread.sleep(1000);
+			
+			//Go through each Stake and Ward to make sure it isn't blank
+			for(String StakeWardItem : StakeWard){
+				clickButtonByXpath("SpinnerNav");
+				Thread.sleep(2000);
+				clickButtonByXpathTitleName(StakeWardItem);
+				//displayAllTextViewElements();
+				
+				//Should be a better way to do this. 
+				Assert.assertTrue(checkElementTextViewReturnContains("e"));
+				Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
+			}
+			
+			
 		}
+
+
+	}
+	
+	private Boolean checkFirstDirectoryUser() {
+		Boolean myReturnStatus;
+		String myString = driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[1]/UIAStaticText[1]")).getText();
+		if (myString.isEmpty()) {
+			myReturnStatus = false;
+		} else {
+			myReturnStatus = true;
+		}
+		
+		return myReturnStatus;
 	}
 	
 	
@@ -4232,6 +4317,13 @@ public class LDSTools {
 		//Check to see if we are getting a warning
 		if (checkElementExistsByXpath("AlertMessageCheck") == true) {
 			clickButtonByXpath("OK");
+		}
+	}
+	
+	private void checkForAlertOK() throws Exception {
+		//Check to see if we are getting a warning
+		if (checkElementExistsByXpath("AlertMessageCheck") == true) {
+			clickButtonByXpath("SignOutOK");
 		}
 	}
 
