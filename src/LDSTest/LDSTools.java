@@ -29,20 +29,6 @@ import java.util.Properties;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 //import io.appium.java_client.android.AndroidDriver;
@@ -52,22 +38,6 @@ import io.appium.java_client.MobileElement;
 //import io.selendroid.SelendroidDriver;
 import io.selendroid.SelendroidKeys;
 //import io.selendroid.exceptions.NoSuchElementException;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -218,14 +188,14 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		//justForTesting();	
+		justForTesting(os);	
 
 		//LeaderNonBishopric("LDSTools17", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		//editCurrentUser(os);	
-		editCurrentUserCancel(os);
+		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		
 		//editOtherUserInvalidPhone(os);	
@@ -252,48 +222,29 @@ public class LDSTools {
 		//WardStakeCouncilor();
 
 	}
-	
-	@Parameters({"os"})
-	@Test
-	public void justForTesting(String os) throws Exception {
 
+	
+	
+	public void justForTesting(String os) throws Exception {
+		LDSWeb myWeb = new LDSWeb();
+		List<String> myList = new ArrayList<String>();
+		String pageSource;
+		
+		
+		//Login as LDSTools2 - Bishiop
 		syncLogIn("LDSTools2", "toolstester", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
-		Thread.sleep(2000);
-		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
-		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
+		Thread.sleep(2000);	
 		
-		//This works
-		checkDirectoryUser(true, true, true, true, true, true);
+		//Go to web and get all users
+		myList = myWeb.getAllMembersOnPage("ReportsMenu", "Member List");
 		
 		
-		//Check Drawer Items - If leader there should be a Reports item
-		checkDrawerItems(true);
-
-		//Thread.sleep(1000);	
-		//Check various callings - all users should be able to access this information
-		checkCallings();
-
-		//Thread.sleep(1000);
-		//Check Missionary drawer items - all user access
-		checkMissionary();
-
-		//Thread.sleep(1000);
-		//Check the reports - leadership only - true for bishopric rights, false for leaders and remove
-		//checkReports for non-leaders
-		checkReports(true, true);
-		
-		//Thread.sleep(1000);
-		//Check Home Teaching - Visiting Teaching
-		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
-		checkHTVTBasic("Bishopric");
-		
-		Thread.sleep(1000);
-		//Check Home Teaching - Visiting Teaching Household - Sisters and Filters
-		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
-		checkHTVTHouseholds("Bishopric");
-		
-			
+		pageSource = getSourceOfPage();
+		for(String oneUser : myList){
+			System.out.println("Found User: " + oneUser);
+			Assert.assertTrue(checkNoCaseList(oneUser, pageSource));
+		}
 
 	}
 		
@@ -1990,18 +1941,6 @@ public class LDSTools {
 		return myReturn;
 	}
 	
-
-	
-	
-	/** checkTextByID(String textElement, String textToCheck )
-	 * Find the element by ID using uiMap
-	 * 
-	 * @param textElement - Must map to the uiMap
-	 * @param textToCheck - String of text to check
-	 */
-	private void checkTextByID(String textElement, String textToCheck ) {
-		AssertJUnit.assertEquals(driver.findElement(By.id(this.prop.getProperty(textElement))).getText(),(textToCheck));
-	}
 
 
 	
@@ -4192,7 +4131,7 @@ public class LDSTools {
 		} else {
 			clickButtonByXpath("SpinnerNav");
 			//Get Stake and all Wards
-			options= driver.findElements(By.xpath("//*[@id='title']"));
+			options = driver.findElements(By.xpath("//*[@id='title']"));
 			for (int i = 0 ; i < options.size(); i++ ) {
 				//System.out.println(options.get(i).getText());
 				StakeWard.add(options.get(i).getText());
