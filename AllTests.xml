@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Just For Testing suite">
-  <test verbose="2" name="JFT test">
+<suite name="Run All Tests">
+  <test verbose="2" name="All tests">
       <parameter name="os" value="ios" />
-      <parameter name="fileName" value="My File Name" />
-      
+      <parameter name="fileName" value="LDS Tools.app" />
+      <parameter name="testDevice" value="iPhone 6"
+          
       <classes>
           <class name="LDSTest.LDSTools"/>
           <class name="LDSTest.LDSTools$AppiumSwipeableDriver"/>
