@@ -102,11 +102,11 @@ public class LDSTools {
 	 * 
 	 * @throws Exception
 	 */
-	@Parameters({"os", "fileName"})
+	@Parameters({"os", "fileName", "testDevice"})
 	@BeforeMethod(alwaysRun = true)
-	public void setUp(String os, String fileName) throws Exception {
-		System.out.println("OS: " + os );
-		System.out.println("File Name: " + fileName);
+	public void setUp(String os, String fileName, String testDevice) throws Exception {
+		//System.out.println("OS: " + os );
+		//System.out.println("File Name: " + fileName);
 		
 		
 		//Android Setup
@@ -116,7 +116,8 @@ public class LDSTools {
 	        //File appDir = new File(classpathRoot, "..\\..\\..\\..\\Selenium");
 	        //MAC Path
 	        File appDir = new File(classpathRoot, "../../../Selenium");
-	        File app = new File(appDir, "ldstools-release-20151102-1936.apk");
+	        //File app = new File(appDir, "ldstools-release-20151102-1936.apk");
+	        File app = new File(appDir, fileName);
 	        DesiredCapabilities capabilities = new DesiredCapabilities();
 	        //capabilities.setCapability(CapabilityType.BROWSER_NAME, "");
 	        capabilities.setCapability("platformName", "Android");
@@ -156,7 +157,8 @@ public class LDSTools {
 	        //File appDir = new File(classpathRoot, "..\\..\\..\\..\\Selenium");
 	        //MAC Path
 	        File appDir = new File(classpathRoot, "../../../Selenium");
-	        File app = new File(appDir, "LDS Tools.app");
+	        //File app = new File(appDir, "LDS Tools.app");
+	        File app = new File(appDir, fileName);
 	        DesiredCapabilities capabilities = new DesiredCapabilities();
 	        capabilities.setCapability("platformName", "iOS");
 	        capabilities.setCapability(CapabilityType.BROWSER_NAME, "iOS");
@@ -164,7 +166,7 @@ public class LDSTools {
 	        capabilities.setCapability(CapabilityType.PLATFORM, "Mac");
 	        capabilities.setCapability("platformVersion", "9.1");
 	        //capabilities.setCapability("deviceName","iPhone 5");
-	        capabilities.setCapability("deviceName","iPhone 6");
+	        capabilities.setCapability("deviceName",testDevice);
 
 	        capabilities.setCapability("automationName","appium");
 	        capabilities.setCapability("newCommandTimeout","600");
@@ -188,9 +190,9 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		justForTesting(os);	
+		//justForTesting(os);	
 
-		//LeaderNonBishopric("LDSTools17", "High Priest Group", os);
+		LeaderNonBishopric("LDSTools17", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
@@ -3464,7 +3466,7 @@ public class LDSTools {
 		}
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Ward Clerk", pageSource));
-		Assert.assertTrue(checkNoCaseList("Kitara, Lafaele (2 months)", pageSource));
+		Assert.assertTrue(checkNoCaseList("Kitara, Lafaele (3 months)", pageSource));
 		Assert.assertFalse(checkNoCaseList("Kenobi, Obi-Wan", pageSource));
 
 		if (getRunningOS().equals("mac")) {
@@ -4446,7 +4448,8 @@ public class LDSTools {
 	public void teardown() throws Exception {
 		File screenshotFile = driver.getScreenshotAs(OutputType.FILE);
 		try {
-			FileUtils.copyFile(screenshotFile,new File("/Users/zmaxfield/Selenium/Screenshot/lastErrorScreenshot.png"));
+			//FileUtils.copyFile(screenshotFile,new File("/Users/zmaxfield/Selenium/Screenshot/lastErrorScreenshot.png"));
+			FileUtils.copyFile(screenshotFile,new File("lastErrorScreenshot.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -4463,7 +4466,7 @@ public class LDSTools {
 		FileInputStream fileInput = null;
 		
 		//Just for testing
-		System.out.println("GUI Map OS: " + os );
+		//System.out.println("GUI Map OS: " + os );
 		
 		if (os.equals("android")) {
 			File file = new File("ConfigFiles/uiMap.properties");
