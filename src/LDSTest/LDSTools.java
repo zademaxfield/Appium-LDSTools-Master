@@ -227,25 +227,70 @@ public class LDSTools {
 	
 	public void justForTesting(String os) throws Exception {
 		LDSWeb myWeb = new LDSWeb();
+		//Data from Web page
 		List<String> myList = new ArrayList<String>();
-		String pageSource;
 		
+		//Data from android list
+		List<String> androidList = new ArrayList<String>();
+		
+		String pageSource;
+		boolean testForElement;
+		int checkUser = 0;
+		int pageSize;
 		
 		//Login as LDSTools2 - Bishiop
 		syncLogIn("LDSTools2", "toolstester", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
 		Thread.sleep(2000);	
 		
+		//Check to see if running iOS or Mac
+		testForElement = checkElementExistsByID("MenuDefaultDirectory");
+		//System.out.println("testForElement: " + testForElement);
+		if (testForElement == true ) {
+			clickButtonByID("MenuDefaultDirectory");
+			clickButtonByXpathTitleName("Individuals");
+		} else {
+			clickButtonByXpath("DirectorySort");
+			clickButtonByXpath("DirectoryIndividual");
+		}
+		
+		
 		//Go to web and get all users
 		myList = myWeb.getAllMembersOnPage("ReportsMenu", "Member List");
 		
-		
-		pageSource = getSourceOfPage();
-		for(String oneUser : myList){
-			System.out.println("Found User: " + oneUser);
-			Assert.assertTrue(checkNoCaseList(oneUser, pageSource));
-		}
 
+
+		
+		if (getRunningOS().equals("mac")){
+			for(String oneUser : myList){
+				sendTextbyXpath("SearchArea", oneUser );
+				checkUser = checkTextByXpathReturn("SearchResult", oneUser);
+				if (checkUser == 0 ) {
+					System.out.println("NOT FOUND: " + oneUser);
+				}
+				Assert.assertEquals(checkUser, 1);
+				//Thread.sleep(2000);
+				//Collapse the search 
+				clickButtonByXpath("SearchCollapse");
+			}
+		} else {
+			
+			for(String oneUser : myList){
+				//System.out.println("Found User: " + oneUser);
+				clickButtonByID("MenuSearch");
+				sendTextbyXpath("SearchArea", oneUser );
+				
+				Thread.sleep(2000);
+				checkUser = checkTextByXpathReturn("SearchResult", oneUser);
+				if (checkUser == 0 ) {
+					System.out.println("NOT FOUND: " + oneUser);
+				}
+				Assert.assertEquals(checkUser, 1);
+				Thread.sleep(2000);
+				//Collapse the search 
+				clickButtonByXpath("SearchCollapse");
+			}
+		}
 	}
 		
 
@@ -625,6 +670,84 @@ public class LDSTools {
 		
 		
 	}
+	
+	
+	
+	//This test will get the members from the web then check LDS Tools to see if all members are there. 
+	//TODO: Need to deal with Jr and Junior LDS Tools has an extra comma.  
+	@Parameters({"os"})
+	@Test (groups= {"web"})
+	public void checkAllUsersFromWeb(String os ) throws Exception {
+		LDSWeb myWeb = new LDSWeb();
+		//Data from Web page
+		List<String> myList = new ArrayList<String>();
+		
+		//Data from android list
+		List<String> androidList = new ArrayList<String>();
+		
+		String pageSource;
+		boolean testForElement;
+		int checkUser = 0;
+		int pageSize;
+		
+		//Login as LDSTools2 - Bishiop
+		syncLogIn("LDSTools2", "toolstester", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);	
+		
+		//Check to see if running iOS or Mac
+		testForElement = checkElementExistsByID("MenuDefaultDirectory");
+		//System.out.println("testForElement: " + testForElement);
+		if (testForElement == true ) {
+			clickButtonByID("MenuDefaultDirectory");
+			clickButtonByXpathTitleName("Individuals");
+		} else {
+			clickButtonByXpath("DirectorySort");
+			clickButtonByXpath("DirectoryIndividual");
+		}
+		
+		
+		//Go to web and get all users
+		myList = myWeb.getAllMembersOnPage("ReportsMenu", "Member List");
+		
+
+
+		
+		if (getRunningOS().equals("mac")){
+			pageSource = getSourceOfPage();
+			for(String oneUser : myList){
+				//System.out.println("Found User: " + oneUser);
+				//Assert.assertTrue(checkNoCaseList(oneUser, pageSource));
+				if (checkNoCaseList(oneUser, pageSource) == false) {
+					System.out.println("NOT FOUND: " + oneUser);
+				}
+			}
+
+		} else {
+			pageSize = driver.manage().window().getSize().getHeight();
+			//System.out.println("Page Size: " + pageSize);
+			pageSize = -pageSize;
+			
+			for (int x = 0; x < 50 ; x++ ) {
+				pageSource = getSourceOfPage();
+				androidList = createUserList(androidList, pageSource);
+				scrollDownTEST(pageSize);
+				//pageSize = pageSize + 10;
+			}
+			
+			//for(String myUser : androidList) {
+			//	System.out.println("User: " + myUser);
+			//}
+			
+			for(String oneUser : myList) {
+				//System.out.println("Found User: " + oneUser);
+				if (!androidList.contains(oneUser)){
+					System.out.println("NOT FOUND: " + oneUser);
+				}
+			}
+		}
+	}
+	
 
 	public void LeaderNonBishopric(String leaderLogin, String userCalling, String os) throws Exception {
 
@@ -2094,7 +2217,7 @@ public class LDSTools {
 
 		} else {
 			for (Element myElement : myTest ) {
-				//System.out.println(myElement.attributes().get("name"));
+				//System.out.println(myElement.attributes().get("value"));
 				if (myElement.attributes().get("shown").equals("true")) {
 					foundText = myElement.attributes().get("value");
 					foundText = foundText.toLowerCase();
@@ -2110,6 +2233,31 @@ public class LDSTools {
 		}
 	    return false;
 	  }
+	
+	private List<String> createUserList(List<String> userList, String pageSource){
+		Document doc = Jsoup.parse(pageSource);
+		Elements myTest = doc.getAllElements();
+		String foundText;
+		
+		for (Element myElement : myTest ) {
+			//System.out.println(myElement.attributes().get("value"));
+			if (myElement.attributes().get("shown").equals("true")) {
+				foundText = myElement.attributes().get("value");
+				//foundText = foundText.toLowerCase();
+				if (!foundText.isEmpty()) {
+					userList.add(foundText);
+				}
+				
+				
+				//System.out.println("******************************");
+				//System.out.println("Found Text:" + foundText);
+				//System.out.println("Text To Check: " + textToCheck);
+				//System.out.println("******************************");
+			}
+		}
+		return userList;
+	}
+	
 	
 	
 	/** displayAllTextViewElements()
@@ -2133,8 +2281,10 @@ public class LDSTools {
 	private String getSourceOfPage() {
 		String myString;
 		myString = driver.getPageSource();
+		//System.out.println("Page Source: " + myString);
 		return myString;
 	}
+	
 	
 	
 	private List<String> getAllText() {
@@ -2481,6 +2631,32 @@ public class LDSTools {
 		
 		actions.perform();
 		
+	}
+	
+	
+	private void scrollDownTEST(int scrollDistance ){
+		TouchActions actions = new TouchActions(driver);
+		//WebElement myElement = driver.findElement(By.xpath("//CheckableLinearLayout[10]/RelativeLayout/LinearLayout"));
+		//actions.flick(driver.findElement(By.xpath("//LinearLayout")), 0, scrollDistance, 100);
+
+		Dimension dimensions = driver.manage().window().getSize();
+		int screenWidth = dimensions.getWidth();
+		int screenHeight = dimensions.getHeight();
+		
+		//System.out.println("Trying to move!");
+		//System.out.println("Width: " + screenWidth);
+		//System.out.println("Height: " + screenHeight);
+		
+		screenWidth = screenWidth / 2;
+		screenHeight = screenHeight - 10;
+		
+		actions.down(screenWidth, screenHeight);
+		actions.pause(1000);
+		actions.move(screenWidth, scrollDistance);
+		actions.pause(1000);
+		actions.up(screenWidth, 10);
+		
+		actions.perform();
 	}
 	
 	
