@@ -192,7 +192,7 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		LeaderNonBishopric("LDSTools17", "High Priest Group", os);
+		//LeaderNonBishopric("LDSTools17", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
@@ -208,6 +208,8 @@ public class LDSTools {
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		//invalidLoginCheck(os);	
+		
+		checkAllUsersFromWeb(os);
 
 	
 		
@@ -1765,7 +1767,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"header"})
+	@Test (groups= {"header", "smoke"})
 	public void CliffHigby(String os) throws Exception {
 		//List<String> StakeWard = new ArrayList<String>();
 		loginProxyData("295740465",
