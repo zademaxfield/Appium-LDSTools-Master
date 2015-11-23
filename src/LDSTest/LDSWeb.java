@@ -51,7 +51,8 @@ public class LDSWeb {
         // set up Selenium
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--start-maximized");
-		System.setProperty("webdriver.chrome.driver", "/Users/zmaxfield/Selenium/chromedriver");
+		//System.setProperty("webdriver.chrome.driver", "/Users/zmaxfield/Selenium/chromedriver");
+		System.setProperty("webdriver.chrome.driver", "chromedriver");
 		
 		driver = new ChromeDriver(options);
 		
