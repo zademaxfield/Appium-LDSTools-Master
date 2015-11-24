@@ -192,7 +192,7 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		//LeaderNonBishopric("LDSTools17", "High Priest Group", os);
+		LeaderNonBishopric("LDSTools17", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
@@ -216,7 +216,7 @@ public class LDSTools {
 		
 		//Header Check
 		//ChristieWhiting(os);
-		CliffHigby(os);
+		//CliffHigby(os);
 		//KevinPalmer(os);
 		//PatriarchOtherWards(os);
 		//TravisLyman(os);
@@ -4300,7 +4300,8 @@ public class LDSTools {
 				//clickButtonByXpath("SpinnerNav");
 				clickButtonByXpath("SpinnerSubTitle");
 				Thread.sleep(2000);
-				//System.out.println("To Click: " + StakeWardItem);
+				//System.out.println("To Click: " + StakeWardItem);	
+				/*
 				if (myCounter > 1 ) {
 					System.out.println("Scroll Down: " + StakeWardItem);
 					//pageSize = driver.manage().window().getSize().getHeight();
@@ -4308,11 +4309,17 @@ public class LDSTools {
 					//scrollDownTEST(pageSize);
 					driver.scrollTo("//*[@name=\'" + StakeWardItem + "\']");
 				}
+				*/
 				clickButtonByXpathTitleName(StakeWardItem);
 				//displayAllTextViewElements();
 				
 				//This will check to see if the first user has text.  
 				Assert.assertTrue(checkFirstDirectoryUser());
+				
+		         if(myCounter == 5){
+		             break; // Don't like this need a better solution. 
+		         }
+				
 				myCounter++;
 				//Assert.assertTrue(checkElementTextViewReturnContains("e"));
 				//Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
