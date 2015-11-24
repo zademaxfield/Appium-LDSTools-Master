@@ -209,21 +209,21 @@ public class LDSTools {
 		//editVisibiltyHousehold(os);
 		//invalidLoginCheck(os);	
 		
-		checkAllUsersFromWeb(os);
+		//checkAllUsersFromWeb(os);
 
 	
 		
 		
 		//Header Check
-		//ChristieWhiting();
-		//CliffHigby();
-		//KevinPalmer();
-		//PatriarchOtherWards();
-		//TravisLyman();
-		//ElderKacher();
-		//TerryBallard(); //Check to see Tim and Jessica Beck
-		//AdminUnit(); //Not working in 2.5.0
-		//WardStakeCouncilor();
+		//ChristieWhiting(os);
+		CliffHigby(os);
+		//KevinPalmer(os);
+		//PatriarchOtherWards(os);
+		//TravisLyman(os);
+		//ElderKacher(os);
+		//TerryBallard(os); //Check to see Tim and Jessica Beck
+		//AdminUnit(os); //Not working in 2.5.0
+		//WardStakeCouncilor(os);
 
 	}
 
@@ -4280,6 +4280,8 @@ public class LDSTools {
 	private void checkAllWardDirectories() throws Exception {
 		List<String> StakeWard = new ArrayList<String>();
 		List<WebElement> options = new ArrayList<WebElement>();
+		int pageSize;
+		int myCounter = 1;
 		Thread.sleep(2000);
 		
 		if (getRunningOS().equals("mac")) {
@@ -4299,12 +4301,19 @@ public class LDSTools {
 				clickButtonByXpath("SpinnerSubTitle");
 				Thread.sleep(2000);
 				//System.out.println("To Click: " + StakeWardItem);
+				if (myCounter > 1 ) {
+					System.out.println("Scroll Down: " + StakeWardItem);
+					//pageSize = driver.manage().window().getSize().getHeight();
+					//pageSize = -pageSize;
+					//scrollDownTEST(pageSize);
+					driver.scrollTo("//*[@name=\'" + StakeWardItem + "\']");
+				}
 				clickButtonByXpathTitleName(StakeWardItem);
 				//displayAllTextViewElements();
 				
 				//This will check to see if the first user has text.  
 				Assert.assertTrue(checkFirstDirectoryUser());
-				
+				myCounter++;
 				//Assert.assertTrue(checkElementTextViewReturnContains("e"));
 				//Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
 			}
@@ -4448,6 +4457,7 @@ public class LDSTools {
 
 	@AfterMethod(alwaysRun = true)
 	public void teardown() throws Exception {
+		/*
 		File screenshotFile = driver.getScreenshotAs(OutputType.FILE);
 		try {
 			//FileUtils.copyFile(screenshotFile,new File("/Users/zmaxfield/Selenium/Screenshot/lastErrorScreenshot.png"));
@@ -4456,6 +4466,7 @@ public class LDSTools {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
 		driver.quit();
 		Thread.sleep(5000);
 		
