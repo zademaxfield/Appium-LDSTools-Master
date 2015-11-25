@@ -4,7 +4,11 @@
   <test verbose="2" name="All tests">
       <parameter name="os" value="ios" />
       <parameter name="fileName" value="LDS Tools.app" />
-      <parameter name="testDevice" value="iPhone 6"
+      <parameter name="testDevice" value="iPhone 6" />
+      
+      <listeners>
+          <listener class-name="LDSTest.RetryListener"/>  
+      </listeners>
           
       <classes>
           <class name="LDSTest.LDSTools"/>
