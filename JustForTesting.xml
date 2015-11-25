@@ -10,7 +10,7 @@
               <include name="jft"/>
           </run>
       </groups>
-      
+
       <classes>
           <class name="LDSTest.LDSTools"/>
           <class name="LDSTest.LDSTools$AppiumSwipeableDriver"/>
