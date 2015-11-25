@@ -8,6 +8,7 @@
       
       <listeners>
           <listener class-name="LDSTest.RetryListener"/>  
+          <listener class-name= "LDSTest.ExecutionListener" />
       </listeners>
           
       <classes>
