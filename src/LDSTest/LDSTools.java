@@ -3456,7 +3456,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Ami, Christian", pageSource));
-		Assert.assertTrue(checkNoCaseList("Beehive President (6 months)", pageSource));
+		Assert.assertTrue(checkNoCaseList("Beehive President (7 months)", pageSource));
 		Assert.assertFalse(checkNoCaseList("Skywalker, Anakin", pageSource));
 	
 		
@@ -3489,7 +3489,7 @@ public class LDSTools {
 			clickButtonByXpathTitleName("NOT SET APART");
 		}
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Young Men First Counselor (6 months)", pageSource));
+		Assert.assertTrue(checkNoCaseList("Young Men First Counselor (7 months)", pageSource));
 		Assert.assertTrue(checkNoCaseList("Poai, Mikaele", pageSource));
 		Assert.assertFalse(checkNoCaseList("P0, C3", pageSource));
 
