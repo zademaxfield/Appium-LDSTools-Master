@@ -8,7 +8,7 @@
       
       <listeners>
           <listener class-name="LDSTest.RetryListener"/>  
-          <listener class-name= "LDSTest.ExecutionListener" />
+          <listener class-name= "LDSTest.CustomReporter" />
       </listeners>
           
       <classes>
