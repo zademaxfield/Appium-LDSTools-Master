@@ -72,7 +72,7 @@ public class SendFileEmail
 
          // Part two is attachment
          messageBodyPart = new MimeBodyPart();
-         String filename = "test-output/emailable-report.html";
+         String filename = "test-output/custom-report.html";
          DataSource source = new FileDataSource(filename);
          messageBodyPart.setDataHandler(new DataHandler(source));
          messageBodyPart.setFileName(filename);
