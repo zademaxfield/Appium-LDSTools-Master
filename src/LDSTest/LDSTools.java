@@ -195,7 +195,7 @@ public class LDSTools {
 		//LeaderNonBishopric("LDSTools17", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
-		bishopMemberOfSeparateStake(os);	
+		//bishopMemberOfSeparateStake(os);	
 		//editCurrentUser(os);	
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
