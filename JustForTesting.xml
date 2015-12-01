@@ -6,10 +6,6 @@
       <parameter name="fileName" value="LDS Tools.app" />
       <parameter name="testDevice" value="iPhone 6" />
       
-      <listeners>
-          <listener class-name= "LDSTest.CustomReporter" />
-      </listeners>
-      
       
       <groups>
           <run>
