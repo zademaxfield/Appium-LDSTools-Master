@@ -42,34 +42,32 @@ public class CustomReporter implements IReporter{
 				mOut.println(" <br />");
 				ISuiteResult suiteResult = suiteResults.get(testName);
 				ITestContext testContext = suiteResult.getTestContext();
-				print("        Failed: " + testContext.getFailedTests().size());
+				print("Failed: " + testContext.getFailedTests().size());
 				IResultMap failedResult = testContext.getFailedTests();
 				Set<ITestResult> testsFailed = failedResult.getAllResults();
 				for (ITestResult testResult : testsFailed) {
-					print("            " + testResult.getName());
-					print("                " + testResult.getThrowable());
+					print("<br />");
+					print("<b>" + testResult.getName() + "</b>");
+					print(" " + testResult.getThrowable());
+					print("<br />");
 				}
 				
 				//Passed Tests
 				mOut.println(" <br />");
 				IResultMap passResult = testContext.getPassedTests();
 				Set<ITestResult> testsPassed = passResult.getAllResults();
-				print("        Passed: " + testsPassed.size());
+				print("Passed: " + testsPassed.size());
 				for (ITestResult testResult : testsPassed) {
-					print("            "
-							+ testResult.getName()
-							+ " took: "
-							+ (testResult.getEndMillis() - testResult
-									.getStartMillis()) + "ms");
+					print(" " + testResult.getName() + " took: " + (testResult.getEndMillis() - testResult.getStartMillis()) + "ms");
 				}
 				
 				//Skipped Tests
 				mOut.println(" <br />");
 				IResultMap skippedResult = testContext.getSkippedTests();
 				Set<ITestResult> testsSkipped = skippedResult.getAllResults();
-				print("        Skipped: " + testsSkipped.size());
+				print("Skipped: " + testsSkipped.size());
 				for (ITestResult testResult : testsSkipped) {
-					print("            " + testResult.getName());
+					print(" " + testResult.getName());
 				}
 
 			}
@@ -91,7 +89,7 @@ public class CustomReporter implements IReporter{
 	}
 
 	private void startHtml() {
-		mOut.println("<b> LDS Tools Automated Test Report </b> <br />");		
+		mOut.println("<h1> LDS Tools Automated Test Report </h1> <br />");		
 		mOut.println(" <br />");
 		mOut.println(" <br />");
 	}
