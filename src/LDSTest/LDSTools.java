@@ -195,7 +195,7 @@ public class LDSTools {
 		//LeaderNonBishopric("LDSTools17", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
-		//bishopMemberOfSeparateStake(os);	
+		bishopMemberOfSeparateStake(os);	
 		//editCurrentUser(os);	
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
@@ -211,7 +211,7 @@ public class LDSTools {
 		
 		//checkAllUsersFromWeb(os);
 
-	
+		//loginCheck(os);
 		
 		
 		//Header Check
@@ -691,7 +691,7 @@ public class LDSTools {
 		
 		String pageSource;
 		boolean testForElement;
-		int checkUser = 0;
+		//int checkUser = 0;
 		int pageSize;
 		
 		//Login as LDSTools2 - Bishiop
@@ -1822,8 +1822,7 @@ public class LDSTools {
 		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
 		
 		//Search for a user that has children
-		clickButtonByID("MenuSearch");
-		sendTextbyXpath("SearchArea", "Faapili, Muipu");
+		searchForUser("Faapili, Muipu");
 		
 		//Select the user
 		//Check that the children are visible
@@ -1847,8 +1846,8 @@ public class LDSTools {
 		
 		
 		//Search for a user that has children
-		clickButtonByID("MenuSearch");
-		sendTextbyXpath("SearchArea", "Alofa, Pasi");
+		searchForUser("Alofa, Pasi");
+
 		
 		//Select the user
 		//Check that the children are visible
@@ -1998,8 +1997,7 @@ public class LDSTools {
 	 * 
 	 * @throws Exception
 	 */
-	@Parameters({"os"})
-	@Test (groups= {"old"})
+
 	public void loginCheck(String os) throws Exception {
 		String password1 = "toolstester";
 		String password2 = "password1";
@@ -3579,7 +3577,7 @@ public class LDSTools {
 			} else {
 				clickButtonByXpathTitleName("EXPIRING");
 			}
-			Assert.assertTrue(checkElementTextViewReturn("Fepuleai, Moseniolo"));
+			Assert.assertTrue(checkElementTextViewReturn("Sitivi, Tama Kiliona"));
 			Assert.assertFalse(checkElementTextViewReturn("Windu, Mace"));
 			
 			
