@@ -192,7 +192,7 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		LeaderNonBishopric("LDSTools17", "High Priest Group", os);
+		//LeaderNonBishopric("LDSTools17", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
@@ -224,7 +224,18 @@ public class LDSTools {
 		//TerryBallard(os); //Check to see Tim and Jessica Beck
 		//AdminUnit(os); //Not working in 2.5.0
 		//WardStakeCouncilor(os);
-		//JustinKrebs(os);
+		JustinKrebs(os);
+		//BjornGabler(os);
+		//AaronWeech(os);
+		//BlakeHeyer(os);
+		//ChadHarvey(os);
+		//ChetThomas(os);
+		//ChrissyKrebs(os);
+		//DavidFrank(os);
+		//DavidThorne(os);
+		//DuplicateSS(os);
+		//EdQueen(os);
+		
 
 	}
 
@@ -1894,20 +1905,206 @@ public class LDSTools {
 	public void JustinKrebs(String os) throws Exception {
 		loginProxyData("309310780",
 				"/7u1161164/5u427144/",
-				"p222/7u170690/5u506508/",
+				"p58/7u1618172/5u481599/:p94/5u481599/5u481599/:p53/5u481599/5u481599/",
 				"Proxy - Test", "JustinKrebs");
 		//Thread.sleep(2000);
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
 		
 		Thread.sleep(2000);
-		checkAllWardDirectories();
+		//checkAllWardDirectories();
+		checkDirectoryForUser();
 		Thread.sleep(2000);
 		
 		drawerSignOut();
 	}
 	
 	
+	@Parameters({"os"})
+	@Test (groups= {"header"})
+	public void BjornGabler(String os) throws Exception {
+		loginProxyData("23088869144",
+				"/7u165743/5u515442/",
+				"p208/7u165743/5u515442/:p205/7u165743/5u515442/:p1394/7u165743/5u515442/:p1559/7u165743/5u515442/",
+				"Proxy - Test", "BjornGabler");
+		//Thread.sleep(2000);
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		Thread.sleep(2000);
+		checkDirectoryForUser();
+		Thread.sleep(2000);
+		
+		drawerSignOut();
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"header"})
+	public void AaronWeech(String os) throws Exception {
+		loginProxyData("2207033566",
+				"/7u243108/5u500593/",
+				"p1395/7u243108/5u500593/:p136/7u243108/5u500593/",
+				"Proxy - Test", "AaronWeech");
+		//Thread.sleep(2000);
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		Thread.sleep(2000);
+		checkDirectoryForUser();
+		Thread.sleep(2000);
+		
+		drawerSignOut();
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"header"})
+	public void BlakeHeyer(String os) throws Exception {
+		loginProxyData("3858858902",
+				"/7u103985/5u521191/",
+				"p57/7u103985/5u521191/",
+				"Proxy - Test", "BlakeHeyer");
+		//Thread.sleep(2000);
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		Thread.sleep(2000);
+		checkDirectoryForUser();
+		Thread.sleep(2000);
+		
+		drawerSignOut();
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"header"})
+	public void ChadHarvey(String os) throws Exception {
+		loginProxyData("933086209",
+				"/7u102733/5u505757/",
+				":p222/7u187569/5u524956/:p222/8u219363/6u524956/:p222/7u268941/5u524956/"
+				+ ":p222/7u237213/5u524956/:p222/8u237280/6u524956/:p222/7u162299/5u524956/",
+				"Proxy - Test", "ChadHarvey");
+		//Thread.sleep(2000);
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		Thread.sleep(2000);
+		checkDirectoryForUser();
+		Thread.sleep(2000);
+		
+		drawerSignOut();
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"header"})
+	public void ChetThomas(String os) throws Exception {
+		loginProxyData("3649387500",
+				"/7u20664/5u506044/",
+				"p772/7u20664/5u506044/:p4/7u20664/5u506044/",
+				"Proxy - Test", "ChetThomas");
+		//Thread.sleep(2000);
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		Thread.sleep(2000);
+		checkDirectoryForUser();
+		Thread.sleep(2000);
+		
+		drawerSignOut();
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"header"})
+	public void ChrissyKrebs(String os) throws Exception {
+		loginProxyData("652270633",
+				"/7u1618172/5u481599/",
+				"p1384/5u481599/5u481599/",
+				"Proxy - Test", "ChrissyKrebs");
+		//Thread.sleep(2000);
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		Thread.sleep(2000);
+		checkDirectoryForUser();
+		Thread.sleep(2000);
+		
+		drawerSignOut();
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"header"})
+	public void DavidFrank(String os) throws Exception {
+		loginProxyData("3273750761",
+				"/7u9415/5u506249/",
+				"p227/7u9415/5u506249/:p140/7u9415/5u506249/",
+				"Proxy - Test", "DavidFrank");
+		//Thread.sleep(2000);
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		Thread.sleep(2000);
+		//checkDirectoryForUser();
+		checkAllWardDirectories();
+		Thread.sleep(2000);
+		
+		drawerSignOut();
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"header"})
+	public void DavidThorne(String os) throws Exception {
+		loginProxyData("900162590",
+				"/7u27642/5u516600/",
+				"p55/7u27642/5u516600/",
+				"Proxy - Test", "DavidThorne");
+		//Thread.sleep(2000);
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		Thread.sleep(2000);
+		checkDirectoryForUser();
+		//checkAllWardDirectories();
+		Thread.sleep(2000);
+		
+		drawerSignOut();
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"header"})
+	public void DuplicateSS(String os) throws Exception {
+		loginProxyData("895728277",
+				"/7u1618172/5u481599/",
+				"p58/7u1618172/5u481599/:p53/5u481599/1u481599/:p94/5u481599/1u481599/",
+				"Proxy - Test", "DuplicateSS");
+		//Thread.sleep(2000);
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		Thread.sleep(2000);
+		checkDirectoryForUser();
+		//checkAllWardDirectories();
+		Thread.sleep(2000);
+		
+		drawerSignOut();
+	}
+	
+	
+	@Parameters({"os"})
+	@Test (groups= {"header"})
+	public void EdQueen(String os) throws Exception {
+		loginProxyData("2334797025",
+				"/7u374792/5u516090/",
+				"p1395/7u374792/5u516090/:p133/7u374792/5u516090/",
+				"Proxy - Test", "EdQueen");
+		//Thread.sleep(2000);
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		Thread.sleep(2000);
+		checkDirectoryForUser();
+		//checkAllWardDirectories();
+		Thread.sleep(2000);
+		
+		drawerSignOut();
+	}
 	
 	@Parameters({"os"})
 	@Test (groups= {"header"})
@@ -2320,6 +2517,13 @@ public class LDSTools {
 
 		return allText;
 	}
+	
+	private String getTextXpath(String textElement) {
+		String returnText;
+		returnText = driver.findElement(By.xpath(this.prop.getProperty(textElement))).getText();
+		return returnText;
+	}
+	
 	
 
 	
@@ -2856,6 +3060,7 @@ public class LDSTools {
 	private void loginProxyData(String IndividualId, String units, String positions, String chooseNetwork, String userName )  throws Exception {
 		//If the login is using any of the test networks we need to chagne it. 
 		//valid enteries "Production", "UAT", "Proxy - UAT", "Proxy - Test"
+		System.out.println("User Name: " + userName);
 		if (getRunningOS().equals("android")) {
 			if (!chooseNetwork.equals("Production")) {
 				Thread.sleep(1000);
@@ -2977,13 +3182,20 @@ public class LDSTools {
 	 */
 	private void pinPage(String digit1, String digit2, String digit3, String digit4, Boolean nonLeaderPin ) throws Exception {
 		int myCheck;
+		String myAlertText;
 		boolean elementCheck;
 		
 		//Check to see if we are getting a warning
 		myCheck = checkTextByXpathReturn("AlertMessage", "Warning");
 		if (myCheck == 1) {
-			System.out.println("Found Warning: " + myCheck);
+			myAlertText = getTextXpath("AlertMessageView");
+			System.out.println("Found Warning: " + myAlertText);
+			
+			//Make sure we are not getting the Action and Interview warning
+			Assert.assertFalse(myAlertText.contains("Action and Interview"));
+			
 			clickButtonByXpath("OK");
+			Thread.sleep(5000);
 		}
 		
 		
@@ -4375,6 +4587,18 @@ public class LDSTools {
 
 
 	}
+	
+	
+	private void checkDirectoryForUser() throws Exception {
+		if (getRunningOS().equals("mac")) {
+			Assert.assertTrue(checkFirstDirectoryUser());
+
+		} else {
+			Assert.assertTrue(checkElementTextViewReturnContains("e"));
+		}
+	}
+	
+	
 	
 	private Boolean checkFirstDirectoryUser() {
 		Boolean myReturnStatus;
