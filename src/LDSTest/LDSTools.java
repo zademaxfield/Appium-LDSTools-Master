@@ -192,7 +192,7 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		//LeaderNonBishopric("LDSTools17", "High Priest Group", os);
+		LeaderNonBishopric("LDSTools17", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
@@ -224,6 +224,7 @@ public class LDSTools {
 		//TerryBallard(os); //Check to see Tim and Jessica Beck
 		//AdminUnit(os); //Not working in 2.5.0
 		//WardStakeCouncilor(os);
+		//JustinKrebs(os);
 
 	}
 
@@ -1890,6 +1891,26 @@ public class LDSTools {
 	
 	@Parameters({"os"})
 	@Test (groups= {"header"})
+	public void JustinKrebs(String os) throws Exception {
+		loginProxyData("309310780",
+				"/7u1161164/5u427144/",
+				"p222/7u170690/5u506508/",
+				"Proxy - Test", "JustinKrebs");
+		//Thread.sleep(2000);
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		Thread.sleep(2000);
+		checkAllWardDirectories();
+		Thread.sleep(2000);
+		
+		drawerSignOut();
+	}
+	
+	
+	
+	@Parameters({"os"})
+	@Test (groups= {"header"})
 	public void ElderKacher(String os) throws Exception {
 		loginProxyData("2178152043",
 				"/7u253707/5u516244/",
@@ -3215,8 +3236,8 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("Ami, Samu", pageSource));
 		Assert.assertTrue(checkNoCaseList("Bishopric Second Counselor", pageSource));
 		Assert.assertTrue(checkNoCaseList("Faapili, Muipu", pageSource));
-		Assert.assertTrue(checkNoCaseList("Ward Clerk", pageSource));
-		Assert.assertTrue(checkNoCaseList("Tutunoa, Ualesi Junior, Jr", pageSource));
+		//Assert.assertTrue(checkNoCaseList("Ward Clerk", pageSource));
+		//Assert.assertTrue(checkNoCaseList("Tutunoa, Ualesi Junior, Jr", pageSource));
 		Thread.sleep(1000);
 		pressBackKey();
 		Thread.sleep(1000);
@@ -3465,8 +3486,10 @@ public class LDSTools {
 			clickButtonByXpathTitleName("ORGANIZATION");
 		}
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Ward Clerk", pageSource));
-		Assert.assertTrue(checkNoCaseList("Kitara, Lafaele (3 months)", pageSource));
+		//Assert.assertTrue(checkNoCaseList("Ward Clerk", pageSource));
+		//Assert.assertTrue(checkNoCaseList("Kitara, Lafaele (3 months)", pageSource));
+		Assert.assertTrue(checkNoCaseList("Bishop", pageSource));
+		Assert.assertTrue(checkNoCaseList("Ami, Samu (2 years, 2 months)", pageSource));
 		Assert.assertFalse(checkNoCaseList("Kenobi, Obi-Wan", pageSource));
 
 		if (getRunningOS().equals("mac")) {
@@ -3476,7 +3499,7 @@ public class LDSTools {
 			clickButtonByXpathTitleName("DURATION");
 		}
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Ward Clerk", pageSource));
+		Assert.assertTrue(checkNoCaseList("Young Women President", pageSource));
 		Assert.assertTrue(checkNoCaseList("Tutunoa, Lusi", pageSource));
 		Assert.assertFalse(checkNoCaseList("Amidala, Padme", pageSource));
 
