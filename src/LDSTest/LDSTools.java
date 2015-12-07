@@ -190,7 +190,7 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		//justForTesting(os);	
+		justForTesting(os);	
 
 		//LeaderNonBishopric("LDSTools17", "High Priest Group", os);
 		//under18HeadofHouse(os);	
@@ -217,7 +217,7 @@ public class LDSTools {
 		//Header Tests
 		//ChristieWhiting(os);
 		//CliffHigby(os);
-		KevinPalmer(os);
+		//KevinPalmer(os);
 		//PatriarchOtherWards(os);
 		//TravisLyman(os);
 		//ElderKacher(os);
@@ -327,25 +327,25 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"high priest"})
+	@Test (groups= {"high priest"}, priority = 2)
 	public void HighPriestsGroupFirstAssistant(String os) throws Exception {
 		LeaderNonBishopric("LDSTools17", "High Priest Group", os);
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"high priest"})
+	@Test (groups= {"high priest"}, priority = 2)
 	public void HighPriestsGroupSecondAssistant(String os) throws Exception {
 		LeaderNonBishopric("LDSTools18", "High Priest Group", os);
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"high priest"})
+	@Test (groups= {"high priest"}, priority = 2)
 	public void HighPriestsGroupSecretary(String os) throws Exception {
 		LeaderNonBishopric("LDSTools19", "High Priest Group", os);
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"high priest"})
+	@Test (groups= {"high priest"}, priority = 2)
 	public void HighPriestsGroupAssistantSecretary(String os) throws Exception {
 		LeaderNonBishopric("LDSTools20", "High Priest Group", os);
 	}
@@ -357,25 +357,25 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"elders quorum"})
+	@Test (groups= {"elders quorum"}, priority = 2)
 	public void EldersQuorumFirstCounselor(String os) throws Exception {
 		LeaderNonBishopric("LDSTools22", "Elders Quorum Pres", os);
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"elders quorum"})
+	@Test (groups= {"elders quorum"}, priority = 2)
 	public void EldersQuorumSecondCounselor(String os) throws Exception {
 		LeaderNonBishopric("LDSTools23", "Elders Quorum Pres", os);
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"elders quorum"})
+	@Test (groups= {"elders quorum"}, priority = 2)
 	public void EldersQuorumSecretary(String os) throws Exception {
 		LeaderNonBishopric("LDSTools24", "Elders Quorum Pres", os);
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"elders quorum"})
+	@Test (groups= {"elders quorum"}, priority = 2)
 	public void EldersQuorumAssistantSecretary(String os) throws Exception {
 		LeaderNonBishopric("LDSTools25", "Elders Quorum Pres", os);
 	}
@@ -387,25 +387,25 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"relief society"})
+	@Test (groups= {"relief society"}, priority = 2)
 	public void ReliefSocietyFirstCounselor(String os) throws Exception {
 		LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"relief society"})
+	@Test (groups= {"relief society"}, priority = 2)
 	public void ReliefSocietySecondCounselor(String os) throws Exception {
 		LeaderNonBishopric("LDSTools28", "Relief Society Pres", os);
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"relief society"})
+	@Test (groups= {"relief society"}, priority = 2)
 	public void ReliefSocietySecretary(String os) throws Exception {
 		LeaderNonBishopric("LDSTools29", "Relief Society Pres", os);
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"relief society"})
+	@Test (groups= {"relief society"}, priority = 2)
 	public void ReliefSocietyAssistantSecretary(String os) throws Exception {
 		LeaderNonBishopric("LDSTools30", "Relief Society Pres", os);
 	}
@@ -417,19 +417,19 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"young men"})
+	@Test (groups= {"young men"}, priority = 2)
 	public void YoungMenFirstCounselor(String os) throws Exception {
 		LeaderNonBishopric("LDSTools32", "Ward Council", os);
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"young men"})
+	@Test (groups= {"young men"}, priority = 2)
 	public void YoungMenSecondCounselor(String os) throws Exception {
 		LeaderNonBishopric("LDSTools33", "Ward Council", os);
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"young men"})
+	@Test (groups= {"young men"}, priority = 2)
 	public void YoungMenSecretary(String os) throws Exception {
 		LeaderNonBishopric("LDSTools34", "Ward Council", os);
 	}
@@ -441,19 +441,19 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"young women"})
+	@Test (groups= {"young women"}, priority = 2)
 	public void YoungWomenFirstCounselor(String os) throws Exception {
 		LeaderNonBishopric("LDSTools36", "Ward Council", os);
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"young women"})
+	@Test (groups= {"young women"}, priority = 2)
 	public void YoungWomenSecondCounselor(String os) throws Exception {
 		LeaderNonBishopric("LDSTools37", "Ward Council", os);
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"young women"})
+	@Test (groups= {"young women"}, priority = 2)
 	public void YoungWomenSecretary(String os) throws Exception {
 		LeaderNonBishopric("LDSTools38", "Ward Council", os);
 	}
@@ -465,19 +465,19 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"sunday school"})
+	@Test (groups= {"sunday school"}, priority = 2)
 	public void SundaySchoolFirstCounselor(String os) throws Exception {
 		LeaderNonBishopric("LDSTools40", "Ward Council", os);
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"sunday school"})
+	@Test (groups= {"sunday school"}, priority = 2)
 	public void SundaySchoolSecondCounselor(String os) throws Exception {
 		LeaderNonBishopric("LDSTools41", "Ward Council", os);
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"sunday school"})
+	@Test (groups= {"sunday school"}, priority = 2)
 	public void SundaySchoolSecretary(String os) throws Exception {
 		LeaderNonBishopric("LDSTools42", "Ward Council", os);
 	}
@@ -489,19 +489,19 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"primary"})
+	@Test (groups= {"primary"}, priority = 2)
 	public void PrimaryFirstCounselor(String os) throws Exception {
 		LeaderNonBishopric("LDSTools44", "Ward Council", os);
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"primary"})
+	@Test (groups= {"primary"}, priority = 2)
 	public void PrimarySecondCounselor(String os) throws Exception {
 		LeaderNonBishopric("LDSTools45", "Ward Council", os);
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"primary"})
+	@Test (groups= {"primary"}, priority = 2)
 	public void PrimarySecretary(String os) throws Exception {
 		LeaderNonBishopric("LDSTools46", "Ward Council", os);
 	}
@@ -519,7 +519,7 @@ public class LDSTools {
 	 * @throws Exception
 	 */
 	@Parameters({"os"})
-	@Test (groups= {"noCalling"})
+	@Test (groups= {"noCalling"}, priority = 2)
 	public void under18HeadofHouse(String os) throws Exception {
 		String pageSource;
 		syncLogIn("LDSTools6", "toolstester", "UAT", os );
@@ -606,7 +606,7 @@ public class LDSTools {
 	 * @throws Exception
 	 */
 	@Parameters({"os"})
-	@Test (groups= {"bishopric"})
+	@Test (groups= {"bishopric"}, priority = 2)
 	public void bishopMemberOfSeparateStake(String os) throws Exception {
 		String pageSource;
 		//int myCheck;
@@ -701,7 +701,7 @@ public class LDSTools {
 	//This test will get the members from the web then check LDS Tools to see if all members are there. 
 	//TODO: Need to deal with Jr and Junior LDS Tools has an extra comma.  
 	@Parameters({"os"})
-	@Test (groups= {"web"})
+	@Test (groups= {"web"}, priority = 2)
 	public void checkAllUsersFromWeb(String os ) throws Exception {
 		LDSWeb myWeb = new LDSWeb();
 		//Data from Web page
@@ -911,7 +911,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"editSetings"})
+	@Test (groups= {"editSetings"}, priority = 2)
 	public void editCurrentUserCancel(String os) throws Exception {
 		String pageSource;
 		//Edit own information
@@ -965,7 +965,7 @@ public class LDSTools {
 	 * @throws Exception
 	 */
 	@Parameters({"os"})
-	@Test (groups= {"editSettings"})
+	@Test (groups= {"editSettings"}, priority = 2)
 	public void editOtherUser(String os) throws Exception {
 		String pageSource;
 		//Edit other user
@@ -1061,7 +1061,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"editSettings"})
+	@Test (groups= {"editSettings"}, priority = 2)
 	public void editOtherUserInvalidPhone(String os) throws Exception {
 		String pageSource;
 		//Edit other user with invalid data - phone
@@ -1146,7 +1146,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"editSettings"})
+	@Test (groups= {"editSettings"}, priority = 2)
 	public void editOtherUserInvalidEmail(String os) throws Exception {
 		String pageSource;
 		//Edit other user with invalid data - phone
@@ -1373,7 +1373,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"editSettings"})
+	@Test (groups= {"editSettings"}, priority = 2)
 	public void editVisibiltyPersonal(String os) throws Exception {
 		//Set the PERSONAL phone and email to Private-Leadership Only
 		//Change LDSTools5 then check the privacy settings with LDSTools6
@@ -1525,7 +1525,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"editSettings"})
+	@Test (groups= {"editSettings"}, priority = 2)
 	public void editVisibiltyHousehold(String os) throws Exception {
 		String pageSource;
 		//Set the HOUSEHOLD phone and email to Private-Leadership Only
@@ -1761,7 +1761,8 @@ public class LDSTools {
 		*/
 	}
 	
-	
+	@Parameters({"os"})
+	@Test (groups= {"header"}, priority = 3)
 	public void ChristieWhiting() throws Exception {
 		loginProxyData("3446450099",
 				"/7u189715/5u511293/",
@@ -1811,7 +1812,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"header"})
+	@Test (groups= {"header"}, priority = 3)
 	public void KevinPalmer(String os) throws Exception {
 		loginProxyData("3182767230",
 				"/7u50482/5u511846/",
@@ -1828,7 +1829,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"header"})
+	@Test (groups= {"header"}, priority = 3)
 	public void PatriarchOtherWards(String os) throws Exception {
 		loginProxyData("3182767230",
 				"/7u56030/5u524735/",
@@ -1910,7 +1911,7 @@ public class LDSTools {
 	
 	
 	@Parameters({"os"})
-	@Test (groups= {"header"})
+	@Test (groups= {"header"}, priority = 3)
 	public void TravisLyman(String os) throws Exception {
 		loginProxyData("309310780",
 				"/7u1161164/5u427144/",
@@ -1930,7 +1931,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"header"})
+	@Test (groups= {"header"}, priority = 2)
 	public void JustinKrebs(String os) throws Exception {
 		loginProxyData("309310780",
 				"/7u1161164/5u427144/",
@@ -1950,7 +1951,7 @@ public class LDSTools {
 	
 	
 	@Parameters({"os"})
-	@Test (groups= {"header"})
+	@Test (groups= {"header"}, priority = 3)
 	public void BjornGabler(String os) throws Exception {
 		loginProxyData("23088869144",
 				"/7u165743/5u515442/",
@@ -1968,7 +1969,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"header"})
+	@Test (groups= {"header"}, priority = 3)
 	public void AaronWeech(String os) throws Exception {
 		loginProxyData("2207033566",
 				"/7u243108/5u500593/",
@@ -1986,7 +1987,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"header"})
+	@Test (groups= {"header"}, priority = 3)
 	public void BlakeHeyer(String os) throws Exception {
 		loginProxyData("3858858902",
 				"/7u103985/5u521191/",
@@ -2004,7 +2005,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"header"})
+	@Test (groups= {"header"}, priority = 3)
 	public void ChadHarvey(String os) throws Exception {
 		loginProxyData("933086209",
 				"/7u102733/5u505757/",
@@ -2023,7 +2024,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"header"})
+	@Test (groups= {"header"}, priority = 3)
 	public void ChetThomas(String os) throws Exception {
 		loginProxyData("3649387500",
 				"/7u20664/5u506044/",
@@ -2041,7 +2042,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"header"})
+	@Test (groups= {"header"}, priority = 3)
 	public void ChrissyKrebs(String os) throws Exception {
 		loginProxyData("652270633",
 				"/7u1618172/5u481599/",
@@ -2059,7 +2060,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"header"})
+	@Test (groups= {"header"}, priority = 3)
 	public void DavidFrank(String os) throws Exception {
 		loginProxyData("3273750761",
 				"/7u9415/5u506249/",
@@ -2078,7 +2079,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"header"})
+	@Test (groups= {"header"}, priority = 3)
 	public void DavidThorne(String os) throws Exception {
 		loginProxyData("900162590",
 				"/7u27642/5u516600/",
@@ -2097,7 +2098,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"header"})
+	@Test (groups= {"header"}, priority = 3)
 	public void DuplicateSS(String os) throws Exception {
 		loginProxyData("895728277",
 				"/7u1618172/5u481599/",
@@ -2117,7 +2118,7 @@ public class LDSTools {
 	
 	
 	@Parameters({"os"})
-	@Test (groups= {"header"})
+	@Test (groups= {"header"}, priority = 3)
 	public void EdQueen(String os) throws Exception {
 		loginProxyData("2334797025",
 				"/7u374792/5u516090/",
@@ -2136,7 +2137,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"header"})
+	@Test (groups= {"header"}, priority = 3)
 	public void GregCrowther(String os) throws Exception {
 		loginProxyData("1056095880",
 				"/7u430463/5u517356/",
@@ -2157,7 +2158,7 @@ public class LDSTools {
 	//Option 2 test
 	//TODO: Need to test for option 2 info
 	@Parameters({"os"})
-	@Test (groups= {"header"})
+	@Test (groups= {"header"}, priority = 3)
 	public void HeberAllen(String os) throws Exception {
 		loginProxyData("3402770655225469",
 				"/7u100617/5u1940635/",
@@ -2178,7 +2179,7 @@ public class LDSTools {
 	//TODO: Need to test for info
 	//Visiting teaching coordinator not seeing Visiting Teaching reports
 	@Parameters({"os"})
-	@Test (groups= {"header"})
+	@Test (groups= {"header"}, priority = 3)
 	public void JanetBencomo(String os) throws Exception {
 		loginProxyData("2862227641",
 				"/7u36668/5u501301/",
@@ -2197,7 +2198,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"header"})
+	@Test (groups= {"header"}, priority = 3)
 	public void JesseGibbons(String os) throws Exception {
 		loginProxyData("2753900058",
 				"/7u208892/5u514012/",
@@ -2216,7 +2217,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"header"})
+	@Test (groups= {"header"}, priority = 3)
 	public void JohnCarter(String os) throws Exception {
 		loginProxyData("3029591255",
 				"/7u43818/5u513164/",
@@ -2235,7 +2236,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"header"})
+	@Test (groups= {"header"}, priority = 3)
 	public void JonPug(String os) throws Exception {
 		loginProxyData("627660245",
 				"/7u7935/5u516325/",
@@ -2253,8 +2254,10 @@ public class LDSTools {
 		drawerSignOut();
 	}
 	
+	//TODO: Need to update for large number of units to sync. 
+	/*
 	@Parameters({"os"})
-	@Test (groups= {"header"})
+	@Test (groups= {"header"}, priority = 3)
 	public void KevinClawson(String os) throws Exception {
 		loginProxyData("3334886480",
 				"/7u82570/5u517615/",
@@ -2271,10 +2274,10 @@ public class LDSTools {
 		
 		drawerSignOut();
 	}
-	
+	*/
 	
 	@Parameters({"os"})
-	@Test (groups= {"header"})
+	@Test (groups= {"header"}, priority = 3)
 	public void KevinGPalmer(String os) throws Exception {
 		loginProxyData("3182767230",
 				"/7u50482/5u511846/",
@@ -2293,7 +2296,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"header"})
+	@Test (groups= {"header"}, priority = 3)
 	public void LarkinPalmer(String os) throws Exception {
 		loginProxyData("746277872",
 				"/8u210374/5u277037/",
@@ -2312,7 +2315,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"header"})
+	@Test (groups= {"header"}, priority = 3)
 	public void LarryJensen(String os) throws Exception {
 		loginProxyData("3449149679326998",
 				"/7u6033/5u504181/",
@@ -2333,7 +2336,7 @@ public class LDSTools {
 	
 	//TODO: Cannot see Freetown Stake and Temple Recommend Status - Active problems
 	@Parameters({"os"})
-	@Test (groups= {"header"})
+	@Test (groups= {"header"}, priority = 3)
 	public void ElderKacher(String os) throws Exception {
 		loginProxyData("2178152043",
 				"/7u253707/5u516244/",
@@ -2354,7 +2357,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"header"})
+	@Test (groups= {"header"}, priority = 3)
 	public void TerryBallard(String os) throws Exception {
 		loginProxyData("20904102494",
 				"/7u25941/5u515124/",
@@ -2404,7 +2407,7 @@ public class LDSTools {
 	*/
 	
 	@Parameters({"os"})
-	@Test (groups= {"header"})
+	@Test (groups= {"header"}, priority = 3)
 	public void WardStakeCouncilor(String os) throws Exception {
 		loginProxyData("8999999998916734",
 				"/7u56030/5u524735/",
