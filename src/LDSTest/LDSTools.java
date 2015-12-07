@@ -214,17 +214,17 @@ public class LDSTools {
 		//loginCheck(os);
 		
 		
-		//Header Check
+		//Header Tests
 		//ChristieWhiting(os);
 		//CliffHigby(os);
-		//KevinPalmer(os);
+		KevinPalmer(os);
 		//PatriarchOtherWards(os);
 		//TravisLyman(os);
 		//ElderKacher(os);
 		//TerryBallard(os); //Check to see Tim and Jessica Beck
 		//AdminUnit(os); //Not working in 2.5.0
 		//WardStakeCouncilor(os);
-		JustinKrebs(os);
+		//JustinKrebs(os);
 		//BjornGabler(os);
 		//AaronWeech(os);
 		//BlakeHeyer(os);
@@ -235,7 +235,16 @@ public class LDSTools {
 		//DavidThorne(os);
 		//DuplicateSS(os);
 		//EdQueen(os);
-		
+		//GregCrowther(os);
+		//HeberAllen(os);
+		//JanetBencomo(os);
+		//JesseGibbons(os);
+		//JohnCarter(os);
+		//JonPug(os);
+		//KevinClawson(os);
+		//KevinGPalmer(os);
+		//LarkinPalmer(os);
+		//LarryJensen(os);
 
 	}
 
@@ -312,7 +321,7 @@ public class LDSTools {
 
 	
 	@Parameters({"os"})
-	@Test (groups= {"smoke", "high priest"})
+	@Test (groups= {"smoke", "high priest"}, priority = 1)
 	public void HighPriestsGroupLeader(String os) throws Exception {
 		LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 	}
@@ -342,7 +351,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"smoke", "elders quorum"})
+	@Test (groups= {"smoke", "elders quorum"}, priority = 1)
 	public void EldersQuorumPresident(String os) throws Exception {
 		LeaderNonBishopric("LDSTools21", "Elders Quorum Pres", os);
 	}
@@ -372,7 +381,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"smoke", "relief society"})
+	@Test (groups= {"smoke", "relief society"}, priority = 1)
 	public void ReliefSocietyPresident(String os) throws Exception {
 		LeaderNonBishopric("LDSTools26", "Relief Society Pres", os);
 	}
@@ -402,7 +411,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"smoke", "young men"})
+	@Test (groups= {"smoke", "young men"}, priority = 1)
 	public void YoungMenPresident(String os) throws Exception {
 		LeaderNonBishopric("LDSTools31", "Ward Council", os);
 	}
@@ -426,7 +435,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"smoke", "young women"})
+	@Test (groups= {"smoke", "young women"}, priority = 1)
 	public void YoungWomenPresident(String os) throws Exception {
 		LeaderNonBishopric("LDSTools35", "Ward Council", os);
 	}
@@ -450,7 +459,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"smoke", "sunday school"})
+	@Test (groups= {"smoke", "sunday school"}, priority = 1)
 	public void SundaySchoolPresident(String os) throws Exception {
 		LeaderNonBishopric("LDSTools39", "Ward Council", os);
 	}
@@ -474,7 +483,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"smoke", "primary"})
+	@Test (groups= {"smoke", "primary"}, priority = 1)
 	public void PrimaryPresident(String os) throws Exception {
 		LeaderNonBishopric("LDSTools43", "Ward Council", os);
 	}
@@ -550,7 +559,7 @@ public class LDSTools {
 	 * @throws Exception
 	 */
 	@Parameters({"os"})
-	@Test (groups= {"smoke", "bishopric"})
+	@Test (groups= {"smoke", "bishopric"}, priority = 1)
 	public void bishopricCounselorAndWardClerk(String os) throws Exception {
 		//int myCheck;
 		//LDSTools3 is Bishopric Counselor and Ward Clerk
@@ -814,7 +823,7 @@ public class LDSTools {
 	 * @throws Exception
 	 */
 	@Parameters({"os"})
-	@Test (groups= {"smoke", "editSetings"})
+	@Test (groups= {"smoke", "editSetings"}, priority = 1)
 	public void editCurrentUser(String os) throws Exception {
 		String pageSource;
 		//Edit own information
@@ -1226,7 +1235,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"smoke", "editSettings"})
+	@Test (groups= {"smoke", "editSettings"}, priority = 1)
 	public void editVisibility(String os) throws Exception {
 		boolean testForElement;
 		//int myCheck = 0;
@@ -1668,7 +1677,7 @@ public class LDSTools {
 	 * @throws Exception
 	 */
 	@Parameters({"os"})
-	@Test (groups= {"smoke"})
+	@Test (groups= {"smoke"}, priority = 1)
 	public void invalidLoginCheck(String os) throws Exception {
 		String errorMessage;
 		
@@ -1779,7 +1788,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"header", "smoke"})
+	@Test (groups= {"header", "smoke"}, priority = 1)
 	public void CliffHigby(String os) throws Exception {
 		//List<String> StakeWard = new ArrayList<String>();
 		loginProxyData("295740465",
@@ -1830,48 +1839,68 @@ public class LDSTools {
 		pinPage("1", "1", "3", "3", true);
 		
 		//Check to see if the user can view the directory
-		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
-		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
+		//Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
+		//Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
 		
 		//Search for a user that has children
-		searchForUser("Faapili, Muipu");
+		searchForUser("Faapili, Muipu & Baby");
 		
 		//Select the user
 		//Check that the children are visible
-		clickButtonByXpathTitleName("Faapili, Muipu & Baby");
-		clickLastTextViewRoboReturn("Faapili, Muipu");
+		//clickButtonByXpathTitleName("Faapili, Muipu & Baby");
+		//clickLastTextViewRoboReturn("Faapili, Muipu");
 		Thread.sleep(1000);
+		/*
 		Assert.assertTrue(checkElementTextViewReturn("Muipu Faapili (32)"));
 		Assert.assertTrue(checkElementTextViewReturn("Baby Faapili (35)"));
 		Assert.assertTrue(checkElementTextViewReturn("Muipu Jnr Faapili (12)"));
 		Assert.assertTrue(checkElementTextViewReturn("Tautinoga Faapili (10)"));
 		Assert.assertTrue(checkElementTextViewReturn("Mapusaga Faapili (4)"));
-		clickButtonByXpath("Back");
+		*/
+		
+		Assert.assertTrue(checkElementTextViewReturn("Muipu Faapili"));
+		Assert.assertTrue(checkElementTextViewReturn("Baby Faapili"));
+		Assert.assertTrue(checkElementTextViewReturn("Muipu Jnr Faapili"));
+		Assert.assertTrue(checkElementTextViewReturn("Tautinoga Faapili"));
+		Assert.assertTrue(checkElementTextViewReturn("Mapusaga Faapili"));
+		pressBackKey();
 		clickButtonByXpath("SearchCollapse");
 		//pressBackKey();
 		
 		//Change to another Ward
 		//Check to see that the children are visible
-		clickButtonByXpath("SpinnerNav");
+		if (getRunningOS().equals("mac")){
+			clickButtonByXpath("SpinnerSubTitle");
+		} else {
+			clickButtonByXpath("SpinnerNav");
+		}
+		
 		Thread.sleep(2000);
 		clickButtonByXpathTitleName("Fagamalo 2nd Ward");
 		
 		
 		//Search for a user that has children
-		searchForUser("Alofa, Pasi");
+		searchForUser("Alofa, Pasi & Rowena");
 
 		
 		//Select the user
 		//Check that the children are visible
-		clickButtonByXpathTitleName("Alofa, Pasi & Rowena");
-		clickLastTextViewRoboReturn("Alofa, Pasi");
+		//clickButtonByXpathTitleName("Alofa, Pasi & Rowena");
+		//clickLastTextViewRoboReturn("Alofa, Pasi");
 		Thread.sleep(1000);
+		/*
 		Assert.assertTrue(checkElementTextViewReturn("Pasi Alofa (32)"));
 		Assert.assertTrue(checkElementTextViewReturn("Rowena Alofa (26)"));
 		Assert.assertTrue(checkElementTextViewReturn("Rozarnah Alofa (4)"));
 		Assert.assertTrue(checkElementTextViewReturn("Leativaosalafai Shaleen Alofa (2)"));
+		*/
+		
+		Assert.assertTrue(checkElementTextViewReturn("Pasi Alofa"));
+		Assert.assertTrue(checkElementTextViewReturn("Rowena Alofa"));
+		Assert.assertTrue(checkElementTextViewReturn("Rozarnah Alofa"));
+		Assert.assertTrue(checkElementTextViewReturn("Leativaosalafai Shaleen Alofa"));
 		//Assert.assertTrue(checkElementTextViewReturn("Pioneer Aumoto"));
-		clickButtonByXpath("Back");
+		pressBackKey();
 		Thread.sleep(1000);
 		clickButtonByXpath("SearchCollapse");
 		
@@ -2108,6 +2137,203 @@ public class LDSTools {
 	
 	@Parameters({"os"})
 	@Test (groups= {"header"})
+	public void GregCrowther(String os) throws Exception {
+		loginProxyData("1056095880",
+				"/7u430463/5u517356/",
+				"p55/7u430463/5u517356/",
+				"Proxy - Test", "GregCrowther");
+		//Thread.sleep(2000);
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		Thread.sleep(2000);
+		checkDirectoryForUser();
+		//checkAllWardDirectories();
+		Thread.sleep(2000);
+		
+		drawerSignOut();
+	}
+	
+	//Option 2 test
+	//TODO: Need to test for option 2 info
+	@Parameters({"os"})
+	@Test (groups= {"header"})
+	public void HeberAllen(String os) throws Exception {
+		loginProxyData("3402770655225469",
+				"/7u100617/5u1940635/",
+				"p216/7u100617/5u1940635/",
+				"Proxy - Test", "HeberAllen");
+		//Thread.sleep(2000);
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		Thread.sleep(2000);
+		checkDirectoryForUser();
+		//checkAllWardDirectories();
+		Thread.sleep(2000);
+		
+		drawerSignOut();
+	}
+	
+	//TODO: Need to test for info
+	//Visiting teaching coordinator not seeing Visiting Teaching reports
+	@Parameters({"os"})
+	@Test (groups= {"header"})
+	public void JanetBencomo(String os) throws Exception {
+		loginProxyData("2862227641",
+				"/7u36668/5u501301/",
+				"p152/7u36668/5u501301/:p151/7u36668/5u501301/",
+				"Proxy - Test", "JanetBencomo");
+		//Thread.sleep(2000);
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		Thread.sleep(2000);
+		checkDirectoryForUser();
+		//checkAllWardDirectories();
+		Thread.sleep(2000);
+		
+		drawerSignOut();
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"header"})
+	public void JesseGibbons(String os) throws Exception {
+		loginProxyData("2753900058",
+				"/7u208892/5u514012/",
+				"p222/7u296791/5u521779/:p222/7u35130/5u521779/:p222/7u208892/5u514012/",
+				"Proxy - Test", "JesseGibbons");
+		//Thread.sleep(2000);
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		Thread.sleep(2000);
+		checkDirectoryForUser();
+		//checkAllWardDirectories();
+		Thread.sleep(2000);
+		
+		drawerSignOut();
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"header"})
+	public void JohnCarter(String os) throws Exception {
+		loginProxyData("3029591255",
+				"/7u43818/5u513164/",
+				"p160/7u43818/5u513164/",
+				"Proxy - Test", "JohnCarter");
+		//Thread.sleep(2000);
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		Thread.sleep(2000);
+		checkDirectoryForUser();
+		//checkAllWardDirectories();
+		Thread.sleep(2000);
+		
+		drawerSignOut();
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"header"})
+	public void JonPug(String os) throws Exception {
+		loginProxyData("627660245",
+				"/7u7935/5u516325/",
+				"p57/7u7935/5u516325/:p767/7u7935/5u516325/",
+				"Proxy - Test", "JonPug");
+		//Thread.sleep(2000);
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		Thread.sleep(2000);
+		checkDirectoryForUser();
+		//checkAllWardDirectories();
+		Thread.sleep(2000);
+		
+		drawerSignOut();
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"header"})
+	public void KevinClawson(String os) throws Exception {
+		loginProxyData("3334886480",
+				"/7u82570/5u517615/",
+				"p9/3u537233/5u537233/",
+				"Proxy - Test", "KevinClawson");
+		//Thread.sleep(2000);
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		Thread.sleep(2000);
+		checkDirectoryForUser();
+		//checkAllWardDirectories();
+		Thread.sleep(2000);
+		
+		drawerSignOut();
+	}
+	
+	
+	@Parameters({"os"})
+	@Test (groups= {"header"})
+	public void KevinGPalmer(String os) throws Exception {
+		loginProxyData("3182767230",
+				"/7u50482/5u511846/",
+				"p222/7u50482/5u511846/:p39/3u2019809/1u790206/:p2/5u511846/1u790206/",
+				"Proxy - Test", "KevinGPalmer");
+		//Thread.sleep(2000);
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		Thread.sleep(2000);
+		checkDirectoryForUser();
+		//checkAllWardDirectories();
+		Thread.sleep(2000);
+		
+		drawerSignOut();
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"header"})
+	public void LarkinPalmer(String os) throws Exception {
+		loginProxyData("746277872",
+				"/8u210374/5u277037/",
+				"p1559/8u210374/5u277037/:p208/8u210374/5u277037/:p789/8u210374/5u277037/",
+				"Proxy - Test", "LarkinPalmer");
+		//Thread.sleep(2000);
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		Thread.sleep(2000);
+		checkDirectoryForUser();
+		//checkAllWardDirectories();
+		Thread.sleep(2000);
+		
+		drawerSignOut();
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"header"})
+	public void LarryJensen(String os) throws Exception {
+		loginProxyData("3449149679326998",
+				"/7u6033/5u504181/",
+				"p1278/8u267244/5u514209/:p789/8u267244/5u514209/",
+				"Proxy - Test", "LarryJensen");
+		//Thread.sleep(2000);
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		Thread.sleep(2000);
+		checkDirectoryForUser();
+		//checkAllWardDirectories();
+		Thread.sleep(2000);
+		
+		drawerSignOut();
+	}
+	
+	
+	//TODO: Cannot see Freetown Stake and Temple Recommend Status - Active problems
+	@Parameters({"os"})
+	@Test (groups= {"header"})
 	public void ElderKacher(String os) throws Exception {
 		loginProxyData("2178152043",
 				"/7u253707/5u516244/",
@@ -2138,21 +2364,9 @@ public class LDSTools {
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
 		
-		//Check to see if the user can view the directory
-		//Assert.assertTrue(checkElementTextViewRoboReturn("Aaron, Jane"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Ager, Brian"));
-		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
-		
-		
 		//Search for logged in user
-		clickButtonByID("MenuSearch");
-		sendTextbyXpath("SearchArea", "Beck, Tim");
-		Thread.sleep(2000);
+		searchForUser("Beck, Tim & Jessica");
 
-		clickLastTextViewRoboReturnContains("Beck, Tim & Jessica");
-		Thread.sleep(1000);
-		clickLastTextViewRoboReturnContains("Beck, Tim");
-		Thread.sleep(2000);
 		Assert.assertTrue(checkElementTextViewReturn("Tim Beck (41)"));
 		Assert.assertTrue(checkElementTextViewReturn("Jessica Beck (38)"));
 		
