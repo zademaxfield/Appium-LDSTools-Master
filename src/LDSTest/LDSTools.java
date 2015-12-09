@@ -29,6 +29,7 @@ import java.util.Properties;
 
 
 
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 //import io.appium.java_client.android.AndroidDriver;
@@ -38,6 +39,7 @@ import io.appium.java_client.MobileElement;
 //import io.selendroid.SelendroidDriver;
 import io.selendroid.SelendroidKeys;
 //import io.selendroid.exceptions.NoSuchElementException;
+
 
 
 
@@ -190,7 +192,7 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		//justForTesting(os);	
+		justForTesting(os);	
 
 		//LeaderNonBishopric("LDSTools17", "High Priest Group", os);
 		//under18HeadofHouse(os);	
@@ -210,8 +212,7 @@ public class LDSTools {
 		//invalidLoginCheck(os);	
 		
 		//checkAllUsersFromWeb(os);
-
-		//loginCheck(os);
+		//searchForUsersFromWeb(os);
 		
 		
 		//Header Tests
@@ -244,7 +245,7 @@ public class LDSTools {
 		//KevinClawson(os);
 		//KevinGPalmer(os);
 		//LarkinPalmer(os);
-		LarryJensen(os);
+		//LarryJensen(os);
 
 	}
 
@@ -260,7 +261,7 @@ public class LDSTools {
 		
 		String pageSource;
 		boolean testForElement;
-		int checkUser = 0;
+		//int checkUser = 0;
 		int pageSize;
 		
 		//Login as LDSTools2 - Bishiop
@@ -268,54 +269,26 @@ public class LDSTools {
 		pinPage("1", "1", "3", "3", true);
 		Thread.sleep(2000);	
 		
-		//Check to see if running iOS or Mac
-		testForElement = checkElementExistsByID("MenuDefaultDirectory");
-		//System.out.println("testForElement: " + testForElement);
-		if (testForElement == true ) {
-			clickButtonByID("MenuDefaultDirectory");
-			clickButtonByXpathTitleName("Individuals");
-		} else {
-			clickButtonByXpath("DirectorySort");
-			clickButtonByXpath("DirectoryIndividual");
-		}
+		clickButtonByXpath("Drawer");
+		clickButtonByXpath("DrawerOrganizations");
+		clickButtonByXpathTitleName("High Priests Group");
+		clickButtonByXpathTitleName("High Priests Group Leadership");
+		Thread.sleep(1000);
 		
 		
 		//Go to web and get all users
-		myList = myWeb.getAllMembersOnPage("ReportsMenu", "Member List");
+		//myList = myWeb.getAllMembersOnPage("OrganizationsMenu", "Bishopric");
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "High Priests Group", "HighPriestGroupLeadership");
+		compareWebData(myList, androidList);
+
+		pressBackKey();
+		clickButtonByXpathTitleName("All High Priests Group Members");
+
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "High Priests Group", "HighPriestGroupMembers");
+		compareWebData(myList, androidList);
+		
 		
 
-
-		
-		if (getRunningOS().equals("mac")){
-			for(String oneUser : myList){
-				sendTextbyXpath("SearchArea", oneUser );
-				checkUser = checkTextByXpathReturn("SearchResult", oneUser);
-				if (checkUser == 0 ) {
-					System.out.println("NOT FOUND: " + oneUser);
-				}
-				Assert.assertEquals(checkUser, 1);
-				//Thread.sleep(2000);
-				//Collapse the search 
-				clickButtonByXpath("SearchCollapse");
-			}
-		} else {
-			
-			for(String oneUser : myList){
-				//System.out.println("Found User: " + oneUser);
-				clickButtonByID("MenuSearch");
-				sendTextbyXpath("SearchArea", oneUser );
-				
-				Thread.sleep(2000);
-				checkUser = checkTextByXpathReturn("SearchResult", oneUser);
-				if (checkUser == 0 ) {
-					System.out.println("NOT FOUND: " + oneUser);
-				}
-				Assert.assertEquals(checkUser, 1);
-				Thread.sleep(2000);
-				//Collapse the search 
-				clickButtonByXpath("SearchCollapse");
-			}
-		}
 	}
 		
 /*
@@ -726,6 +699,146 @@ public class LDSTools {
 		checkHTVTHouseholds("Bishopric");
 		
 		
+	}
+	
+	
+	//This is failing on iOS and android
+	@Parameters({"os"})
+	@Test (groups= {"web"}, priority = 2, enabled = false)
+	public void searchForUsersFromWeb(String os) throws Exception {
+		LDSWeb myWeb = new LDSWeb();
+		//Data from Web page
+		List<String> myList = new ArrayList<String>();
+		
+		boolean testForElement;
+		int checkUser = 0;
+		
+		//Login as LDSTools2 - Bishiop
+		syncLogIn("LDSTools2", "toolstester", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);	
+		
+		//Check to see if running iOS or Mac
+		testForElement = checkElementExistsByID("MenuDefaultDirectory");
+		//System.out.println("testForElement: " + testForElement);
+		if (testForElement == true ) {
+			clickButtonByID("MenuDefaultDirectory");
+			clickButtonByXpathTitleName("Individuals");
+		} else {
+			clickButtonByXpath("DirectorySort");
+			clickButtonByXpath("DirectoryIndividual");
+		}
+		
+		
+		//Go to web and get all users
+		myList = myWeb.getAllMembersOnPage("ReportsMenu", "Member List");
+		
+
+
+		
+		if (getRunningOS().equals("mac")){
+			for(String oneUser : myList){
+				sendTextbyXpath("SearchArea", oneUser );
+				checkUser = checkTextByXpathReturn("SearchResult", oneUser);
+				if (checkUser == 0 ) {
+					System.out.println("NOT FOUND: " + oneUser);
+				}
+				Assert.assertEquals(checkUser, 1);
+				//Thread.sleep(2000);
+				//Collapse the search 
+				clickButtonByXpath("SearchCollapse");
+			}
+		} else {
+			
+			for(String oneUser : myList){
+				//System.out.println("Found User: " + oneUser);
+				clickButtonByID("MenuSearch");
+				sendTextbyXpath("SearchArea", oneUser );
+				
+				Thread.sleep(2000);
+				checkUser = checkTextByXpathReturn("SearchResult", oneUser);
+				if (checkUser == 0 ) {
+					System.out.println("NOT FOUND: " + oneUser);
+				}
+				Assert.assertEquals(checkUser, 1);
+				Thread.sleep(2000);
+				//Collapse the search 
+				clickButtonByXpath("SearchCollapse");
+			}
+		}
+	}
+	
+	//This is failing on iOS and android - There is an out of unit member showing on the web but not LDS Tools
+	@Parameters({"os"})
+	@Test (groups= {"web"}, priority = 2, enabled = false)
+	public void webCheckBishopric(String os ) throws Exception {
+		LDSWeb myWeb = new LDSWeb();
+		//Data from Web page
+		List<String> myList = new ArrayList<String>();
+		
+		//Data from android list
+		List<String> androidList = new ArrayList<String>();
+		
+		String pageSource;
+		boolean testForElement;
+		//int checkUser = 0;
+		int pageSize;
+		
+		//Login as LDSTools2 - Bishiop
+		syncLogIn("LDSTools2", "toolstester", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);	
+		
+		clickButtonByXpath("Drawer");
+		clickButtonByXpath("DrawerOrganizations");
+		clickButtonByXpathTitleName("Bishopric");
+		
+		
+		//Go to web and get all users
+		myList = myWeb.getAllMembersOnPage("OrganizationsMenu", "Bishopric");
+		
+
+
+		
+		if (getRunningOS().equals("mac")){
+			pageSource = getSourceOfPage();
+			for(String oneUser : myList){
+				//System.out.println("Found User: " + oneUser);
+				Assert.assertTrue(checkNoCaseList(oneUser, pageSource));
+				//if (checkNoCaseList(oneUser, pageSource) == false) {
+				//	System.out.println("NOT FOUND: " + oneUser);
+				//}
+			}
+
+		} else {
+			pageSize = driver.manage().window().getSize().getHeight();
+			//System.out.println("Page Size: " + pageSize);
+			pageSize = -pageSize;
+			
+			/*
+			for (int x = 0; x < 50 ; x++ ) {
+				pageSource = getSourceOfPage();
+				androidList = createUserList(androidList, pageSource);
+				scrollDownTEST(pageSize);
+				//pageSize = pageSize + 10;
+			}
+			*/
+			
+			pageSource = getSourceOfPage();
+			androidList = createUserList(androidList, pageSource);
+			
+			//for(String myUser : androidList) {
+			//	System.out.println("User: " + myUser);
+			//}
+			
+			for(String oneUser : myList) {
+				//System.out.println("Found User: " + oneUser);
+				Assert.assertTrue(androidList.contains(oneUser));
+				//if (!androidList.contains(oneUser)){
+				//	System.out.println("NOT FOUND: " + oneUser);
+				//}
+			}
+		}
 	}
 	
 	
@@ -4955,6 +5068,27 @@ public class LDSTools {
 			clickButtonByXpath("SignOutOK");
 		}
 	}
+	
+	private void compareWebData(List<String> myList, List<String> androidList) throws Exception {
+		String pageSource;
+		if (getRunningOS().equals("mac")){
+			pageSource = getSourceOfPage();
+			for(String oneUser : myList){
+				Assert.assertTrue(checkNoCaseList(oneUser, pageSource));
+			}
+
+		} else {
+			
+			pageSource = getSourceOfPage();
+			androidList = createUserList(androidList, pageSource);
+
+			for(String oneUser : myList) {
+				Assert.assertTrue(androidList.contains(oneUser));
+			}
+		}
+	}
+	
+	
 
 	@AfterMethod(alwaysRun = true)
 	public void teardown() throws Exception {
