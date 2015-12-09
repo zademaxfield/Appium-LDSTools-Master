@@ -12,7 +12,9 @@
       </groups>
       
       <listeners>
+          <listener class-name="LDSTest.RetryListener"/>
           <listener class-name= "LDSTest.CustomReporter" />
+          <listener class-name="LDSTest.TestListener" />
       </listeners>
       
       <classes>
