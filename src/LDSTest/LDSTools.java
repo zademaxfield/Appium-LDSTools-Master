@@ -318,7 +318,7 @@ public class LDSTools {
 		}
 	}
 		
-
+/*
 	@Parameters({"os"})
 	@Test (groups= {"count"})
 	public void SucessTest1(String os) throws Exception {
@@ -346,7 +346,7 @@ public class LDSTools {
 		int myNumber = 11;
 		Assert.assertEquals(10 , myNumber);
 	}
-	
+*/	
 	
 	
 	
