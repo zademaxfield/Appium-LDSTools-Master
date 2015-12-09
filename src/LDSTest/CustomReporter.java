@@ -23,20 +23,20 @@ public class CustomReporter implements IReporter{
     @Override
     public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites, String outputDirectory) {
 		new File(outputDirectory).mkdirs();
-	
-			
+		
 		try {
 			mOut = new PrintWriter(new BufferedWriter(new FileWriter(new File(outputDirectory, "custom-report.html"))));
 		} catch (IOException e) {
 			System.out.println("Error in creating writer: " + e);
 		}
+		
 		startHtml();
 		print("Suites run: " + suites.size());
 		for (ISuite suite : suites) {
 			print("Suite: " + suite.getName());
 			Map<String, ISuiteResult> suiteResults = suite.getResults();
 			for (String testName : suiteResults.keySet()) {
-				print("    Test: " + testName);
+				print("Test: " + testName);
 				
 				//Failed Tests
 				mOut.println(" <br />");
@@ -97,4 +97,6 @@ public class CustomReporter implements IReporter{
 	private void endHtml() {
 		mOut.println("<br />");
 	}
+
+	
 }
