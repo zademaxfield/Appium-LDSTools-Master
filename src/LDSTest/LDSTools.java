@@ -190,7 +190,7 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		justForTesting(os);	
+		//justForTesting(os);	
 
 		//LeaderNonBishopric("LDSTools17", "High Priest Group", os);
 		//under18HeadofHouse(os);	
@@ -244,7 +244,7 @@ public class LDSTools {
 		//KevinClawson(os);
 		//KevinGPalmer(os);
 		//LarkinPalmer(os);
-		//LarryJensen(os);
+		LarryJensen(os);
 
 	}
 
@@ -319,6 +319,38 @@ public class LDSTools {
 	}
 		
 
+	@Parameters({"os"})
+	@Test (groups= {"count"})
+	public void SucessTest1(String os) throws Exception {
+		int myNumber = 10;
+		Assert.assertEquals(10 , myNumber);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"count"})
+	public void FailureTest1(String os) throws Exception {
+		int myNumber = 11;
+		Assert.assertEquals(10 , myNumber);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"count"})
+	public void SucessTest2(String os) throws Exception {
+		int myNumber = 10;
+		Assert.assertEquals(10 , myNumber);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"count"})
+	public void FailureTest2(String os) throws Exception {
+		int myNumber = 11;
+		Assert.assertEquals(10 , myNumber);
+	}
+	
+	
+	
+	
+	
 	
 	@Parameters({"os"})
 	@Test (groups= {"smoke", "high priest"}, priority = 1)
