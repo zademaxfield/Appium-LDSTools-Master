@@ -174,6 +174,16 @@ public class LDSWeb {
 		return myString;
 	}
 	
+	private String getSourceOfElement(String elementName) {
+		String myString;
+		WebElement myElement = null;
+		
+		myElement = driver.findElement(By.xpath(this.prop.getProperty(elementName)));
+		myString = myElement.getAttribute("innerHTML");
+
+		return myString;
+	}
+	
 	private List<String> getMembers(String pageSource){
 		List<String> foundUsers = new ArrayList<String>();
 		Document doc = Jsoup.parse(pageSource);
@@ -183,6 +193,9 @@ public class LDSWeb {
 		for (Element myElement : myTest ) {
 			outerHTML = myElement.text();
 			if (outerHTML.contains(",")) {
+				if (outerHTML.contains("Jr")){
+					outerHTML = outerHTML.replace(" Jr", ", Jr");
+				}
 				foundUsers.add(outerHTML);
 			}
 			//System.out.println("Outer HTML:" + outerHTML);
@@ -241,6 +254,48 @@ public class LDSWeb {
 		
 	}
 	
+	public List<String> getAllMembersInOrganization(String menuItem, String myReport, String subReport) throws Exception {
+		openGuiMap();
+		setUp();
+		
+		String mySource;
+		List<String> foundUsers = new ArrayList<String>();
+		Thread.sleep(4000);
+		//openWebPage("https://uat.lds.org");
+		openWebPage("https://uat.lds.org/mls/mbr/?lang=eng");
+		
+		//openWebPage("https://www.lds.org");
+		Thread.sleep(2000);
+
+		driver.findElement(By.id(this.prop.getProperty("UserName"))).sendKeys("ldstools2");
+		//Thread.sleep(1000);
+		driver.findElement(By.id(this.prop.getProperty("Password"))).sendKeys("toolstester");
+		clickElement("SignIn", "id");
+		
+		Thread.sleep(4000);
+		clickElement("IAgreeCheck", "id");
+		clickElement("Agree and Continue", "text");
+
+		//clickElement("ReportsMenu", "id");
+		clickElement(menuItem, "id");
+		Thread.sleep(4000);
+		//clickElement("Member List", "linkText");
+		clickElement(myReport, "linkText");
+		Thread.sleep(1000);
+		waitForTextToDisappear("Loading", 500 );
+		Thread.sleep(1000);
+		//clickElement(subReport, "linkText");
+		//Thread.sleep(4000);
+		waitForTextToDisappear("Loading", 500 );
+		mySource = getSourceOfElement(subReport);
+		//mySource = getSourceOfPage();
+		foundUsers = getMembers(mySource);
+		
+		tearDown();
+		
+		return foundUsers;
+		
+	}
 	
 	@After
 	public void tearDown() throws Exception {
