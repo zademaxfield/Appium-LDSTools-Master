@@ -254,7 +254,7 @@ public class LDSWeb {
 		
 	}
 	
-	public List<String> getAllMembersInOrganization(String menuItem, String myReport, String subReport) throws Exception {
+	public List<String> getAllMembersInOrganization(String menuItem, String myReport, String subReport, String userName, String passWord) throws Exception {
 		openGuiMap();
 		setUp();
 		
@@ -267,9 +267,9 @@ public class LDSWeb {
 		//openWebPage("https://www.lds.org");
 		Thread.sleep(2000);
 
-		driver.findElement(By.id(this.prop.getProperty("UserName"))).sendKeys("ldstools2");
+		driver.findElement(By.id(this.prop.getProperty("UserName"))).sendKeys(userName);
 		//Thread.sleep(1000);
-		driver.findElement(By.id(this.prop.getProperty("Password"))).sendKeys("toolstester");
+		driver.findElement(By.id(this.prop.getProperty("Password"))).sendKeys(passWord);
 		clickElement("SignIn", "id");
 		
 		Thread.sleep(4000);
