@@ -204,7 +204,7 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		//LeaderNonBishopric("LDSTools17", "High Priest Group", os);
+		LeaderNonBishopric("LDSTools17", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
@@ -234,7 +234,7 @@ public class LDSTools {
 		
 		//Header Tests
 		//ChristieWhiting(os);
-		CliffHigby(os);
+		//CliffHigby(os);
 		//KevinPalmer(os);
 		//PatriarchOtherWards(os);
 		//TravisLyman(os);
