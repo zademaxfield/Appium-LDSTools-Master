@@ -174,9 +174,9 @@ public class LDSTools {
 	        DesiredCapabilities capabilities = new DesiredCapabilities();
 	        capabilities.setCapability("platformName", "iOS");
 	        capabilities.setCapability(CapabilityType.BROWSER_NAME, "iOS");
-	        capabilities.setCapability(CapabilityType.VERSION, "9.0");
+	        //capabilities.setCapability(CapabilityType.VERSION, "9.0");
 	        capabilities.setCapability(CapabilityType.PLATFORM, "Mac");
-	        capabilities.setCapability("platformVersion", "9.1");
+	        //capabilities.setCapability("platformVersion", "9.1");
 	        //capabilities.setCapability("deviceName","iPhone 5");
 	        capabilities.setCapability("deviceName",testDevice);
 
@@ -202,7 +202,7 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		justForTesting(os);	
+		//justForTesting(os);	
 
 		//LeaderNonBishopric("LDSTools17", "High Priest Group", os);
 		//under18HeadofHouse(os);	
@@ -234,7 +234,7 @@ public class LDSTools {
 		
 		//Header Tests
 		//ChristieWhiting(os);
-		//CliffHigby(os);
+		CliffHigby(os);
 		//KevinPalmer(os);
 		//PatriarchOtherWards(os);
 		//TravisLyman(os);
