@@ -202,9 +202,9 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		//justForTesting(os);	
+		justForTesting(os);	
 
-		LeaderNonBishopric("LDSTools17", "High Priest Group", os);
+		//LeaderNonBishopric("LDSTools17", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
@@ -230,6 +230,8 @@ public class LDSTools {
 		//webCheckReliefSociety(os);
 		
 		//webCheckHighPriestsGroup(os);
+		//webCheckYoungMen(os);
+		//webCheckYoungWomen(os); //Remove the skipping "Salvador"
 		
 		
 		//Header Tests
@@ -276,48 +278,64 @@ public class LDSTools {
 		//Data from android list
 		List<String> androidList = new ArrayList<String>();
 		
+		//Login to LDS Toos
 		syncLogIn("LDSTools2", "toolstester", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
 		Thread.sleep(2000);	
 		
 		clickButtonByXpath("Drawer");
 		clickButtonByXpath("DrawerOrganizations");
-		clickButtonByXpathTitleName("Young Men");
-		clickButtonByXpathTitleName("Young Men Presidency");
+		clickButtonByXpathTitleName("Young Women");
+		clickButtonByXpathTitleName("Young Women Presidency");
 		Thread.sleep(1000);
 		
 		
 		//Check web data vs LDS Tools
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "YoungMenPresidency", "LDSTools2", "toolstester");
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "YoungWomenPresidency", "LDSTools2", "toolstester");
 		compareWebData(myList, androidList);
 		
 		pressBackKey();
-		clickButtonByXpathTitleName("Priests Quorum");
-		clickButtonByXpathTitleName("Priests Quorum Presidency");
+		clickButtonByXpathTitleName("Laurel");
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("Laurel Presidency");
+		}
 
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "PriestsQuorum", "LDSTools2", "toolstester");
+
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "Laurel", "LDSTools2", "toolstester");
 		compareWebData(myList, androidList);
 
-		pressBackKey();
+		if (getRunningOS().equals("mac")) {
+			pressBackKey();
+		}
 		pressBackKey();
 		
-		clickButtonByXpathTitleName("Teachers Quorum");
-		clickButtonByXpathTitleName("Teachers Quorum Presidency");
+		clickButtonByXpathTitleName("Mia Maid");
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("Mia Maid Presidency");
+		}
+		
 
 		
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "TeachersQuorum", "LDSTools2", "toolstester");
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "MiaMaid", "LDSTools2", "toolstester");
 		compareWebData(myList, androidList);
 		
-		pressBackKey();
+		if (getRunningOS().equals("mac")) {
+			pressBackKey();
+		}
 		pressBackKey();
 
-		clickButtonByXpathTitleName("Deacons Quorum");
-		clickButtonByXpathTitleName("Deacons Quorum Presidency");
-
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "DeaconsQuorum", "LDSTools2", "toolstester");
-		compareWebData(myList, androidList);
+		clickButtonByXpathTitleName("Beehive");
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("Beehive Presidency");
+		}
 		
+
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "Beehive", "LDSTools2", "toolstester");
+		compareWebData(myList, androidList);
 	}
+	
+	
+	
 		
 /*
 	@Parameters({"os"})
@@ -1004,6 +1022,140 @@ public class LDSTools {
 		compareWebData(myList, androidList);
 
 	}
+	
+	
+	@Parameters({"os"})
+	@Test (groups= {"web"}, priority = 2)
+	public void webCheckYoungMen(String os ) throws Exception {
+		LDSWeb myWeb = new LDSWeb();
+		//Data from Web page
+		List<String> myList = new ArrayList<String>();
+		
+		//Data from android list
+		List<String> androidList = new ArrayList<String>();
+		
+		//Login to LDS Toos
+		syncLogIn("LDSTools2", "toolstester", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);	
+		
+		clickButtonByXpath("Drawer");
+		clickButtonByXpath("DrawerOrganizations");
+		clickButtonByXpathTitleName("Young Men");
+		clickButtonByXpathTitleName("Young Men Presidency");
+		Thread.sleep(1000);
+		
+		
+		//Check web data vs LDS Tools
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "YoungMenPresidency", "LDSTools2", "toolstester");
+		compareWebData(myList, androidList);
+		
+		pressBackKey();
+		clickButtonByXpathTitleName("Priests Quorum");
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("Priests Quorum Presidency");
+		}
+
+
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "PriestsQuorum", "LDSTools2", "toolstester");
+		compareWebData(myList, androidList);
+
+		if (getRunningOS().equals("mac")) {
+			pressBackKey();
+		}
+		pressBackKey();
+		
+		clickButtonByXpathTitleName("Teachers Quorum");
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("Teachers Quorum Presidency");
+		}
+		
+
+		
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "TeachersQuorum", "LDSTools2", "toolstester");
+		compareWebData(myList, androidList);
+		
+		if (getRunningOS().equals("mac")) {
+			pressBackKey();
+		}
+		pressBackKey();
+
+		clickButtonByXpathTitleName("Deacons Quorum");
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("Deacons Quorum Presidency");
+		}
+		
+
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "DeaconsQuorum", "LDSTools2", "toolstester");
+		compareWebData(myList, androidList);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"web"}, priority = 2)
+	public void webCheckYoungWomen(String os ) throws Exception {
+		LDSWeb myWeb = new LDSWeb();
+		//Data from Web page
+		List<String> myList = new ArrayList<String>();
+		
+		//Data from android list
+		List<String> androidList = new ArrayList<String>();
+		
+		//Login to LDS Toos
+		syncLogIn("LDSTools2", "toolstester", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);	
+		
+		clickButtonByXpath("Drawer");
+		clickButtonByXpath("DrawerOrganizations");
+		clickButtonByXpathTitleName("Young Women");
+		clickButtonByXpathTitleName("Young Women Presidency");
+		Thread.sleep(1000);
+		
+		
+		//Check web data vs LDS Tools
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "YoungWomenPresidency", "LDSTools2", "toolstester");
+		compareWebData(myList, androidList);
+		
+		pressBackKey();
+		clickButtonByXpathTitleName("Laurel");
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("Laurel Presidency");
+		}
+
+
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "Laurel", "LDSTools2", "toolstester");
+		compareWebData(myList, androidList);
+
+		if (getRunningOS().equals("mac")) {
+			pressBackKey();
+		}
+		pressBackKey();
+		
+		clickButtonByXpathTitleName("Mia Maid");
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("Mia Maid Presidency");
+		}
+		
+
+		
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "MiaMaid", "LDSTools2", "toolstester");
+		compareWebData(myList, androidList);
+		
+		if (getRunningOS().equals("mac")) {
+			pressBackKey();
+		}
+		pressBackKey();
+
+		clickButtonByXpathTitleName("Beehive");
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("Beehive Presidency");
+		}
+		
+
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "Beehive", "LDSTools2", "toolstester");
+		compareWebData(myList, androidList);
+	}
+	
 	
 	
 	//This test will get the members from the web then check LDS Tools to see if all members are there. 
@@ -5240,7 +5392,7 @@ public class LDSTools {
 			pageSource = getSourceOfPage();
 			for(String oneUser : myList){
 				System.out.println("USER: " + oneUser);
-				if (oneUser.contains("Jr")) {
+				if ((oneUser.contains("Jr")) || (oneUser.contains("Salvador"))){
 					System.out.println("Skipping: " + oneUser);
 				} else {
 					Assert.assertTrue(checkNoCaseList(oneUser, pageSource));
@@ -5297,7 +5449,7 @@ public class LDSTools {
 
 			for(String oneUser : myList) {
 				System.out.println("USER: " + oneUser);
-				if (oneUser.contains("Jr")) {
+				if ((oneUser.contains("Jr")) || (oneUser.contains("Salvador"))) {
 					System.out.println("Skipping: " + oneUser);
 				} else {
 					Assert.assertTrue(androidList.contains(oneUser));
