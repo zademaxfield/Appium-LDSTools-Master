@@ -210,6 +210,41 @@ public class LDSWeb {
 		*/
 	}
 	
+	
+	private List<String> getNameAndAge(String pageSource){
+		List<String> foundUsers = new ArrayList<String>();
+		Document doc = Jsoup.parse(pageSource);
+		Elements myTest = doc.getElementsByAttributeValueStarting("class", "vcard ng-scope");
+		Elements nameElement;
+		Elements ageElement;
+		
+		
+		for (Element myElement : myTest ) {
+			nameElement = myElement.getElementsByAttributeValueContaining("class", "member-card-remote");
+			ageElement = myElement.getElementsByAttributeValueContaining("class", "age ng-binding");
+			
+			//System.out.println("Name: " + nameElement.text());
+			//System.out.println("Age: " + ageElement.text());
+			foundUsers.add(nameElement.text() + " (" + ageElement.text() +")");
+
+			//foundUsers.add(outerHTML);
+			
+
+		}
+		
+		
+		/*
+		for(String oneUser : foundUsers){
+			System.out.println("Found User: " + oneUser);
+			
+		}
+		*/
+		
+		
+		return foundUsers;
+	}
+	
+	
 	private void waitForTextToDisappear(String textElement, int myTimeOut){
 		WebDriverWait wait = new WebDriverWait(driver, myTimeOut);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id(this.prop.getProperty(textElement))));
@@ -296,6 +331,46 @@ public class LDSWeb {
 		return foundUsers;
 		
 	}
+	
+	
+	public List<String> getMembersAndAge(String menuItem, String myReport) throws Exception {
+		openGuiMap();
+		setUp();
+		
+		String mySource;
+		List<String> foundUsers = new ArrayList<String>();
+		Thread.sleep(4000);
+		//openWebPage("https://uat.lds.org");
+		openWebPage("https://uat.lds.org/mls/mbr/?lang=eng");
+		
+		//openWebPage("https://www.lds.org");
+		Thread.sleep(2000);
+
+		driver.findElement(By.id(this.prop.getProperty("UserName"))).sendKeys("ldstools2");
+		//Thread.sleep(1000);
+		driver.findElement(By.id(this.prop.getProperty("Password"))).sendKeys("toolstester");
+		clickElement("SignIn", "id");
+		
+		Thread.sleep(4000);
+		clickElement("IAgreeCheck", "id");
+		clickElement("Agree and Continue", "text");
+
+		//clickElement("ReportsMenu", "id");
+		clickElement(menuItem, "id");
+		Thread.sleep(4000);
+		//clickElement("Member List", "linkText");
+		clickElement(myReport, "linkText");
+		Thread.sleep(2000);
+		waitForTextToDisappear("Loading", 500 );
+		mySource = getSourceOfPage();
+		foundUsers = getNameAndAge(mySource);
+		
+		tearDown();
+		
+		return foundUsers;
+		
+	}
+	
 	
 	@After
 	public void tearDown() throws Exception {
