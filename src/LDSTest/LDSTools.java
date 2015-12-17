@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 //import java.util.ArrayList;
 //import java.util.Arrays;
 //import java.util.Dictionary;
@@ -23,6 +24,9 @@ import java.util.Arrays;
 import java.util.List;
 //import java.net.URL;
 import java.util.Properties;
+
+
+
 
 
 
@@ -54,6 +58,9 @@ import io.selendroid.SelendroidKeys;
 
 
 
+
+
+
 import org.apache.commons.io.FileUtils;
 import org.hamcrest.CoreMatchers;
 import org.jsoup.Jsoup;
@@ -70,6 +77,7 @@ import org.junit.runners.model.Statement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 //import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
@@ -275,6 +283,7 @@ public class LDSTools {
 		//Data from Web page
 		List<String> myList = new ArrayList<String>();
 		
+		
 		//Data from android list
 		List<String> androidList = new ArrayList<String>();
 		
@@ -284,55 +293,22 @@ public class LDSTools {
 		Thread.sleep(2000);	
 		
 		clickButtonByXpath("Drawer");
-		clickButtonByXpath("DrawerOrganizations");
-		clickButtonByXpathTitleName("Young Women");
-		clickButtonByXpathTitleName("Young Women Presidency");
+		clickButtonByXpath("DrawerReports");
+		clickButtonByXpathTitleName("Birthday List");
+		if (getRunningOS().equals("android")) {
+			clickButtonByXpathTitleName("All Members");
+			scrollToTheTop();	
+		}
 		Thread.sleep(1000);
 		
+
 		
 		//Check web data vs LDS Tools
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "YoungWomenPresidency", "LDSTools2", "toolstester");
+		myList = myWeb.getMembersAndAge("ReportsMenu", "Birthday List");
 		compareWebData(myList, androidList);
 		
-		pressBackKey();
-		clickButtonByXpathTitleName("Laurel");
-		if (getRunningOS().equals("mac")) {
-			clickButtonByXpathTitleName("Laurel Presidency");
-		}
-
-
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "Laurel", "LDSTools2", "toolstester");
-		compareWebData(myList, androidList);
-
-		if (getRunningOS().equals("mac")) {
-			pressBackKey();
-		}
-		pressBackKey();
-		
-		clickButtonByXpathTitleName("Mia Maid");
-		if (getRunningOS().equals("mac")) {
-			clickButtonByXpathTitleName("Mia Maid Presidency");
-		}
-		
-
-		
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "MiaMaid", "LDSTools2", "toolstester");
-		compareWebData(myList, androidList);
-		
-		if (getRunningOS().equals("mac")) {
-			pressBackKey();
-		}
-		pressBackKey();
-
-		clickButtonByXpathTitleName("Beehive");
-		if (getRunningOS().equals("mac")) {
-			clickButtonByXpathTitleName("Beehive Presidency");
-		}
-		
-
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "Beehive", "LDSTools2", "toolstester");
-		compareWebData(myList, androidList);
 	}
+	
 	
 	
 	
@@ -3143,8 +3119,13 @@ public class LDSTools {
 				foundText = myElement.attributes().get("value");
 				//foundText = foundText.toLowerCase();
 				if (!foundText.isEmpty()) {
-					System.out.println("Found User: " + foundText);
-					userList.add(foundText);
+					//System.out.println("Found User: " + foundText);
+					if ((foundText.contains("2015")) || (foundText.contains("2016"))){
+						System.out.println("Date? :" + foundText);
+					} else {
+						userList.add(foundText);
+					}
+						
 				}
 				
 				
@@ -3553,6 +3534,32 @@ public class LDSTools {
 		//screenWidth = screenWidth - 75;
 		screenHeight = screenHeight - 10;
 		
+		actions.down(screenWidth, screenHeight);
+		actions.pause(1000);
+		actions.move(screenWidth, scrollDistance);
+		actions.pause(1000);
+		actions.up(screenWidth, 10);
+		
+		actions.perform();
+	}
+	
+	private void scrollUpTEST(int scrollDistance ) throws Exception {
+		TouchActions actions = new TouchActions(driver);
+		//WebElement myElement = driver.findElement(By.xpath("//CheckableLinearLayout[10]/RelativeLayout/LinearLayout"));
+		//actions.flick(driver.findElement(By.xpath("//LinearLayout")), 0, scrollDistance, 100);
+
+		Dimension dimensions = driver.manage().window().getSize();
+		int screenWidth = dimensions.getWidth();
+		int screenHeight = dimensions.getHeight();
+		
+		//System.out.println("Trying to move!");
+		//System.out.println("Width: " + screenWidth);
+		//System.out.println("Height: " + screenHeight);
+		
+		screenWidth = screenWidth / 2;
+		//screenWidth = screenWidth - 75;
+		screenHeight = (int) (screenHeight / 1.5);
+
 		actions.down(screenWidth, screenHeight);
 		actions.pause(1000);
 		actions.move(screenWidth, scrollDistance);
@@ -5392,7 +5399,7 @@ public class LDSTools {
 			pageSource = getSourceOfPage();
 			for(String oneUser : myList){
 				System.out.println("USER: " + oneUser);
-				if ((oneUser.contains("Jr")) || (oneUser.contains("Salvador"))){
+				if ((oneUser.contains("Jr")) || (oneUser.contains("Salvador")) || (oneUser.contains("Junior"))){
 					System.out.println("Skipping: " + oneUser);
 				} else {
 					Assert.assertTrue(checkNoCaseList(oneUser, pageSource));
@@ -5409,19 +5416,19 @@ public class LDSTools {
 			
 			
 			
-			
+			//This will scroll through the android pages and get all of the data. 
 			do {
 				pageSource = getSourceOfPage();
 				androidList = createUserList(androidList, pageSource);
 				lastMember = androidList.get(androidList.size() - 1 );
 				
 				scrollDownTEST(pageSize);
-				
+				Thread.sleep(1000);
 				pageSource = getSourceOfPage();
 				androidList = createUserList(androidList, pageSource);
 				lastMemberCheck = androidList.get(androidList.size() - 1 );
-				//System.out.println("Last Member: " + lastMember);
-				//System.out.println("Last Member Check: " + lastMemberCheck);
+				System.out.println("Last Member: " + lastMember);
+				System.out.println("Last Member Check: " + lastMemberCheck);
 			} while (!lastMember.equals(lastMemberCheck));
 			
 			
@@ -5449,7 +5456,7 @@ public class LDSTools {
 
 			for(String oneUser : myList) {
 				System.out.println("USER: " + oneUser);
-				if ((oneUser.contains("Jr")) || (oneUser.contains("Salvador"))) {
+				if ((oneUser.contains("Jr")) || (oneUser.contains("Salvador")) || (oneUser.contains("Junior"))){
 					System.out.println("Skipping: " + oneUser);
 				} else {
 					Assert.assertTrue(androidList.contains(oneUser));
@@ -5458,6 +5465,19 @@ public class LDSTools {
 		}	
 	}
 	
+	private void scrollToTheTop() throws Exception {
+		int pageSize;
+		pageSize = driver.manage().window().getSize().getHeight();
+		//System.out.println("Page Size: " + pageSize);
+		pageSize = pageSize - 20;
+		//pageSize = -pageSize;
+		
+		for (int x = 0; x < 10 ; x++ ) {
+			scrollUpTEST(pageSize);
+			//pageSize = pageSize + 10;
+		}
+		
+	}
 	
 
 	@AfterMethod(alwaysRun = true)
@@ -5531,12 +5551,12 @@ public class LDSTools {
 		 }
 
 		@Override
-			public MobileElement scrollTo(String arg0) {
+		public MobileElement scrollTo(String arg0) {
 			return null;
 		}
 
 		@Override
-			public MobileElement scrollToExact(String arg0) {
+		public MobileElement scrollToExact(String arg0) {
 			return null;
 		}
 	}
