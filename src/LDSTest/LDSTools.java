@@ -210,9 +210,9 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		justForTesting(os);	
+		//justForTesting(os);	
 
-		//LeaderNonBishopric("LDSTools17", "High Priest Group", os);
+		LeaderNonBishopric("LDSTools17", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
@@ -811,8 +811,7 @@ public class LDSTools {
 		pinPage("1", "1", "3", "3", true);
 		Thread.sleep(2000);	
 		
-		clickButtonByXpath("Drawer");
-		clickButtonByXpath("DrawerOrganizations");
+		openOrgnizations();
 		clickButtonByXpathTitleName("Bishopric");
 		
 		
@@ -883,8 +882,7 @@ public class LDSTools {
 		pinPage("1", "1", "3", "3", true);
 		Thread.sleep(2000);	
 		
-		clickButtonByXpath("Drawer");
-		clickButtonByXpath("DrawerOrganizations");
+		openOrgnizations();
 		clickButtonByXpathTitleName("High Priests Group");
 		clickButtonByXpathTitleName("High Priests Group Leadership");
 		Thread.sleep(1000);
@@ -925,8 +923,7 @@ public class LDSTools {
 		pinPage("1", "1", "3", "3", true);
 		Thread.sleep(2000);	
 		
-		clickButtonByXpath("Drawer");
-		clickButtonByXpath("DrawerOrganizations");
+		openOrgnizations();
 		clickButtonByXpathTitleName("Elders Quorum");
 		clickButtonByXpathTitleName("Elders Quorum Presidency");
 		Thread.sleep(1000);
@@ -969,8 +966,7 @@ public class LDSTools {
 		pinPage("1", "1", "3", "3", true);
 		Thread.sleep(2000);	
 		
-		clickButtonByXpath("Drawer");
-		clickButtonByXpath("DrawerOrganizations");
+		openOrgnizations();
 		clickButtonByXpathTitleName("Relief Society");
 		clickButtonByXpathTitleName("Relief Society Presidency");
 		Thread.sleep(1000);
@@ -1015,8 +1011,7 @@ public class LDSTools {
 		pinPage("1", "1", "3", "3", true);
 		Thread.sleep(2000);	
 		
-		clickButtonByXpath("Drawer");
-		clickButtonByXpath("DrawerOrganizations");
+		openOrgnizations();
 		clickButtonByXpathTitleName("Young Men");
 		clickButtonByXpathTitleName("Young Men Presidency");
 		Thread.sleep(1000);
@@ -1081,8 +1076,7 @@ public class LDSTools {
 		pinPage("1", "1", "3", "3", true);
 		Thread.sleep(2000);	
 		
-		clickButtonByXpath("Drawer");
-		clickButtonByXpath("DrawerOrganizations");
+		openOrgnizations();
 		clickButtonByXpathTitleName("Young Women");
 		clickButtonByXpathTitleName("Young Women Presidency");
 		Thread.sleep(1000);
@@ -4076,20 +4070,38 @@ public class LDSTools {
 	 * @throws Exception
 	 */
 	private void checkDrawerItems (boolean leader) throws Exception {
-		//Check the Drawer items
-		clickButtonByXpath("Drawer");
-		Assert.assertTrue(checkElementTextViewReturn("Directory"));
-		Assert.assertTrue(checkElementTextViewReturn("Organizations"));
-		Assert.assertTrue(checkElementTextViewReturn("Missionary"));
-		Assert.assertTrue(checkElementTextViewReturn("Lists"));
-		Assert.assertTrue(checkElementTextViewReturn("Calendar"));
-		Assert.assertTrue(checkElementTextViewReturn("Meetinghouses"));
-		if (leader == true) {
-			Assert.assertTrue(checkElementTextViewReturn("Reports"));
+		if (getRunningOS().equals("mac")){
+			Assert.assertTrue(checkElementTextViewReturn("Directory"));
+			Assert.assertTrue(checkElementTextViewReturn("Calendar"));
+			
+			if (leader == true) {
+				Assert.assertTrue(checkElementTextViewReturn("Reports"));
+			} else {
+				Assert.assertFalse(checkElementTextViewReturn("Reports"));
+			}
+			Assert.assertTrue(checkElementTextViewReturn("Organizations"));
+			clickButtonByXpath("DrawerMore");
+			Assert.assertTrue(checkElementTextViewReturn("Missionary"));
+			Assert.assertTrue(checkElementTextViewReturn("Lists"));
+			Assert.assertTrue(checkElementTextViewReturn("Meetinghouses"));
+			clickButtonByXpath("DrawerDirectory");
 		} else {
-			Assert.assertFalse(checkElementTextViewReturn("Reports"));
+			//Check the Drawer items
+			clickButtonByXpath("Drawer");
+			Assert.assertTrue(checkElementTextViewReturn("Directory"));
+			Assert.assertTrue(checkElementTextViewReturn("Organizations"));
+			Assert.assertTrue(checkElementTextViewReturn("Missionary"));
+			Assert.assertTrue(checkElementTextViewReturn("Lists"));
+			Assert.assertTrue(checkElementTextViewReturn("Calendar"));
+			Assert.assertTrue(checkElementTextViewReturn("Meetinghouses"));
+			if (leader == true) {
+				Assert.assertTrue(checkElementTextViewReturn("Reports"));
+			} else {
+				Assert.assertFalse(checkElementTextViewReturn("Reports"));
+			}
+			clickButtonByXpath("DrawerDirectory");
 		}
-		
+	
 	}
 	
 	/** checkCallings()
@@ -4103,7 +4115,8 @@ public class LDSTools {
 		//clickButtonByXpath("Drawer");
 		//clickButtonByXpath("DrawerCallings");
 		String pageSource;
-		clickButtonByXpath("DrawerOrganizations");
+		openOrgnizations();
+		
 		Thread.sleep(1000);
 		
 		pageSource = getSourceOfPage();
@@ -4290,8 +4303,7 @@ public class LDSTools {
 	 */
 	private void checkMissionary() throws Exception {
 		//Missionary
-		clickButtonByXpath("Drawer");
-		clickButtonByXpath("DrawerMissionary");
+		openMissionary();
 		Thread.sleep(1000);
 		//Assert.assertTrue(checkElementTextViewRoboReturn("Elder Dallin Fawcett"));
 		Assert.assertTrue(checkElementTextViewRoboReturn("Samoa Apia Mission"));
@@ -4313,8 +4325,7 @@ public class LDSTools {
 		String pageSource;
 		//boolean myTestbool;
 		
-		clickButtonByXpath("Drawer");
-		clickButtonByXpath("DrawerReports");
+		openReports();
 		Thread.sleep(2000);
 		pageSource = getSourceOfPage();
 
@@ -4539,8 +4550,7 @@ public class LDSTools {
 	private void checkHTVTBasic(String userCalling ) throws Exception {
 		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
 		String pageSource;
-		clickButtonByXpath("Drawer");
-		clickButtonByXpath("DrawerReports");
+		openReports();
 		Thread.sleep(2000);
 		
 		pageSource = getSourceOfPage();
@@ -4762,8 +4772,7 @@ public class LDSTools {
 	
 	private void checkHTVTHouseholds(String userCalling ) throws Exception {
 		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
-		clickButtonByXpath("Drawer");
-		clickButtonByXpath("DrawerReports");
+		openReports();
 		Thread.sleep(2000);
 		
 		
@@ -5478,6 +5487,38 @@ public class LDSTools {
 		}
 		
 	}
+	
+	
+	private void openOrgnizations() throws Exception {
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpath("DrawerOrganizations");
+		} else {
+			clickButtonByXpath("Drawer");
+			clickButtonByXpath("DrawerOrganizations");
+		}
+	}
+	
+	private void openMissionary() throws Exception {
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpath("DrawerMore");
+			clickButtonByXpath("DrawerMissionary");
+		} else {
+			clickButtonByXpath("Drawer");
+			clickButtonByXpath("DrawerMissionary");
+		}
+	}
+	
+	private void openReports() throws Exception {
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpath("DrawerReports");
+		} else {
+			clickButtonByXpath("Drawer");
+			clickButtonByXpath("DrawerReports");
+		}
+	}
+	
+	
+	
 	
 
 	@AfterMethod(alwaysRun = true)
