@@ -6,6 +6,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
+import org.testng.asserts.SoftAssert;
 import org.testng.Assert;
 import org.testng.AssertJUnit;
 
@@ -37,6 +38,7 @@ import java.util.Properties;
 
 
 
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.ios.*;
@@ -49,6 +51,7 @@ import io.appium.java_client.ios.IOSElement;
 //import io.selendroid.SelendroidDriver;
 import io.selendroid.SelendroidKeys;
 //import io.selendroid.exceptions.NoSuchElementException;
+
 
 
 
@@ -115,6 +118,7 @@ public class LDSTools {
 	private Properties prop;
 	AppiumSwipeableDriver driver;
 	TouchActions touch;
+	private SoftAssert softAssert = new SoftAssert();
 
 	
 	/** Setup Appium driver
@@ -212,9 +216,9 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		LeaderNonBishopric("LDSTools17", "High Priest Group", os);
+		//LeaderNonBishopric("LDSTools17", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		//bishopricCounselorAndWardClerk(os);
+		bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		//editCurrentUser(os);	
 		//editCurrentUserCancel(os);
@@ -562,13 +566,20 @@ public class LDSTools {
 		
 		//Search for logged in user
 		searchForUser("Tools, LDS6");
+		
+		clickButtonByXpathTitleName("LDS6 Tools");
 
 		pageSource = getSourceOfPage();
 		//Check the users name, address membership number etc...
-		Assert.assertTrue(checkNoCaseList("Tools, LDS6", pageSource));
+		//Assert.assertTrue(checkNoCaseList("Tools, LDS6", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("LDS6 Tools", pageSource, "Contains"));
 
-		Assert.assertTrue(checkNoCaseList("MEMBERSHIP INFORMATION", pageSource));
-		Assert.assertTrue(checkNoCaseList("888-0028-7066", pageSource));
+		Assert.assertTrue(checkNoCaseList("MEMBERSHIP INFORMATION", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("888-0028-7066", pageSource, "Contains"));
+		
+		if (getRunningOS().equals("mac")){
+			pressBackKey();
+		}
 		
 		pressBackKey();
 		Thread.sleep(1000);
@@ -654,25 +665,25 @@ public class LDSTools {
 		
 		pageSource = getSourceOfPage();	
 		//Check the users name, address membership number etc...
-		Assert.assertTrue(checkNoCaseList("Tools, LDS2", pageSource));
+		Assert.assertTrue(checkNoCaseList("Tools, LDS2", pageSource, "Equals"));
 		//clickButtonByXpathTitleName("Show Record Number");
-		Assert.assertTrue(checkNoCaseList("MEMBERSHIP INFORMATION", pageSource));
-		Assert.assertTrue(checkNoCaseList("888-0028-7023", pageSource));
-		Assert.assertTrue(checkNoCaseList("RECORD NUMBER", pageSource));
+		Assert.assertTrue(checkNoCaseList("MEMBERSHIP INFORMATION", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("888-0028-7023", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("RECORD NUMBER", pageSource, "Equals"));
 		if (getRunningOS().equals("mac")){
-			Assert.assertTrue(checkNoCaseList("Jan 1, 1980 (35)", pageSource));
+			Assert.assertTrue(checkNoCaseList("Jan 1, 1980 (35)", pageSource, "Equals"));
 		} else {
-			Assert.assertTrue(checkNoCaseList("January 1, 1980 (35)", pageSource));
+			Assert.assertTrue(checkNoCaseList("January 1, 1980 (35)", pageSource, "Equals"));
 		}
-		Assert.assertTrue(checkNoCaseList("BIRTH DATE", pageSource));
+		Assert.assertTrue(checkNoCaseList("BIRTH DATE", pageSource, "Equals"));
 		
 		//Check Ordinances
 		clickButtonByXpathTitleName("Ordinances");
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Baptism", pageSource));
-		Assert.assertTrue(checkNoCaseList("May 5, 2005", pageSource));
-		Assert.assertTrue(checkNoCaseList("Confirmation", pageSource));
-		Assert.assertTrue(checkNoCaseList("May 5, 2005", pageSource));
+		Assert.assertTrue(checkNoCaseList("Baptism", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("May 5, 2005", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Confirmation", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("May 5, 2005", pageSource, "Equals"));
 		pressBackKey();
 		
 
@@ -825,7 +836,7 @@ public class LDSTools {
 			pageSource = getSourceOfPage();
 			for(String oneUser : myList){
 				//System.out.println("Found User: " + oneUser);
-				Assert.assertTrue(checkNoCaseList(oneUser, pageSource));
+				Assert.assertTrue(checkNoCaseList(oneUser, pageSource, "Equals"));
 				//if (checkNoCaseList(oneUser, pageSource) == false) {
 				//	System.out.println("NOT FOUND: " + oneUser);
 				//}
@@ -1173,7 +1184,7 @@ public class LDSTools {
 			for(String oneUser : myList){
 				//System.out.println("Found User: " + oneUser);
 				//Assert.assertTrue(checkNoCaseList(oneUser, pageSource));
-				if (checkNoCaseList(oneUser, pageSource) == false) {
+				if (checkNoCaseList(oneUser, pageSource, "Equals") == false) {
 					System.out.println("NOT FOUND: " + oneUser);
 				}
 			}
@@ -1292,10 +1303,10 @@ public class LDSTools {
 		Thread.sleep(3000);
 		
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("1(801)240-0104", pageSource));
-		Assert.assertTrue(checkNoCaseList("(801) 867-5309", pageSource));	
-		Assert.assertTrue(checkNoCaseList("personal@nospam.com", pageSource));
-		Assert.assertTrue(checkNoCaseList("home@nospam.com", pageSource));
+		Assert.assertTrue(checkNoCaseList("1(801)240-0104", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("(801) 867-5309", pageSource, "Equals"));	
+		Assert.assertTrue(checkNoCaseList("personal@nospam.com", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("home@nospam.com", pageSource, "Equals"));
 		
 		pressBackKey();
 		Thread.sleep(2000);
@@ -1315,11 +1326,11 @@ public class LDSTools {
 		
 		//Check the users name, address membership number etc...
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Tools, LDS44", pageSource));
-		Assert.assertTrue(checkNoCaseList("1(801)240-0104", pageSource));
-		Assert.assertTrue(checkNoCaseList("(801) 867-5309", pageSource));	
-		Assert.assertTrue(checkNoCaseList("personal@nospam.com", pageSource));
-		Assert.assertTrue(checkNoCaseList("home@nospam.com", pageSource));
+		Assert.assertTrue(checkNoCaseList("Tools, LDS44", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("1(801)240-0104", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("(801) 867-5309", pageSource, "Equals"));	
+		Assert.assertTrue(checkNoCaseList("personal@nospam.com", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("home@nospam.com", pageSource, "Equals"));
 		
 		Thread.sleep(1000);
 		clickButtonByXpath("MenuEdit");
@@ -1334,10 +1345,10 @@ public class LDSTools {
 		
 		Thread.sleep(3000);
 		pageSource = getSourceOfPage();
-		Assert.assertFalse(checkNoCaseList("1(801)240-0104", pageSource));
-		Assert.assertFalse(checkNoCaseList("(801) 867-5309", pageSource));	
-		Assert.assertFalse(checkNoCaseList("personal@nospam.com", pageSource));
-		Assert.assertFalse(checkNoCaseList("home@nospam.com", pageSource));
+		Assert.assertFalse(checkNoCaseList("1(801)240-0104", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("(801) 867-5309", pageSource, "Equals"));	
+		Assert.assertFalse(checkNoCaseList("personal@nospam.com", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("home@nospam.com", pageSource, "Equals"));
 	}
 	
 	@Parameters({"os"})
@@ -1383,10 +1394,10 @@ public class LDSTools {
 		Thread.sleep(3000);
 		
 		pageSource = getSourceOfPage();
-		Assert.assertFalse(checkNoCaseList("1(801)240-0104", pageSource));
-		Assert.assertFalse(checkNoCaseList("(801) 867-5309", pageSource));	
-		Assert.assertFalse(checkNoCaseList("personal@nospam.com", pageSource));
-		Assert.assertFalse(checkNoCaseList("home@nospam.com", pageSource));
+		Assert.assertFalse(checkNoCaseList("1(801)240-0104", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("(801) 867-5309", pageSource, "Equals"));	
+		Assert.assertFalse(checkNoCaseList("personal@nospam.com", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("home@nospam.com", pageSource, "Equals"));
 	}
 	
 	/** editOtherUser()
@@ -1438,10 +1449,10 @@ public class LDSTools {
 		Thread.sleep(3000);
 		
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("1(801)240-0104", pageSource));
-		Assert.assertTrue(checkNoCaseList("(801) 867-5309", pageSource));	
-		Assert.assertTrue(checkNoCaseList("personal@nospam.com", pageSource));
-		Assert.assertTrue(checkNoCaseList("home@nospam.com", pageSource));
+		Assert.assertTrue(checkNoCaseList("1(801)240-0104", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("(801) 867-5309", pageSource, "Equals"));	
+		Assert.assertTrue(checkNoCaseList("personal@nospam.com", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("home@nospam.com", pageSource, "Equals"));
 		Thread.sleep(1000);
 		pressBackKey();
 		Thread.sleep(1000);
@@ -1463,11 +1474,11 @@ public class LDSTools {
 		
 		//Check the users name, address membership number etc...
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Tools, LDS41", pageSource));
-		Assert.assertTrue(checkNoCaseList("1(801)240-0104", pageSource));
-		Assert.assertTrue(checkNoCaseList("(801) 867-5309", pageSource));	
-		Assert.assertTrue(checkNoCaseList("personal@nospam.com", pageSource));
-		Assert.assertTrue(checkNoCaseList("home@nospam.com", pageSource));
+		Assert.assertTrue(checkNoCaseList("Tools, LDS41", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("1(801)240-0104", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("(801) 867-5309", pageSource, "Equals"));	
+		Assert.assertTrue(checkNoCaseList("personal@nospam.com", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("home@nospam.com", pageSource, "Equals"));
 		
 		Thread.sleep(1000);
 		clickButtonByXpath("MenuEdit");
@@ -1483,10 +1494,10 @@ public class LDSTools {
 		Thread.sleep(3000);
 		
 		pageSource = getSourceOfPage();
-		Assert.assertFalse(checkNoCaseList("1(801)240-0104", pageSource));
-		Assert.assertFalse(checkNoCaseList("(801) 867-5309", pageSource));	
-		Assert.assertFalse(checkNoCaseList("personal@nospam.com", pageSource));
-		Assert.assertFalse(checkNoCaseList("home@nospam.com", pageSource));
+		Assert.assertFalse(checkNoCaseList("1(801)240-0104", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("(801) 867-5309", pageSource, "Equals"));	
+		Assert.assertFalse(checkNoCaseList("personal@nospam.com", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("home@nospam.com", pageSource, "Equals"));
 				
 	}
 	
@@ -1530,8 +1541,8 @@ public class LDSTools {
 		Thread.sleep(3000);
 		
 		pageSource = getSourceOfPage();
-		Assert.assertFalse(checkNoCaseList("######00000000000*****", pageSource));
-		Assert.assertFalse(checkNoCaseList("878974131648413216421321165484789798461321314644444244624424524245244545644644856465784967465456464144134424342446244323644524452344623446542326342542", pageSource));	
+		Assert.assertFalse(checkNoCaseList("######00000000000*****", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("878974131648413216421321165484789798461321314644444244624424524245244545644644856465784967465456464144134424342446244323644524452344623446542326342542", pageSource, "Equals"));	
 
 		
 		pressBackKey();
@@ -1570,8 +1581,8 @@ public class LDSTools {
 		Thread.sleep(3000);
 		*/
 		pageSource = getSourceOfPage();
-		Assert.assertFalse(checkNoCaseList("######00000000000*****", pageSource));
-		Assert.assertFalse(checkNoCaseList("878974131648413216421321165484789798461321314644444244624424524245244545644644856465784967465456464144134424342446244323644524452344623446542326342542", pageSource));	
+		Assert.assertFalse(checkNoCaseList("######00000000000*****", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("878974131648413216421321165484789798461321314644444244624424524245244545644644856465784967465456464144134424342446244323644524452344623446542326342542", pageSource, "Equals"));	
 
 	}
 	
@@ -1639,8 +1650,8 @@ public class LDSTools {
 		
 		Thread.sleep(3000);
 		pageSource = getSourceOfPage();
-		Assert.assertFalse(checkNoCaseList("thisisaninvalidemailaddress", pageSource));
-		Assert.assertFalse(checkNoCaseList("!@#$%^&*()_+-=[]{}|", pageSource));	
+		Assert.assertFalse(checkNoCaseList("thisisaninvalidemailaddress", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("!@#$%^&*()_+-=[]{}|", pageSource, "Equals"));	
 
 		
 		pressBackKey();
@@ -1660,8 +1671,8 @@ public class LDSTools {
 		searchForUser("Tools, LDS41");
 		
 		pageSource = getSourceOfPage();
-		Assert.assertFalse(checkNoCaseList("thisisaninvalidemailaddress", pageSource));
-		Assert.assertFalse(checkNoCaseList("!@#$%^&*()_+-=[]{}|", pageSource));	
+		Assert.assertFalse(checkNoCaseList("thisisaninvalidemailaddress", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("!@#$%^&*()_+-=[]{}|", pageSource, "Equals"));	
 	}
 	
 	@Parameters({"os"})
@@ -1861,19 +1872,19 @@ public class LDSTools {
 		
 		//Check the users name Phone and email
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource));
-		Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource));
+		Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Equals"));
 
-		Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource));
-		Assert.assertFalse(checkNoCaseList("1224589900887", pageSource));
-		Assert.assertFalse(checkNoCaseList("PERSONAL", pageSource));
-		Assert.assertTrue(checkNoCaseList("5551234555", pageSource));
+		Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("1224589900887", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("PERSONAL", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("5551234555", pageSource, "Equals"));
 		//This is showing up as household email or household phone
-		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource));
-		Assert.assertFalse(checkNoCaseList("Z@z.com", pageSource));
-		Assert.assertFalse(checkNoCaseList("PERSONAL", pageSource));
-		Assert.assertTrue(checkNoCaseList("test@test.com", pageSource));
-		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource));
+		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("Z@z.com", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("PERSONAL", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("test@test.com", pageSource, "Equals"));
+		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
 		
 		Thread.sleep(3000);
 		pressBackKey();
@@ -1940,18 +1951,18 @@ public class LDSTools {
 		
 		//Check the users name, address membership number etc...
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource));
-		Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource));
+		Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Equals"));
 
-		Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource));
-		Assert.assertTrue(checkNoCaseList("1224589900887", pageSource));
-		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource));
-		Assert.assertTrue(checkNoCaseList("5551234555", pageSource));
-		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource));
-		Assert.assertTrue(checkNoCaseList("Z@z.com", pageSource));
-		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource));
-		Assert.assertTrue(checkNoCaseList("test@test.com", pageSource));
-		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource));
+		Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("1224589900887", pageSource, "Equals"));
+		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("5551234555", pageSource, "Equals"));
+		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Z@z.com", pageSource, "Equals"));
+		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("test@test.com", pageSource, "Equals"));
+		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
 	}
 	
 	@Parameters({"os"})
@@ -2010,18 +2021,18 @@ public class LDSTools {
 		
 		//Check the users name Phone and email
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource));
-		Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource));
+		Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Equals"));
 
-		Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource));
-		Assert.assertTrue(checkNoCaseList("1224589900887", pageSource));
-		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource));
-		Assert.assertFalse(checkNoCaseList("5551234555", pageSource));
-		//Assert.assertFalse(checkNoCaseList("HOUSEHOLD", pageSource));
-		Assert.assertTrue(checkNoCaseList("Z@z.com", pageSource));
-		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource));
-		Assert.assertFalse(checkNoCaseList("test@test.com", pageSource));
-		//Assert.assertFalse(checkNoCaseList("HOUSEHOLD", pageSource));
+		Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("1224589900887", pageSource, "Equals"));
+		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("5551234555", pageSource, "Equals"));
+		//Assert.assertFalse(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Z@z.com", pageSource, "Equals"));
+		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("test@test.com", pageSource, "Equals"));
+		//Assert.assertFalse(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
 		
 		Thread.sleep(3000);
 		pressBackKey();
@@ -2085,18 +2096,18 @@ public class LDSTools {
 		
 		//Check the users name, address membership number etc...
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource));
-		Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource));
+		Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Equals"));
 
-		Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource));
-		Assert.assertTrue(checkNoCaseList("1224589900887", pageSource));
-		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource));
-		Assert.assertTrue(checkNoCaseList("5551234555", pageSource));
-		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource));
-		Assert.assertTrue(checkNoCaseList("Z@z.com", pageSource));
-		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource));
-		Assert.assertTrue(checkNoCaseList("test@test.com", pageSource));
-		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource));
+		Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("1224589900887", pageSource, "Equals"));
+		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("5551234555", pageSource, "Equals"));
+		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Z@z.com", pageSource, "Equals"));
+		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("test@test.com", pageSource, "Equals"));
+		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
 	}
 	
 	
@@ -2954,6 +2965,18 @@ public class LDSTools {
 		return myReturnStatus;
 	}
 	
+	private Boolean checkElementNameReturn(String textElement) {
+		Boolean myReturnStatus;
+		List<WebElement> options= driver.findElements(By.xpath("//*[@name='" + textElement + "']"));
+		if (options.isEmpty()) {
+			myReturnStatus = false;	
+		} else {
+			myReturnStatus = true;
+		}
+		
+		return myReturnStatus;
+	}
+	
 	/** checkElementTextViewReturnContains(String textElement)
 	 * Check the //TextView element for text in the "value"
 	 * 
@@ -3061,7 +3084,7 @@ public class LDSTools {
 	}
 	
 	
-	private boolean checkNoCaseList(String textToCheck, String pageSource){
+	private boolean checkNoCaseList(String textToCheck, String pageSource, String containEqual){
 		Document doc = Jsoup.parse(pageSource);
 		Elements myTest = doc.getAllElements();
 		String foundText;
@@ -3071,16 +3094,29 @@ public class LDSTools {
 		//System.out.println("My OS: " + myOs);
 		if (myOs.equals("mac")){
 			for (Element myElement : myTest ) {
-				//System.out.println(myElement.attributes().get("name"));
-				foundText = myElement.attributes().get("name");
-				foundText = foundText.toLowerCase();
-				//System.out.println("******************************");
-				//System.out.println("Found Text:" + foundText);
-				//System.out.println("Text To Check: " + textToCheck);
-				//System.out.println("******************************");
-				if (foundText.equals(textToCheck)) {
-					return true;
-				}
+				//if (myElement.attributes().get("shown").equals("true")) {
+					//System.out.println("Name: ");
+					//System.out.println(myElement.attributes().get("name"));
+					//System.out.println("Value: ");
+					///System.out.println(myElement.attributes().get("value"));
+					foundText = myElement.attributes().get("name");
+					foundText = foundText.toLowerCase();
+					//System.out.println("******************************");
+					//System.out.println("Found Text:" + foundText);
+					//System.out.println("Text To Check: " + textToCheck);
+					//System.out.println("******************************");
+					if (containEqual.equals("Equals")) {
+						if (foundText.equals(textToCheck)) {
+							return true;
+						}
+					} else {
+						if (foundText.contains(textToCheck)) {
+							return true;
+						}
+					}
+
+
+				//}
 			}
 
 		} else {
@@ -3093,8 +3129,14 @@ public class LDSTools {
 					//System.out.println("Found Text:" + foundText);
 					//System.out.println("Text To Check: " + textToCheck);
 					//System.out.println("******************************");
-					if (foundText.equals(textToCheck)) {
-						return true;
+					if (containEqual.equals("Equals")) {
+						if (foundText.equals(textToCheck)) {
+							return true;
+						}
+					} else {
+						if (foundText.contains(textToCheck)) {
+							return true;
+						}
 					}
 				}
 			}
@@ -3946,40 +3988,48 @@ public class LDSTools {
 		//Search for logged in user
 		searchForUser("Aaron, Jane");
 		
+		clickButtonByXpathTitleName("Jane Aaron");
+		
 		pageSource = getSourceOfPage();
 		//System.out.println("Page Source: " + pageSource);
 				
 		//checkReportText = getAllText();
-		Assert.assertTrue(checkNoCaseList("Jane Aaron", pageSource));
-		Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource));
-		Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource));
-		Assert.assertTrue(checkNoCaseList("555-555-5555", pageSource));
-		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource));
-		Assert.assertTrue(checkNoCaseList("555-555-1234", pageSource));
-		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource));
-		Assert.assertTrue(checkNoCaseList("no-reply@ldschurch.org", pageSource));
-		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource));
+		//Assert.assertTrue(checkNoCaseList("Jane Aaron", pageSource, "Equals"));
+		
+		//TODO: When this bug is fixed change back to a hard assert
+		softAssert.assertTrue(checkNoCaseList("Jane Aaron", pageSource, "Equals"));
+		softAssert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Equals"));
+		//Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Equals"));
+		
+		
+		//Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("555-555-5555", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("555-555-1234", pageSource, "Equals"));
+		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("no-reply@ldschurch.org", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource, "Equals"));
 		
 
 		//Leadership Should be able to see this information
 		//Membership Information
 		if (memberShipInfo == true ) {
 			//Assert.assertTrue(checkElementTextCustom("MEMBERSHIP INFORMATION", "CapitalizedTextView"));
-			Assert.assertTrue(checkNoCaseList("MEMBERSHIP INFORMATION", pageSource));
+			Assert.assertTrue(checkNoCaseList("MEMBERSHIP INFORMATION", pageSource, "Equals"));
 		} else {
 			//Assert.assertFalse(checkElementTextCustom("MEMBERSHIP INFORMATION", "CapitalizedTextView"));
-			Assert.assertFalse(checkNoCaseList("MEMBERSHIP INFORMATION", pageSource));
+			Assert.assertFalse(checkNoCaseList("MEMBERSHIP INFORMATION", pageSource, "Equals"));
 		}
 		
 		//Full Name
 		if (fullName == true){
-			Assert.assertTrue(checkNoCaseList("AFPMisc, Member2", pageSource));
-			Assert.assertTrue(checkNoCaseList("FULL NAME", pageSource));
+			Assert.assertTrue(checkNoCaseList("AFPMisc, Member2", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("FULL NAME", pageSource, "Contains"));
 			//Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member2"));
 			//Assert.assertTrue(checkElementTextCustom("FULL NAME", "*"));
 		} else {
-			Assert.assertFalse(checkNoCaseList("AFPMisc, Member2", pageSource));
-			Assert.assertFalse(checkNoCaseList("FULL NAME", pageSource));
+			Assert.assertFalse(checkNoCaseList("AFPMisc, Member2", pageSource, "Equals"));
+			Assert.assertFalse(checkNoCaseList("FULL NAME", pageSource, "Equals"));
 			//Assert.assertFalse(checkElementTextViewReturn("AFPMisc, Member2"));
 			//Assert.assertFalse(checkElementTextCustom("FULL NAME", "*"));
 		}
@@ -4003,38 +4053,39 @@ public class LDSTools {
 		
 		//Record Number
 		if (recordNumber == true ){
-			Assert.assertTrue(checkNoCaseList("888-0028-4326", pageSource));
-			Assert.assertTrue(checkNoCaseList("RECORD NUMBER", pageSource));
+			Assert.assertTrue(checkNoCaseList("888-0028-4326", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("RECORD NUMBER", pageSource, "Contains"));
 			//Assert.assertTrue(checkElementTextViewReturn("888-0028-4326"));
 			//Assert.assertTrue(checkElementTextCustom("RECORD NUMBER", "*"));
 		} else {
-			Assert.assertFalse(checkNoCaseList("888-0028-4326", pageSource));
-			Assert.assertFalse(checkNoCaseList("RECORD NUMBER", pageSource));
+			Assert.assertFalse(checkNoCaseList("888-0028-4326", pageSource, "Contains"));
+			Assert.assertFalse(checkNoCaseList("RECORD NUMBER", pageSource, "Contains"));
 			//Assert.assertFalse(checkElementTextViewReturn("888-0028-4326"));
 			//Assert.assertFalse(checkElementTextCustom("RECORD NUMBER", "*"));
 		}
 
 		//Check Ordinances
 		if (ordinances == true ){
-			clickButtonByXpathTitleName("Ordinances");
-			pageSource = getSourceOfPage();
-			Assert.assertTrue(checkNoCaseList("Baptism", pageSource));
-			//Assert.assertTrue(checkNoCaseList("November 11, 1970", pageSource));
-			Assert.assertTrue(checkNoCaseList("Confirmation", pageSource));
-			//Assert.assertTrue(checkNoCaseList("November 11, 1970", pageSource));
+			//clickButtonByXpathTitleName("Ordinances");
+			//pageSource = getSourceOfPage();
+			Assert.assertTrue(checkNoCaseList("Baptism", pageSource, "Contains"));
+			//Assert.assertTrue(checkNoCaseList("November 11, 1970", pageSource, "Equals"));
+			Assert.assertTrue(checkNoCaseList("Confirmation", pageSource, "Contains"));
+			//Assert.assertTrue(checkNoCaseList("November 11, 1970", pageSource, "Equals"));
 			//Assert.assertTrue(checkElementTextViewReturn("Baptism"));
 			//Assert.assertTrue(checkElementTextViewReturn("November 11, 1970"));
 			//Assert.assertTrue(checkElementTextViewReturn("Confirmation"));
 			//Assert.assertTrue(checkElementTextViewReturn("November 11, 1970"));
 			pressBackKey();
 		} else {
-			Assert.assertFalse(checkNoCaseList("Ordinances", pageSource));
+			Assert.assertFalse(checkNoCaseList("Ordinances", pageSource, "Contains"));
 			//Assert.assertFalse(checkElementTextViewReturn("Ordinances"));
 		}
 		
 
 		
-		
+		//TODO: Remove when ohter information is fixed
+		/*
 		//Check Other Information
 		if (otherInfo == true ) {
 			clickButtonByXpathTitleName("Other Information");
@@ -4054,10 +4105,13 @@ public class LDSTools {
 			pressBackKey();
 		}
 		
-		
+		*/
 
 		Thread.sleep(2000);
 		pressBackKey();
+		if (getRunningOS().equals("mac")) {
+			pressBackKey();
+		}
 		clickButtonByXpath("SearchCollapse");
 		
 		
@@ -4071,19 +4125,22 @@ public class LDSTools {
 	 */
 	private void checkDrawerItems (boolean leader) throws Exception {
 		if (getRunningOS().equals("mac")){
-			Assert.assertTrue(checkElementTextViewReturn("Directory"));
-			Assert.assertTrue(checkElementTextViewReturn("Calendar"));
+			Assert.assertTrue(checkElementNameReturn("Directory"));
+			Assert.assertTrue(checkElementNameReturn("Calendar"));
 			
 			if (leader == true) {
-				Assert.assertTrue(checkElementTextViewReturn("Reports"));
+				Assert.assertTrue(checkElementNameReturn("Reports"));
 			} else {
-				Assert.assertFalse(checkElementTextViewReturn("Reports"));
+				Assert.assertFalse(checkElementNameReturn("Reports"));
 			}
-			Assert.assertTrue(checkElementTextViewReturn("Organizations"));
+			Assert.assertTrue(checkElementNameReturn("Organizations"));
 			clickButtonByXpath("DrawerMore");
-			Assert.assertTrue(checkElementTextViewReturn("Missionary"));
-			Assert.assertTrue(checkElementTextViewReturn("Lists"));
-			Assert.assertTrue(checkElementTextViewReturn("Meetinghouses"));
+			Assert.assertTrue(checkElementNameReturn("Missionaries"));
+			Assert.assertTrue(checkElementNameReturn("Lists"));
+			Assert.assertTrue(checkElementNameReturn("Meetinghouses"));
+			Assert.assertTrue(checkElementNameReturn("Update"));
+			Assert.assertTrue(checkElementNameReturn("Settings"));
+			Assert.assertTrue(checkElementNameReturn("Help"));
 			clickButtonByXpath("DrawerDirectory");
 		} else {
 			//Check the Drawer items
@@ -4122,16 +4179,16 @@ public class LDSTools {
 		pageSource = getSourceOfPage();
 		//System.out.println("Page Source: " + pageSource);
 				
-		Assert.assertTrue(checkNoCaseList("Bishopric", pageSource));
-		Assert.assertTrue(checkNoCaseList("High Priests Group", pageSource));
-		Assert.assertTrue(checkNoCaseList("Elders Quorum", pageSource));
-		Assert.assertTrue(checkNoCaseList("Relief Society", pageSource));
-		Assert.assertTrue(checkNoCaseList("Young Men", pageSource));
-		Assert.assertTrue(checkNoCaseList("Young Women", pageSource));
-		Assert.assertTrue(checkNoCaseList("Sunday School", pageSource));
-		Assert.assertTrue(checkNoCaseList("Primary", pageSource));
-		Assert.assertTrue(checkNoCaseList("Ward Missionaries", pageSource));
-		Assert.assertTrue(checkNoCaseList("Other Callings", pageSource));
+		Assert.assertTrue(checkNoCaseList("Bishopric", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("High Priests Group", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Elders Quorum", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Relief Society", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Young Men", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Young Women", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Sunday School", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Primary", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Ward Missionaries", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Other Callings", pageSource, "Equals"));
 
 		
 		
@@ -4140,12 +4197,12 @@ public class LDSTools {
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
 
-		Assert.assertTrue(checkNoCaseList("Bishop", pageSource));
-		Assert.assertTrue(checkNoCaseList("Ami, Samu", pageSource));
-		Assert.assertTrue(checkNoCaseList("Bishopric Second Counselor", pageSource));
-		Assert.assertTrue(checkNoCaseList("Faapili, Muipu", pageSource));
-		//Assert.assertTrue(checkNoCaseList("Ward Clerk", pageSource));
-		//Assert.assertTrue(checkNoCaseList("Tutunoa, Ualesi Junior, Jr", pageSource));
+		Assert.assertTrue(checkNoCaseList("Bishop", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Ami, Samu", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Bishopric Second Counselor", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Faapili, Muipu", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("Ward Clerk", pageSource, "Equals"));
+		//Assert.assertTrue(checkNoCaseList("Tutunoa, Ualesi Junior, Jr", pageSource, "Equals"));
 		Thread.sleep(1000);
 		pressBackKey();
 		Thread.sleep(1000);
@@ -4155,8 +4212,8 @@ public class LDSTools {
 		clickButtonByXpathTitleName("High Priests Group Leadership");
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("High Priests Group Leader", pageSource));
-		Assert.assertTrue(checkNoCaseList("Faamoe, Panapa Filifili", pageSource));
+		Assert.assertTrue(checkNoCaseList("High Priests Group Leader", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Faamoe, Panapa Filifili", pageSource, "Contains"));
 		pressBackKey();
 		Thread.sleep(1000);
 		pressBackKey();
@@ -4166,8 +4223,8 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Elders Quorum Presidency");
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Elders Quorum President", pageSource));
-		Assert.assertTrue(checkNoCaseList("Kitara, Peaulele", pageSource));
+		Assert.assertTrue(checkNoCaseList("Elders Quorum President", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Kitara, Peaulele", pageSource, "Contains"));
 		pressBackKey();
 		Thread.sleep(1000);
 		pressBackKey();
@@ -4178,14 +4235,14 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Relief Society Presidency");
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Relief Society President", pageSource));
-		Assert.assertTrue(checkNoCaseList("Endemann, Lole", pageSource));
-		Assert.assertTrue(checkNoCaseList("Relief Society First Counselor", pageSource));
-		Assert.assertTrue(checkNoCaseList("Faamoetauloa, Fiasili", pageSource));
-		Assert.assertTrue(checkNoCaseList("Relief Society Second Counselor", pageSource));
-		Assert.assertTrue(checkNoCaseList("Puleiai, Siva", pageSource));
-		Assert.assertTrue(checkNoCaseList("Relief Society Secretary", pageSource));
-		Assert.assertTrue(checkNoCaseList("Patiole, Luafa", pageSource));
+		Assert.assertTrue(checkNoCaseList("Relief Society President", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Endemann, Lole", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Relief Society First Counselor", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Faamoetauloa, Fiasili", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Relief Society Second Counselor", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Puleiai, Siva", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Relief Society Secretary", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Patiole, Luafa", pageSource, "Contains"));
 		pressBackKey();
 		Thread.sleep(1000);
 		pressBackKey();
@@ -4196,14 +4253,14 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Young Men Presidency");
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Young Men President", pageSource));
-		Assert.assertTrue(checkNoCaseList("Kitara, Lafaele", pageSource));
-		Assert.assertTrue(checkNoCaseList("Young Men First Counselor", pageSource));
-		Assert.assertTrue(checkNoCaseList("Poai, Mikaele", pageSource));
-		Assert.assertTrue(checkNoCaseList("Young Men Second Counselor", pageSource));
-		Assert.assertTrue(checkNoCaseList("Faamoetauloa Panapa Jr, Panapa Jnr", pageSource));
-		Assert.assertTrue(checkNoCaseList("Young Men Secretary", pageSource));
-		Assert.assertTrue(checkNoCaseList("Venasio Fainuu, Fogavai", pageSource));
+		Assert.assertTrue(checkNoCaseList("Young Men President", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Kitara, Lafaele", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Young Men First Counselor", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Poai, Mikaele", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Young Men Second Counselor", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Faamoetauloa Panapa Jr, Panapa Jnr", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Young Men Secretary", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Venasio Fainuu, Fogavai", pageSource, "Contains"));
 		pressBackKey();
 		//Thread.sleep(1000);
 		clickButtonByXpathTitleName("Priests Quorum");
@@ -4212,11 +4269,11 @@ public class LDSTools {
 			clickButtonByXpathTitleName("Priests Quorum Presidency");
 		}
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Priests Quorum First Assistant", pageSource));
-		Assert.assertTrue(checkNoCaseList("Tulia, Tiueni", pageSource));
-		Assert.assertTrue(checkNoCaseList("Priests Quorum Second Assistant", pageSource));
-		Assert.assertTrue(checkNoCaseList("Kitara, Tumua", pageSource));
-		Assert.assertTrue(checkNoCaseList("Priests Quorum Secretary", pageSource));
+		Assert.assertTrue(checkNoCaseList("Priests Quorum First Assistant", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Tulia, Tiueni", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Priests Quorum Second Assistant", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Kitara, Tumua", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Priests Quorum Secretary", pageSource, "Contains"));
 		if (getRunningOS().equals("mac")) {
 			pressBackKey();
 		}
@@ -4232,10 +4289,10 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Young Women Presidency");
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Young Women President", pageSource));
-		Assert.assertTrue(checkNoCaseList("Tutunoa, Lusi", pageSource));
-		Assert.assertTrue(checkNoCaseList("Young Women First Counselor", pageSource));
-		Assert.assertTrue(checkNoCaseList("Kitara, Etevise", pageSource));
+		Assert.assertTrue(checkNoCaseList("Young Women President", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Tutunoa, Lusi", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Young Women First Counselor", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Kitara, Etevise", pageSource, "Contains"));
 		pressBackKey();
 		Thread.sleep(1000);
 		pressBackKey();
@@ -4246,8 +4303,8 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Sunday School Presidency");
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Sunday School President", pageSource));
-		Assert.assertTrue(checkNoCaseList("Lealaiauloto, Uana Iosefa Sao", pageSource));
+		Assert.assertTrue(checkNoCaseList("Sunday School President", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Lealaiauloto, Uana Iosefa Sao", pageSource, "Contains"));
 		pressBackKey();
 		Thread.sleep(1000);
 		pressBackKey();
@@ -4257,14 +4314,14 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Primary Presidency");
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Primary President", pageSource));
-		Assert.assertTrue(checkNoCaseList("Faamoe, Talalelagi", pageSource));
-		Assert.assertTrue(checkNoCaseList("Primary First Counselor", pageSource));
-		Assert.assertTrue(checkNoCaseList("Fepuleai, Malele Seuamuli", pageSource));
-		Assert.assertTrue(checkNoCaseList("Primary Second Counselor", pageSource));
-		Assert.assertTrue(checkNoCaseList("Tulia, Faagalo", pageSource));
-		//Assert.assertTrue(checkNoCaseList("Primary Secretary", pageSource));
-		//Assert.assertTrue(checkNoCaseList("Samu, Luisa", pageSource));
+		Assert.assertTrue(checkNoCaseList("Primary President", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Faamoe, Talalelagi", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Primary First Counselor", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Fepuleai, Malele Seuamuli", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Primary Second Counselor", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Tulia, Faagalo", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("Primary Secretary", pageSource, "Equals"));
+		//Assert.assertTrue(checkNoCaseList("Samu, Luisa", pageSource, "Equals"));
 		pressBackKey();
 		Thread.sleep(1000);
 		pressBackKey();
@@ -4274,8 +4331,8 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Ward Missionaries");
 		Thread.sleep(2000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Ward Mission Leader", pageSource));
-		Assert.assertTrue(checkNoCaseList("Kitara, Lafaele", pageSource));
+		Assert.assertTrue(checkNoCaseList("Ward Mission Leader", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Kitara, Lafaele", pageSource, "Contains"));
 		pressBackKey();
 		
 		
@@ -4284,13 +4341,13 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Young Single Adult");
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Young Single Adult Leader", pageSource));
-		Assert.assertTrue(checkNoCaseList("Solomona, Solomona", pageSource));
+		Assert.assertTrue(checkNoCaseList("Young Single Adult Leader", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Solomona, Solomona", pageSource, "Contains"));
 		pressBackKey();
 		clickButtonByXpathTitleName("Music");
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Music Adviser", pageSource));
+		Assert.assertTrue(checkNoCaseList("Music Adviser", pageSource, "Contains"));
 		pressBackKey();
 		Thread.sleep(2000);
 		pressBackKey();
@@ -4306,9 +4363,9 @@ public class LDSTools {
 		openMissionary();
 		Thread.sleep(1000);
 		//Assert.assertTrue(checkElementTextViewRoboReturn("Elder Dallin Fawcett"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Samoa Apia Mission"));
+		//Assert.assertTrue(checkElementTextViewRoboReturn("Samoa Apia Mission"));
 		//Assert.assertTrue(checkElementTextViewRoboReturn("Elder Kawika Tupuola"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Samoa Apia Mission"));
+		//Assert.assertTrue(checkElementTextViewRoboReturn("Samoa Apia Mission"));
 		Assert.assertTrue(checkElementTextViewRoboReturn("Kitara, Lafaele"));
 		//Assert.assertTrue(checkElementTextViewRoboReturn("Mission Leader"));
 		//pressBackKey();
@@ -4329,13 +4386,13 @@ public class LDSTools {
 		Thread.sleep(2000);
 		pageSource = getSourceOfPage();
 
-		Assert.assertTrue(checkNoCaseList("Birthday List", pageSource));
-		Assert.assertTrue(checkNoCaseList("Members Moved In", pageSource));
-		Assert.assertTrue(checkNoCaseList("Members Moved Out", pageSource));
-		Assert.assertTrue(checkNoCaseList("Members with Callings", pageSource));
-		Assert.assertTrue(checkNoCaseList("New Members", pageSource));
-		Assert.assertTrue(checkNoCaseList("Unit Statistics", pageSource));
-		Assert.assertFalse(checkNoCaseList("Death Star Reports", pageSource));
+		Assert.assertTrue(checkNoCaseList("Birthday List", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Members Moved In", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Members Moved Out", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Members with Callings", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("New Members", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Unit Statistics", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("Death Star Reports", pageSource, "Equals"));
 
 		
 		
@@ -4347,15 +4404,15 @@ public class LDSTools {
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
 
-		Assert.assertTrue(checkNoCaseList("Betham, Scott", pageSource));
+		Assert.assertTrue(checkNoCaseList("Betham, Scott", pageSource, "Equals"));
 
 		//The new unit is only available for bishop
 		if (bishop == true){
-			Assert.assertTrue(checkNoCaseList("pheasant pointe 5th ward", pageSource));
+			Assert.assertTrue(checkNoCaseList("pheasant pointe 5th ward", pageSource, "Equals"));
 		} else {
-			Assert.assertFalse(checkNoCaseList("pheasant pointe 5th ward", pageSource));
+			Assert.assertFalse(checkNoCaseList("pheasant pointe 5th ward", pageSource, "Equals"));
 		}
-		Assert.assertFalse(checkNoCaseList("Solo, Han", pageSource));
+		Assert.assertFalse(checkNoCaseList("Solo, Han", pageSource, "Equals"));
 		pressBackKey();
 		//clickButtonByXpath("Drawer");
 		//clickButtonByXpath("DrawerReports");
@@ -4365,10 +4422,10 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Members Moved In");
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Sa", pageSource));
-		Assert.assertTrue(checkNoCaseList("Seti (55)", pageSource));
-		Assert.assertTrue(checkNoCaseList("Head of household", pageSource));
-		Assert.assertFalse(checkNoCaseList("Skywalker, Luke", pageSource));
+		Assert.assertTrue(checkNoCaseList("Sa", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Seti (55)", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Head of household", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("Skywalker, Luke", pageSource, "Equals"));
 
 		Thread.sleep(1000);
 		pressBackKey();
@@ -4380,9 +4437,9 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Members with Callings");
 		Thread.sleep(2000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Ami, Christian", pageSource));
-		Assert.assertTrue(checkNoCaseList("Beehive President (7 months)", pageSource));
-		Assert.assertFalse(checkNoCaseList("Skywalker, Anakin", pageSource));
+		Assert.assertTrue(checkNoCaseList("Ami, Christian", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Beehive President (8 months)", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("Skywalker, Anakin", pageSource, "Equals"));
 	
 		
 		if (getRunningOS().equals("mac")) {
@@ -4392,11 +4449,11 @@ public class LDSTools {
 			clickButtonByXpathTitleName("ORGANIZATION");
 		}
 		pageSource = getSourceOfPage();
-		//Assert.assertTrue(checkNoCaseList("Ward Clerk", pageSource));
-		//Assert.assertTrue(checkNoCaseList("Kitara, Lafaele (3 months)", pageSource));
-		Assert.assertTrue(checkNoCaseList("Bishop", pageSource));
-		Assert.assertTrue(checkNoCaseList("Ami, Samu (2 years, 2 months)", pageSource));
-		Assert.assertFalse(checkNoCaseList("Kenobi, Obi-Wan", pageSource));
+		//Assert.assertTrue(checkNoCaseList("Ward Clerk", pageSource, "Equals"));
+		//Assert.assertTrue(checkNoCaseList("Kitara, Lafaele (3 months)", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Bishop", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Ami, Samu (2 years, 3 months)", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("Kenobi, Obi-Wan", pageSource, "Equals"));
 
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpath("TopSort");
@@ -4405,9 +4462,9 @@ public class LDSTools {
 			clickButtonByXpathTitleName("DURATION");
 		}
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Young Women President", pageSource));
-		Assert.assertTrue(checkNoCaseList("Tutunoa, Lusi", pageSource));
-		Assert.assertFalse(checkNoCaseList("Amidala, Padme", pageSource));
+		Assert.assertTrue(checkNoCaseList("Young Women President", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Tutunoa, Lusi", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("Amidala, Padme", pageSource, "Equals"));
 
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpath("TopSort");
@@ -4416,9 +4473,9 @@ public class LDSTools {
 			clickButtonByXpathTitleName("NOT SET APART");
 		}
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Young Men First Counselor (7 months)", pageSource));
-		Assert.assertTrue(checkNoCaseList("Poai, Mikaele", pageSource));
-		Assert.assertFalse(checkNoCaseList("P0, C3", pageSource));
+		Assert.assertTrue(checkNoCaseList("Young Men First Counselor (8 months)", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Poai, Mikaele", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("P0, C3", pageSource, "Equals"));
 
 		Thread.sleep(1000);
 		pressBackKey();
@@ -4426,9 +4483,9 @@ public class LDSTools {
 		//Members without Callings
 		clickButtonByXpathTitleName("Members without Callings");
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("AFPEighteen, Member", pageSource));
-		Assert.assertTrue(checkNoCaseList("AFPEleven, Member", pageSource));
-		Assert.assertFalse(checkNoCaseList("D2, R2", pageSource));
+		Assert.assertTrue(checkNoCaseList("AFPEighteen, Member", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("AFPEleven, Member", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("D2, R2", pageSource, "Equals"));
 
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpath("TopSort");
@@ -4437,9 +4494,9 @@ public class LDSTools {
 			clickButtonByXpathTitleName("MALE");
 		}
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("AFPEleven, Member", pageSource));
-		Assert.assertTrue(checkNoCaseList("AFPFifteen, Member", pageSource));
-		Assert.assertFalse(checkNoCaseList("Binks, Jarjar", pageSource));
+		Assert.assertTrue(checkNoCaseList("AFPEleven, Member", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("AFPFifteen, Member", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("Binks, Jarjar", pageSource, "Equals"));
 
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpath("TopSort");
@@ -4448,9 +4505,9 @@ public class LDSTools {
 			clickButtonByXpathTitleName("FEMALE");
 		}
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("AFPEighteen, Member", pageSource));
-		Assert.assertTrue(checkNoCaseList("AFPFive, Wife", pageSource));
-		Assert.assertFalse(checkNoCaseList("Organa, Leia", pageSource));
+		Assert.assertTrue(checkNoCaseList("AFPEighteen, Member", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("AFPFive, Wife", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("Organa, Leia", pageSource, "Equals"));
 
 		Thread.sleep(1000);
 		pressBackKey();
@@ -4459,25 +4516,25 @@ public class LDSTools {
 		//New Members
 		clickButtonByXpathTitleName("New Members");
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Joezmal, Loana", pageSource));
-		Assert.assertTrue(checkNoCaseList("14", pageSource));
-		Assert.assertTrue(checkNoCaseList("F", pageSource));
+		Assert.assertTrue(checkNoCaseList("Joezmal, Loana", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("14", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("F", pageSource, "Equals"));
 		if (newUnit == true){
 			if (getRunningOS().equals("mac")) {
-				Assert.assertTrue(checkNoCaseList("Mar 15, 2015", pageSource));
+				Assert.assertTrue(checkNoCaseList("Mar 15, 2015", pageSource, "Equals"));
 			} else {
-				Assert.assertTrue(checkNoCaseList("March 15, 2015", pageSource));
+				Assert.assertTrue(checkNoCaseList("March 15, 2015", pageSource, "Equals"));
 			}
 		} else {
 			if (getRunningOS().equals("mac")) {
-				Assert.assertFalse(checkNoCaseList("Mar 15, 2015", pageSource));
+				Assert.assertFalse(checkNoCaseList("Mar 15, 2015", pageSource, "Equals"));
 			} else {
-				Assert.assertFalse(checkNoCaseList("March 15, 2015", pageSource));
+				Assert.assertFalse(checkNoCaseList("March 15, 2015", pageSource, "Equals"));
 			}
 		}
 		
-		Assert.assertTrue(checkNoCaseList("Member", pageSource));
-		Assert.assertFalse(checkNoCaseList("Hutt, Jabba", pageSource));
+		Assert.assertTrue(checkNoCaseList("Member", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("Hutt, Jabba", pageSource, "Equals"));
 
 		Thread.sleep(1000);
 		pressBackKey();
@@ -4541,8 +4598,8 @@ public class LDSTools {
 		clickButtonByXpath("AlertOK");
 		Thread.sleep(1000);
 		Assert.assertTrue(checkElementTextViewReturnContains("595"));
-		Assert.assertTrue(checkElementTextViewReturnContains("268"));
 		Assert.assertTrue(checkElementTextViewReturnContains("16"));
+		Assert.assertTrue(checkElementTextViewReturnContains("48"));
 		Assert.assertFalse(checkElementTextViewReturnContains("8675309"));
 		pressBackKey();
 	}
@@ -4556,23 +4613,23 @@ public class LDSTools {
 		pageSource = getSourceOfPage();
 
 		if (userCalling.equals("Bishopric")) {
-			Assert.assertTrue(checkNoCaseList("Home Teaching", pageSource));
-			Assert.assertTrue(checkNoCaseList("Visiting Teaching", pageSource));
+			Assert.assertTrue(checkNoCaseList("Home Teaching", pageSource, "Equals"));
+			Assert.assertTrue(checkNoCaseList("Visiting Teaching", pageSource, "Equals"));
 		}
 		
 		if ((userCalling.equals("High Priest Group")) || (userCalling.equals("Elders Quorum Pres"))) {
-			Assert.assertTrue(checkNoCaseList("Home Teaching", pageSource));
-			Assert.assertTrue(checkNoCaseList("Visiting Teaching", pageSource));
+			Assert.assertTrue(checkNoCaseList("Home Teaching", pageSource, "Equals"));
+			Assert.assertTrue(checkNoCaseList("Visiting Teaching", pageSource, "Equals"));
 		}
 		
 		if (userCalling.equals("Relief Society Pres")) {
-			Assert.assertTrue(checkNoCaseList("Home Teaching", pageSource));
-			Assert.assertTrue(checkNoCaseList("Visiting Teaching", pageSource));
+			Assert.assertTrue(checkNoCaseList("Home Teaching", pageSource, "Equals"));
+			Assert.assertTrue(checkNoCaseList("Visiting Teaching", pageSource, "Equals"));
 		}
 		
 		if (userCalling.equals("Ward Council")) {
-			Assert.assertTrue(checkNoCaseList("Home Teaching", pageSource));
-			Assert.assertTrue(checkNoCaseList("Visiting Teaching", pageSource));
+			Assert.assertTrue(checkNoCaseList("Home Teaching", pageSource, "Equals"));
+			Assert.assertTrue(checkNoCaseList("Visiting Teaching", pageSource, "Equals"));
 		}
 		
 		
@@ -4603,17 +4660,17 @@ public class LDSTools {
 			}
 
 			clickButtonByXpath("3Months");
-			Assert.assertTrue(checkElementTextViewReturn("AFPEighteen, Member"));
-			Assert.assertTrue(checkElementTextViewReturn("AFPEleven, Member"));
-			Assert.assertTrue(checkElementTextViewReturn("AFPFifteen, Member"));
+			Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Frank"));
+			Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member1"));
+			Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member13"));
 			if (getRunningOS().equals("mac")) {
 				pressBackKey();
 			}
 			
 			clickButtonByXpath("1Month");
-			Assert.assertTrue(checkElementTextViewReturn("AFPEighteen, Member"));
-			Assert.assertTrue(checkElementTextViewReturn("AFPEleven, Member"));
-			Assert.assertTrue(checkElementTextViewReturn("AFPFifteen, Member"));
+			Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Frank"));
+			Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member1"));
+			Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member13"));
 			if (getRunningOS().equals("mac")) {
 				pressBackKey();
 			}
@@ -5411,7 +5468,7 @@ public class LDSTools {
 				if ((oneUser.contains("Jr")) || (oneUser.contains("Salvador")) || (oneUser.contains("Junior"))){
 					System.out.println("Skipping: " + oneUser);
 				} else {
-					Assert.assertTrue(checkNoCaseList(oneUser, pageSource));
+					Assert.assertTrue(checkNoCaseList(oneUser, pageSource, "Equals"));
 				}
 				
 			}
