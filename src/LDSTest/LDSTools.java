@@ -218,9 +218,9 @@ public class LDSTools {
 
 		//LeaderNonBishopric("LDSTools17", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		bishopricCounselorAndWardClerk(os);
+		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
-		//editCurrentUser(os);	
+		editCurrentUser(os);	
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		
@@ -662,29 +662,30 @@ public class LDSTools {
 		
 		//Search for logged in user
 		searchForUser("Tools, LDS2");
+		clickButtonByXpathTitleName("LDS2 Tools");
 		
 		pageSource = getSourceOfPage();	
 		//Check the users name, address membership number etc...
 		Assert.assertTrue(checkNoCaseList("Tools, LDS2", pageSource, "Equals"));
 		//clickButtonByXpathTitleName("Show Record Number");
-		Assert.assertTrue(checkNoCaseList("MEMBERSHIP INFORMATION", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("888-0028-7023", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("RECORD NUMBER", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("MEMBERSHIP INFORMATION", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("888-0028-7023", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("RECORD NUMBER", pageSource, "Contains"));
 		if (getRunningOS().equals("mac")){
-			Assert.assertTrue(checkNoCaseList("Jan 1, 1980 (35)", pageSource, "Equals"));
+			Assert.assertTrue(checkNoCaseList("Jan 1, 1980(36)", pageSource, "Contains"));
 		} else {
-			Assert.assertTrue(checkNoCaseList("January 1, 1980 (35)", pageSource, "Equals"));
+			Assert.assertTrue(checkNoCaseList("January 1, 1980 (36)", pageSource, "Contains"));
 		}
-		Assert.assertTrue(checkNoCaseList("BIRTH DATE", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("BIRTH DATE", pageSource, "Contains"));
 		
 		//Check Ordinances
-		clickButtonByXpathTitleName("Ordinances");
+		//clickButtonByXpathTitleName("Ordinances");
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Baptism", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("May 5, 2005", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("Confirmation", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("May 5, 2005", pageSource, "Equals"));
-		pressBackKey();
+		Assert.assertTrue(checkNoCaseList("Baptism", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("May 5, 2005", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Confirmation", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("May 5, 2005", pageSource, "Contains"));
+		//pressBackKey();
 		
 
 		/* Not sure why this isn't working. 
@@ -699,7 +700,9 @@ public class LDSTools {
 		Assert.assertTrue(checkElementTextViewReturn("United States"));
 		pressBackKey();
 		*/
-		
+		if (getRunningOS().equals("mac")) {
+			pressBackKey();
+		}
 		pressBackKey();
 		//Collapse the search 
 		Thread.sleep(1000);
@@ -1278,7 +1281,7 @@ public class LDSTools {
 		
 		
 		//Check the users name, address membership number etc...
-		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS44"));
+		//Assert.assertTrue(checkElementTextViewReturn("Tools, LDS44"));
 		Thread.sleep(2000);
 		clickButtonByXpath("MenuEdit");
 		Thread.sleep(2000);
@@ -1303,36 +1306,33 @@ public class LDSTools {
 		Thread.sleep(3000);
 		
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("1(801)240-0104", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("(801) 867-5309", pageSource, "Equals"));	
-		Assert.assertTrue(checkNoCaseList("personal@nospam.com", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("home@nospam.com", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("1(801)240-0104", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("(801) 867-5309", pageSource, "Contains"));	
+		Assert.assertTrue(checkNoCaseList("personal@nospam.com", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("home@nospam.com", pageSource, "Contains"));
 		
 		pressBackKey();
 		Thread.sleep(2000);
 		//Collapse the search 
 		clickButtonByXpath("SearchCollapse");
 		
-		clickButtonByXpath("Drawer");
-		clickButtonByXpath("DrawerSYNC");
-		clickButtonByXpath("AlertOK");
+		runSync();
 		
-		Thread.sleep(4000);
-		waitForTextToDisappear("SyncText", 500 );
-		Thread.sleep(2000);
+		
 		
 		//Search for logged in user
 		searchForUser("Tools, LDS44");
+		clickButtonByXpathTitleName("LDS44 Tools");
 		
 		//Check the users name, address membership number etc...
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Tools, LDS44", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("1(801)240-0104", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("(801) 867-5309", pageSource, "Equals"));	
-		Assert.assertTrue(checkNoCaseList("personal@nospam.com", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("home@nospam.com", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("LDS44 Tools", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("1(801)240-0104", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("(801) 867-5309", pageSource, "Contains"));	
+		Assert.assertTrue(checkNoCaseList("personal@nospam.com", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("home@nospam.com", pageSource, "Contains"));
 		
-		Thread.sleep(1000);
+		Thread.sleep(2000);
 		clickButtonByXpath("MenuEdit");
 		Thread.sleep(1000);
 		
@@ -1343,12 +1343,22 @@ public class LDSTools {
 
 		clickButtonByXpath("MenuSave");
 		
+		pressBackKey();
+		pressBackKey();
+		Thread.sleep(2000);
+		//Collapse the search 
+		clickButtonByXpath("SearchCollapse");
+		
+		//Search for logged in user
+		searchForUser("Tools, LDS44");
+		clickButtonByXpathTitleName("LDS44 Tools");
+		
 		Thread.sleep(3000);
 		pageSource = getSourceOfPage();
-		Assert.assertFalse(checkNoCaseList("1(801)240-0104", pageSource, "Equals"));
-		Assert.assertFalse(checkNoCaseList("(801) 867-5309", pageSource, "Equals"));	
-		Assert.assertFalse(checkNoCaseList("personal@nospam.com", pageSource, "Equals"));
-		Assert.assertFalse(checkNoCaseList("home@nospam.com", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("1(801)240-0104", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("(801) 867-5309", pageSource, "Contains"));	
+		Assert.assertFalse(checkNoCaseList("personal@nospam.com", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("home@nospam.com", pageSource, "Contains"));
 	}
 	
 	@Parameters({"os"})
@@ -4076,7 +4086,7 @@ public class LDSTools {
 			//Assert.assertTrue(checkElementTextViewReturn("November 11, 1970"));
 			//Assert.assertTrue(checkElementTextViewReturn("Confirmation"));
 			//Assert.assertTrue(checkElementTextViewReturn("November 11, 1970"));
-			pressBackKey();
+			//pressBackKey();
 		} else {
 			Assert.assertFalse(checkNoCaseList("Ordinances", pageSource, "Contains"));
 			//Assert.assertFalse(checkElementTextViewReturn("Ordinances"));
@@ -4084,7 +4094,7 @@ public class LDSTools {
 		
 
 		
-		//TODO: Remove when ohter information is fixed
+		//TODO: Remove when other information is fixed
 		/*
 		//Check Other Information
 		if (otherInfo == true ) {
@@ -4563,7 +4573,7 @@ public class LDSTools {
 			} else {
 				clickButtonByXpathTitleName("EXPIRING");
 			}
-			Assert.assertTrue(checkElementTextViewReturn("Sitivi, Tama Kiliona"));
+			Assert.assertFalse(checkElementTextViewReturn("Sitivi, Tama Kiliona"));
 			Assert.assertFalse(checkElementTextViewReturn("Windu, Mace"));
 			
 			
@@ -5574,13 +5584,39 @@ public class LDSTools {
 		}
 	}
 	
+	private void runSync() throws Exception {
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpath("DrawerMore");
+			clickButtonByXpath("DrawerUpdate");
+			
+			//This will probably change
+			Thread.sleep(1000);
+			//clickButtonByXpath("SignInButton");
+			driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[3]/UIAStaticText[1]")).click();
+			Thread.sleep(4000);
+			waitForTextToDisappear("SyncText", 500 );
+			//Thread.sleep(2000);
+			//pinPage("1", "1", "3", "3", true);
+			
+		} else {
+			clickButtonByXpath("Drawer");
+			clickButtonByXpath("DrawerSYNC");
+			clickButtonByXpath("AlertOK");
+		}
+
+		
+		Thread.sleep(4000);
+		waitForTextToDisappear("SyncText", 500 );
+		Thread.sleep(2000);
+	}
+	
 	
 	
 	
 
 	@AfterMethod(alwaysRun = true)
 	public void teardown() throws Exception {
-		/*
+		
 		File screenshotFile = driver.getScreenshotAs(OutputType.FILE);
 		try {
 			//FileUtils.copyFile(screenshotFile,new File("/Users/zmaxfield/Selenium/Screenshot/lastErrorScreenshot.png"));
@@ -5589,7 +5625,7 @@ public class LDSTools {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		*/
+		
 		driver.quit();
 		Thread.sleep(5000);
 		
