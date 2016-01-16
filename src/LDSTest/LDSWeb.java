@@ -322,6 +322,14 @@ public class LDSWeb {
 		//clickElement(subReport, "linkText");
 		//Thread.sleep(4000);
 		waitForTextToDisappear("Loading", 500 );
+		
+		if (subReport.contains("Member")) {
+			clickElement("Members", "text");
+		} else {
+			clickElement("All Organizations", "text");
+		}
+		
+
 		mySource = getSourceOfElement(subReport);
 		//mySource = getSourceOfPage();
 		foundUsers = getMembers(mySource);
