@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Smoke Test suite">
+  <test verbose="2" name="Smoke test">
+      <parameter name="os" value="android" />
+      <parameter name="fileName" value="ldstools-release-20151102-1936.apk" />
+      <parameter name="testDevice" value="350eba3c" />
+      <groups>
+          <run>
+              <include name="header"/>
+          </run>
+      </groups>
+      
+      <listeners>
+          <listener class-name= "LDSTest.CustomReporter" />
+      </listeners>
+      
+      <classes>
+          <class name="LDSTest.LDSTools"/>
+          <class name="LDSTest.LDSTools$AppiumSwipeableDriver"/>
+          <class name="LDSTest.LDSTools$Retry"/>      
+      </classes>
+      
+  </test> <!-- Default test -->
+</suite> <!-- Default suite -->
