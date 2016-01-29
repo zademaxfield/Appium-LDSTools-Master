@@ -40,6 +40,7 @@ import java.util.Properties;
 
 
 
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.SwipeElementDirection;
@@ -53,6 +54,7 @@ import io.appium.java_client.ios.IOSElement;
 //import io.selendroid.SelendroidDriver;
 import io.selendroid.SelendroidKeys;
 //import io.selendroid.exceptions.NoSuchElementException;
+
 
 
 
@@ -98,6 +100,7 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteTouchScreen;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.RemoteWebElement;
 //import org.openqa.selenium.remote.CapabilityType;
 //import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -223,12 +226,12 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		LeaderNonBishopric("LDSTools37", "Ward Council", os);
+		//LeaderNonBishopric("LDSTools17", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
-		//editCurrentUser(os);	
+		editCurrentUser(os);	
 		
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
@@ -580,7 +583,8 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("LDS6 Tools");
 			pageSource = getSourceOfPage();
-			Assert.assertTrue(checkNoCaseList("LDS6 Tools", pageSource, "Equals"));
+			Assert.assertTrue(checkNoCaseList("Tools", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("LDS6", pageSource, "Contains"));
 		} else {
 			clickButtonByXpathTitleName("Tools, LDS6");
 			pageSource = androidGetMemberInfo();
@@ -1357,11 +1361,21 @@ public class LDSTools {
 		
 		//Search for logged in user
 		searchForUser("Tools, LDS44");
-		clickButtonByXpathTitleName("LDS44 Tools");
+		//clickButtonByXpathTitleName("LDS44 Tools");
+		
+		if (getRunningOS().equals("mac")) {
+			iosExpandAllDirectory();
+			pageSource = getSourceOfPage();
+			Assert.assertTrue(checkNoCaseList("LDS44 Tools", pageSource, "Contains"));
+		} else {
+			pageSource = androidGetMemberInfo();
+			Assert.assertTrue(checkNoCaseList("Tools, LDS44", pageSource, "Contains"));
+		}
+		
+		
+		
 		
 		//Check the users name, address membership number etc...
-		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("LDS44 Tools", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("1(801)240-0104", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("(801) 867-5309", pageSource, "Contains"));	
 		Assert.assertTrue(checkNoCaseList("personal@nospam.com", pageSource, "Contains"));
@@ -1386,10 +1400,18 @@ public class LDSTools {
 		
 		//Search for logged in user
 		searchForUser("Tools, LDS44");
-		clickButtonByXpathTitleName("LDS44 Tools");
+		//clickButtonByXpathTitleName("LDS44 Tools");
+		
+		if (getRunningOS().equals("mac")) {
+			iosExpandAllDirectory();
+			pageSource = getSourceOfPage();
+			Assert.assertTrue(checkNoCaseList("LDS44 Tools", pageSource, "Contains"));
+		} else {
+			pageSource = androidGetMemberInfo();
+			Assert.assertTrue(checkNoCaseList("Tools, LDS44", pageSource, "Contains"));
+		}
 		
 		Thread.sleep(3000);
-		pageSource = getSourceOfPage();
 		Assert.assertFalse(checkNoCaseList("1(801)240-0104", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("(801) 867-5309", pageSource, "Contains"));	
 		Assert.assertFalse(checkNoCaseList("personal@nospam.com", pageSource, "Contains"));
@@ -1411,7 +1433,6 @@ public class LDSTools {
 		
 		
 		//Check the users name, address membership number etc...
-		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS44"));
 		Thread.sleep(2000);
 		clickButtonByXpath("MenuEdit");
 		Thread.sleep(2000);
@@ -1437,8 +1458,15 @@ public class LDSTools {
 		checkForAlertOK();
 		
 		Thread.sleep(3000);
-		
-		pageSource = getSourceOfPage();
+
+		if (getRunningOS().equals("mac")) {
+			iosExpandAllDirectory();
+			pageSource = getSourceOfPage();
+			Assert.assertTrue(checkNoCaseList("LDS44 Tools", pageSource, "Contains"));
+		} else {
+			pageSource = androidGetMemberInfo();
+			Assert.assertTrue(checkNoCaseList("Tools, LDS44", pageSource, "Contains"));
+		}
 		Assert.assertFalse(checkNoCaseList("1(801)240-0104", pageSource, "Equals"));
 		Assert.assertFalse(checkNoCaseList("(801) 867-5309", pageSource, "Equals"));	
 		Assert.assertFalse(checkNoCaseList("personal@nospam.com", pageSource, "Equals"));
@@ -1467,7 +1495,7 @@ public class LDSTools {
 		
 		
 		//Check the users name, address membership number etc...
-		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS41"));
+		//Assert.assertTrue(checkElementTextViewReturn("Tools, LDS41"));
 		
 		Thread.sleep(1000);
 		clickButtonByXpath("MenuEdit");
@@ -2249,7 +2277,7 @@ public class LDSTools {
 	
 	@Parameters({"os"})
 	@Test (groups= {"header"}, priority = 3)
-	public void ChristieWhiting() throws Exception {
+	public void ChristieWhiting(String os) throws Exception {
 		loginProxyData("3446450099",
 				"/7u189715/5u511293/",
 				"p1175/1151u1000047/:p143/7u189715/5u511293/",
@@ -3663,12 +3691,43 @@ public class LDSTools {
 	
 	
 	private void scrollDownIOS() throws Exception {
-		   JavascriptExecutor js = (JavascriptExecutor) driver;
-           HashMap<String, String> scrollObject = new HashMap<String, String>();
-           scrollObject.put("direction", "down");
-           js.executeScript("mobile: scroll", scrollObject);
+	   JavascriptExecutor js = (JavascriptExecutor) driver;
+	   HashMap<String, String> scrollObject = new HashMap<String, String>();
+	   scrollObject.put("direction", "down");
+	   js.executeScript("mobile: scroll", scrollObject);
            
 	}
+	
+	private void scrollToElementIOS(String myText) throws Exception {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		WebElement element = driver.findElement(By.xpath("//*[@name='" + myText + "']"));;
+		HashMap<String, String> scrollToObject = new HashMap<String, String>();
+		scrollToObject.put("element",((RemoteWebElement) element).getId());
+		js.executeScript("mobile: scrollTo", scrollToObject);
+
+	}
+	
+	private void scrollUpIOS() throws Exception {
+		   JavascriptExecutor js = (JavascriptExecutor) driver;
+		   HashMap<String, String> scrollObject = new HashMap<String, String>();
+		   scrollObject.put("direction", "up");
+		   js.executeScript("mobile: scroll", scrollObject);
+	           
+		}
+	
+	private void scrollToTopDirectoryIOS() throws Exception {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		WebElement element = driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[1]/UIAStaticText[3]"));;
+		HashMap<String, String> scrollToObject = new HashMap<String, String>();
+		scrollToObject.put("element",((RemoteWebElement) element).getId());
+		js.executeScript("mobile: scrollTo", scrollToObject);
+
+	}
+	
+	
+	
+	
+	
 	
 	private void scrollDownPerPage(int scrollDistance ) throws Exception {
 		TouchActions actions = new TouchActions(driver);
@@ -4148,9 +4207,14 @@ public class LDSTools {
 		//Leadership Should be able to see this information
 		//Membership Information
 		if (memberShipInfo == true ) {
-			Assert.assertTrue(checkNoCaseList("MEMBERSHIP INFORMATION", pageSource, "Equals"));
+			Assert.assertTrue(checkNoCaseList("MEMBERSHIP INFORMATION", pageSource, "Contains"));
 		} else {
-			Assert.assertFalse(checkNoCaseList("MEMBERSHIP INFORMATION", pageSource, "Equals"));
+			if (getRunningOS().equals("mac")) {
+				Assert.assertTrue(checkNoCaseList("MEMBERSHIP INFORMATION", pageSource, "Contains"));
+			}else {
+				Assert.assertFalse(checkNoCaseList("MEMBERSHIP INFORMATION", pageSource, "Contains"));
+			}
+			
 		}
 		
 		//Full Name
@@ -4207,7 +4271,7 @@ public class LDSTools {
 			}
 
 		} else {
-			Assert.assertTrue(checkNoCaseList("Ordinances", pageSource, "Contains"));
+			Assert.assertFalse(checkNoCaseList("Ordinances", pageSource, "Contains"));
 			Assert.assertFalse(checkNoCaseList("Baptism", pageSource, "Contains"));
 			Assert.assertFalse(checkNoCaseList("Confirmation", pageSource, "Contains"));
 			if (getRunningOS().equals("mac")) {
@@ -4245,9 +4309,9 @@ public class LDSTools {
 		pressBackKey();
 		pressBackKey();
 		
-		if (getRunningOS().equals("mac")) {
+		//if (getRunningOS().equals("mac")) {
 			clickButtonByXpath("SearchCollapse");
-		}
+		//}
 
 		
 		
@@ -4263,7 +4327,7 @@ public class LDSTools {
 	private void checkDrawerItems (boolean leader) throws Exception {
 		if (getRunningOS().equals("mac")){
 			Assert.assertTrue(checkElementNameReturn("Directory"));
-			Assert.assertTrue(checkElementNameReturn("Calendar"));
+			Assert.assertTrue(checkElementNameReturn("Calendars"));
 			
 			if (leader == true) {
 				Assert.assertTrue(checkElementNameReturn("Reports"));
@@ -4369,6 +4433,7 @@ public class LDSTools {
 		
 		//Relief Society
 		clickButtonByXpathTitleName("Relief Society");
+		Thread.sleep(1000);
 		clickButtonByXpathTitleName("Relief Society Presidency");
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
@@ -4475,6 +4540,7 @@ public class LDSTools {
 		
 		//Other Callings
 		clickButtonByXpathTitleName("Other Callings");
+		Thread.sleep(1000);
 		clickButtonByXpathTitleName("Young Single Adult");
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
@@ -4583,7 +4649,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Ami, Christian", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Beehive President (8 months)", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Beehive President (9 months)", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Skywalker, Anakin", pageSource, "Equals"));
 	
 		
@@ -4597,7 +4663,7 @@ public class LDSTools {
 		//Assert.assertTrue(checkNoCaseList("Ward Clerk", pageSource, "Equals"));
 		//Assert.assertTrue(checkNoCaseList("Kitara, Lafaele (3 months)", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("Bishop", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Ami, Samu (2 years, 3 months)", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Ami, Samu (2 years, 4 months)", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Kenobi, Obi-Wan", pageSource, "Equals"));
 
 		if (getRunningOS().equals("mac")) {
@@ -4618,7 +4684,7 @@ public class LDSTools {
 			clickButtonByXpathTitleName("NOT SET APART");
 		}
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Young Men First Counselor (8 months)", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Young Men First Counselor (9 months)", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Poai, Mikaele", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("P0, C3", pageSource, "Contains"));
 
@@ -4831,9 +4897,9 @@ public class LDSTools {
 			clickButtonByXpathTitleName("Potential Home Teachers");
 			Thread.sleep(2000);
 			if (getRunningOS().equals("mac")) {
-				Assert.assertTrue(checkElementTextViewReturn("Galuvao, Faafetai"));
-				Assert.assertTrue(checkElementTextViewReturn("Faapili, Muipu"));
-				Assert.assertTrue(checkElementTextViewReturn("Faamoetauloa, Ennie"));
+				Assert.assertTrue(checkElementTextViewReturnContains("Galuvao, Faafetai"));
+				Assert.assertTrue(checkElementTextViewReturnContains("Faapili, Muipu"));
+				Assert.assertTrue(checkElementTextViewReturnContains("Faamoetauloa, Ennie"));
 			} else {
 				Assert.assertTrue(checkElementTextViewReturn("Galuvao, Faafetai (60)"));
 				Assert.assertTrue(checkElementTextViewReturn("Faapili, Muipu (33)"));
@@ -4889,9 +4955,9 @@ public class LDSTools {
 			clickLastTextViewRoboReturnContains("Potential Home Teachers");
 			Thread.sleep(2000);
 			if (getRunningOS().equals("mac")) {
-				Assert.assertTrue(checkElementTextViewReturn("AFPTen, Husband"));
-				Assert.assertTrue(checkElementTextViewReturn("Ami, Samu Junior"));
-				Assert.assertTrue(checkElementTextViewReturn("Endemann, Eddie"));
+				Assert.assertTrue(checkElementTextViewReturnContains("AFPTen, Husband"));
+				Assert.assertTrue(checkElementTextViewReturnContains("Ami, Samu Junior"));
+				Assert.assertTrue(checkElementTextViewReturnContains("Endemann, Eddie"));
 			} else {
 				Assert.assertTrue(checkElementTextViewReturn("AFPTen, Husband (55)"));
 				Assert.assertTrue(checkElementTextViewReturn("Ami, Samu Junior (22)"));
@@ -4954,9 +5020,9 @@ public class LDSTools {
 			clickButtonByXpathTitleName("Potential Visiting Teachers");
 			Thread.sleep(2000);
 			if (getRunningOS().equals("mac")) {
-				Assert.assertTrue(checkElementTextViewReturn("AFPEighteen, Member"));
-				Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member16"));
-				Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member12"));
+				Assert.assertTrue(checkElementTextViewReturnContains("AFPEighteen, Member"));
+				Assert.assertTrue(checkElementTextViewReturnContains("AFPMisc, Member16"));
+				Assert.assertTrue(checkElementTextViewReturnContains("AFPMisc, Member12"));
 			} else {
 				Assert.assertTrue(checkElementTextViewReturn("AFPEighteen, Member (55)"));
 				Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member16 (55)"));
@@ -5736,7 +5802,10 @@ public class LDSTools {
 			
 		} else {
 			clickButtonByXpath("Drawer");
-			clickButtonByXpath("DrawerSYNC");
+			scrollDown("Sync", -5 );
+			//Thread.sleep(4000);
+			//clickButtonByXpath("DrawerSYNC");
+			Thread.sleep(4000);
 			clickButtonByXpath("AlertOK");
 		}
 
@@ -5783,19 +5852,30 @@ public class LDSTools {
 			myPageSource = myPageSource + getSourceOfPage();
 		}
 		
+		clickButtonByXpath("TabContact");
 		return myPageSource;
 	}
 	
 	
 	private void iosExpandAllDirectory() throws Exception {
-		scrollDownIOS();
+		//scrollDownIOS();
+		//Thread.sleep(1000);
+		
 		boolean checkArrowDown;
 		checkArrowDown = checkElementTextViewRoboReturn("\u25BC");
+		if (checkArrowDown == true ) {
+			scrollToElementIOS("\u25BC");
+		}
 		
 		while(checkArrowDown == true ) {
 			clickButtonByNameScroll("\u25BC");
-			scrollDownIOS();
+			//scrollToTopDirectoryIOS();
+			//scrollDownIOS();
 			checkArrowDown = checkElementTextViewRoboReturn("\u25BC");
+			if (checkArrowDown == true ) {
+				scrollToElementIOS("\u25BC");
+				Thread.sleep(1000);
+			}
 		}
 		
 	}
