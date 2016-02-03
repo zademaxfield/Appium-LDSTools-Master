@@ -226,9 +226,9 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		//LeaderNonBishopric("LDSTools17", "High Priest Group", os);
+		LeaderNonBishopric("LDSTools17", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		bishopricCounselorAndWardClerk(os);
+		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -688,7 +688,7 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("LDS2 Tools");
 			pageSource = getSourceOfPage();
-			Assert.assertTrue(checkNoCaseList("LDS2 Tools", pageSource, "Equals"));
+			Assert.assertTrue(checkNoCaseList("Tools, LDS2", pageSource, "Equals"));
 		} else {
 			clickButtonByXpathTitleName("Tools, LDS2");
 			pageSource = androidGetMemberInfo();
@@ -710,7 +710,7 @@ public class LDSTools {
 		
 		//Check Ordinances
 		//clickButtonByXpathTitleName("Ordinances");
-		pageSource = getSourceOfPage();
+		//pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Baptism", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("May 5, 2005", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Confirmation", pageSource, "Contains"));
@@ -3810,6 +3810,15 @@ public class LDSTools {
 	}
 	
 	
+	private void scrollUpFromElement( String textElement, int scrollDistance ) throws Exception {
+		TouchActions actions = new TouchActions(driver);
+		WebElement myElement = driver.findElement(By.xpath(this.prop.getProperty(textElement)));
+		//actions.flick(myElement, 0, scrollDistance, 100);
+		actions.scroll(myElement, 0, scrollDistance);
+		actions.perform();
+	}
+	
+	
 	
 	
 	/** longPressByXpath(String textElement)
@@ -4366,6 +4375,9 @@ public class LDSTools {
 		} else {
 			//Check the Drawer items
 			clickButtonByXpath("Drawer");
+			if (checkElementTextViewReturn("Later") == true ) {
+				clickButtonByXpathTitleName("Later");
+			}
 			Assert.assertTrue(checkElementTextViewReturn("Directory"));
 			Assert.assertTrue(checkElementTextViewReturn("Organizations"));
 			Assert.assertTrue(checkElementTextViewReturn("Missionaries"));
@@ -4396,8 +4408,11 @@ public class LDSTools {
 		openOrgnizations();
 		
 		Thread.sleep(1000);
-		
-		pageSource = getSourceOfPage();
+		if (getRunningOS().equals("mac")) {
+			pageSource = getSourceOfPage();
+		}else {
+			pageSource = androidGetInfoScroll();
+		}
 		//System.out.println("Page Source: " + pageSource);
 				
 		Assert.assertTrue(checkNoCaseList("Bishopric", pageSource, "Equals"));
@@ -4552,7 +4567,13 @@ public class LDSTools {
 		
 
 		//Ward Missionaries
-		clickButtonByXpathTitleName("Ward Missionaries");
+		if (getRunningOS().equals("mac")){
+			clickButtonByXpathTitleName("Ward Missionaries");
+		} else {
+			scrollDownTEST(100);
+			clickButtonByXpathTitleName("Ward Missionaries");
+		}
+		
 		Thread.sleep(2000);
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Ward Mission Leader", pageSource, "Contains"));
@@ -4562,7 +4583,13 @@ public class LDSTools {
 		
 		//Other Callings
 		Thread.sleep(1000);
-		clickButtonByXpathTitleName("Other Callings");
+		if (getRunningOS().equals("mac")){
+			clickButtonByXpathTitleName("Other Callings");
+		} else {
+			scrollDownTEST(100);
+			clickButtonByXpathTitleName("Other Callings");
+		}
+		
 		Thread.sleep(1000);
 		clickButtonByXpathTitleName("Young Single Adult");
 		Thread.sleep(1000);
@@ -4843,7 +4870,7 @@ public class LDSTools {
 		//Thread.sleep(1000);
 		clickButtonByXpath("AlertOK");
 		Thread.sleep(1000);
-		Assert.assertTrue(checkElementTextViewReturnContains("604"));
+		Assert.assertTrue(checkElementTextViewReturnContains("603"));
 		Assert.assertTrue(checkElementTextViewReturnContains("17"));
 		Assert.assertTrue(checkElementTextViewReturnContains("49"));
 		Assert.assertFalse(checkElementTextViewReturnContains("8675309"));
@@ -5004,7 +5031,13 @@ public class LDSTools {
 		}
 		
 		if ((userCalling.equals("Relief Society Pres")) || (userCalling.equals("Bishopric"))) {
-			clickButtonByXpathTitleName("Visiting Teaching");
+			if (getRunningOS().equals("mac")) {
+				clickButtonByXpathTitleName("Visiting Teaching");
+			} else {
+				scrollDownTEST(100);
+				clickButtonByXpathTitleName("Visiting Teaching");
+			}
+			
 			Thread.sleep(2000);
 
 			//Visiting Teaching
@@ -5870,6 +5903,7 @@ public class LDSTools {
 		boolean myCheck;
 		
 		//Contact Tab
+		Thread.sleep(1000);
 		myPageSource = getSourceOfPage();
 		
 		clickButtonByXpath("TabHousehold");
@@ -5888,6 +5922,20 @@ public class LDSTools {
 		}
 		
 		clickButtonByXpath("TabContact");
+		return myPageSource;
+	}
+	
+	private String androidGetInfoScroll() throws Exception {
+		String myPageSource;
+		
+		//Contact Tab
+		Thread.sleep(1000);
+		myPageSource = getSourceOfPage();
+		scrollDownTEST(100);
+
+		myPageSource = myPageSource + getSourceOfPage();
+		
+		 scrollToTheTop();
 		return myPageSource;
 	}
 	
