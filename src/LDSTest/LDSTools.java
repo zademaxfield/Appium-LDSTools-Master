@@ -226,7 +226,7 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		LeaderNonBishopric("LDSTools17", "High Priest Group", os);
+		//LeaderNonBishopric("LDSTools17", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
@@ -236,7 +236,7 @@ public class LDSTools {
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		
-		//editOtherUserInvalidPhone(os);	
+		editOtherUserInvalidPhone(os);	
 		//editOtherUserInvalidEmail(os);	
 		
 		//editVisibility(os);	
@@ -1330,11 +1330,10 @@ public class LDSTools {
 		clearTextFieldXpath("EditHomeEmail");
 
 		clickButtonByXpath("MenuSave");
-		
-		
 		Thread.sleep(2000);
 		clickButtonByXpath("MenuEdit");
 		Thread.sleep(2000);
+
 		
 		sendTextbyXpath("EditPersonalPhone", "1(801)240-0104");
 		sendTextbyXpath("EditHomePhone", "(801) 867-5309");
@@ -1393,7 +1392,7 @@ public class LDSTools {
 		clickButtonByXpath("MenuSave");
 		
 		pressBackKey();
-		pressBackKey();
+		//pressBackKey();
 		Thread.sleep(2000);
 		//Collapse the search 
 		clickButtonByXpath("SearchCollapse");
@@ -1453,8 +1452,12 @@ public class LDSTools {
 		sendTextbyXpath("EditPersonalEmail", "personal@nospam.com");
 		sendTextbyXpath("EditHomeEmail", "home@nospam.com");
 		
-		//Need MenuCancel
-		clickButtonByXpath("MenuCancel");
+		if (getRunningOS().equals("mac")){
+			pressBackKey();
+		} else {
+			clickButtonByXpath("MenuCancel");
+		}
+		
 		checkForAlertOK();
 		
 		Thread.sleep(3000);
@@ -1521,37 +1524,43 @@ public class LDSTools {
 		
 		Thread.sleep(3000);
 		
-		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("1(801)240-0104", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("(801) 867-5309", pageSource, "Equals"));	
-		Assert.assertTrue(checkNoCaseList("personal@nospam.com", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("home@nospam.com", pageSource, "Equals"));
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("LDS41 Tools");
+			iosExpandAllDirectory();
+			pageSource = getSourceOfPage();
+		} else {
+			clickButtonByXpathTitleName("Tools, LDS41");
+			pageSource = androidGetMemberInfo();
+		}
+		Assert.assertTrue(checkNoCaseList("1(801)240-0104", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("(801) 867-5309", pageSource, "Contains"));	
+		Assert.assertTrue(checkNoCaseList("personal@nospam.com", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("home@nospam.com", pageSource, "Contains"));
 		Thread.sleep(1000);
 		pressBackKey();
 		Thread.sleep(1000);
+		pressBackKey();
 		//Collapse the search 
 		clickButtonByXpath("SearchCollapse");
 		
-		clickButtonByXpath("Drawer");
-		clickButtonByXpath("DrawerSYNC");
-		clickButtonByXpath("AlertOK");
-		
-		Thread.sleep(4000);
-		waitForTextToDisappear("SyncText", 500 );
-		
-		//This is just for testing
-		Thread.sleep(2000);
+		runSync();
 		
 		//Search for logged in user
 		searchForUser("Tools, LDS41");
 		
-		//Check the users name, address membership number etc...
-		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Tools, LDS41", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("1(801)240-0104", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("(801) 867-5309", pageSource, "Equals"));	
-		Assert.assertTrue(checkNoCaseList("personal@nospam.com", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("home@nospam.com", pageSource, "Equals"));
+		if (getRunningOS().equals("mac")) {
+			iosExpandAllDirectory();
+			pageSource = getSourceOfPage();
+			Assert.assertTrue(checkNoCaseList("LDS41 Tools", pageSource, "Contains"));
+		} else {
+			pageSource = androidGetMemberInfo();
+			Assert.assertTrue(checkNoCaseList("Tools, LDS41", pageSource, "Contains"));
+		}
+		
+		Assert.assertTrue(checkNoCaseList("1(801)240-0104", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("(801) 867-5309", pageSource, "Contains"));	
+		Assert.assertTrue(checkNoCaseList("personal@nospam.com", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("home@nospam.com", pageSource, "Contains"));
 		
 		Thread.sleep(1000);
 		clickButtonByXpath("MenuEdit");
@@ -1566,11 +1575,19 @@ public class LDSTools {
 		
 		Thread.sleep(3000);
 		
-		pageSource = getSourceOfPage();
-		Assert.assertFalse(checkNoCaseList("1(801)240-0104", pageSource, "Equals"));
-		Assert.assertFalse(checkNoCaseList("(801) 867-5309", pageSource, "Equals"));	
-		Assert.assertFalse(checkNoCaseList("personal@nospam.com", pageSource, "Equals"));
-		Assert.assertFalse(checkNoCaseList("home@nospam.com", pageSource, "Equals"));
+		if (getRunningOS().equals("mac")) {
+			iosExpandAllDirectory();
+			pageSource = getSourceOfPage();
+			Assert.assertTrue(checkNoCaseList("LDS41 Tools", pageSource, "Contains"));
+		} else {
+			pageSource = androidGetMemberInfo();
+			Assert.assertTrue(checkNoCaseList("Tools, LDS41", pageSource, "Contains"));
+		}
+		
+		Assert.assertFalse(checkNoCaseList("1(801)240-0104", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("(801) 867-5309", pageSource, "Contains"));	
+		Assert.assertFalse(checkNoCaseList("personal@nospam.com", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("home@nospam.com", pageSource, "Contains"));
 				
 	}
 	
@@ -1588,8 +1605,15 @@ public class LDSTools {
 		
 		searchForUser("Tools, LDS41");
 		
-		//Check the users name, address membership number etc...
-		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS41"));
+		if (getRunningOS().equals("mac")) {
+			iosExpandAllDirectory();
+			pageSource = getSourceOfPage();
+			Assert.assertTrue(checkNoCaseList("LDS41 Tools", pageSource, "Contains"));
+		} else {
+			pageSource = androidGetMemberInfo();
+			Assert.assertTrue(checkNoCaseList("Tools, LDS41", pageSource, "Contains"));
+		}
+		
 		
 		Thread.sleep(1000);
 		clickButtonByXpath("MenuEdit");
@@ -1625,35 +1649,20 @@ public class LDSTools {
 		clickButtonByXpath("SearchCollapse");
 		Thread.sleep(1000);
 		
-		clickButtonByXpath("Drawer");
-		clickButtonByXpath("DrawerSYNC");
-		clickButtonByXpath("AlertOK");
-		
-		Thread.sleep(4000);
-		waitForTextToDisappear("SyncText", 500 );
-		Thread.sleep(2000);
+		runSync();
 		
 		//Search for logged in user
 		searchForUser("Tools, LDS41");
 		
-		//Not sure why this isn't showing up. 
-		//Check the users name, address membership number etc...
-		/*
-		Assert.assertTrue(checkElementTextViewReturn("######00000000000*****"));
-		Assert.assertTrue(checkElementTextViewReturn("878974131648413216421321165484789798461321314644444244624424524245244545644644856465784967465456464144134424342446244323644524452344623446542326342542"));	
-
+		if (getRunningOS().equals("mac")) {
+			iosExpandAllDirectory();
+			pageSource = getSourceOfPage();
+			Assert.assertTrue(checkNoCaseList("LDS41 Tools", pageSource, "Contains"));
+		} else {
+			pageSource = androidGetMemberInfo();
+			Assert.assertTrue(checkNoCaseList("Tools, LDS41", pageSource, "Contains"));
+		}
 		
-		clickButtonByXpath("MenuEdit");
-		
-		clearTextFieldXpath("EditPersonalPhone");
-		clearTextFieldXpath("EditHomePhone");
-
-
-		clickButtonByXpath("MenuSave");
-		
-		Thread.sleep(3000);
-		*/
-		pageSource = getSourceOfPage();
 		Assert.assertFalse(checkNoCaseList("######00000000000*****", pageSource, "Equals"));
 		Assert.assertFalse(checkNoCaseList("878974131648413216421321165484789798461321314644444244624424524245244545644644856465784967465456464144134424342446244323644524452344623446542326342542", pageSource, "Equals"));	
 
@@ -5715,7 +5724,7 @@ public class LDSTools {
 		}
 
 		sendTextbyXpath("SearchArea", userToSearch );
-		
+		clickButtonByXpath("SearchGo");
 		Thread.sleep(2000);
 		clickLastTextViewRoboReturn(userToSearch);
 		Thread.sleep(2000);
@@ -5862,7 +5871,8 @@ public class LDSTools {
 			//This will probably change
 			Thread.sleep(1000);
 			//clickButtonByXpath("SignInButton");
-			driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[3]/UIAStaticText[1]")).click();
+			driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[1]/UIAStaticText[@name='Sync Now']")).click();
+			//clickButtonByName("Sync Now");
 			Thread.sleep(4000);
 			waitForTextToDisappear("SyncText", 500 );
 			//Thread.sleep(2000);
@@ -5935,7 +5945,7 @@ public class LDSTools {
 
 		myPageSource = myPageSource + getSourceOfPage();
 		
-		 scrollToTheTop();
+		scrollToTheTop();
 		return myPageSource;
 	}
 	
