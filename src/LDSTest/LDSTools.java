@@ -221,7 +221,7 @@ public class LDSTools {
 		//invalidLoginCheck(os);	
 		
 		//checkAllUsersFromWeb(os);
-		searchForUsersFromWeb(os);
+		//searchForUsersFromWeb(os);
 		
 
 		//webCheckBishopric(os);
@@ -5906,14 +5906,17 @@ public class LDSTools {
 	@AfterMethod(alwaysRun = true)
 	public void teardown() throws Exception {
 		
-		File screenshotFile = driver.getScreenshotAs(OutputType.FILE);
-		try {
-			//FileUtils.copyFile(screenshotFile,new File("/Users/zmaxfield/Selenium/Screenshot/lastErrorScreenshot.png"));
-			FileUtils.copyFile(screenshotFile,new File("lastErrorScreenshot.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (getRunningOS().equals("mac")) {
+			File screenshotFile = driver.getScreenshotAs(OutputType.FILE);
+			try {
+				//FileUtils.copyFile(screenshotFile,new File("/Users/zmaxfield/Selenium/Screenshot/lastErrorScreenshot.png"));
+				FileUtils.copyFile(screenshotFile,new File("lastErrorScreenshot.png"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+
 		
 		driver.quit();
 		Thread.sleep(5000);
