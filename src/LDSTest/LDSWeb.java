@@ -200,14 +200,17 @@ public class LDSWeb {
 			}
 			//System.out.println("Outer HTML:" + outerHTML);
 		}
-		return foundUsers;
 		
-		/*
+		
+		
 		for(String oneUser : foundUsers){
 			System.out.println("Found User: " + oneUser);
 			
 		}
-		*/
+		
+		
+		return foundUsers;
+		
 	}
 	
 	
@@ -326,10 +329,10 @@ public class LDSWeb {
 		if (subReport.contains("Member")) {
 			clickElement("Members", "text");
 		} else {
-			clickElement("All Organizations", "text");
+			clickElement("All Organizations", "linkText");
 		}
 		
-
+		Thread.sleep(2000);
 		mySource = getSourceOfElement(subReport);
 		//mySource = getSourceOfPage();
 		foundUsers = getMembers(mySource);
