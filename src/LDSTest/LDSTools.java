@@ -200,7 +200,7 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		//LeaderNonBishopric("LDSTools17", "High Priest Group", os);
+		LeaderNonBishopric("LDSTools17", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
@@ -4618,7 +4618,7 @@ public class LDSTools {
 			clickButtonByXpath("TopSort");
 			clickButtonByName("Organization");
 		} else {
-			clickButtonByXpathTitleName("ORGANIZATION");
+			clickButtonByXpathTitleName("Organization");
 		}
 		pageSource = getSourceOfPage();
 		//Assert.assertTrue(checkNoCaseList("Ward Clerk", pageSource, "Equals"));
@@ -4631,7 +4631,7 @@ public class LDSTools {
 			clickButtonByXpath("TopSort");
 			clickButtonByName("Duration");
 		} else {
-			clickButtonByXpathTitleName("DURATION");
+			clickButtonByXpathTitleName("Duration");
 		}
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Young Women President", pageSource, "Contains"));
@@ -4642,7 +4642,7 @@ public class LDSTools {
 			clickButtonByXpath("TopSort");
 			clickButtonByName("Not Set Apart");
 		} else {
-			clickButtonByXpathTitleName("NOT SET APART");
+			clickButtonByXpathTitleName("Not Set Apart");
 		}
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Young Men First Counselor (9 months)", pageSource, "Contains"));
@@ -4663,7 +4663,7 @@ public class LDSTools {
 			clickButtonByXpath("TopSort");
 			clickButtonByName("Male");
 		} else {
-			clickButtonByXpathTitleName("MALE");
+			clickButtonByXpathTitleName("Male");
 		}
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("AFPEleven, Member", pageSource, "Contains"));
@@ -4674,7 +4674,7 @@ public class LDSTools {
 			clickButtonByXpath("TopSort");
 			clickButtonByName("Female");
 		} else {
-			clickButtonByXpathTitleName("FEMALE");
+			clickButtonByXpathTitleName("Female");
 		}
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("AFPEighteen, Member", pageSource, "Contains"));
@@ -4724,7 +4724,7 @@ public class LDSTools {
 				clickButtonByXpath("TopSort");
 				clickButtonByName("Active");
 			} else {
-				clickButtonByXpathTitleName("ACTIVE");
+				clickButtonByXpathTitleName("Active");
 			}
 			pageSource = getSourceOfPage();
 			Assert.assertTrue(checkNoCaseList("Ami, Samu", pageSource, "Contains"));
@@ -4781,7 +4781,7 @@ public class LDSTools {
 		//Thread.sleep(1000);
 		clickButtonByXpath("AlertOK");
 		Thread.sleep(1000);
-		Assert.assertTrue(checkElementTextViewReturnContains("603"));
+		Assert.assertTrue(checkElementTextViewReturnContains("602"));
 		Assert.assertTrue(checkElementTextViewReturnContains("17"));
 		Assert.assertTrue(checkElementTextViewReturnContains("49"));
 		Assert.assertFalse(checkElementTextViewReturnContains("8675309"));
@@ -5047,7 +5047,7 @@ public class LDSTools {
 
 			Assert.assertTrue(checkElementTextViewReturn("AFPEighteen, Member"));
 			Assert.assertTrue(checkElementTextViewReturn("AFPFifteen, Member"));
-			Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member16"));
+			Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member5"));
 			if (getRunningOS().equals("android")) {
 				clickButtonByXpath("HTVTRemoveFiltersButton");
 			}
@@ -5626,7 +5626,7 @@ public class LDSTools {
 		}
 
 		sendTextbyXpath("SearchArea", userToSearch );
-		clickButtonByXpath("SearchGo");
+		//clickButtonByXpath("SearchGo");
 		Thread.sleep(2000);
 		clickLastTextViewRoboReturn(userToSearch);
 		Thread.sleep(2000);
