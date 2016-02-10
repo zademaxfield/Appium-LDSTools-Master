@@ -200,7 +200,7 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
+		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
@@ -5003,9 +5003,9 @@ public class LDSTools {
 				Assert.assertTrue(checkElementTextViewReturnContains("AFPMisc, Member14"));
 				Assert.assertTrue(checkElementTextViewReturnContains("AFPMisc, Member12"));
 			} else {
-				Assert.assertTrue(checkElementTextViewReturn("AFPEighteen, Member (55)"));
-				Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member14 (55)"));
-				Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member12 (55)"));
+				Assert.assertTrue(checkElementTextViewReturnContains("AFPEighteen, Member"));
+				Assert.assertTrue(checkElementTextViewReturnContains("AFPMisc, Member14"));
+				Assert.assertTrue(checkElementTextViewReturnContains("AFPMisc, Member12"));
 			}
 
 			pressBackKey();
