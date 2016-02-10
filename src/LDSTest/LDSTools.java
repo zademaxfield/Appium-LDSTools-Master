@@ -200,7 +200,7 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		LeaderNonBishopric("LDSTools17", "High Priest Group", os);
+		LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
