@@ -5000,11 +5000,11 @@ public class LDSTools {
 			Thread.sleep(2000);
 			if (getRunningOS().equals("mac")) {
 				Assert.assertTrue(checkElementTextViewReturnContains("AFPEighteen, Member"));
-				Assert.assertTrue(checkElementTextViewReturnContains("AFPMisc, Member16"));
+				Assert.assertTrue(checkElementTextViewReturnContains("AFPMisc, Member14"));
 				Assert.assertTrue(checkElementTextViewReturnContains("AFPMisc, Member12"));
 			} else {
 				Assert.assertTrue(checkElementTextViewReturn("AFPEighteen, Member (55)"));
-				Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member16 (55)"));
+				Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member14 (55)"));
 				Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member12 (55)"));
 			}
 
