@@ -277,11 +277,17 @@ public class LDSTools {
 	
 	
 	public void justForTesting(String os) throws Exception {
-		String pageSource;
+		//String pageSource;
 		//Data from Web page
-		List<String> myList = new ArrayList<String>();
+		//List<String> myList = new ArrayList<String>();
 		
-		//Login to LDS Toos
+		LDSWeb myWeb = new LDSWeb();
+		myWeb.getMemberDetails("Aaron, Jane", "LDSTools2", "toolstester");
+		//myList = myWeb.getMemberDetails("Aaron, Jane", "LDSTools2", "toolstester");
+		
+		/*
+		
+		//Login to LDS Tools
 		syncLogIn("LDSTools2", "toolstester", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
 		Thread.sleep(2000);	
@@ -301,15 +307,14 @@ public class LDSTools {
 			Assert.assertTrue(checkNoCaseList("Aaron, Jane", pageSource, "Equals"));
 		}
 		
-		LDSWeb myWeb = new LDSWeb();
-		myList = myWeb.getMemberDetails("Aaron, Jane", "LDSTools2", "toolstester");
+
 		
 		
 		for(String oneUser : myList){
 			System.out.println("USER: " + oneUser);
 			Assert.assertTrue(checkNoCaseList(oneUser, pageSource, "Contains"));
 		}
-		
+		*/
 		
 		/*
 		//Data from Web page
@@ -716,11 +721,7 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("MEMBERSHIP INFORMATION", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("888-0028-7023", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("RECORD NUMBER", pageSource, "Contains"));
-		if (getRunningOS().equals("mac")){
-			Assert.assertTrue(checkNoCaseList("Jan 1, 1980 (36)", pageSource, "Contains"));
-		} else {
-			Assert.assertTrue(checkNoCaseList("January 1, 1980 (36)", pageSource, "Contains"));
-		}
+		Assert.assertTrue(checkNoCaseList("January 1, 1980 (36)", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("BIRTH DATE", pageSource, "Contains"));
 		
 		//Check Ordinances
@@ -4283,16 +4284,12 @@ public class LDSTools {
 			Assert.assertTrue(checkNoCaseList("Class Assignments", pageSource, "Contains"));
 			Assert.assertTrue(checkNoCaseList("Gospel Doctrine", pageSource, "Contains"));
 			Assert.assertTrue(checkNoCaseList("Relief Society", pageSource, "Contains"));
-			
-			
-			if (getRunningOS().equals("mac")) {
-				Assert.assertTrue(checkNoCaseList("Jan 17, 2016", pageSource, "Contains"));
-				Assert.assertTrue(checkNoCaseList("Organization - Set Apart", pageSource, "Contains"));
-			} else {
-				//Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Contains"));
-				Assert.assertTrue(checkNoCaseList("Sustained - January 17, 2016", pageSource, "Contains"));
-				Assert.assertTrue(checkNoCaseList("Set Apart", pageSource, "Contains"));
-			}
+
+			//Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("January 17, 2016", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("Sustained", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("Set Apart", pageSource, "Contains"));
+
 			
 		} else {
 			Assert.assertFalse(checkNoCaseList("AFPMisc, Member2", pageSource, "Equals"));
@@ -4305,15 +4302,11 @@ public class LDSTools {
 			Assert.assertFalse(checkNoCaseList("Gospel Doctrine", pageSource, "Contains"));
 			//Assert.assertFalse(checkNoCaseList("Relief Society", pageSource, "Contains"));
 			
+			//Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Contains"));
+			Assert.assertFalse(checkNoCaseList("January 17, 2016", pageSource, "Contains"));
+			Assert.assertFalse(checkNoCaseList("Sustained", pageSource, "Contains"));
+			Assert.assertFalse(checkNoCaseList("Set Apart", pageSource, "Contains"));
 			
-			if (getRunningOS().equals("mac")) {
-				Assert.assertFalse(checkNoCaseList("Jan 17, 2016", pageSource, "Contains"));
-				Assert.assertFalse(checkNoCaseList("Organization - Set Apart", pageSource, "Contains"));
-			} else {
-				//Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Contains"));
-				Assert.assertFalse(checkNoCaseList("Sustained - January 17, 2016", pageSource, "Contains"));
-				Assert.assertFalse(checkNoCaseList("Set Apart", pageSource, "Contains"));
-			}
 		}
 		
 		
@@ -4321,24 +4314,13 @@ public class LDSTools {
 		
 		//Birth Date
 		if (birthDate == true){
-			if (getRunningOS().equals("mac")) {
-				Assert.assertTrue(checkNoCaseList("Nov 11, 1960 (55)", pageSource, "Contains"));
-				Assert.assertTrue(checkNoCaseList("Birth Date", pageSource, "Contains"));
-			} else {
-				//Something strange is going on with the age sometimes it is showing up as 54
-				Assert.assertTrue(checkNoCaseList("November 11, 1960", pageSource, "Contains"));
-				Assert.assertTrue(checkNoCaseList("Birth Date", pageSource, "Contains"));
-			}
-
+			Assert.assertTrue(checkNoCaseList("November 11, 1960", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("Birth Date", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("(55)", pageSource, "Contains"));
 		} else {
-			if (getRunningOS().equals("mac")) {
-				Assert.assertFalse(checkNoCaseList("Nov 11, 1960(55)", pageSource, "Contains"));
-				Assert.assertFalse(checkNoCaseList("Birth Date", pageSource, "Contains"));
-			} else {
-				Assert.assertFalse(checkNoCaseList("November 11, 1960 (55)", pageSource, "Contains"));
-				Assert.assertFalse(checkNoCaseList("Birth Date", pageSource, "Contains"));
-			}
-
+			Assert.assertFalse(checkNoCaseList("November 11, 1960", pageSource, "Contains"));
+			Assert.assertFalse(checkNoCaseList("Birth Date", pageSource, "Contains"));
+			Assert.assertFalse(checkNoCaseList("(55)", pageSource, "Contains"));
 		}
 
 		
@@ -4355,22 +4337,13 @@ public class LDSTools {
 		if (ordinances == true ){
 			Assert.assertTrue(checkNoCaseList("Baptism", pageSource, "Contains"));
 			Assert.assertTrue(checkNoCaseList("Confirmation", pageSource, "Contains"));
-			if (getRunningOS().equals("mac")) {
-				Assert.assertTrue(checkNoCaseList("Nov 11, 1970", pageSource, "Contains"));
-			} else {
-				Assert.assertTrue(checkNoCaseList("November 11, 1970", pageSource, "Contains"));
-			}
+			Assert.assertTrue(checkNoCaseList("November 11, 1970", pageSource, "Contains"));
 
 		} else {
 			Assert.assertFalse(checkNoCaseList("Ordinances", pageSource, "Contains"));
 			Assert.assertFalse(checkNoCaseList("Baptism", pageSource, "Contains"));
 			Assert.assertFalse(checkNoCaseList("Confirmation", pageSource, "Contains"));
-			if (getRunningOS().equals("mac")) {
-				Assert.assertFalse(checkNoCaseList("Nov 11, 1970", pageSource, "Contains"));
-			} else {
-				Assert.assertFalse(checkNoCaseList("November 11, 1970", pageSource, "Contains"));
-			}
-
+			Assert.assertFalse(checkNoCaseList("November 11, 1970", pageSource, "Contains"));
 		}
 		
 
