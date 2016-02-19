@@ -77,6 +77,24 @@ public class LDSWeb {
 		driver.manage().window().maximize();
 	}
 	
+	public void openPageLogIn(String url, String userName, String passWord) throws Exception {
+		Thread.sleep(4000);
+		//openWebPage("https://uat.lds.org");
+		openWebPage(url);
+		
+		//openWebPage("https://www.lds.org");
+		Thread.sleep(2000);
+
+		driver.findElement(By.id(this.prop.getProperty("UserName"))).sendKeys(userName);
+		//Thread.sleep(1000);
+		driver.findElement(By.id(this.prop.getProperty("Password"))).sendKeys(passWord);
+		clickElement("SignIn", "id");
+		
+		Thread.sleep(4000);
+		clickElement("IAgreeCheck", "id");
+		clickElement("Agree and Continue", "text");
+	}
+	
 	public void clickElement( String elementName, String elementFind) {
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		WebElement myElement = null;
@@ -98,6 +116,36 @@ public class LDSWeb {
 		}
 		myElement.click();
 
+	}
+	
+	public void enterText( String elementName, String elementFind, String textToSend) {
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		WebElement myElement = null;
+
+		if (elementFind == "id") {
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.id(this.prop.getProperty(elementName))));
+		}
+		if (elementFind == "xpath") {
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(this.prop.getProperty(elementName))));
+		}
+		if (elementFind == "className") {
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.className(this.prop.getProperty(elementName))));
+		}
+		if (elementFind == "linkText") {
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.linkText(elementName)));
+		}
+		if (elementFind == "text") {
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(), '" + elementName + "')]")));
+		}
+		myElement.clear();
+		myElement.sendKeys(textToSend);
+
+	}
+	
+	public void clickSearchedUser(String userName) throws Exception {
+		clickElement(userName, "linkText");
+		Thread.sleep(1000);
+		clickElement("ViewMemberProfile", "xpath");
 	}
 	
 	public void removeAllCompanionships() throws Exception {
@@ -184,6 +232,16 @@ public class LDSWeb {
 		return myString;
 	}
 	
+	private String getSourceOfMember(String elementName) {
+		String myString;
+		WebElement myElement = null;
+		
+		myElement = driver.findElement(By.id(this.prop.getProperty(elementName)));
+		myString = myElement.getAttribute("innerHTML");
+
+		return myString;
+	}
+	
 	private List<String> getMembers(String pageSource){
 		List<String> foundUsers = new ArrayList<String>();
 		Document doc = Jsoup.parse(pageSource);
@@ -209,6 +267,24 @@ public class LDSWeb {
 		}
 		
 		
+		return foundUsers;
+		
+	}
+	
+	private List<String> getMemberInfo(String pageSource, List<String> foundUsers){
+		//List<String> foundUsers = new ArrayList<String>();
+		Document doc = Jsoup.parse(pageSource);
+		Elements myTest = doc.getElementsByAttributeValueEnding("class", "ng-binding");
+		String outerHTML;
+		
+		for (Element myElement : myTest ) {
+			outerHTML = myElement.text();
+			if (outerHTML != null && !outerHTML.isEmpty()) {
+				foundUsers.add(outerHTML);
+				System.out.println("Outer HTML:" + outerHTML);
+			}	
+		}
+
 		return foundUsers;
 		
 	}
@@ -375,6 +451,61 @@ public class LDSWeb {
 		waitForTextToDisappear("Loading", 500 );
 		mySource = getSourceOfPage();
 		foundUsers = getNameAndAge(mySource);
+		
+		tearDown();
+		
+		return foundUsers;
+		
+	}
+	
+	public List<String> getMemberDetails(String memberDetail, String userName, String passWord) throws Exception {
+		openGuiMap();
+		setUp();
+		
+		String mySource;
+		String url = "https://uat.lds.org/mls/mbr/?lang=eng";
+		List<String> foundUsers = new ArrayList<String>();
+		
+		openPageLogIn(url, userName, passWord);
+		
+		//Browse to the Membership page
+		clickElement("Membership", "linkText");
+		Thread.sleep(4000);
+		clickElement("Member List", "linkText");
+		Thread.sleep(2000);
+		waitForTextToDisappear("Loading", 500 );
+		
+		//Search for the user
+		enterText("SearchForMember", "id", memberDetail);
+		//Select the searched for user
+		clickSearchedUser(memberDetail);
+		
+		//Need to refresh the page before the Individual Members page will be visible to Selenium
+		driver.navigate().refresh();
+		mySource = getSourceOfMember("MemberIndividualInfo");
+		foundUsers = getMemberInfo(mySource, foundUsers);
+		
+		Thread.sleep(2000);
+		
+		clickElement("Household", "linkText");
+		clickElement("Family", "linkText");
+		mySource = getSourceOfMember("MemberIndividualHousehold");
+		foundUsers = getMemberInfo(mySource, foundUsers);
+		
+		Thread.sleep(2000);
+		
+		clickElement("Ordinances", "linkText");
+		mySource = getSourceOfMember("MemberIndividualOrdinances");
+		foundUsers = getMemberInfo(mySource, foundUsers);
+		
+		Thread.sleep(2000);
+		
+		clickElement("Callings/Classes", "linkText");
+		mySource = getSourceOfMember("MemberIndividualCallings");
+		foundUsers = getMemberInfo(mySource, foundUsers);
+		
+		
+		
 		
 		tearDown();
 		
