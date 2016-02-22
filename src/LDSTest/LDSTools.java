@@ -198,11 +198,11 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		justForTesting(os);	
+		//justForTesting(os);	
 
 		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
 		//under18HeadofHouse(os);	
-		//bishopricCounselorAndWardClerk(os);
+		bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -4403,7 +4403,7 @@ public class LDSTools {
 			Assert.assertTrue(checkElementNameReturn("Missionaries"));
 			Assert.assertTrue(checkElementNameReturn("Lists"));
 			Assert.assertTrue(checkElementNameReturn("Meetinghouses"));
-			Assert.assertTrue(checkElementNameReturn("Update"));
+			Assert.assertTrue(checkElementNameReturn("Sync"));
 			Assert.assertTrue(checkElementNameReturn("Settings"));
 			Assert.assertTrue(checkElementNameReturn("Help"));
 			clickButtonByXpath("DrawerDirectory");
