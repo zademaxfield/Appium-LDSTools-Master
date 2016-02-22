@@ -4297,15 +4297,15 @@ public class LDSTools {
 			
 			//Callings and Classes - New in 3.0.0
 			//Assert.assertFalse(checkNoCaseList("Relief Society Pianist", pageSource, "Contains"));
-			Assert.assertFalse(checkNoCaseList("Organization - Music", pageSource, "Contains"));
-			Assert.assertFalse(checkNoCaseList("Class Assignments", pageSource, "Contains"));
-			Assert.assertFalse(checkNoCaseList("Gospel Doctrine", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("Organization - Music", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("Class Assignments", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("Gospel Doctrine", pageSource, "Contains"));
 			//Assert.assertFalse(checkNoCaseList("Relief Society", pageSource, "Contains"));
 			
 			//Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Contains"));
-			Assert.assertFalse(checkNoCaseList("January 17, 2016", pageSource, "Contains"));
-			Assert.assertFalse(checkNoCaseList("Sustained", pageSource, "Contains"));
-			Assert.assertFalse(checkNoCaseList("Set Apart", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("January 17, 2016", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("Sustained", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("Set Apart", pageSource, "Contains"));
 			
 		}
 		
