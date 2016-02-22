@@ -142,6 +142,31 @@ public class LDSWeb {
 
 	}
 	
+	public String getText( String elementName, String elementFind) {
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		WebElement myElement = null;
+		String myText;
+
+		if (elementFind == "id") {
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.id(this.prop.getProperty(elementName))));
+		}
+		if (elementFind == "xpath") {
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(this.prop.getProperty(elementName))));
+		}
+		if (elementFind == "className") {
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.className(this.prop.getProperty(elementName))));
+		}
+		if (elementFind == "linkText") {
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.linkText(elementName)));
+		}
+		if (elementFind == "text") {
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(), '" + elementName + "')]")));
+		}
+		myText = myElement.getText();
+		return myText;
+
+	}
+	
 	public void clickSearchedUser(String userName) throws Exception {
 		clickElement(userName, "linkText");
 		Thread.sleep(1000);
@@ -462,7 +487,7 @@ public class LDSWeb {
 		openGuiMap();
 		setUp();
 		
-		String mySource;
+		//String mySource;
 		String url = "https://uat.lds.org/mls/mbr/?lang=eng";
 		List<String> foundUsers = new ArrayList<String>();
 		
@@ -482,6 +507,47 @@ public class LDSWeb {
 		
 		//Need to refresh the page before the Individual Members page will be visible to Selenium
 		driver.navigate().refresh();
+		
+		System.out.println(getText("DetailsMemberName", "xpath"));
+		System.out.println(getText("DetailsPreferredName", "xpath"));
+		System.out.println(getText("DetailsBirthDate", "xpath"));
+		System.out.println(getText("DetailsAge", "xpath"));
+		System.out.println(getText("DetailsGender", "xpath"));
+		System.out.println(getText("DetailsEndowed", "xpath"));
+		
+		System.out.println(getText("DetailsIndividualPhone", "xpath"));
+		System.out.println(getText("DetailsIndividualEmail", "xpath"));
+		System.out.println(getText("DetailsHomePhone", "xpath"));
+		System.out.println(getText("DetailsHomeEmail", "xpath"));
+		System.out.println(getText("DetailsResAddress", "xpath"));
+		System.out.println(getText("DetailsMailAddress", "xpath"));
+		
+		System.out.println(getText("DetailsBirthplace", "xpath"));
+		System.out.println(getText("DetailsBirthCountry", "xpath"));
+		System.out.println(getText("DetailsCurrentUnit", "xpath"));
+		System.out.println(getText("DetailsHomeTeachers1", "xpath"));
+		System.out.println(getText("DetailsHomeTeachers2", "xpath"));
+		System.out.println(getText("DetailsVisitingTeachers1", "xpath"));
+		System.out.println(getText("DetailsVisitingTeachers2", "xpath"));
+		
+
+		
+		clickElement("Ordinances", "linkText");
+		System.out.println("Ordinances: ");
+		System.out.println(getText("DetialsBaptismDate", "xpath"));
+		System.out.println(getText("DetailsConfirmationDate", "xpath"));
+
+		clickElement("Callings/Classes", "linkText");
+		System.out.println(getText("DetailsCalling", "xpath"));
+		System.out.println(getText("DetailsSustained", "xpath"));
+		System.out.println(getText("DetailsClassOrg", "xpath"));
+		System.out.println(getText("DetailsClassClass", "xpath"));
+		System.out.println(getText("DetailsClassOrg", "xpath"));
+		System.out.println(getText("DetailsClassClass", "xpath"));
+		
+		
+		
+		/*
 		mySource = getSourceOfMember("MemberIndividualInfo");
 		foundUsers = getMemberInfo(mySource, foundUsers);
 		
@@ -503,7 +569,7 @@ public class LDSWeb {
 		clickElement("Callings/Classes", "linkText");
 		mySource = getSourceOfMember("MemberIndividualCallings");
 		foundUsers = getMemberInfo(mySource, foundUsers);
-		
+		*/
 		
 		
 		
