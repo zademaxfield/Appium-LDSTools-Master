@@ -200,8 +200,8 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
-		under18HeadofHouse(os);	
+		LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
+		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
@@ -277,44 +277,8 @@ public class LDSTools {
 	
 	
 	public void justForTesting(String os) throws Exception {
-		//String pageSource;
-		//Data from Web page
-		//List<String> myList = new ArrayList<String>();
-		
-		LDSWeb myWeb = new LDSWeb();
-		myWeb.getMemberDetails("Aaron, Jane", "LDSTools2", "toolstester");
-		//myList = myWeb.getMemberDetails("Aaron, Jane", "LDSTools2", "toolstester");
-		
-		/*
-		
-		//Login to LDS Tools
-		syncLogIn("LDSTools2", "toolstester", "UAT", os );
-		pinPage("1", "1", "3", "3", true);
-		Thread.sleep(2000);	
-		
-		
-		//Search for logged in user
-		searchForUser("Aaron, Jane");
-		
-		if (getRunningOS().equals("mac")) {
-			clickButtonByXpathTitleName("Jane Aaron");
-			iosExpandAllDirectory();
-			pageSource = getSourceOfPage();
-			Assert.assertTrue(checkNoCaseList("Aaron, Jane", pageSource, "Equals"));
-		} else {
-			clickButtonByXpathTitleName("Aaron, Jane");
-			pageSource = androidGetMemberInfo();
-			Assert.assertTrue(checkNoCaseList("Aaron, Jane", pageSource, "Equals"));
-		}
-		
 
-		
-		
-		for(String oneUser : myList){
-			System.out.println("USER: " + oneUser);
-			Assert.assertTrue(checkNoCaseList(oneUser, pageSource, "Contains"));
-		}
-		*/
+		checkWebMemberInfo("LDSTools23", "password1", "Aaron, Jane");
 		
 		/*
 		//Data from Web page
@@ -2188,46 +2152,35 @@ public class LDSTools {
 		Assert.assertTrue(checkElementTextViewReturn(errorMessage));
 		clickButtonByXpath("AlertOK");	
 		
-		//Clear the login and password fields
-		clearTextFieldXpath("LoginUsername");
-		clearTextFieldXpath("LoginPassword");
+		clearLoginPassword();
 		
-		Thread.sleep(2000);
 		syncLogIn("LDSTools2", "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&", "UAT", os );
 		Thread.sleep(2000);
 		Assert.assertTrue(checkElementTextViewReturn(errorMessage));
 		clickButtonByXpath("AlertOK");
 		
-		//Clear the login and password fields
-		clearTextFieldXpath("LoginUsername");
-		clearTextFieldXpath("LoginPassword");
+		clearLoginPassword();
 		
 		syncLogIn("0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789", "0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789", "UAT", os );
 		Thread.sleep(2000);
 		Assert.assertTrue(checkElementTextViewReturn(errorMessage));
 		clickButtonByXpath("AlertOK");
 		
-		//Clear the login and password fields
-		clearTextFieldXpath("LoginUsername");
-		clearTextFieldXpath("LoginPassword");
+		clearLoginPassword();
 		
 		syncLogIn("LDSTools2", "test|test|test$$$$test|||||||test", "UAT", os );
 		Thread.sleep(2000);
 		Assert.assertTrue(checkElementTextViewReturn(errorMessage));
 		clickButtonByXpath("AlertOK");
 		
-		//Clear the login and password fields
-		clearTextFieldXpath("LoginUsername");
-		clearTextFieldXpath("LoginPassword");
+		clearLoginPassword();
 		
 		syncLogIn("zmaxfield", "%%%test%%%% & ||||||| select * from household;", "Production", os );
 		Thread.sleep(2000);
 		Assert.assertTrue(checkElementTextViewReturn(errorMessage));
 		clickButtonByXpath("AlertOK");
 		
-		//Clear the login and password fields
-		clearTextFieldXpath("LoginUsername");
-		clearTextFieldXpath("LoginPassword");
+		clearLoginPassword();
 		
 		/*
 		syncLogIn("", "", "UAT", os );
@@ -3423,6 +3376,19 @@ public class LDSTools {
 			e.printStackTrace();
 		}
 	}
+	
+	private void clickDirectoryUserIOS(String textElement ) {
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		WebElement myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//UIATableCell/UIAStaticText[contains(@name, '" + textElement + "')]")));
+		myElement.click();
+
+		//I don't really like this sleep but it seems to be needed 
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 
 	
 
@@ -4374,7 +4340,7 @@ public class LDSTools {
 		pressBackKey();
 		
 		//if (getRunningOS().equals("mac")) {
-			clickButtonByXpath("SearchCollapse");
+		//	clickButtonByXpath("SearchCollapse");
 		//}
 
 		
@@ -5743,10 +5709,22 @@ public class LDSTools {
 	
 	private void searchForUser(String userToSearch) throws Exception {
 		boolean testForElement;
-		
 		testForElement = checkElementExistsByID("MenuDefaultDirectory");
 		//System.out.println("testForElement: " + testForElement);
 		if (testForElement == true ) {
+			clickButtonByID("MenuDefaultDirectory");
+			clickButtonByXpathTitleName("Individuals");
+			clickButtonByID("MenuSearch");
+		}
+		clickLastTextViewRoboReturn(userToSearch);
+		
+		
+
+		/* ... May use this way but it needs some help. 
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpath("MenuDefaultDirectory");
+			clickButtonByName("Individual");
+		} else {
 			clickButtonByID("MenuDefaultDirectory");
 			clickButtonByXpathTitleName("Individuals");
 			clickButtonByID("MenuSearch");
@@ -5755,7 +5733,13 @@ public class LDSTools {
 		sendTextbyXpath("SearchArea", userToSearch );
 		//clickButtonByXpath("SearchGo");
 		Thread.sleep(2000);
-		clickLastTextViewRoboReturn(userToSearch);
+		if (getRunningOS().equals("mac")) {
+			clickDirectoryUserIOS(userToSearch);
+		} else {
+			clickLastTextViewRoboReturn(userToSearch);
+		}
+		*/
+		
 		Thread.sleep(2000);
 	}
 	
@@ -5770,6 +5754,53 @@ public class LDSTools {
 		//Check to see if we are getting a warning
 		if (checkElementExistsByXpath("AlertMessageCheck") == true) {
 			clickButtonByXpath("SignOutOK");
+		}
+	}
+	private void checkWebMemberInfo(String loginName, String passWord, String userToCheck) throws Exception {
+		String pageSource;
+		//Data from Web page
+		List<String> myList = new ArrayList<String>();
+		String os;
+		String userSwitch;
+		
+		if (getRunningOS().equals("mac")) {
+			os = "ios";
+		} else {
+			os = "android";
+		}
+		
+		String[] parts = userToCheck.split(" ");
+		String part1 = parts[0];
+		part1 = part1.replace(",", "");
+		String part2 = parts[1];
+		userSwitch = part2 + " " + part1;
+		
+		//Login to LDS Tools
+		syncLogIn(loginName, passWord, "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);	
+		
+		LDSWeb myWeb = new LDSWeb();
+		myList = myWeb.getMemberDetails(userToCheck, loginName, passWord);
+		
+		
+		//Search for logged in user
+		searchForUser(userToCheck);
+		
+		if (getRunningOS().equals("mac")) {
+			//clickButtonByXpathTitleName(userSwitch);
+			iosExpandAllDirectory();
+			pageSource = getSourceOfPage();
+			Assert.assertTrue(checkNoCaseList(userToCheck, pageSource, "Equals"));
+		} else {
+			clickButtonByXpathTitleName(userToCheck);
+			pageSource = androidGetMemberInfo();
+			Assert.assertTrue(checkNoCaseList(userToCheck, pageSource, "Equals"));
+		}
+		
+		for(String oneUser : myList){
+			System.out.println("USER: " + oneUser);
+			Assert.assertTrue(checkNoCaseList(oneUser, pageSource, "Contains"));
 		}
 	}
 	
@@ -6025,6 +6056,14 @@ public class LDSTools {
 
 		
 		return myPageSource;
+	}
+	
+	private void clearLoginPassword() throws Exception {
+		//Clear the login and password fields
+		Thread.sleep(2000);
+		clearTextFieldXpath("LoginUsername");
+		clearTextFieldXpath("LoginPassword");
+		Thread.sleep(2000);
 	}
 	
 	
