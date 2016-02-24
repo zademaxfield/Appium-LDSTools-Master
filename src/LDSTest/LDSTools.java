@@ -5716,6 +5716,9 @@ public class LDSTools {
 			clickButtonByXpathTitleName("Individuals");
 			clickButtonByID("MenuSearch");
 		}
+		sendTextbyXpath("SearchArea", userToSearch );
+		//clickButtonByXpath("SearchGo");
+		Thread.sleep(2000);
 		clickLastTextViewRoboReturn(userToSearch);
 		
 		
