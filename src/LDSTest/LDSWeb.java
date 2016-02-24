@@ -7,7 +7,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -116,6 +118,37 @@ public class LDSWeb {
 		}
 		myElement.click();
 
+	}
+	
+	
+	private Boolean checkElementExists(String elementName, String elementFind ) {
+		Boolean myReturnStatus;
+		List<WebElement> options = null;
+
+		
+		if (elementFind == "id") {
+			options = driver.findElements(By.id(this.prop.getProperty(elementName)));
+		}
+		if (elementFind == "xpath") {
+			options = driver.findElements(By.xpath(this.prop.getProperty(elementName)));
+		}
+		if (elementFind == "className") {
+			options = driver.findElements(By.className(this.prop.getProperty(elementName)));
+		}
+		if (elementFind == "linkText") {
+			options = driver.findElements(By.linkText(elementName));
+		}
+		if (elementFind == "text") {
+			options = driver.findElements(By.xpath("//*[contains(text(), '" + elementName + "')]"));
+		}
+
+		if (options.isEmpty()) {
+			myReturnStatus = false;	
+		} else {
+			myReturnStatus = true;
+		}
+		
+		return myReturnStatus;
 	}
 	
 	public void enterText( String elementName, String elementFind, String textToSend) {
@@ -487,14 +520,20 @@ public class LDSWeb {
 		openGuiMap();
 		setUp();
 		
-		//String mySource;
+		String mySource;
 		String url = "https://uat.lds.org/mls/mbr/?lang=eng";
 		List<String> foundUsers = new ArrayList<String>();
+		String memberName;
+		String preferredName;
+		//String birthDate;
+		String updateString;
+		SimpleDateFormat format = new SimpleDateFormat("MMMM dd, yyyy");
+		SimpleDateFormat origFormat = new SimpleDateFormat("dd MMM yyyy");
 		
 		openPageLogIn(url, userName, passWord);
 		
 		//Browse to the Membership page
-		clickElement("Membership", "linkText");
+		clickElement("Reports", "linkText");
 		Thread.sleep(4000);
 		clickElement("Member List", "linkText");
 		Thread.sleep(2000);
@@ -508,6 +547,106 @@ public class LDSWeb {
 		//Need to refresh the page before the Individual Members page will be visible to Selenium
 		driver.navigate().refresh();
 		
+		mySource = getSourceOfMember("MemberIndividualInfo");
+		foundUsers = getMemberInfo(mySource, foundUsers);
+		
+		memberName = (getText("DetailsMemberName", "xpath"));
+		preferredName = (getText("DetailsPreferredName", "xpath"));
+		//birthDate = (getText("DetailsBirthDate", "xpath"));
+		
+		
+		Thread.sleep(2000);
+		
+		/* Skipping Household for now - need to swap last and first names
+		clickElement("Household", "linkText");
+		if (checkElementExists("Family", "linkText") == true) {
+			clickElement("Family", "linkText");
+			mySource = getSourceOfMember("MemberIndividualHousehold");
+			foundUsers = getMemberInfo(mySource, foundUsers);
+			Thread.sleep(2000);
+		}
+		*/
+
+		
+		if (checkElementExists("Ordinances", "linkText") == true) {
+			clickElement("Ordinances", "linkText");
+			mySource = getSourceOfMember("MemberIndividualOrdinances");
+			foundUsers = getMemberInfo(mySource, foundUsers);
+			Thread.sleep(2000);
+		}
+
+		if (checkElementExists("Callings/Classes", "linkText") == true) {
+			clickElement("Callings/Classes", "linkText");
+			mySource = getSourceOfMember("MemberIndividualCallings");
+			foundUsers = getMemberInfo(mySource, foundUsers);
+			Thread.sleep(2000);
+		}
+		//System.out.println("Found Users Size: " + foundUsers.size());
+		
+		//Find the last name of the member
+		//If the user has 3 names displayed this will break
+		//Need to check for multiple names and Jr Junior etc...
+		String[] myMemberName = memberName.split(" ");
+		String memberFirstName = myMemberName[0];
+		String memberLastName = myMemberName[1];
+		
+		
+		for (int myCounter = 0; myCounter < foundUsers.size(); myCounter++ ) {
+			//if (foundUsers.get(myCounter).contains(memberName)) {
+			if (foundUsers.get(myCounter).contains(memberLastName)) {
+				String[] parts = foundUsers.get(myCounter).split(" ");
+				String part1 = parts[0];
+				String part2 = parts[1];
+				updateString = part2 + ", " + part1;
+				System.out.println("Member Name: " + updateString);
+				foundUsers.set(myCounter, updateString);
+			}
+			
+			if (preferredName.equals("")) {
+				//System.out.println("No Preferred Name");
+			} else {
+				if (foundUsers.get(myCounter).contains(preferredName)) {
+					String[] parts = foundUsers.get(myCounter).split(" ");
+					String part1 = parts[0];
+					String part2 = parts[1];
+					updateString = part2 + ", " + part1;
+					System.out.println("Preferred Name: " + updateString);
+					foundUsers.set(myCounter, updateString);
+				}
+			}
+
+			
+			//if (foundUsers.get(myCounter).contains(birthDate)) {
+			if (foundUsers.get(myCounter).matches("[0-9]{1,2} [a-zA-Z]{3} [0-9]{4}")) {
+				Date date = origFormat.parse(foundUsers.get(myCounter));
+				updateString = format.format(date);
+				System.out.println("NEW DATE: " + updateString);
+				foundUsers.set(myCounter, updateString);
+			}
+			
+			if (foundUsers.get(myCounter).matches("[0-9]{1,2} [a-zA-Z]{3} [0-9]{4} .*")) {
+				updateString = "";
+				foundUsers.set(myCounter, updateString);
+			}
+			
+			if (foundUsers.get(myCounter).contains("Member Name") || (foundUsers.get(myCounter).contains("Preferred Name") ||  
+					(foundUsers.get(myCounter).contains("Sunday School")))) {
+				updateString = "";
+				foundUsers.set(myCounter, updateString);
+			}
+			
+			if (foundUsers.get(myCounter).contains("Fagamalo 1st Ward (56030)")) {
+				updateString = foundUsers.get(myCounter).replace("Fagamalo 1st Ward (56030)", "Fagamalo  1st Ward");
+				System.out.println("Unit Name: " + updateString);
+				foundUsers.set(myCounter, updateString);
+			}
+			
+			//System.out.println("My Counter: " + myCounter);
+			
+		}
+		
+		
+		/*
 		System.out.println(getText("DetailsMemberName", "xpath"));
 		System.out.println(getText("DetailsPreferredName", "xpath"));
 		System.out.println(getText("DetailsBirthDate", "xpath"));
@@ -545,31 +684,10 @@ public class LDSWeb {
 		System.out.println(getText("DetailsClassOrg", "xpath"));
 		System.out.println(getText("DetailsClassClass", "xpath"));
 		
-		
-		
-		/*
-		mySource = getSourceOfMember("MemberIndividualInfo");
-		foundUsers = getMemberInfo(mySource, foundUsers);
-		
-		Thread.sleep(2000);
-		
-		clickElement("Household", "linkText");
-		clickElement("Family", "linkText");
-		mySource = getSourceOfMember("MemberIndividualHousehold");
-		foundUsers = getMemberInfo(mySource, foundUsers);
-		
-		Thread.sleep(2000);
-		
-		clickElement("Ordinances", "linkText");
-		mySource = getSourceOfMember("MemberIndividualOrdinances");
-		foundUsers = getMemberInfo(mySource, foundUsers);
-		
-		Thread.sleep(2000);
-		
-		clickElement("Callings/Classes", "linkText");
-		mySource = getSourceOfMember("MemberIndividualCallings");
-		foundUsers = getMemberInfo(mySource, foundUsers);
 		*/
+
+		
+
 		
 		
 		
