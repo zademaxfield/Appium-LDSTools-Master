@@ -4202,9 +4202,9 @@ public class LDSTools {
 			pageSource = getSourceOfPage();
 			Assert.assertTrue(checkNoCaseList("Aaron, Jane", pageSource, "Equals"));
 		} else {
-			clickButtonByXpathTitleName("Aaron, Jane");
+			//clickButtonByXpathTitleName("Aaron, Jane");
 			pageSource = androidGetMemberInfo();
-			Assert.assertTrue(checkNoCaseList("Aaron, Jane", pageSource, "Equals"));
+			Assert.assertTrue(checkNoCaseList("Aaron, Jane", pageSource, "Contains"));
 		}
 
 
@@ -4282,11 +4282,11 @@ public class LDSTools {
 		if (birthDate == true){
 			Assert.assertTrue(checkNoCaseList("November 11, 1960", pageSource, "Contains"));
 			Assert.assertTrue(checkNoCaseList("Birth Date", pageSource, "Contains"));
-			Assert.assertTrue(checkNoCaseList("(55)", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("55", pageSource, "Contains"));
 		} else {
 			Assert.assertFalse(checkNoCaseList("November 11, 1960", pageSource, "Contains"));
 			Assert.assertFalse(checkNoCaseList("Birth Date", pageSource, "Contains"));
-			Assert.assertFalse(checkNoCaseList("(55)", pageSource, "Contains"));
+			Assert.assertFalse(checkNoCaseList("55", pageSource, "Contains"));
 		}
 
 		
@@ -4337,11 +4337,14 @@ public class LDSTools {
 
 		Thread.sleep(2000);
 		pressBackKey();
+		Thread.sleep(2000);
 		pressBackKey();
 		
-		//if (getRunningOS().equals("mac")) {
-		//	clickButtonByXpath("SearchCollapse");
-		//}
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpath("SearchCollapse");
+		} else {
+			pressBackKey();
+		}
 
 		
 		
@@ -4790,8 +4793,8 @@ public class LDSTools {
 			Assert.assertFalse(checkNoCaseList("March 15, 2015", pageSource, "Contains"));
 		}
 		
-		Assert.assertTrue(checkNoCaseList("Member", pageSource, "Equals"));
-		Assert.assertFalse(checkNoCaseList("Hutt, Jabba", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Member", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("Hutt, Jabba", pageSource, "Contains"));
 
 		Thread.sleep(1000);
 		pressBackKey();
@@ -5432,7 +5435,7 @@ public class LDSTools {
 			}
 			Assert.assertTrue(checkElementTextViewReturn("AFPEighteen, Member"));
 			Assert.assertTrue(checkElementTextViewReturn("AFPTwo, Wife"));
-			Assert.assertTrue(checkElementTextViewReturn("Moors, Eseta"));
+			Assert.assertTrue(checkElementTextViewReturn("Aaron, Jane"));
 			if (getRunningOS().equals("android")) {
 				clickButtonByXpath("HTVTRemoveFiltersButton");
 			}
