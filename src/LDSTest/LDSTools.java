@@ -200,9 +200,9 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
+		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
 		//under18HeadofHouse(os);	
-		//bishopricCounselorAndWardClerk(os);
+		bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -614,6 +614,7 @@ public class LDSTools {
 		
 		Thread.sleep(2000);
 
+		
 		//Check Directory user - should be able to view everything
 		checkDirectoryUser(true, true, true, true, true, true);
 		
@@ -1204,9 +1205,51 @@ public class LDSTools {
 		//Check Home Teaching - Visiting Teaching Household - Sisters and Filters
 		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
 		checkHTVTHouseholds(userCalling);
-		
-
 	}
+	
+	
+	
+	public void LeaderNonBishopricTEST(String leaderLogin, String userCalling, String os) throws Exception {
+
+		syncLogIn(leaderLogin, "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+
+		//Check to see if the user can view the directory
+		Thread.sleep(2000);
+
+		/*
+		//Check Directory user - should be able to view everything
+		checkDirectoryUser(true, true, true, false, false, true);
+		Thread.sleep(1000);
+		
+		//Check Drawer Items - If leader there should be a Reports item
+		checkDrawerItems(true);
+
+		Thread.sleep(1000);	
+		//Check various callings - all users should be able to access this information
+		checkCallings();
+
+		Thread.sleep(1000);
+		//Check Missionary drawer items - all user access
+		checkMissionary();
+
+		Thread.sleep(1000);
+		//Check the reports - leadership only - true for bishopric rights, false for leaders and remove
+		//checkReports for non-leaders
+		checkReports(false, false);
+		*/
+		
+		Thread.sleep(1000);
+		//Check Home Teaching - Visiting Teaching
+		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
+		checkHTVTBasic(userCalling);
+		
+		Thread.sleep(1000);
+		//Check Home Teaching - Visiting Teaching Household - Sisters and Filters
+		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
+		checkHTVTHouseholds(userCalling);
+	}
+	
 	
 	/** editCurrentUser()
 	 * Login as LDSTools100 and edit own information
@@ -4369,6 +4412,13 @@ public class LDSTools {
 			}
 			Assert.assertTrue(checkElementNameReturn("Organizations"));
 			clickButtonByXpath("DrawerMore");
+			
+			//Check to see if the sync page is dispalyed
+			if (checkElementNameReturn("Sync Now") == true) {
+				pressBackKey();
+			}
+			
+			
 			Assert.assertTrue(checkElementNameReturn("Missionaries"));
 			Assert.assertTrue(checkElementNameReturn("Lists"));
 			Assert.assertTrue(checkElementNameReturn("Meetinghouses"));
@@ -4704,7 +4754,7 @@ public class LDSTools {
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Ami, Christian", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Beehive President", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("9 months", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("10 months", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Skywalker, Anakin", pageSource, "Equals"));
 	
 		
@@ -4741,7 +4791,7 @@ public class LDSTools {
 		}
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Ward Assistant Clerk", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("9 months", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("10 months", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Kitara, Lafaele", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("P0, C3", pageSource, "Contains"));
 
@@ -4865,9 +4915,16 @@ public class LDSTools {
 
 		
 		//Unit Statistics
-		clickButtonByXpathTitleName("Unit Statistics");
-		//Thread.sleep(1000);
-		clickButtonByXpath("AlertOK");
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("Unit Statistics");
+		} else {
+			scrollDownTEST(100);
+			clickButtonByXpathTitleName("Unit Statistics");
+		}
+		
+		Thread.sleep(1000);
+		//clickButtonByXpath("AlertOK");
+		checkForAlertOK() ;
 		Thread.sleep(1000);
 		Assert.assertTrue(checkElementTextViewReturnContains("603"));
 		Assert.assertTrue(checkElementTextViewReturnContains("17"));
@@ -4883,6 +4940,14 @@ public class LDSTools {
 		Thread.sleep(2000);
 		
 		pageSource = getSourceOfPage();
+		
+		if (getRunningOS().equals("mac")) {
+			pageSource = getSourceOfPage();
+		} else {
+			pageSource = getSourceOfPage();
+			scrollDownTEST(100);
+			pageSource = pageSource + getSourceOfPage();
+		}
 
 		if (userCalling.equals("Bishopric")) {
 			Assert.assertTrue(checkNoCaseList("Home Teaching", pageSource, "Equals"));
@@ -4962,9 +5027,9 @@ public class LDSTools {
 				Assert.assertTrue(checkElementTextViewReturnContains("Faapili, Muipu"));
 				Assert.assertTrue(checkElementTextViewReturnContains("Faamoetauloa, Ennie"));
 			} else {
-				Assert.assertTrue(checkElementTextViewReturn("Galuvao, Faafetai (60)"));
-				Assert.assertTrue(checkElementTextViewReturn("Faapili, Muipu (33)"));
-				Assert.assertTrue(checkElementTextViewReturn("Faamoetauloa, Ennie (35)"));
+				Assert.assertTrue(checkElementTextViewReturn("Galuvao, Faafetai - 60"));
+				Assert.assertTrue(checkElementTextViewReturn("Faapili, Muipu - 33"));
+				Assert.assertTrue(checkElementTextViewReturn("Faamoetauloa, Ennie - 36"));
 			}
 			pressBackKey();
 			
@@ -5006,9 +5071,16 @@ public class LDSTools {
 			}
 			pressBackKey();
 			
-			clickLastTextViewRoboReturnContains("Unassigned Households");
+			if (getRunningOS().equals("mac")) {
+				clickLastTextViewRoboReturnContains("Unassigned Households");
+			} else {
+				scrollDownTEST(100);
+				clickLastTextViewRoboReturnContains("Unassigned Households");
+			}
+			
+			//clickLastTextViewRoboReturnContains("Unassigned Households");
 			Thread.sleep(2000);
-			Assert.assertTrue(checkElementTextViewReturn("AFPTen, Husband"));
+			Assert.assertTrue(checkElementTextViewReturn("Abel, Chad Dennis"));
 			Assert.assertTrue(checkElementTextViewReturn("Lavea, Muaau Alavaa"));
 			Assert.assertTrue(checkElementTextViewReturn("Isaako, Ioane"));
 			pressBackKey();
@@ -5020,9 +5092,9 @@ public class LDSTools {
 				Assert.assertTrue(checkElementTextViewReturnContains("Ami, Samu Junior"));
 				Assert.assertTrue(checkElementTextViewReturnContains("Endemann, Eddie"));
 			} else {
-				Assert.assertTrue(checkElementTextViewReturn("AFPTen, Husband (55)"));
-				Assert.assertTrue(checkElementTextViewReturn("Ami, Samu Junior (22)"));
-				Assert.assertTrue(checkElementTextViewReturn("Endemann, Eddie (81)"));
+				Assert.assertTrue(checkElementTextViewReturn("AFPTen, Husband - 55"));
+				Assert.assertTrue(checkElementTextViewReturn("Ami, Samu Junior - 22"));
+				Assert.assertTrue(checkElementTextViewReturn("Endemann, Eddie - 81"));
 			}
 
 			pressBackKey();
@@ -5266,7 +5338,13 @@ public class LDSTools {
 			pressBackKey();
 			
 			//Elders Quorum
-			clickLastTextViewRoboReturnContains("Households");
+			if (getRunningOS().equals("mac")) {
+				clickLastTextViewRoboReturnContains("Households");
+			} else {
+				scrollDownTEST(100);
+				clickLastTextViewRoboReturnContains("Households");
+			}
+
 			Thread.sleep(2000);
 			Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member15"));
 			Assert.assertTrue(checkElementTextViewReturn("Faamoeolo, Akisa"));
