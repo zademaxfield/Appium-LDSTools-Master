@@ -4403,7 +4403,7 @@ public class LDSTools {
 	private void checkDrawerItems (boolean leader) throws Exception {
 		if (getRunningOS().equals("mac")){
 			Assert.assertTrue(checkElementNameReturn("Directory"));
-			Assert.assertTrue(checkElementNameReturn("Calendars"));
+			Assert.assertTrue(checkElementNameReturn("Calendar"));
 			
 			if (leader == true) {
 				Assert.assertTrue(checkElementNameReturn("Reports"));
