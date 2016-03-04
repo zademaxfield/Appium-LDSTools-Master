@@ -125,7 +125,7 @@ public class LDSTools {
 	        File app = new File(appDir, fileName);
 	        DesiredCapabilities capabilities = new DesiredCapabilities();
 	        //capabilities.setCapability(CapabilityType.BROWSER_NAME, "");
-	        capabilities.setCapability("platformName", "Android");
+	        
 	        //Samsung Galaxy Tab
 	        //capabilities.setCapability("deviceName","41031b0b89e93163");
 	        //HTC Nexus 9
@@ -139,16 +139,18 @@ public class LDSTools {
 	        //Samsung Galaxy Note 4
 	        //capabilities.setCapability("deviceName","751bc6f2");
 	        //Motorola 
-	        capabilities.setCapability("deviceName","ZX1D327RHD");
+	        capabilities.setCapability("deviceName", testDevice);
 	        
-	        
-	        
+	        capabilities.setCapability("platformName", "Android");
 	        capabilities.setCapability("automationName","selendroid");
-	        capabilities.setCapability("newCommandTimeout","600");
-	        capabilities.setCapability("platformVersion", "5.1");
+	        capabilities.setCapability("newCommandTimeout", 600);
+	        capabilities.setCapability("platformVersion", "5.1.1");
 	        capabilities.setCapability("app", app.getAbsolutePath());
 	        capabilities.setCapability("appPackage", "org.lds.ldstools.dev");
 	        //capabilities.setCapability("appActivity", "org.lds.ldstools.ui.StartupActivity");
+	        capabilities.setCapability("appActivity", "org.lds.ldstools.ui.activity.SignInActivity");
+	        
+	        
 	        //driver = new AndroidDriver(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
 	        driver = new AppiumSwipeableDriver(new URL("http://127.0.0.1:4444/wd/hub"),capabilities);
 	        //driver = new AppiumDriver(new URL("http://127.0.0.1:4444/wd/hub"),capabilities);
@@ -167,17 +169,20 @@ public class LDSTools {
 	        //File app = new File(appDir, "LDS Tools.app");
 	        File app = new File(appDir, fileName);
 	        DesiredCapabilities capabilities = new DesiredCapabilities();
-	        capabilities.setCapability("platformName", "iOS");
-	        capabilities.setCapability(CapabilityType.BROWSER_NAME, "iOS");
+
 	        //capabilities.setCapability(CapabilityType.VERSION, "9.0");
-	        capabilities.setCapability(CapabilityType.PLATFORM, "Mac");
 	        //capabilities.setCapability("platformVersion", "9.1");
 	        //capabilities.setCapability("deviceName","iPhone 5");
+	        
+	        
+	        
+	        capabilities.setCapability("platformName", "iOS");
+	        capabilities.setCapability(CapabilityType.BROWSER_NAME, "iOS");
+	        capabilities.setCapability(CapabilityType.PLATFORM, "Mac");
 	        capabilities.setCapability("deviceName",testDevice);
-
 	        capabilities.setCapability("automationName","appium");
-	        capabilities.setCapability("newCommandTimeout","600");
-
+	        capabilities.setCapability("browserName","");
+	        capabilities.setCapability("newCommandTimeout", 600);
 	        capabilities.setCapability("app", app.getAbsolutePath());
 	        capabilities.setCapability("appPackage", "org.lds.ldstools.dev");
 	        capabilities.setCapability("sendKeysStrategy", "setValue");
@@ -200,9 +205,9 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
+		LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
 		//under18HeadofHouse(os);	
-		bishopricCounselorAndWardClerk(os);
+		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -615,6 +620,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 
 		
+		
 		//Check Directory user - should be able to view everything
 		checkDirectoryUser(true, true, true, true, true, true);
 		
@@ -637,6 +643,8 @@ public class LDSTools {
 		
 		//Check the reports - leadership only
 		checkReports(true, false);
+		
+		
 		
 		checkHTVTBasic("Bishopric");
 		checkHTVTHouseholds("Bishopric");
@@ -3205,6 +3213,67 @@ public class LDSTools {
 	    return false;
 	  }
 	
+	
+	private boolean checkNoCaseListDEBUG(String textToCheck, String pageSource, String containEqual){
+		Document doc = Jsoup.parse(pageSource);
+		Elements myTest = doc.getAllElements();
+		String foundText;
+		String myOs;
+		textToCheck = textToCheck.toLowerCase();
+		myOs = getRunningOS();
+		//System.out.println("My OS: " + myOs);
+		if (myOs.equals("mac")){
+			for (Element myElement : myTest ) {
+				//if (myElement.attributes().get("shown").equals("true")) {
+					//System.out.println("Name: ");
+					//System.out.println(myElement.attributes().get("name"));
+					//System.out.println("Value: ");
+					///System.out.println(myElement.attributes().get("value"));
+					foundText = myElement.attributes().get("name");
+					foundText = foundText.toLowerCase();
+					System.out.println("******************************");
+					System.out.println("   Found Text: " + foundText);
+					System.out.println("Text To Check: " + textToCheck);
+					System.out.println("******************************");
+					if (containEqual.equals("Equals")) {
+						if (foundText.equals(textToCheck)) {
+							return true;
+						}
+					} else {
+						if (foundText.contains(textToCheck)) {
+							return true;
+						}
+					}
+
+
+				//}
+			}
+
+		} else {
+			for (Element myElement : myTest ) {
+				//System.out.println(myElement.attributes().get("value"));
+				if (myElement.attributes().get("shown").equals("true")) {
+					foundText = myElement.attributes().get("value");
+					foundText = foundText.toLowerCase();
+					System.out.println("******************************");
+					System.out.println("Found Text:" + foundText);
+					System.out.println("Text To Check: " + textToCheck);
+					System.out.println("******************************");
+					if (containEqual.equals("Equals")) {
+						if (foundText.equals(textToCheck)) {
+							return true;
+						}
+					} else {
+						if (foundText.contains(textToCheck)) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+	    return false;
+	  }
+	
 	private List<String> createUserList(List<String> userList, String pageSource){
 		Document doc = Jsoup.parse(pageSource);
 		Elements myTest = doc.getAllElements();
@@ -3252,6 +3321,9 @@ public class LDSTools {
 		String myOs;
 		myOs = driver.getCapabilities().getPlatform().toString();
 		myOs = myOs.toLowerCase();
+		if (myOs.equals("any")) {
+			myOs = "android";
+		}
 		return myOs;
 	}
 	
@@ -3665,8 +3737,8 @@ public class LDSTools {
 		
 		screenWidth = screenWidth / 3;
 		//screenWidth = screenWidth - 75;
-		screenHeight = screenHeight / 2;
-		//screenUp = screenHeight - 100;
+		//screenHeight = screenHeight / 2;
+		screenHeight = screenHeight - 100;
 		
 		//System.out.println("Width: " + screenWidth);
 		//System.out.println("Height: " + screenHeight);
@@ -3675,7 +3747,7 @@ public class LDSTools {
 		actions.down(screenWidth, screenHeight);
 		//actions.pause(1000);
 		//actions.move(screenWidth, screenHeight -100 );
-		actions.move(screenWidth, screenHeight -60 );
+		actions.move(screenWidth, screenHeight - scrollDistance );
 		//actions.pause(3000);
 		//actions.up(screenWidth, screenUp);
 		actions.up(screenWidth, 0);
@@ -3712,13 +3784,19 @@ public class LDSTools {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		List<WebElement> options= driver.findElements(By.xpath("//*[@name='" + myText + "']"));
 		WebElement element = options.get(options.size() -1 ) ;
-		
-		
-		
+
 		//WebElement element = driver.findElement(By.xpath("//*[@name='" + myText + "']"));
-		HashMap<String, String> scrollToObject = new HashMap<String, String>();
-		scrollToObject.put("element",((RemoteWebElement) element).getId());
-		js.executeScript("mobile: scrollTo", scrollToObject);
+		//HashMap<String, String> scrollToObject = new HashMap<String, String>();
+		//scrollToObject.put("element",((RemoteWebElement) element).getId());
+		//js.executeScript("mobile: scrollTo", scrollToObject);
+		//js.executeScript("mobile: scroll", scrollToObject);
+		
+
+		HashMap<String, String> scrollObject = new HashMap<String, String>();
+		scrollObject.put("direction", "down");
+		scrollObject.put("element", ((RemoteWebElement) element).getId());
+		js.executeScript("mobile: scroll", scrollObject);
+
 		
 		element.click();
 
@@ -3878,11 +3956,11 @@ public class LDSTools {
 		String myOs;
 		//capabilities.setCapability("platformName", "Android");
 		myOs = getRunningOS();
-		if (myOs.equals("android")){
+		if (myOs.equals("mac")){
+			clickButtonByXpath("TopBack");
+		} else {
 			new Actions(driver).sendKeys(SelendroidKeys.BACK).perform();
 			Thread.sleep(1000);
-		} else {
-			clickButtonByXpath("TopBack");
 		}
 
 	}
@@ -3924,12 +4002,16 @@ public class LDSTools {
 		//valid enteries "Production", "UAT", "Proxy - UAT", "Proxy - Test"
 		if (os.equals("android")) {
 			if (!chooseNetwork.equals("Production")) {
-				Thread.sleep(1000);
+				//Just for testing
+				Thread.sleep(10000);
 				longPressByTextView("Sign in to your LDS Account");
 				Thread.sleep(1000);
 				longPressByTextView("Sign in to your LDS Account");
 				clickButtonByXpath("Menu");
+				Thread.sleep(1000);
+				//clickButtonByXpathTitleNameContains("Settings");
 				clickButtonByXpathTitleName("Settings");
+				//clickButtonByXpath("MenuSettings");
 				//Thread.sleep(1000);
 				//scrollDown("Sign Out", 40 );
 				Thread.sleep(2000);
@@ -3941,7 +4023,7 @@ public class LDSTools {
 				//scrollDown("Network Environment", pageSize );
 				
 				
-				scrollDown("Network Environment", -1 );
+				scrollDown("Network Environment", 100 );
 				//Thread.sleep(2000);
 				clickButtonByXpathTitleName(chooseNetwork);
 				clickButtonByXpath("Back");
@@ -4858,11 +4940,13 @@ public class LDSTools {
 			Assert.assertFalse(checkNoCaseList("Ahsoka, Tano", pageSource, "Contains"));
 			//Assert.assertTrue(checkElementTextViewReturn("Expired"));
 			
+			
 			if (getRunningOS().equals("mac")) {
 				clickButtonByXpath("TopSort");
 				clickButtonByName("Active");
 			} else {
-				clickButtonByXpathTitleName("Active");
+				//clickButtonByXpathTitleName("Active");
+				clickButtonByXpath("ActiveMenu");
 			}
 			pageSource = getSourceOfPage();
 			Assert.assertTrue(checkNoCaseList("Ami, Samu", pageSource, "Contains"));
@@ -4871,6 +4955,7 @@ public class LDSTools {
 			//Assert.assertTrue(checkElementTextViewReturn("Jul 2016"));
 			//Assert.assertFalse(checkElementTextViewReturn("Maul, Darth"));
 			
+
 			if (getRunningOS().equals("mac")) {
 				clickButtonByXpath("TopSort");
 				clickButtonByName("Expiring");
@@ -4881,6 +4966,8 @@ public class LDSTools {
 			Assert.assertFalse(checkNoCaseList("Windu, Mace", pageSource, "Contains"));
 			//Assert.assertFalse(checkElementTextViewReturn("Sitivi, Tama Kiliona"));
 			//Assert.assertFalse(checkElementTextViewReturn("Windu, Mace"));
+
+			
 			
 			
 			if (getRunningOS().equals("mac")) {
@@ -5074,7 +5161,9 @@ public class LDSTools {
 			if (getRunningOS().equals("mac")) {
 				clickLastTextViewRoboReturnContains("Unassigned Households");
 			} else {
+				Thread.sleep(1000);
 				scrollDownTEST(100);
+				Thread.sleep(1000);
 				clickLastTextViewRoboReturnContains("Unassigned Households");
 			}
 			
@@ -5185,6 +5274,7 @@ public class LDSTools {
 		
 		
 		if ((userCalling.equals("Bishopric")) || (userCalling.equals("High Priest Group")) || (userCalling.equals("Elders Quorum Pres"))) {
+			String myOS;
 			clickButtonByXpathTitleName("Home Teaching");
 			Thread.sleep(2000);
 			
@@ -5198,6 +5288,8 @@ public class LDSTools {
 			//Test Assigned Home Teachers
 			clickButtonByXpath("MenuFilter");
 			clickButtonByXpath("AssignedHomeTeachersBox");
+			myOS = getRunningOS();
+			System.out.println("Running OS: " + myOS);
 			if (getRunningOS().equals("android")) {
 				clickButtonByXpath("HTVTApply");
 				checkTextByXpath("HTVTFiltersApplied", "Assigned Home Teachers");
@@ -5207,7 +5299,7 @@ public class LDSTools {
 
 			Assert.assertTrue(checkElementTextViewReturn("AFPEighteen, Member"));
 			Assert.assertTrue(checkElementTextViewReturn("AFPFifteen, Member"));
-			Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member5"));
+			//Assert.assertTrue(checkElementTextViewReturn("Aaron, Jane"));
 			if (getRunningOS().equals("android")) {
 				clickButtonByXpath("HTVTRemoveFiltersButton");
 			}
@@ -5492,7 +5584,13 @@ public class LDSTools {
 		}
 		
 		if ((userCalling.equals("Relief Society Pres")) || (userCalling.equals("Bishopric"))) {
-			clickButtonByXpathTitleName("Visiting Teaching");
+			if (getRunningOS().equals("mac")) {
+				clickButtonByXpathTitleName("Visiting Teaching");
+			} else {
+				scrollDownTEST(200);
+				Thread.sleep(1000);
+				clickButtonByXpathTitleName("Visiting Teaching");
+			}
 			Thread.sleep(2000);
 
 			//Visiting Teaching
@@ -6110,7 +6208,7 @@ public class LDSTools {
 		}
 		
 		while(checkArrowDown == true ) {
-			//clickButtonByNameScroll("\u25BC");
+			clickButtonByNameScroll("\u25BC");
 			//scrollToTopDirectoryIOS();
 			//scrollDownIOS();
 			checkArrowDown = checkElementTextViewRoboReturn("\u25BC");
