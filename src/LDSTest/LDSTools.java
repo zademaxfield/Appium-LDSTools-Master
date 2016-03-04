@@ -205,12 +205,12 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
+		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
-		//editCurrentUser(os);	
+		editCurrentUser(os);	
 		
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
@@ -6112,6 +6112,12 @@ public class LDSTools {
 	private void runSync() throws Exception {
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpath("DrawerMore");
+			
+			//Check to see if the sync page is dispalyed
+			if (checkElementNameReturn("Sync Now") == true) {
+				pressBackKey();
+			}
+			
 			clickButtonByXpath("DrawerUpdate");
 			
 			//This will probably change
