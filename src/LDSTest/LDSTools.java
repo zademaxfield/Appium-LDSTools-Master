@@ -209,10 +209,10 @@ public class LDSTools {
 
 		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
 		//under18HeadofHouse(os);	
-		bishopricCounselorAndWardClerk(os);
+		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
-		//editCurrentUser(os);	
+		editCurrentUser(os);	
 		
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
@@ -5189,7 +5189,7 @@ public class LDSTools {
 			} else {
 				Assert.assertTrue(checkElementTextViewReturn("AFPTen, Husband - 55"));
 				Assert.assertTrue(checkElementTextViewReturn("Ami, Samu Junior - 22"));
-				Assert.assertTrue(checkElementTextViewReturn("Endemann, Eddie - 81"));
+				Assert.assertTrue(checkElementTextViewReturn("Endemann, Eddie - 82"));
 			}
 
 			pressBackKey();
