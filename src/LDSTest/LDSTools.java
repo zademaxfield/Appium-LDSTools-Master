@@ -210,9 +210,9 @@ public class LDSTools {
 		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
-		//bishopMemberOfSeparateStake(os);	
+		bishopMemberOfSeparateStake(os);	
 		
-		editCurrentUser(os);	
+		//editCurrentUser(os);	
 		
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
@@ -685,7 +685,7 @@ public class LDSTools {
 			pageSource = getSourceOfPage();
 			Assert.assertTrue(checkNoCaseList("Tools, LDS2", pageSource, "Equals"));
 		} else {
-			clickButtonByXpathTitleName("Tools, LDS2");
+			//clickButtonByXpathTitleName("Tools, LDS2");
 			pageSource = androidGetMemberInfo();
 			Assert.assertTrue(checkNoCaseList("Tools, LDS2", pageSource, "Equals"));
 		}
@@ -696,7 +696,8 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("MEMBERSHIP INFORMATION", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("888-0028-7023", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("RECORD NUMBER", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("January 1, 1980 (36)", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("January 1, 1980", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("36", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("BIRTH DATE", pageSource, "Contains"));
 		
 		//Check Ordinances
@@ -1282,7 +1283,7 @@ public class LDSTools {
 		
 		//Check the users name, address membership number etc...
 		//Assert.assertTrue(checkElementTextViewReturn("Tools, LDS44"));
-		Thread.sleep(2000);
+		Thread.sleep(4000);
 		clickButtonByXpath("MenuEdit");
 		Thread.sleep(2000);
 		clearTextFieldXpath("EditPersonalPhone");
@@ -6154,6 +6155,9 @@ public class LDSTools {
 			
 		} else {
 			clickButtonByXpath("Drawer");
+			if (checkElementTextViewReturn("Later") == true ) {
+				clickButtonByXpathTitleName("Later");
+			}
 			scrollDown("Sync", -5 );
 			//Thread.sleep(4000);
 			//clickButtonByXpath("DrawerSYNC");
