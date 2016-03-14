@@ -6304,6 +6304,7 @@ public class LDSTools {
 	@AfterMethod(alwaysRun = true)
 	public void teardown() throws Exception {
 		
+		/* Failing on ios test machine... working on main machine
 		if (getRunningOS().equals("mac")) {
 			File screenshotFile = driver.getScreenshotAs(OutputType.FILE);
 			try {
@@ -6314,8 +6315,8 @@ public class LDSTools {
 				e.printStackTrace();
 			}
 		}
+		*/
 
-		Thread.sleep(2000);
 		driver.quit();
 		Thread.sleep(5000);
 		
