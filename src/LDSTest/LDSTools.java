@@ -207,14 +207,14 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
+		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
-		bishopMemberOfSeparateStake(os);	
+		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
 		
-		//editCurrentUserCancel(os);
+		editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
 		//editOtherUserInvalidEmail(os);	
@@ -4918,18 +4918,18 @@ public class LDSTools {
 
 		Thread.sleep(1000);
 		pressBackKey();
-		//Thread.sleep(1000);
+		Thread.sleep(1000);
 		
 		//New Members
 		clickButtonByXpathTitleName("New Members");
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Joezmal, Loana", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("14", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("F", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Lilotoe, Tapatasi", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("17", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("M", pageSource, "Contains"));
 		if (newUnit == true){
-			Assert.assertTrue(checkNoCaseList("March 15, 2015", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("October 15, 2015", pageSource, "Contains"));
 		} else {
-			Assert.assertFalse(checkNoCaseList("March 15, 2015", pageSource, "Contains"));
+			Assert.assertFalse(checkNoCaseList("October 15, 2015", pageSource, "Contains"));
 		}
 		
 		Assert.assertTrue(checkNoCaseList("Member", pageSource, "Contains"));
