@@ -207,9 +207,9 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		LeaderNonBishopric("LDSTools16", "High Priest Group", os);
+		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		//bishopricCounselorAndWardClerk(os);
+		bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -3541,7 +3541,15 @@ public class LDSTools {
 	
 	private void clearTextFieldXpath(String textElement) {
 		WebElement myElement = driver.findElement(By.xpath(this.prop.getProperty(textElement)));
-		myElement.clear();
+		if (getRunningOS().equals("mac")) {
+			myElement.click();
+			myElement.clear();
+			clickButtonByName("Select All");
+			clickButtonByXpath("KeyboardDel");
+		} else {
+			myElement.clear();
+		}
+		
 	}
 	
 
@@ -4561,7 +4569,7 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("Bishopric", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("High Priests Group", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("Elders Quorum", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("Relief Society", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Relief Society", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Young Men", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("Young Women", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("Sunday School", pageSource, "Equals"));
@@ -4766,9 +4774,11 @@ public class LDSTools {
 		}
 		
 		//Assert.assertTrue(checkNoCaseList("Elder Chad Faleali'i Samaseia", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("Elder Faauila Ekuasi", pageSource, "Equals"));
+		//Assert.assertTrue(checkNoCaseList("Elder Faauila Ekuasi", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Elder Lopeti Brown", pageSource, "Equals"));
 		//Assert.assertTrue(checkNoCaseList("Elder Conlan Schuyler Galvez", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("Kitara, Lafaele", pageSource, "Equals"));
+		//Assert.assertTrue(checkNoCaseList("Kitara, Lafaele", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Elder Trent Barrett Powelson", pageSource, "Equals"));
 		//Assert.assertTrue(checkNoCaseList("Elder Tama Kiliona Sitivi", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("Idaho Pocatello", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("Elder Olo Young Yen Junior", pageSource, "Contains"));
@@ -5020,7 +5030,7 @@ public class LDSTools {
 		//clickButtonByXpath("AlertOK");
 		checkForAlertOK() ;
 		Thread.sleep(1000);
-		Assert.assertTrue(checkElementTextViewReturnContains("603"));
+		Assert.assertTrue(checkElementTextViewReturnContains("604"));
 		Assert.assertTrue(checkElementTextViewReturnContains("17"));
 		Assert.assertTrue(checkElementTextViewReturnContains("49"));
 		Assert.assertFalse(checkElementTextViewReturnContains("8675309"));
