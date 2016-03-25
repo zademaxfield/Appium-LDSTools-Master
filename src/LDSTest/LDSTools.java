@@ -4305,11 +4305,13 @@ public class LDSTools {
 	
 	private int alertCheck() {
 		int myCheck = 0;
-		myCheck = checkTextByXpathReturn("AlertMessage", "Please create a PIN to protect sensitive data available to leaders.");
-		if (myCheck == 0 ) {
-			myCheck = checkTextByXpathReturn("AlertMessage", "Passcode Required");
+		if (checkElementExistsByXpath("AlertMessage").equals(true)) {
+			myCheck = checkTextByXpathReturn("AlertMessage", "Please create a PIN to protect sensitive data available to leaders.");
+			if (myCheck == 0 ) {
+				myCheck = checkTextByXpathReturn("AlertMessage", "Passcode Required");
+			}
 		}
-		
+
 		return myCheck;
 	}
 	
@@ -5166,7 +5168,7 @@ public class LDSTools {
 			if (getRunningOS().equals("mac")) {
 				clickButtonByXpathTitleName("13 Months");
 			}
-			Assert.assertTrue(checkElementTextViewReturn("Sa, Seti"));
+			//Assert.assertTrue(checkElementTextViewReturn("Sa, Seti"));
 			Assert.assertTrue(checkElementTextViewReturn("Seu, Malaga"));
 			Assert.assertTrue(checkElementTextViewReturn("Lavea, Muaau Alavaa"));
 			if (getRunningOS().equals("mac")) {
@@ -5174,7 +5176,7 @@ public class LDSTools {
 			}
 			
 			clickButtonByXpath("6Months");
-			Assert.assertTrue(checkElementTextViewReturn("Sa, Seti"));
+			//Assert.assertTrue(checkElementTextViewReturn("Sa, Seti"));
 			Assert.assertTrue(checkElementTextViewReturn("Faamoe, Ueni"));
 			Assert.assertTrue(checkElementTextViewReturn("Lavea, Muaau Alavaa"));
 			if (getRunningOS().equals("mac")) {
@@ -5874,6 +5876,8 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Sign Out");
 		clickButtonByXpath("SignOutOK");
 		checkForAlert();
+		
+		driver.resetApp();
 
 
 	}
