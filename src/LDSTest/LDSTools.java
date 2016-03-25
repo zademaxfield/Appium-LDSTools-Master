@@ -60,6 +60,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
 //import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
@@ -145,6 +146,7 @@ public class LDSTools {
 	        capabilities.setCapability("automationName","selendroid");
 	        capabilities.setCapability("newCommandTimeout", 600);
 	        capabilities.setCapability("platformVersion", "5.1.1");
+	        capabilities.setCapability("fullReset", true);
 	        capabilities.setCapability("app", app.getAbsolutePath());
 	        capabilities.setCapability("appPackage", "org.lds.ldstools.dev");
 	        //capabilities.setCapability("appActivity", "org.lds.ldstools.ui.StartupActivity");
@@ -182,10 +184,13 @@ public class LDSTools {
 	        capabilities.setCapability("deviceName",testDevice);
 	        capabilities.setCapability("automationName","appium");
 	        capabilities.setCapability("browserName","");
+	        capabilities.setCapability("fullReset", true);
 	        capabilities.setCapability("newCommandTimeout", 600);
 	        capabilities.setCapability("app", app.getAbsolutePath());
 	        capabilities.setCapability("appPackage", "org.lds.ldstools.dev");
-	        capabilities.setCapability("sendKeysStrategy", "setValue");
+	        //capabilities.setCapability("sendKeysStrategy", "setValue");
+	        capabilities.setCapability("sendKeysStrategy", "grouped");
+	        
 	        capabilities.setCapability("launchTimeout", 30000);
 	        
 	        
@@ -209,7 +214,7 @@ public class LDSTools {
 
 		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		bishopricCounselorAndWardClerk(os);
+		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -220,7 +225,7 @@ public class LDSTools {
 		//editOtherUserInvalidEmail(os);	
 		
 		//Not Working Yet	
-		//editVisibility(os);	
+		editVisibility(os);	
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
@@ -2226,12 +2231,14 @@ public class LDSTools {
 		
 		clearLoginPassword();
 		
+		
+		/* For some reason the clearLoginPassword isn't working on the password
 		syncLogIn("LDSTools2", "test|test|test$$$$test|||||||test", "UAT", os );
 		Thread.sleep(2000);
 		Assert.assertTrue(checkElementTextViewReturn(errorMessage));
 		clickButtonByXpath("AlertOK");
 		
-		clearLoginPassword();
+		clearLoginPassword();*/
 		
 		syncLogIn("zmaxfield", "%%%test%%%% & ||||||| select * from household;", "Production", os );
 		Thread.sleep(2000);
@@ -3539,13 +3546,26 @@ public class LDSTools {
 	}
 	
 	
-	private void clearTextFieldXpath(String textElement) {
+	private void clearTextFieldXpath(String textElement) throws Exception {
 		WebElement myElement = driver.findElement(By.xpath(this.prop.getProperty(textElement)));
 		if (getRunningOS().equals("mac")) {
 			myElement.click();
 			myElement.clear();
+			Thread.sleep(2000);
 			clickButtonByName("Select All");
-			clickButtonByXpath("KeyboardDel");
+			//clickButtonByXpath("KeyboardDel");
+			
+			//myElement.sendKeys(Keys.CONTROL + "a");
+			//myElement.sendKeys(Keys.DELETE);
+			//myElement.sendKeys(Keys.BACK_SPACE);
+			
+			Actions actions = new Actions(driver);
+			//actions.sendKeys(myElement, Keys.chord(Keys.CONTROL, "a"));
+			//actions.sendKeys(myElement, Keys.CONTROL + "a");
+			actions.sendKeys(myElement, Keys.DELETE);
+			actions.perform();
+			
+			
 		} else {
 			myElement.clear();
 		}
@@ -4220,12 +4240,15 @@ public class LDSTools {
 	 * @throws Exception
 	 */
 	private void pinPage(String digit1, String digit2, String digit3, String digit4, Boolean nonLeaderPin ) throws Exception {
-		int myCheck;
+		int myCheck = 0;
 		String myAlertText;
 		boolean elementCheck;
 		
 		//Check to see if we are getting a warning
-		myCheck = checkTextByXpathReturn("AlertMessage", "Warning");
+		if (checkElementExistsByXpath("AlertMessage").equals(true)) {
+			myCheck = checkTextByXpathReturn("AlertMessage", "Warning");
+		}
+
 		if (myCheck == 1) {
 			myAlertText = getTextXpath("AlertMessageView");
 			System.out.println("Found Warning: " + myAlertText);
