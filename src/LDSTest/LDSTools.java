@@ -4365,7 +4365,7 @@ public class LDSTools {
 			clickButtonByXpathTitleName("Jane Aaron");
 			iosExpandAllDirectory();
 			pageSource = getSourceOfPage();
-			Assert.assertTrue(checkNoCaseList("Aaron, Jane", pageSource, "Equals"));
+			//Assert.assertTrue(checkNoCaseList("Aaron, Jane", pageSource, "Contains"));
 		} else {
 			//clickButtonByXpathTitleName("Aaron, Jane");
 			pageSource = androidGetMemberInfo();
@@ -5168,7 +5168,7 @@ public class LDSTools {
 			if (getRunningOS().equals("mac")) {
 				clickButtonByXpathTitleName("13 Months");
 			}
-			//Assert.assertTrue(checkElementTextViewReturn("Sa, Seti"));
+			Assert.assertTrue(checkElementTextViewReturn("Sa, Seti"));
 			Assert.assertTrue(checkElementTextViewReturn("Seu, Malaga"));
 			Assert.assertTrue(checkElementTextViewReturn("Lavea, Muaau Alavaa"));
 			if (getRunningOS().equals("mac")) {
@@ -5176,7 +5176,7 @@ public class LDSTools {
 			}
 			
 			clickButtonByXpath("6Months");
-			//Assert.assertTrue(checkElementTextViewReturn("Sa, Seti"));
+			Assert.assertTrue(checkElementTextViewReturn("Sa, Seti"));
 			Assert.assertTrue(checkElementTextViewReturn("Faamoe, Ueni"));
 			Assert.assertTrue(checkElementTextViewReturn("Lavea, Muaau Alavaa"));
 			if (getRunningOS().equals("mac")) {
