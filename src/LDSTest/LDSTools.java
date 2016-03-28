@@ -212,6 +212,7 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
+		LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
 		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
@@ -225,7 +226,7 @@ public class LDSTools {
 		//editOtherUserInvalidEmail(os);	
 		
 		//Not Working Yet	
-		editVisibility(os);	
+		//editVisibility(os);	
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
@@ -4915,7 +4916,7 @@ public class LDSTools {
 		}
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Ward Assistant Clerk", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("10 months", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("2 months", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Kitara, Lafaele", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("P0, C3", pageSource, "Contains"));
 
@@ -5055,7 +5056,7 @@ public class LDSTools {
 		//clickButtonByXpath("AlertOK");
 		checkForAlertOK() ;
 		Thread.sleep(1000);
-		Assert.assertTrue(checkElementTextViewReturnContains("604"));
+		Assert.assertTrue(checkElementTextViewReturnContains("603"));
 		Assert.assertTrue(checkElementTextViewReturnContains("17"));
 		Assert.assertTrue(checkElementTextViewReturnContains("49"));
 		Assert.assertFalse(checkElementTextViewReturnContains("8675309"));
@@ -5212,8 +5213,8 @@ public class LDSTools {
 			//clickLastTextViewRoboReturnContains("Unassigned Households");
 			Thread.sleep(2000);
 			Assert.assertTrue(checkElementTextViewReturn("Abel, Chad Dennis"));
-			Assert.assertTrue(checkElementTextViewReturn("Lavea, Muaau Alavaa"));
-			Assert.assertTrue(checkElementTextViewReturn("Isaako, Ioane"));
+			Assert.assertTrue(checkElementTextViewReturn("Faamoe, Filifili"));
+			Assert.assertTrue(checkElementTextViewReturn("Faamoe, Ueni"));
 			pressBackKey();
 			
 			clickLastTextViewRoboReturnContains("Potential Home Teachers");
@@ -5221,11 +5222,11 @@ public class LDSTools {
 			if (getRunningOS().equals("mac")) {
 				Assert.assertTrue(checkElementTextViewReturnContains("AFPTen, Husband"));
 				Assert.assertTrue(checkElementTextViewReturnContains("Ami, Samu Junior"));
-				Assert.assertTrue(checkElementTextViewReturnContains("Endemann, Eddie"));
+				Assert.assertTrue(checkElementTextViewReturnContains("Faamoe, Filifili"));
 			} else {
 				Assert.assertTrue(checkElementTextViewReturn("AFPTen, Husband - 55"));
 				Assert.assertTrue(checkElementTextViewReturn("Ami, Samu Junior - 22"));
-				Assert.assertTrue(checkElementTextViewReturn("Endemann, Eddie - 82"));
+				Assert.assertTrue(checkElementTextViewReturn("Faamoe, Filifili - 46"));
 			}
 
 			pressBackKey();
