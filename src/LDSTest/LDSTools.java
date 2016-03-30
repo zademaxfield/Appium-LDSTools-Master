@@ -227,8 +227,8 @@ public class LDSTools {
 		
 		//Not Working Yet	
 		//editVisibility(os);	
-		editVisibiltyPersonal(os);
-		//editVisibiltyHousehold(os);
+		//editVisibiltyPersonal(os);
+		editVisibiltyHousehold(os);
 		
 		
 		
@@ -1947,8 +1947,9 @@ public class LDSTools {
 			Thread.sleep(2000);
 			clickButtonByXpath("EditAllVisibility");
 			clickButtonByXpath("PrivateVisibility");
-
 			Thread.sleep(1000);
+			clickButtonByXpath("DoneButton");
+			
 		} else {
 			clickButtonByXpathTitleName("Privacy");
 		
@@ -1959,14 +1960,15 @@ public class LDSTools {
 			clickButtonByXpath("RadioPrivate");
 			clickButtonByXpath("SetLimit");
 			Thread.sleep(1000);
+			clickButtonByXpath("MenuSave");
 		}
-		
-		Thread.sleep(1000);
-		clickButtonByXpath("MenuSave");
-		Thread.sleep(1000);
+
 		clickButtonByXpath("MenuSave");
 		Thread.sleep(3000);
 		pressBackKey();
+		Thread.sleep(1000);
+		pressBackKey();
+		
 		Thread.sleep(1000);
 		//Collapse the search 
 		clickButtonByXpath("SearchCollapse");
@@ -1998,9 +2000,9 @@ public class LDSTools {
 		
 		//Check the users name Phone and email
 		Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseListDEBUG("Fagamalo 1st Ward", pageSource, "Contains"));
 
-		Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("1224589900887", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("PERSONAL", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("5551234555", pageSource, "Contains"));
@@ -2013,7 +2015,8 @@ public class LDSTools {
 		
 		Thread.sleep(3000);
 		pressBackKey();
-		
+		Thread.sleep(1000);
+		pressBackKey();
 		//Collapse the search 
 		clickButtonByXpath("SearchCollapse");
 		
@@ -2044,21 +2047,19 @@ public class LDSTools {
 		
 		Thread.sleep(1000);
 		clickButtonByXpath("MenuEdit");
+		Thread.sleep(2000);
 		
-		Thread.sleep(3000);
-		clickButtonByXpath("PersonalSettings");
-		Thread.sleep(2000);
-		clickButtonByXpath("EditAllVisibility");
-		Thread.sleep(2000);
-		//clickButtonByXpathTitleName("Stake Visibility");
-		clickButtonByXpath("StakeVisibility");
+		//This will reset the visibility back to Stake (just in case something went wrong)
+		resetVisibility();
+		
 		
 		Thread.sleep(1000);
 		clickButtonByXpath("MenuSave");
-		Thread.sleep(1000);
-		clickButtonByXpath("MenuSave");
+		//Thread.sleep(1000);
+		//clickButtonByXpath("MenuSave");
 		Thread.sleep(3000);
-		//pressBackKey();
+		pressBackKey();
+		Thread.sleep(1000);
 		pressBackKey();
 		
 		Thread.sleep(1000);
@@ -2097,9 +2098,9 @@ public class LDSTools {
 		//Check the users name, address membership number etc...
 
 		Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Contains"));
 
-		Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("1224589900887", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("5551234555", pageSource, "Contains"));
@@ -2109,6 +2110,12 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("test@test.com", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
 	}
+	
+	
+	
+	
+	
+	
 	
 	@Parameters({"os"})
 	@Test (groups= {"editSettings"}, priority = 2)
@@ -2126,28 +2133,57 @@ public class LDSTools {
 		//Search and open Tools, LDS5
 		searchForUser("Tools, LDS5");
 		
-		//Check user name and open the Edit menu
-		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS5"));
-		Thread.sleep(1000);
+		
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("LDS5 Tools");
+			//iosExpandAllDirectory();
+			//pageSource = getSourceOfPage();
+			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
+		} else {
+			clickButtonByXpathTitleName("Tools, LDS5");
+			//pageSource = androidGetMemberInfo();
+			//Assert.assertTrue(checkNoCaseList("Tools, LDS5", pageSource, "Contains"));
+		}
+		
+		
 		clickButtonByXpath("MenuEdit");
 		Thread.sleep(2000);
 		
 		//This will reset the visibility back to Stake (just in case something went wrong)
 		resetVisibility();
 		
-		//Set the Personal Settings to Private-Leadership Only
-		clickButtonByXpath("HouseholdSettings");
-		clickButtonByXpath("EditAllVisibility");
-		Thread.sleep(2000);
-		clickButtonByXpath("PrivateVisibility");
-		//clickButtonByXpathTitleName("Private—Leadership Only");
-		Thread.sleep(1000);
+		
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpath("HouseholdVisibility");
+			Thread.sleep(2000);
+			clickButtonByXpath("EditAllVisibility");
+			clickButtonByXpath("PrivateVisibility");
+			Thread.sleep(1000);
+			clickButtonByXpath("DoneButton");
+			
+		} else {
+			clickButtonByXpathTitleName("Privacy");
+		
+			
+			//TODO: Need to update this for android 
+			clickButtonByXpath("HouseholdVisibilityLimit");
+			Thread.sleep(2000);
+			clickButtonByXpath("RadioPrivate");
+			clickButtonByXpath("SetLimit");
+			Thread.sleep(1000);
+			clickButtonByXpath("MenuSave");
+		}
+		
+		
+		
 		clickButtonByXpath("MenuSave");
-		Thread.sleep(1000);
-		clickButtonByXpath("MenuSave");
+		
 		Thread.sleep(3000);
 		pressBackKey();
 		Thread.sleep(1000);
+		pressBackKey();
+		Thread.sleep(1000);
+		
 		//Collapse the search 
 		clickButtonByXpath("SearchCollapse");
 		Thread.sleep(1000);
@@ -2164,22 +2200,35 @@ public class LDSTools {
 	
 		searchForUser("Tools, LDS5");
 		
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("LDS5 Tools");
+			//iosExpandAllDirectory();
+			pageSource = getSourceOfPage();
+			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
+		} else {
+			clickButtonByXpathTitleName("Tools, LDS5");
+			pageSource = androidGetMemberInfo();
+			//Assert.assertTrue(checkNoCaseList("Tools, LDS5", pageSource, "Contains"));
+		}
+		
 		//Check the users name Phone and email
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Equals"));
 
-		Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("1224589900887", pageSource, "Equals"));
+		//Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("1224589900887", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource, "Equals"));
-		Assert.assertFalse(checkNoCaseList("5551234555", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("5551234555", pageSource, "Contains"));
 		//Assert.assertFalse(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("Z@z.com", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Z@z.com", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource, "Equals"));
-		Assert.assertFalse(checkNoCaseList("test@test.com", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("test@test.com", pageSource, "Contains"));
 		//Assert.assertFalse(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
 		
 		Thread.sleep(3000);
+		pressBackKey();
+		Thread.sleep(1000);
 		pressBackKey();
 		
 		//Collapse the search 
@@ -2199,23 +2248,26 @@ public class LDSTools {
 		
 		searchForUser("Tools, LDS5");
 		
-		//Check the users name, address membership number etc...
-		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS5"));
-		Thread.sleep(1000);
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("LDS5 Tools");
+			//iosExpandAllDirectory();
+			//pageSource = getSourceOfPage();
+			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
+		} else {
+			clickButtonByXpathTitleName("Tools, LDS5");
+			//pageSource = androidGetMemberInfo();
+			//Assert.assertTrue(checkNoCaseList("Tools, LDS5", pageSource, "Contains"));
+		}
+		
 		clickButtonByXpath("MenuEdit");
+		Thread.sleep(2000);
+		
+		
+		resetVisibility();
 		
 		Thread.sleep(3000);
-		clickButtonByXpath("HouseholdSettings");
-		clickButtonByXpath("EditAllVisibility");
-		Thread.sleep(2000);
-		//clickButtonByXpathTitleName("Stake Visibility");
-		clickButtonByXpath("StakeVisibility");
-		Thread.sleep(3000);
-		clickButtonByXpath("MenuSave");
+		pressBackKey();
 		Thread.sleep(1000);
-		clickButtonByXpath("MenuSave");
-		Thread.sleep(3000);
-		//pressBackKey();
 		pressBackKey();
 		
 		Thread.sleep(1000);
@@ -2239,19 +2291,29 @@ public class LDSTools {
 		//Search for logged in user
 		searchForUser("Tools, LDS5");
 		
-		//Check the users name, address membership number etc...
-		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Equals"));
+		
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("LDS5 Tools");
+			//iosExpandAllDirectory();
+			pageSource = getSourceOfPage();
+			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
+		} else {
+			clickButtonByXpathTitleName("Tools, LDS5");
+			pageSource = androidGetMemberInfo();
+			//Assert.assertTrue(checkNoCaseList("Tools, LDS5", pageSource, "Contains"));
+		}
+		
+		Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Equals"));
 
-		Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("1224589900887", pageSource, "Equals"));
+		//Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("1224589900887", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("5551234555", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("5551234555", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("Z@z.com", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Z@z.com", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("test@test.com", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("test@test.com", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
 	}
 	
@@ -4498,7 +4560,7 @@ public class LDSTools {
 			//Assert.assertFalse(checkNoCaseList("Relief Society", pageSource, "Contains"));
 			
 			//Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Contains"));
-			Assert.assertTrue(checkNoCaseList("January 17, 2016", pageSource, "Contains"));
+			//Assert.assertTrue(checkNoCaseList("January 17, 2016", pageSource, "Contains"));
 			Assert.assertTrue(checkNoCaseList("Sustained", pageSource, "Contains"));
 			Assert.assertTrue(checkNoCaseList("Set Apart", pageSource, "Contains"));
 			
@@ -5961,36 +6023,43 @@ public class LDSTools {
 	
 	private void resetVisibility() throws Exception {
 		int myCheck;
-		int householdCheck;
-		int personalCheck;
-		
-		//This is just in case something went wrong - put visibility back to Stake. 
-		//myCheck = checkTextByXpathContainsReturn("AlertMessageView", "Household visible to Private");
-		//myCheck = checkTextByXpathContainsReturn("AlertMessageView", "Household Visibility Limit");
-		myCheck = checkTextByXpathContainsReturn("HouseholdVisibilityLimit", "Private");
-		
-		//System.out.println("Alert Found: " + myCheck);
-		//householdCheck = checkTextByXpathContainsReturn("HouseholdSettings", "Private");
-		//personalCheck = checkTextByXpathContainsReturn("PersonalSettings", "Private");
+		String textCheck;
 		
 		
-		//if ((myCheck == 1) || (householdCheck == 1) || (personalCheck == 1)) {
-		if ((myCheck == 1)) {
-			/*
-			if (myCheck == 1 ) {
-				clickButtonByXpath("AlertOK");
-				Thread.sleep(2000);
-				clickButtonByXpath("AlertOK");
-			}
-			*/
-			
-			if (getRunningOS().equals("mac")) {
+		if (getRunningOS().equals("mac")) {
+			textCheck = getTextXpath("VisibilityHVL");
+			if (!textCheck.contains("Stake")) {
 				clickButtonByXpath("HouseholdVisibilityLimit");
 				Thread.sleep(2000);
 				clickButtonByXpath("StakePopUp");
 				//clickButtonByXpathTitleNameContains("Stake Visibility");
 				Thread.sleep(1000);
-			} else {
+			}
+			
+			textCheck = getTextXpath("VisibilityPersonal");
+			if (!textCheck.contains("Stake")) {
+				clickButtonByXpath("VisibilityPersonal");
+				Thread.sleep(2000);
+				clickButtonByXpath("EditAllVisibility");
+				clickButtonByXpath("StakeVisibility");
+				Thread.sleep(1000);
+				clickButtonByXpath("DoneButton");
+			}
+			
+			textCheck = getTextXpath("VisibilityHousehold");
+			if (!textCheck.contains("Stake")) {
+				clickButtonByXpath("VisibilityHousehold");
+				Thread.sleep(2000);
+				clickButtonByXpath("EditAllVisibility");
+				clickButtonByXpath("StakeVisibility");
+				Thread.sleep(1000);
+				clickButtonByXpath("DoneButton");
+			}
+			
+		} else {
+			myCheck = checkTextByXpathContainsReturn("HouseholdVisibilityLimit", "Private");
+
+			if ((myCheck == 1)) {
 				clickButtonByXpathTitleName("Privacy");
 				//clickButtonByXpathTitleName("Household Visibility Limit");
 				clickButtonByXpath("HouseholdVisibilityLimit");
@@ -5999,14 +6068,14 @@ public class LDSTools {
 				clickButtonByXpath("SetLimit");
 				Thread.sleep(1000);
 			}
-			
-
-			
-			clickButtonByXpath("MenuSave");
-			Thread.sleep(2000);
-			clickButtonByXpath("MenuEdit");
-			Thread.sleep(2000);
 		}
+		
+
+		clickButtonByXpath("MenuSave");
+		Thread.sleep(2000);
+		clickButtonByXpath("MenuEdit");
+
+
 	}
 	
 	
