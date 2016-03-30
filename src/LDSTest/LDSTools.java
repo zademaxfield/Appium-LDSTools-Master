@@ -212,7 +212,7 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
+		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
 		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
@@ -227,7 +227,7 @@ public class LDSTools {
 		
 		//Not Working Yet	
 		//editVisibility(os);	
-		//editVisibiltyPersonal(os);
+		editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
 		
@@ -1847,12 +1847,21 @@ public class LDSTools {
 		searchForUser("Tools, LDS5");
 		
 		//Check the users name, address membership number etc...
-		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS5"));
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("LDS5 Tools");
+			//iosExpandAllDirectory();
+			//pageSource = getSourceOfPage();
+			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
+		} else {
+			clickButtonByXpathTitleName("Tools, LDS5");
+			//pageSource = androidGetMemberInfo();
+			//Assert.assertTrue(checkNoCaseList("Tools, LDS5", pageSource, "Contains"));
+		}
 		Thread.sleep(1000);
 		clickButtonByXpath("MenuEdit");
 		
-		Thread.sleep(3000);
-		clickButtonByXpath("AlertOK");	
+		//Thread.sleep(3000);
+		//clickButtonByXpath("AlertOK");	
 		
 		
 		Thread.sleep(1000);
@@ -1867,10 +1876,9 @@ public class LDSTools {
 		//Thread.sleep(1000);
 		//clickButtonByXpath("MenuSave");
 		Thread.sleep(3000);
-		//pressBackKey();
 		pressBackKey();
-		
 		Thread.sleep(1000);
+		pressBackKey();
 		//Collapse the search 
 		clickButtonByXpath("SearchCollapse");
 		Thread.sleep(1000);
@@ -1912,8 +1920,17 @@ public class LDSTools {
 		//Search and open Tools, LDS5
 		searchForUser("Tools, LDS5");
 		
-		//Check user name and open the Edit menu
-		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS5"));
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("LDS5 Tools");
+			//iosExpandAllDirectory();
+			//pageSource = getSourceOfPage();
+			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
+		} else {
+			clickButtonByXpathTitleName("Tools, LDS5");
+			//pageSource = androidGetMemberInfo();
+			//Assert.assertTrue(checkNoCaseList("Tools, LDS5", pageSource, "Contains"));
+		}
+		
 		Thread.sleep(1000);
 		clickButtonByXpath("MenuEdit");
 		Thread.sleep(2000);
@@ -1923,11 +1940,27 @@ public class LDSTools {
 
 		
 		//Set the Personal Settings to Private-Leadership Only
-		clickButtonByXpath("PersonalSettings");
-		clickButtonByXpath("EditAllVisibility");
-		Thread.sleep(2000);
-		clickButtonByXpath("PrivateVisibility");
-		//clickButtonByXpathTitleNameContains("Private");
+		
+		
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpath("PersonlVisibility");
+			Thread.sleep(2000);
+			clickButtonByXpath("EditAllVisibility");
+			clickButtonByXpath("PrivateVisibility");
+
+			Thread.sleep(1000);
+		} else {
+			clickButtonByXpathTitleName("Privacy");
+		
+			
+			//TODO: Need to update this for android 
+			clickButtonByXpath("HouseholdVisibilityLimit");
+			Thread.sleep(2000);
+			clickButtonByXpath("RadioPrivate");
+			clickButtonByXpath("SetLimit");
+			Thread.sleep(1000);
+		}
+		
 		Thread.sleep(1000);
 		clickButtonByXpath("MenuSave");
 		Thread.sleep(1000);
@@ -1952,20 +1985,30 @@ public class LDSTools {
 	
 		searchForUser("Tools, LDS5");
 		
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("LDS5 Tools");
+			//iosExpandAllDirectory();
+			pageSource = getSourceOfPage();
+			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
+		} else {
+			clickButtonByXpathTitleName("Tools, LDS5");
+			pageSource = androidGetMemberInfo();
+			//Assert.assertTrue(checkNoCaseList("Tools, LDS5", pageSource, "Contains"));
+		}
+		
 		//Check the users name Phone and email
-		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Contains"));
 
-		Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource, "Equals"));
-		Assert.assertFalse(checkNoCaseList("1224589900887", pageSource, "Equals"));
-		Assert.assertFalse(checkNoCaseList("PERSONAL", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("5551234555", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("1224589900887", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("PERSONAL", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("5551234555", pageSource, "Contains"));
 		//This is showing up as household email or household phone
 		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
-		Assert.assertFalse(checkNoCaseList("Z@z.com", pageSource, "Equals"));
-		Assert.assertFalse(checkNoCaseList("PERSONAL", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("test@test.com", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("Z@z.com", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("PERSONAL", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("test@test.com", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
 		
 		Thread.sleep(3000);
@@ -1988,9 +2031,17 @@ public class LDSTools {
 		Thread.sleep(2000);
 		
 		searchForUser("Tools, LDS5");
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("LDS5 Tools");
+			//iosExpandAllDirectory();
+			//pageSource = getSourceOfPage();
+			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
+		} else {
+			clickButtonByXpathTitleName("Tools, LDS5");
+			//pageSource = androidGetMemberInfo();
+			//Assert.assertTrue(checkNoCaseList("Tools, LDS5", pageSource, "Contains"));
+		}
 		
-		//Check the users name, address membership number etc...
-		Assert.assertTrue(checkElementTextViewReturn("Tools, LDS5"));
 		Thread.sleep(1000);
 		clickButtonByXpath("MenuEdit");
 		
@@ -2031,19 +2082,31 @@ public class LDSTools {
 		//Search for logged in user
 		searchForUser("Tools, LDS5");
 		
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("LDS5 Tools");
+			//iosExpandAllDirectory();
+			pageSource = getSourceOfPage();
+			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
+		} else {
+			clickButtonByXpathTitleName("Tools, LDS5");
+			pageSource = androidGetMemberInfo();
+			//Assert.assertTrue(checkNoCaseList("Tools, LDS5", pageSource, "Contains"));
+		}
+		
+		
 		//Check the users name, address membership number etc...
-		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Equals"));
 
-		Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("1224589900887", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Contains"));
+
+		Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("1224589900887", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("5551234555", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("5551234555", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("Z@z.com", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Z@z.com", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("test@test.com", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("test@test.com", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
 	}
 	
