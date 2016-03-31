@@ -64,8 +64,10 @@ public class LDSWeb {
 	
 	@Test
 	public void simpleTest() throws Exception {
+		String myUserName = "ldstools2";
+		String myPassword = "toolstester";
 		List<String> myList = new ArrayList<String>();
-		myList = getAllMembersOnPage("ReportsMenu", "Member List");
+		myList = getAllMembersOnPage("ReportsMenu", "Member List", myUserName, myPassword);
 		for(String oneUser : myList){
 			System.out.println("Found User: " + oneUser);
 		}
@@ -388,7 +390,7 @@ public class LDSWeb {
 	}
 	
 	
-	public List<String> getAllMembersOnPage(String menuItem, String myReport) throws Exception {
+	public List<String> getAllMembersOnPage(String menuItem, String myReport, String myUserName, String myPassword) throws Exception {
 		openGuiMap();
 		setUp();
 		
@@ -401,9 +403,9 @@ public class LDSWeb {
 		//openWebPage("https://www.lds.org");
 		Thread.sleep(2000);
 
-		driver.findElement(By.id(this.prop.getProperty("UserName"))).sendKeys("ldstools2");
+		driver.findElement(By.id(this.prop.getProperty("UserName"))).sendKeys(myUserName);
 		//Thread.sleep(1000);
-		driver.findElement(By.id(this.prop.getProperty("Password"))).sendKeys("toolstester");
+		driver.findElement(By.id(this.prop.getProperty("Password"))).sendKeys(myPassword);
 		clickElement("SignIn", "id");
 		
 		Thread.sleep(4000);
@@ -455,13 +457,14 @@ public class LDSWeb {
 		clickElement(myReport, "linkText");
 		Thread.sleep(1000);
 		waitForTextToDisappear("Loading", 500 );
-		Thread.sleep(1000);
+		Thread.sleep(3000);
 		//clickElement(subReport, "linkText");
 		//Thread.sleep(4000);
-		waitForTextToDisappear("Loading", 500 );
+		//waitForTextToDisappear("Loading", 500 );
+		//Thread.sleep(1000);
 		
 		if (subReport.contains("Member")) {
-			clickElement("Members", "text");
+			clickElement("Members", "linkText");
 		} else {
 			clickElement("All Organizations", "linkText");
 		}
