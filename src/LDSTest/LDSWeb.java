@@ -82,6 +82,10 @@ public class LDSWeb {
 	}
 	
 	public void openPageLogIn(String url, String userName, String passWord) throws Exception {
+		
+		openGuiMap();
+		setUp();
+		
 		Thread.sleep(4000);
 		//openWebPage("https://uat.lds.org");
 		openWebPage(url);
@@ -202,6 +206,44 @@ public class LDSWeb {
 
 	}
 	
+	public void selectList (String mainElement, String optionToSelect, String elementFind ){
+		WebElement select = null;
+		
+		
+		if (elementFind == "id") {
+			select = driver.findElement(By.id(this.prop.getProperty(mainElement)));
+		}
+		if (elementFind == "xpath") {
+			select = driver.findElement(By.xpath(this.prop.getProperty(mainElement)));
+		}
+		if (elementFind == "className") {
+			select = driver.findElement(By.className(this.prop.getProperty(mainElement)));
+		}
+		if (elementFind == "linkText") {
+			select = driver.findElement(By.linkText(mainElement));
+		}
+		if (elementFind == "text") {
+			select = driver.findElement(By.xpath("//*[contains(text(), '" + mainElement + "')]"));
+		}
+		
+		Select dropDown = new Select(select);
+		String selected = dropDown.getFirstSelectedOption().getText();
+		
+		if (selected.equals(optionToSelect)) {
+			//Item is all ready selected 
+			System.out.println("Object is alreay selected!");
+		} else {
+			List<WebElement> Options = dropDown.getAllSelectedOptions();
+			for (WebElement option:Options) {
+				if (option.getText().equals(optionToSelect)) {
+					option.click();
+				}
+			}
+		}
+		
+		
+	}
+	
 	public void clickSearchedUser(String userName) throws Exception {
 		clickElement(userName, "linkText");
 		Thread.sleep(1000);
@@ -306,6 +348,35 @@ public class LDSWeb {
 		List<String> foundUsers = new ArrayList<String>();
 		Document doc = Jsoup.parse(pageSource);
 		Elements myTest = doc.getElementsByAttributeValueStarting("class", "member-card-remote");
+		String outerHTML;
+		
+		for (Element myElement : myTest ) {
+			outerHTML = myElement.text();
+			if (outerHTML.contains(",")) {
+				if (outerHTML.contains("Jr")){
+					outerHTML = outerHTML.replace(" Jr", ", Jr");
+				}
+				foundUsers.add(outerHTML);
+			}
+			//System.out.println("Outer HTML:" + outerHTML);
+		}
+		
+		
+		
+		for(String oneUser : foundUsers){
+			System.out.println("Found User: " + oneUser);
+			
+		}
+		
+		
+		return foundUsers;
+		
+	}
+	
+	private List<String> getMembersHTVT(String pageSource){
+		List<String> foundUsers = new ArrayList<String>();
+		Document doc = Jsoup.parse(pageSource);
+		Elements myTest = doc.getElementsByAttributeValueStarting("class", "ng-binding ng-isolate-scope popover-link");
 		String outerHTML;
 		
 		for (Element myElement : myTest ) {
@@ -520,8 +591,6 @@ public class LDSWeb {
 	}
 	
 	public List<String> getMemberDetails(String memberDetail, String userName, String passWord) throws Exception {
-		openGuiMap();
-		setUp();
 		
 		String mySource;
 		String url = "https://uat.lds.org/mls/mbr/?lang=eng";
@@ -699,6 +768,50 @@ public class LDSWeb {
 		return foundUsers;
 		
 	}
+	
+	
+	
+	
+	public List<String> getAllMembersInHTVTReport(String orgName, String myReport, String userName, String passWord) throws Exception {
+		String mySource;
+		List<String> foundUsers = new ArrayList<String>();
+		String url = "https://uat.lds.org/mls/mbr/?lang=eng";
+
+		openPageLogIn(url, userName, passWord);
+
+		//clickElement("ReportsMenu", "id");
+		clickElement("OrganizationsMenu", "id");
+		
+		clickElement(orgName, "linkText");
+		Thread.sleep(4000);
+		
+		if (orgName.contains("Relief")) {
+			clickElement("VisitingTeachingDropDown", "xpath");
+		} else {
+			clickElement("HomeTeachingDropDown", "xpath");
+		}
+		
+		Thread.sleep(1000);
+		clickElement("Households", "linkText");
+		waitForTextToDisappear("Loading", 500 );
+		//This take a long time to load and doesn't have the loading tag
+		Thread.sleep(9000);
+		
+		
+		clickElement(myReport, "id");
+
+		Thread.sleep(2000);
+		//mySource = getSourceOfElement(subReport);
+		mySource = getSourceOfPage();
+		foundUsers = getMembersHTVT(mySource);
+		
+		tearDown();
+		
+		return foundUsers;
+		
+	}
+	
+	
 	
 	
 	@After
