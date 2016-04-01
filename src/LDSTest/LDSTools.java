@@ -213,10 +213,10 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		//justForTesting(os);	
+		justForTesting(os);	
 
 		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
-		LeaderNonBishopric("LDSTools16", "High Priest Group", os);
+		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
@@ -293,8 +293,54 @@ public class LDSTools {
 	
 	
 	public void justForTesting(String os) throws Exception {
+		
+		syncLogIn("LDSTools2", "toolstester", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+		
+		openReports();
+		
+		//High Priests Households Not Visited
+		clickButtonByXpathTitleName("Home Teaching");
+		clickButtonByXpathTitleName("Households Not Visited");
+		getHTVTReport("High Priests Group" , "HouseholdsNotVisited");
+		
+		if (getRunningOS().equals("mac")) {
+			pressBackKey();
+		}
 
-		checkWebMemberInfo("LDSTools23", "password1", "Aaron, Jane");
+		Thread.sleep(1000);
+		pressBackKey();
+		Thread.sleep(1000);
+		pressBackKey();
+		
+		//Elders Quorum Households Not Visited
+		clickButtonByXpathTitleName("Home Teaching");
+		clickLastTextViewRoboReturnContains("Households Not Visited");
+		getHTVTReport("Elders Quorum" , "HouseholdsNotVisited");
+		
+		if (getRunningOS().equals("mac")) {
+			pressBackKey();
+		}
+		Thread.sleep(1000);
+		pressBackKey();
+		Thread.sleep(1000);
+		pressBackKey();
+		
+		//Elders Quorum Households Not Visited
+		clickButtonByXpathTitleName("Visiting Teaching");
+		clickButtonByXpathTitleName("Households Not Visited");
+		getHTVTReport("Relief Society" , "HouseholdsNotVisited");
+		
+		if (getRunningOS().equals("mac")) {
+			pressBackKey();
+		}
+		Thread.sleep(1000);
+		pressBackKey();
+		Thread.sleep(1000);
+		pressBackKey();
+		
+
+		//checkWebMemberInfo("LDSTools23", "password1", "Aaron, Jane");
 		
 		/*
 		//Data from Web page
@@ -3839,15 +3885,28 @@ public class LDSTools {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
+	public void getHTVTReport(String org, String htvtReport) throws Exception {
+		LDSWeb myWeb = new LDSWeb();
+		//Data from Web page
+		List<String> myList = new ArrayList<String>();
+		
+		//Data from android list
+		List<String> androidList = new ArrayList<String>();
+
+		
+		Thread.sleep(2000);
+		if (htvtReport.equals("HouseholdsNotVisited")) {
+			clickButtonByXpath("3Months");
+		}
+		
+
+		//Check web data vs LDS Tools
+		myList = myWeb.getAllMembersInHTVTReport(org, htvtReport, myUserName, myPassword);
+		compareWebData(myList, androidList);
+		
+	}
 	
 
-	
 	/** clickLastTextViewRoboReturn(String textElement)
 	 * This will match the last element found 
 	 * 
@@ -4571,8 +4630,8 @@ public class LDSTools {
 				}
 
 				
-				clickButtonByXpath("Environment");
-				clickButtonByXpath("Stage");
+				clickButtonByXpathTitleNameContains("Environment");
+				clickButtonByXpath("Proxy");
 				clickButtonByXpath(chooseNetwork);
 				clickButtonByXpath("TopDeveloper");
 				clickButtonByXpath("TopHelp");
@@ -5425,9 +5484,9 @@ public class LDSTools {
 			clickButtonByXpathTitleName("Not Set Apart");
 		}
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Ward Assistant Clerk", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("2 months", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Kitara, Lafaele", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Ward Executive Secretary", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("3 months", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Kitara, Tumua", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("P0, C3", pageSource, "Contains"));
 
 		Thread.sleep(1000);
@@ -6576,7 +6635,7 @@ public class LDSTools {
 				System.out.println("USER: " + oneUser);
 				//TODO: When "Out of Unit" bug is fixed remove the check
 				if ((oneUser.contains("Jr")) || (oneUser.contains("Salvador")) || (oneUser.contains("Junior") || (oneUser.contains("Farley")
-						|| (oneUser.contains("Raymundo") || (oneUser.contains("Dylan") || (oneUser.contains("Siteni"))))))){
+						|| (oneUser.contains("Raymundo") || (oneUser.contains("Dylan") || (oneUser.contains("Siteni") || (oneUser.contains("Wilson, Tina")))))))){
 					System.out.println("Skipping: " + oneUser);
 				} else {
 					Assert.assertTrue(checkNoCaseList(oneUser, pageSource, "Contains"));
