@@ -302,6 +302,9 @@ public class LDSTools {
 		//High Priests Households Not Visited
 		clickButtonByXpathTitleName("Home Teaching");
 		clickButtonByXpathTitleName("Households Not Visited");
+		if (getRunningOS().equals("android")) {
+			clickButtonByXpath("3Months");
+		}
 		getHTVTReport("High Priests Group" , "HouseholdsNotVisited");
 		
 		if (getRunningOS().equals("mac")) {
@@ -316,6 +319,9 @@ public class LDSTools {
 		//Elders Quorum Households Not Visited
 		clickButtonByXpathTitleName("Home Teaching");
 		clickLastTextViewRoboReturnContains("Households Not Visited");
+		if (getRunningOS().equals("android")) {
+			clickButtonByXpath("3Months");
+		}
 		getHTVTReport("Elders Quorum" , "HouseholdsNotVisited");
 		
 		if (getRunningOS().equals("mac")) {
@@ -326,9 +332,18 @@ public class LDSTools {
 		Thread.sleep(1000);
 		pressBackKey();
 		
-		//Elders Quorum Households Not Visited
-		clickButtonByXpathTitleName("Visiting Teaching");
-		clickButtonByXpathTitleName("Households Not Visited");
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("Visiting Teaching");
+		} else {
+			scrollDownTEST(100);
+			clickButtonByXpathTitleName("Visiting Teaching");
+		}
+		Thread.sleep(2000);
+		//Visiting Teaching
+		clickButtonByXpathTitleName("Sisters Not Contacted");
+		if (getRunningOS().equals("android")) {
+			clickButtonByXpath("3Months");
+		}
 		getHTVTReport("Relief Society" , "HouseholdsNotVisited");
 		
 		if (getRunningOS().equals("mac")) {
@@ -4333,6 +4348,58 @@ public class LDSTools {
 		
 	}
 	
+	private void scrollDownSlow(int scrollDistance) throws Exception {
+		TouchActions actions = new TouchActions(driver);
+		//WebElement myElement = driver.findElement(By.xpath("//CheckableLinearLayout[10]/RelativeLayout/LinearLayout"));
+		//actions.flick(driver.findElement(By.xpath("//LinearLayout")), 0, scrollDistance, 100);
+		//WebElement clickElement = driver.findElement(By.xpath("//*[@value='" + selectElement + "']"));
+		//actions.scroll( clickElement, 0, 1000);
+		
+		//actions.flick( clickElement, 0, -1000, 100);
+
+
+		
+		Dimension dimensions = driver.manage().window().getSize();
+		int screenWidth = dimensions.getWidth();
+		int screenHeight = dimensions.getHeight();
+		int screenUp;
+		
+		//System.out.println("Trying to move!");
+		//System.out.println("Width: " + screenWidth);
+		//System.out.println("Height: " + screenHeight);
+		
+		screenWidth = screenWidth / 3;
+		//screenWidth = screenWidth - 75;
+		//screenHeight = screenHeight / 2;
+		screenHeight = screenHeight - 70;
+		
+		screenUp = screenHeight - 75;
+		
+		System.out.println("Width: " + screenWidth);
+		System.out.println("Height: " + screenHeight);
+		System.out.println("Up: " + screenUp);
+		
+		//actions.down(screenWidth, screenHeight).move(screenWidth, screenUp).up(screenWidth, screenUp);
+		//actions.down(screenWidth, screenHeight).up(screenWidth, screenUp);
+		actions.down(screenWidth, screenHeight);
+		//actions.pause(2000);
+		//actions.move(screenWidth, screenHeight -100 );
+		actions.move(screenWidth, screenUp);
+
+		actions.pause(3000);
+		actions.up(screenWidth, screenUp);
+		//actions.up(screenWidth, screenUp);
+		actions.pause(2000);
+
+		
+
+		actions.perform();
+		
+		Thread.sleep(5000);
+		
+	}
+	
+	
 	
 	
 	private void scrollDownIOS() throws Exception {
@@ -6629,6 +6696,8 @@ public class LDSTools {
 		String lastMember;
 		String lastMemberCheck;
 		
+		String memberToSelect;
+		
 		if (getRunningOS().equals("mac")){
 			pageSource = getSourceOfPage();
 			for(String oneUser : myList){
@@ -6647,7 +6716,8 @@ public class LDSTools {
 			
 			pageSize = driver.manage().window().getSize().getHeight();
 			//System.out.println("Page Size: " + pageSize);
-			pageSize = pageSize - 20;
+			//pageSize = pageSize - 20;
+			pageSize = pageSize - 100;
 			//pageSize = -pageSize;
 			
 			
@@ -6657,9 +6727,13 @@ public class LDSTools {
 				pageSource = getSourceOfPage();
 				androidList = createUserList(androidList, pageSource);
 				lastMember = androidList.get(androidList.size() - 1 );
+				//memberToSelect = androidList.get(androidList.size() / 2 );
 				
+				//System.out.println("Member To Select: " + memberToSelect);
 				//scrollDownPerPage(pageSize);
-				scrollDownTEST(pageSize);
+				scrollDownSlow(pageSize);
+				//scrollDownTEST(pageSize);
+				//flickUpOrDown(pageSize);
 				Thread.sleep(1000);
 				pageSource = getSourceOfPage();
 				androidList = createUserList(androidList, pageSource);
@@ -6692,7 +6766,7 @@ public class LDSTools {
 			//System.out.println("***************************");
 
 			for(String oneUser : myList) {
-				//System.out.println("USER: " + oneUser);
+				System.out.println("USER: " + oneUser);
 				if ((oneUser.contains("Jr")) || (oneUser.contains("Salvador")) || (oneUser.contains("Junior"))){
 					System.out.println("Skipping: " + oneUser);
 				} else {
