@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -375,11 +376,19 @@ public class LDSWeb {
 	
 	private List<String> getMembersHTVT(String pageSource){
 		List<String> foundUsers = new ArrayList<String>();
+		List<String> removeUsers = new ArrayList<String>();
 		Document doc = Jsoup.parse(pageSource);
+		//Elements myTest1 = doc.getElementsByAttributeValueStarting("class", "member-list-body ng-scope odd");
+		//Elements myTest2 = doc.getElementsByAttributeValueStarting("class", "member-list-body ng-scope even");
+		Elements myTestRemove = doc.getElementsByAttributeValueStarting("class", "member-list-body ng-scope ng-hide");
+		//Elements myTest3;
+		
 		Elements myTest = doc.getElementsByAttributeValueStarting("class", "ng-binding ng-isolate-scope popover-link");
+
 		String outerHTML;
 		
 		for (Element myElement : myTest ) {
+
 			outerHTML = myElement.text();
 			if (outerHTML.contains(",")) {
 				if (outerHTML.contains("Jr")){
@@ -391,6 +400,55 @@ public class LDSWeb {
 		}
 		
 		
+		for (Element myElement : myTestRemove ) {
+			//myElement = myElement.attr("class", "ng-binding ng-isolate-scope popover-link");
+			outerHTML = myElement.text();
+			if (outerHTML.contains("Home")) {
+				outerHTML = StringUtils.substringBefore(outerHTML, " Home");
+			} else {
+				outerHTML = StringUtils.substringBefore(outerHTML, " Visiting");
+			}
+			
+			if (outerHTML.contains(",")) {
+				if (outerHTML.contains("Jr")){
+					outerHTML = outerHTML.replace(" Jr", ", Jr");
+				}
+				removeUsers.add(outerHTML);
+			}
+			//System.out.println("Outer HTML:" + outerHTML);
+		}
+		
+		for(String removeOneUser : removeUsers){
+			System.out.println("Remove User: " + removeOneUser);
+			foundUsers.remove(removeOneUser);
+		}
+		
+		
+		
+		/*
+		for (Element myElement : myTest1 ) {
+			outerHTML = myElement.text();
+			if (outerHTML.contains(",")) {
+				if (outerHTML.contains("Jr")){
+					outerHTML = outerHTML.replace(" Jr", ", Jr");
+				}
+				foundUsers.add(outerHTML);
+			}
+			//System.out.println("Outer HTML:" + outerHTML);
+		}
+		
+		for (Element myElement : myTest2 ) {
+			outerHTML = myElement.text();
+			if (outerHTML.contains(",")) {
+				if (outerHTML.contains("Jr")){
+					outerHTML = outerHTML.replace(" Jr", ", Jr");
+				}
+				foundUsers.add(outerHTML);
+			}
+			//System.out.println("Outer HTML:" + outerHTML);
+		}
+		
+		*/
 		
 		for(String oneUser : foundUsers){
 			System.out.println("Found User: " + oneUser);
@@ -401,6 +459,8 @@ public class LDSWeb {
 		return foundUsers;
 		
 	}
+	
+	
 	
 	private List<String> getMemberInfo(String pageSource, List<String> foundUsers){
 		//List<String> foundUsers = new ArrayList<String>();
@@ -800,7 +860,7 @@ public class LDSWeb {
 		
 		clickElement(myReport, "id");
 
-		Thread.sleep(2000);
+		Thread.sleep(5000);
 		//mySource = getSourceOfElement(subReport);
 		mySource = getSourceOfPage();
 		foundUsers = getMembersHTVT(mySource);
