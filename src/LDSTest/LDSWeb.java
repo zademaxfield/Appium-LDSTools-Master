@@ -383,7 +383,7 @@ public class LDSWeb {
 		Elements myTestRemove = doc.getElementsByAttributeValueStarting("class", "member-list-body ng-scope ng-hide");
 		//Elements myTest3;
 		
-		Elements myTest = doc.getElementsByAttributeValueStarting("class", "ng-binding ng-isolate-scope popover-link");
+		Elements myTest = doc.getElementsByAttributeValueStarting("class", "teachee dropdown");
 
 		String outerHTML;
 		
