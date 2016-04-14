@@ -218,7 +218,7 @@ public class LDSTools {
 		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
 		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		bishopricCounselorAndWardClerk(os);
+		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -257,7 +257,7 @@ public class LDSTools {
 		
 		
 		//Header Tests
-		//ChristieWhiting(os);
+		ChristieWhiting(os);
 		//CliffHigby(os);
 		//KevinPalmer(os);
 		//PatriarchOtherWards(os);
@@ -4785,8 +4785,8 @@ public class LDSTools {
 			}
 		}
 		if (getRunningOS().equals("mac")) {
-			userName = "proxyt";
-			chooseNetwork = "P-TEST";
+			userName = "paigekrebs";
+			chooseNetwork = "Proxy";
 			if (!chooseNetwork.equals("Production")) {
 				Thread.sleep(1000);
 				clickButtonByXpath("TopHelp");
@@ -4802,7 +4802,7 @@ public class LDSTools {
 				}
 
 				
-				clickButtonByXpath("Environment");
+				clickButtonByXpathTitleNameContains("Environment");
 				
 				
 				clickButtonByXpath(chooseNetwork);
@@ -4833,8 +4833,8 @@ public class LDSTools {
 				
 				//sendTextbyXpath("LoginUsername", "LDSTools14");
 				//sendTextbyXpath("LoginPassword", "toolstester");
-				sendTextbyXpath2("LoginUsername", "proxyt" );
-				sendTextbyXpath2("LoginPassword", "toolstester");
+				sendTextbyXpath2("LoginUsername", "paigekrebs" );
+				sendTextbyXpath2("LoginPassword", "sweets2005");
 				
 				//Thread.sleep(1000);
 				clickButtonByXpath("DoneButton");
@@ -6652,7 +6652,9 @@ public class LDSTools {
 	
 	private Boolean checkFirstDirectoryUser() {
 		Boolean myReturnStatus;
-		String myString = driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[1]/UIAStaticText[1]")).getText();
+		//String myString = driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[1]/UIAStaticText[1]")).getText();
+		String myString = driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[1]/UIAStaticText[1]")).getText();
+													   
 		if (myString.isEmpty()) {
 			myReturnStatus = false;
 		} else {
@@ -6872,8 +6874,8 @@ public class LDSTools {
 				System.out.println("USER: " + oneUser);
 				//TODO: When "Out of Unit" bug is fixed remove the check
 				if ((oneUser.contains("Jr")) || (oneUser.contains("Salvador")) || (oneUser.contains("Junior") || (oneUser.contains("Farley")
-						|| (oneUser.contains("Raymundo") || (oneUser.contains("Dylan") || (oneUser.contains("Siteni") 
-						|| (oneUser.contains("Peterson") || (oneUser.contains("Morgan") ||(oneUser.contains("Wilson, Tina")))))))))){
+						|| (oneUser.contains("Raymundo") || (oneUser.contains("Dylan") || (oneUser.contains("Siteni") || (oneUser.contains("Ah Kam")
+						|| (oneUser.contains("Peterson") || (oneUser.contains("Morgan") ||(oneUser.contains("Wilson, Tina"))))))))))){
 					System.out.println("Skipping: " + oneUser);
 				} else {
 					Assert.assertTrue(checkNoCaseList(oneUser, pageSource, "Contains"));
