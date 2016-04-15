@@ -218,7 +218,7 @@ public class LDSTools {
 		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
 		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		//bishopricCounselorAndWardClerk(os);
+		bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -257,7 +257,7 @@ public class LDSTools {
 		
 		
 		//Header Tests
-		ChristieWhiting(os);
+		//ChristieWhiting(os);
 		//CliffHigby(os);
 		//KevinPalmer(os);
 		//PatriarchOtherWards(os);
@@ -5496,7 +5496,7 @@ public class LDSTools {
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
 
-		Assert.assertTrue(checkNoCaseList("Betham, Scott", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Isaako, Satalaka", pageSource, "Contains"));
 
 		//The new unit is only available for bishop
 		if (bishop == true){
@@ -5514,8 +5514,8 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Members Moved In");
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Abel", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Chad Dennis", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Endemann", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Eddie", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Skywalker, Luke", pageSource, "Equals"));
 
 		Thread.sleep(1000);
@@ -5530,7 +5530,7 @@ public class LDSTools {
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Ami, Christian", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Beehive President", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("10 months", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("11 months", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Skywalker, Anakin", pageSource, "Equals"));
 	
 		
@@ -5567,7 +5567,7 @@ public class LDSTools {
 		}
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Ward Executive Secretary", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("3 months", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("4 months", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Kitara, Tumua", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("P0, C3", pageSource, "Contains"));
 
@@ -5707,8 +5707,8 @@ public class LDSTools {
 		//clickButtonByXpath("AlertOK");
 		checkForAlertOK() ;
 		Thread.sleep(1000);
-		Assert.assertTrue(checkElementTextViewReturnContains("603"));
-		Assert.assertTrue(checkElementTextViewReturnContains("17"));
+		Assert.assertTrue(checkElementTextViewReturnContains("613"));
+		Assert.assertTrue(checkElementTextViewReturnContains("16"));
 		Assert.assertTrue(checkElementTextViewReturnContains("49"));
 		Assert.assertFalse(checkElementTextViewReturnContains("8675309"));
 		pressBackKey();
