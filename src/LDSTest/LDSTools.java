@@ -287,6 +287,7 @@ public class LDSTools {
 		//KevinGPalmer(os);
 		//LarkinPalmer(os);
 		//LarryJensen(os);
+		//RalphHowes(os);
 
 	}
 
@@ -2536,7 +2537,7 @@ public class LDSTools {
 	public void PatriarchOtherWards(String os) throws Exception {
 		loginProxyData("3182767230",
 				"/7u56030/5u524735/",
-				"p13/5u524735/",
+				"p13/7u56030/",
 				"Proxy - Test", "TestPatriarch");
 		
 		//true will setup ping for a non-leader
@@ -3025,6 +3026,25 @@ public class LDSTools {
 				"/7u6033/5u504181/",
 				"p1278/8u267244/5u514209/:p789/8u267244/5u514209/",
 				"Proxy - Test", "LarryJensen");
+		//Thread.sleep(2000);
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		Thread.sleep(2000);
+		checkDirectoryForUser();
+		//checkAllWardDirectories();
+		Thread.sleep(2000);
+		
+		drawerSignOut();
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"header"}, priority = 3, enabled = false)
+	public void RalphHowes(String os) throws Exception {
+		loginProxyData("3393724786796776",
+				"/7u1010824/5u2055031/",
+				"p13/5u481599/1u790117/:p13/5u2055031/1u790117/",
+				"Proxy - Test", "RalphHowes");
 		//Thread.sleep(2000);
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -5780,8 +5800,7 @@ public class LDSTools {
 			}
 			Thread.sleep(1000);
 			pressBackKey();
-			Thread.sleep(1000);
-			pressBackKey();
+
 			
 			
 			
