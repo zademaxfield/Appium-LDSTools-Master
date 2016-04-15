@@ -219,7 +219,7 @@ public class LDSTools {
 		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
 		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		bishopricCounselorAndWardClerk(os);
+		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -258,7 +258,7 @@ public class LDSTools {
 		
 		
 		//Header Tests
-		//ChristieWhiting(os);
+		ChristieWhiting(os);
 		//CliffHigby(os);
 		//KevinPalmer(os);
 		//PatriarchOtherWards(os);
@@ -2472,7 +2472,7 @@ public class LDSTools {
 		loginProxyData("3446450099",
 				"/7u189715/5u511293/",
 				"p1175/1151u1000047/:p143/7u189715/5u511293/",
-				"Proxy - Test", "ChristieWhiting");
+				"Proxy", "ChristieWhiting");
 		
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -2500,7 +2500,7 @@ public class LDSTools {
 		loginProxyData("295740465",
 				"/7u191/5u504505/",
 				"p428/467u376892/28u381772/:p1711/59u1004603/22u388300/:p1788/467u376892/28u381772/:p1680/32u1326376/:p789/8u1006967/1u563013/:p1887/14u1004816/467u376892/",
-				"Proxy - Test", "CliffHigby");
+				"Proxy", "CliffHigby");
 		
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -2522,7 +2522,7 @@ public class LDSTools {
 		loginProxyData("3182767230",
 				"/7u50482/5u511846/",
 				"p222/7u50482/5u511846/:p39/3u2019809/1u790206/:p2/5u511846/1u790206/",
-				"Proxy - Test", "KevinPalmer");
+				"Proxy", "KevinPalmer");
 		
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -2539,7 +2539,7 @@ public class LDSTools {
 		loginProxyData("3182767230",
 				"/7u56030/5u524735/",
 				"p13/7u56030/",
-				"Proxy - Test", "TestPatriarch");
+				"Proxy", "TestPatriarch");
 		
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -2621,7 +2621,7 @@ public class LDSTools {
 		loginProxyData("309310780",
 				"/7u1161164/5u427144/",
 				"p222/7u170690/5u506508/",
-				"Proxy - Test", "TravisLyman");
+				"Proxy", "TravisLyman");
 		//Thread.sleep(2000);
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -2641,7 +2641,7 @@ public class LDSTools {
 		loginProxyData("309310780",
 				"/7u1161164/5u427144/",
 				"p58/7u1618172/5u481599/:p94/5u481599/5u481599/:p53/5u481599/5u481599/",
-				"Proxy - Test", "JustinKrebs");
+				"Proxy", "JustinKrebs");
 		//Thread.sleep(2000);
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -2661,7 +2661,7 @@ public class LDSTools {
 		loginProxyData("23088869144",
 				"/7u165743/5u515442/",
 				"p208/7u165743/5u515442/:p205/7u165743/5u515442/:p1394/7u165743/5u515442/:p1559/7u165743/5u515442/",
-				"Proxy - Test", "BjornGabler");
+				"Proxy", "BjornGabler");
 		//Thread.sleep(2000);
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -2679,7 +2679,7 @@ public class LDSTools {
 		loginProxyData("2207033566",
 				"/7u243108/5u500593/",
 				"p1395/7u243108/5u500593/:p136/7u243108/5u500593/",
-				"Proxy - Test", "AaronWeech");
+				"Proxy", "AaronWeech");
 		//Thread.sleep(2000);
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -2697,7 +2697,7 @@ public class LDSTools {
 		loginProxyData("3858858902",
 				"/7u103985/5u521191/",
 				"p57/7u103985/5u521191/",
-				"Proxy - Test", "BlakeHeyer");
+				"Proxy", "BlakeHeyer");
 		//Thread.sleep(2000);
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -2716,7 +2716,7 @@ public class LDSTools {
 				"/7u102733/5u505757/",
 				":p222/7u187569/5u524956/:p222/8u219363/6u524956/:p222/7u268941/5u524956/"
 				+ ":p222/7u237213/5u524956/:p222/8u237280/6u524956/:p222/7u162299/5u524956/",
-				"Proxy - Test", "ChadHarvey");
+				"Proxy", "ChadHarvey");
 		//Thread.sleep(2000);
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -2734,7 +2734,7 @@ public class LDSTools {
 		loginProxyData("3649387500",
 				"/7u20664/5u506044/",
 				"p772/7u20664/5u506044/:p4/7u20664/5u506044/",
-				"Proxy - Test", "ChetThomas");
+				"Proxy", "ChetThomas");
 		//Thread.sleep(2000);
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -2752,7 +2752,7 @@ public class LDSTools {
 		loginProxyData("652270633",
 				"/7u1618172/5u481599/",
 				"p1384/5u481599/5u481599/",
-				"Proxy - Test", "ChrissyKrebs");
+				"Proxy", "ChrissyKrebs");
 		//Thread.sleep(2000);
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -2770,7 +2770,7 @@ public class LDSTools {
 		loginProxyData("3273750761",
 				"/7u9415/5u506249/",
 				"p227/7u9415/5u506249/:p140/7u9415/5u506249/",
-				"Proxy - Test", "DavidFrank");
+				"Proxy", "DavidFrank");
 		//Thread.sleep(2000);
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -2789,7 +2789,7 @@ public class LDSTools {
 		loginProxyData("900162590",
 				"/7u27642/5u516600/",
 				"p55/7u27642/5u516600/",
-				"Proxy - Test", "DavidThorne");
+				"Proxy", "DavidThorne");
 		//Thread.sleep(2000);
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -2808,7 +2808,7 @@ public class LDSTools {
 		loginProxyData("895728277",
 				"/7u1618172/5u481599/",
 				"p58/7u1618172/5u481599/:p53/5u481599/1u481599/:p94/5u481599/1u481599/",
-				"Proxy - Test", "DuplicateSS");
+				"Proxy", "DuplicateSS");
 		//Thread.sleep(2000);
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -2828,7 +2828,7 @@ public class LDSTools {
 		loginProxyData("2334797025",
 				"/7u374792/5u516090/",
 				"p1395/7u374792/5u516090/:p133/7u374792/5u516090/",
-				"Proxy - Test", "EdQueen");
+				"Proxy", "EdQueen");
 		//Thread.sleep(2000);
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -2847,7 +2847,7 @@ public class LDSTools {
 		loginProxyData("1056095880",
 				"/7u430463/5u517356/",
 				"p55/7u430463/5u517356/",
-				"Proxy - Test", "GregCrowther");
+				"Proxy", "GregCrowther");
 		//Thread.sleep(2000);
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -2868,7 +2868,7 @@ public class LDSTools {
 		loginProxyData("3402770655225469",
 				"/7u100617/5u1940635/",
 				"p216/7u100617/5u1940635/",
-				"Proxy - Test", "HeberAllen");
+				"Proxy", "HeberAllen");
 		//Thread.sleep(2000);
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -2889,7 +2889,7 @@ public class LDSTools {
 		loginProxyData("2862227641",
 				"/7u36668/5u501301/",
 				"p152/7u36668/5u501301/:p151/7u36668/5u501301/",
-				"Proxy - Test", "JanetBencomo");
+				"Proxy", "JanetBencomo");
 		//Thread.sleep(2000);
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -2908,7 +2908,7 @@ public class LDSTools {
 		loginProxyData("2753900058",
 				"/7u208892/5u514012/",
 				"p222/7u296791/5u521779/:p222/7u35130/5u521779/:p222/7u208892/5u514012/",
-				"Proxy - Test", "JesseGibbons");
+				"Proxy", "JesseGibbons");
 		//Thread.sleep(2000);
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -2927,7 +2927,7 @@ public class LDSTools {
 		loginProxyData("3029591255",
 				"/7u43818/5u513164/",
 				"p160/7u43818/5u513164/",
-				"Proxy - Test", "JohnCarter");
+				"Proxy", "JohnCarter");
 		//Thread.sleep(2000);
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -2946,7 +2946,7 @@ public class LDSTools {
 		loginProxyData("627660245",
 				"/7u7935/5u516325/",
 				"p57/7u7935/5u516325/:p767/7u7935/5u516325/",
-				"Proxy - Test", "JonPug");
+				"Proxy", "JonPug");
 		//Thread.sleep(2000);
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -2967,7 +2967,7 @@ public class LDSTools {
 		loginProxyData("3334886480",
 				"/7u82570/5u517615/",
 				"p9/3u537233/5u537233/",
-				"Proxy - Test", "KevinClawson");
+				"Proxy", "KevinClawson");
 		//Thread.sleep(2000);
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -2987,7 +2987,7 @@ public class LDSTools {
 		loginProxyData("3182767230",
 				"/7u50482/5u511846/",
 				"p222/7u50482/5u511846/:p39/3u2019809/1u790206/:p2/5u511846/1u790206/",
-				"Proxy - Test", "KevinGPalmer");
+				"Proxy", "KevinGPalmer");
 		//Thread.sleep(2000);
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -3006,7 +3006,7 @@ public class LDSTools {
 		loginProxyData("746277872",
 				"/8u210374/5u277037/",
 				"p1559/8u210374/5u277037/:p208/8u210374/5u277037/:p789/8u210374/5u277037/",
-				"Proxy - Test", "LarkinPalmer");
+				"Proxy", "LarkinPalmer");
 		//Thread.sleep(2000);
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -3026,7 +3026,7 @@ public class LDSTools {
 		loginProxyData("3449149679326998",
 				"/7u6033/5u504181/",
 				"p1278/8u267244/5u514209/:p789/8u267244/5u514209/",
-				"Proxy - Test", "LarryJensen");
+				"Proxy", "LarryJensen");
 		//Thread.sleep(2000);
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -3045,7 +3045,7 @@ public class LDSTools {
 		loginProxyData("3393724786796776",
 				"/7u1010824/5u2055031/",
 				"p13/5u481599/1u790117/:p13/5u2055031/1u790117/",
-				"Proxy - Test", "RalphHowes");
+				"Proxy", "RalphHowes");
 		//Thread.sleep(2000);
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -3066,7 +3066,7 @@ public class LDSTools {
 		loginProxyData("2178152043",
 				"/7u253707/5u516244/",
 				"p32/21u418951/:p32/1u563013/:p56370/1016u1004840/1u563013/",
-				"Proxy - Test", "ElderKacher");
+				"Proxy", "ElderKacher");
 		
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -3087,7 +3087,7 @@ public class LDSTools {
 		loginProxyData("20904102494",
 				"/7u25941/5u515124/",
 				"p158/7u25941/5u515124/",
-				"Proxy - Test", "TerryBallard");
+				"Proxy", "TerryBallard");
 		
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -3115,7 +3115,7 @@ public class LDSTools {
 		loginProxyData("7157852120",
 				"/32u9990011/16u244449/",
 				"",
-				"Proxy - Test", "AdminUnit");
+				"Proxy", "AdminUnit");
 		
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -3137,7 +3137,7 @@ public class LDSTools {
 		loginProxyData("8999999998916734",
 				"/7u56030/5u524735/",
 				"p135/7u56030/5u524735/:p94/5u524735/",
-				"Proxy - Test", "WardStakeCounilor");
+				"Proxy", "WardStakeCounilor");
 		
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -3802,10 +3802,8 @@ public class LDSTools {
 			pressBackKey();
 		}
 		
-		if(getRunningOS().equals("mac")) {
-			pressBackKey();
-			Thread.sleep(1000);
-		}
+		pressBackKey();
+		Thread.sleep(1000);
 		pressBackKey();
 		Thread.sleep(1000);
 	}
@@ -4682,7 +4680,7 @@ public class LDSTools {
 	 * 
 	 * @param loginName - login name
 	 * @param loginPassword - login password
-	 * @param chooseNetwork - Network to use "Production", "UAT", "Proxy - UAT", "Proxy - Test"
+	 * @param chooseNetwork - Network to use "Production", "UAT", "Proxy - UAT", "Proxy"
 	 * @throws Exception
 	 */
 	private void syncLogIn(String loginName, String loginPassword, String chooseNetwork, String os )  throws Exception {
@@ -4692,7 +4690,7 @@ public class LDSTools {
 		myPassword = loginPassword;
 		
 		//If the login is using any of the test networks we need to change it. 
-		//valid enteries "Production", "UAT", "Proxy - UAT", "Proxy - Test"
+		//valid enteries "Production", "UAT", "Proxy - UAT", "Proxy"
 		if (os.equals("android")) {
 			if (!chooseNetwork.equals("Production")) {
 				//Just for testing
@@ -4777,7 +4775,7 @@ public class LDSTools {
 	
 	private void loginProxyData(String IndividualId, String units, String positions, String chooseNetwork, String userName )  throws Exception {
 		//If the login is using any of the test networks we need to chagne it. 
-		//valid enteries "Production", "UAT", "Proxy - UAT", "Proxy - Test"
+		//valid enteries "Production", "UAT", "Proxy - UAT", "Proxy"
 		System.out.println("User Name: " + userName);
 		if (getRunningOS().equals("android")) {
 			if (!chooseNetwork.equals("Production")) {
@@ -4791,21 +4789,21 @@ public class LDSTools {
 				//Thread.sleep(1000);
 				//scrollDown("Sign Out", 40 );
 				Thread.sleep(2000);
-				scrollDown("Network Environment", -1000 );
+				scrollDown("Network Environment", 100 );
 				//Thread.sleep(2000);
 				clickButtonByXpathTitleName(chooseNetwork);
 				Thread.sleep(2000);
-				scrollDown("px_i", -1000 );
+				scrollDown("px_i", 120 );
 				Thread.sleep(2000);
 				sendTextbyXpath("AlertEditText", IndividualId);
 				clickButtonByXpath("AlertOK");
 				Thread.sleep(2000);
-				scrollDown("px_u", -1000 );
+				scrollDown("px_u", 120 );
 				Thread.sleep(2000);
 				sendTextbyXpath("AlertEditText", units);
 				clickButtonByXpath("AlertOK");
 				Thread.sleep(2000);
-				scrollDown("px_p", -1000 );
+				scrollDown("px_p", 120 );
 				Thread.sleep(2000);
 				sendTextbyXpath("AlertEditText", positions);
 				clickButtonByXpath("AlertOK");
@@ -4907,6 +4905,12 @@ public class LDSTools {
 		if (checkElementExistsByXpath("AlertMessage").equals(true)) {
 			myCheck = checkTextByXpathReturn("AlertMessage", "Warning");
 		}
+		//Check to see if we are getting a warning
+		if (checkElementExistsByXpath("AlertCalendarMessage").equals(true)) {
+			clickButtonByXpath("AlertOK");
+		}
+		
+		
 
 		if (myCheck == 1) {
 			myAlertText = getTextXpath("AlertMessageView");
@@ -5276,6 +5280,8 @@ public class LDSTools {
 		getReliefSociety();
 		
 		getYoungMenInfo();
+		
+		getYoungWomenInfo();
 		
 		getSundaySchoolInfo();
 		
@@ -6326,8 +6332,8 @@ public class LDSTools {
 			} else {
 				pressBackKey();
 			}
-			Assert.assertTrue(checkElementTextViewReturn("Faamasino, Faalua"));
-			Assert.assertTrue(checkElementTextViewReturn("Hicks, Tafito"));
+			Assert.assertTrue(checkElementTextViewReturn("Betham, Scott & Maria"));
+			Assert.assertTrue(checkElementTextViewReturn("Faamoeolo, Akisa"));
 			Assert.assertTrue(checkElementTextViewReturn("Faamoe, Filifili"));
 			if (getRunningOS().equals("android")) {
 				clickButtonByXpath("HTVTRemoveFiltersButton");
@@ -6484,8 +6490,8 @@ public class LDSTools {
 			} else {
 				pressBackKey();
 			}
-			Assert.assertTrue(checkElementTextViewReturn("AFPEighteen, Member"));
-			Assert.assertTrue(checkElementTextViewReturn("AFPTwo, Wife"));
+			Assert.assertTrue(checkElementTextViewReturn("Lavea, Meise"));
+			Assert.assertTrue(checkElementTextViewReturn("LDSTools, LDS26"));
 			Assert.assertTrue(checkElementTextViewReturn("Aaron, Jane"));
 			if (getRunningOS().equals("android")) {
 				clickButtonByXpath("HTVTRemoveFiltersButton");
