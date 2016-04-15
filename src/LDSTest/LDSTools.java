@@ -31,6 +31,7 @@ import java.util.Properties;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.SwipeElementDirection;
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.*;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSElement;
@@ -97,7 +98,7 @@ import com.thoughtworks.selenium.Wait;
  */
 public class LDSTools {
 	private Properties prop;
-	AppiumSwipeableDriver driver;
+	AppiumDriver driver;
 	//AppiumDriver driver;
 	TouchActions touch;
 	private SoftAssert softAssert = new SoftAssert();
@@ -3504,6 +3505,7 @@ public class LDSTools {
 		String foundText;
 		
 		for (Element myElement : myTest ) {
+			//System.out.println("Searching for user: ");
 			//System.out.println(myElement.attributes().get("value"));
 			if (myElement.attributes().get("shown").equals("true")) {
 				foundText = myElement.attributes().get("value");
@@ -3642,8 +3644,10 @@ public class LDSTools {
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "High Priests Group", "HighPriestGroupMembers", myUserName, myPassword);
 		compareWebData(myList, androidList, true);
 		
-		pressBackKey();
-		Thread.sleep(1000);
+		if(getRunningOS().equals("mac")) {
+			pressBackKey();
+			Thread.sleep(1000);
+		}
 		pressBackKey();
 		Thread.sleep(1000);
 		
@@ -3685,8 +3689,10 @@ public class LDSTools {
 		compareWebData(myList, androidList, true);
 		
 		
-		pressBackKey();
-		Thread.sleep(1000);
+		if(getRunningOS().equals("mac")) {
+			pressBackKey();
+			Thread.sleep(1000);
+		}
 		pressBackKey();
 		Thread.sleep(1000);
 		
@@ -3728,8 +3734,10 @@ public class LDSTools {
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Relief Society", "ReliefSocietyMembers", myUserName, myPassword);
 		compareWebData(myList, androidList, true);
 		
-		pressBackKey();
-		Thread.sleep(1000);
+		if(getRunningOS().equals("mac")) {
+			pressBackKey();
+			Thread.sleep(1000);
+		}
 		pressBackKey();
 		Thread.sleep(1000);
 
@@ -3793,8 +3801,11 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			pressBackKey();
 		}
-		pressBackKey();
-		Thread.sleep(1000);
+		
+		if(getRunningOS().equals("mac")) {
+			pressBackKey();
+			Thread.sleep(1000);
+		}
 		pressBackKey();
 		Thread.sleep(1000);
 	}
@@ -3860,6 +3871,7 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			pressBackKey();
 		}
+		
 		pressBackKey();
 		Thread.sleep(1000);
 		pressBackKey();
@@ -4010,7 +4022,6 @@ public class LDSTools {
 		myElement.click();
 		//driver.findElement(By.xpath(this.prop.getProperty(textElement))).click();
 	}
-	
 	
 	
 	
@@ -4604,13 +4615,17 @@ public class LDSTools {
 		//This was doing a longpress on the wrong element
 		//TouchActions longPress = new TouchActions(driver).longPress(myElement);
 		//longPress.perform();
+
 		TouchActions actions=new TouchActions(driver);
+		//actions.longPress(myElement).release().perform();
+		
 		Point p=myElement.getLocation();
 		//System.out.println("X: " + p.x + "Y: " + p.y);
 		actions.down(p.x, p.y);
 		actions.pause(2000);
 		actions.up(p.x, p.y);
 		actions.perform();
+		
 	}
 
 	/** pressMenuKey()
@@ -4685,6 +4700,7 @@ public class LDSTools {
 				longPressByTextView("Sign in to your LDS Account");
 				Thread.sleep(1000);
 				longPressByTextView("Sign in to your LDS Account");
+				Thread.sleep(1000);
 				clickButtonByXpath("Menu");
 				Thread.sleep(1000);
 				//clickButtonByXpathTitleNameContains("Settings");
@@ -5784,8 +5800,16 @@ public class LDSTools {
 
 			Thread.sleep(1000);
 			pressBackKey();
+
+			
+			clickButtonByXpathTitleName("Unassigned Households");
+			Thread.sleep(2000);
+			getHTVTReport("High Priests Group", "NotAssignedHomeTeachers");
+			
+			pressBackKey();
 			Thread.sleep(1000);
 			pressBackKey();
+			
 			
 			//Elders Quorum Households Not Visited
 			clickButtonByXpathTitleName("Home Teaching");
@@ -5813,27 +5837,12 @@ public class LDSTools {
 				Thread.sleep(1000);
 				clickLastTextViewRoboReturnContains("Unassigned Households");
 			}
+			getHTVTReport("Elders Quorum", "NotAssignedHomeTeachers");
 			
-			//clickLastTextViewRoboReturnContains("Unassigned Households");
-			Thread.sleep(2000);
-			Assert.assertTrue(checkElementTextViewReturn("Abel, Chad Dennis"));
-			Assert.assertTrue(checkElementTextViewReturn("Faamoe, Filifili"));
-			Assert.assertTrue(checkElementTextViewReturn("Faamoe, Ueni"));
 			pressBackKey();
 			
-			clickLastTextViewRoboReturnContains("Potential Home Teachers");
-			Thread.sleep(2000);
-			if (getRunningOS().equals("mac")) {
-				Assert.assertTrue(checkElementTextViewReturnContains("AFPTen, Husband"));
-				Assert.assertTrue(checkElementTextViewReturnContains("Ami, Samu Junior"));
-				Assert.assertTrue(checkElementTextViewReturnContains("Faamoe, Filifili"));
-			} else {
-				Assert.assertTrue(checkElementTextViewReturn("AFPTen, Husband - 55"));
-				Assert.assertTrue(checkElementTextViewReturn("Ami, Samu Junior - 22"));
-				Assert.assertTrue(checkElementTextViewReturn("Faamoe, Filifili - 46"));
-			}
+			//Need Potential Home Teacher Report 
 
-			pressBackKey();
 			pressBackKey();
 		}
 		
@@ -6164,7 +6173,7 @@ public class LDSTools {
 			}
 
 			Assert.assertTrue(checkElementTextViewReturn("AFPEighteen, Member"));
-			Assert.assertTrue(checkElementTextViewReturn("AFPFifteen, Member"));
+			Assert.assertTrue(checkElementTextViewReturn("Aaron, Jane"));
 			//Assert.assertTrue(checkElementTextViewReturn("Aaron, Jane"));
 			if (getRunningOS().equals("android")) {
 				clickButtonByXpath("HTVTRemoveFiltersButton");
@@ -6317,8 +6326,8 @@ public class LDSTools {
 			} else {
 				pressBackKey();
 			}
-			Assert.assertTrue(checkElementTextViewReturn("AFPMisc, Member15"));
-			Assert.assertTrue(checkElementTextViewReturn("AFPSix, Husband"));
+			Assert.assertTrue(checkElementTextViewReturn("Faamasino, Faalua"));
+			Assert.assertTrue(checkElementTextViewReturn("Hicks, Tafito"));
 			Assert.assertTrue(checkElementTextViewReturn("Faamoe, Filifili"));
 			if (getRunningOS().equals("android")) {
 				clickButtonByXpath("HTVTRemoveFiltersButton");
@@ -6952,7 +6961,7 @@ public class LDSTools {
 			} else {
 				//driver.getPageSource();
 				pageSource = getSourceOfPage();
-				//androidList.clear();
+				androidList.clear();
 				androidList = createUserList(androidList, pageSource);
 				//androidList = getAllText();
 				/*
@@ -6968,7 +6977,8 @@ public class LDSTools {
 				for(int myCounter = 0 ; myCounter < 5; myCounter++) {
 				//for(String oneUser : myList) {
 					System.out.println("USER: " + myList.get(myCounter));
-					Assert.assertTrue(androidList.contains(myList.get(myCounter)));
+					Assert.assertTrue(myList.contains(androidList.get(myCounter)));
+					//Assert.assertTrue(androidList.contains(myList.get(myCounter)));
 				}
 				
 			}
