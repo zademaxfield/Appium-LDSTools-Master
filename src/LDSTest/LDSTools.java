@@ -214,7 +214,7 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		//justForTesting(os);	
+		justForTesting(os);	
 
 		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
 		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
@@ -258,7 +258,7 @@ public class LDSTools {
 		
 		
 		//Header Tests
-		ChristieWhiting(os);
+		//ChristieWhiting(os);
 		//CliffHigby(os);
 		//KevinPalmer(os);
 		//PatriarchOtherWards(os);
@@ -295,8 +295,9 @@ public class LDSTools {
 	
 	
 	public void justForTesting(String os) throws Exception {
+		String userCalling = "Elders Quorum Pres";
 		
-		syncLogIn("LDSTools2", "toolstester", "UAT", os );
+		syncLogIn("LDSTools21", "password1", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
 		
 		openReports();
@@ -307,7 +308,7 @@ public class LDSTools {
 		//if (getRunningOS().equals("android")) {
 		//	clickButtonByXpath("3Months");
 		//}
-		getHTVTReport("High Priests Group" , "HouseholdsNotVisited");
+		getHTVTReport("High Priests Group" , "HouseholdsNotVisited", userCalling);
 		
 		if (getRunningOS().equals("mac")) {
 			pressBackKey();
@@ -324,7 +325,7 @@ public class LDSTools {
 		if (getRunningOS().equals("android")) {
 			clickButtonByXpath("3Months");
 		}
-		getHTVTReport("Elders Quorum" , "HouseholdsNotVisited");
+		getHTVTReport("Elders Quorum" , "HouseholdsNotVisited", userCalling);
 		
 		if (getRunningOS().equals("mac")) {
 			pressBackKey();
@@ -346,7 +347,7 @@ public class LDSTools {
 		if (getRunningOS().equals("android")) {
 			clickButtonByXpath("3Months");
 		}
-		getHTVTReport("Relief Society" , "HouseholdsNotVisited");
+		getHTVTReport("Relief Society" , "HouseholdsNotVisited", userCalling);
 		
 		if (getRunningOS().equals("mac")) {
 			pressBackKey();
@@ -3940,7 +3941,7 @@ public class LDSTools {
 	}
 	
 	
-	public void getHTVTReport(String org, String htvtReport) throws Exception {
+	public void getHTVTReport(String org, String htvtReport, String leaderShip) throws Exception {
 		LDSWeb myWeb = new LDSWeb();
 		//Data from Web page
 		List<String> myList = new ArrayList<String>();
@@ -3956,7 +3957,7 @@ public class LDSTools {
 		
 
 		//Check web data vs LDS Tools
-		myList = myWeb.getAllMembersInHTVTReport(org, htvtReport, myUserName, myPassword);
+		myList = myWeb.getAllMembersInHTVTReport(org, htvtReport, myUserName, myPassword, leaderShip);
 		if(getRunningOS().equals("mac")) {
 			compareWebData(myList, androidList, false);
 		} else {
@@ -5798,7 +5799,7 @@ public class LDSTools {
 			clickButtonByXpathTitleName("Home Teaching");
 			clickButtonByXpathTitleName("Households Not Visited");
 
-			getHTVTReport("High Priests Group" , "HouseholdsNotVisited");
+			getHTVTReport("High Priests Group", "HouseholdsNotVisited", userCalling);
 			
 			if (getRunningOS().equals("mac")) {
 				pressBackKey();
@@ -5810,7 +5811,7 @@ public class LDSTools {
 			
 			clickButtonByXpathTitleName("Unassigned Households");
 			Thread.sleep(2000);
-			getHTVTReport("High Priests Group", "NotAssignedHomeTeachers");
+			getHTVTReport("High Priests Group", "NotAssignedHomeTeachers", userCalling);
 			
 			pressBackKey();
 			Thread.sleep(1000);
@@ -5823,7 +5824,7 @@ public class LDSTools {
 			if (getRunningOS().equals("android")) {
 				clickButtonByXpath("3Months");
 			}
-			getHTVTReport("Elders Quorum" , "HouseholdsNotVisited");
+			getHTVTReport("Elders Quorum" , "HouseholdsNotVisited", userCalling);
 			
 			if (getRunningOS().equals("mac")) {
 				pressBackKey();
@@ -5843,7 +5844,7 @@ public class LDSTools {
 				Thread.sleep(1000);
 				clickLastTextViewRoboReturnContains("Unassigned Households");
 			}
-			getHTVTReport("Elders Quorum", "NotAssignedHomeTeachers");
+			getHTVTReport("Elders Quorum", "NotAssignedHomeTeachers", userCalling);
 			
 			pressBackKey();
 			
@@ -5865,7 +5866,7 @@ public class LDSTools {
 			if (getRunningOS().equals("android")) {
 				clickButtonByXpath("3Months");
 			}
-			getHTVTReport("Relief Society" , "HouseholdsNotVisited");
+			getHTVTReport("Relief Society" , "HouseholdsNotVisited", userCalling);
 			
 			if (getRunningOS().equals("mac")) {
 				pressBackKey();
