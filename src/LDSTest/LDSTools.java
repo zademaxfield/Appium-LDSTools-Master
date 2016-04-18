@@ -214,7 +214,7 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		justForTesting(os);	
+		//justForTesting(os);	
 
 		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
 		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
@@ -258,7 +258,7 @@ public class LDSTools {
 		
 		
 		//Header Tests
-		//ChristieWhiting(os);
+		ChristieWhiting(os);
 		//CliffHigby(os);
 		//KevinPalmer(os);
 		//PatriarchOtherWards(os);
@@ -6645,14 +6645,17 @@ public class LDSTools {
 		} else {
 			clickButtonByXpath("SpinnerNav");
 			//Get Stake and all Wards
-			options = driver.findElements(By.xpath("//*[@id='title']"));
+			//options = driver.findElements(By.xpath("//*[@id='title']"));
+			options = driver.findElements(By.xpath("//*[@id='list_item']/*[@id='text1']"));
 			for (int i = 0 ; i < options.size(); i++ ) {
 				//System.out.println(options.get(i).getText());
 				StakeWard.add(options.get(i).getText());
 			}
-			
 			Thread.sleep(1000);
-			pressBackKey();
+			clickButtonByXpath("SpinnerNav");
+			
+			//Thread.sleep(1000);
+			//pressBackKey();
 			Thread.sleep(1000);
 			
 			//Go through each Stake and Ward to make sure it isn't blank
@@ -6711,15 +6714,20 @@ public class LDSTools {
 			clickButtonByXpath("DrawerSETTINGS");
 		}else {
 			clickButtonByXpath("Drawer");
-			scrollDown("Settings", -5 );
-			//clickButtonByXpath("DrawerSETTINGS");
+			if (checkElementTextViewReturn("Later") == true ) {
+				clickButtonByXpathTitleName("Later");
+			}
+			//scrollDown("Settings", -5 );
+			clickButtonByXpath("DrawerSETTINGS");
 		}
 		Thread.sleep(2000);
 		clickButtonByXpathTitleName("Sign Out");
 		clickButtonByXpath("SignOutOK");
 		checkForAlert();
+		if (getRunningOS().equals("mac")) {
+			driver.resetApp();
+		}
 		
-		driver.resetApp();
 
 
 	}
