@@ -149,7 +149,7 @@ public class LDSTools {
 	        capabilities.setCapability("platformName", "Android");
 	        capabilities.setCapability("automationName","selendroid");
 	        capabilities.setCapability("newCommandTimeout", 600);
-	        capabilities.setCapability("platformVersion", "5.1.1");
+	        //capabilities.setCapability("platformVersion", "5.1.1");
 	        capabilities.setCapability("fullReset", true);
 	        capabilities.setCapability("app", app.getAbsolutePath());
 	        capabilities.setCapability("appPackage", "org.lds.ldstools.dev");
@@ -217,7 +217,7 @@ public class LDSTools {
 		//justForTesting(os);	
 
 		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
-		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
+		LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
@@ -258,7 +258,7 @@ public class LDSTools {
 		
 		
 		//Header Tests
-		ChristieWhiting(os);
+		//ChristieWhiting(os);
 		//CliffHigby(os);
 		//KevinPalmer(os);
 		//PatriarchOtherWards(os);
@@ -4031,6 +4031,8 @@ public class LDSTools {
 	 */
 	private void clickButtonByXpathTitleName(String textElement ) {
 		WebDriverWait wait = new WebDriverWait(driver, 10);
+		//Changing this for Android 6.0 and later
+		//WebElement myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@text='" + textElement + "']")));
 		WebElement myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@value='" + textElement + "']")));
 		myElement.click();
 
@@ -4786,7 +4788,9 @@ public class LDSTools {
 				longPressByTextView("Sign in to your LDS Account");
 				//Thread.sleep(1000);
 				clickButtonByXpath("Menu");
+				Thread.sleep(1000);
 				clickButtonByXpathTitleName("Settings");
+				//clickButtonByXpath("OverflowSettings");
 				//Thread.sleep(1000);
 				//scrollDown("Sign Out", 40 );
 				Thread.sleep(2000);
@@ -4794,17 +4798,17 @@ public class LDSTools {
 				//Thread.sleep(2000);
 				clickButtonByXpathTitleName(chooseNetwork);
 				Thread.sleep(2000);
-				scrollDown("px_i", 120 );
+				scrollDown("px_i", 130 );
 				Thread.sleep(2000);
 				sendTextbyXpath("AlertEditText", IndividualId);
 				clickButtonByXpath("AlertOK");
 				Thread.sleep(2000);
-				scrollDown("px_u", 120 );
+				scrollDown("px_u", 130 );
 				Thread.sleep(2000);
 				sendTextbyXpath("AlertEditText", units);
 				clickButtonByXpath("AlertOK");
 				Thread.sleep(2000);
-				scrollDown("px_p", 120 );
+				scrollDown("px_p", 130 );
 				Thread.sleep(2000);
 				sendTextbyXpath("AlertEditText", positions);
 				clickButtonByXpath("AlertOK");
