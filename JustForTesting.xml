@@ -5,7 +5,7 @@
       <parameter name="os" value="ios" />
       <parameter name="fileName" value="LDS Tools.app" />
       <parameter name="testDevice" value="iPhone 6" />
-      
+     
       
       <groups>
           <run>
@@ -15,7 +15,6 @@
 
       <classes>
           <class name="LDSTest.LDSTools"/>
-          <class name="LDSTest.LDSTools$AppiumSwipeableDriver"/>
           <class name="LDSTest.LDSTools$Retry"/>      
       </classes>
       
