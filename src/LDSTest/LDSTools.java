@@ -31,7 +31,9 @@ import java.util.Properties;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.SwipeElementDirection;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.ios.*;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSElement;
@@ -66,6 +68,7 @@ import org.openqa.selenium.OutputType;
 //import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 //import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -98,7 +101,8 @@ import com.thoughtworks.selenium.Wait;
  */
 public class LDSTools {
 	private Properties prop;
-	AppiumDriver driver;
+	AppiumDriver<WebElement> driver;
+	//AppiumDriver driver;
 	//AppiumDriver driver;
 	TouchActions touch;
 	private SoftAssert softAssert = new SoftAssert();
@@ -147,7 +151,7 @@ public class LDSTools {
 	        capabilities.setCapability("deviceName", testDevice);
 	        
 	        capabilities.setCapability("platformName", "Android");
-	        capabilities.setCapability("automationName","selendroid");
+	        //capabilities.setCapability("automationName","selendroid");
 	        capabilities.setCapability("newCommandTimeout", 600);
 	        //capabilities.setCapability("platformVersion", "5.1.1");
 	        capabilities.setCapability("fullReset", true);
@@ -157,11 +161,13 @@ public class LDSTools {
 	        capabilities.setCapability("appActivity", "org.lds.ldstools.ui.activity.SignInActivity");
 	        
 	        
-	        //driver = new AndroidDriver(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
-	        driver = new AppiumSwipeableDriver(new URL("http://127.0.0.1:4444/wd/hub"),capabilities);
+	        driver = new AndroidDriver(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
+	        //driver = new AppiumSwipeableDriver(new URL("http://127.0.0.1:4444/wd/hub"),capabilities);
 	        //driver = new AppiumDriver(new URL("http://127.0.0.1:4444/wd/hub"),capabilities);
-	        touch = new TouchActions(driver);
+	        //touch = new TouchActions(driver);
 	        //System.out.println("Setup Complete!");
+	        //driver.context("NATIVE_APP");
+	        
 		}
 		
 		//Setup for iOS
@@ -201,9 +207,9 @@ public class LDSTools {
 	        
 	        //capabilities.setCapability("appActivity", "org.lds.ldstools.ui.StartupActivity");
 	        //driver = new AndroidDriver(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
-	        driver = new AppiumSwipeableDriver(new URL("http://127.0.0.1:4445/wd/hub"),capabilities);
-	        //driver = new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4445/wd/hub"),capabilities);
-	        touch = new TouchActions(driver);
+	        //driver = new AppiumSwipeableDriver(new URL("http://127.0.0.1:4445/wd/hub"),capabilities);
+	        driver = new IOSDriver<WebElement>(new URL("http://127.0.0.1:4445/wd/hub"),capabilities);
+	       // touch = new TouchActions(driver);
 		}
        
     }	
@@ -216,8 +222,8 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
-		LeaderNonBishopric("LDSTools16", "High Priest Group", os);
+		LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
+		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
@@ -927,7 +933,7 @@ public class LDSTools {
 		
 		//Go to web and get all users
 		myList = myWeb.getAllMembersOnPage("OrganizationsMenu", "Bishopric", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 
 	}
 	
@@ -959,13 +965,13 @@ public class LDSTools {
 		
 		//Check web data vs LDS Tools
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "High Priests Group", "HighPriestGroupLeadership", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 		
 		pressBackKey();
 		clickButtonByXpathTitleName("Home Teaching District Supervisors");
 
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "High Priests Group", "HighPriestGroupDistrictSupervisors", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 
 		pressBackKey();
 		if (getRunningOS().equals("mac")) {
@@ -975,7 +981,7 @@ public class LDSTools {
 		}
 
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "High Priests Group", "HighPriestGroupMembers", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 	}
 	
 	@Parameters({"os"})
@@ -1000,7 +1006,7 @@ public class LDSTools {
 		
 		//Check web data vs LDS Tools
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Elders Quorum", "EldersQuorumPresidency", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 		
 		//pressBackKey();
 		//clickButtonByXpathTitleName("Home Teaching District Supervisors");
@@ -1017,7 +1023,7 @@ public class LDSTools {
 
 
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Elders Quorum", "EldersQuorumMembers", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 		
 	}
 	
@@ -1043,13 +1049,13 @@ public class LDSTools {
 		
 		//Check web data vs LDS Tools
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Relief Society", "ReliefSocietyPresidency", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 		
 		pressBackKey();
 		clickButtonByXpathTitleName("Visiting Teaching");
 
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Relief Society", "VisitingTeachingSupervisors", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 
 		pressBackKey();
 		if (getRunningOS().equals("mac")) {
@@ -1060,7 +1066,7 @@ public class LDSTools {
 		
 
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Relief Society", "ReliefSocietyMembers", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 
 	}
 	
@@ -1088,7 +1094,7 @@ public class LDSTools {
 		
 		//Check web data vs LDS Tools
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "YoungMenPresidency", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 		
 		pressBackKey();
 		clickButtonByXpathTitleName("Priests Quorum");
@@ -1098,7 +1104,7 @@ public class LDSTools {
 
 
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "PriestsQuorum", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 
 		if (getRunningOS().equals("mac")) {
 			pressBackKey();
@@ -1113,7 +1119,7 @@ public class LDSTools {
 
 		
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "TeachersQuorum", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 		
 		if (getRunningOS().equals("mac")) {
 			pressBackKey();
@@ -1127,7 +1133,7 @@ public class LDSTools {
 		
 
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "DeaconsQuorum", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 	}
 	
 	@Parameters({"os"})
@@ -1153,7 +1159,7 @@ public class LDSTools {
 		
 		//Check web data vs LDS Tools
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "YoungWomenPresidency", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 		
 		pressBackKey();
 		clickButtonByXpathTitleName("Laurel");
@@ -1163,7 +1169,7 @@ public class LDSTools {
 
 
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "Laurel", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 
 		if (getRunningOS().equals("mac")) {
 			pressBackKey();
@@ -1178,7 +1184,7 @@ public class LDSTools {
 
 		
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "MiaMaid", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 		
 		if (getRunningOS().equals("mac")) {
 			pressBackKey();
@@ -1192,7 +1198,7 @@ public class LDSTools {
 		
 
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "Beehive", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 	}
 	
 	
@@ -1233,7 +1239,7 @@ public class LDSTools {
 		
 		//Go to web and get all users
 		myList = myWeb.getAllMembersOnPage("ReportsMenu", "Member List", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 		
 		/*
 		for(String oneUser : myList) {
@@ -2579,7 +2585,7 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")){
 			clickButtonByXpath("SpinnerSubTitle");
 		} else {
-			clickButtonByXpath("SpinnerNav");
+			clickButtonByID("SpinnerNav");
 		}
 		
 		Thread.sleep(2000);
@@ -3250,7 +3256,13 @@ public class LDSTools {
 	 */
 	private Boolean checkElementTextViewReturn(String textElement) {
 		Boolean myReturnStatus;
-		List<WebElement> options= driver.findElements(By.xpath("//*[@value='" + textElement + "']"));
+		List<WebElement> options;
+		if (getRunningOS().equals("mac")) {
+			options= driver.findElements(By.xpath("//*[@value='" + textElement + "']"));
+		} else {
+			options= driver.findElements(By.xpath("//*[@text='" + textElement + "']"));
+		}
+		
 		if (options.isEmpty()) {
 			myReturnStatus = false;	
 		} else {
@@ -3280,8 +3292,14 @@ public class LDSTools {
 	 */
 	private Boolean checkElementTextViewReturnContains(String textElement) {
 		Boolean myReturnStatus;
+		List<WebElement> options;
 		//List<WebElement> options= driver.findElements(By.xpath("//TextView[contains(@value,'" + textElement + "')]"));
-		List<WebElement> options= driver.findElements(By.xpath("//*[contains(@value,'" + textElement + "')]"));
+		if (getRunningOS().equals("mac")) {
+			options= driver.findElements(By.xpath("//*[contains(@value,'" + textElement + "')]"));
+		} else {
+			options= driver.findElements(By.xpath("//*[contains(@text,'" + textElement + "')]"));
+		}
+	
 		if (options.isEmpty()) {
 			myReturnStatus = false;	
 		} else {
@@ -3316,7 +3334,7 @@ public class LDSTools {
 	private Boolean checkElementTextViewRoboReturn(String textElement) {
 		Boolean myReturnStatus;
 		//List<WebElement> options= driver.findElements(By.xpath("//RobotoTextView[@value='" + textElement + "']"));
-		List<WebElement> options= driver.findElements(By.xpath("//*[@value='" + textElement + "']"));
+		List<WebElement> options= driver.findElements(By.xpath("//*[@text='" + textElement + "']"));
 		if (options.isEmpty()) {
 			myReturnStatus = false;
 		} else {
@@ -3417,8 +3435,9 @@ public class LDSTools {
 		} else {
 			for (Element myElement : myTest ) {
 				//System.out.println(myElement.attributes().get("value"));
-				if (myElement.attributes().get("shown").equals("true")) {
-					foundText = myElement.attributes().get("value");
+				if (!myElement.attributes().get("text").equals("")) {	
+					//foundText = myElement.attributes().get("value");
+					foundText = myElement.attributes().get("text");
 					foundText = foundText.toLowerCase();
 					//System.out.println("******************************");
 					//System.out.println("Found Text:" + foundText);
@@ -3477,9 +3496,10 @@ public class LDSTools {
 
 		} else {
 			for (Element myElement : myTest ) {
-				//System.out.println(myElement.attributes().get("value"));
-				if (myElement.attributes().get("shown").equals("true")) {
-					foundText = myElement.attributes().get("value");
+				//System.out.println(myElement.attributes().get("text"));
+				//if (myElement.attributes().get("shown").equals("true")) {
+				if (!myElement.attributes().get("text").equals("")) {	
+					foundText = myElement.attributes().get("text");
 					foundText = foundText.toLowerCase();
 					System.out.println("******************************");
 					System.out.println("Found Text:" + foundText);
@@ -3508,8 +3528,8 @@ public class LDSTools {
 		for (Element myElement : myTest ) {
 			//System.out.println("Searching for user: ");
 			//System.out.println(myElement.attributes().get("value"));
-			if (myElement.attributes().get("shown").equals("true")) {
-				foundText = myElement.attributes().get("value");
+			if (!myElement.attributes().get("text").equals("")) {
+				foundText = myElement.attributes().get("text");
 				//foundText = foundText.toLowerCase();
 				if ((!foundText.isEmpty()) && (foundText.contains(","))){
 					System.out.println("Adding User: " + foundText);
@@ -3603,7 +3623,7 @@ public class LDSTools {
 		
 		//Go to web and get all users
 		myList = myWeb.getAllMembersOnPage("OrganizationsMenu", "Bishopric", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 		
 		pressBackKey();
 		Thread.sleep(1000);
@@ -3627,13 +3647,13 @@ public class LDSTools {
 		
 		//Check web data vs LDS Tools
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "High Priests Group", "HighPriestGroupLeadership", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 		
 		pressBackKey();
 		clickButtonByXpathTitleName("Home Teaching District Supervisors");
 
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "High Priests Group", "HighPriestGroupDistrictSupervisors", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 
 		pressBackKey();
 		if (getRunningOS().equals("mac")) {
@@ -3670,7 +3690,7 @@ public class LDSTools {
 		
 		//Check web data vs LDS Tools
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Elders Quorum", "EldersQuorumPresidency", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 		
 		//pressBackKey();
 		//clickButtonByXpathTitleName("Home Teaching District Supervisors");
@@ -3715,13 +3735,13 @@ public class LDSTools {
 		
 		//Check web data vs LDS Tools
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Relief Society", "ReliefSocietyPresidency", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 		
 		pressBackKey();
 		clickButtonByXpathTitleName("Visiting Teaching");
 
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Relief Society", "VisitingTeachingSupervisors", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 
 		pressBackKey();
 		if (getRunningOS().equals("mac")) {
@@ -3760,7 +3780,7 @@ public class LDSTools {
 		
 		//Check web data vs LDS Tools
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "YoungMenPresidency", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 		
 		pressBackKey();
 		clickButtonByXpathTitleName("Priests Quorum");
@@ -3770,7 +3790,7 @@ public class LDSTools {
 
 
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "PriestsQuorum", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 
 		if (getRunningOS().equals("mac")) {
 			pressBackKey();
@@ -3783,7 +3803,7 @@ public class LDSTools {
 		}
 
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "TeachersQuorum", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 		
 		if (getRunningOS().equals("mac")) {
 			pressBackKey();
@@ -3797,7 +3817,7 @@ public class LDSTools {
 		
 
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "DeaconsQuorum", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 		
 		if (getRunningOS().equals("mac")) {
 			pressBackKey();
@@ -3826,7 +3846,7 @@ public class LDSTools {
 		
 		//Check web data vs LDS Tools
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "YoungWomenPresidency", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 		
 		pressBackKey();
 		clickButtonByXpathTitleName("Laurel");
@@ -3836,7 +3856,7 @@ public class LDSTools {
 
 
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "Laurel", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 
 		if (getRunningOS().equals("mac")) {
 			pressBackKey();
@@ -3851,7 +3871,7 @@ public class LDSTools {
 
 		
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "MiaMaid", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 		
 		if (getRunningOS().equals("mac")) {
 			pressBackKey();
@@ -3865,7 +3885,7 @@ public class LDSTools {
 		
 
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "Beehive", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 		
 		if (getRunningOS().equals("mac")) {
 			pressBackKey();
@@ -3893,7 +3913,7 @@ public class LDSTools {
 		
 		//Check web data vs LDS Tools
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Sunday School", "SundaySchoolPresidency", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 		
 		pressBackKey();
 		
@@ -3924,7 +3944,7 @@ public class LDSTools {
 		
 		//Check web data vs LDS Tools
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Primary", "PrimaryPresidency", myUserName, myPassword);
-		compareWebData(myList, androidList, false);
+		compareWebData(myList, androidList, true);
 		
 		pressBackKey();
 		
@@ -3975,9 +3995,15 @@ public class LDSTools {
 	 */
 	private void clickLastTextViewRoboReturn(String textElement) {
 		int myCounter;
+		List<WebElement> options;
 		//displayAllTextViewElements(textElement);
 		//List<WebElement> options= driver.findElements(By.xpath("//RobotoTextView[@id='text1'][@value='" + textElement + "']"));
-		List<WebElement> options= driver.findElements(By.xpath("//*[@value='" + textElement + "']"));
+		if (getRunningOS().equals("mac")) {
+			options= driver.findElements(By.xpath("//*[@value='" + textElement + "']"));
+		} else {
+			options= driver.findElements(By.xpath("//*[@text='" + textElement + "']"));
+		}
+		
 		myCounter = options.size() - 1;
 		options.get(myCounter).click();
 	
@@ -4031,9 +4057,14 @@ public class LDSTools {
 	 */
 	private void clickButtonByXpathTitleName(String textElement ) {
 		WebDriverWait wait = new WebDriverWait(driver, 10);
+		WebElement myElement; 
 		//Changing this for Android 6.0 and later
-		//WebElement myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@text='" + textElement + "']")));
-		WebElement myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@value='" + textElement + "']")));
+		if(getRunningOS().equals("mac")) {
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@value='" + textElement + "']")));
+		} else {
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@text='" + textElement + "']")));
+		}
+
 		myElement.click();
 
 		try {
@@ -4184,6 +4215,11 @@ public class LDSTools {
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(this.prop.getProperty(textElement))));
 	}
 	
+	private void waitForTextToDisappearID(String textElement, int myTimeOut){
+		WebDriverWait wait = new WebDriverWait(driver, myTimeOut);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id(this.prop.getProperty(textElement))));
+	}
+	
 	/** flickRightToLeft()
 	 * Flick or swipe from right to left
 	 * 
@@ -4260,7 +4296,8 @@ public class LDSTools {
 	private void scrollDown(String textElement, int distanceMove) throws Exception {
 		int myCheck;
 		int myCounter = 0;
-		textElement = "//*[@value='" + textElement + "']";
+		//textElement = "//*[@value='" + textElement + "']";
+		textElement = "//*[@text='" + textElement + "']";
 		//WebDriverWait wait = new WebDriverWait(driver, 20);
 
 		//Scroll down if element is not found.
@@ -4356,7 +4393,7 @@ public class LDSTools {
 	
 	
 	private void scrollDownTEST(int scrollDistance ) throws Exception {
-		TouchActions actions = new TouchActions(driver);
+		//TouchActions actions = new TouchActions(driver);
 		//WebElement myElement = driver.findElement(By.xpath("//CheckableLinearLayout[10]/RelativeLayout/LinearLayout"));
 		//actions.flick(driver.findElement(By.xpath("//LinearLayout")), 0, scrollDistance, 100);
 
@@ -4373,11 +4410,15 @@ public class LDSTools {
 		//screenWidth = screenWidth - 75;
 		//screenHeight = screenHeight / 2;
 		screenHeight = screenHeight - 100;
+		//scrollDistance = screenHeight - scrollDistance;
 		
 		//System.out.println("Width: " + screenWidth);
 		//System.out.println("Height: " + screenHeight);
-		//System.out.println("Up: " + screenUp);
+		//System.out.println("Distance: " + scrollDistance);
+		TouchAction actions = new TouchAction(driver);
+		actions.press(screenWidth, screenHeight).moveTo(0, -scrollDistance).release().perform();
 		
+		/*
 		actions.down(screenWidth, screenHeight);
 		//actions.pause(1000);
 		//actions.move(screenWidth, screenHeight -100 );
@@ -4385,11 +4426,9 @@ public class LDSTools {
 		//actions.pause(3000);
 		//actions.up(screenWidth, screenUp);
 		actions.up(screenWidth, 0);
-		
-
-		
-
+	
 		actions.perform();
+		*/
 		
 		Thread.sleep(5000);
 		
@@ -4549,7 +4588,7 @@ public class LDSTools {
 	
 	
 	private void scrollUpTEST(int scrollDistance ) throws Exception {
-		TouchActions actions = new TouchActions(driver);
+		//TouchActions actions = new TouchActions(driver);
 		//WebElement myElement = driver.findElement(By.xpath("//CheckableLinearLayout[10]/RelativeLayout/LinearLayout"));
 		//actions.flick(driver.findElement(By.xpath("//LinearLayout")), 0, scrollDistance, 100);
 
@@ -4564,7 +4603,11 @@ public class LDSTools {
 		screenWidth = screenWidth / 2;
 		//screenWidth = screenWidth - 75;
 		screenHeight = (int) (screenHeight / 1.5);
-
+		
+		TouchAction actions = new TouchAction(driver);
+		actions.press(screenWidth, screenHeight).moveTo(0, scrollDistance).release().perform();
+		
+		/*
 		actions.down(screenWidth, screenHeight);
 		actions.pause(1000);
 		actions.move(screenWidth, scrollDistance);
@@ -4572,6 +4615,7 @@ public class LDSTools {
 		actions.up(screenWidth, 10);
 		
 		actions.perform();
+		*/
 	}
 	
 	
@@ -4611,21 +4655,33 @@ public class LDSTools {
 	 */
 	private void longPressByTextView(String textElement) {
 		//WebElement myElement = driver.findElement(By.xpath("//*[@value='" + textElement + "']"));
-		WebElement myElement = driver.findElement(By.xpath("//*[contains(@value, '" + textElement + "')]"));
-		
+		//WebElement myElement = driver.findElement(By.xpath("//*[contains(@value, '" + textElement + "')]"));
+		WebElement myElement = driver.findElement(By.xpath("//*[contains(@text, '" + textElement + "')]"));
+		//WebElement myElement = driver.findElement(By.id("signin_instructions"));
+		//WebElement muElements = (WebElement) driver.findElements(By.id("signin_instructions"));
+
 		//This was doing a longpress on the wrong element
 		//TouchActions longPress = new TouchActions(driver).longPress(myElement);
 		//longPress.perform();
+		TouchAction action = new TouchAction(driver);
+		action.longPress(myElement).release().perform();
+		
+		
+		//driver.tap(2, myElement, 3);
 
-		TouchActions actions=new TouchActions(driver);
+		//TouchActions actions = new TouchActions(driver);
 		//actions.longPress(myElement).release().perform();
 		
+		//actions.longPress(myElement).release().perform();
+		
+		/*
 		Point p=myElement.getLocation();
 		//System.out.println("X: " + p.x + "Y: " + p.y);
 		actions.down(p.x, p.y);
 		actions.pause(2000);
 		actions.up(p.x, p.y);
 		actions.perform();
+		*/
 		
 	}
 
@@ -4649,7 +4705,8 @@ public class LDSTools {
 		if (myOs.equals("mac")){
 			clickButtonByXpath("TopBack");
 		} else {
-			new Actions(driver).sendKeys(SelendroidKeys.BACK).perform();
+			driver.navigate().back();
+			//new Actions(driver).sendKeys(SelendroidKeys.BACK).perform();
 			Thread.sleep(1000);
 		}
 
@@ -4698,14 +4755,17 @@ public class LDSTools {
 			if (!chooseNetwork.equals("Production")) {
 				//Just for testing
 				Thread.sleep(10000);
+				
 				longPressByTextView("Sign in to your LDS Account");
 				Thread.sleep(1000);
 				longPressByTextView("Sign in to your LDS Account");
 				Thread.sleep(1000);
+				
 				clickButtonByXpath("Menu");
 				Thread.sleep(1000);
 				//clickButtonByXpathTitleNameContains("Settings");
-				clickButtonByXpathTitleName("Settings");
+				//clickButtonByXpathTitleName("Settings");
+				clickButtonByXpath("OverflowSettings");
 				//clickButtonByXpath("MenuSettings");
 				//Thread.sleep(1000);
 				//scrollDown("Sign Out", 40 );
@@ -4718,18 +4778,20 @@ public class LDSTools {
 				//scrollDown("Network Environment", pageSize );
 				
 				
-				scrollDown("Network Environment", 100 );
+				scrollDown("Network Environment", 40 );
 				//Thread.sleep(2000);
 				clickButtonByXpathTitleName(chooseNetwork);
 				clickButtonByXpath("Back");
 				Thread.sleep(5000);
 			}
 
-			sendTextbyXpath("LoginUsername", loginName);
-			sendTextbyXpath("LoginPassword", loginPassword);
+			//sendTextbyXpath("LoginUsername", loginName);
+			//sendTextbyXpath("LoginPassword", loginPassword);
+			sendTextbyID("LoginUsername", loginName);
+			sendTextbyID("LoginPassword", loginPassword);
 			clickButtonByXpath("SignInButton");
 			Thread.sleep(4000);
-			waitForTextToDisappear("SyncText", 500 );
+			waitForTextToDisappearID("SyncText", 500 );
 			Thread.sleep(2000);
 		}
 		
@@ -4940,7 +5002,7 @@ public class LDSTools {
 				if (elementCheck == true) {
 					clickButtonByXpath("Yes");
 				} else {
-					clickButtonByXpath("AlertOK");
+					clickButtonByID("AlertOK");
 				}
 				Thread.sleep(1000);
 			}
@@ -4954,18 +5016,18 @@ public class LDSTools {
 			}
 			
 			//checkTextByXpath("PinTitle", "Choose your PIN");
-			clickButtonByXpath("PinKey" + digit1);
-			clickButtonByXpath("PinKey" + digit2);
-			clickButtonByXpath("PinKey" + digit3);
-			clickButtonByXpath("PinKey" + digit4);
+			clickButtonByID("PinKey" + digit1);
+			clickButtonByID("PinKey" + digit2);
+			clickButtonByID("PinKey" + digit3);
+			clickButtonByID("PinKey" + digit4);
 			
 			//checkTextByXpath("PinTitle", "Confirm PIN");
-			clickButtonByXpath("PinKey" + digit1);
-			clickButtonByXpath("PinKey" + digit2);
-			clickButtonByXpath("PinKey" + digit3);
-			clickButtonByXpath("PinKey" + digit4);
+			clickButtonByID("PinKey" + digit1);
+			clickButtonByID("PinKey" + digit2);
+			clickButtonByID("PinKey" + digit3);
+			clickButtonByID("PinKey" + digit4);
 		} else {
-			clickButtonByXpath("AlertNotNow");
+			clickButtonByID("AlertNotNow");
 		}
 		Thread.sleep(2000);
 
@@ -5037,6 +5099,7 @@ public class LDSTools {
 		} else {
 			//clickButtonByXpathTitleName("Aaron, Jane");
 			pageSource = androidGetMemberInfo();
+			//System.out.println(pageSource);
 			Assert.assertTrue(checkNoCaseList("Aaron, Jane", pageSource, "Contains"));
 		}
 
@@ -5752,7 +5815,7 @@ public class LDSTools {
 		
 		Thread.sleep(1000);
 		//clickButtonByXpath("AlertOK");
-		checkForAlertOK() ;
+		checkForAlertOK();
 		Thread.sleep(1000);
 		Assert.assertTrue(checkElementTextViewReturnContains("613"));
 		Assert.assertTrue(checkElementTextViewReturnContains("16"));
@@ -6496,7 +6559,7 @@ public class LDSTools {
 				pressBackKey();
 			}
 			Assert.assertTrue(checkElementTextViewReturn("Lavea, Meise"));
-			Assert.assertTrue(checkElementTextViewReturn("LDSTools, LDS26"));
+			Assert.assertTrue(checkElementTextViewReturn("Tools, LDS26"));
 			Assert.assertTrue(checkElementTextViewReturn("Aaron, Jane"));
 			if (getRunningOS().equals("android")) {
 				clickButtonByXpath("HTVTRemoveFiltersButton");
@@ -6647,7 +6710,7 @@ public class LDSTools {
 				//Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
 			}
 		} else {
-			clickButtonByXpath("SpinnerNav");
+			clickButtonByID("SpinnerNav");
 			//Get Stake and all Wards
 			//options = driver.findElements(By.xpath("//*[@id='title']"));
 			options = driver.findElements(By.xpath("//*[@id='list_item']/*[@id='text1']"));
@@ -6656,7 +6719,7 @@ public class LDSTools {
 				StakeWard.add(options.get(i).getText());
 			}
 			Thread.sleep(1000);
-			clickButtonByXpath("SpinnerNav");
+			clickButtonByID("SpinnerNav");
 			
 			//Thread.sleep(1000);
 			//pressBackKey();
@@ -6664,7 +6727,7 @@ public class LDSTools {
 			
 			//Go through each Stake and Ward to make sure it isn't blank
 			for(String StakeWardItem : StakeWard){
-				clickButtonByXpath("SpinnerNav");
+				clickButtonByID("SpinnerNav");
 				Thread.sleep(2000);
 				clickButtonByXpathTitleName(StakeWardItem);
 				//displayAllTextViewElements();
@@ -6855,8 +6918,8 @@ public class LDSTools {
 	
 	private void checkForAlertOK() throws Exception {
 		//Check to see if we are getting a warning
-		if (checkElementExistsByXpath("AlertMessageCheck") == true) {
-			clickButtonByXpath("SignOutOK");
+		if (checkElementExistsByID("AlertMessageCheck") == true) {
+			clickButtonByID("SignOutOK");
 		}
 	}
 	private void checkWebMemberInfo(String loginName, String passWord, String userToCheck) throws Exception {
@@ -6993,7 +7056,7 @@ public class LDSTools {
 					}
 				}
 				*/
-				for(int myCounter = 0 ; myCounter < 5; myCounter++) {
+				for(int myCounter = 0 ; myCounter < androidList.size() ; myCounter++) {
 				//for(String oneUser : myList) {
 					System.out.println("USER: " + myList.get(myCounter));
 					Assert.assertTrue(myList.contains(androidList.get(myCounter)));
@@ -7120,6 +7183,14 @@ public class LDSTools {
 		Thread.sleep(1000);
 		myPageSource = myPageSource + getSourceOfPage();
 		
+		
+		myCheck = checkElementExistsByXpath("TabHomeTeaching");
+		if (myCheck == true) {
+			clickButtonByXpath("TabHomeTeaching");
+			Thread.sleep(1000);
+			myPageSource = myPageSource + getSourceOfPage();
+		}
+		
 		myCheck = checkElementExistsByXpath("TabMembership");
 		if (myCheck == true) {
 			clickButtonByXpath("TabMembership");
@@ -7127,7 +7198,16 @@ public class LDSTools {
 			myPageSource = myPageSource + getSourceOfPage();
 		}
 		
+		myCheck = checkElementExistsByXpath("TabHomeTeaching");
+		if (myCheck == true) {
+			clickButtonByXpath("TabHomeTeaching");
+			Thread.sleep(1000);
+		}
+		
+		clickButtonByXpath("TabCallings");
+		clickButtonByXpath("TabHousehold");
 		clickButtonByXpath("TabContact");
+
 		return myPageSource;
 	}
 	
@@ -7137,11 +7217,11 @@ public class LDSTools {
 		//Contact Tab
 		Thread.sleep(1000);
 		myPageSource = getSourceOfPage();
-		scrollDownTEST(100);
+		//scrollDownTEST(100);
 
 		myPageSource = myPageSource + getSourceOfPage();
 		
-		scrollToTheTop();
+		//scrollToTheTop();
 		return myPageSource;
 	}
 	
@@ -7279,7 +7359,7 @@ public class LDSTools {
 
 	}
 	
-	
+	/*
 	//Need this class to get the touch stuff to work with Appium - Android
 	public class AppiumSwipeableDriver extends AppiumDriver implements HasTouchScreen{
 		 public RemoteTouchScreen touch;
@@ -7304,7 +7384,7 @@ public class LDSTools {
 		}
 	}
 	
-
+*/
 	
 	//Retry Test needed so the system will retry a failed test
     public class Retry implements TestRule {
