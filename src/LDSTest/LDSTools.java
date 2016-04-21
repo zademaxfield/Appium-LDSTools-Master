@@ -1368,10 +1368,14 @@ public class LDSTools {
 
 		
 		sendTextbyXpath("EditPersonalPhone", "1(801)240-0104");
+		Thread.sleep(1000);
 		sendTextbyXpath("EditHomePhone", "(801) 867-5309");
+		Thread.sleep(1000);
 		sendTextbyXpath("EditPersonalEmail", "personal@nospam.com");
 		Thread.sleep(1000);
-		driver.hideKeyboard();
+		if (!getRunningOS().equals("mac")){
+			driver.hideKeyboard();
+		}
 		sendTextbyXpath("EditHomeEmail", "home@nospam.com");
 		clickButton("MenuSave", "id", "xpath");
 		
@@ -7409,16 +7413,22 @@ public class LDSTools {
 		
 		sendTextbyXpath("EditPersonalPhone", "11");
 		clearTextFieldXpath("EditPersonalPhone");
-		driver.hideKeyboard();
+		if (!getRunningOS().equals("mac")){
+			driver.hideKeyboard();
+		}
 		sendTextbyXpath("EditHomePhone", "11");
 		clearTextFieldXpath("EditHomePhone");
-		driver.hideKeyboard();
+		if (!getRunningOS().equals("mac")){
+			driver.hideKeyboard();
+		}
 		Thread.sleep(1000);
 		sendTextbyXpath("EditPersonalEmail", "aaa");
 		clearTextFieldXpath("EditPersonalEmail");
-		driver.hideKeyboard();
+		if (!getRunningOS().equals("mac")){
+			driver.hideKeyboard();
+		}
 		Thread.sleep(1000);
-		scrollDownTEST(40);
+		clickButton("EditHomeEmail", "xpath", "xpath");
 		sendTextbyXpath("EditHomeEmail", "aaa");
 		clearTextFieldXpath("EditHomeEmail");
 		
