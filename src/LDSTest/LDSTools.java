@@ -222,13 +222,13 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
+		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
 		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
-		//editCurrentUser(os);	
+		editCurrentUser(os);	
 		
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
@@ -578,6 +578,59 @@ public class LDSTools {
 		LeaderNonBishopric("LDSTools39", "Ward Council", os);
 	}
 	
+	/** bishopricCounselorAndWardClerk()
+	 * This will test a user that is a member of the Bishopric and a Ward Clerk
+	 * 
+	 * @throws Exception
+	 */
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "bishopric"}, priority = 1)
+	public void bishopricCounselorAndWardClerk(String os) throws Exception {
+		//int myCheck;
+		//LDSTools3 is Bishopric Counselor and Ward Clerk
+		syncLogIn("ngiBPC1", "password1", "UAT", os );
+		Thread.sleep(2000);
+		
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		Thread.sleep(2000);
+	
+		
+		
+		//Check Directory user - should be able to view everything
+		checkDirectoryUser(true, true, true, true, true, true);
+		
+		Thread.sleep(1000);
+		
+		//Check Drawer Items - If leader there should be a Reports item
+		checkDrawerItems(true);
+		
+		Thread.sleep(1000);
+		
+		//Check various callings - all users should be able to access this information
+		checkCallings();
+		
+		Thread.sleep(1000);
+		
+		//Check Missionary drawer items - all user access
+		checkMissionary();
+	
+		Thread.sleep(1000);
+		
+		//Check the reports - leadership only
+		checkReports(true, false);
+		
+		
+		
+		checkHTVTBasic("Bishopric");
+		checkHTVTHouseholds("Bishopric");
+		
+	
+	}
+
+
+
 	@Parameters({"os"})
 	@Test (groups= {"sunday school"}, priority = 2)
 	public void SundaySchoolFirstCounselor(String os) throws Exception {
@@ -680,57 +733,6 @@ public class LDSTools {
 		checkDirectoryUser(false, false, false, false, false, false );
 		
 		
-	}
-	
-	/** bishopricCounselorAndWardClerk()
-	 * This will test a user that is a member of the Bishopric and a Ward Clerk
-	 * 
-	 * @throws Exception
-	 */
-	@Parameters({"os"})
-	@Test (groups= {"smoke", "bishopric"}, priority = 1)
-	public void bishopricCounselorAndWardClerk(String os) throws Exception {
-		//int myCheck;
-		//LDSTools3 is Bishopric Counselor and Ward Clerk
-		syncLogIn("ngiBPC1", "password1", "UAT", os );
-		Thread.sleep(2000);
-		
-		//true will setup ping for a non-leader
-		pinPage("1", "1", "3", "3", true);
-		
-		Thread.sleep(2000);
-
-		
-		
-		//Check Directory user - should be able to view everything
-		checkDirectoryUser(true, true, true, true, true, true);
-		
-		Thread.sleep(1000);
-		
-		//Check Drawer Items - If leader there should be a Reports item
-		checkDrawerItems(true);
-		
-		Thread.sleep(1000);
-		
-		//Check various callings - all users should be able to access this information
-		checkCallings();
-		
-		Thread.sleep(1000);
-		
-		//Check Missionary drawer items - all user access
-		checkMissionary();
-	
-		Thread.sleep(1000);
-		
-		//Check the reports - leadership only
-		checkReports(true, false);
-		
-		
-		
-		checkHTVTBasic("Bishopric");
-		checkHTVTHouseholds("Bishopric");
-		
-
 	}
 	
 	/** bishopMemberOfSeparateStake()
@@ -877,7 +879,7 @@ public class LDSTools {
 			for(String oneUser : myList){
 				sendTextbyXpath("SearchArea", oneUser );
 				clickButtonByXpath("SearchGo");
-				checkUser = checkTextByXpathReturn("SearchResult", oneUser);
+				checkUser = checkTextReturn("SearchResult", oneUser, "xpath", "xpath");
 				if (checkUser == 0 ) {
 					System.out.println("NOT FOUND: " + oneUser);
 				}
@@ -894,7 +896,7 @@ public class LDSTools {
 				sendTextbyXpath("SearchArea", oneUser );
 				
 				Thread.sleep(2000);
-				checkUser = checkTextByXpathReturn("SearchResult", oneUser);
+				checkUser = checkTextReturn("SearchResult", oneUser, "xpath", "xpath");
 				if (checkUser == 0 ) {
 					System.out.println("NOT FOUND: " + oneUser);
 				}
@@ -1358,41 +1360,53 @@ public class LDSTools {
 		
 		searchForUser("Tools, LDS44");
 		
+		clearPhoneAndEmail();
 		
-		//Check the users name, address membership number etc...
-		//Assert.assertTrue(checkElementTextViewReturn("Tools, LDS44"));
-		Thread.sleep(4000);
-		clickButtonByXpath("MenuEdit");
-		Thread.sleep(2000);
-		clearTextFieldXpath("EditPersonalPhone");
-		clearTextFieldXpath("EditHomePhone");
-		clearTextFieldXpath("EditPersonalEmail");
-		clearTextFieldXpath("EditHomeEmail");
 
-		clickButtonByXpath("MenuSave");
-		Thread.sleep(2000);
-		clickButtonByXpath("MenuEdit");
+		clickButton("MenuEdit", "id", "xpath");
 		Thread.sleep(2000);
 
 		
 		sendTextbyXpath("EditPersonalPhone", "1(801)240-0104");
 		sendTextbyXpath("EditHomePhone", "(801) 867-5309");
 		sendTextbyXpath("EditPersonalEmail", "personal@nospam.com");
+		Thread.sleep(1000);
+		driver.hideKeyboard();
 		sendTextbyXpath("EditHomeEmail", "home@nospam.com");
-		clickButtonByXpath("MenuSave");
+		clickButton("MenuSave", "id", "xpath");
 		
 		Thread.sleep(3000);
 		
-		pageSource = getSourceOfPage();
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("LDS44 Tools");
+			iosExpandAllDirectory();
+			pageSource = getSourceOfPage();
+		} else {
+			//clickButton("Tools, LDS44", "text", "text");
+			pageSource = androidGetMemberInfo();
+			//System.out.println(pageSource);
+
+		}
+		
+		//pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("1(801)240-0104", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("(801) 867-5309", pageSource, "Contains"));	
 		Assert.assertTrue(checkNoCaseList("personal@nospam.com", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("home@nospam.com", pageSource, "Contains"));
 		
+
 		pressBackKey();
+		Thread.sleep(1000);
+		
+
+		
+		if (getRunningOS().equals("mac")) {
+			pressBackKey();
+			Thread.sleep(1000);
+			clickButtonByXpath("SearchCollapse");
+		} 
+		
 		Thread.sleep(2000);
-		//Collapse the search 
-		clickButtonByXpath("SearchCollapse");
 		
 		runSync();
 		
@@ -1421,15 +1435,7 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("home@nospam.com", pageSource, "Contains"));
 		
 		Thread.sleep(2000);
-		clickButtonByXpath("MenuEdit");
-		Thread.sleep(1000);
-		
-		clearTextFieldXpath("EditPersonalPhone");
-		clearTextFieldXpath("EditHomePhone");
-		clearTextFieldXpath("EditPersonalEmail");
-		clearTextFieldXpath("EditHomeEmail");
-
-		clickButtonByXpath("MenuSave");
+		clearPhoneAndEmail();
 		
 		pressBackKey();
 		//pressBackKey();
@@ -1473,18 +1479,18 @@ public class LDSTools {
 		
 		//Check the users name, address membership number etc...
 		Thread.sleep(2000);
-		clickButtonByXpath("MenuEdit");
+		clickButton("MenuEdit", "id", "xpath");
 		Thread.sleep(2000);
 		clearTextFieldXpath("EditPersonalPhone");
 		clearTextFieldXpath("EditHomePhone");
 		clearTextFieldXpath("EditPersonalEmail");
 		clearTextFieldXpath("EditHomeEmail");
 
-		clickButtonByXpath("MenuSave");
+		clickButton("MenuSave", "id", "xpath");
 		
 		
 		Thread.sleep(2000);
-		clickButtonByXpath("MenuEdit");
+		clickButton("MenuEdit", "id", "xpath");
 		Thread.sleep(2000);
 		
 		sendTextbyXpath("EditPersonalPhone", "1(801)240-0104");
@@ -1541,7 +1547,7 @@ public class LDSTools {
 		//Assert.assertTrue(checkElementTextViewReturn("Tools, LDS41"));
 		
 		Thread.sleep(1000);
-		clickButtonByXpath("MenuEdit");
+		clickButton("MenuEdit", "id", "xpath");
 		Thread.sleep(1000);
 		
 		clearTextFieldXpath("EditPersonalPhone");
@@ -1549,18 +1555,18 @@ public class LDSTools {
 		clearTextFieldXpath("EditPersonalEmail");
 		clearTextFieldXpath("EditHomeEmail");
 		Thread.sleep(1000);
-		clickButtonByXpath("MenuSave");
+		clickButton("MenuSave", "id", "xpath");
 		
 		
 		Thread.sleep(2000);
-		clickButtonByXpath("MenuEdit");
+		clickButton("MenuEdit", "id", "xpath");
 		Thread.sleep(1000);
 		
 		sendTextbyXpath("EditPersonalPhone", "1(801)240-0104");
 		sendTextbyXpath("EditHomePhone", "(801) 867-5309");
 		sendTextbyXpath("EditPersonalEmail", "personal@nospam.com");
 		sendTextbyXpath("EditHomeEmail", "home@nospam.com");
-		clickButtonByXpath("MenuSave");
+		clickButton("MenuSave", "id", "xpath");
 		
 		Thread.sleep(3000);
 		
@@ -1603,7 +1609,7 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("home@nospam.com", pageSource, "Contains"));
 		
 		Thread.sleep(1000);
-		clickButtonByXpath("MenuEdit");
+		clickButton("MenuEdit", "id", "xpath");
 		Thread.sleep(1000);
 		
 		clearTextFieldXpath("EditPersonalPhone");
@@ -1611,7 +1617,7 @@ public class LDSTools {
 		clearTextFieldXpath("EditPersonalEmail");
 		clearTextFieldXpath("EditHomeEmail");
 		Thread.sleep(3000);
-		clickButtonByXpath("MenuSave");
+		clickButton("MenuSave", "id", "xpath");
 		
 		Thread.sleep(3000);
 		
@@ -1660,7 +1666,7 @@ public class LDSTools {
 		
 		
 		Thread.sleep(1000);
-		clickButtonByXpath("MenuEdit");
+		clickButton("MenuEdit", "id", "xpath");
 		Thread.sleep(1000);
 		
 		clearTextFieldXpath("EditPersonalPhone");
@@ -1668,16 +1674,16 @@ public class LDSTools {
 		clearTextFieldXpath("EditPersonalEmail");
 		clearTextFieldXpath("EditHomeEmail");
 		Thread.sleep(1000);
-		clickButtonByXpath("MenuSave");
+		clickButton("MenuSave", "id", "xpath");
 		
 		
 		Thread.sleep(2000);
-		clickButtonByXpath("MenuEdit");
+		clickButton("MenuEdit", "id", "xpath");
 		Thread.sleep(2000);
 		
 		sendTextbyXpath("EditPersonalPhone", "######00000000000*****");
 		sendTextbyXpath("EditHomePhone", "878974131648413216421321165484789798461321314644444244624424524245244545644644856465784967465456464144134424342446244323644524452344623446542326342542");
-		clickButtonByXpath("MenuSave");
+		clickButton("MenuSave", "id", "xpath");
 		Thread.sleep(2000);
 		
 		alertCheck = alertCheckInvalidInput();
@@ -1752,7 +1758,7 @@ public class LDSTools {
 		
 		
 		Thread.sleep(1000);
-		clickButtonByXpath("MenuEdit");
+		clickButton("MenuEdit", "id", "xpath");
 		Thread.sleep(1000);
 		
 		clearTextFieldXpath("EditPersonalPhone");
@@ -1760,11 +1766,11 @@ public class LDSTools {
 		clearTextFieldXpath("EditPersonalEmail");
 		clearTextFieldXpath("EditHomeEmail");
 
-		clickButtonByXpath("MenuSave");
+		clickButton("MenuSave", "id", "xpath");
 		
 		
 		Thread.sleep(2000);
-		clickButtonByXpath("MenuEdit");
+		clickButton("MenuEdit", "id", "xpath");
 		Thread.sleep(2000);
 		
 		sendTextbyXpath("EditPersonalEmail", "thisisaninvalidemailaddress");
@@ -1785,7 +1791,7 @@ public class LDSTools {
 		clearTextFieldXpath("EditHomeEmail");
 		
 		
-		clickButtonByXpath("MenuSave");
+		clickButton("MenuSave", "id", "xpath");
 		
 		Thread.sleep(3000);
 		pageSource = getSourceOfPage();
@@ -1843,7 +1849,7 @@ public class LDSTools {
 		
 		
 		Thread.sleep(1000);
-		clickButtonByXpath("MenuEdit");
+		clickButton("MenuEdit", "id", "xpath");
 		Thread.sleep(2000);
 		
 		//This will reset the visibility back to Stake
@@ -1865,7 +1871,7 @@ public class LDSTools {
 		}
 		
 
-		clickButtonByXpath("MenuSave");
+		clickButton("MenuSave", "id", "xpath");
 		Thread.sleep(3000);
 		pressBackKey();
 		Thread.sleep(1000);
@@ -1930,7 +1936,7 @@ public class LDSTools {
 			//Assert.assertTrue(checkNoCaseList("Tools, LDS5", pageSource, "Contains"));
 		}
 		Thread.sleep(1000);
-		clickButtonByXpath("MenuEdit");
+		clickButton("MenuEdit", "id", "xpath");
 		
 		//Thread.sleep(3000);
 		//clickButtonByXpath("AlertOK");	
@@ -1944,9 +1950,9 @@ public class LDSTools {
 		
 		
 		
-		clickButtonByXpath("MenuSave");
+		clickButton("MenuSave", "id", "xpath");
 		//Thread.sleep(1000);
-		//clickButtonByXpath("MenuSave");
+		//clickButton("MenuSave", "id", "xpath");
 		Thread.sleep(3000);
 		pressBackKey();
 		Thread.sleep(1000);
@@ -2004,7 +2010,7 @@ public class LDSTools {
 		}
 		
 		Thread.sleep(1000);
-		clickButtonByXpath("MenuEdit");
+		clickButton("MenuEdit", "id", "xpath");
 		Thread.sleep(2000);
 		
 		//This will reset the visibility back to Stake (just in case something went wrong)
@@ -2032,10 +2038,10 @@ public class LDSTools {
 			clickButtonByXpath("RadioPrivate");
 			clickButtonByXpath("SetLimit");
 			Thread.sleep(1000);
-			clickButtonByXpath("MenuSave");
+			clickButton("MenuSave", "id", "xpath");
 		}
 
-		clickButtonByXpath("MenuSave");
+		clickButton("MenuSave", "id", "xpath");
 		Thread.sleep(3000);
 		pressBackKey();
 		Thread.sleep(1000);
@@ -2118,7 +2124,7 @@ public class LDSTools {
 		}
 		
 		Thread.sleep(1000);
-		clickButtonByXpath("MenuEdit");
+		clickButton("MenuEdit", "id", "xpath");
 		Thread.sleep(2000);
 		
 		//This will reset the visibility back to Stake (just in case something went wrong)
@@ -2126,9 +2132,9 @@ public class LDSTools {
 		
 		
 		Thread.sleep(1000);
-		clickButtonByXpath("MenuSave");
+		clickButton("MenuSave", "id", "xpath");
 		//Thread.sleep(1000);
-		//clickButtonByXpath("MenuSave");
+		//clickButton("MenuSave", "id", "xpath");
 		Thread.sleep(3000);
 		pressBackKey();
 		Thread.sleep(1000);
@@ -2218,7 +2224,7 @@ public class LDSTools {
 		}
 		
 		
-		clickButtonByXpath("MenuEdit");
+		clickButton("MenuEdit", "id", "xpath");
 		Thread.sleep(2000);
 		
 		//This will reset the visibility back to Stake (just in case something went wrong)
@@ -2243,12 +2249,12 @@ public class LDSTools {
 			clickButtonByXpath("RadioPrivate");
 			clickButtonByXpath("SetLimit");
 			Thread.sleep(1000);
-			clickButtonByXpath("MenuSave");
+			clickButton("MenuSave", "id", "xpath");
 		}
 		
 		
 		
-		clickButtonByXpath("MenuSave");
+		clickButton("MenuSave", "id", "xpath");
 		
 		Thread.sleep(3000);
 		pressBackKey();
@@ -2331,7 +2337,7 @@ public class LDSTools {
 			//Assert.assertTrue(checkNoCaseList("Tools, LDS5", pageSource, "Contains"));
 		}
 		
-		clickButtonByXpath("MenuEdit");
+		clickButton("MenuEdit", "id", "xpath");
 		Thread.sleep(2000);
 		
 		
@@ -3204,46 +3210,99 @@ public class LDSTools {
 	//**************** Start of Methods ****************************
 	//**************************************************************
 	
-	/** checkTextByXpath(String textElement, String textToCheck )
-	 * Find the element by xpath using the uiMap.properties
-	 * 
-	 * @param textElement - Must map to the uiMap.properties
-	 * @param textToCheck - String of text to check
-	 */
-	private void checkTextByXpath(String textElement, String textToCheck ) {
-		AssertJUnit.assertEquals(driver.findElement(By.xpath(this.prop.getProperty(textElement))).getText(),(textToCheck));	
+
+	
+	private void checkText(String textElement, String textToCheck, String andEle, String iosEle ) {
+		String findElement;
+		if (getRunningOS().equals("mac")) {
+			findElement = iosEle;
+		} else {
+			findElement = andEle;
+		}
+		
+		if (findElement == "id") {
+			AssertJUnit.assertEquals(driver.findElement(By.id(this.prop.getProperty(textElement))).getText(),(textToCheck));
+		}
+		if (findElement == "xpath") {
+			AssertJUnit.assertEquals(driver.findElement(By.xpath(this.prop.getProperty(textElement))).getText(),(textToCheck));	
+		}
+		if (findElement == "className") {
+			AssertJUnit.assertEquals(driver.findElement(By.className(this.prop.getProperty(textElement))).getText(),(textToCheck));
+		}
+		if (findElement == "linkText") {
+			AssertJUnit.assertEquals(driver.findElement(By.linkText(this.prop.getProperty(textElement))).getText(),(textToCheck));
+		}
+		if (findElement == "text") {
+			AssertJUnit.assertEquals(driver.findElement(By.xpath("//*[contains(text(), '" + textElement + "')]")).getText(),(textToCheck));
+		}
+
 	}
 	
-	
-	
-	/** checkTextByXpathReturn(String textElement, String textToCheck )
-	 * Find the element by xpath using uiMap then return if the text if found
-	 * 
-	 * @param textElement - Xpath element in uiMap.properties
-	 * @param textToCheck - String of text to check
-	 * @return return found = 1 or not found = 0
-	 */
-	private int checkTextByXpathReturn(String textElement, String textToCheck ) {
-		String myText;
+	private int checkTextReturn(String textElement, String textToCheck, String andEle, String iosEle  ) {
+		String myText = "";
 		int myReturn = 0;
-		myText = driver.findElement(By.xpath(this.prop.getProperty(textElement))).getText();
+		String findElement;
+		if (getRunningOS().equals("mac")) {
+			findElement = iosEle;
+		} else {
+			findElement = andEle;
+		}
+		
+		
+		if (findElement == "id") {
+			myText = driver.findElement(By.id(this.prop.getProperty(textElement))).getText();
+		}
+		if (findElement == "xpath") {
+			myText = driver.findElement(By.xpath(this.prop.getProperty(textElement))).getText();	
+		}
+		if (findElement == "className")  {
+			myText = driver.findElement(By.className(this.prop.getProperty(textElement))).getText();
+		}
+		if (findElement == "linkText") {
+			myText = driver.findElement(By.linkText(this.prop.getProperty(textElement))).getText();
+		}
+		if (findElement == "text")  {
+			myText = driver.findElement(By.xpath("//*[contains(text(), '" + textElement + "')]")).getText();
+		}
+		
 		if (myText.equals(textToCheck) ) {
 			myReturn = 1;
 		}
+		
 		return myReturn;
 	}
 	
-	private int checkTextContainsByXpathReturn(String textElement, String textToCheck ) {
+	private int checkTextContainsReturn(String textElement, String textToCheck, String andEle, String iosEle  ) {
 		String myText;
 		int myReturn = 0;
 		myText = driver.findElement(By.xpath(this.prop.getProperty(textElement))).getText();
-		//System.out.println("Alert Found: " + myText);
-		if (myText.contains(textToCheck) ) {
+		
+		if ((andEle == "id") || (iosEle == "id")) {
+			myText = driver.findElement(By.id(this.prop.getProperty(textElement))).getText();
+		}
+		if ((andEle == "xpath") || (iosEle == "xpath")) {
+			myText = driver.findElement(By.xpath(this.prop.getProperty(textElement))).getText();	
+		}
+		if ((andEle == "className") || (iosEle == "className")) {
+			myText = driver.findElement(By.className(this.prop.getProperty(textElement))).getText();
+		}
+		if ((andEle == "linkText") || (iosEle == "linkText")) {
+			myText = driver.findElement(By.linkText(this.prop.getProperty(textElement))).getText();
+		}
+		if ((andEle == "text") || (iosEle == "text")) {
+			myText = driver.findElement(By.xpath("//*[contains(text(), '" + textElement + "')]")).getText();
+		}
+		
+		if (myText.contains(textToCheck)) {
 			myReturn = 1;
 		}
+		
 		return myReturn;
 	}
 	
+	
+
+
 
 
 	
@@ -3333,8 +3392,14 @@ public class LDSTools {
 	 */
 	private Boolean checkElementTextViewRoboReturn(String textElement) {
 		Boolean myReturnStatus;
+		List<WebElement> options;
 		//List<WebElement> options= driver.findElements(By.xpath("//RobotoTextView[@value='" + textElement + "']"));
-		List<WebElement> options= driver.findElements(By.xpath("//*[@text='" + textElement + "']"));
+		if (getRunningOS().equals("mac")) {
+			options= driver.findElements(By.xpath("//*[@value='" + textElement + "']"));
+		} else {
+			options= driver.findElements(By.xpath("//*[@text='" + textElement + "']"));
+		}
+
 		if (options.isEmpty()) {
 			myReturnStatus = false;
 		} else {
@@ -4035,6 +4100,52 @@ public class LDSTools {
 		//driver.findElement(By.id(this.prop.getProperty(textElement))).click();
 	}
 	
+	private void clickButton(String textElement, String andEle, String iosEle  ) {
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		WebElement myElement = null;
+		String findElement;
+		if (getRunningOS().equals("mac")) {
+			findElement = iosEle;
+		} else {
+			findElement = andEle;
+		}
+		
+		if (findElement == "id") {
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.id(this.prop.getProperty(textElement))));
+		}
+		
+		if (findElement == "xpath")  {
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(this.prop.getProperty(textElement))));	
+		}
+		
+		if (findElement == "className")  {
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.className(this.prop.getProperty(textElement))));
+		}
+
+		if (findElement == "linkText") {
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.linkText(this.prop.getProperty(textElement))));
+		}
+		
+		if (findElement == "text") {
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(), '" + textElement + "')]")));
+		} 
+		
+		if (findElement == "value") {
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@value='" + textElement + "']")));
+		} 
+		
+		if (findElement == "name") {
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@name='" + textElement + "']")));
+		} 
+		
+		if (findElement == "textAtt") {
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@text='" + textElement + "']")));
+		} 
+
+		myElement.click();
+
+	}
+	
 
 	/** clickButtonByXpath(String textElement)
 	 * Click an element that by Xpath
@@ -4086,16 +4197,7 @@ public class LDSTools {
 		}
 	}
 	
-	private void clickButtonByNameScroll(String textElement ) throws Exception {
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		WebElement myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@name='" + textElement + "']")));
-		myElement.click();
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
+
 
 	
 	private void clickButtonByXpathTitleNameContains(String textElement ) {
@@ -4181,19 +4283,20 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			myElement.click();
 			myElement.clear();
-			Thread.sleep(2000);
-			clickButtonByName("Select All");
+			//Thread.sleep(2000);
+			
+			//clickButtonByName("Select All");
 			//clickButtonByXpath("KeyboardDel");
 			
 			//myElement.sendKeys(Keys.CONTROL + "a");
 			//myElement.sendKeys(Keys.DELETE);
 			//myElement.sendKeys(Keys.BACK_SPACE);
 			
-			Actions actions = new Actions(driver);
+			//Actions actions = new Actions(driver);
 			//actions.sendKeys(myElement, Keys.chord(Keys.CONTROL, "a"));
 			//actions.sendKeys(myElement, Keys.CONTROL + "a");
-			actions.sendKeys(myElement, Keys.DELETE);
-			actions.perform();
+			//actions.sendKeys(myElement, Keys.DELETE);
+			//actions.perform();
 			
 			
 		} else {
@@ -4416,7 +4519,9 @@ public class LDSTools {
 		//System.out.println("Height: " + screenHeight);
 		//System.out.println("Distance: " + scrollDistance);
 		TouchAction actions = new TouchAction(driver);
-		actions.press(screenWidth, screenHeight).moveTo(0, -scrollDistance).release().perform();
+		//actions.press(screenWidth, screenHeight).moveTo(0, -scrollDistance).release().perform();
+
+		actions.press(screenWidth, screenHeight).moveTo(0, -scrollDistance).waitAction(2000).release().perform();
 		
 		/*
 		actions.down(screenWidth, screenHeight);
@@ -4970,7 +5075,7 @@ public class LDSTools {
 		
 		//Check to see if we are getting a warning
 		if (checkElementExistsByXpath("AlertMessage").equals(true)) {
-			myCheck = checkTextByXpathReturn("AlertMessage", "Warning");
+			myCheck = checkTextReturn("AlertMessage", "Warning", "xpath", "xpath");
 		}
 		//Check to see if we are getting a warning
 		if (checkElementExistsByXpath("AlertCalendarMessage").equals(true)) {
@@ -4996,13 +5101,13 @@ public class LDSTools {
 		myCheck = alertCheck();
 		if ((myCheck == 1) || (nonLeaderPin)){
 			if (myCheck == 1) {
-				clickButtonByXpath("AlertOK");
+				clickButton("AlertOK", "id", "xpath");
 			} else {
 				elementCheck = checkElementExistsByXpath("Yes");
 				if (elementCheck == true) {
-					clickButtonByXpath("Yes");
+					clickButton("Yes", "id", "xpath");
 				} else {
-					clickButtonByID("AlertOK");
+					clickButton("AlertOK", "id", "xpath");
 				}
 				Thread.sleep(1000);
 			}
@@ -5014,20 +5119,21 @@ public class LDSTools {
 			if (elementCheck == true) {
 				clickButtonByXpath("OK");
 			}
-			
+
 			//checkTextByXpath("PinTitle", "Choose your PIN");
-			clickButtonByID("PinKey" + digit1);
-			clickButtonByID("PinKey" + digit2);
-			clickButtonByID("PinKey" + digit3);
-			clickButtonByID("PinKey" + digit4);
+			clickButton("PinKey" + digit1, "id", "xpath");
+			clickButton("PinKey" + digit2, "id", "xpath");
+			clickButton("PinKey" + digit3, "id", "xpath");
+			clickButton("PinKey" + digit4, "id", "xpath");
 			
 			//checkTextByXpath("PinTitle", "Confirm PIN");
-			clickButtonByID("PinKey" + digit1);
-			clickButtonByID("PinKey" + digit2);
-			clickButtonByID("PinKey" + digit3);
-			clickButtonByID("PinKey" + digit4);
+			clickButton("PinKey" + digit1, "id", "xpath");
+			clickButton("PinKey" + digit2, "id", "xpath");
+			clickButton("PinKey" + digit3, "id", "xpath");
+			clickButton("PinKey" + digit4, "id", "xpath");
+
 		} else {
-			clickButtonByID("AlertNotNow");
+			clickButton("AlertNotNow", "id", "xpath");
 		}
 		Thread.sleep(2000);
 
@@ -5036,9 +5142,9 @@ public class LDSTools {
 	private int alertCheck() {
 		int myCheck = 0;
 		if (checkElementExistsByXpath("AlertMessage").equals(true)) {
-			myCheck = checkTextByXpathReturn("AlertMessage", "Please create a PIN to protect sensitive data available to leaders.");
+			myCheck = checkTextReturn("AlertMessage", "Please create a PIN to protect sensitive data available to leaders.", "xpath", "xpath");
 			if (myCheck == 0 ) {
-				myCheck = checkTextByXpathReturn("AlertMessage", "Passcode Required");
+				myCheck = checkTextReturn("AlertMessage", "Passcode Required", "xpath", "xpath");
 			}
 		}
 
@@ -5047,9 +5153,9 @@ public class LDSTools {
 	
 	private int alertCheckInvalidInput() {
 		int myCheck = 0;
-		myCheck = checkTextContainsByXpathReturn("AlertMessageMember", "Save failed");
+		myCheck = checkTextContainsReturn("AlertMessageMember", "Save failed", "xpath", "xpath");
 		if (myCheck == 0 ) {
-			myCheck = checkTextContainsByXpathReturn("AlertMessageMember", "Invalid");
+			myCheck = checkTextContainsReturn("AlertMessageMember", "Invalid", "xpath", "xpath");
 		}
 		
 		return myCheck;
@@ -5060,7 +5166,7 @@ public class LDSTools {
 		int alertCheck;
 		Thread.sleep(2000);
 		if (getRunningOS().equals("mac")) {
-			clickButtonByXpath("MenuSave");
+			clickButton("MenuSave", "id", "xpath");
 			alertCheck = alertCheckInvalidInput();
 			if (alertCheck == 1 ) {
 				clickButtonByXpath("AlertOK");
@@ -6241,7 +6347,7 @@ public class LDSTools {
 			System.out.println("Running OS: " + myOS);
 			if (getRunningOS().equals("android")) {
 				clickButtonByXpath("HTVTApply");
-				checkTextByXpath("HTVTFiltersApplied", "Assigned Home Teachers");
+				checkText("HTVTFiltersApplied", "Assigned Home Teachers", "xpath", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -6262,7 +6368,7 @@ public class LDSTools {
 			clickButtonByXpath("NotAssignedHomeTeachersBox");
 			if (getRunningOS().equals("android")) {
 				clickButtonByXpath("HTVTApply");
-				checkTextByXpath("HTVTFiltersApplied", "Not Assigned Home Teachers");
+				checkText("HTVTFiltersApplied", "Not Assigned Home Teachers", "xpath", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -6281,7 +6387,7 @@ public class LDSTools {
 			clickButtonByXpath("NewAndMovedInMembersBox");
 			if (getRunningOS().equals("android")) {
 				clickButtonByXpath("HTVTApply");
-				checkTextByXpath("HTVTFiltersApplied", "New & Moved-In Members");
+				checkText("HTVTFiltersApplied", "New & Moved-In Members", "xpath", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -6396,7 +6502,7 @@ public class LDSTools {
 			clickButtonByXpath("AssignedHomeTeachersBox");
 			if (getRunningOS().equals("android")) {
 				clickButtonByXpath("HTVTApply");
-				checkTextByXpath("HTVTFiltersApplied", "Assigned Home Teachers");
+				checkText("HTVTFiltersApplied", "Assigned Home Teachers", "xpath", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -6415,7 +6521,7 @@ public class LDSTools {
 			clickButtonByXpath("NotAssignedHomeTeachersBox");
 			if (getRunningOS().equals("android")) {
 				clickButtonByXpath("HTVTApply");
-				checkTextByXpath("HTVTFiltersApplied", "Not Assigned Home Teachers");
+				checkText("HTVTFiltersApplied", "Not Assigned Home Teachers", "xpath", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -6434,7 +6540,7 @@ public class LDSTools {
 			clickButtonByXpath("NewAndMovedInMembersBox");
 			if (getRunningOS().equals("android")) {
 				clickButtonByXpath("HTVTApply");
-				checkTextByXpath("HTVTFiltersApplied", "New & Moved-In Members");
+				checkText("HTVTFiltersApplied", "New & Moved-In Members", "xpath", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -6554,7 +6660,7 @@ public class LDSTools {
 			clickButtonByXpath("AssignedHomeTeachersBox");
 			if (getRunningOS().equals("android")) {
 				clickButtonByXpath("HTVTApply");
-				checkTextByXpath("HTVTFiltersApplied", "Assigned Visiting Teachers");
+				checkText("HTVTFiltersApplied", "Assigned Visiting Teachers", "xpath", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -6573,7 +6679,7 @@ public class LDSTools {
 			clickButtonByXpath("NotAssignedHomeTeachersBox");
 			if (getRunningOS().equals("android")) {
 				clickButtonByXpath("HTVTApply");
-				checkTextByXpath("HTVTFiltersApplied", "Not Assigned Visiting Teachers");
+				checkText("HTVTFiltersApplied", "Not Assigned Visiting Teachers", "xpath", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -6592,7 +6698,7 @@ public class LDSTools {
 			clickButtonByXpath("NewAndMovedInMembersBox");
 			if (getRunningOS().equals("android")) {
 				clickButtonByXpath("HTVTApply");
-				checkTextByXpath("HTVTFiltersApplied", "New & Moved-In Members");
+				checkText("HTVTFiltersApplied", "New & Moved-In Members", "xpath", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -6862,9 +6968,9 @@ public class LDSTools {
 		}
 		
 
-		clickButtonByXpath("MenuSave");
+		clickButton("MenuSave", "id", "xpath");
 		Thread.sleep(2000);
-		clickButtonByXpath("MenuEdit");
+		clickButton("MenuEdit", "id", "xpath");
 
 
 	}
@@ -6919,7 +7025,7 @@ public class LDSTools {
 	private void checkForAlertOK() throws Exception {
 		//Check to see if we are getting a warning
 		if (checkElementExistsByID("AlertMessageCheck") == true) {
-			clickButtonByID("SignOutOK");
+			clickButton("AlertOK", "id", "xpath");
 		}
 	}
 	private void checkWebMemberInfo(String loginName, String passWord, String userToCheck) throws Exception {
@@ -7138,6 +7244,7 @@ public class LDSTools {
 			if (checkElementTextViewReturn("Later") == true ) {
 				clickButtonByXpathTitleName("Later");
 			}
+
 			scrollDown("Sync", -5 );
 			//Thread.sleep(4000);
 			//clickButtonByXpath("DrawerSYNC");
@@ -7295,6 +7402,92 @@ public class LDSTools {
 		Thread.sleep(2000);
 	}
 	
+	private void clearPhoneAndEmail() throws Exception {
+		Thread.sleep(4000);
+		clickButton("MenuEdit", "id", "xpath");
+		Thread.sleep(2000);
+		
+		sendTextbyXpath("EditPersonalPhone", "11");
+		clearTextFieldXpath("EditPersonalPhone");
+		driver.hideKeyboard();
+		sendTextbyXpath("EditHomePhone", "11");
+		clearTextFieldXpath("EditHomePhone");
+		driver.hideKeyboard();
+		Thread.sleep(1000);
+		sendTextbyXpath("EditPersonalEmail", "aaa");
+		clearTextFieldXpath("EditPersonalEmail");
+		driver.hideKeyboard();
+		Thread.sleep(1000);
+		scrollDownTEST(40);
+		sendTextbyXpath("EditHomeEmail", "aaa");
+		clearTextFieldXpath("EditHomeEmail");
+		
+		clickButton("MenuSave", "id", "xpath");
+		Thread.sleep(2000);
+	}
+	
+	// **************************************************************************************
+	// **************************OLD METHODS ************************************************
+	// **************************************************************************************
+	
+	/** checkTextByXpath(String textElement, String textToCheck )
+	 * Find the element by xpath using the uiMap.properties
+	 * 
+	 * @param textElement - Must map to the uiMap.properties
+	 * @param textToCheck - String of text to check
+	 */
+	private void checkTextByXpath(String textElement, String textToCheck ) {
+		AssertJUnit.assertEquals(driver.findElement(By.xpath(this.prop.getProperty(textElement))).getText(),(textToCheck));	
+	}
+	
+	
+	
+	/** checkTextByXpathReturn(String textElement, String textToCheck )
+	 * Find the element by xpath using uiMap then return if the text if found
+	 * 
+	 * @param textElement - Xpath element in uiMap.properties
+	 * @param textToCheck - String of text to check
+	 * @return return found = 1 or not found = 0
+	 */
+	private int checkTextByXpathReturn(String textElement, String textToCheck ) {
+		String myText;
+		int myReturn = 0;
+		myText = driver.findElement(By.xpath(this.prop.getProperty(textElement))).getText();
+		if (myText.equals(textToCheck) ) {
+			myReturn = 1;
+		}
+		return myReturn;
+	}
+	
+	
+	private int checkTextContainsByXpathReturn(String textElement, String textToCheck ) {
+		String myText;
+		int myReturn = 0;
+		myText = driver.findElement(By.xpath(this.prop.getProperty(textElement))).getText();
+		//System.out.println("Alert Found: " + myText);
+		if (myText.contains(textToCheck) ) {
+			myReturn = 1;
+		}
+		return myReturn;
+	}
+	
+	
+	private void clickButtonByNameScroll(String textElement ) throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		WebElement myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@name='" + textElement + "']")));
+		myElement.click();
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	// **************************************************************************************
+	// **************************END OLD METHODS ********************************************
+	// **************************************************************************************
 	
 	
 
