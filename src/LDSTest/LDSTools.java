@@ -201,7 +201,7 @@ public class LDSTools {
 	        //capabilities.setCapability("sendKeysStrategy", "setValue");
 	        capabilities.setCapability("sendKeysStrategy", "grouped");
 	        
-	        capabilities.setCapability("launchTimeout", 30000);
+	        capabilities.setCapability("launchTimeout", 90000);
 	        
 	        
 	        
@@ -1368,9 +1368,13 @@ public class LDSTools {
 
 		
 		sendTextbyXpath("EditPersonalPhone", "1(801)240-0104");
-		Thread.sleep(1000);
+		if (!getRunningOS().equals("mac")){
+			driver.hideKeyboard();
+		}
 		sendTextbyXpath("EditHomePhone", "(801) 867-5309");
-		Thread.sleep(1000);
+		if (!getRunningOS().equals("mac")){
+			driver.hideKeyboard();
+		}
 		sendTextbyXpath("EditPersonalEmail", "personal@nospam.com");
 		Thread.sleep(1000);
 		if (!getRunningOS().equals("mac")){
@@ -5202,7 +5206,8 @@ public class LDSTools {
 		searchForUser("Aaron, Jane");
 		
 		if (getRunningOS().equals("mac")) {
-			clickButtonByXpathTitleName("Jane Aaron");
+			//clickButtonByXpathTitleName("Jane Aaron");
+			clickButton("Jane Aaron", "text", "text");
 			iosExpandAllDirectory();
 			pageSource = getSourceOfPage();
 			//Assert.assertTrue(checkNoCaseList("Aaron, Jane", pageSource, "Contains"));
