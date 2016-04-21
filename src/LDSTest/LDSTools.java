@@ -222,13 +222,13 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
+		LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
 		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
-		editCurrentUser(os);	
+		//editCurrentUser(os);	
 		
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
@@ -1324,11 +1324,13 @@ public class LDSTools {
 		//Check Missionary drawer items - all user access
 		checkMissionary();
 
+		*/
+		
 		Thread.sleep(1000);
 		//Check the reports - leadership only - true for bishopric rights, false for leaders and remove
 		//checkReports for non-leaders
 		checkReports(false, false);
-		*/
+		
 		
 		Thread.sleep(1000);
 		//Check Home Teaching - Visiting Teaching
@@ -4084,8 +4086,17 @@ public class LDSTools {
 	
 	private void clickLastTextViewRoboReturnContains(String textElement) {
 		int myCounter;
+		List<WebElement> options;
 		//List<WebElement> options= driver.findElements(By.xpath("//RobotoTextView[contains(@value, '" + textElement + "')]"));
-		List<WebElement> options= driver.findElements(By.xpath("//*[contains(@value, '" + textElement + "')]"));
+		
+		if (getRunningOS().equals("mac")) {
+			options= driver.findElements(By.xpath("//*[contains(@value, '" + textElement + "')]"));
+		} else {
+			options= driver.findElements(By.xpath("//*[contains(@text, '" + textElement + "')]"));
+		}
+		
+		
+		//List<WebElement> options= driver.findElements(By.xpath("//*[contains(@value, '" + textElement + "')]"));
 		//driver.findElement(By.xpath("//RobotoTextView[contains(@value='" + textElement + "')]")).click();
 		myCounter = options.size() - 1;
 		options.get(myCounter).click();
@@ -5207,7 +5218,7 @@ public class LDSTools {
 		
 		if (getRunningOS().equals("mac")) {
 			//clickButtonByXpathTitleName("Jane Aaron");
-			clickButton("Jane Aaron", "text", "text");
+			//clickButton("Jane Aaron", "text", "text");
 			iosExpandAllDirectory();
 			pageSource = getSourceOfPage();
 			//Assert.assertTrue(checkNoCaseList("Aaron, Jane", pageSource, "Contains"));
@@ -5348,8 +5359,8 @@ public class LDSTools {
 
 		Thread.sleep(2000);
 		pressBackKey();
-		Thread.sleep(2000);
-		pressBackKey();
+		//Thread.sleep(2000);
+		//pressBackKey();
 		
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpath("SearchCollapse");
@@ -5381,7 +5392,7 @@ public class LDSTools {
 			Assert.assertTrue(checkElementNameReturn("Organizations"));
 			clickButtonByXpath("DrawerMore");
 			
-			//Check to see if the sync page is dispalyed
+			//Check to see if the sync page is displayed
 			if (checkElementNameReturn("Sync Now") == true) {
 				pressBackKey();
 			}
@@ -6986,40 +6997,24 @@ public class LDSTools {
 	
 	
 	private void searchForUser(String userToSearch) throws Exception {
-		boolean testForElement;
-		testForElement = checkElementExistsByID("MenuDefaultDirectory");
-		//System.out.println("testForElement: " + testForElement);
-		if (testForElement == true ) {
-			clickButtonByID("MenuDefaultDirectory");
-			clickButtonByXpathTitleName("Individuals");
-			clickButtonByID("MenuSearch");
-		}
-		sendTextbyXpath("SearchArea", userToSearch );
-		//clickButtonByXpath("SearchGo");
-		Thread.sleep(2000);
-		clickLastTextViewRoboReturn(userToSearch);
+		//boolean testForElement;
+		//testForElement = checkElementExistsByID("MenuDefaultDirectory");
 		
-		
-
-		/* ... May use this way but it needs some help. 
 		if (getRunningOS().equals("mac")) {
-			clickButtonByXpath("MenuDefaultDirectory");
-			clickButtonByName("Individual");
+			clickButton("DirectorySort", "xpath", "xpath");
+			clickButton("DirectoryIndividual", "xpath", "xpath");
 		} else {
 			clickButtonByID("MenuDefaultDirectory");
 			clickButtonByXpathTitleName("Individuals");
 			clickButtonByID("MenuSearch");
 		}
-
+		
+		
 		sendTextbyXpath("SearchArea", userToSearch );
 		//clickButtonByXpath("SearchGo");
 		Thread.sleep(2000);
-		if (getRunningOS().equals("mac")) {
-			clickDirectoryUserIOS(userToSearch);
-		} else {
-			clickLastTextViewRoboReturn(userToSearch);
-		}
-		*/
+		clickLastTextViewRoboReturnContains(userToSearch);
+	
 		
 		Thread.sleep(2000);
 	}
@@ -7033,9 +7028,16 @@ public class LDSTools {
 	
 	private void checkForAlertOK() throws Exception {
 		//Check to see if we are getting a warning
-		if (checkElementExistsByID("AlertMessageCheck") == true) {
-			clickButton("AlertOK", "id", "xpath");
+		if (getRunningOS().equals("mac")) {
+			if (checkElementExistsByXpath("AlertMessageCheck") == true) {
+				clickButton("AlertOK", "id", "xpath");
+			}
+		} else {
+			if (checkElementExistsByID("AlertMessageCheck") == true) {
+				clickButton("AlertOK", "id", "xpath");
+			}
 		}
+
 	}
 	private void checkWebMemberInfo(String loginName, String passWord, String userToCheck) throws Exception {
 		String pageSource;
