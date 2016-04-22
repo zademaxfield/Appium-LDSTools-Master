@@ -4905,7 +4905,7 @@ public class LDSTools {
 			
 			String cmd = "adb shell am force-stop org.lds.ldstools.dev";
 			Runtime run = Runtime.getRuntime();
-			Process pr = run.exec(new String[] {"adb", "devices"});
+			Process pr = run.exec(new String[] {"/Users/zmaxfield/android-sdks/platform-tools/adb", "devices"});
 			//Process pr = run.exec(cmd);
 			pr.waitFor();
 			BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
@@ -7014,8 +7014,8 @@ public class LDSTools {
 		//testForElement = checkElementExistsByID("MenuDefaultDirectory");
 		
 		if (getRunningOS().equals("mac")) {
-			clickButton("DirectorySort", "xpath", "xpath");
-			clickButton("DirectoryIndividual", "xpath", "xpath");
+			//clickButton("DirectorySort", "xpath", "xpath");
+			//clickButton("DirectoryIndividual", "xpath", "xpath");
 		} else {
 			clickButtonByID("MenuDefaultDirectory");
 			clickButtonByXpathTitleName("Individuals");
