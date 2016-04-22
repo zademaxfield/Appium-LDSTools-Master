@@ -10,10 +10,12 @@ import org.testng.asserts.SoftAssert;
 import org.testng.Assert;
 import org.testng.AssertJUnit;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -154,7 +156,8 @@ public class LDSTools {
 	        //capabilities.setCapability("automationName","selendroid");
 	        capabilities.setCapability("newCommandTimeout", 600);
 	        //capabilities.setCapability("platformVersion", "5.1.1");
-	        capabilities.setCapability("fullReset", true);
+	        capabilities.setCapability("fullReset", false);
+	        capabilities.setCapability("noReset", true);
 	        capabilities.setCapability("app", app.getAbsolutePath());
 	        capabilities.setCapability("appPackage", "org.lds.ldstools.dev");
 	        //capabilities.setCapability("appActivity", "org.lds.ldstools.ui.StartupActivity");
@@ -4885,30 +4888,40 @@ public class LDSTools {
 				longPressByTextView("Sign in to your LDS Account");
 				Thread.sleep(1000);
 				
+				
 				clickButtonByXpath("Menu");
 				Thread.sleep(1000);
-				//clickButtonByXpathTitleNameContains("Settings");
-				//clickButtonByXpathTitleName("Settings");
 				clickButtonByXpath("OverflowSettings");
-				//clickButtonByXpath("MenuSettings");
-				//Thread.sleep(1000);
-				//scrollDown("Sign Out", 40 );
 				Thread.sleep(2000);
 				
-				//pageSize = driver.manage().window().getSize().getHeight();
-				//pageSize = pageSize - 50;
-				//pageSize = -pageSize;
-				//System.out.println("Page Size: " + pageSize);
-				//scrollDown("Network Environment", pageSize );
-				
-				
 				scrollDown("Network Environment", 40 );
-				//Thread.sleep(2000);
 				clickButtonByXpathTitleName(chooseNetwork);
 				clickButtonByXpath("Back");
 				Thread.sleep(5000);
 			}
 
+			//driver.resetApp();
+			//Thread.sleep(3000);
+			
+			String cmd = "adb shell am force-stop org.lds.ldstools.dev";
+			Runtime run = Runtime.getRuntime();
+			Process pr = run.exec(new String[] {"adb", "devices"});
+			//Process pr = run.exec(cmd);
+			pr.waitFor();
+			BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+			String line = "";
+			while ((line=buf.readLine())!=null) {
+				System.out.println(line);
+			}
+			
+			
+			
+			
+			//driver.closeApp();
+			driver.launchApp();
+		
+			
+			Thread.sleep(3000);
 			//sendTextbyXpath("LoginUsername", loginName);
 			//sendTextbyXpath("LoginPassword", loginPassword);
 			sendTextbyID("LoginUsername", loginName);
@@ -7014,6 +7027,7 @@ public class LDSTools {
 		//clickButtonByXpath("SearchGo");
 		Thread.sleep(2000);
 		clickLastTextViewRoboReturnContains(userToSearch);
+		//clickButton(userToSearch, "name", "textAtt");
 	
 		
 		Thread.sleep(2000);
@@ -7511,7 +7525,6 @@ public class LDSTools {
 	@AfterMethod(alwaysRun = true)
 	public void teardown() throws Exception {
 		
-		/* Failing on ios test machine... working on main machine
 		if (getRunningOS().equals("mac")) {
 			File screenshotFile = driver.getScreenshotAs(OutputType.FILE);
 			try {
@@ -7521,8 +7534,10 @@ public class LDSTools {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		} else {
+			driver.removeApp("org.lds.ldstools.dev");
 		}
-		*/
+
 
 		driver.quit();
 		Thread.sleep(5000);
