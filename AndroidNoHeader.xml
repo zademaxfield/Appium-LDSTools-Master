@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Run All Tests" configfailurepolicy="continue">
-  <test verbose="2" name="All tests">
+<suite name="No Header" configfailurepolicy="continue">
+  <test verbose="2" name="No Header tests" configfailurepolicy="continue">
       <parameter name="os" value="android" />
       <parameter name="fileName" value="ldstools-tools-alpha.apk" />
       <parameter name="testDevice" value="ZX1D327RHD" />
