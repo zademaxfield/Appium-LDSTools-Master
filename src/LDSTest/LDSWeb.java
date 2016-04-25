@@ -527,6 +527,9 @@ public class LDSWeb {
 		openGuiMap();
 		setUp();
 		
+		myUserName = "LDSTools2";
+		myPassword = "toolstester";
+		
 		String mySource;
 		List<String> foundUsers = new ArrayList<String>();
 		Thread.sleep(4000);
@@ -564,6 +567,8 @@ public class LDSWeb {
 	public List<String> getAllMembersInOrganization(String menuItem, String myReport, String subReport, String userName, String passWord) throws Exception {
 		openGuiMap();
 		setUp();
+		Boolean myElementCheck;
+		
 		
 		String mySource;
 		List<String> foundUsers = new ArrayList<String>();
@@ -595,20 +600,27 @@ public class LDSWeb {
 		//Thread.sleep(4000);
 		//waitForTextToDisappear("Loading", 500 );
 		//Thread.sleep(1000);
+		myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
 		
-		if (subReport.contains("Member")) {
-			clickElement("Members", "linkText");
+		//Check to see if the page loaded
+		//TODO: Need to have a few samples for each report or file with last know good data
+		if (myElementCheck == true ) {
+			System.out.println(myReport + " " + subReport +" Page did not load... Skipping");
+			foundUsers.clear();
 		} else {
-			clickElement("All Organizations", "linkText");
+			if (subReport.contains("Member")) {
+				clickElement("Members", "linkText");
+			} else {
+				clickElement("All Organizations", "linkText");
+			}
+			
+			Thread.sleep(2000);
+			mySource = getSourceOfElement(subReport);
+			//mySource = getSourceOfPage();
+			foundUsers = getMembers(mySource);	
 		}
 		
-		Thread.sleep(2000);
-		mySource = getSourceOfElement(subReport);
-		//mySource = getSourceOfPage();
-		foundUsers = getMembers(mySource);
-		
 		tearDown();
-		
 		return foundUsers;
 		
 	}
@@ -617,6 +629,7 @@ public class LDSWeb {
 	public List<String> getMembersAndAge(String menuItem, String myReport) throws Exception {
 		openGuiMap();
 		setUp();
+		
 		
 		String mySource;
 		List<String> foundUsers = new ArrayList<String>();
@@ -663,6 +676,9 @@ public class LDSWeb {
 		String updateString;
 		SimpleDateFormat format = new SimpleDateFormat("MMMM dd, yyyy");
 		SimpleDateFormat origFormat = new SimpleDateFormat("dd MMM yyyy");
+		
+		userName = "LDSTools2";
+		passWord = "toolstester";
 		
 		openPageLogIn(url, userName, passWord);
 		
@@ -838,6 +854,8 @@ public class LDSWeb {
 		String mySource;
 		List<String> foundUsers = new ArrayList<String>();
 		String url = "https://uat.lds.org/mls/mbr/?lang=eng";
+		Boolean myElementCheck;
+		
 
 		openPageLogIn(url, userName, passWord);
 
@@ -846,6 +864,13 @@ public class LDSWeb {
 		clickElement("OrganizationsMenu", "id");
 		
 		if (leaderShip.equals("High Priest Group") && (orgName.equals("High Priests Group")))  {
+			myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
+			if (myElementCheck == true ) {
+				System.out.println(orgName + " " + myReport + "Page did not load... skipping");
+				foundUsers.clear();
+				tearDown();
+				return foundUsers;
+			}
 			clickElement(orgName, "linkText");
 			clickElement("HomeTeachingDropDown", "xpath");
 			clickElement("Households", "linkText");
@@ -853,6 +878,13 @@ public class LDSWeb {
 		}
 		
 		if (leaderShip.equals("High Priest Group") && (orgName.equals("Elders Quorum")))  {
+			myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
+			if (myElementCheck == true ) {
+				System.out.println(orgName + " " + myReport + "Page did not load... skipping");
+				foundUsers.clear();
+				tearDown();
+				return foundUsers;
+			}
 			clickElement("High Priests Group", "linkText");
 			clickElement("HomeTeachingDropDown", "xpath");
 			clickElement("Households", "linkText");
@@ -865,6 +897,13 @@ public class LDSWeb {
 		}
 		
 		if (leaderShip.equals("Elders Quorum Pres") && (orgName.equals("High Priests Group")))  {
+			myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
+			if (myElementCheck == true ) {
+				System.out.println(orgName + " " + myReport + "Page did not load... skipping");
+				foundUsers.clear();
+				tearDown();
+				return foundUsers;
+			}
 			clickElement("Elders Quorum", "linkText");
 			clickElement("HomeTeachingDropDown", "xpath");
 			clickElement("Households", "linkText");
@@ -877,6 +916,13 @@ public class LDSWeb {
 		}
 		
 		if (leaderShip.equals("Elders Quorum Pres") && (orgName.equals("Elders Quorum")))  {
+			myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
+			if (myElementCheck == true ) {
+				System.out.println(orgName + " " + myReport + "Page did not load... skipping");
+				foundUsers.clear();
+				tearDown();
+				return foundUsers;
+			}
 			clickElement(orgName, "linkText");
 			clickElement("HomeTeachingDropDown", "xpath");
 			clickElement("Households", "linkText");
@@ -884,6 +930,14 @@ public class LDSWeb {
 		}
 		
 		if (leaderShip.equals("Bishopric") || (leaderShip.equals("Relief Society Pres"))) {
+			
+			myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
+			if (myElementCheck == true ) {
+				System.out.println(orgName + " " + myReport + "Page did not load... skipping");
+				foundUsers.clear();
+				tearDown();
+				return foundUsers;
+			}
 			
 			clickElement(orgName, "linkText");
 			Thread.sleep(4000);
@@ -916,6 +970,7 @@ public class LDSWeb {
 		return foundUsers;
 		
 	}
+
 	
 	
 	
