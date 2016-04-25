@@ -211,8 +211,8 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
-		LeaderNonBishopric("LDSTools16", "High Priest Group", os);
+		LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
+		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
@@ -1315,14 +1315,12 @@ public class LDSTools {
 		Thread.sleep(1000);
 		//Check Missionary drawer items - all user access
 		checkMissionary();
-
-		*/
 		
 		Thread.sleep(1000);
 		//Check the reports - leadership only - true for bishopric rights, false for leaders and remove
 		//checkReports for non-leaders
 		checkReports(false, false);
-		
+		*/
 		
 		Thread.sleep(1000);
 		//Check Home Teaching - Visiting Teaching
@@ -5947,7 +5945,12 @@ public class LDSTools {
 		if ((userCalling.equals("Bishopric")) || (userCalling.equals("High Priest Group")) || (userCalling.equals("Elders Quorum Pres"))) {
 			
 			clickButtonByXpathTitleName("Home Teaching");
-			clickButtonByXpathTitleName("Households Not Visited");
+			if (getRunningOS().equals("mac")) {
+				clickButton("HPGHouseHoldsNotVisisted", "xpath", "xpath");
+			} else {
+				clickButtonByXpathTitleName("Households Not Visited");
+			}
+			
 
 			getHTVTReport("High Priests Group", "HouseholdsNotVisited", userCalling);
 			
@@ -5959,7 +5962,12 @@ public class LDSTools {
 			pressBackKey();
 
 			
-			clickButtonByXpathTitleName("Unassigned Households");
+			
+			if (getRunningOS().equals("mac")) {
+				clickButton("HPGUnassignedHouseholds", "xpath", "xpath");
+			} else {
+				clickButtonByXpathTitleName("Unassigned Households");
+			}
 			Thread.sleep(2000);
 			getHTVTReport("High Priests Group", "NotAssignedHomeTeachers", userCalling);
 			
@@ -5970,10 +5978,12 @@ public class LDSTools {
 			
 			//Elders Quorum Households Not Visited
 			clickButtonByXpathTitleName("Home Teaching");
-			clickLastTextViewRoboReturnContains("Households Not Visited");
-			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("3Months");
+			if (getRunningOS().equals("mac")) {
+				clickButton("EldersHouseholdsNotVisited", "xpath", "xpath");
+			} else {
+				clickLastTextViewRoboReturnContains("Households Not Visited");
 			}
+
 			getHTVTReport("Elders Quorum" , "HouseholdsNotVisited", userCalling);
 			
 			if (getRunningOS().equals("mac")) {
@@ -5983,11 +5993,8 @@ public class LDSTools {
 			pressBackKey();
 
 			
-			
-			
-			
 			if (getRunningOS().equals("mac")) {
-				clickLastTextViewRoboReturnContains("Unassigned Households");
+				clickButton("EldersUnassignedHouseholds", "xpath", "xpath");
 			} else {
 				Thread.sleep(1000);
 				scrollDownTEST(100);
@@ -6311,7 +6318,12 @@ public class LDSTools {
 			Thread.sleep(2000);
 			
 			//High Priests
-			clickButtonByXpathTitleName("Households");
+			if(getRunningOS().equals("mac")) {
+				clickButton("HPGHouseholds", "xpath", "xpath");
+			} else {
+				clickButtonByXpathTitleName("Households");
+			}
+			
 			Thread.sleep(2000);
 			Assert.assertTrue(checkElementTextViewReturn("AFPEighteen, Member"));
 			Assert.assertTrue(checkElementTextViewReturn("AFPEleven, Member"));
@@ -6461,9 +6473,10 @@ public class LDSTools {
 			
 			pressBackKey();
 			
+			
 			//Elders Quorum
 			if (getRunningOS().equals("mac")) {
-				clickLastTextViewRoboReturnContains("Households");
+				clickButton("EldersHouseholds", "xpath", "xpath");
 			} else {
 				scrollDownTEST(100);
 				clickLastTextViewRoboReturnContains("Households");
