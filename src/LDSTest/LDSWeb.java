@@ -856,6 +856,8 @@ public class LDSWeb {
 		String url = "https://uat.lds.org/mls/mbr/?lang=eng";
 		Boolean myElementCheck;
 		
+		userName = "LDSTools2";
+		passWord = "toolstester";
 
 		openPageLogIn(url, userName, passWord);
 
