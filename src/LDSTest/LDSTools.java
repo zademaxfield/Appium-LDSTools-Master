@@ -211,7 +211,7 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
+		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
 		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
@@ -3797,20 +3797,26 @@ public class LDSTools {
 		
 		//Data from android list
 		List<String> androidList = new ArrayList<String>();
+		
+		String ReliefSocietyName = "Relief Society";
+		
+		if (checkElementReturn("Relief Society", "textAtt", "value") == false) {
+			ReliefSocietyName = "Relief Society 1";
+		}
 
-		clickButtonByXpathTitleName("Relief Society");
+		clickButtonByXpathTitleName(ReliefSocietyName);
 		clickButtonByXpathTitleName("Relief Society Presidency");
 		Thread.sleep(1000);
 		
 		
 		//Check web data vs LDS Tools
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Relief Society", "ReliefSocietyPresidency", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", ReliefSocietyName, "ReliefSocietyPresidency", myUserName, myPassword);
 		compareWebData(myList, androidList, true);
 		
 		pressBackKey();
 		clickButtonByXpathTitleName("Visiting Teaching");
 
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Relief Society", "VisitingTeachingSupervisors", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", ReliefSocietyName, "VisitingTeachingSupervisors", myUserName, myPassword);
 		compareWebData(myList, androidList, true);
 
 		pressBackKey();
@@ -3822,7 +3828,7 @@ public class LDSTools {
 			
 		}
 
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Relief Society", "ReliefSocietyMembers", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", ReliefSocietyName, "ReliefSocietyMembers", myUserName, myPassword);
 		compareWebData(myList, androidList, true);
 		
 		if(getRunningOS().equals("mac")) {
