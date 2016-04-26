@@ -7506,6 +7506,7 @@ public class LDSTools {
 	public void teardown() throws Exception {
 		
 		if (getRunningOS().equals("mac")) {
+			/*
 			File screenshotFile = driver.getScreenshotAs(OutputType.FILE);
 			try {
 				//FileUtils.copyFile(screenshotFile,new File("/Users/zmaxfield/Selenium/Screenshot/lastErrorScreenshot.png"));
@@ -7514,6 +7515,7 @@ public class LDSTools {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			*/
 		} else {
 			driver.removeApp("org.lds.ldstools.dev");
 		}
