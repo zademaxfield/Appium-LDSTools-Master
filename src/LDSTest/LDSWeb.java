@@ -517,9 +517,19 @@ public class LDSWeb {
 	}
 	
 	
-	private void waitForTextToDisappear(String textElement, int myTimeOut){
+	private void waitForTextToDisappear(String textElement, int myTimeOut, String eleType ) throws Exception {
 		WebDriverWait wait = new WebDriverWait(driver, myTimeOut);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id(this.prop.getProperty(textElement))));
+		
+		if (eleType.equals("id")) {
+			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id(this.prop.getProperty(textElement))));
+		}
+		
+		if (eleType.equals("xpath")) {
+			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(this.prop.getProperty(textElement))));
+		}
+		
+		Thread.sleep(2000);
+		
 	}
 	
 	
@@ -554,7 +564,7 @@ public class LDSWeb {
 		//clickElement("Member List", "linkText");
 		clickElement(myReport, "linkText");
 		Thread.sleep(2000);
-		waitForTextToDisappear("Loading", 500 );
+		waitForTextToDisappear("Loading", 500, "id" );
 		mySource = getSourceOfPage();
 		foundUsers = getMembers(mySource);
 		
@@ -594,11 +604,11 @@ public class LDSWeb {
 		//clickElement("Member List", "linkText");
 		clickElement(myReport, "linkText");
 		Thread.sleep(1000);
-		waitForTextToDisappear("Loading", 500 );
+		waitForTextToDisappear("Loading", 500, "id" );
 		Thread.sleep(3000);
 		//clickElement(subReport, "linkText");
 		//Thread.sleep(4000);
-		//waitForTextToDisappear("Loading", 500 );
+		//waitForTextToDisappear("Loading", 500, "id" );
 		//Thread.sleep(1000);
 		myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
 		
@@ -655,7 +665,7 @@ public class LDSWeb {
 		//clickElement("Member List", "linkText");
 		clickElement(myReport, "linkText");
 		Thread.sleep(2000);
-		waitForTextToDisappear("Loading", 500 );
+		waitForTextToDisappear("Loading", 500, "id" );
 		mySource = getSourceOfPage();
 		foundUsers = getNameAndAge(mySource);
 		
@@ -687,7 +697,7 @@ public class LDSWeb {
 		Thread.sleep(4000);
 		clickElement("Member List", "linkText");
 		Thread.sleep(2000);
-		waitForTextToDisappear("Loading", 500 );
+		waitForTextToDisappear("Loading", 500, "id" );
 		
 		//Search for the user
 		enterText("SearchForMember", "id", memberDetail);
@@ -866,6 +876,9 @@ public class LDSWeb {
 		clickElement("OrganizationsMenu", "id");
 		
 		if (leaderShip.equals("High Priest Group") && (orgName.equals("High Priests Group")))  {
+			
+
+			clickElement(orgName, "linkText");
 			myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
 			if (myElementCheck == true ) {
 				System.out.println(orgName + " " + myReport + "Page did not load... skipping");
@@ -873,13 +886,16 @@ public class LDSWeb {
 				tearDown();
 				return foundUsers;
 			}
-			clickElement(orgName, "linkText");
 			clickElement("HomeTeachingDropDown", "xpath");
 			clickElement("Households", "linkText");
-			waitForTextToDisappear("Loading", 500 );
+			waitForTextToDisappear("LoadingSpinner", 500, "xpath");
+			Thread.sleep(9000);
 		}
 		
 		if (leaderShip.equals("High Priest Group") && (orgName.equals("Elders Quorum")))  {
+			
+
+			clickElement("High Priests Group", "linkText");
 			myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
 			if (myElementCheck == true ) {
 				System.out.println(orgName + " " + myReport + "Page did not load... skipping");
@@ -887,18 +903,22 @@ public class LDSWeb {
 				tearDown();
 				return foundUsers;
 			}
-			clickElement("High Priests Group", "linkText");
 			clickElement("HomeTeachingDropDown", "xpath");
 			clickElement("Households", "linkText");
+			waitForTextToDisappear("LoadingSpinner", 500, "xpath");
 			Thread.sleep(9000);
 			
 			//selectList("SelectHTAux", "Elders", "xpath");
 			clickElement("SelectHTAux", "xpath");
 			clickElement("SelectHTAuxElders", "xpath");
-			waitForTextToDisappear("Loading", 500 );
+			waitForTextToDisappear("LoadingSpinner", 500, "xpath");
+			Thread.sleep(9000);
 		}
 		
 		if (leaderShip.equals("Elders Quorum Pres") && (orgName.equals("High Priests Group")))  {
+			
+
+			clickElement("Elders Quorum", "linkText");
 			myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
 			if (myElementCheck == true ) {
 				System.out.println(orgName + " " + myReport + "Page did not load... skipping");
@@ -906,18 +926,22 @@ public class LDSWeb {
 				tearDown();
 				return foundUsers;
 			}
-			clickElement("Elders Quorum", "linkText");
 			clickElement("HomeTeachingDropDown", "xpath");
 			clickElement("Households", "linkText");
+			waitForTextToDisappear("LoadingSpinner", 500, "xpath");
 			Thread.sleep(9000);
 			
 			//selectList("SelectHTAux", "High Priests", "xpath");
 			clickElement("SelectHTAux", "xpath");
 			clickElement("SelectHTAuxHighPriests", "xpath");
-			waitForTextToDisappear("Loading", 500 );
+			waitForTextToDisappear("LoadingSpinner", 500, "xpath");
+			Thread.sleep(9000);
 		}
 		
 		if (leaderShip.equals("Elders Quorum Pres") && (orgName.equals("Elders Quorum")))  {
+			
+
+			clickElement(orgName, "linkText");
 			myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
 			if (myElementCheck == true ) {
 				System.out.println(orgName + " " + myReport + "Page did not load... skipping");
@@ -925,14 +949,16 @@ public class LDSWeb {
 				tearDown();
 				return foundUsers;
 			}
-			clickElement(orgName, "linkText");
 			clickElement("HomeTeachingDropDown", "xpath");
 			clickElement("Households", "linkText");
-			waitForTextToDisappear("Loading", 500 );
+			waitForTextToDisappear("LoadingSpinner", 500, "xpath");
+			Thread.sleep(9000);
 		}
 		
 		if (leaderShip.equals("Bishopric") || (leaderShip.equals("Relief Society Pres"))) {
 			
+
+			clickElement(orgName, "linkText");
 			myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
 			if (myElementCheck == true ) {
 				System.out.println(orgName + " " + myReport + "Page did not load... skipping");
@@ -940,24 +966,24 @@ public class LDSWeb {
 				tearDown();
 				return foundUsers;
 			}
-			
-			clickElement(orgName, "linkText");
 			Thread.sleep(4000);
 			
 			if (orgName.contains("Relief")) {
 				clickElement("VisitingTeachingDropDown", "xpath");
 				clickElement("Households", "linkText");
-				waitForTextToDisappear("Loading", 500 );
+				waitForTextToDisappear("LoadingSpinner", 500, "xpath");
+				Thread.sleep(9000);
 			} else {
 				clickElement("HomeTeachingDropDown", "xpath");
 				clickElement("Households", "linkText");
-				waitForTextToDisappear("Loading", 500 );
+				waitForTextToDisappear("LoadingSpinner", 500, "xpath");
+				Thread.sleep(9000);
 			}
 		}
 
 		
 		//This take a long time to load and doesn't have the loading tag
-		Thread.sleep(9000);
+		Thread.sleep(2000);
 		
 		
 		clickElement(myReport, "id");
