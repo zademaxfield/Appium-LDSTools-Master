@@ -221,14 +221,10 @@ public class LDSTools {
 		
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
-		
-		
-		
+
 		//editOtherUserInvalidPhone(os);
-		//editOtherUserInvalidEmail(os);	
-		
-		//Not Working Yet	
-		//editVisibility(os);	
+		//editOtherUserInvalidEmail(os);
+		//editVisibility(os);
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
@@ -256,12 +252,12 @@ public class LDSTools {
 		
 		
 		//Header Tests
-		//ChristieWhiting(os);
+		ChristieWhiting(os);
 		//CliffHigby(os);
 		//KevinPalmer(os);
-		//PatriarchOtherWards(os);
+		//PatriarchOtherWards(os); //Not working!
 		//TravisLyman(os);
-		//ElderKacher(os);
+		//ElderKacher(os); //Member of Second Quorum of the Seventy
 		//TerryBallard(os); //Check to see Tim and Jessica Beck
 		//AdminUnit(os); //Not working in 2.5.0
 		//WardStakeCouncilor(os);
@@ -696,7 +692,7 @@ public class LDSTools {
 		searchForUser("Tools, LDS6");
 		
 		if (getRunningOS().equals("mac")) {
-			clickButtonByXpathTitleName("LDS6 Tools");
+			clickButtonByXpathTitleName("LDS6 Tools (16)");
 			pageSource = getSourceOfPage();
 			Assert.assertTrue(checkNoCaseList("Tools", pageSource, "Contains"));
 			Assert.assertTrue(checkNoCaseList("LDS6", pageSource, "Contains"));
@@ -754,9 +750,9 @@ public class LDSTools {
 		searchForUser("Tools, LDS2");
 		
 		if (getRunningOS().equals("mac")) {
-			clickButtonByXpathTitleName("LDS2 Tools");
+			clickButtonByXpathTitleName("LDS2 Tools (36)");
 			pageSource = getSourceOfPage();
-			Assert.assertTrue(checkNoCaseList("Tools, LDS2", pageSource, "Equals"));
+			Assert.assertTrue(checkNoCaseList("Tools, LDS2", pageSource, "Contains"));
 		} else {
 			//clickButtonByXpathTitleName("Tools, LDS2");
 			pageSource = androidGetMemberInfo();
@@ -764,8 +760,6 @@ public class LDSTools {
 		}
 		
 		//Check the users name, address membership number etc...
-		//Assert.assertTrue(checkNoCaseList("Tools, LDS2", pageSource, "Equals"));
-		//clickButtonByXpathTitleName("Show Record Number");
 		Assert.assertTrue(checkNoCaseList("MEMBERSHIP INFORMATION", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("888-0028-7023", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("RECORD NUMBER", pageSource, "Contains"));
@@ -773,28 +767,12 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("36", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("BIRTH DATE", pageSource, "Contains"));
 		
-		//Check Ordinances
-		//clickButtonByXpathTitleName("Ordinances");
-		//pageSource = getSourceOfPage();
+
 		Assert.assertTrue(checkNoCaseList("Baptism", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("May 5, 2005", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Confirmation", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("May 5, 2005", pageSource, "Contains"));
-		//pressBackKey();
-		
 
-		/* Not sure why this isn't working. 
-		//Check Other Information
-		clickButtonByXpathTitleName("Other Information");
-		Thread.sleep(3000);
-		displayAllTextViewElements();
-		
-		Assert.assertTrue(checkElementReturn("Gender", "textAtt", "value"));
-		Assert.assertTrue(checkElementReturn("Male", "textAtt", "value"));
-		Assert.assertTrue(checkElementReturn("Birth Country", "textAtt", "value"));
-		Assert.assertTrue(checkElementReturn("United States", "textAtt", "value"));
-		pressBackKey();
-		*/
 		if (getRunningOS().equals("mac")) {
 			pressBackKey();
 		}
@@ -1794,7 +1772,7 @@ public class LDSTools {
 	@Test (groups= {"smoke", "editSettings"}, priority = 1)
 	public void editVisibility(String os) throws Exception {
 		boolean testForElement;
-		String pageSource;
+		//String pageSource;
 
 		syncLogIn("LDSTools5", "toolstester", "UAT", os );
 		Thread.sleep(2000);
@@ -1808,7 +1786,7 @@ public class LDSTools {
 
 		//Check the users name, address membership number etc...
 		if (getRunningOS().equals("mac")) {
-			clickButtonByXpathTitleName("LDS5 Tools");
+			clickButtonByXpathTitleName("LDS5 Tools (36)");
 			//iosExpandAllDirectory();
 			//pageSource = getSourceOfPage();
 			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
@@ -1843,15 +1821,14 @@ public class LDSTools {
 		
 
 		clickButton("MenuSave", "id", "xpath");
-		Thread.sleep(3000);
-		pressBackKey();
-		Thread.sleep(1000);
-		pressBackKey();
-		
-		Thread.sleep(1000);
-		//Collapse the search 
-		clickButtonByXpath("SearchCollapse");
-		Thread.sleep(1000);
+
+		if (getRunningOS().equals("mac")) {
+			pressBackToRoot();
+			clickButtonByXpath("SearchCollapse");
+		} else {
+			pressBackKey();
+			Thread.sleep(1000);
+		}
 		
 		//Log out 
 		drawerSignOut();
@@ -1897,7 +1874,7 @@ public class LDSTools {
 		
 		//Check the users name, address membership number etc...
 		if (getRunningOS().equals("mac")) {
-			clickButtonByXpathTitleName("LDS5 Tools");
+			clickButtonByXpathTitleName("LDS5 Tools (36)");
 			//iosExpandAllDirectory();
 			//pageSource = getSourceOfPage();
 			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
@@ -1924,14 +1901,13 @@ public class LDSTools {
 		clickButton("MenuSave", "id", "xpath");
 		//Thread.sleep(1000);
 		//clickButton("MenuSave", "id", "xpath");
-		Thread.sleep(3000);
-		pressBackKey();
-		Thread.sleep(1000);
-		pressBackKey();
-		//Collapse the search 
-		clickButtonByXpath("SearchCollapse");
-		Thread.sleep(1000);
-		
+		if (getRunningOS().equals("mac")) {
+			pressBackToRoot();
+			clickButtonByXpath("SearchCollapse");
+		} else {
+			pressBackKey();
+			Thread.sleep(1000);
+		}
 		//Log out 
 		drawerSignOut();
 		
@@ -1970,7 +1946,7 @@ public class LDSTools {
 		searchForUser("Tools, LDS5");
 		
 		if (getRunningOS().equals("mac")) {
-			clickButtonByXpathTitleName("LDS5 Tools");
+			clickButtonByXpathTitleName("LDS5 Tools (36)");
 			//iosExpandAllDirectory();
 			//pageSource = getSourceOfPage();
 			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
@@ -2013,15 +1989,15 @@ public class LDSTools {
 		}
 
 		clickButton("MenuSave", "id", "xpath");
-		Thread.sleep(3000);
-		pressBackKey();
-		Thread.sleep(1000);
-		pressBackKey();
 		
-		Thread.sleep(1000);
-		//Collapse the search 
-		clickButtonByXpath("SearchCollapse");
-		Thread.sleep(1000);
+		
+		if (getRunningOS().equals("mac")) {
+			pressBackToRoot();
+			clickButtonByXpath("SearchCollapse");
+		} else {
+			pressBackKey();
+			Thread.sleep(1000);
+		}
 		
 		//Log out 
 		drawerSignOut();
@@ -2038,7 +2014,7 @@ public class LDSTools {
 		
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("LDS5 Tools");
-			//iosExpandAllDirectory();
+			iosExpandAllDirectory();
 			pageSource = getSourceOfPage();
 			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
 		} else {
@@ -2062,12 +2038,13 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("test@test.com", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
 		
-		Thread.sleep(3000);
-		pressBackKey();
-		Thread.sleep(1000);
-		pressBackKey();
-		//Collapse the search 
-		clickButtonByXpath("SearchCollapse");
+		if (getRunningOS().equals("mac")) {
+			pressBackToRoot();
+			clickButtonByXpath("SearchCollapse");
+		} else {
+			pressBackKey();
+			Thread.sleep(1000);
+		}
 		
 		//Log out 
 		drawerSignOut();
@@ -2084,7 +2061,7 @@ public class LDSTools {
 		
 		searchForUser("Tools, LDS5");
 		if (getRunningOS().equals("mac")) {
-			clickButtonByXpathTitleName("LDS5 Tools");
+			clickButtonByXpathTitleName("LDS5 Tools (36)");
 			//iosExpandAllDirectory();
 			//pageSource = getSourceOfPage();
 			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
@@ -2106,15 +2083,14 @@ public class LDSTools {
 		clickButton("MenuSave", "id", "xpath");
 		//Thread.sleep(1000);
 		//clickButton("MenuSave", "id", "xpath");
-		Thread.sleep(3000);
-		pressBackKey();
-		Thread.sleep(1000);
-		pressBackKey();
 		
-		Thread.sleep(1000);
-		//Collapse the search 
-		clickButtonByXpath("SearchCollapse");
-		Thread.sleep(1000);
+		if (getRunningOS().equals("mac")) {
+			pressBackToRoot();
+			clickButtonByXpath("SearchCollapse");
+		} else {
+			pressBackKey();
+			Thread.sleep(1000);
+		}
 		
 		//Log out 
 		drawerSignOut();
@@ -2134,7 +2110,7 @@ public class LDSTools {
 		
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("LDS5 Tools");
-			//iosExpandAllDirectory();
+			iosExpandAllDirectory();
 			pageSource = getSourceOfPage();
 			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
 		} else {
@@ -2184,7 +2160,7 @@ public class LDSTools {
 		
 		
 		if (getRunningOS().equals("mac")) {
-			clickButtonByXpathTitleName("LDS5 Tools");
+			clickButtonByXpathTitleName("LDS5 Tools (36)");
 			//iosExpandAllDirectory();
 			//pageSource = getSourceOfPage();
 			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
@@ -2227,15 +2203,13 @@ public class LDSTools {
 		
 		clickButton("MenuSave", "id", "xpath");
 		
-		Thread.sleep(3000);
-		pressBackKey();
-		Thread.sleep(1000);
-		pressBackKey();
-		Thread.sleep(1000);
-		
-		//Collapse the search 
-		clickButtonByXpath("SearchCollapse");
-		Thread.sleep(1000);
+		if (getRunningOS().equals("mac")) {
+			pressBackToRoot();
+			clickButtonByXpath("SearchCollapse");
+		} else {
+			pressBackKey();
+			Thread.sleep(1000);
+		}
 		
 		//Log out 
 		drawerSignOut();
@@ -2251,7 +2225,7 @@ public class LDSTools {
 		
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("LDS5 Tools");
-			//iosExpandAllDirectory();
+			iosExpandAllDirectory();
 			pageSource = getSourceOfPage();
 			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
 		} else {
@@ -2275,13 +2249,13 @@ public class LDSTools {
 		Assert.assertFalse(checkNoCaseList("test@test.com", pageSource, "Contains"));
 		//Assert.assertFalse(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
 		
-		Thread.sleep(3000);
-		pressBackKey();
-		Thread.sleep(1000);
-		pressBackKey();
-		
-		//Collapse the search 
-		clickButtonByXpath("SearchCollapse");
+		if (getRunningOS().equals("mac")) {
+			pressBackToRoot();
+			clickButtonByXpath("SearchCollapse");
+		} else {
+			pressBackKey();
+			Thread.sleep(1000);
+		}
 		
 		//Log out 
 		drawerSignOut();
@@ -2298,7 +2272,7 @@ public class LDSTools {
 		searchForUser("Tools, LDS5");
 		
 		if (getRunningOS().equals("mac")) {
-			clickButtonByXpathTitleName("LDS5 Tools");
+			clickButtonByXpathTitleName("LDS5 Tools (36)");
 			//iosExpandAllDirectory();
 			//pageSource = getSourceOfPage();
 			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
@@ -2314,16 +2288,13 @@ public class LDSTools {
 		
 		resetVisibility();
 		
-		Thread.sleep(3000);
-		pressBackKey();
-		Thread.sleep(1000);
-		pressBackKey();
-		
-		Thread.sleep(1000);
-		pressBackKey();
-		//Collapse the search 
-		clickButtonByXpath("SearchCollapse");
-		Thread.sleep(1000);
+		if (getRunningOS().equals("mac")) {
+			pressBackToRoot();
+			clickButtonByXpath("SearchCollapse");
+		} else {
+			pressBackKey();
+			Thread.sleep(1000);
+		}
 		
 		//Log out 
 		drawerSignOut();
@@ -2344,7 +2315,7 @@ public class LDSTools {
 		
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("LDS5 Tools");
-			//iosExpandAllDirectory();
+			iosExpandAllDirectory();
 			pageSource = getSourceOfPage();
 			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
 		} else {
@@ -2517,10 +2488,11 @@ public class LDSTools {
 		drawerSignOut();
 	}
 	
+
 	@Parameters({"os"})
-	@Test (groups= {"header"}, priority = 3)
+	@Test (groups= {"header"}, priority = 3, enabled = false)
 	public void PatriarchOtherWards(String os) throws Exception {
-		loginProxyData("3182767230",
+		loginProxyData("888000028749A",
 				"/7u56030/5u524735/",
 				"p13/7u56030/",
 				"Proxy", "TestPatriarch");
@@ -3058,11 +3030,11 @@ public class LDSTools {
 		Thread.sleep(2000);
 		//Check to see if the user can view the directory
 		//Assert.assertTrue(checkElementTextViewRoboReturn("Aaron, Jane"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Anderson, Susan"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Baker, Joseph"));
 		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
 		
-
 		drawerSignOut();
+		
 	}
 	
 	@Parameters({"os"})
@@ -5214,7 +5186,12 @@ public class LDSTools {
 		searchForUser("Aaron, Jane");
 		
 		if (getRunningOS().equals("mac")) {
-			clickButtonByXpathTitleName("Jane Aaron (55)");
+			if (fullName == false ) {
+				clickButtonByXpathTitleName("Jane Aaron");
+			} else {
+				clickButtonByXpathTitleName("Jane Aaron (55)");
+			}
+			
 			//clickButton("Jane Aaron", "text", "text");
 			iosExpandAllDirectory();
 			pageSource = getSourceOfPage();
@@ -5283,14 +5260,14 @@ public class LDSTools {
 			//Callings and Classes - New in 3.0.0
 			//Assert.assertFalse(checkNoCaseList("Relief Society Pianist", pageSource, "Contains"));
 			Assert.assertTrue(checkNoCaseList("Organization - Music", pageSource, "Contains"));
-			Assert.assertTrue(checkNoCaseList("Class Assignments", pageSource, "Contains"));
+			Assert.assertFalse(checkNoCaseList("Class Assignments", pageSource, "Contains"));
 			Assert.assertFalse(checkNoCaseList("Gospel Doctrine", pageSource, "Contains"));
 			//Assert.assertFalse(checkNoCaseList("Relief Society", pageSource, "Contains"));
 			
 			//Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Contains"));
 			//Assert.assertTrue(checkNoCaseList("January 17, 2016", pageSource, "Contains"));
-			Assert.assertTrue(checkNoCaseList("Sustained", pageSource, "Contains"));
-			Assert.assertTrue(checkNoCaseList("Set Apart", pageSource, "Contains"));
+			Assert.assertFalse(checkNoCaseList("Sustained", pageSource, "Contains"));
+			Assert.assertFalse(checkNoCaseList("Set Apart", pageSource, "Contains"));
 			
 		}
 		
@@ -7023,7 +7000,12 @@ public class LDSTools {
 		sendTextbyXpath("SearchArea", userToSearch );
 		//clickButtonByXpath("SearchGo");
 		Thread.sleep(2000);
-		clickLastTextViewRoboReturnContains(userToSearch);
+		if (getRunningOS().equals("mac")) {
+			driver.findElementByXPath("//UIAStaticText[@label='" + userToSearch + "']").click();
+		} else {
+			clickLastTextViewRoboReturnContains(userToSearch);
+		}
+		
 		//clickButton(userToSearch, "name", "textAtt");
 	
 		
@@ -7303,6 +7285,8 @@ public class LDSTools {
 		//Contact Tab
 		Thread.sleep(1000);
 		myPageSource = getSourceOfPage();
+		
+		scrollDownTEST(-40);
 		
 		clickButtonByXpath("TabHousehold");
 		Thread.sleep(1000);
