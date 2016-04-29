@@ -7581,7 +7581,7 @@ public class LDSTools {
 			}
 			*/
 		} else {
-			adbCommand("stopApp");
+			//adbCommand("stopApp");
 			driver.removeApp("org.lds.ldstools.dev");
 
 		}
