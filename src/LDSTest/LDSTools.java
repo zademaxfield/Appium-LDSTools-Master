@@ -211,7 +211,7 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
+		LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
 		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
@@ -252,7 +252,7 @@ public class LDSTools {
 		
 		
 		//Header Tests
-		ChristieWhiting(os);
+		//ChristieWhiting(os);
 		//CliffHigby(os);
 		//KevinPalmer(os);
 		//PatriarchOtherWards(os); //Not working!
@@ -5335,9 +5335,9 @@ public class LDSTools {
 			pressBackToRoot();
 			clickButtonByXpath("SearchCollapse");
 		} else {
-			pressBackKey();
-			Thread.sleep(2000);
-			pressBackKey();
+			pressBackToRoot();
+			clickButtonByXpath("SearchCollapse");
+			clickButton("CollapseButton", "xpath", "xpath");
 		}
 
 		
@@ -5738,7 +5738,7 @@ public class LDSTools {
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Ami, Christian", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Beehive President", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("11 months", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("11 months", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Skywalker, Anakin", pageSource, "Equals"));
 	
 		
@@ -6347,13 +6347,13 @@ public class LDSTools {
 			Assert.assertTrue(checkElementReturn("AFPFifteen, Member", "textAtt", "value"));
 			
 			//Test Assigned Home Teachers
-			clickButtonByXpath("MenuFilter");
-			clickButtonByXpath("AssignedHomeTeachersBox");
+			clickButton("MenuFilter", "id", "xpath");
+			clickButton("AssignedHomeTeachersBox", "id", "xpath");
 			myOS = getRunningOS();
 			System.out.println("Running OS: " + myOS);
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTApply");
-				checkText("HTVTFiltersApplied", "Assigned Home Teachers", "xpath", "xpath");
+				clickButton("HTVTApply", "id", "xpath");
+				checkText("HTVTFiltersApplied", "Assigned Home Teachers", "id", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -6362,19 +6362,19 @@ public class LDSTools {
 			Assert.assertTrue(checkElementReturn("Aaron, Jane", "textAtt", "value"));
 			//Assert.assertTrue(checkElementTextViewReturn("Aaron, Jane"));
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTRemoveFiltersButton");
+				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
 			
 		
 			//Test NOT Assigned Home Teachers
-			clickButtonByXpath("MenuFilter");
+			clickButton("MenuFilter", "id", "xpath");
 			if (getRunningOS().equals("mac")) {
-				clickButtonByXpath("AssignedHomeTeachersBox");
+				clickButton("AssignedHomeTeachersBox", "id", "xpath");
 			}
-			clickButtonByXpath("NotAssignedHomeTeachersBox");
+			clickButton("NotAssignedHomeTeachersBox", "id", "xpath");
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTApply");
-				checkText("HTVTFiltersApplied", "Not Assigned Home Teachers", "xpath", "xpath");
+				clickButton("HTVTApply", "id", "xpath");
+				checkText("HTVTFiltersApplied", "Not Assigned Home Teachers", "id", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -6382,18 +6382,18 @@ public class LDSTools {
 			Assert.assertTrue(checkElementReturn("AFPMisc, Member13", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("AFPMisc, Member14", "textAtt", "value"));
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTRemoveFiltersButton");
+				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
 
 			//New and Moved in Members
-			clickButtonByXpath("MenuFilter");
+			clickButton("MenuFilter", "id", "xpath");
 			if (getRunningOS().equals("mac")) {
-				clickButtonByXpath("NotAssignedHomeTeachersBox");
+				clickButton("NotAssignedHomeTeachersBox", "id", "xpath");
 			}
-			clickButtonByXpath("NewAndMovedInMembersBox");
+			clickButton("NewAndMovedInMembersBox", "id", "xpath");
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTApply");
-				checkText("HTVTFiltersApplied", "New & Moved-In Members", "xpath", "xpath");
+				clickButton("HTVTApply", "id", "xpath");
+				checkText("HTVTFiltersApplied", "New & Moved-In Members", "id", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -6403,18 +6403,18 @@ public class LDSTools {
 			//Assert.assertTrue(checkElementTextViewReturn("Lilotoe, Tapatasi"));
 			//Assert.assertTrue(checkElementTextViewReturn("Sanele, Ana"));
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTRemoveFiltersButton");
+				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
 
 			
 			//Single Sisters 18-30 years old
-			clickButtonByXpath("MenuFilter");
+			clickButton("MenuFilter", "id", "xpath");
 			if (getRunningOS().equals("mac")) {
-				clickButtonByXpath("NewAndMovedInMembersBox");
+				clickButton("NewAndMovedInMembersBox", "id", "xpath");
 			}
-			clickButtonByXpath("SingleSisters1830");
+			clickButton("SingleSisters1830", "id", "xpath");
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTApply");
+				clickButton("HTVTApply", "id", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -6423,19 +6423,19 @@ public class LDSTools {
 			Assert.assertTrue(checkElementReturn("Ielv, Gasolo", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("Lagaaia, Fofogafetalaililomaiava", "textAtt", "value"));
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTRemoveFiltersButton");
+				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
 		
 			
 			
 			//Single Sisters 31 and over
-			clickButtonByXpath("MenuFilter");
+			clickButton("MenuFilter", "id", "xpath");
 			if (getRunningOS().equals("mac")) {
-				clickButtonByXpath("SingleSisters1830");
+				clickButton("SingleSisters1830", "id", "xpath");
 			}
-			clickButtonByXpath("SingleSisters31over");
+			clickButton("SingleSisters31over", "id", "xpath");
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTApply");
+				clickButton("HTVTApply", "id", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -6444,18 +6444,18 @@ public class LDSTools {
 			Assert.assertTrue(checkElementReturn("AFPFive, Wife", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("AFPFourteen, Member", "textAtt", "value"));
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTRemoveFiltersButton");
+				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
 			
 			
 			//Single Brothers 18-30 years old
-			clickButtonByXpath("MenuFilter");
+			clickButton("MenuFilter", "id", "xpath");
 			if (getRunningOS().equals("mac")) {
-				clickButtonByXpath("SingleSisters31over");
+				clickButton("SingleSisters31over", "id", "xpath");
 			}
-			clickButtonByXpath("SingleBrothers1830");
+			clickButton("SingleBrothers1830", "id", "xpath");
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTApply");
+				clickButton("HTVTApply", "id", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -6464,17 +6464,17 @@ public class LDSTools {
 			Assert.assertTrue(checkElementReturn("Galo Meli, Mulivai", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("Faivaa, Tepa", "textAtt", "value"));
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTRemoveFiltersButton");
+				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
 			
 			//Single Brothers 31 and over
-			clickButtonByXpath("MenuFilter");
+			clickButton("MenuFilter", "id", "xpath");
 			if (getRunningOS().equals("mac")) {
-				clickButtonByXpath("SingleBrothers1830");
+				clickButton("SingleBrothers1830", "id", "xpath");
 			}
-			clickButtonByXpath("SingleBrohters31over");
+			clickButton("SingleBrohters31over", "id", "xpath");
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTApply");
+				clickButton("HTVTApply", "id", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -6483,7 +6483,7 @@ public class LDSTools {
 			Assert.assertTrue(checkElementReturn("AFPFifteen, Member", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("AFPMisc, Member1", "textAtt", "value"));
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTRemoveFiltersButton");
+				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
 			
 			//Need a test for Households not visisted slider.
@@ -6505,11 +6505,11 @@ public class LDSTools {
 			Assert.assertTrue(checkElementReturn("AFPSix, Husband", "textAtt", "value"));
 			
 			//Test Assigned Home Teachers
-			clickButtonByXpath("MenuFilter");
-			clickButtonByXpath("AssignedHomeTeachersBox");
+			clickButton("MenuFilter", "id", "xpath");
+			clickButton("AssignedHomeTeachersBox", "id", "xpath");
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTApply");
-				checkText("HTVTFiltersApplied", "Assigned Home Teachers", "xpath", "xpath");
+				clickButton("HTVTApply", "id", "xpath");
+				checkText("HTVTFiltersApplied", "Assigned Home Teachers", "id", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -6517,18 +6517,18 @@ public class LDSTools {
 			Assert.assertTrue(checkElementReturn("Faamoeolo, Akisa", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("Faamoe, Filifili", "textAtt", "value"));
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTRemoveFiltersButton");
+				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
 		
 			//Test NOT Assigned Home Teachers
-			clickButtonByXpath("MenuFilter");
+			clickButton("MenuFilter", "id", "xpath");
 			if (getRunningOS().equals("mac")) {
-				clickButtonByXpath("AssignedHomeTeachersBox");
+				clickButton("AssignedHomeTeachersBox", "id", "xpath");
 			}
-			clickButtonByXpath("NotAssignedHomeTeachersBox");
+			clickButton("NotAssignedHomeTeachersBox", "id", "xpath");
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTApply");
-				checkText("HTVTFiltersApplied", "Not Assigned Home Teachers", "xpath", "xpath");
+				clickButton("HTVTApply", "id", "xpath");
+				checkText("HTVTFiltersApplied", "Not Assigned Home Teachers", "id", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -6536,18 +6536,18 @@ public class LDSTools {
 			Assert.assertTrue(checkElementReturn("Faamoe, Ueni", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("Isaako, Ioane", "textAtt", "value"));
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTRemoveFiltersButton");
+				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
 
 			//New and Moved in Members
-			clickButtonByXpath("MenuFilter");
+			clickButton("MenuFilter", "id", "xpath");
 			if (getRunningOS().equals("mac")) {
-				clickButtonByXpath("NotAssignedHomeTeachersBox");
+				clickButton("NotAssignedHomeTeachersBox", "id", "xpath");
 			}
-			clickButtonByXpath("NewAndMovedInMembersBox");
+			clickButton("NewAndMovedInMembersBox", "id", "xpath");
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTApply");
-				checkText("HTVTFiltersApplied", "New & Moved-In Members", "xpath", "xpath");
+				clickButton("HTVTApply", "id", "xpath");
+				checkText("HTVTFiltersApplied", "New & Moved-In Members", "id", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -6555,18 +6555,18 @@ public class LDSTools {
 			Assert.assertFalse(checkElementReturn("AFPSix, Husband", "textAtt", "value"));
 			Assert.assertFalse(checkElementReturn("AFPTen, Husband", "textAtt", "value"));
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTRemoveFiltersButton");
+				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
 
 
 			//Single Sisters 18-30 years old
-			clickButtonByXpath("MenuFilter");
+			clickButton("MenuFilter", "id", "xpath");
 			if (getRunningOS().equals("mac")) {
-				clickButtonByXpath("NewAndMovedInMembersBox");
+				clickButton("NewAndMovedInMembersBox", "id", "xpath");
 			}
-			clickButtonByXpath("SingleSisters1830");
+			clickButton("SingleSisters1830", "id", "xpath");
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTApply");
+				clickButton("HTVTApply", "id", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -6575,18 +6575,18 @@ public class LDSTools {
 			Assert.assertFalse(checkElementReturn("Ielv, Gasolo", "textAtt", "value"));
 			Assert.assertFalse(checkElementReturn("Lagaaia, Fofogafetalaililomaiava", "textAtt", "value"));
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTRemoveFiltersButton");
+				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
 		
 			
 			//Single Sisters 31 and over
-			clickButtonByXpath("MenuFilter");
+			clickButton("MenuFilter", "id", "xpath");
 			if (getRunningOS().equals("mac")) {
-				clickButtonByXpath("SingleSisters1830");
+				clickButton("SingleSisters1830", "id", "xpath");
 			}
-			clickButtonByXpath("SingleSisters31over");
+			clickButton("SingleSisters31over", "id", "xpath");
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTApply");
+				clickButton("HTVTApply", "id", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -6595,18 +6595,18 @@ public class LDSTools {
 			Assert.assertFalse(checkElementReturn("AFPFive, Wife", "textAtt", "value"));
 			Assert.assertFalse(checkElementReturn("AFPFourteen, Member", "textAtt", "value"));
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTRemoveFiltersButton");
+				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
 			
 			
 			//Single Brothers 18-30 years old
-			clickButtonByXpath("MenuFilter");
+			clickButton("MenuFilter", "id", "xpath");
 			if (getRunningOS().equals("mac")) {
-				clickButtonByXpath("SingleSisters31over");
+				clickButton("SingleSisters31over", "id", "xpath");
 			}
-			clickButtonByXpath("SingleBrothers1830");
+			clickButton("SingleBrothers1830", "id", "xpath");
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTApply");
+				clickButton("HTVTApply", "id", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -6615,17 +6615,17 @@ public class LDSTools {
 			Assert.assertFalse(checkElementReturn("Etene, Max", "textAtt", "value"));
 			Assert.assertFalse(checkElementReturn("Faivaa, Tepa", "textAtt", "value"));
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTRemoveFiltersButton");
+				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
 			
 			//Single Brothers 31 and over
-			clickButtonByXpath("MenuFilter");
+			clickButton("MenuFilter", "id", "xpath");
 			if (getRunningOS().equals("mac")) {
-				clickButtonByXpath("SingleBrothers1830");
+				clickButton("SingleBrothers1830", "id", "xpath");
 			}
-			clickButtonByXpath("SingleBrohters31over");
+			clickButton("SingleBrohters31over", "id", "xpath");
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTApply");
+				clickButton("HTVTApply", "id", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -6634,7 +6634,7 @@ public class LDSTools {
 			Assert.assertTrue(checkElementReturn("AFPSix, Husband", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("AFPTen, Husband", "textAtt", "value"));
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTRemoveFiltersButton");
+				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
 			
 			//Need a test for Households not visisted slider.
@@ -6663,11 +6663,12 @@ public class LDSTools {
 			Assert.assertTrue(checkElementReturn("AFPMisc, Member14", "textAtt", "value"));
 
 			//Test Assigned Visiting Teachers
-			clickButtonByXpath("MenuFilter");
-			clickButtonByXpath("AssignedHomeTeachersBox");
+			//clickButtonByXpath("MenuFilter");
+			clickButton("MenuFilter", "id", "xpath");
+			clickButton("AssignedHomeTeachersBox", "id", "xpath");
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTApply");
-				checkText("HTVTFiltersApplied", "Assigned Visiting Teachers", "xpath", "xpath");
+				clickButton("HTVTApply", "id", "xpath");
+				checkText("HTVTFiltersApplied", "Assigned Visiting Teachers", "id", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -6675,18 +6676,19 @@ public class LDSTools {
 			Assert.assertTrue(checkElementReturn("Tools, LDS26", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("Aaron, Jane", "textAtt", "value"));
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTRemoveFiltersButton");
+				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
 		
 			//Test NOT Assigned Visiting Teachers
-			clickButtonByXpath("MenuFilter");
+			clickButton("MenuFilter", "id", "xpath");
 			if (getRunningOS().equals("mac")) {
-				clickButtonByXpath("AssignedHomeTeachersBox");
+				clickButton("AssignedHomeTeachersBox", "id", "xpath");
 			}
-			clickButtonByXpath("NotAssignedHomeTeachersBox");
+
+			clickButton("NotAssignedHomeTeachersBox", "id", "xpath");
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTApply");
-				checkText("HTVTFiltersApplied", "Not Assigned Visiting Teachers", "xpath", "xpath");
+				clickButton("HTVTApply", "id", "xpath");
+				checkText("HTVTFiltersApplied", "Not Assigned Visiting Teachers", "id", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -6694,18 +6696,18 @@ public class LDSTools {
 			Assert.assertTrue(checkElementReturn("AFPMisc, Member12", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("AFPMisc, Member14", "textAtt", "value"));
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTRemoveFiltersButton");
+				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
 
 			//New and Moved in Members
-			clickButtonByXpath("MenuFilter");
+			clickButton("MenuFilter", "id", "xpath");
 			if (getRunningOS().equals("mac")) {
-				clickButtonByXpath("NotAssignedHomeTeachersBox");
+				clickButton("NotAssignedHomeTeachersBox", "id", "xpath");
 			}
-			clickButtonByXpath("NewAndMovedInMembersBox");
+			clickButton("NewAndMovedInMembersBox", "id", "xpath");
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTApply");
-				checkText("HTVTFiltersApplied", "New & Moved-In Members", "xpath", "xpath");
+				clickButton("HTVTApply", "id", "xpath");
+				checkText("HTVTFiltersApplied", "New & Moved-In Members", "id", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -6713,18 +6715,18 @@ public class LDSTools {
 			Assert.assertFalse(checkElementReturn("AFPSix, Husband", "textAtt", "value"));
 			Assert.assertFalse(checkElementReturn("AFPTen, Husband", "textAtt", "value"));
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTRemoveFiltersButton");
+				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
 
 
 			//Single Sisters 18-30 years old
-			clickButtonByXpath("MenuFilter");
+			clickButton("MenuFilter", "id", "xpath");
 			if (getRunningOS().equals("mac")) {
-				clickButtonByXpath("NewAndMovedInMembersBox");
+				clickButton("NewAndMovedInMembersBox", "id", "xpath");
 			}
-			clickButtonByXpath("SingleSisters1830");
+			clickButton("SingleSisters1830", "id", "xpath");
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTApply");
+				clickButton("HTVTApply", "id", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -6733,18 +6735,18 @@ public class LDSTools {
 			Assert.assertTrue(checkElementReturn("Ami, Faleatafa", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("Etene, Foketi Faamoe", "textAtt", "value"));
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTRemoveFiltersButton");
+				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
 		
 			
 			//Single Sisters 31 and over
-			clickButtonByXpath("MenuFilter");
+			clickButton("MenuFilter", "id", "xpath");
 			if (getRunningOS().equals("mac")) {
-				clickButtonByXpath("SingleSisters1830");
+				clickButton("SingleSisters1830", "id", "xpath");
 			}
-			clickButtonByXpath("SingleSisters31over");
+			clickButton("SingleSisters31over", "id", "xpath");
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTApply");
+				clickButton("HTVTApply", "id", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -6753,7 +6755,7 @@ public class LDSTools {
 			Assert.assertTrue(checkElementReturn("AFPFive, Wife", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("AFPFourteen, Member", "textAtt", "value"));
 			if (getRunningOS().equals("android")) {
-				clickButtonByXpath("HTVTRemoveFiltersButton");
+				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
 			
 			
@@ -7166,13 +7168,14 @@ public class LDSTools {
 					}
 				}
 				*/
-				for(int myCounter = 0 ; myCounter < androidList.size() ; myCounter++) {
-				//for(String oneUser : myList) {
-					System.out.println("USER: " + myList.get(myCounter));
-					Assert.assertTrue(myList.contains(androidList.get(myCounter)));
-					//Assert.assertTrue(androidList.contains(myList.get(myCounter)));
-				}
-				
+				if(!myList.isEmpty()) {
+					for(int myCounter = 0 ; myCounter < androidList.size() ; myCounter++) {
+						//for(String oneUser : myList) {
+							System.out.println("USER: " + myList.get(myCounter));
+							Assert.assertTrue(myList.contains(androidList.get(myCounter)));
+							//Assert.assertTrue(androidList.contains(myList.get(myCounter)));
+					}
+				}	
 			}
 			
 
@@ -7440,12 +7443,35 @@ public class LDSTools {
 	
 	private void pressBackToRoot() throws Exception {
 		Boolean backButtonCheck;
-		backButtonCheck = checkElementExistsByXpath("TopBack");
+		int myCounter = 1;
+		backButtonCheck = checkElementExistsByXpath("TopBack"); 
+		 
 		
-		while (backButtonCheck == true) {
+		while ((backButtonCheck == true) && (myCounter < 5 ))  {
 			pressBackKey();
 			backButtonCheck = checkElementExistsByXpath("TopBack");
+			myCounter++;
 		}
+		
+	}
+	
+	private void adbCommand(String myCommand) throws Exception {
+		
+		if (myCommand.equals("stopApp")) {
+			//String cmd = "adb shell am force-stop org.lds.ldstools.dev";
+			Runtime run = Runtime.getRuntime();
+			Process pr = run.exec(new String[] {"/Users/zmaxfield/android-sdks/platform-tools/adb", "shell", "am", "force-stop", "org.lds.ldstools.dev"});
+			//Process pr = run.exec(cmd);
+			pr.waitFor();
+			BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+			String line = "";
+			while ((line=buf.readLine())!=null) {
+				System.out.println(line);
+			}
+		}
+
+		
+		
 	}
 	
 	// **************************************************************************************
@@ -7530,19 +7556,7 @@ public class LDSTools {
 		
 		return myReturnStatus;
 	}
-	
-	/*
-	String cmd = "adb shell am force-stop org.lds.ldstools.dev";
-	Runtime run = Runtime.getRuntime();
-	Process pr = run.exec(new String[] {"/Users/zmaxfield/android-sdks/platform-tools/adb", "shell", "am", "force-stop", "org.lds.ldstools.dev"});
-	//Process pr = run.exec(cmd);
-	pr.waitFor();
-	BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
-	String line = "";
-	while ((line=buf.readLine())!=null) {
-		System.out.println(line);
-	}
-	*/
+
 	
 	
 	
@@ -7567,12 +7581,14 @@ public class LDSTools {
 			}
 			*/
 		} else {
+			adbCommand("stopApp");
 			driver.removeApp("org.lds.ldstools.dev");
+
 		}
 
 
 		driver.quit();
-		Thread.sleep(5000);
+		Thread.sleep(2000);
 		
 	}
 	
