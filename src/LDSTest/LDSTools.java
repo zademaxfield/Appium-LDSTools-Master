@@ -7289,7 +7289,7 @@ public class LDSTools {
 		Thread.sleep(1000);
 		myPageSource = getSourceOfPage();
 		
-		scrollDownTEST(-40);
+		//scrollDownTEST(-40);
 		
 		clickButtonByXpath("TabHousehold");
 		Thread.sleep(1000);
