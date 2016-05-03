@@ -584,7 +584,7 @@ public class LDSTools {
 		
 		Thread.sleep(2000);
 	
-		
+		/*
 		
 		//Check Directory user - should be able to view everything
 		checkDirectoryUser(true, true, true, true, true, true);
@@ -609,7 +609,7 @@ public class LDSTools {
 		//Check the reports - leadership only
 		checkReports(true, false);
 		
-		
+		*/
 		
 		checkHTVTBasic("Bishopric");
 		checkHTVTHouseholds("Bishopric");
@@ -6502,7 +6502,7 @@ public class LDSTools {
 
 			Thread.sleep(2000);
 			Assert.assertTrue(checkElementReturn("AFPMisc, Member15", "textAtt", "value"));
-			Assert.assertTrue(checkElementReturn("Faamoeolo, Akisa", "textAtt", "value"));
+			Assert.assertTrue(checkElementReturn("AFPTen, Husband", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("AFPSix, Husband", "textAtt", "value"));
 			
 			//Test Assigned Home Teachers
@@ -6534,8 +6534,8 @@ public class LDSTools {
 				pressBackKey();
 			}
 			Assert.assertTrue(checkElementReturn("AFPTen, Husband", "textAtt", "value"));
-			Assert.assertTrue(checkElementReturn("Faamoe, Ueni", "textAtt", "value"));
-			Assert.assertTrue(checkElementReturn("Isaako, Ioane", "textAtt", "value"));
+			Assert.assertTrue(checkElementReturn("AFPSix, Husband", "textAtt", "value"));
+			Assert.assertTrue(checkElementReturn("AFPMisc, Member15", "textAtt", "value"));
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
