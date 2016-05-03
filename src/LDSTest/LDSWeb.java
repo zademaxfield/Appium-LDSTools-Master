@@ -879,6 +879,7 @@ public class LDSWeb {
 			
 
 			clickElement(orgName, "linkText");
+			waitForTextToDisappear("LoadingSpinner", 500, "xpath");
 			Thread.sleep(2000);
 			myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
 			if (myElementCheck == true ) {
@@ -897,6 +898,7 @@ public class LDSWeb {
 			
 
 			clickElement("High Priests Group", "linkText");
+			waitForTextToDisappear("LoadingSpinner", 500, "xpath");
 			Thread.sleep(2000);
 			myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
 			if (myElementCheck == true ) {
@@ -921,6 +923,7 @@ public class LDSWeb {
 			
 
 			clickElement("Elders Quorum", "linkText");
+			waitForTextToDisappear("LoadingSpinner", 500, "xpath");
 			Thread.sleep(2000);
 			myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
 			if (myElementCheck == true ) {
@@ -945,6 +948,7 @@ public class LDSWeb {
 			
 
 			clickElement(orgName, "linkText");
+			waitForTextToDisappear("LoadingSpinner", 500, "xpath");
 			Thread.sleep(2000);
 			myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
 			if (myElementCheck == true ) {
@@ -963,6 +967,7 @@ public class LDSWeb {
 			
 
 			clickElement(orgName, "linkText");
+			waitForTextToDisappear("LoadingSpinner", 500, "xpath");
 			Thread.sleep(2000);
 			myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
 			if (myElementCheck == true ) {
