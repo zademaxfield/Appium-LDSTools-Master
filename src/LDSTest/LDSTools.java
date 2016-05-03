@@ -584,7 +584,6 @@ public class LDSTools {
 		
 		Thread.sleep(2000);
 	
-		/*
 		
 		//Check Directory user - should be able to view everything
 		checkDirectoryUser(true, true, true, true, true, true);
@@ -609,7 +608,7 @@ public class LDSTools {
 		//Check the reports - leadership only
 		checkReports(true, false);
 		
-		*/
+
 		
 		checkHTVTBasic("Bishopric");
 		checkHTVTHouseholds("Bishopric");
