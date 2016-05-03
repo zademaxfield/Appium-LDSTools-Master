@@ -879,6 +879,7 @@ public class LDSWeb {
 			
 
 			clickElement(orgName, "linkText");
+			Thread.sleep(2000);
 			myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
 			if (myElementCheck == true ) {
 				System.out.println(orgName + " " + myReport + "Page did not load... skipping");
@@ -896,6 +897,7 @@ public class LDSWeb {
 			
 
 			clickElement("High Priests Group", "linkText");
+			Thread.sleep(2000);
 			myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
 			if (myElementCheck == true ) {
 				System.out.println(orgName + " " + myReport + "Page did not load... skipping");
@@ -919,6 +921,7 @@ public class LDSWeb {
 			
 
 			clickElement("Elders Quorum", "linkText");
+			Thread.sleep(2000);
 			myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
 			if (myElementCheck == true ) {
 				System.out.println(orgName + " " + myReport + "Page did not load... skipping");
@@ -942,6 +945,7 @@ public class LDSWeb {
 			
 
 			clickElement(orgName, "linkText");
+			Thread.sleep(2000);
 			myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
 			if (myElementCheck == true ) {
 				System.out.println(orgName + " " + myReport + "Page did not load... skipping");
@@ -959,6 +963,7 @@ public class LDSWeb {
 			
 
 			clickElement(orgName, "linkText");
+			Thread.sleep(2000);
 			myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
 			if (myElementCheck == true ) {
 				System.out.println(orgName + " " + myReport + "Page did not load... skipping");
