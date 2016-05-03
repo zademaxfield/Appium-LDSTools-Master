@@ -6381,7 +6381,7 @@ public class LDSTools {
 			}
 			Assert.assertTrue(checkElementReturn("AFPMisc, Member1", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("AFPMisc, Member13", "textAtt", "value"));
-			Assert.assertTrue(checkElementReturn("AFPMisc, Member14", "textAtt", "value"));
+			Assert.assertTrue(checkElementReturn("AFPFive, Wife", "textAtt", "value"));
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
