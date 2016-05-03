@@ -597,7 +597,7 @@ public class LDSWeb {
 		Thread.sleep(4000);
 		clickElement("IAgreeCheck", "id");
 		clickElement("Agree and Continue", "text");
-
+		Thread.sleep(3000);
 		//clickElement("ReportsMenu", "id");
 		clickElement(menuItem, "id");
 		Thread.sleep(4000);
