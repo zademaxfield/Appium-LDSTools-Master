@@ -214,7 +214,7 @@ public class LDSTools {
 		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
 		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		bishopricCounselorAndWardClerk(os);
+		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -222,7 +222,7 @@ public class LDSTools {
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 
-		//editOtherUserInvalidPhone(os);
+		editOtherUserInvalidPhone(os);
 		//editOtherUserInvalidEmail(os);
 		//editVisibility(os);
 		//editVisibiltyPersonal(os);
@@ -1338,20 +1338,19 @@ public class LDSTools {
 
 		
 		sendTextbyXpath("EditPersonalPhone", "1(801)240-0104");
-		if (!getRunningOS().equals("mac")){
-			driver.hideKeyboard();
-		}
+		myKeyboardClear();
+		
 		sendTextbyXpath("EditHomePhone", "(801) 867-5309");
-		if (!getRunningOS().equals("mac")){
-			driver.hideKeyboard();
-		}
+		myKeyboardClear();
+		
 		sendTextbyXpath("EditPersonalEmail", "personal@nospam.com");
 		Thread.sleep(1000);
-		if (!getRunningOS().equals("mac")){
-			driver.hideKeyboard();
-		}
+		myKeyboardClear();;
+		scrollDownTEST(400);
+
 		sendTextbyXpath("EditHomeEmail", "home@nospam.com");
 		clickButton("MenuSave", "id", "xpath");
+		myKeyboardClear();
 		
 		Thread.sleep(3000);
 		
@@ -1373,14 +1372,7 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("home@nospam.com", pageSource, "Contains"));
 		
 
-		
-		if (getRunningOS().equals("mac")) {
-			pressBackToRoot();
-			clickButtonByXpath("SearchCollapse");
-		} else {
-			pressBackKey();
-			Thread.sleep(1000);
-		}
+		backToDirectory();
 		
 		Thread.sleep(2000);
 		
@@ -1414,13 +1406,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		clearPhoneAndEmail();
 		
-		if (getRunningOS().equals("mac")) {
-			pressBackToRoot();
-			clickButtonByXpath("SearchCollapse");
-		} else {
-			pressBackKey();
-			Thread.sleep(1000);
-		}
+		backToDirectory();
 		
 		//Search for logged in user
 		searchForUser("Tools, LDS44");
@@ -1462,10 +1448,22 @@ public class LDSTools {
 		clickButton("MenuEdit", "id", "xpath");
 		Thread.sleep(2000);
 		
+		
 		sendTextbyXpath("EditPersonalPhone", "1(801)240-0104");
+		myKeyboardClear();
+		
 		sendTextbyXpath("EditHomePhone", "(801) 867-5309");
+		myKeyboardClear();
+		
 		sendTextbyXpath("EditPersonalEmail", "personal@nospam.com");
+		myKeyboardClear();
+		
+		scrollDownTEST(400);
+		Thread.sleep(2000);
+		
 		sendTextbyXpath("EditHomeEmail", "home@nospam.com");
+		myKeyboardClear();
+
 		
 		if (getRunningOS().equals("mac")){
 			pressBackKey();
@@ -1491,6 +1489,9 @@ public class LDSTools {
 		Assert.assertFalse(checkNoCaseList("personal@nospam.com", pageSource, "Equals"));
 		Assert.assertFalse(checkNoCaseList("home@nospam.com", pageSource, "Equals"));
 	}
+	
+	
+	
 	
 	/** editOtherUser()
 	 * Edit a user that you are not logged in as. 
@@ -1519,9 +1520,19 @@ public class LDSTools {
 		Thread.sleep(1000);
 		
 		sendTextbyXpath("EditPersonalPhone", "1(801)240-0104");
+		myKeyboardClear();
+		
 		sendTextbyXpath("EditHomePhone", "(801) 867-5309");
+		myKeyboardClear();
+		
 		sendTextbyXpath("EditPersonalEmail", "personal@nospam.com");
+		myKeyboardClear();
+		scrollDownTEST(400);
+		Thread.sleep(2000);
+		
 		sendTextbyXpath("EditHomeEmail", "home@nospam.com");
+		myKeyboardClear();
+		
 		clickButton("MenuSave", "id", "xpath");
 		
 		Thread.sleep(3000);
@@ -1540,13 +1551,7 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("home@nospam.com", pageSource, "Contains"));
 		Thread.sleep(1000);
 		
-		if (getRunningOS().equals("mac")) {
-			pressBackToRoot();
-			clickButtonByXpath("SearchCollapse");
-		} else {
-			pressBackKey();
-			Thread.sleep(1000);
-		}
+		backToDirectory();
 		
 		runSync();
 		
@@ -1627,20 +1632,23 @@ public class LDSTools {
 		Thread.sleep(2000);
 		
 		sendTextbyXpath("EditPersonalPhone", "######00000000000*****");
+		myKeyboardClear();
 		sendTextbyXpath("EditHomePhone", "878974131648413216421321165484789798461321314644444244624424524245244545644644856465784967465456464144134424342446244323644524452344623446542326342542");
+		myKeyboardClear();
+		
 		clickButton("MenuSave", "id", "xpath");
 		Thread.sleep(2000);
 		
 		alertCheck = alertCheckInvalidInput();
 		if (alertCheck == 1 ) {
-			clickButtonByXpath("AlertOK");
+			clickButton("AlertOK", "id", "xpath");
 		}
 		
 		if (getRunningOS().equals("mac")){
 			pressBackKey();
 		} else {
-			clickButtonByXpath("MenuCancel");
-			clickButtonByXpath("AlertOK");
+			clickButton("MenuCancel", "xpath", "xpath");
+			clickButton("AlertOK", "id", "xpath");
 		}
 		
 		Thread.sleep(3000);
@@ -1649,13 +1657,7 @@ public class LDSTools {
 		Assert.assertFalse(checkNoCaseList("######00000000000*****", pageSource, "Equals"));
 		Assert.assertFalse(checkNoCaseList("878974131648413216421321165484789798461321314644444244624424524245244545644644856465784967465456464144134424342446244323644524452344623446542326342542", pageSource, "Equals"));	
 
-		if (getRunningOS().equals("mac")) {
-			pressBackToRoot();
-			clickButtonByXpath("SearchCollapse");
-		} else {
-			pressBackKey();
-			Thread.sleep(1000);
-		}
+		backToDirectory();
 		
 		runSync();
 		
@@ -1739,13 +1741,7 @@ public class LDSTools {
 		Assert.assertFalse(checkNoCaseList("thisisaninvalidemailaddress", pageSource, "Equals"));
 		Assert.assertFalse(checkNoCaseList("!@#$%^&*()_+-=[]{}|", pageSource, "Equals"));	
 
-		if (getRunningOS().equals("mac")) {
-			pressBackToRoot();
-			clickButtonByXpath("SearchCollapse");
-		} else {
-			pressBackKey();
-			Thread.sleep(1000);
-		}
+		backToDirectory();
 		Thread.sleep(2000);
 		
 		runSync();
@@ -1822,13 +1818,7 @@ public class LDSTools {
 
 		clickButton("MenuSave", "id", "xpath");
 
-		if (getRunningOS().equals("mac")) {
-			pressBackToRoot();
-			clickButtonByXpath("SearchCollapse");
-		} else {
-			pressBackKey();
-			Thread.sleep(1000);
-		}
+		backToDirectory();
 		
 		//Log out 
 		drawerSignOut();
@@ -1901,13 +1891,7 @@ public class LDSTools {
 		clickButton("MenuSave", "id", "xpath");
 		//Thread.sleep(1000);
 		//clickButton("MenuSave", "id", "xpath");
-		if (getRunningOS().equals("mac")) {
-			pressBackToRoot();
-			clickButtonByXpath("SearchCollapse");
-		} else {
-			pressBackKey();
-			Thread.sleep(1000);
-		}
+		backToDirectory();
 		//Log out 
 		drawerSignOut();
 		
@@ -1991,13 +1975,7 @@ public class LDSTools {
 		clickButton("MenuSave", "id", "xpath");
 		
 		
-		if (getRunningOS().equals("mac")) {
-			pressBackToRoot();
-			clickButtonByXpath("SearchCollapse");
-		} else {
-			pressBackKey();
-			Thread.sleep(1000);
-		}
+		backToDirectory();
 		
 		//Log out 
 		drawerSignOut();
@@ -2038,13 +2016,7 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("test@test.com", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
 		
-		if (getRunningOS().equals("mac")) {
-			pressBackToRoot();
-			clickButtonByXpath("SearchCollapse");
-		} else {
-			pressBackKey();
-			Thread.sleep(1000);
-		}
+		backToDirectory();
 		
 		//Log out 
 		drawerSignOut();
@@ -2203,14 +2175,7 @@ public class LDSTools {
 		
 		clickButton("MenuSave", "id", "xpath");
 		
-		if (getRunningOS().equals("mac")) {
-			pressBackToRoot();
-			clickButtonByXpath("SearchCollapse");
-		} else {
-			pressBackKey();
-			Thread.sleep(1000);
-		}
-		
+		backToDirectory();
 		//Log out 
 		drawerSignOut();
 		
@@ -2249,13 +2214,7 @@ public class LDSTools {
 		Assert.assertFalse(checkNoCaseList("test@test.com", pageSource, "Contains"));
 		//Assert.assertFalse(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
 		
-		if (getRunningOS().equals("mac")) {
-			pressBackToRoot();
-			clickButtonByXpath("SearchCollapse");
-		} else {
-			pressBackKey();
-			Thread.sleep(1000);
-		}
+		backToDirectory();
 		
 		//Log out 
 		drawerSignOut();
@@ -2288,13 +2247,7 @@ public class LDSTools {
 		
 		resetVisibility();
 		
-		if (getRunningOS().equals("mac")) {
-			pressBackToRoot();
-			clickButtonByXpath("SearchCollapse");
-		} else {
-			pressBackKey();
-			Thread.sleep(1000);
-		}
+		backToDirectory();
 		
 		//Log out 
 		drawerSignOut();
@@ -3216,23 +3169,31 @@ public class LDSTools {
 	}
 	
 	private int checkTextContainsReturn(String textElement, String textToCheck, String andEle, String iosEle  ) {
-		String myText;
+		String myText = null;
 		int myReturn = 0;
-		myText = driver.findElement(By.xpath(this.prop.getProperty(textElement))).getText();
 		
-		if ((andEle == "id") || (iosEle == "id")) {
+		String findElement;
+		if (getRunningOS().equals("mac")) {
+			findElement = iosEle;
+		} else {
+			findElement = andEle;
+		}
+		
+		//myText = driver.findElement(By.xpath(this.prop.getProperty(textElement))).getText();
+		
+		if (findElement == "id"){
 			myText = driver.findElement(By.id(this.prop.getProperty(textElement))).getText();
 		}
-		if ((andEle == "xpath") || (iosEle == "xpath")) {
+		if (findElement == "xpath") {
 			myText = driver.findElement(By.xpath(this.prop.getProperty(textElement))).getText();	
 		}
-		if ((andEle == "className") || (iosEle == "className")) {
+		if (andEle == "className") {
 			myText = driver.findElement(By.className(this.prop.getProperty(textElement))).getText();
 		}
-		if ((andEle == "linkText") || (iosEle == "linkText")) {
+		if (findElement == "linkText")  {
 			myText = driver.findElement(By.linkText(this.prop.getProperty(textElement))).getText();
 		}
-		if ((andEle == "text") || (iosEle == "text")) {
+		if (findElement == "text") {
 			myText = driver.findElement(By.xpath("//*[contains(text(), '" + textElement + "')]")).getText();
 		}
 		
@@ -4864,7 +4825,7 @@ public class LDSTools {
 				clickButtonByXpath("OverflowSettings");
 				Thread.sleep(2000);
 				
-				scrollDown("Network Environment", 40 );
+				scrollDown("Network Environment", 35 );
 				clickButtonByXpathTitleName(chooseNetwork);
 				clickButtonByXpath("Back");
 				Thread.sleep(5000);
@@ -5141,9 +5102,9 @@ public class LDSTools {
 	
 	private int alertCheckInvalidInput() {
 		int myCheck = 0;
-		myCheck = checkTextContainsReturn("AlertMessageMember", "Save failed", "xpath", "xpath");
+		myCheck = checkTextContainsReturn("AlertMessageMember", "Save failed", "id", "xpath");
 		if (myCheck == 0 ) {
-			myCheck = checkTextContainsReturn("AlertMessageMember", "Invalid", "xpath", "xpath");
+			myCheck = checkTextContainsReturn("AlertMessageMember", "Invalid", "id", "xpath");
 		}
 		
 		return myCheck;
@@ -7256,13 +7217,13 @@ public class LDSTools {
 			//Thread.sleep(4000);
 			//clickButtonByXpath("DrawerSYNC");
 			Thread.sleep(4000);
-			clickButtonByXpath("AlertOK");
+			clickButton("AlertOK", "id", "xpath");
+			
+			Thread.sleep(4000);
+			waitForTextToDisappearID("SyncText", 500 );
+			Thread.sleep(2000);
 		}
 
-		
-		Thread.sleep(4000);
-		waitForTextToDisappear("SyncText", 500 );
-		Thread.sleep(2000);
 		checkForAlert();
 	}
 	
@@ -7420,20 +7381,17 @@ public class LDSTools {
 		
 		sendTextbyXpath("EditPersonalPhone", "11");
 		clearTextFieldXpath("EditPersonalPhone");
-		if (!getRunningOS().equals("mac")){
-			driver.hideKeyboard();
-		}
+		myKeyboardClear();
+		
 		sendTextbyXpath("EditHomePhone", "11");
 		clearTextFieldXpath("EditHomePhone");
-		if (!getRunningOS().equals("mac")){
-			driver.hideKeyboard();
-		}
+		myKeyboardClear();
+		
 		Thread.sleep(1000);
 		sendTextbyXpath("EditPersonalEmail", "aaa");
 		clearTextFieldXpath("EditPersonalEmail");
-		if (!getRunningOS().equals("mac")){
-			driver.hideKeyboard();
-		}
+		myKeyboardClear();
+		
 		Thread.sleep(1000);
 		clickButton("EditHomeEmail", "xpath", "xpath");
 		sendTextbyXpath("EditHomeEmail", "aaa");
@@ -7457,6 +7415,17 @@ public class LDSTools {
 		
 	}
 	
+	private void backToDirectory() throws Exception {
+		if (getRunningOS().equals("mac")) {
+			pressBackToRoot();
+			clickButtonByXpath("SearchCollapse");
+		} else {
+			pressBackToRoot();
+			clickButtonByXpath("SearchCollapse");
+			clickButton("CollapseButton", "xpath", "xpath");
+		}
+	}
+	
 	private void adbCommand(String myCommand) throws Exception {
 		
 		if (myCommand.equals("stopApp")) {
@@ -7471,9 +7440,48 @@ public class LDSTools {
 				System.out.println(line);
 			}
 		}
-
-		
-		
+	}
+	
+	private String adbGetPath() throws Exception {
+		String myPath = "/Users/zmaxfield/android-sdks/platform-tools/adb";
+		String currentDirectory;
+		currentDirectory = System.getProperty("user.dir");
+		//System.out.println("Current working directory : "+currentDirectory);
+		String[] parts = currentDirectory.split("/");
+		String part1 = parts[0];
+		String part2 = parts[1];
+		String part3 = parts[2];
+		myPath = "/" + part2 + "/" + part3 + "/android-sdks/platform-tools/adb" ;
+		//System.out.println("NEW PATH: " + myPath);
+		return myPath;
+	}
+	
+	private Boolean adbCheckForKeyboard() throws Exception {
+		Boolean returnStatus = null;
+		String adbPath = adbGetPath();
+		Runtime run = Runtime.getRuntime();
+		Process pr = run.exec(new String[] {adbPath, "shell", "dumpsys", "window", "InputMethod", "|", "grep", "mHasSurface"});
+		//Process pr = run.exec(cmd);
+		pr.waitFor();
+		BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+		String line = "";
+		while ((line=buf.readLine())!=null) {
+			//System.out.println(line);
+			if(line.contains("false")) {
+				returnStatus = false;
+			} else {
+				returnStatus = true;
+			}
+		}
+		return returnStatus;
+	}
+	
+	private void myKeyboardClear() throws Exception {
+		if (!getRunningOS().equals("mac")){
+			if (adbCheckForKeyboard() == true) {
+				driver.hideKeyboard();
+			}
+		}
 	}
 	
 	// **************************************************************************************
