@@ -6961,30 +6961,19 @@ public class LDSTools {
 	
 	
 	private void searchForUser(String userToSearch) throws Exception {
-		//boolean testForElement;
-		//testForElement = checkElementExistsByID("MenuDefaultDirectory");
 		
 		if (getRunningOS().equals("mac")) {
-			//clickButton("DirectorySort", "xpath", "xpath");
-			//clickButton("DirectoryIndividual", "xpath", "xpath");
+			sendTextbyXpath("SearchArea", userToSearch);
+			Thread.sleep(2000);
+			driver.findElementByXPath("//UIAStaticText[@label='" + userToSearch + "']").click();
 		} else {
 			clickButtonByID("MenuDefaultDirectory");
 			clickButtonByXpathTitleName("Individuals");
 			clickButtonByID("MenuSearch");
-		}
-		
-		
-		sendTextbyXpath("SearchArea", userToSearch + " ");
-		//clickButtonByXpath("SearchGo");
-		Thread.sleep(2000);
-		if (getRunningOS().equals("mac")) {
-			driver.findElementByXPath("//UIAStaticText[@label='" + userToSearch + "']").click();
-		} else {
+			sendTextbyXpath("SearchArea", userToSearch + " ");
+			Thread.sleep(2000);
 			clickLastTextViewRoboReturnContains(userToSearch);
 		}
-		
-		//clickButton(userToSearch, "name", "textAtt");
-	
 		
 		Thread.sleep(2000);
 	}
