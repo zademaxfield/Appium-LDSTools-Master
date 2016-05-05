@@ -6970,7 +6970,7 @@ public class LDSTools {
 			clickButtonByID("MenuDefaultDirectory");
 			clickButtonByXpathTitleName("Individuals");
 			clickButtonByID("MenuSearch");
-			sendTextbyXpath("SearchArea", userToSearch + " ");
+			sendTextbyXpath("SearchArea", userToSearch + "\n");
 			Thread.sleep(2000);
 			clickLastTextViewRoboReturnContains(userToSearch);
 		}
