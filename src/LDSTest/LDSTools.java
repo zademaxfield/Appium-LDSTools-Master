@@ -226,8 +226,9 @@ public class LDSTools {
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
-		
 		//editOtherUserInvalidEmail(os);
+		
+		
 		//editVisibility(os);
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
@@ -6963,6 +6964,9 @@ public class LDSTools {
 	
 	
 	private void searchForUser(String userToSearch) throws Exception {
+		Boolean checkForElement; 
+		List<WebElement> options = null;
+		int myCounter = 1;
 		
 		if (getRunningOS().equals("mac")) {
 			sendTextbyXpath("SearchArea", userToSearch);
@@ -6978,8 +6982,20 @@ public class LDSTools {
 			
 			Thread.sleep(2000);
 			
-			
-			clickLastTextViewRoboReturnContains(userToSearch);
+			do {
+				options = driver.findElements(By.xpath("//android.widget.TextView[@text='" + userToSearch + "']"));
+				if (options.isEmpty()) {
+					checkForElement = false;	
+					scrollDownTEST(40);
+				} else {
+					checkForElement = true;
+				}
+				myCounter++;
+				
+			} while ((checkForElement = false) || (myCounter < 8));
+
+			driver.findElement(By.xpath("//android.widget.TextView[@text='" + userToSearch + "']")).click();
+			//clickLastTextViewRoboReturnContains(userToSearch);
 		}
 		
 		Thread.sleep(2000);
