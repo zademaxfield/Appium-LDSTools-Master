@@ -107,7 +107,7 @@ public class LDSTools {
 	//AppiumDriver driver;
 	//AppiumDriver driver;
 	TouchActions touch;
-	private SoftAssert softAssert = new SoftAssert();
+	//private SoftAssert softAssert = new SoftAssert();
 	
 	private String myUserName = "Not Set";
 	private String myPassword = "Not Set";
@@ -150,9 +150,11 @@ public class LDSTools {
 	        //capabilities.setCapability("appActivity", "org.lds.ldstools.ui.activity.SignInActivity");
 	        
 	        capabilities.setCapability("unicodeKeyboard", "true");
+	        capabilities.setCapability("resetKeyboard", "true");
 	        
 	        
-	        driver = new AndroidDriver(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
+	        
+	        driver = new AndroidDriver<WebElement>(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
 	        //driver = new AppiumSwipeableDriver(new URL("http://127.0.0.1:4444/wd/hub"),capabilities);
 	        //driver = new AppiumDriver(new URL("http://127.0.0.1:4444/wd/hub"),capabilities);
 	        //touch = new TouchActions(driver);
@@ -216,14 +218,14 @@ public class LDSTools {
 		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
 		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		//bishopricCounselorAndWardClerk(os);
+		bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
 		
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
-		editOtherUserInvalidPhone(os);
+		//editOtherUserInvalidPhone(os);
 		
 		//editOtherUserInvalidEmail(os);
 		//editVisibility(os);
@@ -1340,19 +1342,19 @@ public class LDSTools {
 
 		
 		sendTextbyXpath("EditPersonalPhone", "1(801)240-0104");
-		myKeyboardClear();
+		//myKeyboardClear();
 		
 		sendTextbyXpath("EditHomePhone", "(801) 867-5309");
-		myKeyboardClear();
+		//myKeyboardClear();
 		
 		sendTextbyXpath("EditPersonalEmail", "personal@nospam.com");
 		Thread.sleep(1000);
-		myKeyboardClear();;
+		//myKeyboardClear();;
 		scrollDownTEST(400);
 
 		sendTextbyXpath("EditHomeEmail", "home@nospam.com");
 		clickButton("MenuSave", "id", "xpath");
-		myKeyboardClear();
+		//myKeyboardClear();
 		
 		Thread.sleep(3000);
 		
@@ -1452,19 +1454,19 @@ public class LDSTools {
 		
 		
 		sendTextbyXpath("EditPersonalPhone", "1(801)240-0104");
-		myKeyboardClear();
+		//myKeyboardClear();
 		
 		sendTextbyXpath("EditHomePhone", "(801) 867-5309");
-		myKeyboardClear();
+		//myKeyboardClear();
 		
 		sendTextbyXpath("EditPersonalEmail", "personal@nospam.com");
-		myKeyboardClear();
+		//myKeyboardClear();
 		
 		scrollDownTEST(400);
 		Thread.sleep(2000);
 		
 		sendTextbyXpath("EditHomeEmail", "home@nospam.com");
-		myKeyboardClear();
+		//myKeyboardClear();
 
 		
 		if (getRunningOS().equals("mac")){
@@ -1522,18 +1524,18 @@ public class LDSTools {
 		Thread.sleep(1000);
 		
 		sendTextbyXpath("EditPersonalPhone", "1(801)240-0104");
-		myKeyboardClear();
+		//myKeyboardClear();
 		
 		sendTextbyXpath("EditHomePhone", "(801) 867-5309");
-		myKeyboardClear();
+		//myKeyboardClear();
 		
 		sendTextbyXpath("EditPersonalEmail", "personal@nospam.com");
-		myKeyboardClear();
+		//myKeyboardClear();
 		scrollDownTEST(400);
 		Thread.sleep(2000);
 		
 		sendTextbyXpath("EditHomeEmail", "home@nospam.com");
-		myKeyboardClear();
+		//myKeyboardClear();
 		
 		clickButton("MenuSave", "id", "xpath");
 		
@@ -1634,9 +1636,9 @@ public class LDSTools {
 		Thread.sleep(2000);
 		
 		sendTextbyXpath("EditPersonalPhone", "######00000000000*****");
-		myKeyboardClear();
+		//myKeyboardClear();
 		sendTextbyXpath("EditHomePhone", "878974131648413216421321165484789798461321314644444244624424524245244545644644856465784967465456464144134424342446244323644524452344623446542326342542");
-		myKeyboardClear();
+		//myKeyboardClear();
 		
 		clickButton("MenuSave", "id", "xpath");
 		Thread.sleep(2000);
@@ -1721,30 +1723,30 @@ public class LDSTools {
 		sendTextbyXpath("EditPersonalEmail", "thisisaninvalidemailaddress");
 		invalidEmailCheck();
 		clearTextFieldXpath("EditPersonalEmail");
-		myKeyboardClear();
+		//myKeyboardClear();
 		
 		scrollDownTEST(400);
 		
 		sendTextbyXpath("EditHomeEmail", "thisisaninvalidemailaddress");
-		myKeyboardClear();
+		//myKeyboardClear();
 		invalidEmailCheck();
 		Thread.sleep(2000);
 		clearTextFieldXpath("EditHomeEmail");
-		myKeyboardClear();
+		//myKeyboardClear();
 		
 		sendTextbyXpath("EditPersonalEmail", "!@#$%^&*()_+-=[]{}|");
 		invalidEmailCheck();
 		clearTextFieldXpath("EditPersonalEmail");
-		myKeyboardClear();
+		//myKeyboardClear();
 		
 		scrollDownTEST(400);
 		
 		sendTextbyXpath("EditHomeEmail", "!@#$%^&*()_+-=[]{}|");
-		myKeyboardClear();
+		//myKeyboardClear();
 		invalidEmailCheck();
 		Thread.sleep(2000);
 		clearTextFieldXpath("EditHomeEmail");
-		myKeyboardClear();
+		//myKeyboardClear();
 		
 		
 		clickButton("MenuSave", "id", "xpath");
@@ -5892,7 +5894,7 @@ public class LDSTools {
 		Thread.sleep(1000);
 		//Assert.assertTrue(checkElementTextViewReturnContains("611"));
 		Assert.assertTrue(checkElementTextViewReturnContains("16"));
-		Assert.assertTrue(checkElementTextViewReturnContains("49"));
+		Assert.assertTrue(checkElementTextViewReturnContains("50"));
 		Assert.assertFalse(checkElementTextViewReturnContains("8675309"));
 		pressBackKey();
 	}
@@ -6970,8 +6972,13 @@ public class LDSTools {
 			clickButtonByID("MenuDefaultDirectory");
 			clickButtonByXpathTitleName("Individuals");
 			clickButtonByID("MenuSearch");
-			sendTextbyXpath("SearchArea", userToSearch + "\n");
+			sendTextbyXpath("SearchArea", userToSearch);
+			
+			adbPressSearch();
+			
 			Thread.sleep(2000);
+			
+			
 			clickLastTextViewRoboReturnContains(userToSearch);
 		}
 		
@@ -7384,16 +7391,16 @@ public class LDSTools {
 		
 		sendTextbyXpath("EditPersonalPhone", "11");
 		clearTextFieldXpath("EditPersonalPhone");
-		myKeyboardClear();
+		//myKeyboardClear();
 		
 		sendTextbyXpath("EditHomePhone", "11");
 		clearTextFieldXpath("EditHomePhone");
-		myKeyboardClear();
+		//myKeyboardClear();
 		
 		Thread.sleep(1000);
 		sendTextbyXpath("EditPersonalEmail", "aaa");
 		clearTextFieldXpath("EditPersonalEmail");
-		myKeyboardClear();
+		//myKeyboardClear();
 		
 		Thread.sleep(1000);
 		clickButton("EditHomeEmail", "xpath", "xpath");
@@ -7478,6 +7485,22 @@ public class LDSTools {
 		}
 		return returnStatus;
 	}
+	
+	private void adbPressSearch() throws Exception {
+		String adbPath = adbGetPath();
+		Runtime run = Runtime.getRuntime();
+		Process pr = run.exec(new String[] {adbPath, "shell", "input", "keyevent", "KEYCODE_SEARCH"});
+		//Process pr = run.exec(cmd);
+		pr.waitFor();
+		BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+		String line = "";
+		while ((line=buf.readLine())!=null) {
+			System.out.println(line);
+		}
+	}
+	
+
+	
 	
 	private void myKeyboardClear() throws Exception {
 		if (!getRunningOS().equals("mac")){
