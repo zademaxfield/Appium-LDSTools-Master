@@ -578,6 +578,7 @@ public class LDSWeb {
 		openGuiMap();
 		setUp();
 		Boolean myElementCheck;
+		Boolean myReportCheck;
 		
 		
 		String mySource;
@@ -602,6 +603,12 @@ public class LDSWeb {
 		clickElement(menuItem, "id");
 		Thread.sleep(4000);
 		//clickElement("Member List", "linkText");
+		myReportCheck = checkElementExists(myReport, "linkText");
+		if(myReportCheck == false) {
+			myReport = myReport + " 1";
+			System.out.println("My Report: " + myReport	);
+		}
+		
 		clickElement(myReport, "linkText");
 		Thread.sleep(1000);
 		waitForTextToDisappear("Loading", 500, "id" );
