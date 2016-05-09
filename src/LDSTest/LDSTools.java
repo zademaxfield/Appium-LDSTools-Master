@@ -27,8 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 //import java.net.URL;
 import java.util.Properties;
-
-
+import java.util.UUID;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
@@ -229,8 +228,8 @@ public class LDSTools {
 		//editOtherUserInvalidEmail(os);
 		
 		
-		editVisibility(os);
-		//editVisibiltyPersonal(os);
+		//editVisibility(os);
+		editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
 		
@@ -1940,6 +1939,7 @@ public class LDSTools {
 		//Change LDSTools5 then check the privacy settings with LDSTools6
 		String pageSource;
 
+	
 		syncLogIn("LDSTools5", "toolstester", "UAT", os );
 		Thread.sleep(2000);
 		
@@ -1990,12 +1990,12 @@ public class LDSTools {
 			clickButton("RadioPrivate", "id", "xpath");
 			clickButton("SetLimit", "id", "xpath");
 			Thread.sleep(1000);
-			clickButton("MenuSave", "id", "xpath");
+			//clickButton("MenuSave", "id", "xpath");
 		}
 
 		clickButton("MenuSave", "id", "xpath");
 		
-		
+		Thread.sleep(1000);
 		backToDirectory();
 		
 		//Log out 
@@ -6990,7 +6990,7 @@ public class LDSTools {
 			clickButtonByID("MenuSearch");
 			sendTextbyXpath("SearchArea", lowerCaseSearch);
 			
-			//adbPressSearch();
+			adbPressSearch();
 			
 			Thread.sleep(2000);
 			
@@ -7677,6 +7677,17 @@ public class LDSTools {
 	}
 	
 	public void takeScreenShot() throws Exception {
+		
+	    String imagesLocation = "screenshot/";
+	    new File(imagesLocation).mkdirs(); // Insure directory is there
+
+	    File srcFile=driver.getScreenshotAs(OutputType.FILE);
+	    String filename=UUID.randomUUID().toString(); 
+	    System.out.println("Screenshot File: " + filename);
+	    File targetFile=new File(imagesLocation + filename +".png");
+	    FileUtils.copyFile(srcFile,targetFile);
+	   
+	    /*
 		File screenshotFile = driver.getScreenshotAs(OutputType.FILE);
 		try {
 			//FileUtils.copyFile(screenshotFile,new File("/Users/zmaxfield/Selenium/Screenshot/lastErrorScreenshot.png"));
@@ -7685,7 +7696,9 @@ public class LDSTools {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
 	}
+	
 	
 	
 
