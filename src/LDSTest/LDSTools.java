@@ -224,12 +224,12 @@ public class LDSTools {
 		//editCurrentUser(os);	
 		
 		//editCurrentUserCancel(os);
-		editOtherUser(os);
+		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
 		//editOtherUserInvalidEmail(os);
 		
 		
-		//editVisibility(os);
+		editVisibility(os);
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
@@ -337,7 +337,8 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("Visiting Teaching");
 		} else {
-			scrollDownTEST(100);
+			//scrollDownTEST(100);
+			driver.scrollToExact("Visiting Teaching");
 			clickButtonByXpathTitleName("Visiting Teaching");
 		}
 		Thread.sleep(2000);
@@ -1340,7 +1341,7 @@ public class LDSTools {
 		clearPhoneAndEmail();
 		
 
-		clickButton("MenuEdit", "id", "xpath");
+		editUserOpen(); 
 		Thread.sleep(2000);
 
 		
@@ -1452,7 +1453,7 @@ public class LDSTools {
 		clearPhoneAndEmail();
 		
 		Thread.sleep(2000);
-		clickButton("MenuEdit", "id", "xpath");
+		editUserOpen(); 
 		Thread.sleep(2000);
 		
 		
@@ -1523,7 +1524,7 @@ public class LDSTools {
 		clearPhoneAndEmail();
 		
 		Thread.sleep(2000);
-		clickButton("MenuEdit", "id", "xpath");
+		editUserOpen(); 
 		Thread.sleep(1000);
 		
 		sendTextbyXpath("EditPersonalPhone", "1(801)240-0104");
@@ -1635,7 +1636,7 @@ public class LDSTools {
 		
 		
 		Thread.sleep(2000);
-		clickButton("MenuEdit", "id", "xpath");
+		editUserOpen(); 
 		Thread.sleep(2000);
 		
 		sendTextbyXpath("EditPersonalPhone", "######00000000000*****");
@@ -1720,7 +1721,7 @@ public class LDSTools {
 		
 		
 		Thread.sleep(2000);
-		clickButton("MenuEdit", "id", "xpath");
+		editUserOpen(); 
 		Thread.sleep(2000);
 		
 		sendTextbyXpath("EditPersonalEmail", "thisisaninvalidemailaddress");
@@ -1812,8 +1813,9 @@ public class LDSTools {
 		
 		
 		Thread.sleep(1000);
-		clickButton("MenuEdit", "id", "xpath");
-		Thread.sleep(2000);
+		//editUserOpen(); 
+		editUserOpen(); 
+
 		
 		//This will reset the visibility back to Stake
 		resetVisibility();
@@ -1864,7 +1866,9 @@ public class LDSTools {
 		Assert.assertFalse(checkElementTextViewRoboReturn("Tools, LDS5"));
 
 		//Collapse the search 
-		clickButtonByXpath("SearchCollapse");
+		//clickButtonByXpath("SearchCollapse");
+		
+		backToDirectory() ;
 		
 		//Log out 
 		drawerSignOut();
@@ -1892,7 +1896,7 @@ public class LDSTools {
 			//Assert.assertTrue(checkNoCaseList("Tools, LDS5", pageSource, "Contains"));
 		}
 		Thread.sleep(1000);
-		clickButton("MenuEdit", "id", "xpath");
+		editUserOpen(); 
 		
 		//Thread.sleep(3000);
 		//clickButtonByXpath("AlertOK");	
@@ -1909,6 +1913,7 @@ public class LDSTools {
 		clickButton("MenuSave", "id", "xpath");
 		//Thread.sleep(1000);
 		//clickButton("MenuSave", "id", "xpath");
+		Thread.sleep(2000);
 		backToDirectory();
 		//Log out 
 		drawerSignOut();
@@ -1924,8 +1929,6 @@ public class LDSTools {
 		
 		//Search for logged in user
 		searchForUser("Tools, LDS5");
-		
-		
 		
 
 	}
@@ -1959,7 +1962,7 @@ public class LDSTools {
 		}
 		
 		Thread.sleep(1000);
-		clickButton("MenuEdit", "id", "xpath");
+		editUserOpen(); 
 		Thread.sleep(2000);
 		
 		//This will reset the visibility back to Stake (just in case something went wrong)
@@ -2062,7 +2065,7 @@ public class LDSTools {
 		}
 		
 		Thread.sleep(1000);
-		clickButton("MenuEdit", "id", "xpath");
+		editUserOpen(); 
 		Thread.sleep(2000);
 		
 		//This will reset the visibility back to Stake (just in case something went wrong)
@@ -2155,7 +2158,7 @@ public class LDSTools {
 		}
 		
 		
-		clickButton("MenuEdit", "id", "xpath");
+		editUserOpen(); 
 		Thread.sleep(2000);
 		
 		//This will reset the visibility back to Stake (just in case something went wrong)
@@ -2253,7 +2256,7 @@ public class LDSTools {
 			//Assert.assertTrue(checkNoCaseList("Tools, LDS5", pageSource, "Contains"));
 		}
 		
-		clickButton("MenuEdit", "id", "xpath");
+		editUserOpen(); 
 		Thread.sleep(2000);
 		
 		
@@ -4838,7 +4841,9 @@ public class LDSTools {
 				clickButtonByXpath("OverflowSettings");
 				Thread.sleep(2000);
 				
-				scrollDown("Network Environment", 35 );
+				driver.scrollToExact("Network Environment").click();
+				//scrollDown("Network Environment", 35 );
+				
 				clickButtonByXpathTitleName(chooseNetwork);
 				clickButtonByXpath("Back");
 				Thread.sleep(5000);
@@ -5580,7 +5585,8 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")){
 			clickButtonByXpathTitleName("Ward Missionaries");
 		} else {
-			scrollDownTEST(100);
+			//scrollDownTEST(100);
+			driver.scrollToExact("Ward Missionaries");
 			clickButtonByXpathTitleName("Ward Missionaries");
 		}
 		
@@ -5596,7 +5602,8 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")){
 			clickButtonByXpathTitleName("Other Callings");
 		} else {
-			scrollDownTEST(100);
+			//scrollDownTEST(100);
+			driver.scrollToExact("Other Callings");
 			clickButtonByXpathTitleName("Other Callings");
 		}
 		
@@ -5881,7 +5888,8 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("Unit Statistics");
 		} else {
-			scrollDownTEST(100);
+			//scrollDownTEST(100);
+			driver.scrollToExact("Unit Statistics");
 			clickButtonByXpathTitleName("Unit Statistics");
 		}
 		
@@ -6005,7 +6013,8 @@ public class LDSTools {
 			if (getRunningOS().equals("mac")) {
 				clickButtonByXpathTitleName("Visiting Teaching");
 			} else {
-				scrollDownTEST(100);
+				//scrollDownTEST(100);
+				driver.scrollToExact("Visiting Teaching");
 				clickButtonByXpathTitleName("Visiting Teaching");
 			}
 			Thread.sleep(2000);
@@ -6224,7 +6233,8 @@ public class LDSTools {
 			if (getRunningOS().equals("mac")) {
 				clickButtonByXpathTitleName("Visiting Teaching");
 			} else {
-				scrollDownTEST(100);
+				//scrollDownTEST(100);
+				driver.scrollToExact("Visiting Teaching");
 				clickButtonByXpathTitleName("Visiting Teaching");
 			}
 			
@@ -6623,8 +6633,9 @@ public class LDSTools {
 			if (getRunningOS().equals("mac")) {
 				clickButtonByXpathTitleName("Visiting Teaching");
 			} else {
-				scrollDownTEST(200);
-				Thread.sleep(1000);
+				//scrollDownTEST(200);
+				//Thread.sleep(1000);
+				driver.scrollToExact("Visiting Teaching");
 				clickButtonByXpathTitleName("Visiting Teaching");
 			}
 			Thread.sleep(2000);
@@ -6938,6 +6949,9 @@ public class LDSTools {
 			
 		} else {
 			myCheck = checkTextByXpathContainsReturn("HouseholdVisibilityLimit", "Private");
+			
+			//Force myCheck to be 1 to always change privacy	
+			myCheck = 1;
 
 			if ((myCheck == 1)) {
 				clickButtonByXpathTitleName("Privacy");
@@ -6953,7 +6967,7 @@ public class LDSTools {
 
 		clickButton("MenuSave", "id", "xpath");
 		Thread.sleep(2000);
-		clickButton("MenuEdit", "id", "xpath");
+		editUserOpen(); 
 
 
 	}
@@ -6964,6 +6978,8 @@ public class LDSTools {
 		List<WebElement> options = null;
 		int myCounter = 1;
 		
+		String lowerCaseSearch = userToSearch.toLowerCase();
+		
 		if (getRunningOS().equals("mac")) {
 			sendTextbyXpath("SearchArea", userToSearch);
 			Thread.sleep(2000);
@@ -6972,12 +6988,16 @@ public class LDSTools {
 			clickButtonByID("MenuDefaultDirectory");
 			clickButtonByXpathTitleName("Individuals");
 			clickButtonByID("MenuSearch");
-			sendTextbyXpath("SearchArea", userToSearch);
+			sendTextbyXpath("SearchArea", lowerCaseSearch);
 			
-			adbPressSearch();
+			//adbPressSearch();
 			
 			Thread.sleep(2000);
 			
+			//driver.scrollTo(userToSearch);
+			driver.scrollToExact(userToSearch);
+		
+			/*
 			do {
 				options = driver.findElements(By.xpath("//android.widget.TextView[@text='" + userToSearch + "']"));
 				if (options.isEmpty()) {
@@ -6988,10 +7008,12 @@ public class LDSTools {
 				}
 				myCounter++;
 				
-			} while ((checkForElement = false) || (myCounter < 8));
-
+			} while ((checkForElement = false) || (myCounter < 12));
+			
+			*/
 			driver.findElement(By.xpath("//android.widget.TextView[@text='" + userToSearch + "']")).click();
 			//clickLastTextViewRoboReturnContains(userToSearch);
+			
 		}
 		
 		Thread.sleep(2000);
@@ -7401,7 +7423,7 @@ public class LDSTools {
 	
 	private void clearPhoneAndEmail() throws Exception {
 		Thread.sleep(4000);
-		clickButton("MenuEdit", "id", "xpath");
+		editUserOpen(); 
 		Thread.sleep(2000);
 		
 		sendTextbyXpath("EditPersonalPhone", "11");
@@ -7449,6 +7471,26 @@ public class LDSTools {
 			clickButtonByXpath("SearchCollapse");
 			clickButton("CollapseButton", "xpath", "xpath");
 		}
+	}
+	
+	
+	private void editUserOpen() throws Exception {
+		Boolean myErrorTest;
+		int myCounter = 1;
+		clickButton("MenuEdit", "id", "xpath");
+		waitForTextToDisappear("Downloading", 500 );
+		myErrorTest = checkElementReturn("Please connect to the Internet", "text", "contValue");
+		
+		
+		while ((myErrorTest == true) && (myCounter < 4)) {
+			System.out.println("Not connected to the Internet: " + myErrorTest + " Count: "+ myCounter);
+			clickButton("AlertOK", "id", "xpath");
+			clickButton("MenuEdit", "id", "xpath");
+			waitForTextToDisappear("Downloading", 500 );
+			myErrorTest = checkElementReturn("NotConnected", "xpath", "xpath");
+			myCounter++;
+		}
+		
 	}
 	
 	private void adbCommand(String myCommand) throws Exception {
