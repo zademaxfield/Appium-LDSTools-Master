@@ -218,13 +218,13 @@ public class LDSTools {
 		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
 		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		bishopricCounselorAndWardClerk(os);
+		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
 		
 		//editCurrentUserCancel(os);
-		//editOtherUser(os);
+		editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
 		//editOtherUserInvalidEmail(os);
 		
@@ -697,6 +697,8 @@ public class LDSTools {
 		
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("LDS6 Tools (16)");
+			Thread.sleep(2000);
+			iosExpandAllDirectory();
 			pageSource = getSourceOfPage();
 			Assert.assertTrue(checkNoCaseList("Tools", pageSource, "Contains"));
 			Assert.assertTrue(checkNoCaseList("LDS6", pageSource, "Contains"));
@@ -710,7 +712,7 @@ public class LDSTools {
 		//Assert.assertTrue(checkNoCaseList("Tools, LDS6", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("LDS6 Tools", pageSource, "Contains"));
 
-		Assert.assertTrue(checkNoCaseList("MEMBERSHIP INFORMATION", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("MEMBERSHIP INFORMATION", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("888-0028-7066", pageSource, "Contains"));
 		
 		if (getRunningOS().equals("mac")){
@@ -1803,7 +1805,7 @@ public class LDSTools {
 			//pageSource = getSourceOfPage();
 			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
 		} else {
-			clickButtonByXpathTitleName("Tools, LDS5");
+			//clickButtonByXpathTitleName("Tools, LDS5");
 			//pageSource = androidGetMemberInfo();
 			//Assert.assertTrue(checkNoCaseList("Tools, LDS5", pageSource, "Contains"));
 		}
@@ -1817,23 +1819,23 @@ public class LDSTools {
 		resetVisibility();
 		
 		if (getRunningOS().equals("mac")) {
-			clickButtonByXpath("HouseholdVisibilityLimit");
+			clickButton("HouseholdVisibilityLimit", "id", "xpath");
 			Thread.sleep(2000);
 			clickButtonByXpath("PrivatePopUp");
 			//clickButtonByXpathTitleNameContains("Private");
 			Thread.sleep(1000);
 		} else {
 			clickButtonByXpathTitleName("Privacy");
-			clickButtonByXpath("HouseholdVisibilityLimit");
+			clickButton("HouseholdVisibilityLimit", "id", "xpath");
 			Thread.sleep(2000);
-			clickButtonByXpath("RadioPrivate");
-			clickButtonByXpath("SetLimit");
+			clickButton("RadioPrivate", "id", "xpath");
+			clickButton("SetLimit", "id", "xpath");
 			Thread.sleep(1000);
 		}
 		
 
 		clickButton("MenuSave", "id", "xpath");
-
+		Thread.sleep(2000);
 		backToDirectory();
 		
 		//Log out 
@@ -1885,7 +1887,7 @@ public class LDSTools {
 			//pageSource = getSourceOfPage();
 			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
 		} else {
-			clickButtonByXpathTitleName("Tools, LDS5");
+			//clickButtonByXpathTitleName("Tools, LDS5");
 			//pageSource = androidGetMemberInfo();
 			//Assert.assertTrue(checkNoCaseList("Tools, LDS5", pageSource, "Contains"));
 		}
@@ -1951,7 +1953,7 @@ public class LDSTools {
 			//pageSource = getSourceOfPage();
 			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
 		} else {
-			clickButtonByXpathTitleName("Tools, LDS5");
+			//clickButtonByXpathTitleName("Tools, LDS5");
 			//pageSource = androidGetMemberInfo();
 			//Assert.assertTrue(checkNoCaseList("Tools, LDS5", pageSource, "Contains"));
 		}
@@ -1980,10 +1982,10 @@ public class LDSTools {
 		
 			
 			//TODO: Need to update this for android 
-			clickButtonByXpath("HouseholdVisibilityLimit");
+			clickButton("HouseholdVisibilityLimit", "id", "xpath");
 			Thread.sleep(2000);
-			clickButtonByXpath("RadioPrivate");
-			clickButtonByXpath("SetLimit");
+			clickButton("RadioPrivate", "id", "xpath");
+			clickButton("SetLimit", "id", "xpath");
 			Thread.sleep(1000);
 			clickButton("MenuSave", "id", "xpath");
 		}
@@ -2012,7 +2014,7 @@ public class LDSTools {
 			pageSource = getSourceOfPage();
 			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
 		} else {
-			clickButtonByXpathTitleName("Tools, LDS5");
+			//clickButtonByXpathTitleName("Tools, LDS5");
 			pageSource = androidGetMemberInfo();
 			//Assert.assertTrue(checkNoCaseList("Tools, LDS5", pageSource, "Contains"));
 		}
@@ -2054,7 +2056,7 @@ public class LDSTools {
 			//pageSource = getSourceOfPage();
 			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
 		} else {
-			clickButtonByXpathTitleName("Tools, LDS5");
+			//clickButtonByXpathTitleName("Tools, LDS5");
 			//pageSource = androidGetMemberInfo();
 			//Assert.assertTrue(checkNoCaseList("Tools, LDS5", pageSource, "Contains"));
 		}
@@ -2072,13 +2074,7 @@ public class LDSTools {
 		//Thread.sleep(1000);
 		//clickButton("MenuSave", "id", "xpath");
 		
-		if (getRunningOS().equals("mac")) {
-			pressBackToRoot();
-			clickButtonByXpath("SearchCollapse");
-		} else {
-			pressBackKey();
-			Thread.sleep(1000);
-		}
+		backToDirectory();
 		
 		//Log out 
 		drawerSignOut();
@@ -2102,7 +2098,7 @@ public class LDSTools {
 			pageSource = getSourceOfPage();
 			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
 		} else {
-			clickButtonByXpathTitleName("Tools, LDS5");
+			//clickButtonByXpathTitleName("Tools, LDS5");
 			pageSource = androidGetMemberInfo();
 			//Assert.assertTrue(checkNoCaseList("Tools, LDS5", pageSource, "Contains"));
 		}
@@ -2179,10 +2175,10 @@ public class LDSTools {
 		
 			
 			//TODO: Need to update this for android 
-			clickButtonByXpath("HouseholdVisibilityLimit");
+			clickButton("HouseholdVisibilityLimit", "id", "xpath");
 			Thread.sleep(2000);
-			clickButtonByXpath("RadioPrivate");
-			clickButtonByXpath("SetLimit");
+			clickButton("RadioPrivate", "id", "xpath");
+			clickButton("SetLimit", "id", "xpath");
 			Thread.sleep(1000);
 			clickButton("MenuSave", "id", "xpath");
 		}
@@ -3113,7 +3109,7 @@ public class LDSTools {
 				clickButtonByXpath("DrawerSETTINGS");
 				
 				clickButtonByXpathTitleName("Sign Out");
-				clickButtonByXpath("SignOutOK");
+				clickButton("SignOutOK", "id", "xpath");
 			}
 		}
 	}
@@ -6882,7 +6878,7 @@ public class LDSTools {
 		}
 		Thread.sleep(2000);
 		clickButtonByXpathTitleName("Sign Out");
-		clickButtonByXpath("SignOutOK");
+		clickButton("SignOutOK", "id", "xpath");
 		checkForAlert();
 		if (getRunningOS().equals("mac")) {
 			driver.resetApp();
@@ -6913,7 +6909,7 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			textCheck = getTextXpath("VisibilityHVL");
 			if (!textCheck.contains("Stake")) {
-				clickButtonByXpath("HouseholdVisibilityLimit");
+				clickButton("HouseholdVisibilityLimit", "id", "xpath");
 				Thread.sleep(2000);
 				clickButtonByXpath("StakePopUp");
 				//clickButtonByXpathTitleNameContains("Stake Visibility");
@@ -6946,10 +6942,10 @@ public class LDSTools {
 			if ((myCheck == 1)) {
 				clickButtonByXpathTitleName("Privacy");
 				//clickButtonByXpathTitleName("Household Visibility Limit");
-				clickButtonByXpath("HouseholdVisibilityLimit");
+				clickButton("HouseholdVisibilityLimit", "id", "xpath");
 				Thread.sleep(2000);
-				clickButtonByXpath("RadioStake");
-				clickButtonByXpath("SetLimit");
+				clickButton("RadioStake", "id", "xpath");
+				clickButton("SetLimit", "id", "xpath");
 				Thread.sleep(1000);
 			}
 		}
@@ -7228,7 +7224,7 @@ public class LDSTools {
 			//clickButtonByXpath("SignInButton");
 			driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[1]/UIAStaticText[@name='Sync Now']")).click();
 			//clickButtonByName("Sync Now");
-			Thread.sleep(4000);
+			Thread.sleep(6000);
 			waitForTextToDisappear("SyncText", 500 );
 			//Thread.sleep(2000);
 			//pinPage("1", "1", "3", "3", true);
@@ -7336,12 +7332,15 @@ public class LDSTools {
 		//Thread.sleep(1000);
 		
 		boolean checkArrowDown;
-		checkArrowDown = checkElementTextViewRoboReturn("\u25BC");
+		//checkArrowDown = checkElementTextViewRoboReturn("\u25BC");
+		checkArrowDown = checkElementReturn("OpenDrawer", "xpath", "xpath");
+		
 		if (checkArrowDown == true ) {
 			while(checkArrowDown == true ) {
-				scrollToLastElementIOS("\u25BC");
+				scrollToLastElementIOS("Open Drawer");
 				Thread.sleep(1000);
-				checkArrowDown = checkElementTextViewRoboReturn("\u25BC");
+				//checkArrowDown = checkElementTextViewRoboReturn("\u25BC");
+				checkArrowDown = checkElementReturn("OpenDrawer", "xpath", "xpath");
 			}
 		}
 		
@@ -7620,18 +7619,9 @@ public class LDSTools {
 
 	@AfterMethod(alwaysRun = true)
 	public void teardown() throws Exception {
-		
+		takeScreenShot();
 		if (getRunningOS().equals("mac")) {
-			/*
-			File screenshotFile = driver.getScreenshotAs(OutputType.FILE);
-			try {
-				//FileUtils.copyFile(screenshotFile,new File("/Users/zmaxfield/Selenium/Screenshot/lastErrorScreenshot.png"));
-				FileUtils.copyFile(screenshotFile,new File("lastErrorScreenshot.png"));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			*/
+
 		} else {
 			//adbCommand("stopApp");
 			driver.removeApp("org.lds.ldstools.dev");
@@ -7643,6 +7633,18 @@ public class LDSTools {
 		Thread.sleep(2000);
 		
 	}
+	
+	public void takeScreenShot() throws Exception {
+		File screenshotFile = driver.getScreenshotAs(OutputType.FILE);
+		try {
+			//FileUtils.copyFile(screenshotFile,new File("/Users/zmaxfield/Selenium/Screenshot/lastErrorScreenshot.png"));
+			FileUtils.copyFile(screenshotFile,new File("lastErrorScreenshot.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	
 
 	@Parameters({"os"})
