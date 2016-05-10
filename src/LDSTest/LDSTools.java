@@ -2,6 +2,7 @@ package LDSTest;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
 import org.testng.AssertJUnit;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -1956,7 +1957,7 @@ public class LDSTools {
 			//pageSource = getSourceOfPage();
 			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
 		} else {
-			//clickButtonByXpathTitleName("Tools, LDS5");
+			//clickButtonByXpathTitleName("Tools, LDS5 - 36");
 			//pageSource = androidGetMemberInfo();
 			//Assert.assertTrue(checkNoCaseList("Tools, LDS5", pageSource, "Contains"));
 		}
@@ -1982,20 +1983,21 @@ public class LDSTools {
 			
 		} else {
 			clickButtonByXpathTitleName("Privacy");
-		
 			
-			//TODO: Need to update this for android 
-			clickButton("HouseholdVisibilityLimit", "id", "xpath");
-			Thread.sleep(2000);
-			clickButton("RadioPrivate", "id", "xpath");
-			clickButton("SetLimit", "id", "xpath");
-			Thread.sleep(1000);
-			//clickButton("MenuSave", "id", "xpath");
+			clickButton("PrivacyPersonalPhoto", "xpath", "xpath");
+			clickButton("PrivacyPrivateVisibility", "xpath", "xpath");
+			
+			clickButton("PrivacyPersonalPhone", "xpath", "xpath");
+			clickButton("PrivacyPrivateVisibility", "xpath", "xpath");
+			
+			clickButton("PrivacyPersonalEmail", "xpath", "xpath");
+			clickButton("PrivacyPrivateVisibility", "xpath", "xpath");
+		
 		}
 
 		clickButton("MenuSave", "id", "xpath");
 		
-		Thread.sleep(1000);
+		Thread.sleep(2000);
 		backToDirectory();
 		
 		//Log out 
@@ -2023,7 +2025,7 @@ public class LDSTools {
 		}
 		
 		//Check the users name Phone and email
-		Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseListDEBUG("Fagamalo 1st Ward", pageSource, "Contains"));
 
 		//Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource, "Contains"));
@@ -2059,7 +2061,7 @@ public class LDSTools {
 			//pageSource = getSourceOfPage();
 			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
 		} else {
-			//clickButtonByXpathTitleName("Tools, LDS5");
+			//clickButtonByXpathTitleName("Tools, LDS5 - 36");
 			//pageSource = androidGetMemberInfo();
 			//Assert.assertTrue(checkNoCaseList("Tools, LDS5", pageSource, "Contains"));
 		}
@@ -2076,7 +2078,7 @@ public class LDSTools {
 		clickButton("MenuSave", "id", "xpath");
 		//Thread.sleep(1000);
 		//clickButton("MenuSave", "id", "xpath");
-		
+		Thread.sleep(2000);
 		backToDirectory();
 		
 		//Log out 
@@ -2099,17 +2101,17 @@ public class LDSTools {
 			clickButtonByXpathTitleName("LDS5 Tools");
 			iosExpandAllDirectory();
 			pageSource = getSourceOfPage();
-			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
 		} else {
 			//clickButtonByXpathTitleName("Tools, LDS5");
 			pageSource = androidGetMemberInfo();
-			//Assert.assertTrue(checkNoCaseList("Tools, LDS5", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("Tools, LDS5", pageSource, "Contains"));
 		}
 		
 		
 		//Check the users name, address membership number etc...
 
-		Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Contains"));
 
 		//Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource, "Contains"));
@@ -6962,6 +6964,15 @@ public class LDSTools {
 				clickButton("SetLimit", "id", "xpath");
 				Thread.sleep(1000);
 			}
+			
+			clickButton("PrivacyPersonalPhoto", "xpath", "xpath");
+			clickButton("PrivacyStakeVisibility", "xpath", "xpath");
+			
+			clickButton("PrivacyPersonalPhone", "xpath", "xpath");
+			clickButton("PrivacyStakeVisibility", "xpath", "xpath");
+			
+			clickButton("PrivacyPersonalEmail", "xpath", "xpath");
+			clickButton("PrivacyStakeVisibility", "xpath", "xpath");
 		}
 		
 
@@ -6988,7 +6999,7 @@ public class LDSTools {
 			clickButtonByID("MenuDefaultDirectory");
 			clickButtonByXpathTitleName("Individuals");
 			clickButtonByID("MenuSearch");
-			sendTextbyXpath("SearchArea", lowerCaseSearch);
+			sendTextbyXpath("SearchArea", lowerCaseSearch + " ");
 			
 			adbPressSearch();
 			
@@ -7660,8 +7671,15 @@ public class LDSTools {
 	
 
 	@AfterMethod(alwaysRun = true)
-	public void teardown() throws Exception {
-		takeScreenShot();
+	public void teardown(ITestResult result) throws Exception {
+		
+
+		// Here will compare if test is failing then only it will enter into if condition
+		if(ITestResult.FAILURE==result.getStatus()) {
+			takeScreenShot();
+		}
+		
+		
 		if (getRunningOS().equals("mac")) {
 
 		} else {
@@ -7680,12 +7698,18 @@ public class LDSTools {
 		
 	    String imagesLocation = "screenshot/";
 	    new File(imagesLocation).mkdirs(); // Insure directory is there
+	    
+	    try {
+		    File srcFile=driver.getScreenshotAs(OutputType.FILE);
+		    String filename=UUID.randomUUID().toString(); 
+		    System.out.println("Screenshot File: " + filename);
+		    File targetFile=new File(imagesLocation + filename +".png");
+		    FileUtils.copyFile(srcFile,targetFile);
+	    }
+		catch(Exception e){
+		     System.out.println("Warning: Some Other exception");
+		}
 
-	    File srcFile=driver.getScreenshotAs(OutputType.FILE);
-	    String filename=UUID.randomUUID().toString(); 
-	    System.out.println("Screenshot File: " + filename);
-	    File targetFile=new File(imagesLocation + filename +".png");
-	    FileUtils.copyFile(srcFile,targetFile);
 	   
 	    /*
 		File screenshotFile = driver.getScreenshotAs(OutputType.FILE);
