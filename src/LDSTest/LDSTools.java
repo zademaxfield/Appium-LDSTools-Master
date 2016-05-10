@@ -216,7 +216,7 @@ public class LDSTools {
 		//justForTesting(os);	
 
 		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
-		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
+		LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
@@ -231,7 +231,7 @@ public class LDSTools {
 		
 		//editVisibility(os);
 		//editVisibiltyPersonal(os);
-		editVisibiltyHousehold(os);
+		//editVisibiltyHousehold(os);
 		
 		
 		
@@ -2269,6 +2269,8 @@ public class LDSTools {
 		
 		resetVisibility();
 		
+		clickButton("MenuSave", "id", "xpath");
+		Thread.sleep(2000);
 		backToDirectory();
 		
 		//Log out 
@@ -3635,6 +3637,32 @@ public class LDSTools {
 		return returnText;
 	}
 	
+	private String getText(String textElement, String andEle, String iosEle ) {
+		String returnText = null;
+		String findElement;
+		if (getRunningOS().equals("mac")) {
+			findElement = iosEle;
+		} else {
+			findElement = andEle;
+		}
+		
+		if (findElement == "id") {
+			returnText = driver.findElement(By.id(this.prop.getProperty(textElement))).getText();
+		}
+		if (findElement == "xpath") {
+			returnText = driver.findElement(By.xpath(this.prop.getProperty(textElement))).getText();	
+		}
+		if (findElement == "className") {
+			returnText = driver.findElement(By.className(this.prop.getProperty(textElement))).getText();
+		}
+		if (findElement == "linkText") {
+			returnText = driver.findElement(By.linkText(this.prop.getProperty(textElement))).getText();
+		}
+
+		
+		return returnText;
+	}
+	
 	
 	
 	public void getBishopricInfo() throws Exception {
@@ -4945,21 +4973,23 @@ public class LDSTools {
 				//scrollDown("px_i", 130 );
 				Thread.sleep(2000);
 				sendTextbyID("AlertEditText", IndividualId);
-				clickButtonByXpath("AlertOK");
+				clickButton("AlertOK", "id", "xpath");
 				Thread.sleep(2000);
 				
-				driver.scrollToExact("px_u").click();
+				//driver.scrollToExact("px_u").click();
 				//scrollDown("px_u", 130 );
+				clickButton("px_u", "textAtt", "xpath");
 				Thread.sleep(2000);
 				sendTextbyID("AlertEditText", units);
-				clickButtonByXpath("AlertOK");
+				clickButton("AlertOK", "id", "xpath");
 				Thread.sleep(2000);
 				
-				driver.scrollToExact("px_p").click();
+				//driver.scrollToExact("px_p").click();
 				//scrollDown("px_p", 130 );
+				clickButton("px_p", "textAtt", "xpath");
 				Thread.sleep(2000);
 				sendTextbyID("AlertEditText", positions);
-				clickButtonByXpath("AlertOK");
+				clickButton("AlertOK", "id", "xpath");
 				clickButtonByXpath("Back");
 				Thread.sleep(2000);
 				
@@ -4967,12 +4997,13 @@ public class LDSTools {
 				driver.launchApp();
 				
 				Thread.sleep(2000);
-				sendTextbyXpath("LoginUsername", userName);
-				sendTextbyXpath("LoginPassword", "toolstester");
+				sendTextbyID("LoginUsername", userName);
+				sendTextbyID("LoginPassword", "toolstester");
 				clickButtonByXpath("SignInButton");
 				Thread.sleep(4000);
-				waitForTextToDisappear("SyncText", 500 );
+				waitForTextToDisappearID("SyncText", 500 );
 				Thread.sleep(2000);
+
 			}
 		}
 		if (getRunningOS().equals("mac")) {
@@ -5059,18 +5090,21 @@ public class LDSTools {
 		boolean elementCheck;
 		
 		//Check to see if we are getting a warning
-		if (checkElementExistsByXpath("AlertMessage").equals(true)) {
-			myCheck = checkTextReturn("AlertMessage", "Warning", "xpath", "xpath");
+		if (checkElementReturn("AlertMessage", "id", "xpath").equals(true)) {
+			myCheck = checkTextReturn("AlertMessage", "Warning", "id", "xpath");
 		}
 		//Check to see if we are getting a warning
 		if (checkElementExistsByXpath("AlertCalendarMessage").equals(true)) {
-			clickButtonByXpath("AlertOK");
+			System.out.println("Calendar Message!");
+			clickButton("AlertOK", "id", "xpath");
+			Thread.sleep(2000);
 		}
 		
 		
 
 		if (myCheck == 1) {
-			myAlertText = getTextXpath("AlertMessageView");
+			//myAlertText = getTextXpath("AlertMessageView");
+			myAlertText = getText("AlertMessageView", "id", "xpath");
 			System.out.println("Found Warning: " + myAlertText);
 			
 			//Make sure we are not getting the Action and Interview warning
@@ -5100,9 +5134,10 @@ public class LDSTools {
 			Thread.sleep(2000);
 			
 			//Check for a warning
-			elementCheck = checkElementExistsByXpath("AlertMessage");
+			elementCheck = checkElementReturn("AlertMessage", "id", "xpath");
 			if (elementCheck == true) {
-				clickButtonByXpath("OK");
+				//clickButtonByXpath("OK");
+				clickButton("AlertOK", "id", "xpath");
 			}
 
 			//checkTextByXpath("PinTitle", "Choose your PIN");
@@ -5126,10 +5161,10 @@ public class LDSTools {
 	
 	private int alertCheck() {
 		int myCheck = 0;
-		if (checkElementExistsByXpath("AlertMessage").equals(true)) {
-			myCheck = checkTextReturn("AlertMessage", "Please create a PIN to protect sensitive data available to leaders.", "xpath", "xpath");
+		if (checkElementReturn("AlertMessage", "id", "xpath").equals(true)) {
+			myCheck = checkTextReturn("AlertMessage", "Please create a PIN to protect sensitive data available to leaders.", "id", "xpath");
 			if (myCheck == 0 ) {
-				myCheck = checkTextReturn("AlertMessage", "Passcode Required", "xpath", "xpath");
+				myCheck = checkTextReturn("AlertMessage", "Passcode Required", "id", "xpath");
 			}
 		}
 
