@@ -4944,21 +4944,21 @@ public class LDSTools {
 				driver.scrollToExact("px_i").click();
 				//scrollDown("px_i", 130 );
 				Thread.sleep(2000);
-				sendTextbyXpath("AlertEditText", IndividualId);
+				sendTextbyID("AlertEditText", IndividualId);
 				clickButtonByXpath("AlertOK");
 				Thread.sleep(2000);
 				
 				driver.scrollToExact("px_u").click();
 				//scrollDown("px_u", 130 );
 				Thread.sleep(2000);
-				sendTextbyXpath("AlertEditText", units);
+				sendTextbyID("AlertEditText", units);
 				clickButtonByXpath("AlertOK");
 				Thread.sleep(2000);
 				
 				driver.scrollToExact("px_p").click();
 				//scrollDown("px_p", 130 );
 				Thread.sleep(2000);
-				sendTextbyXpath("AlertEditText", positions);
+				sendTextbyID("AlertEditText", positions);
 				clickButtonByXpath("AlertOK");
 				clickButtonByXpath("Back");
 				Thread.sleep(2000);
