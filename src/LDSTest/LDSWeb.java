@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -23,7 +24,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -54,8 +57,8 @@ public class LDSWeb {
         // set up Selenium
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--start-maximized");
-		//System.setProperty("webdriver.chrome.driver", "/Users/zmaxfield/Selenium/chromedriver");
 		System.setProperty("webdriver.chrome.driver", "chromedriver");
+
 		
 		driver = new ChromeDriver(options);
 		
@@ -78,7 +81,13 @@ public class LDSWeb {
 	
 	public void openWebPage(String baseURL) {
 		driver.get(baseURL);
+
 		//Maximize the window
+		Point targetPosition = new Point(0, 0);
+		driver.manage().window().setPosition(targetPosition);
+
+		Dimension targetSize = new Dimension(1680, 1050); //your screen resolution here
+		driver.manage().window().setSize(targetSize);
 		//driver.manage().window().maximize();
 	}
 	
