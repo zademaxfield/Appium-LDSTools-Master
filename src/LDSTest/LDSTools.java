@@ -21,6 +21,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Hashtable;
 //import java.util.ArrayList;
 //import java.util.Arrays;
 //import java.util.Dictionary;
@@ -216,7 +217,7 @@ public class LDSTools {
 		//justForTesting(os);	
 
 		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
-		LeaderNonBishopric("LDSTools16", "High Priest Group", os);
+		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
@@ -257,7 +258,7 @@ public class LDSTools {
 		
 		
 		//Header Tests
-		//ChristieWhiting(os);
+		ChristieWhiting(os);
 		//CliffHigby(os);
 		//KevinPalmer(os);
 		//PatriarchOtherWards(os); //Not working!
@@ -6865,8 +6866,9 @@ public class LDSTools {
 		} else {
 			clickButtonByID("SpinnerNav");
 			//Get Stake and all Wards
-			//options = driver.findElements(By.xpath("//*[@id='title']"));
-			options = driver.findElements(By.xpath("//*[@id='list_item']/*[@id='text1']"));
+			//options = driver.findElements(By.xpath("//*[@id='list_item']/*[@id='text1']"));
+			options = driver.findElements(By.xpath("//android.widget.LinearLayout[@resource-id='org.lds.ldstools.dev:id/list_item']/android.widget.TextView[@resource-id='org.lds.ldstools.dev:id/text1']"));
+			//options = driver.findElements(By.xpath("//android.widget.RelativeLayout/android.support.v7.widget.RecyclerView/android.widget.LinearLayout/android.widget.TextView"));
 			for (int i = 0 ; i < options.size(); i++ ) {
 				//System.out.println(options.get(i).getText());
 				StakeWard.add(options.get(i).getText());
@@ -6885,8 +6887,9 @@ public class LDSTools {
 				clickButtonByXpathTitleName(StakeWardItem);
 				//displayAllTextViewElements();
 				
-				//Should be a better way to do this. 
-				Assert.assertTrue(checkElementTextViewReturnContains("e"));
+
+				Assert.assertTrue(checkFirstDirectoryUser());
+				//Assert.assertTrue(checkElementTextViewReturnContains("e"));
 				Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
 			}
 			
@@ -6910,9 +6913,16 @@ public class LDSTools {
 	
 	private Boolean checkFirstDirectoryUser() {
 		Boolean myReturnStatus;
+		String myString;
 		//String myString = driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[1]/UIAStaticText[1]")).getText();
-		String myString = driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[1]/UIAStaticText[1]")).getText();
+		if (getRunningOS().equals("mac")) {
+			myString = driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[1]/UIAStaticText[1]")).getText();
+		} else {
+			myString = driver.findElement(By.xpath("//android.widget.TextView[@resource-id='org.lds.ldstools.dev:id/text1'][1]")).getText();
+		}
+		
 													   
+
 		if (myString.isEmpty()) {
 			myReturnStatus = false;
 		} else {
