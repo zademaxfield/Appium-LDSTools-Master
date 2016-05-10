@@ -230,8 +230,8 @@ public class LDSTools {
 		
 		
 		//editVisibility(os);
-		editVisibiltyPersonal(os);
-		//editVisibiltyHousehold(os);
+		//editVisibiltyPersonal(os);
+		editVisibiltyHousehold(os);
 		
 		
 		
@@ -1382,7 +1382,6 @@ public class LDSTools {
 
 		backToDirectory();
 		
-		Thread.sleep(2000);
 		
 		runSync();
 		
@@ -1557,7 +1556,6 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("(801) 867-5309", pageSource, "Contains"));	
 		Assert.assertTrue(checkNoCaseList("personal@nospam.com", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("home@nospam.com", pageSource, "Contains"));
-		Thread.sleep(1000);
 		
 		backToDirectory();
 		
@@ -1761,7 +1759,6 @@ public class LDSTools {
 		Assert.assertFalse(checkNoCaseList("!@#$%^&*()_+-=[]{}|", pageSource, "Equals"));	
 
 		backToDirectory();
-		Thread.sleep(2000);
 		
 		runSync();
 
@@ -1837,7 +1834,7 @@ public class LDSTools {
 		
 
 		clickButton("MenuSave", "id", "xpath");
-		Thread.sleep(2000);
+
 		backToDirectory();
 		
 		//Log out 
@@ -1913,7 +1910,7 @@ public class LDSTools {
 		clickButton("MenuSave", "id", "xpath");
 		//Thread.sleep(1000);
 		//clickButton("MenuSave", "id", "xpath");
-		Thread.sleep(2000);
+
 		backToDirectory();
 		//Log out 
 		drawerSignOut();
@@ -1997,7 +1994,6 @@ public class LDSTools {
 
 		clickButton("MenuSave", "id", "xpath");
 		
-		Thread.sleep(2000);
 		backToDirectory();
 		
 		//Log out 
@@ -2078,7 +2074,7 @@ public class LDSTools {
 		clickButton("MenuSave", "id", "xpath");
 		//Thread.sleep(1000);
 		//clickButton("MenuSave", "id", "xpath");
-		Thread.sleep(2000);
+
 		backToDirectory();
 		
 		//Log out 
@@ -2154,7 +2150,7 @@ public class LDSTools {
 			//pageSource = getSourceOfPage();
 			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
 		} else {
-			clickButtonByXpathTitleName("Tools, LDS5");
+			//clickButtonByXpathTitleName("Tools, LDS5");
 			//pageSource = androidGetMemberInfo();
 			//Assert.assertTrue(checkNoCaseList("Tools, LDS5", pageSource, "Contains"));
 		}
@@ -2177,15 +2173,24 @@ public class LDSTools {
 			
 		} else {
 			clickButtonByXpathTitleName("Privacy");
-		
 			
-			//TODO: Need to update this for android 
-			clickButton("HouseholdVisibilityLimit", "id", "xpath");
-			Thread.sleep(2000);
-			clickButton("RadioPrivate", "id", "xpath");
-			clickButton("SetLimit", "id", "xpath");
-			Thread.sleep(1000);
-			clickButton("MenuSave", "id", "xpath");
+			driver.scrollToExact("Show on Map");
+			
+			clickButton("PrivacyHouseholdPhoto", "xpath", "xpath");
+			clickButton("PrivacyPrivateVisibility", "xpath", "xpath");
+			
+			clickButton("PrivacyHouseholdPhone", "xpath", "xpath");
+			clickButton("PrivacyPrivateVisibility", "xpath", "xpath");
+			
+			clickButton("PrivacyHouseholdEmail", "xpath", "xpath");
+			clickButton("PrivacyPrivateVisibility", "xpath", "xpath");
+			
+			clickButton("PrivacyHouseholdAddress", "xpath", "xpath");
+			clickButton("PrivacyPrivateVisibility", "xpath", "xpath");
+			
+			clickButton("PrivacyHouseholdShowOnMap", "xpath", "xpath");
+			clickButton("PrivacyPrivateVisibility", "xpath", "xpath");
+		
 		}
 		
 		
@@ -2211,14 +2216,14 @@ public class LDSTools {
 			pageSource = getSourceOfPage();
 			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
 		} else {
-			clickButtonByXpathTitleName("Tools, LDS5");
+			//clickButtonByXpathTitleName("Tools, LDS5");
 			pageSource = androidGetMemberInfo();
 			//Assert.assertTrue(checkNoCaseList("Tools, LDS5", pageSource, "Contains"));
 		}
 		
 		//Check the users name Phone and email
-		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
+		//pageSource = getSourceOfPage();
+		//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Equals"));
 
 		//Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource, "Equals"));
@@ -2253,7 +2258,7 @@ public class LDSTools {
 			//pageSource = getSourceOfPage();
 			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
 		} else {
-			clickButtonByXpathTitleName("Tools, LDS5");
+			//clickButtonByXpathTitleName("Tools, LDS5");
 			//pageSource = androidGetMemberInfo();
 			//Assert.assertTrue(checkNoCaseList("Tools, LDS5", pageSource, "Contains"));
 		}
@@ -2289,12 +2294,12 @@ public class LDSTools {
 			pageSource = getSourceOfPage();
 			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
 		} else {
-			clickButtonByXpathTitleName("Tools, LDS5");
+			//clickButtonByXpathTitleName("Tools, LDS5");
 			pageSource = androidGetMemberInfo();
 			//Assert.assertTrue(checkNoCaseList("Tools, LDS5", pageSource, "Contains"));
 		}
 		
-		Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Equals"));
 
 		//Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource, "Equals"));
@@ -4930,27 +4935,38 @@ public class LDSTools {
 				//Thread.sleep(1000);
 				//scrollDown("Sign Out", 40 );
 				Thread.sleep(2000);
-				scrollDown("Network Environment", 100 );
+				driver.scrollToExact("Network Environment").click();
+				//scrollDown("Network Environment", 100 );
 				//Thread.sleep(2000);
 				clickButtonByXpathTitleName(chooseNetwork);
 				Thread.sleep(2000);
-				scrollDown("px_i", 130 );
+				
+				driver.scrollToExact("px_i").click();
+				//scrollDown("px_i", 130 );
 				Thread.sleep(2000);
 				sendTextbyXpath("AlertEditText", IndividualId);
 				clickButtonByXpath("AlertOK");
 				Thread.sleep(2000);
-				scrollDown("px_u", 130 );
+				
+				driver.scrollToExact("px_u").click();
+				//scrollDown("px_u", 130 );
 				Thread.sleep(2000);
 				sendTextbyXpath("AlertEditText", units);
 				clickButtonByXpath("AlertOK");
 				Thread.sleep(2000);
-				scrollDown("px_p", 130 );
+				
+				driver.scrollToExact("px_p").click();
+				//scrollDown("px_p", 130 );
 				Thread.sleep(2000);
 				sendTextbyXpath("AlertEditText", positions);
 				clickButtonByXpath("AlertOK");
 				clickButtonByXpath("Back");
-				Thread.sleep(5000);
+				Thread.sleep(2000);
 				
+				driver.closeApp();
+				driver.launchApp();
+				
+				Thread.sleep(2000);
 				sendTextbyXpath("LoginUsername", userName);
 				sendTextbyXpath("LoginPassword", "toolstester");
 				clickButtonByXpath("SignInButton");
@@ -6965,6 +6981,7 @@ public class LDSTools {
 				Thread.sleep(1000);
 			}
 			
+
 			clickButton("PrivacyPersonalPhoto", "xpath", "xpath");
 			clickButton("PrivacyStakeVisibility", "xpath", "xpath");
 			
@@ -6973,6 +6990,25 @@ public class LDSTools {
 			
 			clickButton("PrivacyPersonalEmail", "xpath", "xpath");
 			clickButton("PrivacyStakeVisibility", "xpath", "xpath");
+			
+			driver.scrollToExact("Show on Map");
+			
+			clickButton("PrivacyHouseholdPhoto", "xpath", "xpath");
+			clickButton("PrivacyStakeVisibility", "xpath", "xpath");
+			
+			clickButton("PrivacyHouseholdPhone", "xpath", "xpath");
+			clickButton("PrivacyStakeVisibility", "xpath", "xpath");
+			
+			clickButton("PrivacyHouseholdEmail", "xpath", "xpath");
+			clickButton("PrivacyStakeVisibility", "xpath", "xpath");
+			
+			clickButton("PrivacyHouseholdAddress", "xpath", "xpath");
+			clickButton("PrivacyStakeVisibility", "xpath", "xpath");
+			
+			clickButton("PrivacyHouseholdShowOnMap", "xpath", "xpath");
+			clickButton("PrivacyStakeVisibility", "xpath", "xpath");
+	
+			
 		}
 		
 
@@ -7474,6 +7510,7 @@ public class LDSTools {
 	}
 	
 	private void backToDirectory() throws Exception {
+		Thread.sleep(2000);
 		if (getRunningOS().equals("mac")) {
 			pressBackToRoot();
 			clickButtonByXpath("SearchCollapse");
@@ -7482,6 +7519,7 @@ public class LDSTools {
 			clickButtonByXpath("SearchCollapse");
 			clickButton("CollapseButton", "xpath", "xpath");
 		}
+		Thread.sleep(2000);
 	}
 	
 	
