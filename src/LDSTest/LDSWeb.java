@@ -79,7 +79,7 @@ public class LDSWeb {
 	public void openWebPage(String baseURL) {
 		driver.get(baseURL);
 		//Maximize the window
-		driver.manage().window().maximize();
+		//driver.manage().window().maximize();
 	}
 	
 	public void openPageLogIn(String url, String userName, String passWord) throws Exception {
