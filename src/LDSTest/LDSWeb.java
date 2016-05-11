@@ -2,9 +2,12 @@ package LDSTest;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -68,6 +71,11 @@ public class LDSWeb {
 	
 	@Test
 	public void simpleTest() throws Exception {
+		
+		//populateFile();
+		readFile();
+		
+		/*
 		String myUserName = "ldstools2";
 		String myPassword = "toolstester";
 		List<String> myList = new ArrayList<String>();
@@ -75,6 +83,7 @@ public class LDSWeb {
 		for(String oneUser : myList){
 			System.out.println("Found User: " + oneUser);
 		}
+		*/
 		
 	}
 
@@ -1020,6 +1029,119 @@ public class LDSWeb {
 		foundUsers = getMembersHTVT(mySource);
 		
 		tearDown();
+		
+		return foundUsers;
+		
+	}
+	
+	public void populateFile() throws Exception {
+		openGuiMap();
+		setUp();
+		String myFileName = "ConfigFiles/WebData.csv";
+		List<String> foundUsers = new ArrayList<String>();
+		
+		Thread.sleep(4000);
+		//openWebPage("https://uat.lds.org");
+		openWebPage("https://uat.lds.org/mls/mbr/?lang=eng");
+		
+		//openWebPage("https://www.lds.org");
+		Thread.sleep(2000);
+
+		driver.findElement(By.id(this.prop.getProperty("UserName"))).sendKeys("LDSTools2");
+		//Thread.sleep(1000);
+		driver.findElement(By.id(this.prop.getProperty("Password"))).sendKeys("toolstester");
+		clickElement("SignIn", "id");
+		
+		Thread.sleep(4000);
+		clickElement("IAgreeCheck", "id");
+		clickElement("Agree and Continue", "text");
+		Thread.sleep(3000);
+		
+		foundUsers = getAllMembersInOrganizationPopulate("OrganizationsMenu", "High Priests Group", "HighPriestGroupLeadership");
+		
+		try {
+			FileWriter writer = new FileWriter(myFileName);
+			for(String oneUser : foundUsers){
+				System.out.println("Found User: " + oneUser);
+				writer.append("OrganizationsMenu");
+				writer.append(';');
+				writer.append("High Priests Group");
+				writer.append(';');
+				writer.append("HighPriestGroupLeadership");
+				writer.append(';');
+				writer.append(oneUser);
+				writer.append('\n');
+			}
+			
+		    writer.flush();
+		    writer.close();
+				
+		} catch(IOException e) {
+			 e.printStackTrace();
+		}
+		
+		
+	}
+	
+	public void readFile() {
+		String myFileName = "ConfigFiles/WebData.csv";
+		BufferedReader br = null;
+		String line = "";
+		String splitBy = ";";
+		
+		try {
+			br = new BufferedReader(new FileReader(myFileName));
+			while ((line = br.readLine()) != null) {
+				String[] myUser = line.split(splitBy);
+				System.out.println("USER: " + myUser[3]);
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("Done!");
+	}
+	
+
+	public List<String> getAllMembersInOrganizationPopulate(String menuItem, String myReport, String subReport) throws Exception {
+		Boolean myElementCheck;
+		Boolean myReportCheck;
+		String mySource;
+		List<String> foundUsers = new ArrayList<String>();
+
+
+		clickElement(menuItem, "id");
+		Thread.sleep(4000);
+
+		myReportCheck = checkElementExists(myReport, "linkText");
+		if(myReportCheck == false) {
+			myReport = myReport + " 1";
+			System.out.println("My Report: " + myReport	);
+		}
+		
+		clickElement(myReport, "linkText");
+		Thread.sleep(1000);
+		waitForTextToDisappear("Loading", 500, "id" );
+		Thread.sleep(3000);
+		myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
+		
+		//Check to see if the page loaded
+		if (myElementCheck == true ) {
+			System.out.println(myReport + " " + subReport +" Page did not load... Skipping");
+			foundUsers.clear();
+		} else {
+			if (subReport.contains("Member")) {
+				clickElement("Members", "linkText");
+			} else {
+				clickElement("All Organizations", "linkText");
+			}
+			
+			Thread.sleep(2000);
+			mySource = getSourceOfElement(subReport);
+			//mySource = getSourceOfPage();
+			foundUsers = getMembers(mySource);	
+		}
 		
 		return foundUsers;
 		
