@@ -177,7 +177,6 @@ public class LDSTools {
 	        DesiredCapabilities capabilities = new DesiredCapabilities();
 
 	        //capabilities.setCapability(CapabilityType.VERSION, "9.0");
-	        //capabilities.setCapability("platformVersion", "9.1");
 	        //capabilities.setCapability("deviceName","iPhone 5");
 	        
 	        
@@ -194,10 +193,12 @@ public class LDSTools {
 	        capabilities.setCapability("appPackage", "org.lds.ldstools.dev");
 	        //capabilities.setCapability("sendKeysStrategy", "setValue");
 	        capabilities.setCapability("sendKeysStrategy", "grouped");
-	        
 	        capabilities.setCapability("launchTimeout", 90000);
 	        
 	        
+	        //capabilities.setCapability("platformVersion", "9.1");
+	        //capabilities.setCapability("nativeInstrumentsLib", true);
+	       
 	        
 	        //capabilities.setCapability("appActivity", "org.lds.ldstools.ui.StartupActivity");
 	        //driver = new AndroidDriver(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
@@ -216,7 +217,7 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
+		LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
 		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
@@ -258,7 +259,7 @@ public class LDSTools {
 		
 		
 		//Header Tests
-		ChristieWhiting(os);
+		//ChristieWhiting(os);
 		//CliffHigby(os);
 		//KevinPalmer(os);
 		//PatriarchOtherWards(os); //Not working!
@@ -2327,32 +2328,35 @@ public class LDSTools {
 	@Test (groups= {"smoke"}, priority = 1)
 	public void invalidLoginCheck(String os) throws Exception {
 		String errorMessage;
+		String errorMessageService;
 		
 		if (getRunningOS().equals("mac")) {
 			errorMessage = "Sign-In Failed";
+			errorMessageService = "Sign-In Failed";
 		} else {
 			errorMessage = "Incorrect username or password";
+			errorMessageService = "Error";
 		}
 		
 		//Invalid login test
 		syncLogIn("LDSTools2", "<login>", "UAT", os );
 		Thread.sleep(2000);
-		Assert.assertTrue(checkElementReturn(errorMessage, "textAtt", "value"));
-		clickButtonByXpath("AlertOK");	
+		Assert.assertTrue(checkElementReturn(errorMessageService, "textAtt", "value"));
+		clickButton("AlertOK", "id", "xpath");	
 		
 		clearLoginPassword();
 		
 		syncLogIn("LDSTools2", "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&", "UAT", os );
 		Thread.sleep(2000);
 		Assert.assertTrue(checkElementReturn(errorMessage, "textAtt", "value"));
-		clickButtonByXpath("AlertOK");
+		clickButton("AlertOK", "id", "xpath");
 		
 		clearLoginPassword();
 		
 		syncLogIn("0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789", "0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789", "UAT", os );
 		Thread.sleep(2000);
 		Assert.assertTrue(checkElementReturn(errorMessage, "textAtt", "value"));
-		clickButtonByXpath("AlertOK");
+		clickButton("AlertOK", "id", "xpath");
 		
 		clearLoginPassword();
 		
@@ -2368,7 +2372,7 @@ public class LDSTools {
 		syncLogIn("zmaxfield", "%%%test%%%% & ||||||| select * from household;", "Production", os );
 		Thread.sleep(2000);
 		Assert.assertTrue(checkElementReturn(errorMessage, "textAtt", "value"));
-		clickButtonByXpath("AlertOK");
+		clickButton("AlertOK", "id", "xpath");
 		
 		clearLoginPassword();
 		
@@ -4287,21 +4291,6 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			myElement.click();
 			myElement.clear();
-			//Thread.sleep(2000);
-			
-			//clickButtonByName("Select All");
-			//clickButtonByXpath("KeyboardDel");
-			
-			//myElement.sendKeys(Keys.CONTROL + "a");
-			//myElement.sendKeys(Keys.DELETE);
-			//myElement.sendKeys(Keys.BACK_SPACE);
-			
-			//Actions actions = new Actions(driver);
-			//actions.sendKeys(myElement, Keys.chord(Keys.CONTROL, "a"));
-			//actions.sendKeys(myElement, Keys.CONTROL + "a");
-			//actions.sendKeys(myElement, Keys.DELETE);
-			//actions.perform();
-			
 			
 		} else {
 			myElement.click();
@@ -4309,6 +4298,57 @@ public class LDSTools {
 		}
 		
 	}
+	
+	private void clearTextField(String textElement, String andEle, String iosEle  ) {
+
+		WebElement myElement = null;
+		String findElement;
+		if (getRunningOS().equals("mac")) {
+			findElement = iosEle;
+		} else {
+			findElement = andEle;
+		}
+		
+		if (findElement == "id") {
+			myElement = driver.findElement(By.id(this.prop.getProperty(textElement)));
+		}
+		
+		if (findElement == "xpath") {
+			myElement = driver.findElement(By.xpath(this.prop.getProperty(textElement)));
+		}
+		
+		if (findElement == "className")  {
+			myElement = driver.findElement(By.className(this.prop.getProperty(textElement)));
+		}
+
+		if (findElement == "linkText") {
+			myElement = driver.findElement(By.linkText(this.prop.getProperty(textElement)));
+		}
+		
+		if (findElement == "text") {
+			myElement = driver.findElement(By.xpath("//*[contains(text(), '" + textElement + "')]"));
+		} 
+		
+		if (findElement == "value") {
+			myElement = driver.findElement(By.xpath("//*[@value='" + textElement + "']"));
+		} 
+		
+		if (findElement == "name") {
+			myElement = driver.findElement(By.xpath("//*[@name='" + textElement + "']"));
+		} 
+		
+		if (findElement == "textAtt") {
+			myElement = driver.findElement(By.xpath("//*[@text='" + textElement + "']"));
+		} 
+
+		
+		myElement.click();
+		myElement.clear();
+		
+		
+	}
+		
+	
 	
 
 	/** waitForTextToDisappear(String textElement, int myTimeOut)
@@ -7508,8 +7548,8 @@ public class LDSTools {
 	private void clearLoginPassword() throws Exception {
 		//Clear the login and password fields
 		Thread.sleep(2000);
-		clearTextFieldXpath("LoginUsername");
-		clearTextFieldXpath("LoginPassword");
+		clearTextField("LoginUsername", "id", "xpath");
+		clearTextField("LoginPassword", "id", "xpath");
 		Thread.sleep(2000);
 	}
 	
