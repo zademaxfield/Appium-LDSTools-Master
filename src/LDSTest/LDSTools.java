@@ -5959,7 +5959,7 @@ public class LDSTools {
 				clickButtonByXpathTitleName("Expired");
 			}
 			pageSource = getSourceOfPage();
-			Assert.assertTrue(checkNoCaseList("Tutunoa, Lusi", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("Lavea, Meise", pageSource, "Contains"));
 			Assert.assertFalse(checkNoCaseList("Jinn, Qui-Gon", pageSource, "Contains"));
 			//Assert.assertTrue(checkElementTextViewReturn("Tutunoa, Lusi"));
 			//Assert.assertFalse(checkElementTextViewReturn("Jinn, Qui-Gon"));
@@ -5971,7 +5971,7 @@ public class LDSTools {
 				clickButtonByXpathTitleName("Other");
 			}
 			pageSource = getSourceOfPage();
-			Assert.assertTrue(checkNoCaseList("Ami, Lealofi", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("Lavea, Lonise", pageSource, "Contains"));
 			Assert.assertFalse(checkNoCaseList("Calrissian, Lando", pageSource, "Contains"));
 			//Assert.assertTrue(checkElementTextViewReturn("Mene, Matagalu"));
 			//Assert.assertFalse(checkElementTextViewReturn("Calrissian, Lando"));
@@ -5998,7 +5998,7 @@ public class LDSTools {
 		Thread.sleep(1000);
 		//Assert.assertTrue(checkElementTextViewReturnContains("611"));
 		Assert.assertTrue(checkElementTextViewReturnContains("16"));
-		Assert.assertTrue(checkElementTextViewReturnContains("50"));
+		Assert.assertTrue(checkElementTextViewReturnContains("49"));
 		Assert.assertFalse(checkElementTextViewReturnContains("8675309"));
 		pressBackKey();
 	}
