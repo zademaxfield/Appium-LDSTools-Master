@@ -5856,7 +5856,7 @@ public class LDSTools {
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Ward Executive Secretary", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("4 months", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Kitara, Tumua", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Mene, Taavili Maalona", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("P0, C3", pageSource, "Contains"));
 
 		Thread.sleep(1000);
