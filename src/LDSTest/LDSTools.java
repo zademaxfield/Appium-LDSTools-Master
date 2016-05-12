@@ -220,7 +220,7 @@ public class LDSTools {
 		//LeaderNonBishopricTEST("LDSTools27", "Relief Society Pres", os);
 		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		bishopricCounselorAndWardClerk(os);
+		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -245,7 +245,7 @@ public class LDSTools {
 		
 		
 		//Not clearing the username and password on iOS
-		//invalidLoginCheck(os);	
+		invalidLoginCheck(os);	
 		
 		//searchForUsersFromWeb(os);
 
@@ -4997,7 +4997,7 @@ public class LDSTools {
 		System.out.println("User Name: " + userName);
 		if (!getRunningOS().equals("mac")) {
 			if (!chooseNetwork.equals("Production")) {
-				Thread.sleep(1000);
+				Thread.sleep(10000);
 				longPressByTextView("Sign in to your LDS Account");
 				Thread.sleep(1000);
 				longPressByTextView("Sign in to your LDS Account");
