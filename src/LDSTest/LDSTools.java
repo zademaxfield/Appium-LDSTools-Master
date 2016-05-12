@@ -4648,16 +4648,21 @@ public class LDSTools {
 	
 	private void scrollToElementIOS(String myText) throws Exception {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-		WebElement element = driver.findElement(By.xpath("//*[@name='" + myText + "']"));;
-		HashMap<String, String> scrollToObject = new HashMap<String, String>();
-		scrollToObject.put("element",((RemoteWebElement) element).getId());
-		js.executeScript("mobile: scrollTo", scrollToObject);
+		//List<WebElement> options= driver.findElements(By.xpath("//*[@name='" + myText + "']"));
+		WebElement element = driver.findElement(By.xpath("//*[@label='" + myText + "']"));
+
+		HashMap<String, String> scrollObject = new HashMap<String, String>();
+		scrollObject.put("direction", "down");
+		scrollObject.put("element", ((RemoteWebElement) element).getId());
+		js.executeScript("mobile: scroll", scrollObject);
+
 
 	}
 	
 	private void scrollToLastElementIOS(String myText) throws Exception {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-		List<WebElement> options= driver.findElements(By.xpath("//*[@name='" + myText + "']"));
+		//List<WebElement> options= driver.findElements(By.xpath("//*[@name='" + myText + "']"));
+		List<WebElement> options= driver.findElements(By.xpath("//*[@label='" + myText + "']"));
 		WebElement element = options.get(options.size() -1 ) ;
 
 		//WebElement element = driver.findElement(By.xpath("//*[@name='" + myText + "']"));
@@ -4673,7 +4678,7 @@ public class LDSTools {
 		js.executeScript("mobile: scroll", scrollObject);
 
 		
-		element.click();
+		//element.click();
 
 	}
 	
@@ -5779,13 +5784,13 @@ public class LDSTools {
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
 
-		Assert.assertTrue(checkNoCaseList("Isaako, Satalaka", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Fagalilo, Afioga", pageSource, "Contains"));
 
 		//The new unit is only available for bishop
 		if (bishop == true){
-			Assert.assertTrue(checkNoCaseList("pheasant pointe 5th ward", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("Paia Ward", pageSource, "Contains"));
 		} else {
-			Assert.assertFalse(checkNoCaseList("pheasant pointe 5th ward", pageSource, "Contains"));
+			Assert.assertFalse(checkNoCaseList("Paia Ward", pageSource, "Contains"));
 		}
 		Assert.assertFalse(checkNoCaseList("Solo, Han", pageSource, "Equals"));
 		pressBackKey();
@@ -7484,24 +7489,51 @@ public class LDSTools {
 	private void iosExpandAllDirectory() throws Exception {
 		//scrollDownIOS();
 		//Thread.sleep(1000);
-		
 		boolean checkArrowDown;
+		boolean checkForLabel;
+		
+		scrollToLastElementIOS("Open Drawer");
+		
+		checkForLabel = checkElementReturn("OpenHouseholdMembers", "xpath", "xpath");
+		if (checkForLabel == true) {
+			clickButton("OpenHouseholdMembers", "xpath", "xpath");
+			checkForLabel = false;
+		}
+		
+		checkForLabel = checkElementReturn("OpenHTVT", "xpath", "xpath");
+		if (checkForLabel == true) {
+			clickButton("OpenHTVT", "xpath", "xpath");
+			checkForLabel = false;
+		}
+				
+		checkForLabel = checkElementReturn("OpenCallingsAndClasses", "xpath", "xpath");
+		if (checkForLabel == true) {
+			clickButton("OpenCallingsAndClasses", "xpath", "xpath");
+			checkForLabel = false;
+		}		
+		
+		checkForLabel = checkElementReturn("OpenMembershipInfo", "xpath", "xpath");
+		if (checkForLabel == true) {
+			clickButton("OpenMembershipInfo", "xpath", "xpath");
+			checkForLabel = false;
+		}	
+
+		/*
 		//checkArrowDown = checkElementTextViewRoboReturn("\u25BC");
 		checkArrowDown = checkElementReturn("OpenDrawer", "xpath", "xpath");
 		
 		if (checkArrowDown == true ) {
 			while(checkArrowDown == true ) {
-				scrollToLastElementIOS("Open Drawer");
+				//scrollToLastElementIOS("Open Drawer");
+				scrollToElementIOS("Open Drawer");
+				clickButton("OpenDrawer", "xpath", "xpath");
 				Thread.sleep(1000);
 				//checkArrowDown = checkElementTextViewRoboReturn("\u25BC");
 				checkArrowDown = checkElementReturn("OpenDrawer", "xpath", "xpath");
 			}
 		}
 		
-
 		
-		
-		/*
 		boolean checkArrowDown;
 		checkArrowDown = checkElementTextViewRoboReturn("\u25BC");
 		if (checkArrowDown == true ) {
