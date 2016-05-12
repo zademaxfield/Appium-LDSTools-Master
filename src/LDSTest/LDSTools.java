@@ -217,8 +217,8 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		//LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
-		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
+		//LeaderNonBishopricTEST("LDSTools27", "Relief Society Pres", os);
+		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
@@ -1307,13 +1307,13 @@ public class LDSTools {
 		//Check the reports - leadership only - true for bishopric rights, false for leaders and remove
 		//checkReports for non-leaders
 		checkReports(false, false);
-		
+		*/
 		
 		Thread.sleep(1000);
 		//Check Home Teaching - Visiting Teaching
 		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
 		checkHTVTBasic(userCalling);
-		*/
+		
 		
 		Thread.sleep(1000);
 		//Check Home Teaching - Visiting Teaching Household - Sisters and Filters
@@ -6140,11 +6140,11 @@ public class LDSTools {
 			clickButtonByXpathTitleName("Potential Visiting Teachers");
 			Thread.sleep(2000);
 			if (getRunningOS().equals("mac")) {
-				Assert.assertTrue(checkElementTextViewReturnContains("AFPEighteen, Member"));
+				Assert.assertTrue(checkElementTextViewReturnContains("AFPFourteen, Member"));
 				Assert.assertTrue(checkElementTextViewReturnContains("AFPMisc, Member14"));
 				Assert.assertTrue(checkElementTextViewReturnContains("AFPMisc, Member12"));
 			} else {
-				Assert.assertTrue(checkElementTextViewReturnContains("AFPEighteen, Member"));
+				Assert.assertTrue(checkElementTextViewReturnContains("AFPFourteen, Member"));
 				Assert.assertTrue(checkElementTextViewReturnContains("AFPMisc, Member14"));
 				Assert.assertTrue(checkElementTextViewReturnContains("AFPMisc, Member12"));
 			}
