@@ -461,7 +461,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"smoke", "elders quorum"}, priority = 1)
+	@Test (groups= {"elders quorum"}, priority = 1)
 	public void EldersQuorumPresident(String os) throws Exception {
 		LeaderNonBishopric("LDSTools21", "Elders Quorum Pres", os);
 	}
@@ -521,7 +521,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"smoke", "young men"}, priority = 1)
+	@Test (groups= {"young men"}, priority = 1)
 	public void YoungMenPresident(String os) throws Exception {
 		LeaderNonBishopric("LDSTools31", "Ward Council", os);
 	}
@@ -545,7 +545,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"smoke", "young women"}, priority = 1)
+	@Test (groups= {"young women"}, priority = 1)
 	public void YoungWomenPresident(String os) throws Exception {
 		LeaderNonBishopric("LDSTools35", "Ward Council", os);
 	}
@@ -645,7 +645,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"smoke", "primary"}, priority = 1)
+	@Test (groups= {"primary"}, priority = 1)
 	public void PrimaryPresident(String os) throws Exception {
 		LeaderNonBishopric("LDSTools43", "Ward Council", os);
 	}
