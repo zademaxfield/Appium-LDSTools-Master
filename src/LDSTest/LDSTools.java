@@ -1303,13 +1303,14 @@ public class LDSTools {
 		//Check Missionary drawer items - all user access
 		checkMissionary();
 		
-		*/
+		
 		
 		Thread.sleep(1000);
 		//Check the reports - leadership only - true for bishopric rights, false for leaders and remove
 		//checkReports for non-leaders
 		checkReports(false, false);
 		
+		*/
 		
 		Thread.sleep(1000);
 		//Check Home Teaching - Visiting Teaching
