@@ -218,9 +218,9 @@ public class LDSTools {
 		//justForTesting(os);	
 
 		//LeaderNonBishopricTEST("LDSTools27", "Relief Society Pres", os);
-		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
+		LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		bishopricCounselorAndWardClerk(os);
+		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -1303,11 +1303,13 @@ public class LDSTools {
 		//Check Missionary drawer items - all user access
 		checkMissionary();
 		
+		*/
+		
 		Thread.sleep(1000);
 		//Check the reports - leadership only - true for bishopric rights, false for leaders and remove
 		//checkReports for non-leaders
 		checkReports(false, false);
-		*/
+		
 		
 		Thread.sleep(1000);
 		//Check Home Teaching - Visiting Teaching
@@ -5854,7 +5856,7 @@ public class LDSTools {
 		}
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Ward Executive Secretary", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("4 months", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("5 months", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Mene, Taavili Maalona", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("P0, C3", pageSource, "Contains"));
 
