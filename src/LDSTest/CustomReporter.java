@@ -30,6 +30,7 @@ public class CustomReporter implements IReporter{
 			System.out.println("Error in creating writer: " + e);
 		}
 		
+		
 		startHtml();
 		print("Suites run: " + suites.size());
 		for (ISuite suite : suites) {
