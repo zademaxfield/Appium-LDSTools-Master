@@ -1,8 +1,11 @@
 package LDSTest;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.AssertJUnit;
+import org.testng.ITestContext;
 import org.testng.ITestResult;
+import org.testng.TestRunner;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -208,7 +211,6 @@ public class LDSTools {
 		}
        
     }	
-
 	
     
 	@Parameters({"os"})
@@ -218,10 +220,10 @@ public class LDSTools {
 		//justForTesting(os);	
 
 		//LeaderNonBishopricTEST("LDSTools27", "Relief Society Pres", os);
-		LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
+		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
-		//bishopMemberOfSeparateStake(os);	
+		bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
 		
@@ -718,14 +720,8 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("MEMBERSHIP INFORMATION", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("888-0028-7066", pageSource, "Contains"));
 		
-		if (getRunningOS().equals("mac")){
-			pressBackKey();
-		}
-		
-		pressBackKey();
-		Thread.sleep(1000);
-		//Collapse the search 
-		clickButtonByXpath("SearchCollapse");
+		backToDirectory();
+
 		Thread.sleep(1000);
 		checkDirectoryUser(false, false, false, false, false, false );
 		
@@ -782,13 +778,8 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("Confirmation", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("May 5, 2005", pageSource, "Contains"));
 
-		if (getRunningOS().equals("mac")) {
-			pressBackKey();
-		}
-		pressBackKey();
-		//Collapse the search 
-		Thread.sleep(1000);
-		clickButtonByXpath("SearchCollapse");
+		backToDirectory();
+
 		
 		//Check Directory user - should be able to view everything
 		checkDirectoryUser(true, true, true, true, true, true);
@@ -3033,17 +3024,10 @@ public class LDSTools {
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
 		
-		//Search for logged in user
-		searchForUser("Beck, Tim & Jessica");
-
-		Assert.assertTrue(checkElementReturn("Tim Beck (41)", "textAtt", "value"));
-		Assert.assertTrue(checkElementReturn("Jessica Beck (38)", "textAtt", "value"));
-		
-		Thread.sleep(1000);
-		pressBackKey();
-		
-		//Collapse the search 
-		clickButtonByXpath("SearchCollapse");
+		Thread.sleep(2000);
+		checkDirectoryForUser();
+		//checkAllWardDirectories();
+		Thread.sleep(2000);
 		
 
 		drawerSignOut();
