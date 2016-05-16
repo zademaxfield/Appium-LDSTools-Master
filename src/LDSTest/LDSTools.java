@@ -221,9 +221,9 @@ public class LDSTools {
 
 		//LeaderNonBishopricTEST("LDSTools27", "Relief Society Pres", os);
 		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
-		//under18HeadofHouse(os);	
+		under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
-		bishopMemberOfSeparateStake(os);	
+		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
 		
@@ -708,7 +708,7 @@ public class LDSTools {
 			Assert.assertTrue(checkNoCaseList("Tools", pageSource, "Contains"));
 			Assert.assertTrue(checkNoCaseList("LDS6", pageSource, "Contains"));
 		} else {
-			clickButtonByXpathTitleName("Tools, LDS6");
+			//clickButtonByXpathTitleName("Tools, LDS6");
 			pageSource = androidGetMemberInfo();
 			Assert.assertTrue(checkNoCaseList("Tools, LDS6", pageSource, "Equals"));
 		}
@@ -719,7 +719,7 @@ public class LDSTools {
 
 		Assert.assertTrue(checkNoCaseList("MEMBERSHIP INFORMATION", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("888-0028-7066", pageSource, "Contains"));
-		
+		Thread.sleep(1000);
 		backToDirectory();
 
 		Thread.sleep(1000);
