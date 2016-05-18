@@ -7788,7 +7788,7 @@ public class LDSTools {
 			takeScreenShot();
 		}
 		
-		
+		/*
 		if (getRunningOS().equals("mac")) {
 
 		} else {
@@ -7796,6 +7796,7 @@ public class LDSTools {
 			driver.removeApp("org.lds.ldstools.dev");
 
 		}
+		*/
 
 
 		driver.quit();
