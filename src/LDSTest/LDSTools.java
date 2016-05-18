@@ -147,8 +147,8 @@ public class LDSTools {
 	        //capabilities.setCapability("automationName","selendroid");
 	        capabilities.setCapability("newCommandTimeout", 600);
 	        //capabilities.setCapability("platformVersion", "5.1.1");
-	        capabilities.setCapability("fullReset", false);
-	        capabilities.setCapability("noReset", true);
+	        capabilities.setCapability("fullReset", true);
+	        //capabilities.setCapability("noReset", true);
 	        capabilities.setCapability("app", app.getAbsolutePath());
 	        capabilities.setCapability("appPackage", "org.lds.ldstools.dev");
 	        //capabilities.setCapability("appActivity", "org.lds.ldstools.ui.StartupActivity");
@@ -218,12 +218,12 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		justForTesting(os);	
+		//justForTesting(os);	
 
 		//LeaderNonBishopricTEST("LDSTools27", "Relief Society Pres", os);
 		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		//bishopricCounselorAndWardClerk(os);
+		bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
