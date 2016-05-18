@@ -73,6 +73,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
 //import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 //import org.openqa.selenium.WebDriver;
@@ -217,11 +218,11 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		//justForTesting(os);	
+		justForTesting(os);	
 
 		//LeaderNonBishopricTEST("LDSTools27", "Relief Society Pres", os);
 		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
-		under18HeadofHouse(os);	
+		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
@@ -303,65 +304,31 @@ public class LDSTools {
 		syncLogIn("LDSTools21", "password1", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
 		
-		openReports();
+		openOrgnizations();
 		
-		//High Priests Households Not Visited
-		clickButtonByXpathTitleName("Home Teaching");
-		clickButtonByXpathTitleName("Households Not Visited");
-		//if (!getRunningOS().equals("mac")) {
-		//	clickButtonByXpath("3Months");
-		//}
-		getHTVTReport("High Priests Group" , "HouseholdsNotVisited", userCalling);
-		
-		if (getRunningOS().equals("mac")) {
-			pressBackKey();
-		}
-
+		Assert.assertTrue(checkFirstDirectoryUser());
+		driver.rotate(ScreenOrientation.LANDSCAPE);
 		Thread.sleep(1000);
-		pressBackKey();
-		Thread.sleep(1000);
-		pressBackKey();
 		
-		//Elders Quorum Households Not Visited
-		clickButtonByXpathTitleName("Home Teaching");
-		clickLastTextViewRoboReturnContains("Households Not Visited");
-		if (!getRunningOS().equals("mac")) {
-			clickButtonByXpath("3Months");
-		}
-		getHTVTReport("Elders Quorum" , "HouseholdsNotVisited", userCalling);
-		
-		if (getRunningOS().equals("mac")) {
-			pressBackKey();
-		}
+		Assert.assertTrue(checkFirstDirectoryUser());
+		driver.rotate(ScreenOrientation.PORTRAIT);
 		Thread.sleep(1000);
-		pressBackKey();
-		Thread.sleep(1000);
-		pressBackKey();
+		Assert.assertTrue(checkFirstDirectoryUser());
 		
-		if (getRunningOS().equals("mac")) {
-			clickButtonByXpathTitleName("Visiting Teaching");
-		} else {
-			//scrollDownTEST(100);
-			driver.scrollToExact("Visiting Teaching");
-			clickButtonByXpathTitleName("Visiting Teaching");
-		}
-		Thread.sleep(2000);
-		//Visiting Teaching
-		clickButtonByXpathTitleName("Sisters Not Contacted");
-		if (!getRunningOS().equals("mac")) {
-			clickButtonByXpath("3Months");
-		}
-		getHTVTReport("Relief Society" , "HouseholdsNotVisited", userCalling);
+		clickButtonByXpathTitleName("Bishopric");
 		
-		if (getRunningOS().equals("mac")) {
-			pressBackKey();
-		}
+		Assert.assertTrue(checkFirstDirectoryUser());
+		driver.rotate(ScreenOrientation.LANDSCAPE);
 		Thread.sleep(1000);
-		pressBackKey();
-		Thread.sleep(1000);
-		pressBackKey();
 		
-
+		Assert.assertTrue(checkFirstDirectoryUser());
+		driver.rotate(ScreenOrientation.PORTRAIT);
+		Thread.sleep(1000);
+		Assert.assertTrue(checkFirstDirectoryUser());
+		
+		
+		
+		
 		//checkWebMemberInfo("LDSTools23", "password1", "Aaron, Jane");
 		
 		/*
@@ -6949,7 +6916,8 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			myString = driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[1]/UIAStaticText[1]")).getText();
 		} else {
-			myString = driver.findElement(By.xpath("//android.widget.TextView[@resource-id='org.lds.ldstools.dev:id/text1'][1]")).getText();
+			//myString = driver.findElement(By.xpath("//android.widget.TextView[@resource-id='org.lds.ldstools.dev:id/text1'][1]")).getText();
+			myString = driver.findElement(By.xpath("//android.widget.RelativeLayout[@resource-id='org.lds.ldstools.dev:id/top_layout']//android.widget.TextView")).getText();
 		}
 		
 													   
