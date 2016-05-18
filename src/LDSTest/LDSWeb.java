@@ -73,6 +73,7 @@ public class LDSWeb {
 	public void simpleTest() throws Exception {
 		
 		//populateFile();
+		//Thread.sleep(5000);
 		readFile();
 		
 		/*
@@ -1093,6 +1094,9 @@ public class LDSWeb {
 			br = new BufferedReader(new FileReader(myFileName));
 			while ((line = br.readLine()) != null) {
 				String[] myUser = line.split(splitBy);
+				System.out.println("Zero: " + myUser[0]);
+				System.out.println("One: " + myUser[1]);
+				System.out.println("Two: " + myUser[2]);
 				System.out.println("USER: " + myUser[3]);
 			}
 			
