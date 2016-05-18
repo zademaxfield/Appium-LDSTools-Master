@@ -147,7 +147,7 @@ public class LDSTools {
 	        //capabilities.setCapability("automationName","selendroid");
 	        capabilities.setCapability("newCommandTimeout", 600);
 	        //capabilities.setCapability("platformVersion", "5.1.1");
-	        capabilities.setCapability("fullReset", true);
+	        //capabilities.setCapability("fullReset", true);
 	        //capabilities.setCapability("noReset", true);
 	        capabilities.setCapability("app", app.getAbsolutePath());
 	        capabilities.setCapability("appPackage", "org.lds.ldstools.dev");
