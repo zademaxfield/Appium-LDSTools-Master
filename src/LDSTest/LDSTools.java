@@ -223,7 +223,7 @@ public class LDSTools {
 		//LeaderNonBishopricTEST("LDSTools27", "Relief Society Pres", os);
 		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		bishopricCounselorAndWardClerk(os);
+		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -299,35 +299,47 @@ public class LDSTools {
 	
 	
 	public void justForTesting(String os) throws Exception {
-		String userCalling = "Elders Quorum Pres";
+		LDSWeb myWeb = new LDSWeb();
+		//Data from Web page
+		List<String> myList = new ArrayList<String>();
+		
+		//Data from android list
+		List<String> androidList = new ArrayList<String>();
+		
 		
 		syncLogIn("LDSTools21", "password1", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
 		
-		openOrgnizations();
+		openReports();
 		
-		Assert.assertTrue(checkFirstDirectoryUser());
-		driver.rotate(ScreenOrientation.LANDSCAPE);
+		clickButtonByXpathTitleName("Members Moved Out");
 		Thread.sleep(1000);
 		
-		Assert.assertTrue(checkFirstDirectoryUser());
-		driver.rotate(ScreenOrientation.PORTRAIT);
+		
+		//Check web data vs LDS Tools
+		myWeb.openPageLogIn("https://uat.lds.org/mls/mbr/?lang=eng", myUserName, myPassword);
+		myList = myWeb.getAllMembersInReport("ReportsMenu", "Members Moved Out", "MembersMovedOut", false);
+		compareWebData(myList, androidList, true);
+		
+		pressBackKey();
+
+		//TODO: Problems with differences in formatting the report
+		/*
+		clickButtonByXpathTitleName("Members Moved In");
 		Thread.sleep(1000);
-		Assert.assertTrue(checkFirstDirectoryUser());
 		
-		clickButtonByXpathTitleName("Bishopric");
+		myList = myWeb.getAllMembersInReport("ReportsMenu", "Members Moved In", "MembersMovedIn", false);
+		compareWebData(myList, androidList, true);
 		
-		Assert.assertTrue(checkFirstDirectoryUser());
-		driver.rotate(ScreenOrientation.LANDSCAPE);
+
+		pressBackKey();
+		*/
+
+		clickButtonByXpathTitleName("Members with Callings");
 		Thread.sleep(1000);
 		
-		Assert.assertTrue(checkFirstDirectoryUser());
-		driver.rotate(ScreenOrientation.PORTRAIT);
-		Thread.sleep(1000);
-		Assert.assertTrue(checkFirstDirectoryUser());
-		
-		
-		
+		myList = myWeb.getAllMembersInReport("OrganizationsMenu", "Members with Callings", "MemberswithCallings", true);
+		compareWebData(myList, androidList, true);
 		
 		//checkWebMemberInfo("LDSTools23", "password1", "Aaron, Jane");
 		
@@ -1323,7 +1335,9 @@ public class LDSTools {
 		clickButton("MenuSave", "id", "xpath");
 		//myKeyboardClear();
 		
-		Thread.sleep(3000);
+		waitForTextToDisappear("EditSaving", 500);
+
+		Thread.sleep(6000);
 		
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("LDS44 Tools (36)");
@@ -2363,6 +2377,38 @@ public class LDSTools {
 		clearTextFieldXpath("LoginPassword");
 		*/
 	}
+	
+	//TODO: Need to check more pages
+	public void RotateTest(String os) throws Exception {
+		syncLogIn("LDSTools21", "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+		
+		openOrgnizations();
+		
+		Assert.assertTrue(checkFirstDirectoryUser());
+		driver.rotate(ScreenOrientation.LANDSCAPE);
+		Thread.sleep(1000);
+		
+		Assert.assertTrue(checkFirstDirectoryUser());
+		driver.rotate(ScreenOrientation.PORTRAIT);
+		Thread.sleep(1000);
+		Assert.assertTrue(checkFirstDirectoryUser());
+		
+		clickButtonByXpathTitleName("Bishopric");
+		
+		Assert.assertTrue(checkFirstDirectoryUser());
+		driver.rotate(ScreenOrientation.LANDSCAPE);
+		Thread.sleep(1000);
+		
+		Assert.assertTrue(checkFirstDirectoryUser());
+		driver.rotate(ScreenOrientation.PORTRAIT);
+		Thread.sleep(1000);
+		Assert.assertTrue(checkFirstDirectoryUser());
+		
+	}
+	
+	
+	
 	
 	@Parameters({"os"})
 	@Test (groups= {"header"}, priority = 3)
@@ -3704,13 +3750,13 @@ public class LDSTools {
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Elders Quorum", "EldersQuorumPresidency", myUserName, myPassword);
 		compareWebData(myList, androidList, true);
 		
-		//pressBackKey();
+		pressBackKey();
 		//clickButtonByXpathTitleName("Home Teaching District Supervisors");
 
 		//myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Elders Quorum", "EldersQuorumDistrictSupervisors", myUserName, myPassword);
 		//compareWebData(myList, androidList, false);
 
-		pressBackKey();
+		//pressBackKey();
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("All Elders Quorum Members");
 		} else {
