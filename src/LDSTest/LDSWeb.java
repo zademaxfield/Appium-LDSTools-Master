@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -72,8 +73,9 @@ public class LDSWeb {
 	@Test
 	public void simpleTest() throws Exception {
 		
-		//populateFile();
-		//Thread.sleep(5000);
+		populateFile();
+		Thread.sleep(5000);
+		System.out.println("READ FILE: ");
 		readFile();
 		
 		/*
@@ -395,6 +397,36 @@ public class LDSWeb {
 		
 	}
 	
+	private List<String> getMembersMovedOut(String pageSource){
+		List<String> foundUsers = new ArrayList<String>();
+		Document doc = Jsoup.parse(pageSource);
+		Elements myTest = doc.getElementsByAttributeValueStarting("class", "fn name ng-binding");
+		String outerHTML;
+		
+		for (Element myElement : myTest ) {
+			outerHTML = myElement.text();
+			if (outerHTML.contains(",")) {
+				if (outerHTML.contains("Jr")){
+					outerHTML = outerHTML.replace(" Jr", ", Jr");
+				}
+				foundUsers.add(outerHTML);
+			}
+			//System.out.println("Outer HTML:" + outerHTML);
+		}
+		
+		
+		
+		for(String oneUser : foundUsers){
+			System.out.println("Found User: " + oneUser);
+			
+		}
+		
+		
+		return foundUsers;
+		
+	}
+	
+	
 	private List<String> getMembersHTVT(String pageSource){
 		List<String> foundUsers = new ArrayList<String>();
 		List<String> removeUsers = new ArrayList<String>();
@@ -660,6 +692,65 @@ public class LDSWeb {
 		return foundUsers;
 		
 	}
+	
+	public List<String> getAllMembersInReport(String menuItem, String myReport, String subReport, Boolean newSession) throws Exception {
+		Boolean myElementCheck;
+		Boolean myReportCheck;
+		String mySource;
+		List<String> foundUsers = new ArrayList<String>();
+		
+		
+		Thread.sleep(2000);
+		clickElement(menuItem, "id");
+		Thread.sleep(4000);
+		//clickElement("Member List", "linkText");
+		myReportCheck = checkElementExists(myReport, "linkText");
+		if(myReportCheck == false) {
+			myReport = myReport + " 1";
+			System.out.println("My Report: " + myReport	);
+		}
+		
+		clickElement(myReport, "linkText");
+		Thread.sleep(1000);
+		waitForTextToDisappear("Loading", 500, "id" );
+		Thread.sleep(3000);
+		myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
+		
+		//Check to see if the page loaded
+		//TODO: Need to have a few samples for each report or file with last know good data
+		if (myElementCheck == true ) {
+			System.out.println(myReport + " " + subReport +" Page did not load... Skipping");
+			foundUsers.clear();
+		} else {
+			if (subReport.equals("MembersMovedOut")) {
+				Thread.sleep(2000);
+				mySource = getSourceOfElement(subReport);
+				foundUsers = getMembersMovedOut(mySource);	
+			}
+			
+			if (subReport.equals("MembersMovedIn")) {
+				Thread.sleep(2000);
+				mySource = getSourceOfElement(subReport);
+				foundUsers = getMembers(mySource);	
+			}
+			
+			if (subReport.equals("MemberswithCallings")) {
+				Thread.sleep(2000);
+				mySource = getSourceOfElement(subReport);
+				foundUsers = getMembers(mySource);	
+			}
+			
+			
+
+		}
+		if (newSession == true ) {
+			tearDown();
+		}
+		
+		return foundUsers;
+		
+	}
+	
 	
 	
 	public List<String> getMembersAndAge(String menuItem, String myReport) throws Exception {
@@ -1038,9 +1129,7 @@ public class LDSWeb {
 	public void populateFile() throws Exception {
 		openGuiMap();
 		setUp();
-		String myFileName = "ConfigFiles/WebData.csv";
-		List<String> foundUsers = new ArrayList<String>();
-		
+
 		Thread.sleep(4000);
 		//openWebPage("https://uat.lds.org");
 		openWebPage("https://uat.lds.org/mls/mbr/?lang=eng");
@@ -1058,17 +1147,36 @@ public class LDSWeb {
 		clickElement("Agree and Continue", "text");
 		Thread.sleep(3000);
 		
-		foundUsers = getAllMembersInOrganizationPopulate("OrganizationsMenu", "High Priests Group", "HighPriestGroupLeadership");
+		
+		//Get Organization Data
+		//High Priests Group
+		getAllMembersInOrganizationPopulate("OrganizationsMenu", "High Priests Group", "HighPriestGroupLeadership");
+		getAllMembersInOrganizationPopulate("OrganizationsMenu", "High Priests Group", "HighPriestGroupDistrictSupervisors");
+		getAllMembersInOrganizationPopulate("OrganizationsMenu", "High Priests Group", "HighPriestGroupMembers");
+		
+		//Elders Quorum
+		getAllMembersInOrganizationPopulate("OrganizationsMenu", "Elders Quorum", "EldersQuorumPresidency");
+		getAllMembersInOrganizationPopulate("OrganizationsMenu", "Elders Quorum", "EldersQuorumDistrictSupervisors");
+		getAllMembersInOrganizationPopulate("OrganizationsMenu", "Elders Quorum", "EldersQuorumMembers");
+
+		
+		
+	}
+	
+	public void writeToFile(String menuItem, String myReport, String subReport, List<String> foundUsers) {
+		
+		String myFileName = "ConfigFiles/WebData.csv";
+		//List<String> foundUsers = new ArrayList<String>();
 		
 		try {
-			FileWriter writer = new FileWriter(myFileName);
+			FileWriter writer = new FileWriter(myFileName, true);
 			for(String oneUser : foundUsers){
 				System.out.println("Found User: " + oneUser);
-				writer.append("OrganizationsMenu");
+				writer.append(menuItem);
 				writer.append(';');
-				writer.append("High Priests Group");
+				writer.append(myReport);
 				writer.append(';');
-				writer.append("HighPriestGroupLeadership");
+				writer.append(subReport);
 				writer.append(';');
 				writer.append(oneUser);
 				writer.append('\n');
@@ -1080,8 +1188,50 @@ public class LDSWeb {
 		} catch(IOException e) {
 			 e.printStackTrace();
 		}
-		
-		
+	}
+	
+    public void removeLineFromFile(String lineToRemove) {
+    	String file = "ConfigFiles/WebData.csv";
+		try {
+			File inFile = new File(file);
+			if (!inFile.isFile()) {
+				System.out.println("Parameter is not an existing file");
+				return;
+			}
+			//Construct the new file that will later be renamed to the original filename.
+			File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
+			
+			String line = null;
+			//Read from the original file and write to the new
+			//unless content matches data to be removed.
+			while ((line = br.readLine()) != null) {
+				if (!line.trim().contains(lineToRemove)) {
+					pw.println(line);
+					pw.flush();
+				}
+			}
+			
+			pw.close();
+			br.close();
+			
+			
+			//Delete the original file
+			if (!inFile.delete()) {
+				System.out.println("Could not delete file");
+				return;
+			}
+			
+			//Rename the new file to the filename the original file had.
+			if (!tempFile.renameTo(inFile)){
+				System.out.println("Could not rename file");
+			}
+		} catch (FileNotFoundException ex) {
+			ex.printStackTrace();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
 	}
 	
 	public void readFile() {
@@ -1108,7 +1258,7 @@ public class LDSWeb {
 	}
 	
 
-	public List<String> getAllMembersInOrganizationPopulate(String menuItem, String myReport, String subReport) throws Exception {
+	public void getAllMembersInOrganizationPopulate(String menuItem, String myReport, String subReport) throws Exception {
 		Boolean myElementCheck;
 		Boolean myReportCheck;
 		String mySource;
@@ -1147,7 +1297,10 @@ public class LDSWeb {
 			foundUsers = getMembers(mySource);	
 		}
 		
-		return foundUsers;
+		removeLineFromFile(subReport);
+		writeToFile(menuItem, myReport, subReport, foundUsers);
+		
+		clickElement("HomeButton", "xpath");
 		
 	}
 
