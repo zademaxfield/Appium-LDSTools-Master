@@ -20,6 +20,7 @@ OrganizationsMenu;High Priests Group;HighPriestGroupMembers;AFPSeven, Husband
 OrganizationsMenu;High Priests Group;HighPriestGroupMembers;AFPSeventeen, Member
 OrganizationsMenu;High Priests Group;HighPriestGroupMembers;AFPThirteen, Member
 OrganizationsMenu;High Priests Group;HighPriestGroupMembers;AFPThree, Husband
+OrganizationsMenu;High Priests Group;HighPriestGroupMembers;Ah Kam, Siteni
 OrganizationsMenu;High Priests Group;HighPriestGroupMembers;Ami, Samu
 OrganizationsMenu;High Priests Group;HighPriestGroupMembers;Anderson, Edward
 OrganizationsMenu;High Priests Group;HighPriestGroupMembers;Councilor, Stake High
@@ -273,6 +274,7 @@ OrganizationsMenu;Elders Quorum;EldersQuorumMembers;Neemia, Fitu
 OrganizationsMenu;Elders Quorum;EldersQuorumMembers;Neemia, Saunoa
 OrganizationsMenu;Elders Quorum;EldersQuorumMembers;Numia, Tavale
 OrganizationsMenu;Elders Quorum;EldersQuorumMembers;Pati, Liligi
+OrganizationsMenu;Elders Quorum;EldersQuorumMembers;Peterson, Colt
 OrganizationsMenu;Elders Quorum;EldersQuorumMembers;Poai, Mikaele
 OrganizationsMenu;Elders Quorum;EldersQuorumMembers;Sa, Seti
 OrganizationsMenu;Elders Quorum;EldersQuorumMembers;Sasaa, Vini
@@ -297,3 +299,31 @@ OrganizationsMenu;Elders Quorum;EldersQuorumMembers;Wilson, Dylan
 OrganizationsMenu;Elders Quorum;EldersQuorumMembers;Wilson, Kesi Voli Joseph
 OrganizationsMenu;Elders Quorum;EldersQuorumMembers;Young Yen, Johnny Junior
 OrganizationsMenu;Elders Quorum;EldersQuorumMembers;Young Yen, Olo Junior
+OrganizationsMenu;Young Men;YoungMenPresidency;Poai, Mikaele
+OrganizationsMenu;Young Men;YoungMenPresidency;Tools, LDS32
+OrganizationsMenu;Young Men;YoungMenPresidency;Tools, LDS33
+OrganizationsMenu;Young Men;YoungMenPresidency;Tools, LDS34
+OrganizationsMenu;Young Men;PriestsQuorum;Ami, Samu
+OrganizationsMenu;Young Men;PriestsQuorum;Tulia, Tiueni
+OrganizationsMenu;Young Men;PriestsQuorum;Matulino-Ioane, Tau
+OrganizationsMenu;Young Men;TeachersQuorum;Young Yen, Kuinise Junior Johnny
+OrganizationsMenu;Young Men;TeachersQuorum;Numia, Taufusi
+OrganizationsMenu;Young Men;TeachersQuorum;Venasio, Muaautasiiasalafai
+OrganizationsMenu;Young Men;DeaconsQuorum;Faapili, Muipu Jnr
+OrganizationsMenu;Young Men;DeaconsQuorum;Young Yen, Titus Miracle
+OrganizationsMenu;Young Men;DeaconsQuorum;Tavita, Mauga
+OrganizationsMenu;Young Women;YoungWomenPresidency;Tutunoa, Lusi
+OrganizationsMenu;Young Women;YoungWomenPresidency;Kitara, Etevise
+OrganizationsMenu;Young Women;YoungWomenPresidency;Ami, Lealofi
+OrganizationsMenu;Young Women;YoungWomenPresidency;Tuu Mika, Fotu
+OrganizationsMenu;Young Women;Laurel;Lealaiauloto, Fiona-alofi
+OrganizationsMenu;Young Women;MiaMaid;Tavita, Tasima
+OrganizationsMenu;Young Women;Beehive;Ami, Christian
+OrganizationsMenu;Young Women;Beehive;Fepuleai, Pirianna Jannetie
+OrganizationsMenu;Young Women;Beehive;Maiava, Perolini Numia
+OrganizationsMenu;Sunday School;SundaySchoolPresidency;Lealaiauloto, Uana Iosefa Sao
+OrganizationsMenu;Sunday School;SundaySchoolPresidency;Apofasa, Sasa'a
+OrganizationsMenu;Primary;PrimaryPresidency;Faamoe, Talalelagi
+OrganizationsMenu;Primary;PrimaryPresidency;Fepuleai, Malele Seuamuli
+OrganizationsMenu;Primary;PrimaryPresidency;Tulia, Faagalo
+OrganizationsMenu;Primary;PrimaryPresidency;Wilson, Tina
