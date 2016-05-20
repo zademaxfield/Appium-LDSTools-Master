@@ -221,7 +221,7 @@ public class LDSTools {
 		//justForTesting(os);	
 
 		//LeaderNonBishopricTEST("LDSTools27", "Relief Society Pres", os);
-		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
+		LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
