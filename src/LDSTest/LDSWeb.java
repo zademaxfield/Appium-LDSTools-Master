@@ -1112,7 +1112,7 @@ public class LDSWeb {
 		//This take a long time to load and doesn't have the loading tag
 		Thread.sleep(2000);
 		
-		
+		clickElement("OptionsButton", "xpath");
 		clickElement(myReport, "id");
 
 		Thread.sleep(5000);
@@ -1158,8 +1158,29 @@ public class LDSWeb {
 		getAllMembersInOrganizationPopulate("OrganizationsMenu", "Elders Quorum", "EldersQuorumPresidency");
 		getAllMembersInOrganizationPopulate("OrganizationsMenu", "Elders Quorum", "EldersQuorumDistrictSupervisors");
 		getAllMembersInOrganizationPopulate("OrganizationsMenu", "Elders Quorum", "EldersQuorumMembers");
-
 		
+		//Relief Society
+		getAllMembersInOrganizationPopulate("OrganizationsMenu", "Relief Society", "ReliefSocietyPresidency");
+		getAllMembersInOrganizationPopulate("OrganizationsMenu", "Relief Society", "VisitingTeachingSupervisors");
+		getAllMembersInOrganizationPopulate("OrganizationsMenu", "Relief Society", "ReliefSocietyMembers");
+
+		//Young Men
+		getAllMembersInOrganizationPopulate("OrganizationsMenu", "Young Men", "YoungMenPresidency");
+		getAllMembersInOrganizationPopulate("OrganizationsMenu", "Young Men", "PriestsQuorum");
+		getAllMembersInOrganizationPopulate("OrganizationsMenu", "Young Men", "TeachersQuorum");
+		getAllMembersInOrganizationPopulate("OrganizationsMenu", "Young Men", "DeaconsQuorum");
+		
+		//Young Women
+		getAllMembersInOrganizationPopulate("OrganizationsMenu", "Young Women", "YoungWomenPresidency");
+		getAllMembersInOrganizationPopulate("OrganizationsMenu", "Young Women", "Laurel");
+		getAllMembersInOrganizationPopulate("OrganizationsMenu", "Young Women", "MiaMaid");
+		getAllMembersInOrganizationPopulate("OrganizationsMenu", "Young Women", "Beehive");
+		
+		//Sunday School
+		getAllMembersInOrganizationPopulate("OrganizationsMenu", "Sunday School", "SundaySchoolPresidency");
+		
+		//Primary 
+		getAllMembersInOrganizationPopulate("OrganizationsMenu", "Primary", "PrimaryPresidency");
 		
 	}
 	
