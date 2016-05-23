@@ -109,6 +109,7 @@ import com.thoughtworks.selenium.Wait;
 public class LDSTools {
 	private Properties prop;
 	AppiumDriver<WebElement> driver;
+	LDSWeb myWeb = new LDSWeb();
 	//AppiumDriver driver;
 	//AppiumDriver driver;
 	TouchActions touch;
@@ -299,7 +300,7 @@ public class LDSTools {
 	
 	
 	public void justForTesting(String os) throws Exception {
-		LDSWeb myWeb = new LDSWeb();
+		//LDSWeb myWeb = new LDSWeb();
 		//Data from Web page
 		List<String> myList = new ArrayList<String>();
 		
@@ -794,7 +795,7 @@ public class LDSTools {
 	@Parameters({"os"})
 	@Test (groups= {"web"}, priority = 2, enabled = false)
 	public void searchForUsersFromWeb(String os) throws Exception {
-		LDSWeb myWeb = new LDSWeb();
+		//LDSWeb myWeb = new LDSWeb();
 		//Data from Web page
 		List<String> myList = new ArrayList<String>();
 		
@@ -819,7 +820,8 @@ public class LDSTools {
 		
 		
 		//Go to web and get all users
-		myList = myWeb.getAllMembersOnPage("ReportsMenu", "Member List", myUserName, myPassword);
+		myWeb.openPageLogIn("https://uat.lds.org/mls/mbr/?lang=eng", myUserName, myPassword);
+		myList = myWeb.getAllMembersOnPage("ReportsMenu", "Member List", true);
 		
 
 
@@ -861,7 +863,7 @@ public class LDSTools {
 	@Parameters({"os"})
 	@Test (groups= {"web"}, priority = 2, enabled = false)
 	public void webCheckBishopric(String os ) throws Exception {
-		LDSWeb myWeb = new LDSWeb();
+		//LDSWeb myWeb = new LDSWeb();
 		//Data from Web page
 		List<String> myList = new ArrayList<String>();
 		
@@ -883,7 +885,7 @@ public class LDSTools {
 		
 		
 		//Go to web and get all users
-		myList = myWeb.getAllMembersOnPage("OrganizationsMenu", "Bishopric", myUserName, myPassword);
+		myList = myWeb.getAllMembersOnPage("OrganizationsMenu", "Bishopric", true);
 		compareWebData(myList, androidList, true);
 
 	}
@@ -891,7 +893,7 @@ public class LDSTools {
 	@Parameters({"os"})
 	@Test (groups= {"web"}, priority = 2)
 	public void webCheckHighPriestsGroup(String os ) throws Exception {
-		LDSWeb myWeb = new LDSWeb();
+		//LDSWeb myWeb = new LDSWeb();
 		//Data from Web page
 		List<String> myList = new ArrayList<String>();
 		
@@ -915,13 +917,14 @@ public class LDSTools {
 		
 		
 		//Check web data vs LDS Tools
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "High Priests Group", "HighPriestGroupLeadership", myUserName, myPassword);
+		myWeb.openPageLogIn("https://uat.lds.org/mls/mbr/?lang=eng", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "High Priests Group", "HighPriestGroupLeadership", false);
 		compareWebData(myList, androidList, true);
 		
 		pressBackKey();
 		clickButtonByXpathTitleName("Home Teaching District Supervisors");
 
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "High Priests Group", "HighPriestGroupDistrictSupervisors", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "High Priests Group", "HighPriestGroupDistrictSupervisors", false);
 		compareWebData(myList, androidList, true);
 
 		pressBackKey();
@@ -931,14 +934,14 @@ public class LDSTools {
 			clickButtonByXpathTitleName("All Members");
 		}
 
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "High Priests Group", "HighPriestGroupMembers", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "High Priests Group", "HighPriestGroupMembers", true);
 		compareWebData(myList, androidList, true);
 	}
 	
 	@Parameters({"os"})
 	@Test (groups= {"web"}, priority = 2, enabled = false)
 	public void webCheckEldersQuorum(String os ) throws Exception {
-		LDSWeb myWeb = new LDSWeb();
+		//LDSWeb myWeb = new LDSWeb();
 		//Data from Web page
 		List<String> myList = new ArrayList<String>();
 		
@@ -956,7 +959,8 @@ public class LDSTools {
 		
 		
 		//Check web data vs LDS Tools
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Elders Quorum", "EldersQuorumPresidency", myUserName, myPassword);
+		myWeb.openPageLogIn("https://uat.lds.org/mls/mbr/?lang=eng", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Elders Quorum", "EldersQuorumPresidency", false);
 		compareWebData(myList, androidList, true);
 		
 		//pressBackKey();
@@ -973,7 +977,7 @@ public class LDSTools {
 		}
 
 
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Elders Quorum", "EldersQuorumMembers", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Elders Quorum", "EldersQuorumMembers", true);
 		compareWebData(myList, androidList, true);
 		
 	}
@@ -981,7 +985,7 @@ public class LDSTools {
 	@Parameters({"os"})
 	@Test (groups= {"web"}, priority = 2, enabled = false)
 	public void webCheckReliefSociety(String os ) throws Exception {
-		LDSWeb myWeb = new LDSWeb();
+		//LDSWeb myWeb = new LDSWeb();
 		//Data from Web page
 		List<String> myList = new ArrayList<String>();
 		
@@ -999,13 +1003,14 @@ public class LDSTools {
 		
 		
 		//Check web data vs LDS Tools
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Relief Society", "ReliefSocietyPresidency", myUserName, myPassword);
+		myWeb.openPageLogIn("https://uat.lds.org/mls/mbr/?lang=eng", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Relief Society", "ReliefSocietyPresidency", false);
 		compareWebData(myList, androidList, true);
 		
 		pressBackKey();
 		clickButtonByXpathTitleName("Visiting Teaching");
 
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Relief Society", "VisitingTeachingSupervisors", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Relief Society", "VisitingTeachingSupervisors", false);
 		compareWebData(myList, androidList, true);
 
 		pressBackKey();
@@ -1016,7 +1021,7 @@ public class LDSTools {
 		}
 		
 
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Relief Society", "ReliefSocietyMembers", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Relief Society", "ReliefSocietyMembers", true);
 		compareWebData(myList, androidList, true);
 
 	}
@@ -1025,7 +1030,7 @@ public class LDSTools {
 	@Parameters({"os"})
 	@Test (groups= {"web"}, priority = 2)
 	public void webCheckYoungMen(String os ) throws Exception {
-		LDSWeb myWeb = new LDSWeb();
+		//LDSWeb myWeb = new LDSWeb();
 		//Data from Web page
 		List<String> myList = new ArrayList<String>();
 		
@@ -1044,7 +1049,8 @@ public class LDSTools {
 		
 		
 		//Check web data vs LDS Tools
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "YoungMenPresidency", myUserName, myPassword);
+		myWeb.openPageLogIn("https://uat.lds.org/mls/mbr/?lang=eng", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "YoungMenPresidency", false);
 		compareWebData(myList, androidList, true);
 		
 		pressBackKey();
@@ -1054,7 +1060,7 @@ public class LDSTools {
 		}
 
 
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "PriestsQuorum", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "PriestsQuorum", false);
 		compareWebData(myList, androidList, true);
 
 		if (getRunningOS().equals("mac")) {
@@ -1069,7 +1075,7 @@ public class LDSTools {
 		
 
 		
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "TeachersQuorum", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "TeachersQuorum", false);
 		compareWebData(myList, androidList, true);
 		
 		if (getRunningOS().equals("mac")) {
@@ -1083,14 +1089,14 @@ public class LDSTools {
 		}
 		
 
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "DeaconsQuorum", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "DeaconsQuorum", true);
 		compareWebData(myList, androidList, true);
 	}
 	
 	@Parameters({"os"})
 	@Test (groups= {"web"}, priority = 2)
 	public void webCheckYoungWomen(String os ) throws Exception {
-		LDSWeb myWeb = new LDSWeb();
+		//LDSWeb myWeb = new LDSWeb();
 		//Data from Web page
 		List<String> myList = new ArrayList<String>();
 		
@@ -1109,7 +1115,8 @@ public class LDSTools {
 		
 		
 		//Check web data vs LDS Tools
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "YoungWomenPresidency", myUserName, myPassword);
+		myWeb.openPageLogIn("https://uat.lds.org/mls/mbr/?lang=eng", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "YoungWomenPresidency", false);
 		compareWebData(myList, androidList, true);
 		
 		pressBackKey();
@@ -1119,7 +1126,7 @@ public class LDSTools {
 		}
 
 
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "Laurel", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "Laurel", false);
 		compareWebData(myList, androidList, true);
 
 		if (getRunningOS().equals("mac")) {
@@ -1134,7 +1141,7 @@ public class LDSTools {
 		
 
 		
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "MiaMaid", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "MiaMaid", false);
 		compareWebData(myList, androidList, true);
 		
 		if (getRunningOS().equals("mac")) {
@@ -1148,7 +1155,7 @@ public class LDSTools {
 		}
 		
 
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "Beehive", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "Beehive", true);
 		compareWebData(myList, androidList, true);
 	}
 	
@@ -1159,7 +1166,7 @@ public class LDSTools {
 	@Parameters({"os"})
 	@Test (groups= {"web"}, priority = 2)
 	public void checkAllUsersFromWeb(String os ) throws Exception {
-		LDSWeb myWeb = new LDSWeb();
+		//LDSWeb myWeb = new LDSWeb();
 		//Data from Web page
 		List<String> myList = new ArrayList<String>();
 		
@@ -1189,7 +1196,8 @@ public class LDSTools {
 		
 		
 		//Go to web and get all users
-		myList = myWeb.getAllMembersOnPage("ReportsMenu", "Member List", myUserName, myPassword);
+		myWeb.openPageLogIn("https://uat.lds.org/mls/mbr/?lang=eng", myUserName, myPassword);
+		myList = myWeb.getAllMembersOnPage("ReportsMenu", "Member List", true);
 		compareWebData(myList, androidList, true);
 		
 		/*
@@ -1264,11 +1272,14 @@ public class LDSTools {
 		
 		//Check Drawer Items - If leader there should be a Reports item
 		checkDrawerItems(true);
+		
+		*/
 
 		Thread.sleep(1000);	
 		//Check various callings - all users should be able to access this information
 		checkCallings();
 
+		/*
 		Thread.sleep(1000);
 		//Check Missionary drawer items - all user access
 		checkMissionary();
@@ -1280,7 +1291,7 @@ public class LDSTools {
 		//checkReports for non-leaders
 		checkReports(false, false);
 		
-		*/
+	
 		
 		Thread.sleep(1000);
 		//Check Home Teaching - Visiting Teaching
@@ -1292,6 +1303,7 @@ public class LDSTools {
 		//Check Home Teaching - Visiting Teaching Household - Sisters and Filters
 		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
 		checkHTVTHouseholds(userCalling);
+		*/
 	}
 	
 	
@@ -3672,15 +3684,17 @@ public class LDSTools {
 	
 	public void getBishopricInfo() throws Exception {
 
-		LDSWeb myWeb = new LDSWeb();
+		//LDSWeb myWeb = new LDSWeb();
 		//Data from Web page
 		List<String> myList = new ArrayList<String>();
 		
 		//Data from android list
 		List<String> androidList = new ArrayList<String>();
 		
+		clickButtonByXpathTitleName("Bishopric");
+		
 		//Go to web and get all users
-		myList = myWeb.getAllMembersOnPage("OrganizationsMenu", "Bishopric", myUserName, myPassword);
+		myList = myWeb.getAllMembersOnPage("OrganizationsMenu", "Bishopric", false);
 		compareWebData(myList, androidList, true);
 		
 		pressBackKey();
@@ -3690,7 +3704,7 @@ public class LDSTools {
 	}
 
 	public void getHighPriestsGroupInfo() throws Exception {
-		LDSWeb myWeb = new LDSWeb();
+		//LDSWeb myWeb = new LDSWeb();
 		//Data from Web page
 		List<String> myList = new ArrayList<String>();
 		
@@ -3704,13 +3718,13 @@ public class LDSTools {
 		
 		
 		//Check web data vs LDS Tools
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "High Priests Group", "HighPriestGroupLeadership", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "High Priests Group", "HighPriestGroupLeadership", false);
 		compareWebData(myList, androidList, true);
 		
 		pressBackKey();
 		clickButtonByXpathTitleName("Home Teaching District Supervisors");
 
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "High Priests Group", "HighPriestGroupDistrictSupervisors", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "High Priests Group", "HighPriestGroupDistrictSupervisors", false);
 		compareWebData(myList, androidList, true);
 
 		pressBackKey();
@@ -3720,7 +3734,7 @@ public class LDSTools {
 			clickButtonByXpathTitleName("All Members");
 		}
 
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "High Priests Group", "HighPriestGroupMembers", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "High Priests Group", "HighPriestGroupMembers", false);
 		compareWebData(myList, androidList, true);
 		
 		if(getRunningOS().equals("mac")) {
@@ -3734,7 +3748,7 @@ public class LDSTools {
 	
 
 	public void getEldersQuorum() throws Exception {
-		LDSWeb myWeb = new LDSWeb();
+		//LDSWeb myWeb = new LDSWeb();
 		//Data from Web page
 		List<String> myList = new ArrayList<String>();
 		
@@ -3747,13 +3761,13 @@ public class LDSTools {
 		
 		
 		//Check web data vs LDS Tools
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Elders Quorum", "EldersQuorumPresidency", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Elders Quorum", "EldersQuorumPresidency", false);
 		compareWebData(myList, androidList, true);
 		
 		pressBackKey();
 		//clickButtonByXpathTitleName("Home Teaching District Supervisors");
 
-		//myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Elders Quorum", "EldersQuorumDistrictSupervisors", myUserName, myPassword);
+		//myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Elders Quorum", "EldersQuorumDistrictSupervisors", false);
 		//compareWebData(myList, androidList, false);
 
 		//pressBackKey();
@@ -3764,7 +3778,7 @@ public class LDSTools {
 		}
 
 
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Elders Quorum", "EldersQuorumMembers", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Elders Quorum", "EldersQuorumMembers", false);
 		compareWebData(myList, androidList, true);
 		
 		
@@ -3779,7 +3793,7 @@ public class LDSTools {
 	
 
 	public void getReliefSociety() throws Exception {
-		LDSWeb myWeb = new LDSWeb();
+		//LDSWeb myWeb = new LDSWeb();
 		//Data from Web page
 		List<String> myList = new ArrayList<String>();
 		
@@ -3798,13 +3812,13 @@ public class LDSTools {
 		
 		
 		//Check web data vs LDS Tools
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", ReliefSocietyName, "ReliefSocietyPresidency", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", ReliefSocietyName, "ReliefSocietyPresidency", false);
 		compareWebData(myList, androidList, true);
 		
 		pressBackKey();
 		clickButtonByXpathTitleName("Visiting Teaching");
 
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", ReliefSocietyName, "VisitingTeachingSupervisors", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", ReliefSocietyName, "VisitingTeachingSupervisors", false);
 		compareWebData(myList, androidList, true);
 
 		pressBackKey();
@@ -3816,7 +3830,7 @@ public class LDSTools {
 			
 		}
 
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", ReliefSocietyName, "ReliefSocietyMembers", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", ReliefSocietyName, "ReliefSocietyMembers", false);
 		compareWebData(myList, androidList, true);
 		
 		if(getRunningOS().equals("mac")) {
@@ -3830,7 +3844,7 @@ public class LDSTools {
 
 	
 	public void getYoungMenInfo() throws Exception {
-		LDSWeb myWeb = new LDSWeb();
+		//LDSWeb myWeb = new LDSWeb();
 		//Data from Web page
 		List<String> myList = new ArrayList<String>();
 		
@@ -3843,7 +3857,7 @@ public class LDSTools {
 		
 		
 		//Check web data vs LDS Tools
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "YoungMenPresidency", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "YoungMenPresidency", false);
 		compareWebData(myList, androidList, true);
 		
 		pressBackKey();
@@ -3853,7 +3867,7 @@ public class LDSTools {
 		}
 
 
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "PriestsQuorum", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "PriestsQuorum", false);
 		compareWebData(myList, androidList, true);
 
 		if (getRunningOS().equals("mac")) {
@@ -3866,7 +3880,7 @@ public class LDSTools {
 			clickButtonByXpathTitleName("Teachers Quorum Presidency");
 		}
 
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "TeachersQuorum", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "TeachersQuorum", false);
 		compareWebData(myList, androidList, true);
 		
 		if (getRunningOS().equals("mac")) {
@@ -3880,7 +3894,7 @@ public class LDSTools {
 		}
 		
 
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "DeaconsQuorum", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "DeaconsQuorum", false);
 		compareWebData(myList, androidList, true);
 		
 		if (getRunningOS().equals("mac")) {
@@ -3896,7 +3910,7 @@ public class LDSTools {
 	
 	
 	public void getYoungWomenInfo() throws Exception {
-		LDSWeb myWeb = new LDSWeb();
+		//LDSWeb myWeb = new LDSWeb();
 		//Data from Web page
 		List<String> myList = new ArrayList<String>();
 		
@@ -3909,7 +3923,7 @@ public class LDSTools {
 		
 		
 		//Check web data vs LDS Tools
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "YoungWomenPresidency", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "YoungWomenPresidency", false);
 		compareWebData(myList, androidList, true);
 		
 		pressBackKey();
@@ -3919,7 +3933,7 @@ public class LDSTools {
 		}
 
 
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "Laurel", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "Laurel", false);
 		compareWebData(myList, androidList, true);
 
 		if (getRunningOS().equals("mac")) {
@@ -3934,7 +3948,7 @@ public class LDSTools {
 		
 
 		
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "MiaMaid", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "MiaMaid", false);
 		compareWebData(myList, androidList, true);
 		
 		if (getRunningOS().equals("mac")) {
@@ -3948,7 +3962,7 @@ public class LDSTools {
 		}
 		
 
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "Beehive", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Women", "Beehive", false);
 		compareWebData(myList, androidList, true);
 		
 		if (getRunningOS().equals("mac")) {
@@ -3963,7 +3977,7 @@ public class LDSTools {
 	
 	
 	public void getSundaySchoolInfo() throws Exception {
-		LDSWeb myWeb = new LDSWeb();
+		//LDSWeb myWeb = new LDSWeb();
 		//Data from Web page
 		List<String> myList = new ArrayList<String>();
 		
@@ -3976,7 +3990,7 @@ public class LDSTools {
 		
 		
 		//Check web data vs LDS Tools
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Sunday School", "SundaySchoolPresidency", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Sunday School", "SundaySchoolPresidency", false);
 		compareWebData(myList, androidList, true);
 		
 		pressBackKey();
@@ -3994,7 +4008,7 @@ public class LDSTools {
 	}
 	
 	public void getPrimaryInfo() throws Exception {
-		LDSWeb myWeb = new LDSWeb();
+		//LDSWeb myWeb = new LDSWeb();
 		//Data from Web page
 		List<String> myList = new ArrayList<String>();
 		
@@ -4007,7 +4021,7 @@ public class LDSTools {
 		
 		
 		//Check web data vs LDS Tools
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Primary", "PrimaryPresidency", myUserName, myPassword);
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Primary", "PrimaryPresidency", true);
 		compareWebData(myList, androidList, true);
 		
 		pressBackKey();
@@ -4026,7 +4040,7 @@ public class LDSTools {
 	
 	
 	public void getHTVTReport(String org, String htvtReport, String leaderShip) throws Exception {
-		LDSWeb myWeb = new LDSWeb();
+		//LDSWeb myWeb = new LDSWeb();
 		//Data from Web page
 		List<String> myList = new ArrayList<String>();
 		
@@ -5487,6 +5501,8 @@ public class LDSTools {
 		//clickButtonByXpath("Drawer");
 		//clickButtonByXpath("DrawerCallings");
 		String pageSource;
+		//LDSWeb myWeb = new LDSWeb();
+		
 		openOrgnizations();
 		
 		Thread.sleep(1000);
@@ -5508,12 +5524,8 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("Ward Missionaries", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("Other Callings", pageSource, "Equals"));
 
-		
-		
-		//Bishopric
-		clickButtonByXpathTitleName("Bishopric");
-		Thread.sleep(1000);
-		
+		myWeb.openPageLogIn("https://uat.lds.org/mls/mbr/?lang=eng", myUserName, myPassword);
+	
 		getBishopricInfo();
 
 		getHighPriestsGroupInfo();
@@ -7200,7 +7212,7 @@ public class LDSTools {
 		pinPage("1", "1", "3", "3", true);
 		Thread.sleep(2000);	
 		
-		LDSWeb myWeb = new LDSWeb();
+		//LDSWeb myWeb = new LDSWeb();
 		myList = myWeb.getMemberDetails(userToCheck, loginName, passWord);
 		
 		
