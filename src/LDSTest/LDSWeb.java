@@ -49,6 +49,7 @@ import org.testng.Assert;
 public class LDSWeb {
 	private WebDriver driver;
 	private Properties prop;
+	private String myWindow;
 	
 
 	public static void main(String[] args) {
@@ -123,6 +124,10 @@ public class LDSWeb {
 		Thread.sleep(4000);
 		clickElement("IAgreeCheck", "id");
 		clickElement("Agree and Continue", "text");
+		
+		clickElement("HomeButton", "xpath");
+		
+		myWindow = driver.getWindowHandle();
 	}
 	
 	public void clickElement( String elementName, String elementFind) {
@@ -584,32 +589,15 @@ public class LDSWeb {
 	}
 	
 	
-	public List<String> getAllMembersOnPage(String menuItem, String myReport, String myUserName, String myPassword) throws Exception {
-		openGuiMap();
-		setUp();
-		
-		myUserName = "LDSTools2";
-		myPassword = "toolstester";
-		
+	public List<String> getAllMembersOnPage(String menuItem, String myReport, Boolean newSession) throws Exception {		
 		String mySource;
 		List<String> foundUsers = new ArrayList<String>();
-		Thread.sleep(4000);
-		//openWebPage("https://uat.lds.org");
-		openWebPage("https://uat.lds.org/mls/mbr/?lang=eng");
 		
-		//openWebPage("https://www.lds.org");
-		Thread.sleep(2000);
-
-		driver.findElement(By.id(this.prop.getProperty("UserName"))).sendKeys(myUserName);
-		//Thread.sleep(1000);
-		driver.findElement(By.id(this.prop.getProperty("Password"))).sendKeys(myPassword);
-		clickElement("SignIn", "id");
-		
-		Thread.sleep(4000);
-		clickElement("IAgreeCheck", "id");
-		clickElement("Agree and Continue", "text");
-
+		//driver.switchTo().window(myWindow);
+		System.out.println("Menu Item: " + menuItem);
+	
 		//clickElement("ReportsMenu", "id");
+		Thread.sleep(2000);
 		clickElement(menuItem, "id");
 		Thread.sleep(4000);
 		//clickElement("Member List", "linkText");
@@ -619,38 +607,25 @@ public class LDSWeb {
 		mySource = getSourceOfPage();
 		foundUsers = getMembers(mySource);
 		
-		tearDown();
+		clickElement("HomeButton", "xpath");
+		
+		if (newSession == true ) {
+			tearDown();
+		}
 		
 		return foundUsers;
 		
 	}
 	
-	public List<String> getAllMembersInOrganization(String menuItem, String myReport, String subReport, String userName, String passWord) throws Exception {
-		openGuiMap();
-		setUp();
+	public List<String> getAllMembersInOrganization(String menuItem, String myReport, String subReport, Boolean newSession) throws Exception {
 		Boolean myElementCheck;
 		Boolean myReportCheck;
 		
 		
 		String mySource;
 		List<String> foundUsers = new ArrayList<String>();
-		Thread.sleep(4000);
-		//openWebPage("https://uat.lds.org");
-		openWebPage("https://uat.lds.org/mls/mbr/?lang=eng");
 		
-		//openWebPage("https://www.lds.org");
 		Thread.sleep(2000);
-
-		driver.findElement(By.id(this.prop.getProperty("UserName"))).sendKeys(userName);
-		//Thread.sleep(1000);
-		driver.findElement(By.id(this.prop.getProperty("Password"))).sendKeys(passWord);
-		clickElement("SignIn", "id");
-		
-		Thread.sleep(4000);
-		clickElement("IAgreeCheck", "id");
-		clickElement("Agree and Continue", "text");
-		Thread.sleep(3000);
-		//clickElement("ReportsMenu", "id");
 		clickElement(menuItem, "id");
 		Thread.sleep(4000);
 		//clickElement("Member List", "linkText");
@@ -688,7 +663,12 @@ public class LDSWeb {
 			foundUsers = getMembers(mySource);	
 		}
 		
-		tearDown();
+		clickElement("HomeButton", "xpath");
+		
+		if (newSession == true ) {
+			tearDown();
+		}
+		
 		return foundUsers;
 		
 	}
@@ -743,6 +723,9 @@ public class LDSWeb {
 			
 
 		}
+		
+		clickElement("HomeButton", "xpath");
+		
 		if (newSession == true ) {
 			tearDown();
 		}
