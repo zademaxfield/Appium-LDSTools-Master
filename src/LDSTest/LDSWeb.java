@@ -653,6 +653,9 @@ public class LDSWeb {
 		} else {
 			if (subReport.contains("Member")) {
 				clickElement("Members", "linkText");
+				if (myReport.contains("Sunday School")) {
+					clickElement("All Organizations", "linkText");
+				}
 			} else {
 				clickElement("All Organizations", "linkText");
 			}
