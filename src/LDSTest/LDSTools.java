@@ -224,7 +224,7 @@ public class LDSTools {
 		//LeaderNonBishopricTEST("LDSTools27", "Relief Society Pres", os);
 		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		//bishopricCounselorAndWardClerk(os);
+		bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -3992,19 +3992,52 @@ public class LDSTools {
 		//Check web data vs LDS Tools
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Sunday School", "SundaySchoolPresidency", false);
 		compareWebData(myList, androidList, true);
-		
 		pressBackKey();
 		
-		//Need to get info on each of the classes....
-		//Right now iOS and Android are showing the data differently
-		//If there is no teacher the class is not showing up in Android
-		
-		
+		sundaySchoolClassSub("Gospel Doctrine", "GospelDoctrine");
+		sundaySchoolClassSub("Course 17", "Course17");
+		sundaySchoolClassSub("Course 16", "Course16");
+		sundaySchoolClassSub("Course 15", "Course15");
+		sundaySchoolClassSub("Course 14", "Course14");
+		sundaySchoolClassSub("Course 13", "Course13");
+		sundaySchoolClassSub("Course 12", "Course12");
+
 		
 		Thread.sleep(1000);
 		pressBackKey();
 	
 	
+	}
+	
+	public void sundaySchoolClassSub(String className, String subReport) throws Exception {
+		List<String> myList = new ArrayList<String>();
+		//Data from android list
+		List<String> androidList = new ArrayList<String>();
+		String macAllMembers = "All " + className + " Members";
+		String classAllMembers = subReport + "Members";
+		
+		
+		clickButtonByXpathTitleName(className);
+		
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Sunday School", subReport, false);
+		compareWebData(myList, androidList, true);
+		
+	
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName(macAllMembers);
+		} else {
+			clickButtonByXpathTitleName("All Members");
+		}
+		
+		
+		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Sunday School", classAllMembers, false);
+		compareWebData(myList, androidList, true);
+		if (getRunningOS().equals("mac")) {
+			pressBackKey();
+		}
+		pressBackKey();
+		
+		
 	}
 	
 	public void getPrimaryInfo() throws Exception {
@@ -6009,7 +6042,7 @@ public class LDSTools {
 		Thread.sleep(1000);
 		//Assert.assertTrue(checkElementTextViewReturnContains("611"));
 		Assert.assertTrue(checkElementTextViewReturnContains("16"));
-		Assert.assertTrue(checkElementTextViewReturnContains("50"));
+		Assert.assertTrue(checkElementTextViewReturnContains("51"));
 		Assert.assertFalse(checkElementTextViewReturnContains("8675309"));
 		pressBackKey();
 	}
