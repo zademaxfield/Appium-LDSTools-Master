@@ -594,11 +594,14 @@ public class LDSWeb {
 		List<String> foundUsers = new ArrayList<String>();
 		
 		//driver.switchTo().window(myWindow);
+		if (menuItem.equals("OrganizationsMenu")) {
+			menuItem = "Organizations";
+		}
 		System.out.println("Menu Item: " + menuItem);
 	
 		//clickElement("ReportsMenu", "id");
-		Thread.sleep(2000);
-		clickElement(menuItem, "id");
+		Thread.sleep(4000);
+		clickElement(menuItem, "linkText");
 		Thread.sleep(4000);
 		//clickElement("Member List", "linkText");
 		clickElement(myReport, "linkText");
@@ -626,7 +629,12 @@ public class LDSWeb {
 		List<String> foundUsers = new ArrayList<String>();
 		
 		Thread.sleep(2000);
-		clickElement(menuItem, "id");
+		if (menuItem.equals("OrganizationsMenu")) {
+			menuItem = "Organizations";
+		}
+		
+		
+		clickElement(menuItem, "linkText");
 		Thread.sleep(4000);
 		//clickElement("Member List", "linkText");
 		myReportCheck = checkElementExists(myReport, "linkText");
@@ -682,9 +690,12 @@ public class LDSWeb {
 		String mySource;
 		List<String> foundUsers = new ArrayList<String>();
 		
+		if (menuItem.equals("ReportsMenu")) {
+			menuItem = "Reports";
+		}
 		
 		Thread.sleep(2000);
-		clickElement(menuItem, "id");
+		clickElement(menuItem, "linkText");
 		Thread.sleep(4000);
 		//clickElement("Member List", "linkText");
 		myReportCheck = checkElementExists(myReport, "linkText");
@@ -975,8 +986,8 @@ public class LDSWeb {
 		openPageLogIn(url, userName, passWord);
 
 		//clickElement("ReportsMenu", "id");
-		
-		clickElement("OrganizationsMenu", "id");
+		//clickElement("OrganizationsMenu", "id");
+		clickElement("Organizations", "linkText");
 		
 		if (leaderShip.equals("High Priest Group") && (orgName.equals("High Priests Group")))  {
 			
