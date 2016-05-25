@@ -6041,8 +6041,8 @@ public class LDSTools {
 		checkForAlertOK();
 		Thread.sleep(1000);
 		//Assert.assertTrue(checkElementTextViewReturnContains("611"));
-		Assert.assertTrue(checkElementTextViewReturnContains("16"));
-		Assert.assertTrue(checkElementTextViewReturnContains("51"));
+		Assert.assertTrue(checkElementTextViewReturnContains("17"));
+		Assert.assertTrue(checkElementTextViewReturnContains("50"));
 		Assert.assertFalse(checkElementTextViewReturnContains("8675309"));
 		pressBackKey();
 	}
