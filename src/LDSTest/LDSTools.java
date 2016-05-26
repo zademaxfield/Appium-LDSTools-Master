@@ -249,7 +249,7 @@ public class LDSTools {
 		
 		
 		//Not clearing the username and password on iOS
-		invalidLoginCheck(os);	
+		//invalidLoginCheck(os);	
 		
 		//searchForUsersFromWeb(os);
 
@@ -263,6 +263,7 @@ public class LDSTools {
 		
 		
 		//RotateTest(os);
+		rerunSyncTest(os);
 		
 		
 		
@@ -2306,6 +2307,38 @@ public class LDSTools {
 		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("test@test.com", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
+	}
+	
+	
+	public void rerunSyncTest(String os) throws Exception {
+		for (int i = 1; i < 50; i++) {
+			System.out.println("Counter: " + i);
+			syncLogIn("LDSTools14", "toolstester", "UAT", os );
+			Thread.sleep(2000);
+			pinPage("1", "1", "3", "3", true);
+			Thread.sleep(2000);
+			Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
+			drawerSignOut();
+		}
+		
+		
+		/*
+		syncLogIn("LDSTools14", "toolstester", "UAT", os );
+		Thread.sleep(2000);
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);
+		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
+	
+		
+		
+		for (int i = 1; i < 25; i++) {
+			System.out.println("Counter: " + i);
+			runSync();
+			Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
+		}
+		*/
+
+		
 	}
 	
 	
@@ -7039,6 +7072,7 @@ public class LDSTools {
 		}
 		
 		for (int i = 0 ; i < myCounter; i++ ) {
+			System.out.println("Text To Check: " + textToCheck.get(i) + "   Original Text: " + origText.get(i));
 			Assert.assertEquals(textToCheck.get(i), origText.get(i));
 		}
 		
@@ -7062,7 +7096,7 @@ public class LDSTools {
 
 		if (getRunningOS().equals("mac")) {
 			//options = driver.findElements(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[1]/UIAStaticText[1]"));
-			options = driver.findElements(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[1]/UIAStaticText"));
+			options = driver.findElements(By.xpath("//UIAApplication/UIAWindow/UIATableView/UIATableCell/UIAStaticText"));
 		} else {
 			//myString = driver.findElement(By.xpath("//android.widget.TextView[@resource-id='org.lds.ldstools.dev:id/text1'][1]")).getText();
 			options = driver.findElements(By.xpath("//android.widget.RelativeLayout[@resource-id='org.lds.ldstools.dev:id/top_layout']//android.widget.TextView"));
@@ -7073,7 +7107,7 @@ public class LDSTools {
 		for (int i = 0 ; i < options.size(); i++ ) {
 			//System.out.println(options.get(i).getText());
 			myText = options.get(i).getText();
-			System.out.println("DEBUG Text: " + myText);
+			//System.out.println("DEBUG Text: " + myText);
 			allText.add(myText);
 			//allText.add(i, options.get(i).getText());
 		}
@@ -7940,6 +7974,11 @@ public class LDSTools {
 		// Here will compare if test is failing then only it will enter into if condition
 		if(ITestResult.FAILURE==result.getStatus()) {
 			takeScreenShot();
+			System.out.println("Orientation: " + driver.getOrientation().value());
+			if (driver.getOrientation().value() == "landscape") {
+				driver.rotate(ScreenOrientation.PORTRAIT);
+			}
+			
 		}
 		
 		/*
