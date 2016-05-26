@@ -224,7 +224,7 @@ public class LDSTools {
 		//LeaderNonBishopricTEST("LDSTools27", "Relief Society Pres", os);
 		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		bishopricCounselorAndWardClerk(os);
+		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -249,7 +249,7 @@ public class LDSTools {
 		
 		
 		//Not clearing the username and password on iOS
-		//invalidLoginCheck(os);	
+		invalidLoginCheck(os);	
 		
 		//searchForUsersFromWeb(os);
 
@@ -260,6 +260,10 @@ public class LDSTools {
 		
 		//webCheckYoungMen(os);
 		//webCheckYoungWomen(os); //Remove the skipping "Salvador"
+		
+		
+		//RotateTest(os);
+		
 		
 		
 		//Header Tests
@@ -2314,36 +2318,24 @@ public class LDSTools {
 	@Parameters({"os"})
 	@Test (groups= {"smoke"}, priority = 1)
 	public void invalidLoginCheck(String os) throws Exception {
-		String errorMessage;
-		String errorMessageService;
-		
-		if (getRunningOS().equals("mac")) {
-			errorMessage = "Sign-In Failed";
-			errorMessageService = "Sign-In Failed";
-		} else {
-			errorMessage = "Incorrect username or password";
-			errorMessageService = "Error";
-		}
+
 		
 		//Invalid login test
 		syncLogIn("LDSTools2", "<login>", "UAT", os );
 		Thread.sleep(2000);
-		Assert.assertTrue(checkElementReturn(errorMessageService, "textAtt", "value"));
-		clickButton("AlertOK", "id", "xpath");	
+		CheckInvalidAlert();
 		
 		clearLoginPassword();
 		
 		syncLogIn("LDSTools2", "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&", "UAT", os );
 		Thread.sleep(2000);
-		Assert.assertTrue(checkElementReturn(errorMessage, "textAtt", "value"));
-		clickButton("AlertOK", "id", "xpath");
+		CheckInvalidAlert();
 		
 		clearLoginPassword();
 		
 		syncLogIn("0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789", "0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789", "UAT", os );
 		Thread.sleep(2000);
-		Assert.assertTrue(checkElementReturn(errorMessage, "textAtt", "value"));
-		clickButton("AlertOK", "id", "xpath");
+		CheckInvalidAlert();
 		
 		clearLoginPassword();
 		
@@ -2358,8 +2350,7 @@ public class LDSTools {
 		
 		syncLogIn("zmaxfield", "%%%test%%%% & ||||||| select * from household;", "Production", os );
 		Thread.sleep(2000);
-		Assert.assertTrue(checkElementReturn(errorMessage, "textAtt", "value"));
-		clickButton("AlertOK", "id", "xpath");
+		CheckInvalidAlert();
 		
 		clearLoginPassword();
 		
@@ -2389,6 +2380,31 @@ public class LDSTools {
 		clearTextFieldXpath("LoginPassword");
 		*/
 	}
+	public void CheckInvalidAlert() throws Exception {
+		
+		String errorMessage;
+		String errorMessageService;
+		
+		if (getRunningOS().equals("mac")) {
+			errorMessage = "Sign-In Failed";
+			errorMessageService = "Error";
+		} else {
+			errorMessage = "Incorrect username or password";
+			errorMessageService = "Error";
+		}
+		
+		if (checkElementReturn(errorMessageService, "textAtt", "value") == true) {
+			Assert.assertTrue(checkElementReturn(errorMessageService, "textAtt", "value"));
+		} else {
+			Assert.assertTrue(checkElementReturn(errorMessage, "textAtt", "value"));
+		}
+		
+		clickButton("AlertOK", "id", "xpath");	
+		
+		if (getRunningOS().equals("mac")) {
+			clickButton("AlertOK", "id", "xpath");	
+		}
+	}
 	
 	//TODO: Need to check more pages
 	public void RotateTest(String os) throws Exception {
@@ -2397,25 +2413,11 @@ public class LDSTools {
 		
 		openOrgnizations();
 		
-		Assert.assertTrue(checkFirstDirectoryUser());
-		driver.rotate(ScreenOrientation.LANDSCAPE);
-		Thread.sleep(1000);
-		
-		Assert.assertTrue(checkFirstDirectoryUser());
-		driver.rotate(ScreenOrientation.PORTRAIT);
-		Thread.sleep(1000);
-		Assert.assertTrue(checkFirstDirectoryUser());
+		RotateAndCheckText();
 		
 		clickButtonByXpathTitleName("Bishopric");
 		
-		Assert.assertTrue(checkFirstDirectoryUser());
-		driver.rotate(ScreenOrientation.LANDSCAPE);
-		Thread.sleep(1000);
-		
-		Assert.assertTrue(checkFirstDirectoryUser());
-		driver.rotate(ScreenOrientation.PORTRAIT);
-		Thread.sleep(1000);
-		Assert.assertTrue(checkFirstDirectoryUser());
+		RotateAndCheckText();
 		
 	}
 	
@@ -6477,7 +6479,7 @@ public class LDSTools {
 			clickButton("MenuFilter", "id", "xpath");
 			clickButton("AssignedHomeTeachersBox", "id", "xpath");
 			myOS = getRunningOS();
-			System.out.println("Running OS: " + myOS);
+			//System.out.println("Running OS: " + myOS);
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
 				checkText("HTVTFiltersApplied", "Assigned Home Teachers", "id", "xpath");
@@ -7021,6 +7023,64 @@ public class LDSTools {
 		
 		return myReturnStatus;
 	}
+	
+	private void RotateAndCheckText() throws Exception{
+		List<String> origText = new ArrayList<String>();
+		List<String> textToCheck = new ArrayList<String>();
+		origText = GetTextForElements();
+		int myCounter = 3;
+		
+		driver.rotate(ScreenOrientation.LANDSCAPE);
+		Thread.sleep(1000);
+		
+		textToCheck = GetTextForElements();
+		if (textToCheck.size() < 3 ) {
+			myCounter = textToCheck.size();
+		}
+		
+		for (int i = 0 ; i < myCounter; i++ ) {
+			Assert.assertEquals(textToCheck.get(i), origText.get(i));
+		}
+		
+		driver.rotate(ScreenOrientation.PORTRAIT);
+		Thread.sleep(1000);
+
+		textToCheck = GetTextForElements();
+		if (textToCheck.size() < 3 ) {
+			myCounter = textToCheck.size();
+		}
+		
+		for (int i = 0 ; i < myCounter; i++ ) {
+			Assert.assertEquals(textToCheck.get(i), origText.get(i));
+		}
+													   
+	}
+	
+	private List<String> GetTextForElements() {
+		List<WebElement> options;
+		List<String> allText = new ArrayList<String>();
+
+		if (getRunningOS().equals("mac")) {
+			//options = driver.findElements(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[1]/UIAStaticText[1]"));
+			options = driver.findElements(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[1]/UIAStaticText"));
+		} else {
+			//myString = driver.findElement(By.xpath("//android.widget.TextView[@resource-id='org.lds.ldstools.dev:id/text1'][1]")).getText();
+			options = driver.findElements(By.xpath("//android.widget.RelativeLayout[@resource-id='org.lds.ldstools.dev:id/top_layout']//android.widget.TextView"));
+		}
+		
+		
+		String myText;
+		for (int i = 0 ; i < options.size(); i++ ) {
+			//System.out.println(options.get(i).getText());
+			myText = options.get(i).getText();
+			System.out.println("DEBUG Text: " + myText);
+			allText.add(myText);
+			//allText.add(i, options.get(i).getText());
+		}
+		
+		return allText;
+	}
+	
 	
 	
 	private void drawerSignOut() throws Exception {
@@ -7675,10 +7735,13 @@ public class LDSTools {
 		Thread.sleep(2000);
 		if (getRunningOS().equals("mac")) {
 			pressBackToRoot();
+			Thread.sleep(1000);
 			clickButtonByXpath("SearchCollapse");
 		} else {
 			pressBackToRoot();
+			Thread.sleep(1000);
 			clickButtonByXpath("SearchCollapse");
+			Thread.sleep(1000);
 			clickButton("CollapseButton", "xpath", "xpath");
 		}
 		Thread.sleep(2000);
