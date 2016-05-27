@@ -263,7 +263,7 @@ public class LDSTools {
 		
 		
 		//RotateTest(os);
-		rerunSyncTest(os);
+		//rerunSyncTest(os);
 		
 		
 		
@@ -2311,6 +2311,7 @@ public class LDSTools {
 	
 	
 	public void rerunSyncTest(String os) throws Exception {
+		
 		for (int i = 1; i < 50; i++) {
 			System.out.println("Counter: " + i);
 			syncLogIn("LDSTools14", "toolstester", "UAT", os );
@@ -2322,6 +2323,7 @@ public class LDSTools {
 		}
 		
 		
+		
 		/*
 		syncLogIn("LDSTools14", "toolstester", "UAT", os );
 		Thread.sleep(2000);
@@ -2331,13 +2333,13 @@ public class LDSTools {
 	
 		
 		
-		for (int i = 1; i < 25; i++) {
+		for (int i = 1; i < 50 ; i++) {
 			System.out.println("Counter: " + i);
 			runSync();
 			Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
 		}
+		
 		*/
-
 		
 	}
 	
@@ -7974,10 +7976,10 @@ public class LDSTools {
 		// Here will compare if test is failing then only it will enter into if condition
 		if(ITestResult.FAILURE==result.getStatus()) {
 			takeScreenShot();
-			System.out.println("Orientation: " + driver.getOrientation().value());
-			if (driver.getOrientation().value() == "landscape") {
-				driver.rotate(ScreenOrientation.PORTRAIT);
-			}
+			//System.out.println("Orientation: " + driver.getOrientation().value());
+			//if (driver.getOrientation().value() == "landscape") {
+			//	driver.rotate(ScreenOrientation.PORTRAIT);
+			//}
 			
 		}
 		
