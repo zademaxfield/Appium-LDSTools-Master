@@ -2310,8 +2310,10 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os", "numberOfRetries"})
-	@Test (groups= {"retrySync"}, priority = 2)
+	@Test (groups= {"retrySync"}, priority = 2, enabled = false)
 	public void rerunSyncTest(String os, int numberOfRetires) throws Exception {
+		
+		System.out.println("Number of Retries: " + numberOfRetires);
 		
 		for (int i = 1; i < numberOfRetires; i++) {
 			System.out.println("Counter: " + i);
