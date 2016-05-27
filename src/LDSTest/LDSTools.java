@@ -263,7 +263,7 @@ public class LDSTools {
 		
 		
 		//RotateTest(os);
-		//rerunSyncTest(os);
+		//rerunSyncTest(os, 3);
 		
 		
 		
@@ -2309,10 +2309,11 @@ public class LDSTools {
 		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
 	}
 	
-	
-	public void rerunSyncTest(String os) throws Exception {
+	@Parameters({"os", "numberOfRetries"})
+	@Test (groups= {"retrySync"}, priority = 2)
+	public void rerunSyncTest(String os, int numberOfRetires) throws Exception {
 		
-		for (int i = 1; i < 50; i++) {
+		for (int i = 1; i < numberOfRetires; i++) {
 			System.out.println("Counter: " + i);
 			syncLogIn("LDSTools14", "toolstester", "UAT", os );
 			Thread.sleep(2000);
@@ -6876,7 +6877,7 @@ public class LDSTools {
 			} else {
 				pressBackKey();
 			}
-			Assert.assertTrue(checkElementReturn("Smith, Ferila", "textAtt", "value"));
+			//Assert.assertTrue(checkElementReturn("Smith, Ferila", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("Tuipoloa, Arieta", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("Tuipoloa, Taimi", "textAtt", "value"));
 			if (!getRunningOS().equals("mac")) {
