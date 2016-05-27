@@ -6,6 +6,13 @@
       <parameter name="fileName" value="LDS Tools.app" />
       <parameter name="testDevice" value="iPhone 6" />
       
+      <groups>
+          <run>
+              <exclude name="retrySync"/>
+              <exclude name="jft"/>
+          </run>
+      </groups>
+      
       <listeners>
           <listener class-name="LDSTest.RetryListener"/>  
           <listener class-name= "LDSTest.CustomReporter" />
