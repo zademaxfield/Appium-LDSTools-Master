@@ -1278,13 +1278,13 @@ public class LDSTools {
 		//Check Drawer Items - If leader there should be a Reports item
 		checkDrawerItems(true);
 		
-		*/
+		
 
 		Thread.sleep(1000);	
 		//Check various callings - all users should be able to access this information
 		checkCallings();
 
-		/*
+		
 		Thread.sleep(1000);
 		//Check Missionary drawer items - all user access
 		checkMissionary();
@@ -1295,7 +1295,7 @@ public class LDSTools {
 		//Check the reports - leadership only - true for bishopric rights, false for leaders and remove
 		//checkReports for non-leaders
 		checkReports(false, false);
-		
+		*/
 	
 		
 		Thread.sleep(1000);
@@ -1308,7 +1308,7 @@ public class LDSTools {
 		//Check Home Teaching - Visiting Teaching Household - Sisters and Filters
 		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
 		checkHTVTHouseholds(userCalling);
-		*/
+	
 	}
 	
 	
