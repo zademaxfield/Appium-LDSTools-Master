@@ -376,7 +376,8 @@ public class LDSWeb {
 	private List<String> getMembers(String pageSource){
 		List<String> foundUsers = new ArrayList<String>();
 		Document doc = Jsoup.parse(pageSource);
-		Elements myTest = doc.getElementsByAttributeValueStarting("class", "member-card-remote");
+		//Elements myTest = doc.getElementsByAttributeValueStarting("class", "member-card-remote");
+		Elements myTest = doc.getElementsByAttributeValueStarting("class", "ng-binding");
 		String outerHTML;
 		
 		for (Element myElement : myTest ) {
