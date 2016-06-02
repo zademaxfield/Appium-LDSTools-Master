@@ -221,8 +221,8 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		LeaderNonBishopricTEST("LDSTools27", "Relief Society Pres", os);
-		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
+		//LeaderNonBishopricTEST("LDSTools27", "Relief Society Pres", os);
+		LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
@@ -1277,7 +1277,7 @@ public class LDSTools {
 		
 		//Check Drawer Items - If leader there should be a Reports item
 		checkDrawerItems(true);
-		*/
+		
 		
 
 		Thread.sleep(1000);	
@@ -1295,7 +1295,7 @@ public class LDSTools {
 		//Check the reports - leadership only - true for bishopric rights, false for leaders and remove
 		//checkReports for non-leaders
 		checkReports(false, false);
-		
+		*/
 	
 		
 		Thread.sleep(1000);
@@ -2477,13 +2477,6 @@ public class LDSTools {
 		Thread.sleep(2000);
 		
 		checkAllWardDirectories();
-		
-		//clickButtonByXpath("Drawer");
-		//clickButtonByXpath("DrawerHELP");
-		//Thread.sleep(2000);
-		//clickButtonByXpath("About");
-		//Assert.assertTrue(checkElementTextViewReturnContains("ChristieWhiting"));
-		
 		
 		drawerSignOut();
 	
@@ -6572,6 +6565,7 @@ public class LDSTools {
 				checkText("HTVTFiltersApplied", "New & Moved-In Members", "id", "xpath");
 			} else {
 				pressBackKey();
+				Thread.sleep(2000);
 			}
 			//TODO this report is different between Web - iOS and Android
 			//Need to fix
@@ -6989,7 +6983,7 @@ public class LDSTools {
 				*/
 				clickButtonByXpathTitleName(StakeWardItem);
 				//displayAllTextViewElements();
-				
+				Thread.sleep(2000);
 				//This will check to see if the first user has text.  
 				Assert.assertTrue(checkFirstDirectoryUser());
 				
@@ -7054,7 +7048,7 @@ public class LDSTools {
 		String myString;
 		//String myString = driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[1]/UIAStaticText[1]")).getText();
 		if (getRunningOS().equals("mac")) {
-			myString = driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[1]/UIAStaticText[1]")).getText();
+			myString = driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[2]/UIAStaticText[1]")).getText();
 		} else {
 			//myString = driver.findElement(By.xpath("//android.widget.TextView[@resource-id='org.lds.ldstools.dev:id/text1'][1]")).getText();
 			myString = driver.findElement(By.xpath("//android.widget.RelativeLayout[@resource-id='org.lds.ldstools.dev:id/top_layout']//android.widget.TextView")).getText();
@@ -7066,6 +7060,7 @@ public class LDSTools {
 			myReturnStatus = false;
 		} else {
 			myReturnStatus = true;
+			//System.out.println("FOUND USER: " + myString);
 		}
 		
 		return myReturnStatus;
