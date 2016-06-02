@@ -202,7 +202,7 @@ public class LDSTools {
 	        
 	        
 	        //capabilities.setCapability("platformVersion", "9.1");
-	        //capabilities.setCapability("nativeInstrumentsLib", true);
+	        capabilities.setCapability("nativeInstrumentsLib", true);
 	       
 	        
 	        //capabilities.setCapability("appActivity", "org.lds.ldstools.ui.StartupActivity");
@@ -221,7 +221,7 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		//LeaderNonBishopricTEST("LDSTools27", "Relief Society Pres", os);
+		LeaderNonBishopricTEST("LDSTools27", "Relief Society Pres", os);
 		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
@@ -1202,7 +1202,7 @@ public class LDSTools {
 		
 		//Go to web and get all users
 		myWeb.openPageLogIn("https://uat.lds.org/mls/mbr/?lang=eng", myUserName, myPassword);
-		myList = myWeb.getAllMembersOnPage("ReportsMenu", "Member List", true);
+		myList = myWeb.getAllMembersOnPage("Reports", "Member List", true);
 		compareWebData(myList, androidList, true);
 		
 		/*
@@ -1277,7 +1277,7 @@ public class LDSTools {
 		
 		//Check Drawer Items - If leader there should be a Reports item
 		checkDrawerItems(true);
-		
+		*/
 		
 
 		Thread.sleep(1000);	
@@ -1295,7 +1295,7 @@ public class LDSTools {
 		//Check the reports - leadership only - true for bishopric rights, false for leaders and remove
 		//checkReports for non-leaders
 		checkReports(false, false);
-		*/
+		
 	
 		
 		Thread.sleep(1000);
@@ -4200,8 +4200,10 @@ public class LDSTools {
 		WebElement myElement = null;
 		String findElement;
 		if (getRunningOS().equals("mac")) {
+			//IOSElement myElement = null;
 			findElement = iosEle;
 		} else {
+			//AndroidElement myElement = null;
 			findElement = andEle;
 		}
 		
@@ -4370,6 +4372,12 @@ public class LDSTools {
 	private void sendTextbyXpath2(String textElement, String textToSend) {
 		clickButtonByXpath(textElement);
 		driver.executeScript("target.frontMostApp().keyboard().typeString('" + textToSend + "')");
+		
+		//IOSElement myElement = (IOSElement) driver.findElement(By.xpath(this.prop.getProperty(textElement)));
+		//myElement.setValue(textToSend);
+		
+		//WebElement myElement = driver.findElement(By.xpath(this.prop.getProperty(textElement)));
+		//myElement.sendKeys(textToSend);
 	}
 	
 	
@@ -5065,6 +5073,7 @@ public class LDSTools {
 			
 			//Thread.sleep(1000);
 			clickButtonByXpath("DoneButton");
+			//clickButtonByXpath("SignInButton");
 			//Thread.sleep(1000);
 			//clickButtonByXpath("SignInButton");
 			Thread.sleep(4000);
@@ -7763,7 +7772,9 @@ public class LDSTools {
 		 
 		
 		while ((backButtonCheck == true) && (myCounter < 5 ))  {
+			//Thread.sleep(1000);
 			pressBackKey();
+			Thread.sleep(2000);
 			backButtonCheck = checkElementExistsByXpath("TopBack");
 			myCounter++;
 		}
