@@ -222,7 +222,7 @@ public class LDSTools {
 		//justForTesting(os);	
 
 		//LeaderNonBishopricTEST("LDSTools27", "Relief Society Pres", os);
-		LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
+		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
@@ -235,7 +235,7 @@ public class LDSTools {
 		//editOtherUserInvalidEmail(os);
 		
 		
-		//editVisibility(os);
+		editVisibility(os);
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
@@ -8002,8 +8002,12 @@ public class LDSTools {
 		}
 		*/
 
-
-		driver.quit();
+		if (getRunningOS().equals("mac")) {
+			//Not sure if we need anything here.
+		} else {
+			driver.quit();
+		}
+		
 		Thread.sleep(2000);
 		
 	}
