@@ -8003,10 +8003,22 @@ public class LDSTools {
 		*/
 
 		if (getRunningOS().equals("mac")) {
-			//Not sure if we need anything here.
+			driver.quit();
+			Runtime run = Runtime.getRuntime();
+			Process pr = run.exec(new String[] {"/usr/bin/pkill", "-9", "instruments"});
+			//Process pr = run.exec(cmd);
+			pr.waitFor();
+			BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+			String line = "";
+			while ((line=buf.readLine())!=null) {
+				System.out.println(line);
+			}
+			
 		} else {
 			driver.quit();
 		}
+		
+
 		
 		Thread.sleep(2000);
 		
