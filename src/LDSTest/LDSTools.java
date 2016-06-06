@@ -227,7 +227,7 @@ public class LDSTools {
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
-		//editCurrentUser(os);	
+		editCurrentUser(os);	
 		
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
@@ -5155,6 +5155,12 @@ public class LDSTools {
 		//If the login is using any of the test networks we need to change it. 
 		//valid enteries "Production", "UAT", "Proxy - UAT", "Proxy"
 		if (os.equals("android")) {
+			System.out.println("Orientation: " + driver.getOrientation().value());
+			if (driver.getOrientation().value() == "landscape") {
+				driver.rotate(ScreenOrientation.PORTRAIT);
+			}
+			
+			
 			if (!chooseNetwork.equals("Production")) {
 				//Just for testing
 				Thread.sleep(10000);
@@ -8163,7 +8169,7 @@ public class LDSTools {
 		*/
 
 		if (getRunningOS().equals("mac")) {
-			driver.quit();
+			//driver.quit();
 			Runtime run = Runtime.getRuntime();
 			Process pr = run.exec(new String[] {"/usr/bin/pkill", "-9", "instruments"});
 			//Process pr = run.exec(cmd);
