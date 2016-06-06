@@ -382,13 +382,18 @@ public class LDSWeb {
 		
 		for (Element myElement : myTest ) {
 			outerHTML = myElement.text();
-			if (outerHTML.contains(",")) {
-				if (outerHTML.contains("Jr")){
-					outerHTML = outerHTML.replace(" Jr", ", Jr");
+			if (outerHTML.contains("&")) {
+				System.out.println("Skipping:" + outerHTML);
+			} else {
+				if (outerHTML.contains(",")) {
+					if (outerHTML.contains("Jr")){
+						outerHTML = outerHTML.replace(" Jr", ", Jr");
+					}
+					foundUsers.add(outerHTML);
 				}
-				foundUsers.add(outerHTML);
+				//System.out.println("Outer HTML:" + outerHTML);
 			}
-			//System.out.println("Outer HTML:" + outerHTML);
+
 		}
 		
 		
