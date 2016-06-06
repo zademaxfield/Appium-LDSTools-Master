@@ -235,7 +235,7 @@ public class LDSTools {
 		//editOtherUserInvalidEmail(os);
 		
 		
-		editVisibility(os);
+		//editVisibility(os);
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
@@ -2449,13 +2449,173 @@ public class LDSTools {
 		syncLogIn("LDSTools21", "password1", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
 		
+		//Check Organizations
 		openOrgnizations();
-		
 		RotateAndCheckText();
 		
+		//Check Bishiopric
 		clickButtonByXpathTitleName("Bishopric");
-		
 		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		//*******************************************************************
+		//******************** High Priests Group ***************************
+		//*******************************************************************
+		
+		clickButtonByXpathTitleName("High Priests Group");
+		RotateAndCheckText();
+		
+		clickButtonByXpathTitleName("High Priests Group Leadership");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Home Teaching District Supervisors");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("All High Priests Group Members");
+		} else {
+			clickButtonByXpathTitleName("All Members");
+		}
+		RotateAndCheckText();
+		
+		if(getRunningOS().equals("mac")) {
+			pressBackKey();
+			Thread.sleep(1000);
+		}
+		
+		pressBackKey();
+		Thread.sleep(1000);
+
+		
+		//*******************************************************************
+		//************************* Elders Quorum ***************************
+		//*******************************************************************
+		
+		clickButtonByXpathTitleName("Elders Quorum");
+		RotateAndCheckText();
+		
+		clickButtonByXpathTitleName("Elders Quorum Presidency");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Instructors");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("All Elders Quorum Members");
+		} else {
+			clickButtonByXpathTitleName("All Members");
+		}
+		RotateAndCheckText();
+		
+		if(getRunningOS().equals("mac")) {
+			pressBackKey();
+			Thread.sleep(1000);
+		}
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		
+		//*******************************************************************
+		//************************ Relief Society ***************************
+		//*******************************************************************
+		
+		clickButtonByXpathTitleName("Relief Society");
+		RotateAndCheckText();
+		
+		clickButtonByXpathTitleName("Relief Society Presidency");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Visiting Teaching");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Music");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("All Relief Society Members");
+		} else {
+			clickButtonByXpathTitleName("All Members");
+		}
+		RotateAndCheckText();
+		
+		if(getRunningOS().equals("mac")) {
+			pressBackKey();
+			Thread.sleep(1000);
+		}
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		//*******************************************************************
+		//************************ Young Men ********************************
+		//*******************************************************************
+		
+		clickButtonByXpathTitleName("Young Men");
+		RotateAndCheckText();
+		
+		clickButtonByXpathTitleName("Young Men Presidency");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Priests Quorum");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Teachers Quorum");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Deacons Quorum");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("All Young Men Members");
+		} else {
+			clickButtonByXpathTitleName("All Members");
+		}
+		RotateAndCheckText();
+		
+		if(getRunningOS().equals("mac")) {
+			pressBackKey();
+			Thread.sleep(1000);
+		}
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
 		
 	}
 	
