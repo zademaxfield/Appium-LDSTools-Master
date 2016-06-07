@@ -227,7 +227,7 @@ public class LDSTools {
 		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
-		editCurrentUser(os);	
+		//editCurrentUser(os);	
 		
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
@@ -8169,7 +8169,7 @@ public class LDSTools {
 		*/
 
 		if (getRunningOS().equals("mac")) {
-			//driver.quit();
+			driver.quit();
 			Runtime run = Runtime.getRuntime();
 			Process pr = run.exec(new String[] {"/usr/bin/pkill", "-9", "instruments"});
 			//Process pr = run.exec(cmd);
