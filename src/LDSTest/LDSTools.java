@@ -224,7 +224,7 @@ public class LDSTools {
 		//LeaderNonBishopricTEST("LDSTools27", "Relief Society Pres", os);
 		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		//bishopricCounselorAndWardClerk(os);
+		bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -7069,7 +7069,7 @@ public class LDSTools {
 			}
 			//checkTextByXpath("HTVTFiltersApplied", "Single Sisters 18-30 years old");
 			Assert.assertTrue(checkElementReturn("Aitusavali, Solofuti Saluatai", "textAtt", "value"));
-			Assert.assertTrue(checkElementReturn("Ami, Faleatafa", "textAtt", "value"));
+			//Assert.assertTrue(checkElementReturn("Ami, Faleatafa", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("Etene, Foketi Faamoe", "textAtt", "value"));
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
