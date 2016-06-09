@@ -724,6 +724,9 @@ public class LDSWeb {
 		} else {
 			if (subReport.equals("MembersMovedOut")) {
 				Thread.sleep(2000);
+				//selectList ("NumberOfMonths", "12 Months", "xpath");
+				clickElement("NumberOfMonths", "xpath");
+				clickElement("12 Months", "text");
 				mySource = getSourceOfElement(subReport);
 				foundUsers = getMembersMovedOut(mySource);	
 			}
