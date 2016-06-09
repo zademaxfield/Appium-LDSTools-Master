@@ -219,12 +219,12 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		//justForTesting(os);	
+		justForTesting(os);	
 
 		//LeaderNonBishopric("LDSTools29", "Relief Society Pres", os);
 		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		bishopricCounselorAndWardClerk(os);
+		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -344,7 +344,17 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Members with Callings");
 		Thread.sleep(1000);
 		
-		myList = myWeb.getAllMembersInReport("OrganizationsMenu", "Members with Callings", "MemberswithCallings", true);
+		myList = myWeb.getAllMembersInReport("Organizations", "Members with Callings", "MemberswithCallings", true);
+		//But that Stake only members are displayed on the web but on on LDS Tools
+		for ( int i = 0; i < myList.size(); i++ ) {
+			if (myList.get(i).contains("Betham, Scott") || (myList.get(i).equals("Kitara, Sam") || (myList.get(i).equals("Lealaiauloto, Sefulu")
+					|| (myList.get(i).equals("Leota, Polatia") || (myList.get(i).equals("Sitivi, Tama Kiliona") 
+					|| (myList.get(i).equals("Wilson, Kesi Voli Joseph")  )))))) {
+				System.out.println("REMOVE NAME: " + myList.get(i));
+				myList.remove(i);
+			}
+		}
+		
 		compareWebData(myList, androidList, true);
 		
 		//checkWebMemberInfo("LDSTools23", "password1", "Aaron, Jane");
@@ -6250,7 +6260,7 @@ public class LDSTools {
 		Thread.sleep(1000);
 		//Assert.assertTrue(checkElementTextViewReturnContains("611"));
 		Assert.assertTrue(checkElementTextViewReturnContains("17"));
-		Assert.assertTrue(checkElementTextViewReturnContains("50"));
+		Assert.assertTrue(checkElementTextViewReturnContains("51"));
 		Assert.assertFalse(checkElementTextViewReturnContains("8675309"));
 		pressBackKey();
 	}
@@ -7678,6 +7688,17 @@ public class LDSTools {
 		} else {
 			clickButtonByXpath("Drawer");
 			clickButtonByXpath("DrawerReports");
+		}
+	}
+	
+	
+	private void openLists() throws Exception {
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpath("DrawerMore");
+			clickButtonByXpath("DrawerLists");
+		} else {
+			clickButtonByXpath("Drawer");
+			clickButtonByXpath("DrawerLists");
 		}
 	}
 	
