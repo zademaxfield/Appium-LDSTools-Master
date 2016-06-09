@@ -221,7 +221,7 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		//LeaderNonBishopricTEST("LDSTools27", "Relief Society Pres", os);
+		//LeaderNonBishopric("LDSTools29", "Relief Society Pres", os);
 		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		bishopricCounselorAndWardClerk(os);
@@ -7807,6 +7807,7 @@ public class LDSTools {
 		boolean checkForLabel;
 		
 		scrollToLastElementIOS("Open Drawer");
+		//scrollToLastElementIOS("\u25BC");
 		
 		checkForLabel = checkElementReturn("OpenHouseholdMembers", "xpath", "xpath");
 		if (checkForLabel == true) {
