@@ -395,15 +395,60 @@ public class LDSWeb {
 			}
 
 		}
-		
-		
-		
+
 		for(String oneUser : foundUsers){
 			System.out.println("Found User: " + oneUser);
 			
 		}
+
+		return foundUsers;
 		
+	}
+	
+	private List<String> getMembersWithoutCallings(String pageSource){
+		List<WebElement> options= driver.findElements(By.xpath("//tr[@class='ng-scope']//ng-transclude[@class='ng-binding']"));
+		List<WebElement> options2= driver.findElements(By.xpath("//tr[@class='ng-scope alt']//ng-transclude[@class='ng-binding']"));
 		
+		List<String> foundUsers = new ArrayList<String>();
+		String myText;
+		for (int i = 0 ; i < options.size(); i++ ) {
+			myText = options.get(i).getText();
+			if (myText.contains("&")) {
+				System.out.println("Skipping:" + myText);
+			} else {
+				if (myText.contains(",")) {
+					if (myText.contains("Jr")){
+						myText = myText.replace(" Jr", ", Jr");
+					}
+					foundUsers.add(myText);
+				}
+				//System.out.println("Outer HTML:" + outerHTML);
+			}
+			foundUsers.add(myText);
+		}
+		
+		for (int i = 0 ; i < options2.size(); i++ ) {
+			myText = options2.get(i).getText();
+			if (myText.contains("&")) {
+				System.out.println("Skipping:" + myText);
+			} else {
+				if (myText.contains(",")) {
+					if (myText.contains("Jr")){
+						myText = myText.replace(" Jr", ", Jr");
+					}
+					foundUsers.add(myText);
+				}
+				//System.out.println("Outer HTML:" + outerHTML);
+			}
+			foundUsers.add(myText);
+		}
+
+
+		for(String oneUser : foundUsers){
+			System.out.println("Found User: " + oneUser);
+			
+		}
+
 		return foundUsers;
 		
 	}
@@ -722,27 +767,69 @@ public class LDSWeb {
 			System.out.println(myReport + " " + subReport +" Page did not load... Skipping");
 			foundUsers.clear();
 		} else {
+			
+			switch(subReport) {
+			case "MembersMovedOut":
+				Thread.sleep(2000);
+				//selectList ("NumberOfMonths", "12 Months", "xpath");
+				clickElement("NumberOfMonths", "xpath");
+				clickElement("12 Months", "text");
+				Thread.sleep(3000);
+				mySource = getSourceOfElement(subReport);
+				foundUsers = getMembersMovedOut(mySource);
+				break;
+				
+			case "MembersMovedIn" :
+				Thread.sleep(2000);
+				clickElement("NumberOfMonthsMovedIn", "xpath");
+				clickElement("12 Months", "text");
+				Thread.sleep(3000);
+				mySource = getSourceOfElement(subReport);
+				foundUsers = getMembers(mySource);
+				break;
+				
+			case "MemberswithoutCallings" :
+				Thread.sleep(2000);
+				mySource = getSourceOfElement(subReport);
+				foundUsers = getMembersWithoutCallings(mySource);
+				break;
+				
+		
+			default:
+				Thread.sleep(2000);
+				mySource = getSourceOfElement(subReport);
+				foundUsers = getMembers(mySource);	
+				break;
+					
+			}
+			/*
 			if (subReport.equals("MembersMovedOut")) {
 				Thread.sleep(2000);
 				//selectList ("NumberOfMonths", "12 Months", "xpath");
 				clickElement("NumberOfMonths", "xpath");
 				clickElement("12 Months", "text");
+				Thread.sleep(3000);
 				mySource = getSourceOfElement(subReport);
 				foundUsers = getMembersMovedOut(mySource);	
 			}
 			
 			if (subReport.equals("MembersMovedIn")) {
 				Thread.sleep(2000);
+				clickElement("NumberOfMonthsMovedIn", "xpath");
+				clickElement("12 Months", "text");
+				Thread.sleep(3000);
 				mySource = getSourceOfElement(subReport);
 				foundUsers = getMembers(mySource);	
 			}
+			
+			
 			
 			if (subReport.equals("MemberswithCallings")) {
 				Thread.sleep(2000);
 				mySource = getSourceOfElement(subReport);
 				foundUsers = getMembers(mySource);	
 			}
-			
+			*/
 			
 
 		}
