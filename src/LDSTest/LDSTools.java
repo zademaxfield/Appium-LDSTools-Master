@@ -23,6 +23,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Hashtable;
 //import java.util.ArrayList;
@@ -60,6 +61,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.Rule;
+import org.junit.rules.ErrorCollector;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runner.JUnitCore;
@@ -114,6 +116,7 @@ public class LDSTools {
 	//AppiumDriver driver;
 	TouchActions touch;
 	//private SoftAssert softAssert = new SoftAssert();
+	public ErrorCollector collector = new ErrorCollector();
 	
 	private String myUserName = "Not Set";
 	private String myPassword = "Not Set";
@@ -219,12 +222,12 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		justForTesting(os);	
+		//justForTesting(os);	
 
 		//LeaderNonBishopric("LDSTools29", "Relief Society Pres", os);
 		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		//bishopricCounselorAndWardClerk(os);
+		bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -308,6 +311,8 @@ public class LDSTools {
 		//LDSWeb myWeb = new LDSWeb();
 		//Data from Web page
 		List<String> myList = new ArrayList<String>();
+		List<String> lastName = new ArrayList<String>();
+		List<String> firstName = new ArrayList<String>();
 		
 		//Data from android list
 		List<String> androidList = new ArrayList<String>();
@@ -318,44 +323,78 @@ public class LDSTools {
 		
 		openReports();
 		
-		clickButtonByXpathTitleName("Members Moved Out");
-		Thread.sleep(1000);
+
 		
 		
 		//Check web data vs LDS Tools
 		myWeb.openPageLogIn("https://uat.lds.org/mls/mbr/?lang=eng", myUserName, myPassword);
+		
+		
+		
+		
+		//Members Moved Out
+		clickButtonByXpathTitleName("Members Moved Out");
+		Thread.sleep(1000);
 		myList = myWeb.getAllMembersInReport("ReportsMenu", "Members Moved Out", "MembersMovedOut", false);
 		compareWebData(myList, androidList, true);
-		
 		pressBackKey();
 
-		//TODO: Problems with differences in formatting the report
-		/*
+		
+		//Members Moved In
 		clickButtonByXpathTitleName("Members Moved In");
 		Thread.sleep(1000);
-		
 		myList = myWeb.getAllMembersInReport("ReportsMenu", "Members Moved In", "MembersMovedIn", false);
-		compareWebData(myList, androidList, true);
-		
-
+		for (int myCounter = 0 ; myCounter < myList.size(); myCounter++ ) {
+			String[] parts = myList.get(myCounter).split(",");
+			String part1 = parts[0];
+			String part2 = parts[1];
+			//Remove all whitespace
+			part1 = part1.trim();
+			part2 = part2.trim();
+			lastName.add(part1);
+			firstName.add(part2);
+			//lastName.set(myCounter, part1);
+			//firstName.set(myCounter, part2);
+		}
+		compareWebDataCheck(lastName, androidList, true);
+		compareWebDataCheck(firstName, androidList, true);
 		pressBackKey();
-		*/
-
-		clickButtonByXpathTitleName("Members with Callings");
-		Thread.sleep(1000);
 		
-		myList = myWeb.getAllMembersInReport("Organizations", "Members with Callings", "MemberswithCallings", true);
+		
+		//Members with Callings
+		clickButtonByXpathTitleName("Members with Callings");
+		Thread.sleep(1000);		
+		myList = myWeb.getAllMembersInReport("Organizations", "Members with Callings", "MemberswithCallings", false);
 		//But that Stake only members are displayed on the web but on on LDS Tools
 		for ( int i = 0; i < myList.size(); i++ ) {
-			if (myList.get(i).contains("Betham, Scott") || (myList.get(i).equals("Kitara, Sam") || (myList.get(i).equals("Lealaiauloto, Sefulu")
-					|| (myList.get(i).equals("Leota, Polatia") || (myList.get(i).equals("Sitivi, Tama Kiliona") 
-					|| (myList.get(i).equals("Wilson, Kesi Voli Joseph")  )))))) {
+			if (myList.get(i).contains("Betham, Scott") || (myList.get(i).contains("Kitara, Sam") || (myList.get(i).contains("Lealaiauloto, Sefulu")
+					|| (myList.get(i).contains("Leota, Polataia") || (myList.get(i).contains("Sitivi, Tama Kiliona") 
+					|| (myList.get(i).contains("Wilson, Kesi Voli Joseph") || (myList.get(i).contains("Tools, LDS51") ))))))) {
 				System.out.println("REMOVE NAME: " + myList.get(i));
-				myList.remove(i);
+				//myList.remove(i);
+				myList.set(i, "");
 			}
 		}
-		
+		myList.removeAll(Collections.singleton(""));
 		compareWebData(myList, androidList, true);
+		pressBackKey();
+		
+		
+		//Members without Callings
+		clickButtonByXpathTitleName("Members without Callings");
+		Thread.sleep(1000);		
+		myList = myWeb.getAllMembersInReport("Organizations", "Members without Callings", "MemberswithoutCallings", false);
+		compareWebData(myList, androidList, true);
+		pressBackKey();
+		
+		//New Members
+		clickButtonByXpathTitleName("New Members");
+		Thread.sleep(1000);
+		myList = myWeb.getAllMembersInReport("ReportsMenu", "New Member", "NewMember", true);
+		compareWebData(myList, androidList, true);
+		pressBackKey();
+		
+		
 		
 		//checkWebMemberInfo("LDSTools23", "password1", "Aaron, Jane");
 		
@@ -7616,6 +7655,113 @@ public class LDSTools {
 						System.out.println("Skipping: " + oneUser);
 					} else {
 						Assert.assertTrue(androidList.contains(oneUser));
+					}
+				}
+			} else {
+				//driver.getPageSource();
+				pageSource = getSourceOfPage();
+				androidList.clear();
+				androidList = createUserList(androidList, pageSource);
+				//androidList = getAllText();
+				/*
+				for(String oneUser : androidList) {
+					System.out.println("USER: " + oneUser);
+					if ((oneUser.contains("Jr")) || (oneUser.contains("Salvador")) || (oneUser.contains("Junior"))){
+						System.out.println("Skipping: " + oneUser);
+					} else {
+						Assert.assertTrue(myList.contains(oneUser));
+					}
+				}
+				*/
+				if(!myList.isEmpty()) {
+					for(int myCounter = 0 ; myCounter < androidList.size() ; myCounter++) {
+						//for(String oneUser : myList) {
+							System.out.println("USER: " + myList.get(myCounter));
+							Assert.assertTrue(myList.contains(androidList.get(myCounter)));
+							//Assert.assertTrue(androidList.contains(myList.get(myCounter)));
+					}
+				}	
+			}
+			
+
+		}	
+	}
+	
+	private void compareWebDataCheck(List<String> myList, List<String> androidList, Boolean onePage) throws Exception {
+		String pageSource = null;
+		int pageSize;
+		String lastMember;
+		String lastMemberCheck;
+		boolean userFound;
+		
+		String memberToSelect;
+		
+		if (getRunningOS().equals("mac")){
+			pageSource = getSourceOfPage();
+			for(String oneUser : myList){
+				//System.out.println("USER: " + oneUser);
+				//TODO: When "Out of Unit" bug is fixed remove the check
+				if ((oneUser.contains("Jr")) || (oneUser.contains("Salvador")) || (oneUser.contains("Junior") || (oneUser.contains("Farley")
+						|| (oneUser.contains("Raymundo") || (oneUser.contains("Sarwar") ||(oneUser.contains("Dylan") || (oneUser.contains("Siteni") || (oneUser.contains("Ah Kam")
+						|| (oneUser.contains("Peterson") || (oneUser.contains("Latu") ||(oneUser.contains("Morgan") ||(oneUser.contains("Wilson, Tina"))))))))))))){
+					System.out.println("Skipping: " + oneUser);
+				} else {
+					userFound = checkNoCaseList(oneUser, pageSource, "Contains");
+					if (userFound == false) {
+						System.out.println("USER NOT FOUND: " + oneUser);
+					}
+				}
+				
+			}
+
+		} else {
+			
+			if (onePage == false ) {
+				pageSize = driver.manage().window().getSize().getHeight();
+				//System.out.println("Page Size: " + pageSize);
+				//pageSize = pageSize - 20;
+				pageSize = pageSize - 100;
+				//pageSize = -pageSize;
+				
+				
+				
+				//This will scroll through the android pages and get all of the data. 
+				do {
+					pageSource = getSourceOfPage();
+					androidList = createUserList(androidList, pageSource);
+					lastMember = androidList.get(androidList.size() - 1 );
+					//memberToSelect = androidList.get(androidList.size() / 2 );
+					
+					//System.out.println("Member To Select: " + memberToSelect);
+					//scrollDownPerPage(pageSize);
+					scrollDownSlow(pageSize);
+					//scrollDownTEST(pageSize);
+					//flickUpOrDown(pageSize);
+					Thread.sleep(1000);
+					pageSource = getSourceOfPage();
+					androidList = createUserList(androidList, pageSource);
+					lastMemberCheck = androidList.get(androidList.size() - 1 );
+					System.out.println("Last Member: " + lastMember);
+					System.out.println("Last Member Check: " + lastMemberCheck);
+				} while (!lastMember.equals(lastMemberCheck));
+				
+				
+				//System.out.println("***************************");
+				//pageSource = getSourceOfPage();
+				//androidList = createUserList(androidList, pageSource);
+				//System.out.println("***************************");
+
+				for(String oneUser : myList) {
+					System.out.println("USER: " + oneUser);
+					if ((oneUser.contains("Jr")) || (oneUser.contains("Salvador")) || (oneUser.contains("Junior") || (oneUser.contains("Farley")
+							|| (oneUser.contains("Raymundo") || (oneUser.contains("Dylan") || (oneUser.contains("Siteni") 
+							|| (oneUser.contains("Morgan") ||(oneUser.contains("Wilson, Tina"))))))))){
+						System.out.println("Skipping: " + oneUser);
+					} else {
+						userFound = checkNoCaseList(oneUser, pageSource, "Contains");
+						if (userFound == false) {
+							System.out.println("USER NOT FOUND: " + oneUser);
+						}
 					}
 				}
 			} else {
