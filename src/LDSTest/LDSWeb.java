@@ -15,11 +15,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.WordUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -29,6 +32,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
@@ -62,11 +67,17 @@ public class LDSWeb {
         // set up Selenium
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--start-maximized");
+		options.addArguments("--incognito");
+		
 		System.setProperty("webdriver.chrome.driver", "chromedriver");
-
 		
 		driver = new ChromeDriver(options);
-		
+		driver.get("chrome://extensions-frame");
+		WebElement checkbox = driver.findElement(By.xpath("//label[@class='incognito-control']/input[@type='checkbox']"));
+		if (!checkbox.isSelected()) {
+		    checkbox.click();
+		}
+	
 		//driver = new FirefoxDriver();
 
     }	
@@ -74,12 +85,62 @@ public class LDSWeb {
 	@Test
 	public void simpleTest() throws Exception {
 		
+		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
+		clickElement("InvestigatorsAdd", "id");
+		enterText("abFirstName", "xpath", "Auto");
+		enterText("abLastName", "xpath", "Test");
+		
+		//Should check on what the toggle is first
+		clickElement("LocalOnlineToggle", "id");
+		
+		clickElement("Add phone number", "text");
+		enterText("abAddPhoneNumberMobile", "xpath", "1 (801) 867-5309");
+		
+		clickElement("Add phone number", "text");
+		enterText("abAddPhoneNumberHome", "xpath", "1-222-333-4444");
+		
+		clickElement("Add phone number", "text");
+		enterText("abAddPhoneNumberWork", "xpath", "1-666-666-6666");
+		
+		clickElement("Add phone number", "text");
+		enterText("abAddPhoneNumberOther", "xpath", "3853853858");
+		
+		clickElement("Add email address", "text");
+		enterText("abAddEmailAddressPersonal", "xpath", "personal@test.com");
+		
+		
+		//I don't like the scroll to element crap but I don't have anohter way to do it right now. 
+		scrollToElement("Add email address", "text");
+		clickElement("Add email address", "text");
+		enterText("abAddEmailAddressWork", "xpath", "work@test.com");
+		
+		scrollToElement("Add email address", "text");
+		clickElement("Add email address", "text");
+		enterText("abAddEmailAddressFamily", "xpath", "family@test.com");
+		
+		scrollToElement("Add email address", "text");
+		clickElement("Add email address", "text");
+		enterText("abAddEmailAddressOther", "xpath", "other@test.com");
+		
+		scrollToElement("abAddAddress", "xpath");
+		enterText("abAddAddress", "xpath", "50 E N Temple St, Salt Lake City, UT 84150");
+		
+		//Add Household members
+		clickElement("abAddHousehold", "id");
+		enterText("adbHouseholdFind", "xpath", "Darth Vader");
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//span[@class='ab-personfield-name'][contains(text(), 'Darth Vader')]")).click();
+		clickElement("abHouseholdDone", "xpath");
+		
+		Thread.sleep(20000);
+
+		/*
 		populateFile();
 		Thread.sleep(5000);
 		System.out.println("READ FILE: ");
 		readFile();
 		
-		/*
+		
 		String myUserName = "ldstools2";
 		String myPassword = "toolstester";
 		List<String> myList = new ArrayList<String>();
@@ -128,6 +189,61 @@ public class LDSWeb {
 		clickElement("HomeButton", "xpath");
 		
 		myWindow = driver.getWindowHandle();
+	}
+	
+	
+	public void ABopenPageLogIn(String url, String userName, String passWord) throws Exception {
+		
+		openGuiMap();
+		setUp();
+		
+		Thread.sleep(4000);
+		//openWebPage("https://uat.lds.org");
+		openWebPage(url);
+		
+		//openWebPage("https://www.lds.org");
+		Thread.sleep(2000);
+
+		driver.findElement(By.id(this.prop.getProperty("UserName"))).sendKeys(userName);
+		//Thread.sleep(1000);
+		driver.findElement(By.id(this.prop.getProperty("Password"))).sendKeys(passWord);
+		clickElement("SignIn", "id");
+		
+		Thread.sleep(4000);
+
+		//Login to Area book
+		enterText("abUserName", "id", "ab067");
+		enterText("abPassword", "id", "password0");
+		clickElement("abNext", "id");
+		
+		Thread.sleep(2000);
+		
+
+		//Enter password
+		clickElement("one", "id");
+		clickElement("one", "id");
+		clickElement("three", "id");
+		clickElement("three", "id");
+		
+		Thread.sleep(2000);
+
+		//ReEnter password
+		clickElement("one", "id");
+		clickElement("one", "id");
+		clickElement("three", "id");
+		clickElement("three", "id");
+		Thread.sleep(2000);
+		waitForTextToDisappear("abSync", 500, "id");
+
+		//This is to get rid of the Location Alert
+		driver.navigate().refresh();
+		clickElement("one", "id");
+		clickElement("one", "id");
+		clickElement("three", "id");
+		clickElement("three", "id");
+		Thread.sleep(2000);
+		waitForTextToDisappear("abSync", 500, "id");
+		
 	}
 	
 	public void clickElement( String elementName, String elementFind) {
@@ -271,6 +387,29 @@ public class LDSWeb {
 		}
 		
 		
+	}
+	
+	public void scrollToElement(String elementName, String elementFind ) throws Exception {
+		WebElement myElement = null;
+		
+		if (elementFind == "id") {
+			myElement = driver.findElement(By.id(this.prop.getProperty(elementName)));
+		}
+		if (elementFind == "xpath") {
+			myElement = driver.findElement(By.xpath(this.prop.getProperty(elementName)));
+		}
+		if (elementFind == "className") {
+			myElement = driver.findElement(By.className(this.prop.getProperty(elementName)));
+		}
+		if (elementFind == "linkText") {
+			myElement = driver.findElement(By.linkText(elementName));
+		}
+		if (elementFind == "text") {
+			myElement = driver.findElement(By.xpath("//*[contains(text(), '" + elementName + "')]"));
+		}
+		
+		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", myElement);
+		Thread.sleep(500); 
 	}
 	
 	public void clickSearchedUser(String userName) throws Exception {
@@ -452,6 +591,55 @@ public class LDSWeb {
 		return foundUsers;
 		
 	}
+	
+	
+	private List<String> getUnitStatistics(String pageSource){
+		List<WebElement> options = driver.findElements(By.xpath("//h4[@class='ng-binding']"));
+		List<WebElement> options2 = driver.findElements(By.xpath("//td[@class='span5 ng-binding']"));
+		
+		List<String> foundUsers = new ArrayList<String>();
+		String myText;
+		String myNumber;
+		String finalText;
+		for (int i = 0 ; i < options.size(); i++ ) {
+			//myText = options.get(i).getText();
+			myText =  options.get(i).getAttribute("innerHTML");
+			//System.out.println("ORIG Text: " + myText);
+			//System.out.println("Outer HTML: " + options.get(i).getAttribute("outerHTML"));
+			//System.out.println("Inner HTML: " + options.get(i).getAttribute("innerHTML"));
+			//System.out.println("href: " + options.get(i).getAttribute("href"));
+			//myText = myText.toLowerCase();		
+			//myText = WordUtils.capitalize(myText);
+			
+			System.out.println("My Text: " + myText);
+			//Get the Number that corresponds with the Unit Stat
+			//myNumber = driver.findElement(By.xpath("//*[.='" + myText +"']/../..//*[@class='ng-binding ng-scope']")).getText();
+			myNumber = driver.findElement(By.xpath("//*[.='" + myText +"']/../..//*[@class='ng-binding ng-scope']")).getText();
+			finalText = myText + "," + myNumber;
+			System.out.println("Unit Stats: " + finalText);
+			foundUsers.add(finalText);
+		}
+		
+		for (int i = 0 ; i < options.size(); i++ ) {
+			myText = options2.get(i).getText();
+			System.out.println("My Text: " + myText);
+			//Get the Number that corresponds with the Unit Stat
+			myNumber = driver.findElement(By.xpath("//*[.='" + myText +"']/..//*[@class='ng-binding ng-scope']")).getText();
+			finalText = myText + "," + myNumber;
+			System.out.println("Unit Stats: " + finalText);
+			foundUsers.add(finalText);
+		}
+		
+		for(String oneUser : foundUsers){
+			System.out.println("Found User: " + oneUser);
+			
+		}
+
+		return foundUsers;
+		
+	}
+	
+	
 	
 	private List<String> getMembersMovedOut(String pageSource){
 		List<String> foundUsers = new ArrayList<String>();
@@ -794,7 +982,12 @@ public class LDSWeb {
 				foundUsers = getMembersWithoutCallings(mySource);
 				break;
 				
-		
+			case "UnitStatistics" :
+				Thread.sleep(2000);
+				mySource = getSourceOfPage();
+				foundUsers = getUnitStatistics(mySource);
+				break;
+	
 			default:
 				Thread.sleep(2000);
 				mySource = getSourceOfElement(subReport);
