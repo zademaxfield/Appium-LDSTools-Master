@@ -198,6 +198,7 @@ public class LDSTools {
 	        capabilities.setCapability("fullReset", true);
 	        capabilities.setCapability("newCommandTimeout", 600);
 	        capabilities.setCapability("app", app.getAbsolutePath());
+	        //capabilities.setCapability("appPackage", "org.lds.ldstools.dev");
 	        capabilities.setCapability("appPackage", "org.lds.ldstools.dev");
 	        //capabilities.setCapability("sendKeysStrategy", "setValue");
 	        capabilities.setCapability("sendKeysStrategy", "grouped");
@@ -330,7 +331,7 @@ public class LDSTools {
 		myWeb.openPageLogIn("https://uat.lds.org/mls/mbr/?lang=eng", myUserName, myPassword);
 		
 		
-		
+		/*
 		
 		//Members Moved Out
 		clickButtonByXpathTitleName("Members Moved Out");
@@ -390,9 +391,37 @@ public class LDSTools {
 		//New Members
 		clickButtonByXpathTitleName("New Members");
 		Thread.sleep(1000);
-		myList = myWeb.getAllMembersInReport("ReportsMenu", "New Member", "NewMember", true);
+		myList = myWeb.getAllMembersInReport("ReportsMenu", "New Member", "NewMember", false);
 		compareWebData(myList, androidList, true);
 		pressBackKey();
+		*/
+
+		//Unit Statistics
+		
+		
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("Unit Statistics");
+		} else {
+			//scrollDownTEST(100);
+			driver.scrollToExact("Unit Statistics");
+			clickButtonByXpathTitleName("Unit Statistics");
+		}
+		Thread.sleep(1000);
+		myList = myWeb.getAllMembersInReport("ReportsMenu", "Unit Statistics", "UnitStatistics", true);
+		
+		for (int myCounter = 0; myCounter < myList.size() ; myCounter ++) {
+			String[] parts = myList.get(myCounter).split(",");
+			String part1 = parts[0];
+			String part2 = parts[1];
+			lastName.add(part1);
+			firstName.add(part2);
+			//lastName.set(myCounter, part1);
+			//firstName.set(myCounter, part2);
+		}
+		compareWebDataCheck(lastName, androidList, true);
+		compareWebDataCheck(firstName, androidList, true);
+		pressBackKey();
+			
 		
 		
 		
@@ -8072,22 +8101,22 @@ public class LDSTools {
 		editUserOpen(); 
 		Thread.sleep(2000);
 		
-		sendTextbyXpath("EditPersonalPhone", "11");
+		//sendTextbyXpath("EditPersonalPhone", "11");
 		clearTextFieldXpath("EditPersonalPhone");
 		//myKeyboardClear();
 		
-		sendTextbyXpath("EditHomePhone", "11");
+		//sendTextbyXpath("EditHomePhone", "11");
 		clearTextFieldXpath("EditHomePhone");
 		//myKeyboardClear();
 		
 		Thread.sleep(1000);
-		sendTextbyXpath("EditPersonalEmail", "aaa");
+		//sendTextbyXpath("EditPersonalEmail", "aaa");
 		clearTextFieldXpath("EditPersonalEmail");
 		//myKeyboardClear();
 		
 		Thread.sleep(1000);
-		clickButton("EditHomeEmail", "xpath", "xpath");
-		sendTextbyXpath("EditHomeEmail", "aaa");
+		//clickButton("EditHomeEmail", "xpath", "xpath");
+		//sendTextbyXpath("EditHomeEmail", "aaa");
 		clearTextFieldXpath("EditHomeEmail");
 		
 		clickButton("MenuSave", "id", "xpath");
