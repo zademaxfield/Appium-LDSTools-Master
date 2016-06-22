@@ -52,7 +52,7 @@ import org.testng.Assert;
 
 
 public class LDSWeb {
-	private WebDriver driver;
+	WebDriver driver;
 	private Properties prop;
 	private String myWindow;
 	
@@ -64,19 +64,9 @@ public class LDSWeb {
 	
 	@Before
     public void setUp() throws Exception {
-        // set up Selenium
-		ChromeOptions options = new ChromeOptions();
-		options.addArguments("--start-maximized");
-		options.addArguments("--incognito");
-		
-		System.setProperty("webdriver.chrome.driver", "chromedriver");
-		
-		driver = new ChromeDriver(options);
-		driver.get("chrome://extensions-frame");
-		WebElement checkbox = driver.findElement(By.xpath("//label[@class='incognito-control']/input[@type='checkbox']"));
-		if (!checkbox.isSelected()) {
-		    checkbox.click();
-		}
+		//Moved setUp stuff to openWebPage - seems to work better this way. 
+
+
 	
 		//driver = new FirefoxDriver();
 
@@ -127,6 +117,21 @@ public class LDSWeb {
 
 	
 	public void openWebPage(String baseURL) {
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--start-maximized");
+		options.addArguments("--incognito");
+		
+		System.setProperty("webdriver.chrome.driver", "chromedriver");
+		
+		driver = new ChromeDriver(options);
+		
+		driver.get("chrome://extensions-frame");
+		WebElement checkbox = driver.findElement(By.xpath("//label[@class='incognito-control']/input[@type='checkbox']"));
+		if (!checkbox.isSelected()) {
+		    checkbox.click();
+		}
+		
+		//driver.navigate().to(baseURL);
 		driver.get(baseURL);
 
 		//Maximize the window
@@ -170,11 +175,8 @@ public class LDSWeb {
 		openGuiMap();
 		setUp();
 		
-		Thread.sleep(4000);
-		//openWebPage("https://uat.lds.org");
+		Thread.sleep(1000);
 		openWebPage(url);
-		
-		//openWebPage("https://www.lds.org");
 		Thread.sleep(2000);
 
 		driver.findElement(By.id(this.prop.getProperty("UserName"))).sendKeys(userName);
