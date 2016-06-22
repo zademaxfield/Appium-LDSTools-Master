@@ -86,51 +86,24 @@ public class LDSWeb {
 	public void simpleTest() throws Exception {
 		
 		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
-		clickElement("InvestigatorsAdd", "id");
-		enterText("abFirstName", "xpath", "Auto");
-		enterText("abLastName", "xpath", "Test");
+		Thread.sleep(1000);
+		clickElement("abPeople", "xpath");
+		Thread.sleep(1000);
+		ABSelectUser("Auto Test");
+
+		clickElement("Message of the Restoration", "text");
+		clickElement("The gospel blesses families", "text");
 		
-		//Should check on what the toggle is first
-		clickElement("LocalOnlineToggle", "id");
+		enterText("abTitle", "xpath", "Test Title");
+		clickElement("abHappened", "id");
 		
-		clickElement("Add phone number", "text");
-		enterText("abAddPhoneNumberMobile", "xpath", "1 (801) 867-5309");
+		clickElement("abStartTime", "xpath");
+		clickElement("abHour", "id");
+
+		clickElement("abEndTime", "xpath");
+
+
 		
-		clickElement("Add phone number", "text");
-		enterText("abAddPhoneNumberHome", "xpath", "1-222-333-4444");
-		
-		clickElement("Add phone number", "text");
-		enterText("abAddPhoneNumberWork", "xpath", "1-666-666-6666");
-		
-		clickElement("Add phone number", "text");
-		enterText("abAddPhoneNumberOther", "xpath", "3853853858");
-		
-		clickElement("Add email address", "text");
-		enterText("abAddEmailAddressPersonal", "xpath", "personal@test.com");
-		
-		
-		//I don't like the scroll to element crap but I don't have anohter way to do it right now. 
-		scrollToElement("Add email address", "text");
-		clickElement("Add email address", "text");
-		enterText("abAddEmailAddressWork", "xpath", "work@test.com");
-		
-		scrollToElement("Add email address", "text");
-		clickElement("Add email address", "text");
-		enterText("abAddEmailAddressFamily", "xpath", "family@test.com");
-		
-		scrollToElement("Add email address", "text");
-		clickElement("Add email address", "text");
-		enterText("abAddEmailAddressOther", "xpath", "other@test.com");
-		
-		scrollToElement("abAddAddress", "xpath");
-		enterText("abAddAddress", "xpath", "50 E N Temple St, Salt Lake City, UT 84150");
-		
-		//Add Household members
-		clickElement("abAddHousehold", "id");
-		enterText("adbHouseholdFind", "xpath", "Darth Vader");
-		Thread.sleep(2000);
-		driver.findElement(By.xpath("//span[@class='ab-personfield-name'][contains(text(), 'Darth Vader')]")).click();
-		clickElement("abHouseholdDone", "xpath");
 		
 		Thread.sleep(20000);
 
@@ -1609,6 +1582,137 @@ public class LDSWeb {
 		
 		clickElement("HomeButton", "xpath");
 		
+	}
+	
+	public void ABSelectUser(String elementName ) throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		WebElement myElement = null;
+		
+		myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(), '" + elementName + "')][@class='name']")));
+		myElement.click();
+
+		//*[contains(text(), 'Auto Test')]
+	}
+	
+	
+	public void ABSetupAutoTest() throws Exception {
+		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
+		clickElement("InvestigatorsAdd", "id");
+		enterText("abFirstName", "xpath", "Auto");
+		enterText("abLastName", "xpath", "Test");
+		
+		//Should check on what the toggle is first
+		clickElement("LocalOnlineToggle", "id");
+		
+		clickElement("Add phone number", "text");
+		enterText("abAddPhoneNumberMobile", "xpath", "1 (801) 867-5309");
+		
+		clickElement("Add phone number", "text");
+		enterText("abAddPhoneNumberHome", "xpath", "1-222-333-4444");
+		
+		clickElement("Add phone number", "text");
+		enterText("abAddPhoneNumberWork", "xpath", "1-666-666-6666");
+		
+		clickElement("Add phone number", "text");
+		enterText("abAddPhoneNumberOther", "xpath", "3853853858");
+		
+		clickElement("Add email address", "text");
+		enterText("abAddEmailAddressPersonal", "xpath", "personal@test.com");
+		Thread.sleep(2000);
+		
+		//I don't like the scroll to element crap but I don't have another way to do it right now. 
+		scrollToElement("Add email address", "text");
+		clickElement("Add email address", "text");
+		enterText("abAddEmailAddressWork", "xpath", "work@test.com");
+		
+		scrollToElement("Add email address", "text");
+		clickElement("Add email address", "text");
+		enterText("abAddEmailAddressFamily", "xpath", "family@test.com");
+		
+		scrollToElement("Add email address", "text");
+		clickElement("Add email address", "text");
+		enterText("abAddEmailAddressOther", "xpath", "other@test.com");
+
+		
+		scrollToElement("abAddAddress", "xpath");
+		enterText("abAddAddress", "xpath", "50 E N Temple St, Salt Lake City, UT 84150");
+		
+		//Add Household members
+		clickElement("abAddHousehold", "xpath");
+		enterText("adHouseholdFind", "xpath", "Darth Vader");
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//span[@class='ab-personfield-name'][contains(text(), 'Darth Vader')]")).click();
+		clickElement("abHouseholdDone", "xpath");
+		
+		//Add Fellowshippers
+		clickElement("abAddFellowshippers", "xpath");
+		enterText("adFellowshippersFind", "xpath", "Jane Fellowshipper");
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//span[@class='ab-personfield-name'][contains(text(), 'Jane Fellowshipper')]")).click();
+		clickElement("abFellowshippersDone", "xpath");
+		
+		//Enter in Background info
+		enterText("abAddBackgroundInfo", "xpath", "Just some backgound info");
+		
+		//Add Preferred Language
+		clickElement("abPreferredLanguage", "xpath");
+		enterText("adPreferredLanguageFind", "xpath", "English");
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//div[@class='ab-base-list-innerhtml']/p/span[contains(text(), 'English')]")).click();
+		clickElement("abPreferredLanguageDone", "xpath");
+		
+		//Set Age
+		clickElement("abAge", "xpath");
+		clickElement("abAge31-50", "xpath");
+		Thread.sleep(2000);
+		
+		//Set Gender
+		clickElement("abGender", "xpath");
+		clickElement("abGenderMale", "xpath");
+		Thread.sleep(2000);
+		
+
+		//Set Unit
+		//scrollToElement("Add Help Needed", "text");
+		//clickElement("abUnit", "xpath");
+		//clickElement("Fagamalo 1st Ward", "text");
+		//clickElement("Fagamalo 1st Ward", "text");
+		
+		//Set Finding Method
+		clickElement("abFindingMethod", "xpath");
+		Thread.sleep(2000);
+		clickElement("Missionary Contact", "text");
+		Thread.sleep(2000);
+		clickElement("Church Tour", "text");
+		Thread.sleep(2000);
+		
+		//Set Finding Campaign
+		clickElement("abFindingCampaign", "xpath");
+		Thread.sleep(1000);
+		clickElement("Christmas 2015", "text");
+		Thread.sleep(2000);
+		
+		//Set Help Needed
+		scrollToElement("abHelpNeeded", "xpath");
+		enterText("abHelpNeeded", "xpath", "Needs help pulling weeds");
+		
+		clickElement("abSave", "id");
+
+		
+		Thread.sleep(2000);
+		
+		clickElement("abMenu", "xpath");
+		clickElement("Sync Fagamalo", "text");
+		
+		Thread.sleep(2000);
+		enterText("abSyncLogin", "xpath", "ab067");
+		enterText("abSyncPassword", "xpath", "password0");
+		clickElement("abSyncSignInButton", "id");
+		
+		Thread.sleep(2000);
+		waitForTextToDisappear("abSync", 500, "id");
+		
+		clickElement("abDashboard", "xpath");
 	}
 
 	
