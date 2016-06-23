@@ -228,7 +228,7 @@ public class LDSTools {
 		//LeaderNonBishopric("LDSTools29", "Relief Society Pres", os);
 		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		bishopricCounselorAndWardClerk(os);
+		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -243,7 +243,7 @@ public class LDSTools {
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
-		
+		CheckUnitsToSync(os);
 		
 		//Works in IOS not in Android - need to fix the scrolling problem
 		//checkAllUsersFromWeb(os);
@@ -309,6 +309,148 @@ public class LDSTools {
 	
 	
 	public void justForTesting(String os) throws Exception {
+		
+		String loginName = "LDSTools2";
+		String loginPassword = "toolstester";
+		String chooseNetwork = "UAT";
+		
+		List<String> StakeWard = new ArrayList<String>();
+		List<WebElement> options = new ArrayList<WebElement>();
+		int pageSize;
+		int myCounter = 1;
+		Thread.sleep(2000);
+		String pageSource;
+		
+		
+		//If the login is using any of the test networks we need to change it. 
+		//valid enteries "Production", "UAT", "Proxy - UAT", "Proxy"
+		if (os.equals("android")) {
+			System.out.println("Select Units - Not implemented yet on Android");
+			/*
+			System.out.println("Orientation: " + driver.getOrientation().value());
+			if (driver.getOrientation().value() == "landscape") {
+				driver.rotate(ScreenOrientation.PORTRAIT);
+			}
+			
+			
+			if (!chooseNetwork.equals("Production")) {
+				//Just for testing
+				Thread.sleep(10000);
+				
+				longPressByTextView("Sign in to your LDS Account");
+				Thread.sleep(1000);
+				longPressByTextView("Sign in to your LDS Account");
+				Thread.sleep(1000);
+				
+				
+				clickButtonByXpath("Menu");
+				Thread.sleep(1000);
+				clickButtonByXpath("OverflowSettings");
+				Thread.sleep(2000);
+				
+				
+				
+				driver.scrollToExact("Network Environment").click();
+				//scrollDown("Network Environment", 35 );
+				
+				clickButtonByXpathTitleName(chooseNetwork);
+				clickButtonByXpath("Back");
+				Thread.sleep(5000);
+			}
+
+			sendTextbyID("LoginUsername", loginName);
+			sendTextbyID("LoginPassword", loginPassword);
+			clickButtonByXpath("SignInButton");
+			Thread.sleep(4000);
+			waitForTextToDisappearID("SyncText", 500 );
+			Thread.sleep(2000);
+			*/
+		}
+		
+		if (os.equals("ios")) {
+			if (!chooseNetwork.equals("Production")) {
+				Thread.sleep(1000);
+				clickButtonByXpath("TopHelp");
+				
+				
+				if (checkElementExistsByXpath("DeveloperSettings") == true) {
+					clickButtonByXpath("DeveloperSettings");
+				} else {
+					//New way to enable dev settings
+					for (int x = 1; x <= 5; x++ ) {
+						clickButtonByXpath("EnableDevSettings");
+					}
+				}
+
+				
+				clickButtonByXpathTitleNameContains("Environment");
+				clickButtonByXpath("Proxy");
+				clickButtonByXpath(chooseNetwork);
+				clickButtonByXpath("TopDeveloper");
+				
+				clickButtonByXpathTitleNameContains("Set Max Units");
+				sendTextbyXpath("SetMaxUnits", "3");
+				clickButton("OK", "xpath", "xpath");
+				
+
+				clickButtonByXpath("TopHelp");
+				clickButtonByXpath("TopSignIn");
+				
+			}
+			
+			sendTextbyXpath2("LoginUsername", loginName);
+			sendTextbyXpath2("LoginPassword", loginPassword);
+			clickButtonByXpath("DoneButton");
+			Thread.sleep(4000);
+			
+			pageSource = getSourceOfPage();
+			Assert.assertTrue(checkNoCaseList("Select up to 3", pageSource, "Contains"));
+			clickButton("Fagamalo  1st Ward", "value", "value");
+			clickButton("Fagamalo  2nd Ward", "value", "value");
+			clickButton("Fatuvalu Ward", "value", "value");
+			
+			clickButton("SyncButton", "xpath", "xpath");
+			
+			
+			waitForTextToDisappear("DownloadingSync", 500 );
+			Thread.sleep(2000);
+			pinPage("1", "1", "3", "3", true);
+			Thread.sleep(2000);
+			
+			clickButtonByXpath("SpinnerSubTitle");
+			//Get Stake and all Wards
+			options= driver.findElements(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell/UIAStaticText"));
+			for (int i = 0 ; i < options.size(); i++ ) {
+				//System.out.println(options.get(i).getText());
+				StakeWard.add(options.get(i).getText());
+			}
+			clickButtonByXpath("TopCancel");
+			
+			Assert.assertTrue(StakeWard.size() == 3);
+			Assert.assertTrue(StakeWard.contains("Fagamalo 1st Ward"));
+			Assert.assertTrue(StakeWard.contains("Fagamalo 2nd Ward"));
+			Assert.assertTrue(StakeWard.contains("Fatuvalu Ward"));
+			
+			
+			//Go through each Stake and Ward to make sure it isn't blank
+			for(String StakeWardItem : StakeWard){
+				clickButtonByXpath("SpinnerSubTitle");
+				Thread.sleep(2000);
+				//System.out.println("To Click: " + StakeWardItem);	
+
+				clickButtonByXpathTitleName(StakeWardItem);
+				//displayAllTextViewElements();
+				Thread.sleep(2000);
+				//This will check to see if the first user has text.  
+				Assert.assertTrue(checkFirstDirectoryUser());
+
+			}
+			
+			
+		}
+		
+		
+		/*
 		//LDSWeb myWeb = new LDSWeb();
 		//Data from Web page
 		List<String> myList = new ArrayList<String>();
@@ -331,7 +473,7 @@ public class LDSTools {
 		myWeb.openPageLogIn("https://uat.lds.org/mls/mbr/?lang=eng", myUserName, myPassword);
 		
 		
-		/*
+		
 		
 		//Members Moved Out
 		clickButtonByXpathTitleName("Members Moved Out");
@@ -394,7 +536,7 @@ public class LDSTools {
 		myList = myWeb.getAllMembersInReport("ReportsMenu", "New Member", "NewMember", false);
 		compareWebData(myList, androidList, true);
 		pressBackKey();
-		*/
+		
 
 		//Unit Statistics
 		
@@ -426,6 +568,8 @@ public class LDSTools {
 		
 		
 		//checkWebMemberInfo("LDSTools23", "password1", "Aaron, Jane");
+
+	    */
 		
 		/*
 		//Data from Web page
@@ -2715,8 +2859,6 @@ public class LDSTools {
 		Thread.sleep(2000);
 		
 		checkAllWardDirectories();
-		
-		drawerSignOut();
 	
 	}
 	
@@ -2734,13 +2876,6 @@ public class LDSTools {
 		Thread.sleep(2000);
 		checkAllWardDirectories();
 		
-		//clickButtonByXpath("Drawer");
-		//clickButtonByXpath("DrawerHELP");
-		//Thread.sleep(2000);
-		//clickButtonByXpath("About");
-		//Assert.assertTrue(checkElementTextViewReturnContains("CliffHigby"));
-
-		drawerSignOut();
 	}
 	
 	@Parameters({"os"})
@@ -2755,9 +2890,7 @@ public class LDSTools {
 		pinPage("1", "1", "3", "3", true);
 		Thread.sleep(2000);
 		checkAllWardDirectories();
-		Thread.sleep(2000);
 
-		drawerSignOut();
 	}
 	
 
@@ -2839,7 +2972,6 @@ public class LDSTools {
 		clickButtonByXpath("SearchCollapse");
 		
 
-		drawerSignOut();
 	}
 	
 	
@@ -2860,7 +2992,6 @@ public class LDSTools {
 		Assert.assertTrue(checkElementTextViewRoboReturn("Alcorn, Sarah"));
 		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
 		
-		drawerSignOut();
 	}
 	
 	@Parameters({"os"})
@@ -2878,8 +3009,6 @@ public class LDSTools {
 		//checkAllWardDirectories();
 		checkDirectoryForUser();
 		Thread.sleep(2000);
-		
-		drawerSignOut();
 	}
 	
 	
@@ -2896,9 +3025,7 @@ public class LDSTools {
 		
 		Thread.sleep(2000);
 		checkDirectoryForUser();
-		Thread.sleep(2000);
-		
-		drawerSignOut();
+
 	}
 	
 	@Parameters({"os"})
@@ -2914,9 +3041,7 @@ public class LDSTools {
 		
 		Thread.sleep(2000);
 		checkDirectoryForUser();
-		Thread.sleep(2000);
-		
-		drawerSignOut();
+
 	}
 	
 	@Parameters({"os"})
@@ -2932,9 +3057,8 @@ public class LDSTools {
 		
 		Thread.sleep(2000);
 		checkDirectoryForUser();
-		Thread.sleep(2000);
 		
-		drawerSignOut();
+
 	}
 	
 	@Parameters({"os"})
@@ -2951,9 +3075,7 @@ public class LDSTools {
 		
 		Thread.sleep(2000);
 		checkDirectoryForUser();
-		Thread.sleep(2000);
-		
-		drawerSignOut();
+
 	}
 	
 	@Parameters({"os"})
@@ -2969,9 +3091,7 @@ public class LDSTools {
 		
 		Thread.sleep(2000);
 		checkDirectoryForUser();
-		Thread.sleep(2000);
-		
-		drawerSignOut();
+
 	}
 	
 	@Parameters({"os"})
@@ -2987,9 +3107,7 @@ public class LDSTools {
 		
 		Thread.sleep(2000);
 		checkDirectoryForUser();
-		Thread.sleep(2000);
-		
-		drawerSignOut();
+
 	}
 	
 	@Parameters({"os"})
@@ -3006,9 +3124,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		//checkDirectoryForUser();
 		checkAllWardDirectories();
-		Thread.sleep(2000);
-		
-		drawerSignOut();
+
 	}
 	
 	@Parameters({"os"})
@@ -3025,9 +3141,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		checkDirectoryForUser();
 		//checkAllWardDirectories();
-		Thread.sleep(2000);
-		
-		drawerSignOut();
+
 	}
 	
 	@Parameters({"os"})
@@ -3044,9 +3158,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		checkDirectoryForUser();
 		//checkAllWardDirectories();
-		Thread.sleep(2000);
-		
-		drawerSignOut();
+
 	}
 	
 	
@@ -3064,9 +3176,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		checkDirectoryForUser();
 		//checkAllWardDirectories();
-		Thread.sleep(2000);
-		
-		drawerSignOut();
+
 	}
 	
 	@Parameters({"os"})
@@ -3083,9 +3193,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		checkDirectoryForUser();
 		//checkAllWardDirectories();
-		Thread.sleep(2000);
-		
-		drawerSignOut();
+
 	}
 	
 	//Option 2 test
@@ -3104,9 +3212,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		checkDirectoryForUser();
 		//checkAllWardDirectories();
-		Thread.sleep(2000);
-		
-		drawerSignOut();
+
 	}
 	
 	//TODO: Need to test for info
@@ -3125,9 +3231,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		checkDirectoryForUser();
 		//checkAllWardDirectories();
-		Thread.sleep(2000);
-		
-		drawerSignOut();
+
 	}
 	
 	@Parameters({"os"})
@@ -3144,9 +3248,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		checkDirectoryForUser();
 		//checkAllWardDirectories();
-		Thread.sleep(2000);
-		
-		drawerSignOut();
+
 	}
 	
 	@Parameters({"os"})
@@ -3163,9 +3265,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		checkDirectoryForUser();
 		//checkAllWardDirectories();
-		Thread.sleep(2000);
-		
-		drawerSignOut();
+
 	}
 	
 	@Parameters({"os"})
@@ -3182,9 +3282,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		checkDirectoryForUser();
 		//checkAllWardDirectories();
-		Thread.sleep(2000);
-		
-		drawerSignOut();
+
 	}
 	
 	//TODO: Need to update for large number of units to sync. 
@@ -3223,9 +3321,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		checkDirectoryForUser();
 		//checkAllWardDirectories();
-		Thread.sleep(2000);
-		
-		drawerSignOut();
+
 	}
 	
 	@Parameters({"os"})
@@ -3242,9 +3338,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		checkDirectoryForUser();
 		//checkAllWardDirectories();
-		Thread.sleep(2000);
-		
-		drawerSignOut();
+
 	}
 	
 	
@@ -3262,9 +3356,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		checkDirectoryForUser();
 		//checkAllWardDirectories();
-		Thread.sleep(2000);
-		
-		drawerSignOut();
+
 	}
 	
 	@Parameters({"os"})
@@ -3281,9 +3373,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		checkDirectoryForUser();
 		//checkAllWardDirectories();
-		Thread.sleep(2000);
-		
-		drawerSignOut();
+
 	}
 	
 	
@@ -3305,7 +3395,6 @@ public class LDSTools {
 		Assert.assertTrue(checkElementTextViewRoboReturn("Baker, Joseph"));
 		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
 		
-		drawerSignOut();
 		
 	}
 	
@@ -3323,10 +3412,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		checkDirectoryForUser();
 		//checkAllWardDirectories();
-		Thread.sleep(2000);
-		
 
-		drawerSignOut();
 	}
 	
 	/*
@@ -3367,9 +3453,148 @@ public class LDSTools {
 		//Assert.assertTrue(checkElementTextViewRoboReturn("Aaron, Jane"));
 		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEleven, Member"));
 		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
-		
 
-		drawerSignOut();
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "setings"}, priority = 1)
+	public void CheckUnitsToSync(String os) throws Exception {
+		String loginName = "LDSTools2";
+		String loginPassword = "toolstester";
+		String chooseNetwork = "UAT";
+		
+		List<String> StakeWard = new ArrayList<String>();
+		List<WebElement> options = new ArrayList<WebElement>();
+		Thread.sleep(2000);
+		String pageSource;
+		
+		
+		//If the login is using any of the test networks we need to change it. 
+		//valid enteries "Production", "UAT", "Proxy - UAT", "Proxy"
+		if (os.equals("android")) {
+			System.out.println("Select Units - Not implemented yet on Android");
+			/*
+			System.out.println("Orientation: " + driver.getOrientation().value());
+			if (driver.getOrientation().value() == "landscape") {
+				driver.rotate(ScreenOrientation.PORTRAIT);
+			}
+			
+			
+			if (!chooseNetwork.equals("Production")) {
+				//Just for testing
+				Thread.sleep(10000);
+				
+				longPressByTextView("Sign in to your LDS Account");
+				Thread.sleep(1000);
+				longPressByTextView("Sign in to your LDS Account");
+				Thread.sleep(1000);
+				
+				
+				clickButtonByXpath("Menu");
+				Thread.sleep(1000);
+				clickButtonByXpath("OverflowSettings");
+				Thread.sleep(2000);
+				
+				
+				
+				driver.scrollToExact("Network Environment").click();
+				//scrollDown("Network Environment", 35 );
+				
+				clickButtonByXpathTitleName(chooseNetwork);
+				clickButtonByXpath("Back");
+				Thread.sleep(5000);
+			}
+
+			sendTextbyID("LoginUsername", loginName);
+			sendTextbyID("LoginPassword", loginPassword);
+			clickButtonByXpath("SignInButton");
+			Thread.sleep(4000);
+			waitForTextToDisappearID("SyncText", 500 );
+			Thread.sleep(2000);
+			*/
+		}
+		
+		if (os.equals("ios")) {
+			if (!chooseNetwork.equals("Production")) {
+				Thread.sleep(1000);
+				clickButtonByXpath("TopHelp");
+				
+				
+				if (checkElementExistsByXpath("DeveloperSettings") == true) {
+					clickButtonByXpath("DeveloperSettings");
+				} else {
+					//New way to enable dev settings
+					for (int x = 1; x <= 5; x++ ) {
+						clickButtonByXpath("EnableDevSettings");
+					}
+				}
+
+				
+				clickButtonByXpathTitleNameContains("Environment");
+				clickButtonByXpath("Proxy");
+				clickButtonByXpath(chooseNetwork);
+				clickButtonByXpath("TopDeveloper");
+				
+				clickButtonByXpathTitleNameContains("Set Max Units");
+				sendTextbyXpath("SetMaxUnits", "3");
+				clickButton("OK", "xpath", "xpath");
+				
+
+				clickButtonByXpath("TopHelp");
+				clickButtonByXpath("TopSignIn");
+				
+			}
+			
+			sendTextbyXpath2("LoginUsername", loginName);
+			sendTextbyXpath2("LoginPassword", loginPassword);
+			clickButtonByXpath("DoneButton");
+			Thread.sleep(4000);
+			
+			pageSource = getSourceOfPage();
+			Assert.assertTrue(checkNoCaseList("Select up to 3", pageSource, "Contains"));
+			clickButton("Fagamalo  1st Ward", "value", "value");
+			clickButton("Fagamalo  2nd Ward", "value", "value");
+			clickButton("Fatuvalu Ward", "value", "value");
+			
+			clickButton("SyncButton", "xpath", "xpath");
+			
+			
+			waitForTextToDisappear("DownloadingSync", 500 );
+			Thread.sleep(2000);
+			pinPage("1", "1", "3", "3", true);
+			Thread.sleep(2000);
+			
+			clickButtonByXpath("SpinnerSubTitle");
+			//Get Stake and all Wards
+			options= driver.findElements(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell/UIAStaticText"));
+			for (int i = 0 ; i < options.size(); i++ ) {
+				//System.out.println(options.get(i).getText());
+				StakeWard.add(options.get(i).getText());
+			}
+			clickButtonByXpath("TopCancel");
+			
+			Assert.assertTrue(StakeWard.size() == 3);
+			Assert.assertTrue(StakeWard.contains("Fagamalo 1st Ward"));
+			Assert.assertTrue(StakeWard.contains("Fagamalo 2nd Ward"));
+			Assert.assertTrue(StakeWard.contains("Fatuvalu Ward"));
+			
+			
+			//Go through each Stake and Ward to make sure it isn't blank
+			for(String StakeWardItem : StakeWard){
+				clickButtonByXpath("SpinnerSubTitle");
+				Thread.sleep(2000);
+				//System.out.println("To Click: " + StakeWardItem);	
+
+				clickButtonByXpathTitleName(StakeWardItem);
+				//displayAllTextViewElements();
+				Thread.sleep(2000);
+				//This will check to see if the first user has text.  
+				Assert.assertTrue(checkFirstDirectoryUser());
+
+			}
+			
+			
+		}
 	}
 	
 	
