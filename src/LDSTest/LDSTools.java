@@ -6325,6 +6325,7 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("Members Moved In", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("Members Moved Out", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("Members with Callings", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Missionary Progress Record", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("New Members", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("Unit Statistics", pageSource, "Equals"));
 		Assert.assertFalse(checkNoCaseList("Death Star Reports", pageSource, "Equals"));
@@ -6417,6 +6418,8 @@ public class LDSTools {
 		Thread.sleep(1000);
 		pressBackKey();
 		Thread.sleep(1000);
+		
+		
 		//Members without Callings
 		clickButtonByXpathTitleName("Members without Callings");
 		pageSource = getSourceOfPage();
@@ -6445,6 +6448,33 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("AFPEighteen, Member", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("AFPFive, Wife", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Organa, Leia", pageSource, "Contains"));
+
+		Thread.sleep(1000);
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		//Missionary Progress Record
+		clickButtonByXpathTitleName("Missionary Progress Record");
+		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("ABP Contact", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Potential Investigator", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("Malcolm Reynolds", pageSource, "Contains"));
+
+		//Investigators with Baptism Date
+		clickButton("MenuFilter", "id", "xpath");
+		clickButton("mpInvestigatorsWithBaptismDate", "id", "xpath");
+		if (!getRunningOS().equals("mac")) {
+			clickButton("mpMenuSave", "id", "xpath");
+			checkText("mpFilterText", "Investigators with Baptism Date", "id", "xpath");
+		} else {
+			pressBackKey();
+		}
+		Assert.assertTrue(checkElementReturn("Solo, Han", "textAtt", "value"));
+		Assert.assertTrue(checkElementReturn("Baptism Goal", "textAtt", "value"));
+		Assert.assertFalse(checkElementReturn("Skywalker", pageSource, "Contains"));
+		if (!getRunningOS().equals("mac")) {
+			clickButton("mpRemoveFilterButton", "id", "xpath");
+		}
 
 		Thread.sleep(1000);
 		pressBackKey();
