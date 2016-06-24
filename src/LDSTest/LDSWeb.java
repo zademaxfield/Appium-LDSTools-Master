@@ -75,6 +75,9 @@ public class LDSWeb {
 	@Test
 	public void simpleTest() throws Exception {
 		
+		ABSetupDebbieSmith();
+		/*
+		
 		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
 		Thread.sleep(1000);
 		clickElement("abPeople", "xpath");
@@ -96,6 +99,7 @@ public class LDSWeb {
 		
 		
 		Thread.sleep(20000);
+		*/
 
 		/*
 		populateFile();
@@ -1717,6 +1721,112 @@ public class LDSWeb {
 		clickElement("abDashboard", "xpath");
 	}
 
+	
+	public void ABSetupDebbieSmith() throws Exception {
+		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
+		clickElement("InvestigatorsAdd", "id");
+		enterText("abFirstName", "xpath", "Debbie");
+		enterText("abLastName", "xpath", "Smith");
+		
+		//Should check on what the toggle is first
+		//clickElement("LocalOnlineToggle", "id");
+		
+		clickElement("Add phone number", "text");
+		enterText("abAddPhoneNumberMobile", "xpath", "111-111-1111");
+		
+		clickElement("Add phone number", "text");
+		enterText("abAddPhoneNumberHome", "xpath", "222-222-2222");
+		
+		clickElement("Add phone number", "text");
+		enterText("abAddPhoneNumberWork", "xpath", "333-333-3333");
+		
+		clickElement("Add phone number", "text");
+		enterText("abAddPhoneNumberOther", "xpath", "444-444-4444");
+		
+		clickElement("Add email address", "text");
+		enterText("abAddEmailAddressPersonal", "xpath", "debbitsmith@gmail.com");
+		Thread.sleep(2000);
+		
+		
+		scrollToElement("abAddAddress", "xpath");
+		enterText("abAddAddress", "xpath", "13502 S Hamilton View Rd, Riverton, UT 84065");
+		
+		//Add Household members
+		clickElement("abAddHousehold", "xpath");
+		enterText("adHouseholdFind", "xpath", "Bob Smith");
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//span[@class='ab-personfield-name'][contains(text(), 'Bob Smith')]")).click();
+		clickElement("abHouseholdDone", "xpath");
+		
+		//Add Fellowshippers
+		clickElement("abAddFellowshippers", "xpath");
+		enterText("adFellowshippersFind", "xpath", "LDS32 Tools");
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//span[@class='ab-personfield-name'][contains(text(), 'LDS32 Tools')]")).click();
+		clickElement("abFellowshippersDone", "xpath");
+		
+		//Enter in Background info
+		enterText("abAddBackgroundInfo", "xpath", "Background info here");
+		
+		//Add Preferred Language
+		clickElement("abPreferredLanguage", "xpath");
+		enterText("adPreferredLanguageFind", "xpath", "English");
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//div[@class='ab-base-list-innerhtml']/p/span[contains(text(), 'English')]")).click();
+		clickElement("abPreferredLanguageDone", "xpath");
+		
+		//Set Age
+		clickElement("abAge", "xpath");
+		clickElement("abAge31-50", "xpath");
+		Thread.sleep(2000);
+		
+		//Set Gender
+		clickElement("abGender", "xpath");
+		clickElement("abGenderFemale", "xpath");
+		Thread.sleep(2000);
+		
+
+		//Set Unit
+		//scrollToElement("Add Help Needed", "text");
+		//clickElement("abUnit", "xpath");
+		//clickElement("Fagamalo 1st Ward", "text");
+		//clickElement("Fagamalo 1st Ward", "text");
+		
+		//Set Finding Method
+		scrollToElement("abFindingMethod", "xpath");
+		clickElement("abFindingMethod", "xpath");
+		Thread.sleep(2000);
+		clickElement("Internet", "text");
+		Thread.sleep(2000);
+		clickElement("LDS.org", "text");
+		Thread.sleep(2000);
+		clickElement("Chat", "text");
+		Thread.sleep(2000);
+		
+		//Set Help Needed
+		scrollToElement("abHelpNeeded", "xpath");
+		enterText("abHelpNeeded", "xpath", "Building a death ray");
+		
+		Thread.sleep(2000);
+		clickElement("abSave", "id");
+
+		
+		Thread.sleep(2000);
+		
+		clickElement("abMenu", "xpath");
+		clickElement("Sync Fagamalo", "text");
+		
+		Thread.sleep(2000);
+		enterText("abSyncLogin", "xpath", "ab067");
+		enterText("abSyncPassword", "xpath", "password0");
+		clickElement("abSyncSignInButton", "id");
+		
+		Thread.sleep(2000);
+		waitForTextToDisappear("abSync", 500, "id");
+		Thread.sleep(2000);
+		
+		clickElement("abDashboard", "xpath");
+	}
 	
 	
 	
