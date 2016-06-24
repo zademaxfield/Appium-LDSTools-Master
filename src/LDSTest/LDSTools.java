@@ -228,7 +228,7 @@ public class LDSTools {
 		//LeaderNonBishopric("LDSTools29", "Relief Society Pres", os);
 		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		//bishopricCounselorAndWardClerk(os);
+		bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -243,7 +243,7 @@ public class LDSTools {
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
-		CheckUnitsToSync(os);
+		//CheckUnitsToSync(os);
 		
 		//Works in IOS not in Android - need to fix the scrolling problem
 		//checkAllUsersFromWeb(os);
@@ -1511,14 +1511,14 @@ public class LDSTools {
 		//Check Missionary drawer items - all user access
 		checkMissionary();
 		
-		
+		*/
 		
 		Thread.sleep(1000);
 		//Check the reports - leadership only - true for bishopric rights, false for leaders and remove
 		//checkReports for non-leaders
 		checkReports(false, false);
-		*/
-	
+		
+		/*
 		
 		Thread.sleep(1000);
 		//Check Home Teaching - Visiting Teaching
@@ -1530,6 +1530,7 @@ public class LDSTools {
 		//Check Home Teaching - Visiting Teaching Household - Sisters and Filters
 		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
 		checkHTVTHouseholds(userCalling);
+		*/
 	
 	}
 	
@@ -6453,32 +6454,73 @@ public class LDSTools {
 		pressBackKey();
 		Thread.sleep(1000);
 		
-		//Missionary Progress Record
+		//*************************************************************************************
+		//********************* Missionary Progress Record ************************************
+		//*************************************************************************************
 		clickButtonByXpathTitleName("Missionary Progress Record");
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("ABP Contact", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("ABP", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Contact", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Potential Investigator", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Malcolm Reynolds", pageSource, "Contains"));
 
 		//Investigators with Baptism Date
-		clickButton("MenuFilter", "id", "xpath");
+		clickButton("MissionaryProgressFilter", "id", "xpath");
 		clickButton("mpInvestigatorsWithBaptismDate", "id", "xpath");
 		if (!getRunningOS().equals("mac")) {
 			clickButton("mpMenuSave", "id", "xpath");
-			checkText("mpFilterText", "Investigators with Baptism Date", "id", "xpath");
 		} else {
 			pressBackKey();
 		}
-		Assert.assertTrue(checkElementReturn("Solo, Han", "textAtt", "value"));
-		Assert.assertTrue(checkElementReturn("Baptism Goal", "textAtt", "value"));
-		Assert.assertFalse(checkElementReturn("Skywalker", pageSource, "Contains"));
+		checkText("mpFilterText", "Investigators with Baptism Date", "id", "xpath");
+		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("Solo", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Han", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Baptism Goal", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("Skywalker", pageSource, "Contains"));
+		clickButton("mpRemoveFilterButton", "id", "xpath");
+		
+		//Progressing Investigators
+		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("mpProgressingInvestigators", "id", "xpath");
 		if (!getRunningOS().equals("mac")) {
-			clickButton("mpRemoveFilterButton", "id", "xpath");
+			clickButton("mpMenuSave", "id", "xpath");
+		} else {
+			pressBackKey();
 		}
+		checkText("mpFilterText", "Progressing Investigators", "id", "xpath");
+		pageSource = getSourceOfPage();
+		//Assert.assertTrue(checkNoCaseList("Solo", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("Han", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("Baptism Goal", pageSource, "Contains"));
+		//Assert.assertFalse(checkNoCaseList("Skywalker", pageSource, "Contains"));
+		clickButton("mpRemoveFilterButton", "id", "xpath");
+		
+		//New Investigators
+		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("mpNewInvestigators", "id", "xpath");
+		if (!getRunningOS().equals("mac")) {
+			clickButton("mpMenuSave", "id", "xpath");
+		} else {
+			pressBackKey();
+		}
+		checkText("mpFilterText", "New Investigators", "id", "xpath");
+		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("Skywalker", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Luke", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("New Investigator", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("James", pageSource, "Contains"));
+		clickButton("mpRemoveFilterButton", "id", "xpath");
+	
 
 		Thread.sleep(1000);
 		pressBackKey();
 		Thread.sleep(1000);
+		
+		//*************************************************************************************
+		//*************************************************************************************
+		//*************************************************************************************
+		
 		
 		//New Members
 		clickButtonByXpathTitleName("New Members");
@@ -7027,7 +7069,7 @@ public class LDSTools {
 			}
 
 			Assert.assertTrue(checkElementReturn("AFPSixteen, Member", "textAtt", "value"));
-			Assert.assertTrue(checkElementReturn("Aaron, Jane", "textAtt", "value"));
+			//Assert.assertTrue(checkElementReturn("Aaron, Jane", "textAtt", "value"));
 			//Assert.assertTrue(checkElementTextViewReturn("Aaron, Jane"));
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
