@@ -310,144 +310,30 @@ public class LDSTools {
 	
 	public void justForTesting(String os) throws Exception {
 		
-		String loginName = "LDSTools2";
-		String loginPassword = "toolstester";
-		String chooseNetwork = "UAT";
 		
-		List<String> StakeWard = new ArrayList<String>();
-		List<WebElement> options = new ArrayList<WebElement>();
-		int pageSize;
-		int myCounter = 1;
-		Thread.sleep(2000);
+		syncLogIn("LDSTools21", "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+		openCalendar();
+		
 		String pageSource;
-		
-		
-		//If the login is using any of the test networks we need to change it. 
-		//valid enteries "Production", "UAT", "Proxy - UAT", "Proxy"
-		if (os.equals("android")) {
-			System.out.println("Select Units - Not implemented yet on Android");
-			/*
-			System.out.println("Orientation: " + driver.getOrientation().value());
-			if (driver.getOrientation().value() == "landscape") {
-				driver.rotate(ScreenOrientation.PORTRAIT);
-			}
-			
-			
-			if (!chooseNetwork.equals("Production")) {
-				//Just for testing
-				Thread.sleep(10000);
-				
-				longPressByTextView("Sign in to your LDS Account");
-				Thread.sleep(1000);
-				longPressByTextView("Sign in to your LDS Account");
-				Thread.sleep(1000);
-				
-				
-				clickButtonByXpath("Menu");
-				Thread.sleep(1000);
-				clickButtonByXpath("OverflowSettings");
-				Thread.sleep(2000);
-				
-				
-				
-				driver.scrollToExact("Network Environment").click();
-				//scrollDown("Network Environment", 35 );
-				
-				clickButtonByXpathTitleName(chooseNetwork);
-				clickButtonByXpath("Back");
-				Thread.sleep(5000);
-			}
 
-			sendTextbyID("LoginUsername", loginName);
-			sendTextbyID("LoginPassword", loginPassword);
-			clickButtonByXpath("SignInButton");
-			Thread.sleep(4000);
-			waitForTextToDisappearID("SyncText", 500 );
-			Thread.sleep(2000);
-			*/
+		if (getRunningOS().equals("mac")) {
+			clickButton("6:00 PM", "text", "name");
+		} else {
+			clickButton("Worldwide", "text", "text");
 		}
+
+		Thread.sleep(2000);
+		pageSource = getSourceOfPage();
+
+		Assert.assertTrue(checkNoCaseList("Worldwide Devotional for Young Adults", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Sunday, September 11", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("6:00", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("7:00", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("View at a local", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Learn more at", pageSource, "Contains"));
 		
-		if (os.equals("ios")) {
-			if (!chooseNetwork.equals("Production")) {
-				Thread.sleep(1000);
-				clickButtonByXpath("TopHelp");
-				
-				
-				if (checkElementExistsByXpath("DeveloperSettings") == true) {
-					clickButtonByXpath("DeveloperSettings");
-				} else {
-					//New way to enable dev settings
-					for (int x = 1; x <= 5; x++ ) {
-						clickButtonByXpath("EnableDevSettings");
-					}
-				}
-
-				
-				clickButtonByXpathTitleNameContains("Environment");
-				clickButtonByXpath("Proxy");
-				clickButtonByXpath(chooseNetwork);
-				clickButtonByXpath("TopDeveloper");
-				
-				clickButtonByXpathTitleNameContains("Set Max Units");
-				sendTextbyXpath("SetMaxUnits", "3");
-				clickButton("OK", "xpath", "xpath");
-				
-
-				clickButtonByXpath("TopHelp");
-				clickButtonByXpath("TopSignIn");
-				
-			}
-			
-			sendTextbyXpath2("LoginUsername", loginName);
-			sendTextbyXpath2("LoginPassword", loginPassword);
-			clickButtonByXpath("DoneButton");
-			Thread.sleep(4000);
-			
-			pageSource = getSourceOfPage();
-			Assert.assertTrue(checkNoCaseList("Select up to 3", pageSource, "Contains"));
-			clickButton("Fagamalo  1st Ward", "value", "value");
-			clickButton("Fagamalo  2nd Ward", "value", "value");
-			clickButton("Fatuvalu Ward", "value", "value");
-			
-			clickButton("SyncButton", "xpath", "xpath");
-			
-			
-			waitForTextToDisappear("DownloadingSync", 500 );
-			Thread.sleep(2000);
-			pinPage("1", "1", "3", "3", true);
-			Thread.sleep(2000);
-			
-			clickButtonByXpath("SpinnerSubTitle");
-			//Get Stake and all Wards
-			options= driver.findElements(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell/UIAStaticText"));
-			for (int i = 0 ; i < options.size(); i++ ) {
-				//System.out.println(options.get(i).getText());
-				StakeWard.add(options.get(i).getText());
-			}
-			clickButtonByXpath("TopCancel");
-			
-			Assert.assertTrue(StakeWard.size() == 3);
-			Assert.assertTrue(StakeWard.contains("Fagamalo 1st Ward"));
-			Assert.assertTrue(StakeWard.contains("Fagamalo 2nd Ward"));
-			Assert.assertTrue(StakeWard.contains("Fatuvalu Ward"));
-			
-			
-			//Go through each Stake and Ward to make sure it isn't blank
-			for(String StakeWardItem : StakeWard){
-				clickButtonByXpath("SpinnerSubTitle");
-				Thread.sleep(2000);
-				//System.out.println("To Click: " + StakeWardItem);	
-
-				clickButtonByXpathTitleName(StakeWardItem);
-				//displayAllTextViewElements();
-				Thread.sleep(2000);
-				//This will check to see if the first user has text.  
-				Assert.assertTrue(checkFirstDirectoryUser());
-
-			}
-			
-			
-		}
+		pressBackKey();
 		
 		
 		/*
@@ -819,6 +705,10 @@ public class LDSTools {
 		
 		//Check Missionary drawer items - all user access
 		checkMissionary();
+		
+		//Check the Calendar - all user access
+		Thread.sleep(1000);
+		checkCalendar();
 	
 		Thread.sleep(1000);
 		
@@ -1006,6 +896,10 @@ public class LDSTools {
 		//Check Missionary drawer items - all user access
 		checkMissionary();
 	
+		Thread.sleep(1000);
+		
+		//Check the Calendar - all user access
+		checkCalendar();
 		Thread.sleep(1000);
 		
 		//Check the reports - leadership only
@@ -1464,6 +1358,11 @@ public class LDSTools {
 		Thread.sleep(1000);
 		//Check Missionary drawer items - all user access
 		checkMissionary();
+		
+		//Check the Calendar - all user access
+		Thread.sleep(1000);
+		checkCalendar();
+		
 
 		Thread.sleep(1000);
 		//Check the reports - leadership only - true for bishopric rights, false for leaders and remove
@@ -1510,6 +1409,10 @@ public class LDSTools {
 		Thread.sleep(1000);
 		//Check Missionary drawer items - all user access
 		checkMissionary();
+		
+		//Check the Calendar - all user access
+		Thread.sleep(1000);
+		checkCalendar();
 		
 		*/
 		
@@ -4681,7 +4584,8 @@ public class LDSTools {
 		}
 		
 		if (findElement == "text") {
-			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(), '" + textElement + "')]")));
+			//myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(), '" + textElement + "')]")));
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@text, '" + textElement + "')]")));
 		} 
 		
 		if (findElement == "value") {
@@ -6307,6 +6211,31 @@ public class LDSTools {
 
 	}
 	
+	private void checkCalendar() throws Exception {
+		openCalendar();
+		
+		String pageSource;
+
+		if (getRunningOS().equals("mac")) {
+			clickButton("6:00 PM", "text", "name");
+		} else {
+			clickButton("Worldwide", "text", "text");
+		}
+
+		Thread.sleep(2000);
+		pageSource = getSourceOfPage();
+
+		Assert.assertTrue(checkNoCaseList("Worldwide Devotional for Young Adults", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Sunday, September 11", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("6:00", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("7:00", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("View at a local", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Learn more at", pageSource, "Contains"));
+		
+		pressBackKey();
+	}
+	
+	
 	/** checkReports()
 	 * Check reports for leaders
 	 * 
@@ -6997,7 +6926,7 @@ public class LDSTools {
 			
 			clickButtonByXpath("1Month");
 			Assert.assertTrue(checkElementReturn("AFPEighteen, Member", "textAtt", "value"));
-			Assert.assertTrue(checkElementReturn("AFPFive, Wife", "textAtt", "value"));
+			//Assert.assertTrue(checkElementReturn("AFPFive, Wife", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("AFPMisc, Member12", "textAtt", "value"));
 			if (getRunningOS().equals("mac")) {
 				pressBackKey();
@@ -8160,6 +8089,15 @@ public class LDSTools {
 		} else {
 			clickButtonByXpath("Drawer");
 			clickButtonByXpath("DrawerReports");
+		}
+	}
+	
+	private void openCalendar() throws Exception {
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpath("DrawerCalendar");
+		} else {
+			clickButtonByXpath("Drawer");
+			clickButtonByXpath("DrawerCalendar");
 		}
 	}
 	
