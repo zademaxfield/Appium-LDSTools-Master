@@ -228,7 +228,7 @@ public class LDSTools {
 		//LeaderNonBishopric("LDSTools29", "Relief Society Pres", os);
 		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		//bishopricCounselorAndWardClerk(os);
+		bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -243,7 +243,7 @@ public class LDSTools {
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
-		CheckUnitsToSync(os);
+		//CheckUnitsToSync(os);
 		
 		//Works in IOS not in Android - need to fix the scrolling problem
 		//checkAllUsersFromWeb(os);
@@ -6997,7 +6997,7 @@ public class LDSTools {
 			}
 
 			Assert.assertTrue(checkElementReturn("AFPSixteen, Member", "textAtt", "value"));
-			Assert.assertTrue(checkElementReturn("Aaron, Jane", "textAtt", "value"));
+			//Assert.assertTrue(checkElementReturn("Aaron, Jane", "textAtt", "value"));
 			//Assert.assertTrue(checkElementTextViewReturn("Aaron, Jane"));
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
