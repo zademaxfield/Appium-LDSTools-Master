@@ -1414,14 +1414,14 @@ public class LDSTools {
 		Thread.sleep(1000);
 		checkCalendar();
 		
-		*/
+		
 		
 		Thread.sleep(1000);
 		//Check the reports - leadership only - true for bishopric rights, false for leaders and remove
 		//checkReports for non-leaders
 		checkReports(false, false);
+		*/
 		
-		/*
 		
 		Thread.sleep(1000);
 		//Check Home Teaching - Visiting Teaching
@@ -1433,7 +1433,7 @@ public class LDSTools {
 		//Check Home Teaching - Visiting Teaching Household - Sisters and Filters
 		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
 		checkHTVTHouseholds(userCalling);
-		*/
+		
 	
 	}
 	
@@ -6398,6 +6398,7 @@ public class LDSTools {
 		clickButton("mpInvestigatorsWithBaptismDate", "id", "xpath");
 		if (!getRunningOS().equals("mac")) {
 			clickButton("mpMenuSave", "id", "xpath");
+			clickButton("mpExpandFilter", "id", "xpath");
 		} else {
 			pressBackKey();
 		}
@@ -6414,6 +6415,7 @@ public class LDSTools {
 		clickButton("mpProgressingInvestigators", "id", "xpath");
 		if (!getRunningOS().equals("mac")) {
 			clickButton("mpMenuSave", "id", "xpath");
+			clickButton("mpExpandFilter", "id", "xpath");
 		} else {
 			pressBackKey();
 		}
@@ -6430,6 +6432,7 @@ public class LDSTools {
 		clickButton("mpNewInvestigators", "id", "xpath");
 		if (!getRunningOS().equals("mac")) {
 			clickButton("mpMenuSave", "id", "xpath");
+			clickButton("mpExpandFilter", "id", "xpath");
 		} else {
 			pressBackKey();
 		}
@@ -6992,6 +6995,7 @@ public class LDSTools {
 			//System.out.println("Running OS: " + myOS);
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
+				clickButton("HTVTExpand", "id", "xpath");
 				checkText("HTVTFiltersApplied", "Assigned Home Teachers", "id", "xpath");
 			} else {
 				pressBackKey();
@@ -7013,6 +7017,7 @@ public class LDSTools {
 			clickButton("NotAssignedHomeTeachersBox", "id", "xpath");
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
+				clickButton("HTVTExpand", "id", "xpath");
 				checkText("HTVTFiltersApplied", "Not Assigned Home Teachers", "id", "xpath");
 			} else {
 				pressBackKey();
@@ -7032,6 +7037,7 @@ public class LDSTools {
 			clickButton("NewAndMovedInMembersBox", "id", "xpath");
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
+				clickButton("HTVTExpand", "id", "xpath");
 				checkText("HTVTFiltersApplied", "New & Moved-In Members", "id", "xpath");
 			} else {
 				pressBackKey();
@@ -7055,6 +7061,7 @@ public class LDSTools {
 			clickButton("SingleSisters1830", "id", "xpath");
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
+				clickButton("HTVTExpand", "id", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -7076,6 +7083,7 @@ public class LDSTools {
 			clickButton("SingleSisters31over", "id", "xpath");
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
+				clickButton("HTVTExpand", "id", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -7096,6 +7104,7 @@ public class LDSTools {
 			clickButton("SingleBrothers1830", "id", "xpath");
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
+				clickButton("HTVTExpand", "id", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -7115,6 +7124,7 @@ public class LDSTools {
 			clickButton("SingleBrohters31over", "id", "xpath");
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
+				clickButton("HTVTExpand", "id", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -7149,6 +7159,7 @@ public class LDSTools {
 			clickButton("AssignedHomeTeachersBox", "id", "xpath");
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
+				clickButton("HTVTExpand", "id", "xpath");
 				checkText("HTVTFiltersApplied", "Assigned Home Teachers", "id", "xpath");
 			} else {
 				pressBackKey();
@@ -7168,6 +7179,7 @@ public class LDSTools {
 			clickButton("NotAssignedHomeTeachersBox", "id", "xpath");
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
+				clickButton("HTVTExpand", "id", "xpath");
 				checkText("HTVTFiltersApplied", "Not Assigned Home Teachers", "id", "xpath");
 			} else {
 				pressBackKey();
@@ -7187,6 +7199,7 @@ public class LDSTools {
 			clickButton("NewAndMovedInMembersBox", "id", "xpath");
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
+				clickButton("HTVTExpand", "id", "xpath");
 				checkText("HTVTFiltersApplied", "New & Moved-In Members", "id", "xpath");
 			} else {
 				pressBackKey();
@@ -7207,6 +7220,7 @@ public class LDSTools {
 			clickButton("SingleSisters1830", "id", "xpath");
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
+				clickButton("HTVTExpand", "id", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -7227,6 +7241,7 @@ public class LDSTools {
 			clickButton("SingleSisters31over", "id", "xpath");
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
+				clickButton("HTVTExpand", "id", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -7247,6 +7262,7 @@ public class LDSTools {
 			clickButton("SingleBrothers1830", "id", "xpath");
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
+				clickButton("HTVTExpand", "id", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -7266,6 +7282,7 @@ public class LDSTools {
 			clickButton("SingleBrohters31over", "id", "xpath");
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
+				clickButton("HTVTExpand", "id", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -7309,6 +7326,7 @@ public class LDSTools {
 			clickButton("AssignedHomeTeachersBox", "id", "xpath");
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
+				clickButton("HTVTExpand", "id", "xpath");
 				checkText("HTVTFiltersApplied", "Assigned Visiting Teachers", "id", "xpath");
 			} else {
 				pressBackKey();
@@ -7329,6 +7347,7 @@ public class LDSTools {
 			clickButton("NotAssignedHomeTeachersBox", "id", "xpath");
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
+				clickButton("HTVTExpand", "id", "xpath");
 				checkText("HTVTFiltersApplied", "Not Assigned Visiting Teachers", "id", "xpath");
 			} else {
 				pressBackKey();
@@ -7348,6 +7367,7 @@ public class LDSTools {
 			clickButton("NewAndMovedInMembersBox", "id", "xpath");
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
+				clickButton("HTVTExpand", "id", "xpath");
 				checkText("HTVTFiltersApplied", "New & Moved-In Members", "id", "xpath");
 			} else {
 				pressBackKey();
@@ -7368,6 +7388,7 @@ public class LDSTools {
 			clickButton("SingleSisters1830", "id", "xpath");
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
+				clickButton("HTVTExpand", "id", "xpath");
 			} else {
 				pressBackKey();
 			}
@@ -7388,6 +7409,7 @@ public class LDSTools {
 			clickButton("SingleSisters31over", "id", "xpath");
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
+				clickButton("HTVTExpand", "id", "xpath");
 			} else {
 				pressBackKey();
 			}
