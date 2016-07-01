@@ -226,9 +226,9 @@ public class LDSTools {
 		//justForTesting(os);	
 
 		//LeaderNonBishopric("LDSTools29", "Relief Society Pres", os);
-		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
+		LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		bishopricCounselorAndWardClerk(os);
+		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -7928,7 +7928,7 @@ public class LDSTools {
 					System.out.println("USER: " + oneUser);
 					if ((oneUser.contains("Jr")) || (oneUser.contains("Salvador")) || (oneUser.contains("Junior") || (oneUser.contains("Farley")
 							|| (oneUser.contains("Raymundo") || (oneUser.contains("Dylan") || (oneUser.contains("Siteni") 
-							|| (oneUser.contains("Morgan") ||(oneUser.contains("Wilson, Tina"))))))))){
+							|| (oneUser.contains("Morgan") || (oneUser.contains("Wilson, Tina"))))))))){
 						System.out.println("Skipping: " + oneUser);
 					} else {
 						Assert.assertTrue(androidList.contains(oneUser));
@@ -7952,10 +7952,13 @@ public class LDSTools {
 				*/
 				if(!myList.isEmpty()) {
 					for(int myCounter = 0 ; myCounter < androidList.size() ; myCounter++) {
-						//for(String oneUser : myList) {
-							System.out.println("USER: " + myList.get(myCounter));
+						if ((myList.get(myCounter).contains("Jr")) || (myList.get(myCounter).contains("Salvador")) 
+								|| (myList.get(myCounter).contains("Joseph")) || (myList.get(myCounter).contains("Junior"))) {
+							System.out.println("Skipping: " + myList.get(myCounter));
+						} else {
+							System.out.println("Android USER: " + myList.get(myCounter));
 							Assert.assertTrue(myList.contains(androidList.get(myCounter)));
-							//Assert.assertTrue(androidList.contains(myList.get(myCounter)));
+						}
 					}
 				}	
 			}
