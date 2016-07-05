@@ -226,9 +226,9 @@ public class LDSTools {
 		//justForTesting(os);	
 
 		//LeaderNonBishopric("LDSTools29", "Relief Society Pres", os);
-		LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
+		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		//bishopricCounselorAndWardClerk(os);
+		bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -6376,7 +6376,7 @@ public class LDSTools {
 		}
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("AFPEighteen, Member", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("AFPFive, Wife", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("AFPFive, Wife", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Organa, Leia", pageSource, "Contains"));
 
 		Thread.sleep(1000);
