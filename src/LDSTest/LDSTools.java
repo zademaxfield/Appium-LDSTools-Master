@@ -6303,7 +6303,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Ami, Samu", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Bishop", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Relief Society Teacher", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("11 months", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Skywalker, Anakin", pageSource, "Equals"));
 	
