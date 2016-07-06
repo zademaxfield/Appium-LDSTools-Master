@@ -228,8 +228,8 @@ public class LDSTools {
 		//LeaderNonBishopric("LDSTools29", "Relief Society Pres", os);
 		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		bishopricCounselorAndWardClerk(os);
-		//bishopMemberOfSeparateStake(os);	
+		//bishopricCounselorAndWardClerk(os);
+		bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
 		
@@ -6244,12 +6244,20 @@ public class LDSTools {
 	private void checkReports(boolean newUnit, boolean bishop) throws Exception {
 		//Reports
 		//List<String> checkReportText = new ArrayList<String>();
-		String pageSource;
+		String pageSource = null;
 		//boolean myTestbool;
 		
 		openReports();
 		Thread.sleep(2000);
-		pageSource = getSourceOfPage();
+		
+		if (getRunningOS().equals("mac")) {
+			pageSource = getSourceOfPage();
+		} else {
+			pageSource = pageSource + getSourceOfPage();
+			scrollDownTEST(800);
+			pageSource = pageSource + getSourceOfPage();
+		}
+
 
 		Assert.assertTrue(checkNoCaseList("Birthday List", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("Members Moved In", pageSource, "Equals"));
