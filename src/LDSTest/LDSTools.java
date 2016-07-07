@@ -229,7 +229,7 @@ public class LDSTools {
 		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//bishopricCounselorAndWardClerk(os);
-		bishopMemberOfSeparateStake(os);	
+		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
 		
@@ -272,7 +272,7 @@ public class LDSTools {
 		
 		
 		//Header Tests
-		//ChristieWhiting(os);
+		ChristieWhiting(os);
 		//CliffHigby(os);
 		//KevinPalmer(os);
 		//PatriarchOtherWards(os); //Not working!
@@ -7483,7 +7483,7 @@ public class LDSTools {
 				*/
 				clickButtonByXpathTitleName(StakeWardItem);
 				//displayAllTextViewElements();
-				Thread.sleep(2000);
+				Thread.sleep(6000);
 				//This will check to see if the first user has text.  
 				Assert.assertTrue(checkFirstDirectoryUser());
 				
