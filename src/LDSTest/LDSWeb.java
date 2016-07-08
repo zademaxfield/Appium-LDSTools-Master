@@ -74,8 +74,38 @@ public class LDSWeb {
 	
 	@Test
 	public void simpleTest() throws Exception {
+		String url = "https://missionary-stage.lds.org/ward-missionary-tools";
+		String userName = "ab067";
+		String passWord = "password0";
 		
-		ABSetupDebbieSmith();
+		
+		String mySource;
+		List<String> foundUsers = new ArrayList<String>();
+		
+		openGuiMap();
+		setUp();
+		
+		Thread.sleep(1000);
+		openWebPage(url);
+		Thread.sleep(2000);
+
+		driver.findElement(By.id(this.prop.getProperty("UserName"))).sendKeys(userName);
+		//Thread.sleep(1000);
+		driver.findElement(By.id(this.prop.getProperty("Password"))).sendKeys(passWord);
+		clickElement("SignIn", "id");
+		
+		Thread.sleep(4000);
+		clickElement("Progress Record", "linkText");
+		Thread.sleep(4000);
+		clickElement("Visit last 2 wks", "text");
+		
+		mySource = getSourceOfPage();
+		foundUsers = getMembersWardProgressRecord(mySource);
+		
+
+		
+		Thread.sleep(10000);
+		
 		/*
 		
 		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
@@ -171,6 +201,30 @@ public class LDSWeb {
 		clickElement("HomeButton", "xpath");
 		
 		myWindow = driver.getWindowHandle();
+	}
+	
+	public void WPRopenPageLogIn(String url, String userName, String passWord) throws Exception {
+		
+		url = "https://missionary-stage.lds.org/ward-missionary-tools";
+		userName = "ab067";
+		passWord = "password0";
+
+		openGuiMap();
+		setUp();
+		
+		Thread.sleep(1000);
+		openWebPage(url);
+		Thread.sleep(2000);
+
+		driver.findElement(By.id(this.prop.getProperty("UserName"))).sendKeys(userName);
+		//Thread.sleep(1000);
+		driver.findElement(By.id(this.prop.getProperty("Password"))).sendKeys(passWord);
+		clickElement("SignIn", "id");
+		
+		Thread.sleep(4000);
+		clickElement("Progress Record", "linkText");
+		Thread.sleep(4000);
+		clickElement("Visit last 2 wks", "text");
 	}
 	
 	
@@ -475,9 +529,14 @@ public class LDSWeb {
 		String myString;
 		WebElement myElement = null;
 		
-		myElement = driver.findElement(By.xpath(this.prop.getProperty(elementName)));
-		myString = myElement.getAttribute("innerHTML");
-
+		List<WebElement> options= driver.findElements(By.xpath(this.prop.getProperty(elementName)));
+		if (options.isEmpty()) {
+			myString ="";
+		} else {
+			myElement = driver.findElement(By.xpath(this.prop.getProperty(elementName)));
+			myString = myElement.getAttribute("innerHTML");
+		}
+	
 		return myString;
 	}
 	
@@ -1242,6 +1301,30 @@ public class LDSWeb {
 	
 	
 	
+	private List<String> getMembersWardProgressRecord(String pageSource){
+		List<String> foundUsers = new ArrayList<String>();
+		List<WebElement> options= driver.findElements(By.xpath("//div[@class=\"record ng-scope\"]//*[@class=\"contact-name ng-binding\"]"));
+		String myText;
+		
+		for (int i = 0 ; i < options.size(); i++ ) {
+			//System.out.println(options.get(i).getText());
+			myText = options.get(i).getText();
+			
+			if (!myText.isEmpty() ) {
+				foundUsers.add(myText);
+				System.out.println("WPR USER: " + myText);
+			}
+			
+		}
+
+		return foundUsers;
+		
+	}
+	
+	
+	
+	
+	
 	public List<String> getAllMembersInHTVTReport(String orgName, String myReport, String userName, String passWord, String leaderShip) throws Exception {
 		String mySource;
 		List<String> foundUsers = new ArrayList<String>();
@@ -1826,6 +1909,42 @@ public class LDSWeb {
 		Thread.sleep(2000);
 		
 		clickElement("abDashboard", "xpath");
+	}
+	
+	
+	
+	
+	public List<String> WPRgetUsers(String subReport, Boolean newSession) throws Exception {
+		String mySource;
+		List<String> foundUsers = new ArrayList<String>();
+		
+		Thread.sleep(5000);
+
+		if (!subReport.equals("none")) {
+			clickElement("WPRIndividualStatus", "xpath");
+			Thread.sleep(1000);
+			clickElement(subReport, "text");
+			Thread.sleep(2000);
+			mySource = getSourceOfElement("WPRVisibleUsers");
+			//mySource = getSourceOfPage();
+			foundUsers = getMembersWardProgressRecord(mySource);
+			clickElement(subReport, "text");
+			Thread.sleep(2000);
+			clickElement("WPRIndividualStatus", "xpath");
+		} else {
+			//mySource = getSourceOfElement("WPRVisibleUsers");
+			mySource = getSourceOfPage();
+			foundUsers = getMembersWardProgressRecord(mySource);
+		}
+		
+
+		
+		if (newSession == true ) {
+			tearDown();
+		}
+		
+		return foundUsers;
+		
 	}
 	
 	
