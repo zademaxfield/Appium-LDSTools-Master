@@ -228,7 +228,7 @@ public class LDSTools {
 		//LeaderNonBishopric("LDSTools29", "Relief Society Pres", os);
 		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		//bishopricCounselorAndWardClerk(os);
+		bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -272,7 +272,7 @@ public class LDSTools {
 		
 		
 		//Header Tests
-		ChristieWhiting(os);
+		//ChristieWhiting(os);
 		//CliffHigby(os);
 		//KevinPalmer(os);
 		//PatriarchOtherWards(os); //Not working!
@@ -313,27 +313,9 @@ public class LDSTools {
 		
 		syncLogIn("LDSTools21", "password1", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
-		openCalendar();
-		
-		String pageSource;
+		openReports();
+		checkMissionaryProgressRecord();
 
-		if (getRunningOS().equals("mac")) {
-			clickButton("6:00 PM", "text", "name");
-		} else {
-			clickButton("Worldwide", "text", "text");
-		}
-
-		Thread.sleep(2000);
-		pageSource = getSourceOfPage();
-
-		Assert.assertTrue(checkNoCaseList("Worldwide Devotional for Young Adults", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Sunday, September 11", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("6:00", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("7:00", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("View at a local", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Learn more at", pageSource, "Contains"));
-		
-		pressBackKey();
 		
 		
 		/*
@@ -3975,12 +3957,12 @@ public class LDSTools {
 			if (!myElement.attributes().get("text").equals("")) {
 				foundText = myElement.attributes().get("text");
 				//foundText = foundText.toLowerCase();
-				if ((!foundText.isEmpty()) && (foundText.contains(","))){
-					System.out.println("Adding User: " + foundText);
+				if ((!foundText.isEmpty()) && (foundText.contains(","))){			
 					if ((foundText.contains("2015")) || (foundText.contains("2016"))){
-						System.out.println("Date? :" + foundText);
+						//System.out.println("Date? :" + foundText);
 					} else {
 						userList.add(foundText);
+						System.out.println("Adding User: " + foundText);
 					}
 						
 				}
@@ -5041,53 +5023,19 @@ public class LDSTools {
 	}
 	
 	private void scrollDownSlow(int scrollDistance) throws Exception {
-		TouchActions actions = new TouchActions(driver);
-		//WebElement myElement = driver.findElement(By.xpath("//CheckableLinearLayout[10]/RelativeLayout/LinearLayout"));
-		//actions.flick(driver.findElement(By.xpath("//LinearLayout")), 0, scrollDistance, 100);
-		//WebElement clickElement = driver.findElement(By.xpath("//*[@value='" + selectElement + "']"));
-		//actions.scroll( clickElement, 0, 1000);
-		
-		//actions.flick( clickElement, 0, -1000, 100);
-
-
-		
 		Dimension dimensions = driver.manage().window().getSize();
 		int screenWidth = dimensions.getWidth();
 		int screenHeight = dimensions.getHeight();
-		int screenUp;
-		
-		//System.out.println("Trying to move!");
-		//System.out.println("Width: " + screenWidth);
-		//System.out.println("Height: " + screenHeight);
+
 		
 		screenWidth = screenWidth / 3;
-		//screenWidth = screenWidth - 75;
-		//screenHeight = screenHeight / 2;
 		screenHeight = screenHeight - 70;
+		scrollDistance = screenHeight - scrollDistance;
+	
 		
-		screenUp = screenHeight - 60;
-		
-		//System.out.println("Width: " + screenWidth);
-		//System.out.println("Height: " + screenHeight);
-		//System.out.println("Up: " + screenUp);
-		
-		//actions.down(screenWidth, screenHeight).move(screenWidth, screenUp).up(screenWidth, screenUp);
-		//actions.down(screenWidth, screenHeight).up(screenWidth, screenUp);
-		actions.down(screenWidth, screenHeight);
-		//actions.pause(2000);
-		//actions.move(screenWidth, screenHeight -100 );
-		actions.move(screenWidth, screenUp);
+		driver.swipe(screenWidth, screenHeight, screenWidth, scrollDistance, 1000);
 
-		actions.pause(3000);
-		actions.up(screenWidth, screenUp);
-		//actions.up(screenWidth, screenUp);
-		actions.pause(2000);
-
-		
-
-		actions.perform();
-		
-		Thread.sleep(5000);
+		Thread.sleep(2000);
 		
 	}
 	
@@ -6391,75 +6339,8 @@ public class LDSTools {
 		pressBackKey();
 		Thread.sleep(1000);
 		
-		//*************************************************************************************
-		//********************* Missionary Progress Record ************************************
-		//*************************************************************************************
-		clickButtonByXpathTitleName("Missionary Progress Record");
-		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("ABP", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Contact", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Potential Investigator", pageSource, "Contains"));
-		Assert.assertFalse(checkNoCaseList("Malcolm Reynolds", pageSource, "Contains"));
-
-		//Investigators with Baptism Date
-		clickButton("MissionaryProgressFilter", "id", "xpath");
-		clickButton("mpInvestigatorsWithBaptismDate", "id", "xpath");
-		if (!getRunningOS().equals("mac")) {
-			clickButton("mpMenuSave", "id", "xpath");
-			clickButton("mpExpandFilter", "id", "xpath");
-		} else {
-			pressBackKey();
-		}
-		checkText("mpFilterText", "Investigators with Baptism Date", "id", "xpath");
-		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Solo", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Han", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Baptism Goal", pageSource, "Contains"));
-		Assert.assertFalse(checkNoCaseList("Skywalker", pageSource, "Contains"));
-		clickButton("mpRemoveFilterButton", "id", "xpath");
 		
-		//Progressing Investigators
-		clickButton("MissionaryProgressFilter", "id", "xpath");
-		clickButton("mpProgressingInvestigators", "id", "xpath");
-		if (!getRunningOS().equals("mac")) {
-			clickButton("mpMenuSave", "id", "xpath");
-			clickButton("mpExpandFilter", "id", "xpath");
-		} else {
-			pressBackKey();
-		}
-		checkText("mpFilterText", "Progressing Investigators", "id", "xpath");
-		pageSource = getSourceOfPage();
-		//Assert.assertTrue(checkNoCaseList("Solo", pageSource, "Contains"));
-		//Assert.assertTrue(checkNoCaseList("Han", pageSource, "Contains"));
-		//Assert.assertTrue(checkNoCaseList("Baptism Goal", pageSource, "Contains"));
-		//Assert.assertFalse(checkNoCaseList("Skywalker", pageSource, "Contains"));
-		clickButton("mpRemoveFilterButton", "id", "xpath");
-		
-		//New Investigators
-		clickButton("MissionaryProgressFilter", "id", "xpath");
-		clickButton("mpNewInvestigators", "id", "xpath");
-		if (!getRunningOS().equals("mac")) {
-			clickButton("mpMenuSave", "id", "xpath");
-			clickButton("mpExpandFilter", "id", "xpath");
-		} else {
-			pressBackKey();
-		}
-		checkText("mpFilterText", "New Investigators", "id", "xpath");
-		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Skywalker", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Luke", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("New Investigator", pageSource, "Contains"));
-		Assert.assertFalse(checkNoCaseList("James", pageSource, "Contains"));
-		clickButton("mpRemoveFilterButton", "id", "xpath");
-	
-
-		Thread.sleep(1000);
-		pressBackKey();
-		Thread.sleep(1000);
-		
-		//*************************************************************************************
-		//*************************************************************************************
-		//*************************************************************************************
+		checkMissionaryProgressRecord();
 		
 		
 		//New Members
@@ -6570,6 +6451,171 @@ public class LDSTools {
 		pressBackKey();
 	}
 	
+	private void checkMissionaryProgressRecord() throws Exception {
+		//*************************************************************************************
+		//********************* Missionary Progress Record ************************************
+		//*************************************************************************************
+		String pageSource;
+		List<String> myList = new ArrayList<String>();
+		List<String> androidList = new ArrayList<String>();
+		
+		
+		clickButtonByXpathTitleName("Missionary Progress Record");
+		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("Potential Investigator", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("Malcolm Reynolds", pageSource, "Contains"));
+		
+		myWeb.WPRopenPageLogIn("https://missionary-stage.lds.org/ward-missionary-tools", "ab067", "password0");
+		myList = myWeb.WPRgetUsers("none", false);	
+		if (!getRunningOS().equals("mac")) {
+			myList = swapLastName(myList);
+		}
+		
+		compareWebData(myList, androidList, false);
+
+		//Investigators with Baptism Date
+		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("mpInvestigatorsWithBaptismDate", "id", "xpath");
+		if (!getRunningOS().equals("mac")) {
+			clickButton("mpMenuSave", "id", "xpath");
+			clickButton("mpExpandFilter", "id", "xpath");
+		} else {
+			pressBackKey();
+		}
+		checkText("mpFilterText", "Investigators with Baptism Date", "id", "xpath");
+		myList = myWeb.WPRgetUsers("Investigators with Baptism Date", false);
+		if (!getRunningOS().equals("mac")) {
+			myList = swapLastName(myList);
+		}
+		compareWebData(myList, androidList, false);
+		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("Baptism Goal", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("Skywalker", pageSource, "Contains"));
+		clickButton("mpRemoveFilterButton", "id", "xpath");
+		
+		//Progressing Investigators
+		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("mpProgressingInvestigators", "id", "xpath");
+		if (!getRunningOS().equals("mac")) {
+			clickButton("mpMenuSave", "id", "xpath");
+			clickButton("mpExpandFilter", "id", "xpath");
+		} else {
+			pressBackKey();
+		}
+		checkText("mpFilterText", "Progressing Investigators", "id", "xpath");
+		myList = myWeb.WPRgetUsers("Progressing Investigators", false);
+		if (!getRunningOS().equals("mac")) {
+			myList = swapLastName(myList);
+		}
+		compareWebData(myList, androidList, false);
+		pageSource = getSourceOfPage();
+		//Assert.assertTrue(checkNoCaseList("Solo", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("Han", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("Baptism Goal", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("Skywalker", pageSource, "Contains"));
+		clickButton("mpRemoveFilterButton", "id", "xpath");
+		
+		//New Investigators
+		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("mpNewInvestigators", "id", "xpath");
+		if (!getRunningOS().equals("mac")) {
+			clickButton("mpMenuSave", "id", "xpath");
+			clickButton("mpExpandFilter", "id", "xpath");
+		} else {
+			pressBackKey();
+		}
+		checkText("mpFilterText", "New Investigators", "id", "xpath");
+		myList = myWeb.WPRgetUsers("New Investigators", false);
+		if (!getRunningOS().equals("mac")) {
+			myList = swapLastName(myList);
+		}
+		compareWebData(myList, androidList, false);
+		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("Skywalker", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Luke", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("New Investigator", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("James", pageSource, "Contains"));
+		clickButton("mpRemoveFilterButton", "id", "xpath");
+		
+		//Other Investigators
+		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("mpOtherInvestigators", "id", "xpath");
+		if (!getRunningOS().equals("mac")) {
+			clickButton("mpMenuSave", "id", "xpath");
+			clickButton("mpExpandFilter", "id", "xpath");
+		} else {
+			pressBackKey();
+		}
+		checkText("mpFilterText", "Other Investigators", "id", "xpath");
+		myList = myWeb.WPRgetUsers("Other Investigators", false);
+		if (!getRunningOS().equals("mac")) {
+			myList = swapLastName(myList);
+		}
+		compareWebData(myList, androidList, false);
+		clickButton("mpRemoveFilterButton", "id", "xpath");
+		
+		//Potential Investigators
+		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("mpPotentialInvestigators", "id", "xpath");
+		if (!getRunningOS().equals("mac")) {
+			clickButton("mpMenuSave", "id", "xpath");
+			clickButton("mpExpandFilter", "id", "xpath");
+		} else {
+			pressBackKey();
+		}
+		checkText("mpFilterText", "Potential Investigators", "id", "xpath");
+		myList = myWeb.WPRgetUsers("Potential Investigators", false);
+		if (!getRunningOS().equals("mac")) {
+			myList = swapLastName(myList);
+		}
+		compareWebData(myList, androidList, false);
+		clickButton("mpRemoveFilterButton", "id", "xpath");
+		
+		//Recent Converts
+		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("mpRecentConverts", "id", "xpath");
+		if (!getRunningOS().equals("mac")) {
+			clickButton("mpMenuSave", "id", "xpath");
+			clickButton("mpExpandFilter", "id", "xpath");
+		} else {
+			pressBackKey();
+		}
+		checkText("mpFilterText", "Recent Converts", "id", "xpath");
+		myList = myWeb.WPRgetUsers("Recent Converts", false);
+		if (!getRunningOS().equals("mac")) {
+			myList = swapLastName(myList);
+		}
+		compareWebData(myList, androidList, false);
+		clickButton("mpRemoveFilterButton", "id", "xpath");
+		
+		//Members Being Taught
+		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("mpMembersBeingTaught", "id", "xpath");
+		if (!getRunningOS().equals("mac")) {
+			clickButton("mpMenuSave", "id", "xpath");
+			clickButton("mpExpandFilter", "id", "xpath");
+		} else {
+			pressBackKey();
+		}
+		checkText("mpFilterText", "Members Being Taught", "id", "xpath");
+		myList = myWeb.WPRgetUsers("Members Being Taught", true);
+		if (!getRunningOS().equals("mac")) {
+			myList = swapLastName(myList);
+		}
+		compareWebData(myList, androidList, false);
+		clickButton("mpRemoveFilterButton", "id", "xpath");
+	
+	
+
+		Thread.sleep(1000);
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		//*************************************************************************************
+		//*************************************************************************************
+		//*************************************************************************************
+	}
+
 	private void checkHTVTBasic(String userCalling ) throws Exception {
 		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
 		String pageSource;
@@ -7911,15 +7957,10 @@ public class LDSTools {
 					pageSource = getSourceOfPage();
 					androidList = createUserList(androidList, pageSource);
 					lastMember = androidList.get(androidList.size() - 1 );
-					//memberToSelect = androidList.get(androidList.size() / 2 );
-					
-					//System.out.println("Member To Select: " + memberToSelect);
-					//scrollDownPerPage(pageSize);
+
 					scrollDownSlow(pageSize);
-					//scrollDownTEST(pageSize);
-					//flickUpOrDown(pageSize);
 					Thread.sleep(1000);
-					pageSource = getSourceOfPage();
+					pageSource = pageSource + getSourceOfPage();
 					androidList = createUserList(androidList, pageSource);
 					lastMemberCheck = androidList.get(androidList.size() - 1 );
 					System.out.println("Last Member: " + lastMember);
@@ -8515,6 +8556,24 @@ public class LDSTools {
 			//	driver.hideKeyboard();
 			//}
 		}
+	}
+	
+	
+	private List<String> swapLastName(List<String> listToSwitch) throws Exception {
+		String userSwitch;
+		
+		for (int myCounter = 0; myCounter < listToSwitch.size(); myCounter++) {
+			String[] parts = listToSwitch.get(myCounter).split(" ");
+			String part1 = parts[0];
+			//part1 = part1.replace(",", "");
+			String part2 = parts[1];
+			userSwitch = part2 + ", " + part1;
+			System.out.println("SWITCH: " + userSwitch);
+			listToSwitch.set(myCounter, userSwitch);
+		}
+		
+		return listToSwitch;
+
 	}
 	
 	// **************************************************************************************
