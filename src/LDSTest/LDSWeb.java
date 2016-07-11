@@ -74,37 +74,8 @@ public class LDSWeb {
 	
 	@Test
 	public void simpleTest() throws Exception {
-		String url = "https://missionary-stage.lds.org/ward-missionary-tools";
-		String userName = "ab067";
-		String passWord = "password0";
-		
-		
-		String mySource;
-		List<String> foundUsers = new ArrayList<String>();
-		
-		openGuiMap();
-		setUp();
-		
-		Thread.sleep(1000);
-		openWebPage(url);
-		Thread.sleep(2000);
-
-		driver.findElement(By.id(this.prop.getProperty("UserName"))).sendKeys(userName);
-		//Thread.sleep(1000);
-		driver.findElement(By.id(this.prop.getProperty("Password"))).sendKeys(passWord);
-		clickElement("SignIn", "id");
-		
-		Thread.sleep(4000);
-		clickElement("Progress Record", "linkText");
-		Thread.sleep(4000);
-		clickElement("Visit last 2 wks", "text");
-		
-		mySource = getSourceOfPage();
-		foundUsers = getMembersWardProgressRecord(mySource);
-		
-
-		
-		Thread.sleep(10000);
+		//ABSetupColinMacNeil();
+		ABSetEventColinMacNeil();
 		
 		/*
 		
@@ -117,13 +88,7 @@ public class LDSWeb {
 		clickElement("Message of the Restoration", "text");
 		clickElement("The gospel blesses families", "text");
 		
-		enterText("abTitle", "xpath", "Test Title");
-		clickElement("abHappened", "id");
-		
-		clickElement("abStartTime", "xpath");
-		clickElement("abHour", "id");
-
-		clickElement("abEndTime", "xpath");
+		clickElement("abEditSave", "xpath");
 
 
 		
@@ -1911,6 +1876,254 @@ public class LDSWeb {
 		clickElement("abDashboard", "xpath");
 	}
 	
+	public void ABSetupColinMacNeil() throws Exception {
+		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
+		clickElement("InvestigatorsAdd", "id");
+		enterText("abFirstName", "xpath", "Colin");
+		enterText("abLastName", "xpath", "MacNeil");
+		
+		//Should check on what the toggle is first
+		//clickElement("LocalOnlineToggle", "id");
+		
+		clickElement("Add phone number", "text");
+		enterText("abAddPhoneNumberMobile", "xpath", "801-111-1111");
+		
+		clickElement("Add phone number", "text");
+		enterText("abAddPhoneNumberHome", "xpath", "385-222-2222");
+		
+		clickElement("Add phone number", "text");
+		enterText("abAddPhoneNumberWork", "xpath", "505-333-3333");
+		
+		clickElement("Add phone number", "text");
+		enterText("abAddPhoneNumberOther", "xpath", "723-444-4444");
+		
+		clickElement("Add email address", "text");
+		enterText("abAddEmailAddressPersonal", "xpath", "colinmacneil@gmail.com");
+		Thread.sleep(2000);
+		
+		
+		scrollToElement("abAddAddress", "xpath");
+		enterText("abAddAddress", "xpath", "13445 S 4500 W, Riverton, UT 84065");
+		
+		//Add Household members
+
+		
+		//Add Fellowshippers
+		clickElement("abAddFellowshippers", "xpath");
+		enterText("adFellowshippersFind", "xpath", "LDS44 Tools");
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//span[@class='ab-personfield-name'][contains(text(), 'LDS44 Tools')]")).click();
+		clickElement("abFellowshippersDone", "xpath");
+		
+		//Enter in Background info
+		enterText("abAddBackgroundInfo", "xpath", "Moved from Scotland");
+		
+		//Add Preferred Language
+		clickElement("abPreferredLanguage", "xpath");
+		enterText("adPreferredLanguageFind", "xpath", "English");
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//div[@class='ab-base-list-innerhtml']/p/span[contains(text(), 'English')]")).click();
+		clickElement("abPreferredLanguageDone", "xpath");
+		
+		//Set Age
+		clickElement("abAge", "xpath");
+		clickElement("abAge18-30", "xpath");
+		Thread.sleep(2000);
+		
+		//Set Gender
+		clickElement("abGender", "xpath");
+		clickElement("abGenderMale", "xpath");
+		Thread.sleep(2000);
+		
+
+		//Set Unit
+		//scrollToElement("Add Help Needed", "text");
+		//clickElement("abUnit", "xpath");
+		//clickElement("Fagamalo 1st Ward", "text");
+		//clickElement("Fagamalo 1st Ward", "text");
+		
+		//Set Finding Method
+		scrollToElement("abFindingMethod", "xpath");
+		clickElement("abFindingMethod", "xpath");
+		Thread.sleep(2000);
+		clickElement("Advertising", "text");
+		Thread.sleep(2000);
+		clickElement("Broadcast", "text");
+		Thread.sleep(2000);
+		clickElement("TV", "text");
+		Thread.sleep(2000);
+		
+		//Set Help Needed
+		scrollToElement("abHelpNeeded", "xpath");
+		enterText("abHelpNeeded", "xpath", "This is just a test. This is just a test. This is just a test. This is just a test. This is just a test. ");
+		
+		Thread.sleep(2000);
+		clickElement("abSave", "id");
+
+		
+		Thread.sleep(2000);
+		
+		clickElement("abMenu", "xpath");
+		clickElement("Sync Fagamalo", "text");
+		
+		Thread.sleep(2000);
+		enterText("abSyncLogin", "xpath", "ab067");
+		enterText("abSyncPassword", "xpath", "password0");
+		clickElement("abSyncSignInButton", "id");
+		
+		Thread.sleep(4000);
+		waitForTextToDisappear("abSync", 500, "id");
+		Thread.sleep(20000);
+		
+		clickElement("abDashboard", "xpath");
+	}
+	
+	public void ABSetEventColinMacNeil() throws Exception {
+		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
+		Thread.sleep(1000);
+		clickElement("abPeople", "xpath");
+		Thread.sleep(1000);
+		ABSelectUser("Colin MacNeil");
+		Thread.sleep(3000);
+		
+		//****************** Message of the Restoration *******************************
+		
+		clickElement("Message of the Restoration", "text");
+		clickElement("The gospel blesses families", "text");
+		clickElement("abEditSave", "xpath");
+		
+		clickElement("Message of the Restoration", "text");
+		clickElement("God is our loving Heavenly Father", "text");
+		clickElement("abEditSave", "xpath");
+		
+		clickElement("Message of the Restoration", "text");
+		clickElement("Gospel dispensations", "text");
+		clickElement("abEditSave", "xpath");
+		
+		clickElement("Message of the Restoration", "text");
+		clickElement("earthly ministry", "text");
+		clickElement("abEditSave", "xpath");
+		
+		clickElement("Message of the Restoration", "text");
+		clickElement("The Great Apostasy", "text");
+		clickElement("abEditSave", "xpath");
+		
+		clickElement("Message of the Restoration", "text");
+		clickElement("Joseph Smith", "text");
+		clickElement("abEditSave", "xpath");
+		
+		clickElement("Message of the Restoration", "text");
+		clickElement("The Book of Mormon", "text");
+		clickElement("abEditSave", "xpath");
+		
+		clickElement("Message of the Restoration", "text");
+		clickElement("Holy Ghost", "text");
+		clickElement("abEditSave", "xpath");
+		
+		//****************** Plan of Salvation *******************************
+		
+		clickElement("Plan of Salvation", "text");
+		clickElement("Pre-earth life", "text");
+		clickElement("abEditSave", "xpath");
+		
+		clickElement("Plan of Salvation", "text");
+		clickElement("The Creation", "text");
+		clickElement("abEditSave", "xpath");
+		
+		clickElement("Plan of Salvation", "text");
+		clickElement("Agency and the Fall", "text");
+		clickElement("abEditSave", "xpath");
+		
+		clickElement("Plan of Salvation", "text");
+		clickElement("Our life on earth", "text");
+		clickElement("abEditSave", "xpath");
+		
+		clickElement("Plan of Salvation", "text");
+		clickElement("The Atonement", "text");
+		clickElement("abEditSave", "xpath");
+		
+		clickElement("Plan of Salvation", "text");
+		clickElement("The spirit world", "text");
+		clickElement("abEditSave", "xpath");
+		
+		clickElement("Plan of Salvation", "text");
+		clickElement("Resurrection", "text");
+		clickElement("abEditSave", "xpath");
+		
+		clickElement("Plan of Salvation", "text");
+		scrollToElement("Kingdoms of glory", "text");
+		clickElement("Kingdoms of glory", "text");
+		clickElement("abEditSave", "xpath");
+		
+		Thread.sleep(3000);
+		
+		//****************** Gospel of Jesus Christ *******************************
+		
+		clickElement("Gospel of Jesus Christ", "text");
+		clickElement("Cleansed from sin", "text");
+		clickElement("abEditSave", "xpath");
+		
+		clickElement("Gospel of Jesus Christ", "text");
+		clickElement("Faith in Jesus Christ", "text");
+		clickElement("abEditSave", "xpath");
+		
+		clickElement("Gospel of Jesus Christ", "text");
+		clickElement("Repentance", "text");
+		clickElement("abEditSave", "xpath");
+		
+		clickElement("Gospel of Jesus Christ", "text");
+		clickElement("Baptism, our first covenant", "text");
+		clickElement("abEditSave", "xpath");
+		
+		clickElement("Gospel of Jesus Christ", "text");
+		clickElement("The gift of the Holy Ghost", "text");
+		clickElement("abEditSave", "xpath");
+		
+		clickElement("Gospel of Jesus Christ", "text");
+		clickElement("Endure to the end", "text");
+		clickElement("abEditSave", "xpath");
+		
+		Thread.sleep(3000);
+		
+		//****************** Commandments *******************************
+		
+		clickElement("Commandments", "text");
+		clickElement("Obedience", "text");
+		clickElement("abEditSave", "xpath");
+		
+		clickElement("Commandments", "text");
+		clickElement("Pray often", "text");
+		clickElement("abEditSave", "xpath");
+		
+		clickElement("Commandments", "text");
+		clickElement("Study the scriptures", "text");
+		clickElement("abEditSave", "xpath");
+		
+		clickElement("Commandments", "text");
+		clickElement("Keep the Sabbath day holy", "text");
+		clickElement("abEditSave", "xpath");
+		
+		clickElement("Commandments", "text");
+		scrollToElement("Baptism and confirmation", "text");
+		clickElement("Baptism and confirmation", "text");
+		clickElement("abEditSave", "xpath");
+		
+		clickElement("Commandments", "text");
+		scrollToElement("Follow the prophet", "text");
+		clickElement("Follow the prophet", "text");
+		clickElement("abEditSave", "xpath");
+		
+		clickElement("Commandments", "text");
+		scrollToElement("Keep the Ten Commandments", "text");
+		clickElement("Keep the Ten Commandmentst", "text");
+		clickElement("abEditSave", "xpath");
+		
+		clickElement("Commandments", "text");
+		//scrollToElement("Live the law of chastity", "text");
+		clickElement("Live the law of chastity", "text");
+		clickElement("abEditSave", "xpath");
+
+	}
 	
 	
 	
