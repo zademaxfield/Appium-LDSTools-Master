@@ -228,7 +228,7 @@ public class LDSTools {
 		//LeaderNonBishopric("LDSTools29", "Relief Society Pres", os);
 		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		bishopricCounselorAndWardClerk(os);
+		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -246,7 +246,7 @@ public class LDSTools {
 		//CheckUnitsToSync(os);
 		
 		//Works in IOS not in Android - need to fix the scrolling problem
-		//checkAllUsersFromWeb(os);
+		checkAllUsersFromWeb(os);
 		
 		
 		
@@ -1301,7 +1301,7 @@ public class LDSTools {
 		//Go to web and get all users
 		myWeb.openPageLogIn("https://uat.lds.org/mls/mbr/?lang=eng", myUserName, myPassword);
 		myList = myWeb.getAllMembersOnPage("Reports", "Member List", true);
-		compareWebData(myList, androidList, true);
+		compareWebData(myList, androidList, false);
 		
 		/*
 		for(String oneUser : myList) {
@@ -5033,7 +5033,7 @@ public class LDSTools {
 		scrollDistance = screenHeight - scrollDistance;
 	
 		
-		driver.swipe(screenWidth, screenHeight, screenWidth, scrollDistance, 1000);
+		driver.swipe(screenWidth, screenHeight, screenWidth, scrollDistance, 2000);
 
 		Thread.sleep(2000);
 		
@@ -7947,7 +7947,11 @@ public class LDSTools {
 				pageSize = driver.manage().window().getSize().getHeight();
 				//System.out.println("Page Size: " + pageSize);
 				//pageSize = pageSize - 20;
-				pageSize = pageSize - 100;
+				//System.out.println("Orig Page Size: " + pageSize);
+				pageSize = pageSize / 2;
+				//System.out.println("Half Page Size: " + pageSize);
+				pageSize = (pageSize / 2 ) + pageSize;
+				//System.out.println("3/4 Page Size: " + pageSize);
 				//pageSize = -pageSize;
 				
 				
