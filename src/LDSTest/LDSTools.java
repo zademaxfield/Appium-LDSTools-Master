@@ -246,7 +246,7 @@ public class LDSTools {
 		//CheckUnitsToSync(os);
 		
 		//Works in IOS not in Android - need to fix the scrolling problem
-		checkAllUsersFromWeb(os);
+		//checkAllUsersFromWeb(os);
 		
 		
 		
@@ -266,7 +266,7 @@ public class LDSTools {
 		//webCheckYoungWomen(os); //Remove the skipping "Salvador"
 		
 		
-		//RotateTest(os);
+		RotateTest(os);
 		//rerunSyncTest(os, 3);
 		
 		
@@ -2526,6 +2526,7 @@ public class LDSTools {
 		clearTextFieldXpath("LoginPassword");
 		*/
 	}
+	
 	public void CheckInvalidAlert() throws Exception {
 		
 		String errorMessage;
@@ -2553,176 +2554,15 @@ public class LDSTools {
 	}
 	
 	//TODO: Need to check more pages
+	@Parameters({"os"})
+	@Test (groups= {"rotate"}, priority = 2)
 	public void RotateTest(String os) throws Exception {
-		syncLogIn("LDSTools21", "password1", "UAT", os );
+		syncLogIn("LDSTools2", "toolstester", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
 		
 		//Check Organizations
-		openOrgnizations();
-		RotateAndCheckText();
-		
-		//Check Bishiopric
-		clickButtonByXpathTitleName("Bishopric");
-		RotateAndCheckText();
-		
-		pressBackKey();
-		Thread.sleep(1000);
-		
-		//*******************************************************************
-		//******************** High Priests Group ***************************
-		//*******************************************************************
-		
-		clickButtonByXpathTitleName("High Priests Group");
-		RotateAndCheckText();
-		
-		clickButtonByXpathTitleName("High Priests Group Leadership");
-		RotateAndCheckText();
-		
-		pressBackKey();
-		Thread.sleep(1000);
-		
-		clickButtonByXpathTitleName("Home Teaching District Supervisors");
-		RotateAndCheckText();
-		
-		pressBackKey();
-		Thread.sleep(1000);
-		
-		if (getRunningOS().equals("mac")) {
-			clickButtonByXpathTitleName("All High Priests Group Members");
-		} else {
-			clickButtonByXpathTitleName("All Members");
-		}
-		RotateAndCheckText();
-		
-		if(getRunningOS().equals("mac")) {
-			pressBackKey();
-			Thread.sleep(1000);
-		}
-		
-		pressBackKey();
-		Thread.sleep(1000);
-
-		
-		//*******************************************************************
-		//************************* Elders Quorum ***************************
-		//*******************************************************************
-		
-		clickButtonByXpathTitleName("Elders Quorum");
-		RotateAndCheckText();
-		
-		clickButtonByXpathTitleName("Elders Quorum Presidency");
-		RotateAndCheckText();
-		
-		pressBackKey();
-		Thread.sleep(1000);
-		
-		clickButtonByXpathTitleName("Instructors");
-		RotateAndCheckText();
-		
-		pressBackKey();
-		Thread.sleep(1000);
-		
-		if (getRunningOS().equals("mac")) {
-			clickButtonByXpathTitleName("All Elders Quorum Members");
-		} else {
-			clickButtonByXpathTitleName("All Members");
-		}
-		RotateAndCheckText();
-		
-		if(getRunningOS().equals("mac")) {
-			pressBackKey();
-			Thread.sleep(1000);
-		}
-		
-		pressBackKey();
-		Thread.sleep(1000);
-		
-		
-		//*******************************************************************
-		//************************ Relief Society ***************************
-		//*******************************************************************
-		
-		clickButtonByXpathTitleName("Relief Society");
-		RotateAndCheckText();
-		
-		clickButtonByXpathTitleName("Relief Society Presidency");
-		RotateAndCheckText();
-		
-		pressBackKey();
-		Thread.sleep(1000);
-		
-		clickButtonByXpathTitleName("Visiting Teaching");
-		RotateAndCheckText();
-		
-		pressBackKey();
-		Thread.sleep(1000);
-		
-		clickButtonByXpathTitleName("Music");
-		RotateAndCheckText();
-		
-		pressBackKey();
-		Thread.sleep(1000);
-		
-		if (getRunningOS().equals("mac")) {
-			clickButtonByXpathTitleName("All Relief Society Members");
-		} else {
-			clickButtonByXpathTitleName("All Members");
-		}
-		RotateAndCheckText();
-		
-		if(getRunningOS().equals("mac")) {
-			pressBackKey();
-			Thread.sleep(1000);
-		}
-		
-		pressBackKey();
-		Thread.sleep(1000);
-		
-		//*******************************************************************
-		//************************ Young Men ********************************
-		//*******************************************************************
-		
-		clickButtonByXpathTitleName("Young Men");
-		RotateAndCheckText();
-		
-		clickButtonByXpathTitleName("Young Men Presidency");
-		RotateAndCheckText();
-		
-		pressBackKey();
-		Thread.sleep(1000);
-		
-		clickButtonByXpathTitleName("Priests Quorum");
-		RotateAndCheckText();
-		
-		pressBackKey();
-		Thread.sleep(1000);
-		
-		clickButtonByXpathTitleName("Teachers Quorum");
-		RotateAndCheckText();
-		
-		pressBackKey();
-		Thread.sleep(1000);
-		
-		clickButtonByXpathTitleName("Deacons Quorum");
-		RotateAndCheckText();
-		
-		pressBackKey();
-		Thread.sleep(1000);
-		
-		if (getRunningOS().equals("mac")) {
-			clickButtonByXpathTitleName("All Young Men Members");
-		} else {
-			clickButtonByXpathTitleName("All Members");
-		}
-		RotateAndCheckText();
-		
-		if(getRunningOS().equals("mac")) {
-			pressBackKey();
-			Thread.sleep(1000);
-		}
-		
-		pressBackKey();
-		Thread.sleep(1000);
+		RotateOrgnazations();
+		//RotateReports();
 		
 		
 	}
@@ -3101,7 +2941,6 @@ public class LDSTools {
 
 	}
 	
-	//TODO: Need to test for info
 	//Visiting teaching coordinator not seeing Visiting Teaching reports
 	@Parameters({"os"})
 	@Test (groups= {"header"}, priority = 3)
@@ -5797,8 +5636,6 @@ public class LDSTools {
 		}
 		
 
-		
-		//TODO: Remove when other information is fixed
 		//Check Other Information
 		if (otherInfo == true ) {
 			//clickButtonByXpathTitleName("Other Information");
@@ -7097,10 +6934,10 @@ public class LDSTools {
 				pressBackKey();
 				Thread.sleep(2000);
 			}
-			//TODO this report is different between Web - iOS and Android
+
 			//Need to fix
-			//Assert.assertTrue(checkElementTextViewReturn("Joezmal, Loana"));
-			//Assert.assertTrue(checkElementTextViewReturn("Lilotoe, Tapatasi"));
+			Assert.assertTrue(checkElementTextViewReturn("John, Smith"));
+			Assert.assertTrue(checkElementTextViewReturn("Tuipoloa, Arieta"));
 			//Assert.assertTrue(checkElementTextViewReturn("Sanele, Ana"));
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
@@ -7615,11 +7452,16 @@ public class LDSTools {
 	private void RotateAndCheckText() throws Exception{
 		List<String> origText = new ArrayList<String>();
 		List<String> textToCheck = new ArrayList<String>();
+		
+		Thread.sleep(2000);
+		//System.out.println("PORTRAIT MODE: ");
 		origText = GetTextForElements();
 		int myCounter = 3;
 		
+		//Thread.sleep(2000);
 		driver.rotate(ScreenOrientation.LANDSCAPE);
-		Thread.sleep(1000);
+		Thread.sleep(2000);
+		//System.out.println("LANDSCAPE MODE: ");
 		
 		textToCheck = GetTextForElements();
 		if (textToCheck.size() < 3 ) {
@@ -7633,6 +7475,7 @@ public class LDSTools {
 		
 		driver.rotate(ScreenOrientation.PORTRAIT);
 		Thread.sleep(1000);
+		//System.out.println("PORTRAIT MODE: ");
 
 		textToCheck = GetTextForElements();
 		if (textToCheck.size() < 3 ) {
@@ -8580,6 +8423,652 @@ public class LDSTools {
 
 	}
 	
+	private void RotateOrgnazations() throws Exception {
+		//Check Organizations
+		openOrgnizations();
+		RotateAndCheckText();
+		
+		//Check Bishiopric
+		clickButtonByXpathTitleName("Bishopric");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		//*******************************************************************
+		//******************** High Priests Group ***************************
+		//*******************************************************************
+		
+		clickButtonByXpathTitleName("High Priests Group");
+		RotateAndCheckText();
+		
+		clickButtonByXpathTitleName("High Priests Group Leadership");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Home Teaching District Supervisors");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("All High Priests Group Members");
+		} else {
+			clickButtonByXpathTitleName("All Members");
+		}
+		RotateAndCheckText();
+		
+		if(getRunningOS().equals("mac")) {
+			pressBackKey();
+			Thread.sleep(1000);
+		}
+		
+		pressBackKey();
+		Thread.sleep(1000);
+
+		
+		//*******************************************************************
+		//************************* Elders Quorum ***************************
+		//*******************************************************************
+		
+		clickButtonByXpathTitleName("Elders Quorum");
+		RotateAndCheckText();
+		
+		clickButtonByXpathTitleName("Elders Quorum Presidency");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Instructors");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("All Elders Quorum Members");
+		} else {
+			clickButtonByXpathTitleName("All Members");
+		}
+		RotateAndCheckText();
+		
+		if(getRunningOS().equals("mac")) {
+			pressBackKey();
+			Thread.sleep(1000);
+		}
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		
+		//*******************************************************************
+		//************************ Relief Society ***************************
+		//*******************************************************************
+		
+		clickButtonByXpathTitleName("Relief Society");
+		RotateAndCheckText();
+		
+		clickButtonByXpathTitleName("Relief Society Presidency");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Visiting Teaching");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Music");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("All Relief Society Members");
+		} else {
+			clickButtonByXpathTitleName("All Members");
+		}
+		RotateAndCheckText();
+		
+		if(getRunningOS().equals("mac")) {
+			pressBackKey();
+			Thread.sleep(1000);
+		}
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		//*******************************************************************
+		//************************ Young Men ********************************
+		//*******************************************************************
+		
+		clickButtonByXpathTitleName("Young Men");
+		RotateAndCheckText();
+		
+		clickButtonByXpathTitleName("Young Men Presidency");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Priests Quorum");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Teachers Quorum");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Deacons Quorum");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("All Young Men Members");
+		} else {
+			clickButtonByXpathTitleName("All Members");
+		}
+		RotateAndCheckText();
+		
+		if(getRunningOS().equals("mac")) {
+			pressBackKey();
+			Thread.sleep(1000);
+		}
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		
+		//*******************************************************************
+		//************************ Young Women ******************************
+		//*******************************************************************
+		
+		clickButtonByXpathTitleName("Young Women");
+		RotateAndCheckText();
+		
+		clickButtonByXpathTitleName("Young Women Presidency");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Laurel");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Mia Maid");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Beehive");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("All Young Women Members");
+		} else {
+			clickButtonByXpathTitleName("All Members");
+		}
+		RotateAndCheckText();
+		
+		if(getRunningOS().equals("mac")) {
+			pressBackKey();
+			Thread.sleep(1000);
+		}
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		
+		//*******************************************************************
+		//********************** Sunday School ******************************
+		//*******************************************************************
+		
+		clickButtonByXpathTitleName("Sunday School");
+		RotateAndCheckText();
+		
+		clickButtonByXpathTitleName("Sunday School Presidency");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Gospel Doctrine");
+		RotateAndCheckText();
+		
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("All Gospel Doctrine Members");
+		} else {
+			clickButtonByXpathTitleName("All Members");
+		}
+		RotateAndCheckText();
+		
+		if(getRunningOS().equals("mac")) {
+			pressBackKey();
+			Thread.sleep(1000);
+		}
+
+		
+		pressBackKey();
+		Thread.sleep(1000);
+
+		clickButtonByXpathTitleName("Course 17");
+		RotateAndCheckText();
+		
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("All Course 17 Members");
+		} else {
+			clickButtonByXpathTitleName("All Members");
+		}
+		RotateAndCheckText();
+		
+		if(getRunningOS().equals("mac")) {
+			pressBackKey();
+			Thread.sleep(1000);
+		}
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Course 16");
+		RotateAndCheckText();
+		
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("All Course 16 Members");
+		} else {
+			clickButtonByXpathTitleName("All Members");
+		}
+		RotateAndCheckText();
+		
+		if(getRunningOS().equals("mac")) {
+			pressBackKey();
+			Thread.sleep(1000);
+		}
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		
+		clickButtonByXpathTitleName("Course 15");
+		RotateAndCheckText();
+		
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("All Course 15 Members");
+		} else {
+			clickButtonByXpathTitleName("All Members");
+		}
+		RotateAndCheckText();
+		
+		if(getRunningOS().equals("mac")) {
+			pressBackKey();
+			Thread.sleep(1000);
+		}
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Course 14");
+		RotateAndCheckText();
+		
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("All Course 14 Members");
+		} else {
+			clickButtonByXpathTitleName("All Members");
+		}
+		RotateAndCheckText();
+		
+		if(getRunningOS().equals("mac")) {
+			pressBackKey();
+			Thread.sleep(1000);
+		}
+
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Course 13");
+		RotateAndCheckText();
+		
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("All Course 13 Members");
+		} else {
+			clickButtonByXpathTitleName("All Members");
+		}
+		RotateAndCheckText();
+		
+		if(getRunningOS().equals("mac")) {
+			pressBackKey();
+			Thread.sleep(1000);
+		}
+	
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Course 12");
+		RotateAndCheckText();
+		
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("All Course 12 Members");
+		} else {
+			clickButtonByXpathTitleName("All Members");
+		}
+		RotateAndCheckText();
+		
+		if(getRunningOS().equals("mac")) {
+			pressBackKey();
+			Thread.sleep(1000);
+		}
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		//*******************************************************************
+		//********************** Primary ************************************
+		//*******************************************************************
+		
+		clickButtonByXpathTitleName("Primary");
+		RotateAndCheckText();
+		
+		clickButtonByXpathTitleName("Primary Presidency");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("All Primary Members");
+		} else {
+			clickButtonByXpathTitleName("All Members");
+		}
+		RotateAndCheckText();
+		
+		if(getRunningOS().equals("mac")) {
+			pressBackKey();
+			Thread.sleep(1000);
+		}
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		//*******************************************************************
+		//********************** Ward Missionaries **************************
+		//*******************************************************************
+		
+		clickButtonByXpathTitleName("Ward Missionaries");
+		RotateAndCheckText();
+
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		//*******************************************************************
+		//********************** Other Callings *****************************
+		//*******************************************************************
+		
+		clickButtonByXpathTitleName("Other Callings");
+		RotateAndCheckText();
+		
+		clickButtonByXpathTitleName("Young Single Adult");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Music");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		
+	}
+	
+	
+	private void RotateReports() throws Exception {
+		//Check Reports
+		openReports();
+		RotateAndCheckText();
+		
+		//*******************************************************************
+		//***************** Action and Interview List ***********************
+		//*******************************************************************
+		
+		clickButtonByXpathTitleName("Action and Interview List");
+		RotateAndCheckText();
+		
+		clickButtonByXpathTitleName("Children Approaching Baptism Age");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Unbaptized Members");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		//clickButtonByXpathTitleName("Overdue Aaronic Priesthood Ordinations");
+		//RotateAndCheckText();
+		
+		//pressBackKey();
+		//Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Young Men Approaching Mission Age");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Men Who Have Not Served a Mission");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Potential Missonary Couples");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Bishop's Youth Inverviews");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Bishopric Counselor Youth Inverviews");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Young Single Adult Interviews");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		
+		
+		//*******************************************************************
+		//******************** Birthday List **** ***************************
+		//*******************************************************************
+		
+		clickButtonByXpathTitleName("Birthday List");
+		RotateAndCheckText();
+		
+		if (!getRunningOS().equals("mac") ){
+			clickButtonByXpathTitleName("All Members");
+			RotateAndCheckText();
+			
+			pressBackKey();
+			Thread.sleep(1000);
+
+		}
+		
+		pressBackKey();
+		Thread.sleep(1000);
+
+		
+		//*******************************************************************
+		//************************* Home Teaching ***************************
+		//*******************************************************************
+		
+		clickButtonByXpathTitleName("Home Teaching");
+		RotateAndCheckText();
+		
+		clickButtonByXpathTitleName("Total Visits");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Households Not Visisted");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Unassigned Households");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Households");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Companionships");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		clickButtonByXpathTitleName("Potential Home Teachers");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		//*******************************************************************
+		//********************* Members Moved In ****************************
+		//*******************************************************************
+		
+		clickButtonByXpathTitleName("Members Moved In");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+
+		//*******************************************************************
+		//********************* Members Moved Out ***************************
+		//*******************************************************************
+		
+		clickButtonByXpathTitleName("Members Moved Out");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		//*******************************************************************
+		//******************* Members with Callings *************************
+		//*******************************************************************
+		
+		clickButtonByXpathTitleName("Members with Callings");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		//*******************************************************************
+		//******************* Members without Callings **********************
+		//*******************************************************************
+		
+		clickButtonByXpathTitleName("Members without Callings");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		//*******************************************************************
+		//**************** Missionary Progress Record ***********************
+		//*******************************************************************
+		
+		clickButtonByXpathTitleName("Missionary Progress Record");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		//*******************************************************************
+		//******************** New Members **********************************
+		//*******************************************************************
+		
+		clickButtonByXpathTitleName("New Members");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		//*******************************************************************
+		//****************** Temple Recommend Status ************************
+		//*******************************************************************
+		
+		clickButtonByXpathTitleName("Temple Recommend Status");
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);
+		
+		//*******************************************************************
+		//******************** Unit Statistics ******************************
+		//*******************************************************************
+		
+		clickButtonByXpathTitleName("Unit Statistics");
+		Thread.sleep(1000);
+		checkForAlertOK();
+		Thread.sleep(1000);
+		RotateAndCheckText();
+		
+		pressBackKey();
+		Thread.sleep(1000);	
+		
+	}
+	
 	// **************************************************************************************
 	// **************************OLD METHODS ************************************************
 	// **************************************************************************************
@@ -8741,7 +9230,6 @@ public class LDSTools {
 			//FileUtils.copyFile(screenshotFile,new File("/Users/zmaxfield/Selenium/Screenshot/lastErrorScreenshot.png"));
 			FileUtils.copyFile(screenshotFile,new File("lastErrorScreenshot.png"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		*/
