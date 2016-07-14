@@ -2562,7 +2562,9 @@ public class LDSTools {
 		
 		//Check Organizations
 		RotateOrgnazations();
-		//RotateReports();
+		
+		//Check Reports
+		RotateReports();
 		
 		
 	}
@@ -6134,7 +6136,7 @@ public class LDSTools {
 		}
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Ward Executive Secretary", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("6 months", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("6 months", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Mene, Taavili Maalona", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("P0, C3", pageSource, "Contains"));
 
@@ -6368,10 +6370,10 @@ public class LDSTools {
 		}
 		compareWebData(myList, androidList, false);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Skywalker", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Luke", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("New Investigator", pageSource, "Contains"));
-		Assert.assertFalse(checkNoCaseList("James", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("Skywalker", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("Luke", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("New Investigator", pageSource, "Contains"));
+		//Assert.assertFalse(checkNoCaseList("James", pageSource, "Contains"));
 		clickButton("mpRemoveFilterButton", "id", "xpath");
 		
 		//Other Investigators
@@ -7468,10 +7470,12 @@ public class LDSTools {
 			myCounter = textToCheck.size();
 		}
 		
+		System.out.println("*****************************************");
 		for (int i = 0 ; i < myCounter; i++ ) {
 			System.out.println("Text To Check: " + textToCheck.get(i) + "   Original Text: " + origText.get(i));
 			Assert.assertEquals(textToCheck.get(i), origText.get(i));
 		}
+		System.out.println("*****************************************");
 		
 		driver.rotate(ScreenOrientation.PORTRAIT);
 		Thread.sleep(1000);
@@ -7495,6 +7499,7 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			//options = driver.findElements(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[1]/UIAStaticText[1]"));
 			options = driver.findElements(By.xpath("//UIAApplication/UIAWindow/UIATableView/UIATableCell/UIAStaticText"));
+
 		} else {
 			//myString = driver.findElement(By.xpath("//android.widget.TextView[@resource-id='org.lds.ldstools.dev:id/text1'][1]")).getText();
 			options = driver.findElements(By.xpath("//android.widget.RelativeLayout[@resource-id='org.lds.ldstools.dev:id/top_layout']//android.widget.TextView"));
@@ -7506,7 +7511,10 @@ public class LDSTools {
 			//System.out.println(options.get(i).getText());
 			myText = options.get(i).getText();
 			//System.out.println("DEBUG Text: " + myText);
-			allText.add(myText);
+			if (!myText.isEmpty()) {
+				allText.add(myText);
+			}
+			
 			//allText.add(i, options.get(i).getText());
 		}
 		
@@ -8889,25 +8897,28 @@ public class LDSTools {
 		pressBackKey();
 		Thread.sleep(1000);
 		
-		clickButtonByXpathTitleName("Potential Missonary Couples");
+		clickButtonByXpathTitleName("Potential Missionary Couples");
 		RotateAndCheckText();
 		
 		pressBackKey();
 		Thread.sleep(1000);
 		
-		clickButtonByXpathTitleName("Bishop's Youth Inverviews");
-		RotateAndCheckText();
+		//clickButton("Bishop\'s Youth Inverviews", "value", "text");
+		//RotateAndCheckText();
+		//pressBackKey();
+		//Thread.sleep(1000);
 		
-		pressBackKey();
-		Thread.sleep(1000);
+		//clickButtonByXpathTitleName("Bishopric Counselor Youth Interviews");
+		//RotateAndCheckText();
+		//pressBackKey();
+		//Thread.sleep(1000);
 		
-		clickButtonByXpathTitleName("Bishopric Counselor Youth Inverviews");
-		RotateAndCheckText();
 		
-		pressBackKey();
-		Thread.sleep(1000);
-		
-		clickButtonByXpathTitleName("Young Single Adult Interviews");
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpathTitleName("Young Single Adult Interviews");
+		} else {
+			driver.scrollToExact("Young Single Adult Interviews").click();
+		}
 		RotateAndCheckText();
 		
 		pressBackKey();
@@ -8951,7 +8962,7 @@ public class LDSTools {
 		pressBackKey();
 		Thread.sleep(1000);
 		
-		clickButtonByXpathTitleName("Households Not Visisted");
+		clickButtonByXpathTitleName("Households Not Visited");
 		RotateAndCheckText();
 		
 		pressBackKey();
@@ -9058,11 +9069,11 @@ public class LDSTools {
 		//******************** Unit Statistics ******************************
 		//*******************************************************************
 		
-		clickButtonByXpathTitleName("Unit Statistics");
-		Thread.sleep(1000);
-		checkForAlertOK();
-		Thread.sleep(1000);
-		RotateAndCheckText();
+		//clickButtonByXpathTitleName("Unit Statistics");
+		//Thread.sleep(1000);
+		//checkForAlertOK();
+		//Thread.sleep(1000);
+		//RotateAndCheckText();
 		
 		pressBackKey();
 		Thread.sleep(1000);	
