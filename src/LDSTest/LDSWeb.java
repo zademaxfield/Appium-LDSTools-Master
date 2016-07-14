@@ -74,8 +74,28 @@ public class LDSWeb {
 	
 	@Test
 	public void simpleTest() throws Exception {
-		//ABSetupColinMacNeil();
+		/*
+		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
+		ABSetupAutoTest();
+		ABSync();
+		tearDown();
+		
+		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
+		ABSetupDebbieSmith();
+		ABSync();
+		tearDown();
+		
+		
+		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
+		ABSetupColinMacNeil();
+		ABSync();
+		tearDown();
+		
+		*/
+		
 		ABSetEventColinMacNeil();
+		ABSync();
+		
 		
 		/*
 		
@@ -207,40 +227,41 @@ public class LDSWeb {
 		driver.findElement(By.id(this.prop.getProperty("Password"))).sendKeys(passWord);
 		clickElement("SignIn", "id");
 		
-		Thread.sleep(4000);
+		Thread.sleep(8000);
 
 		//Login to Area book
-		enterText("abUserName", "id", "ab067");
-		enterText("abPassword", "id", "password0");
+		enterText("abUserName", "xpath", "ab067");
+		enterText("abPassword", "xpath", "password0");
+		Thread.sleep(2000);
 		clickElement("abNext", "id");
 		
 		Thread.sleep(2000);
 		
 
 		//Enter password
-		clickElement("one", "id");
-		clickElement("one", "id");
-		clickElement("three", "id");
-		clickElement("three", "id");
+		clickElement("one", "xpath");
+		clickElement("one", "xpath");
+		clickElement("three", "xpath");
+		clickElement("three", "xpath");
 		
 		Thread.sleep(2000);
 
 		//ReEnter password
-		clickElement("one", "id");
-		clickElement("one", "id");
-		clickElement("three", "id");
-		clickElement("three", "id");
+		clickElement("one", "xpath");
+		clickElement("one", "xpath");
+		clickElement("three", "xpath");
+		clickElement("three", "xpath");
 		Thread.sleep(2000);
-		waitForTextToDisappear("abSync", 500, "id");
+		waitForTextToDisappear("abSync", 500, "xpath");
 
 		//This is to get rid of the Location Alert
 		driver.navigate().refresh();
-		clickElement("one", "id");
-		clickElement("one", "id");
-		clickElement("three", "id");
-		clickElement("three", "id");
+		clickElement("one", "xpath");
+		clickElement("one", "xpath");
+		clickElement("three", "xpath");
+		clickElement("three", "xpath");
 		Thread.sleep(2000);
-		waitForTextToDisappear("abSync", 500, "id");
+		waitForTextToDisappear("abSync", 500, "xpath");
 		
 	}
 	
@@ -1648,9 +1669,26 @@ public class LDSWeb {
 		//*[contains(text(), 'Auto Test')]
 	}
 	
+	public void ABSync() throws Exception {
+		Thread.sleep(2000);
+		
+		clickElement("abMenu", "xpath");
+		clickElement("Sync Fagamalo", "text");
+		
+		Thread.sleep(2000);
+		enterText("abSyncLogin", "xpath", "ab067");
+		enterText("abSyncPassword", "xpath", "password0");
+		clickElement("abSyncSignInButton", "id");
+		
+		Thread.sleep(10000);
+		waitForTextToDisappear("abSync", 500, "xpath");
+		
+		clickElement("abDashboard", "xpath");
+	}
+	
 	
 	public void ABSetupAutoTest() throws Exception {
-		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
+		//ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
 		clickElement("InvestigatorsAdd", "id");
 		enterText("abFirstName", "xpath", "Auto");
 		enterText("abLastName", "xpath", "Test");
@@ -1741,37 +1779,27 @@ public class LDSWeb {
 		Thread.sleep(2000);
 		
 		//Set Finding Campaign
-		clickElement("abFindingCampaign", "xpath");
-		Thread.sleep(1000);
-		clickElement("Christmas 2015", "text");
-		Thread.sleep(2000);
+		//clickElement("abFindingCampaign", "xpath");
+		//Thread.sleep(1000);
+		//clickElement("Christmas 2015", "text");
+		//Thread.sleep(2000);
 		
 		//Set Help Needed
 		scrollToElement("abHelpNeeded", "xpath");
 		enterText("abHelpNeeded", "xpath", "Needs help pulling weeds");
 		
 		clickElement("abSave", "id");
-
 		
-		Thread.sleep(2000);
-		
-		clickElement("abMenu", "xpath");
-		clickElement("Sync Fagamalo", "text");
-		
-		Thread.sleep(2000);
-		enterText("abSyncLogin", "xpath", "ab067");
-		enterText("abSyncPassword", "xpath", "password0");
-		clickElement("abSyncSignInButton", "id");
-		
-		Thread.sleep(2000);
-		waitForTextToDisappear("abSync", 500, "id");
-		
+		Thread.sleep(4000);
 		clickElement("abDashboard", "xpath");
+		Thread.sleep(4000);
+
+
 	}
 
 	
 	public void ABSetupDebbieSmith() throws Exception {
-		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
+		//ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
 		clickElement("InvestigatorsAdd", "id");
 		enterText("abFirstName", "xpath", "Debbie");
 		enterText("abLastName", "xpath", "Smith");
@@ -1780,6 +1808,7 @@ public class LDSWeb {
 		//clickElement("LocalOnlineToggle", "id");
 		
 		clickElement("Add phone number", "text");
+		Thread.sleep(2000);
 		enterText("abAddPhoneNumberMobile", "xpath", "111-111-1111");
 		
 		clickElement("Add phone number", "text");
@@ -1857,27 +1886,14 @@ public class LDSWeb {
 		
 		Thread.sleep(2000);
 		clickElement("abSave", "id");
-
-		
-		Thread.sleep(2000);
-		
-		clickElement("abMenu", "xpath");
-		clickElement("Sync Fagamalo", "text");
-		
-		Thread.sleep(2000);
-		enterText("abSyncLogin", "xpath", "ab067");
-		enterText("abSyncPassword", "xpath", "password0");
-		clickElement("abSyncSignInButton", "id");
-		
-		Thread.sleep(2000);
-		waitForTextToDisappear("abSync", 500, "id");
-		Thread.sleep(2000);
-		
+		Thread.sleep(4000);
 		clickElement("abDashboard", "xpath");
+		Thread.sleep(4000);
+
 	}
 	
 	public void ABSetupColinMacNeil() throws Exception {
-		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
+		//ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
 		clickElement("InvestigatorsAdd", "id");
 		enterText("abFirstName", "xpath", "Colin");
 		enterText("abLastName", "xpath", "MacNeil");
@@ -1959,23 +1975,10 @@ public class LDSWeb {
 		
 		Thread.sleep(2000);
 		clickElement("abSave", "id");
-
-		
-		Thread.sleep(2000);
-		
-		clickElement("abMenu", "xpath");
-		clickElement("Sync Fagamalo", "text");
-		
-		Thread.sleep(2000);
-		enterText("abSyncLogin", "xpath", "ab067");
-		enterText("abSyncPassword", "xpath", "password0");
-		clickElement("abSyncSignInButton", "id");
-		
 		Thread.sleep(4000);
-		waitForTextToDisappear("abSync", 500, "id");
-		Thread.sleep(20000);
-		
 		clickElement("abDashboard", "xpath");
+		Thread.sleep(4000);
+
 	}
 	
 	public void ABSetEventColinMacNeil() throws Exception {
@@ -2103,6 +2106,7 @@ public class LDSWeb {
 		clickElement("Keep the Sabbath day holy", "text");
 		clickElement("abEditSave", "xpath");
 		
+		/*
 		clickElement("Commandments", "text");
 		scrollToElement("Baptism and confirmation", "text");
 		clickElement("Baptism and confirmation", "text");
@@ -2122,6 +2126,9 @@ public class LDSWeb {
 		//scrollToElement("Live the law of chastity", "text");
 		clickElement("Live the law of chastity", "text");
 		clickElement("abEditSave", "xpath");
+		*/
+		Thread.sleep(8000);
+		clickElement("abBackButton", "id");
 
 	}
 	
