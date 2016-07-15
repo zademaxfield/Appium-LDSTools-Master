@@ -228,7 +228,7 @@ public class LDSTools {
 		//LeaderNonBishopric("LDSTools29", "Relief Society Pres", os);
 		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		//bishopricCounselorAndWardClerk(os);
+		bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -266,7 +266,7 @@ public class LDSTools {
 		//webCheckYoungWomen(os); //Remove the skipping "Salvador"
 		
 		
-		RotateTest(os);
+		//RotateTest(os);
 		//rerunSyncTest(os, 3);
 		
 		
@@ -6328,7 +6328,7 @@ public class LDSTools {
 		}
 		compareWebData(myList, androidList, false);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Baptism Goal", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("Baptism Goal", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Skywalker", pageSource, "Contains"));
 		clickButton("mpRemoveFilterButton", "id", "xpath");
 		
