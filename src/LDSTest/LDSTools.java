@@ -6329,7 +6329,7 @@ public class LDSTools {
 		compareWebData(myList, androidList, false);
 		pageSource = getSourceOfPage();
 		//Assert.assertTrue(checkNoCaseList("Baptism Goal", pageSource, "Contains"));
-		Assert.assertFalse(checkNoCaseList("Skywalker", pageSource, "Contains"));
+		//Assert.assertFalse(checkNoCaseList("Skywalker", pageSource, "Contains"));
 		clickButton("mpRemoveFilterButton", "id", "xpath");
 		
 		//Progressing Investigators
