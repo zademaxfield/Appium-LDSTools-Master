@@ -2554,8 +2554,6 @@ public class LDSTools {
 	}
 	
 	//TODO: Need to check more pages
-	@Parameters({"os"})
-	@Test (groups= {"rotate"}, priority = 2)
 	public void RotateTest(String os) throws Exception {
 		syncLogIn("LDSTools2", "toolstester", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
@@ -7489,6 +7487,8 @@ public class LDSTools {
 		for (int i = 0 ; i < myCounter; i++ ) {
 			Assert.assertEquals(textToCheck.get(i), origText.get(i));
 		}
+		
+		Thread.sleep(2000);
 													   
 	}
 	
@@ -8933,6 +8933,7 @@ public class LDSTools {
 		//******************** Birthday List **** ***************************
 		//*******************************************************************
 		
+		/*
 		clickButtonByXpathTitleName("Birthday List");
 		RotateAndCheckText();
 		
@@ -8947,7 +8948,7 @@ public class LDSTools {
 		
 		pressBackKey();
 		Thread.sleep(1000);
-
+		*/
 		
 		//*******************************************************************
 		//************************* Home Teaching ***************************
@@ -9075,8 +9076,8 @@ public class LDSTools {
 		//Thread.sleep(1000);
 		//RotateAndCheckText();
 		
-		pressBackKey();
-		Thread.sleep(1000);	
+		//pressBackKey();
+		//Thread.sleep(1000);	
 		
 	}
 	
