@@ -226,9 +226,9 @@ public class LDSTools {
 		//justForTesting(os);	
 
 		//LeaderNonBishopric("LDSTools29", "Relief Society Pres", os);
-		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
+		LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		bishopricCounselorAndWardClerk(os);
+		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -6063,7 +6063,7 @@ public class LDSTools {
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
 
-		Assert.assertTrue(checkNoCaseList("Fagalilo, Afioga", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("John, Smith", pageSource, "Contains"));
 
 		//The new unit is only available for bishop
 		if (bishop == true){
