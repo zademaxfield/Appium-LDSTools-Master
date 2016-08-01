@@ -284,6 +284,10 @@ public class LDSWeb {
 		if (elementFind == "text") {
 			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(), '" + elementName + "')]")));
 		}
+		if (elementFind == "textEqu") {
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[.='" + elementName + "']")));
+		}
+		
 		myElement.click();
 
 	}
@@ -2157,6 +2161,58 @@ public class LDSWeb {
 			foundUsers = getMembersWardProgressRecord(mySource);
 		}
 		
+
+		
+		if (newSession == true ) {
+			tearDown();
+		}
+		
+		return foundUsers;
+		
+	}
+	
+	public List<String> WPRgetUsersVisits(String subReport, Boolean newSession) throws Exception {
+		String mySource;
+		List<String> foundUsers = new ArrayList<String>();
+		
+		Thread.sleep(5000);
+
+		clickElement("WPRVisits", "xpath");
+		Thread.sleep(1000);
+		clickElement(subReport, "xpath");
+		Thread.sleep(2000);
+		mySource = getSourceOfElement("WPRVisibleUsers");
+		//mySource = getSourceOfPage();
+		foundUsers = getMembersWardProgressRecord(mySource);
+		clickElement(subReport, "xpath");
+		Thread.sleep(2000);
+		clickElement("WPRVisits", "xpath");
+
+		
+		if (newSession == true ) {
+			tearDown();
+		}
+		
+		return foundUsers;
+		
+	}
+	
+	public List<String> WPRgetSacMeeting(String subReport, Boolean newSession) throws Exception {
+		String mySource;
+		List<String> foundUsers = new ArrayList<String>();
+		
+		Thread.sleep(5000);
+
+		clickElement("WPRSacramentMeetingAttendance", "xpath");
+		Thread.sleep(1000);
+		clickElement(subReport, "xpath");
+		Thread.sleep(2000);
+		mySource = getSourceOfElement("WPRVisibleUsers");
+		//mySource = getSourceOfPage();
+		foundUsers = getMembersWardProgressRecord(mySource);
+		clickElement(subReport, "xpath");
+		Thread.sleep(2000);
+		clickElement("WPRSacramentMeetingAttendance", "xpath");
 
 		
 		if (newSession == true ) {
