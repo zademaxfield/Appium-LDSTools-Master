@@ -44,6 +44,7 @@ import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.ios.*;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSElement;
+import io.appium.java_client.remote.HideKeyboardStrategy;
 //import io.appium.java_client.android.AndroidDriver;
 //import io.appium.java_client.AppiumDriver;
 //import io.appium.java_client.android.AndroidDriver;
@@ -226,9 +227,9 @@ public class LDSTools {
 		//justForTesting(os);	
 
 		//LeaderNonBishopric("LDSTools29", "Relief Society Pres", os);
-		LeaderNonBishopric("LDSTools16", "High Priest Group", os);
+		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		//bishopricCounselorAndWardClerk(os);
+		bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -310,12 +311,13 @@ public class LDSTools {
 	
 	public void justForTesting(String os) throws Exception {
 		
-		
 		syncLogIn("LDSTools21", "password1", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
-		openReports();
+		
 		checkMissionaryProgressRecord();
-
+		checkMissionaryProgressRecordVisits();
+		checkMissionaryProgressRecordSacMeeting();
+		
 		
 		
 		/*
@@ -6178,6 +6180,8 @@ public class LDSTools {
 		
 		
 		checkMissionaryProgressRecord();
+		checkMissionaryProgressRecordVisits();
+		checkMissionaryProgressRecordSacMeeting();
 		
 		
 		//New Members
@@ -6216,7 +6220,7 @@ public class LDSTools {
 				clickButtonByXpath("ActiveMenu");
 			}
 			pageSource = getSourceOfPage();
-			Assert.assertTrue(checkNoCaseList("Ami, Samu", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("Ami, Lealofi", pageSource, "Contains"));
 			Assert.assertFalse(checkNoCaseList("Maul, Darth", pageSource, "Contains"));
 			//Assert.assertTrue(checkElementTextViewReturn("Ami, Samu"));
 			//Assert.assertTrue(checkElementTextViewReturn("Jul 2016"));
@@ -6296,7 +6300,8 @@ public class LDSTools {
 		List<String> myList = new ArrayList<String>();
 		List<String> androidList = new ArrayList<String>();
 		
-		
+		openReports();
+		Thread.sleep(2000);
 		clickButtonByXpathTitleName("Missionary Progress Record");
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Potential Investigator", pageSource, "Contains"));
@@ -6441,6 +6446,10 @@ public class LDSTools {
 		}
 		compareWebData(myList, androidList, false);
 		clickButton("mpRemoveFilterButton", "id", "xpath");
+		
+		
+		
+		
 	
 	
 
@@ -6452,6 +6461,259 @@ public class LDSTools {
 		//*************************************************************************************
 		//*************************************************************************************
 	}
+	
+	
+	private void checkMissionaryProgressRecordVisits() throws Exception {
+		
+		String pageSource;
+		List<String> myList = new ArrayList<String>();
+		List<String> androidList = new ArrayList<String>();
+
+		openReports();
+		Thread.sleep(2000);
+		clickButtonByXpathTitleName("Missionary Progress Record");
+		pageSource = getSourceOfPage();
+		
+		myWeb.WPRopenPageLogIn("https://missionary-stage.lds.org/ward-missionary-tools", "ab067", "password0");
+		
+		//******************
+		//Visits - Last Week
+		//******************
+		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("mpReceivedAVisit", "id", "xpath");
+		clickButton("mpLastWeek", "xpath", "xpath");
+		if (!getRunningOS().equals("mac")) {
+			clickButton("mpMenuSave", "id", "xpath");
+			clickButton("mpExpandFilter", "id", "xpath");
+		} else {
+			pressBackKey();
+		}
+		//checkText("mpFilterText", " Visits     Last Week", "id", "xpath");
+		myList = myWeb.WPRgetUsersVisits("WPRLastWeek", false);
+		if (!getRunningOS().equals("mac")) {
+			myList = swapLastName(myList);
+		}
+		compareWebData(myList, androidList, false);
+		pageSource = getSourceOfPage();
+		clickButton("mpRemoveFilterButton", "id", "xpath");
+		
+		//******************
+		//Visits - Last 2 weeks
+		//******************
+		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("mpReceivedAVisit", "id", "xpath");
+		clickButton("mpLast2Weeks", "xpath", "xpath");
+		if (!getRunningOS().equals("mac")) {
+			clickButton("mpMenuSave", "id", "xpath");
+			clickButton("mpExpandFilter", "id", "xpath");
+		} else {
+			pressBackKey();
+		}
+		//checkText("mpFilterText", " Visits     Last Week", "id", "xpath");
+		myList = myWeb.WPRgetUsersVisits("WPRLast2Weeks", false);
+		if (!getRunningOS().equals("mac")) {
+			myList = swapLastName(myList);
+		}
+		compareWebData(myList, androidList, true);
+		pageSource = getSourceOfPage();
+		clickButton("mpRemoveFilterButton", "id", "xpath");
+		
+		//******************
+		//Visits - Last 3 weeks
+		//******************
+		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("mpReceivedAVisit", "id", "xpath");
+		clickButton("mpLast3Weeks", "xpath", "xpath");
+		if (!getRunningOS().equals("mac")) {
+			clickButton("mpMenuSave", "id", "xpath");
+			clickButton("mpExpandFilter", "id", "xpath");
+		} else {
+			pressBackKey();
+		}
+		//checkText("mpFilterText", " Visits     Last Week", "id", "xpath");
+		myList = myWeb.WPRgetUsersVisits("WPRLast3Weeks", false);
+		if (!getRunningOS().equals("mac")) {
+			myList = swapLastName(myList);
+		}
+		compareWebData(myList, androidList, true);
+		pageSource = getSourceOfPage();
+		clickButton("mpRemoveFilterButton", "id", "xpath");
+		
+		
+		//******************
+		//Visits - Last 4 weeks
+		//******************
+		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("mpReceivedAVisit", "id", "xpath");
+		clickButton("mpLast4Weeks", "xpath", "xpath");
+		if (!getRunningOS().equals("mac")) {
+			clickButton("mpMenuSave", "id", "xpath");
+			clickButton("mpExpandFilter", "id", "xpath");
+		} else {
+			pressBackKey();
+		}
+		//checkText("mpFilterText", " Visits     Last Week", "id", "xpath");
+		myList = myWeb.WPRgetUsersVisits("WPRLast4Weeks", false);
+		if (!getRunningOS().equals("mac")) {
+			myList = swapLastName(myList);
+		}
+		compareWebData(myList, androidList, true);
+		pageSource = getSourceOfPage();
+		clickButton("mpRemoveFilterButton", "id", "xpath");
+
+		//******************
+		//Visits - Last 5 weeks
+		//******************
+		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("mpReceivedAVisit", "id", "xpath");
+		clickButton("mpLast5Weeks", "xpath", "xpath");
+		if (!getRunningOS().equals("mac")) {
+			clickButton("mpMenuSave", "id", "xpath");
+			clickButton("mpExpandFilter", "id", "xpath");
+		} else {
+			pressBackKey();
+		}
+		//checkText("mpFilterText", " Visits     Last Week", "id", "xpath");
+		myList = myWeb.WPRgetUsersVisits("WPRLast5Weeks", true);
+		if (!getRunningOS().equals("mac")) {
+			myList = swapLastName(myList);
+		}
+		compareWebData(myList, androidList, true);
+		pageSource = getSourceOfPage();
+		clickButton("mpRemoveFilterButton", "id", "xpath");
+		
+		Thread.sleep(1000);
+		pressBackKey();
+		Thread.sleep(1000);
+	}
+	
+	
+	
+	private void checkMissionaryProgressRecordSacMeeting() throws Exception {
+		String pageSource;
+		List<String> myList = new ArrayList<String>();
+		List<String> androidList = new ArrayList<String>();
+
+		openReports();
+		Thread.sleep(2000);
+		clickButtonByXpathTitleName("Missionary Progress Record");
+		pageSource = getSourceOfPage();
+		
+		myWeb.WPRopenPageLogIn("https://missionary-stage.lds.org/ward-missionary-tools", "ab067", "password0");
+		
+		//******************
+		//Sacrament Meeting Attendance - Last Week
+		//******************
+		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("mpAttendedSacrament", "id", "xpath");
+		clickButton("mpLastWeek", "xpath", "xpath");
+		if (!getRunningOS().equals("mac")) {
+			clickButton("mpMenuSave", "id", "xpath");
+			clickButton("mpExpandFilter", "id", "xpath");
+		} else {
+			pressBackKey();
+		}
+		//checkText("mpFilterText", " Visits     Last Week", "id", "xpath");
+		myList = myWeb.WPRgetSacMeeting("WPRSacLastSunday", false);
+		if (!getRunningOS().equals("mac")) {
+			myList = swapLastName(myList);
+		}
+		compareWebData(myList, androidList, false);
+		pageSource = getSourceOfPage();
+		clickButton("mpRemoveFilterButton", "id", "xpath");
+		
+		//******************
+		//Sacrament Meeting Attendance - Last 2 weeks
+		//******************
+		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("mpAttendedSacrament", "id", "xpath");
+		clickButton("mpLast2Weeks", "xpath", "xpath");
+		if (!getRunningOS().equals("mac")) {
+			clickButton("mpMenuSave", "id", "xpath");
+			clickButton("mpExpandFilter", "id", "xpath");
+		} else {
+			pressBackKey();
+		}
+		//checkText("mpFilterText", " Visits     Last Week", "id", "xpath");
+		myList = myWeb.WPRgetSacMeeting("WPRSacLast2Weeks", false);
+		if (!getRunningOS().equals("mac")) {
+			myList = swapLastName(myList);
+		}
+		compareWebData(myList, androidList, true);
+		pageSource = getSourceOfPage();
+		clickButton("mpRemoveFilterButton", "id", "xpath");
+		
+		//******************
+		//Sacrament Meeting Attendance - Last 3 weeks
+		//******************
+		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("mpAttendedSacrament", "id", "xpath");
+		clickButton("mpLast3Weeks", "xpath", "xpath");
+		if (!getRunningOS().equals("mac")) {
+			clickButton("mpMenuSave", "id", "xpath");
+			clickButton("mpExpandFilter", "id", "xpath");
+		} else {
+			pressBackKey();
+		}
+		//checkText("mpFilterText", " Visits     Last Week", "id", "xpath");
+		myList = myWeb.WPRgetSacMeeting("WPRSacLast3Weeks", false);
+		if (!getRunningOS().equals("mac")) {
+			myList = swapLastName(myList);
+		}
+		compareWebData(myList, androidList, true);
+		pageSource = getSourceOfPage();
+		clickButton("mpRemoveFilterButton", "id", "xpath");
+		
+		
+		//******************
+		//Sacrament Meeting Attendance - Last 4 weeks
+		//******************
+		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("mpAttendedSacrament", "id", "xpath");
+		clickButton("mpLast4Weeks", "xpath", "xpath");
+		if (!getRunningOS().equals("mac")) {
+			clickButton("mpMenuSave", "id", "xpath");
+			clickButton("mpExpandFilter", "id", "xpath");
+		} else {
+			pressBackKey();
+		}
+		//checkText("mpFilterText", " Visits     Last Week", "id", "xpath");
+		myList = myWeb.WPRgetSacMeeting("WPRSacLast4Weeks", false);
+		if (!getRunningOS().equals("mac")) {
+			myList = swapLastName(myList);
+		}
+		compareWebData(myList, androidList, true);
+		pageSource = getSourceOfPage();
+		clickButton("mpRemoveFilterButton", "id", "xpath");
+
+		//******************
+		//Sacrament Meeting Attendance - Last 5 weeks
+		//******************
+		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("mpAttendedSacrament", "id", "xpath");
+		clickButton("mpLast5Weeks", "xpath", "xpath");
+		if (!getRunningOS().equals("mac")) {
+			clickButton("mpMenuSave", "id", "xpath");
+			clickButton("mpExpandFilter", "id", "xpath");
+		} else {
+			pressBackKey();
+		}
+		//checkText("mpFilterText", " Visits     Last Week", "id", "xpath");
+		myList = myWeb.WPRgetSacMeeting("WPRSacLast5Weeks", true);
+		if (!getRunningOS().equals("mac")) {
+			myList = swapLastName(myList);
+		}
+		compareWebData(myList, androidList, true);
+		pageSource = getSourceOfPage();
+		clickButton("mpRemoveFilterButton", "id", "xpath");
+		
+		
+		
+		Thread.sleep(1000);
+		pressBackKey();
+		Thread.sleep(1000);
+	}
+	
 
 	private void checkHTVTBasic(String userCalling ) throws Exception {
 		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
@@ -7664,8 +7926,11 @@ public class LDSTools {
 		
 		if (getRunningOS().equals("mac")) {
 			sendTextbyXpath("SearchArea", userToSearch);
+			//sendTextbyXpath2("SearchArea", userToSearch);
 			Thread.sleep(2000);
+			//driver.tap(1, 10, 10, 1000);
 			driver.findElementByXPath("//UIAStaticText[@label='" + userToSearch + "']").click();
+	
 		} else {
 			clickButtonByID("MenuDefaultDirectory");
 			clickButtonByXpathTitleName("Individuals");
@@ -7811,15 +8076,21 @@ public class LDSTools {
 				do {
 					pageSource = getSourceOfPage();
 					androidList = createUserList(androidList, pageSource);
-					lastMember = androidList.get(androidList.size() - 1 );
+					if (androidList.size() == 0) {
+						lastMember = "none";
+						lastMemberCheck = "none";
+					} else {
+						lastMember = androidList.get(androidList.size() - 1 );
 
-					scrollDownSlow(pageSize);
-					Thread.sleep(1000);
-					pageSource = pageSource + getSourceOfPage();
-					androidList = createUserList(androidList, pageSource);
-					lastMemberCheck = androidList.get(androidList.size() - 1 );
-					System.out.println("Last Member: " + lastMember);
-					System.out.println("Last Member Check: " + lastMemberCheck);
+						scrollDownSlow(pageSize);
+						Thread.sleep(1000);
+						pageSource = pageSource + getSourceOfPage();
+						androidList = createUserList(androidList, pageSource);
+						lastMemberCheck = androidList.get(androidList.size() - 1 );
+						System.out.println("Last Member: " + lastMember);
+						System.out.println("Last Member Check: " + lastMemberCheck);
+					}
+
 				} while (!lastMember.equals(lastMemberCheck));
 				
 				
