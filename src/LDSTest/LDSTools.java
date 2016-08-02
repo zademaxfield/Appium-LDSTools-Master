@@ -314,8 +314,8 @@ public class LDSTools {
 		syncLogIn("LDSTools21", "password1", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
 		
-		//checkMissionaryProgressRecord();
-		//checkMissionaryProgressRecordVisits();
+		checkMissionaryProgressRecord();
+		checkMissionaryProgressRecordVisits();
 		checkMissionaryProgressRecordSacMeeting();
 		
 		
@@ -6514,7 +6514,7 @@ public class LDSTools {
 		if (!getRunningOS().equals("mac")) {
 			myList = swapLastName(myList);
 		}
-		compareWebData(myList, androidList, true);
+		compareWebData(myList, androidList, false);
 		pageSource = getSourceOfPage();
 		clickButton("mpRemoveFilterButton", "id", "xpath");
 		
@@ -6535,7 +6535,7 @@ public class LDSTools {
 		if (!getRunningOS().equals("mac")) {
 			myList = swapLastName(myList);
 		}
-		compareWebData(myList, androidList, true);
+		compareWebData(myList, androidList, false);
 		pageSource = getSourceOfPage();
 		clickButton("mpRemoveFilterButton", "id", "xpath");
 		
@@ -6557,7 +6557,7 @@ public class LDSTools {
 		if (!getRunningOS().equals("mac")) {
 			myList = swapLastName(myList);
 		}
-		compareWebData(myList, androidList, true);
+		compareWebData(myList, androidList, false);
 		pageSource = getSourceOfPage();
 		clickButton("mpRemoveFilterButton", "id", "xpath");
 
@@ -6578,7 +6578,7 @@ public class LDSTools {
 		if (!getRunningOS().equals("mac")) {
 			myList = swapLastName(myList);
 		}
-		compareWebData(myList, androidList, true);
+		compareWebData(myList, androidList, false);
 		pageSource = getSourceOfPage();
 		clickButton("mpRemoveFilterButton", "id", "xpath");
 		
@@ -6602,7 +6602,7 @@ public class LDSTools {
 		openReports();
 		Thread.sleep(2000);
 		clickButtonByXpathTitleName("Missionary Progress Record");
-		pageSource = getSourceOfPage();
+		//pageSource = getSourceOfPage();
 		
 		myWeb.WPRopenPageLogIn("https://missionary-stage.lds.org/ward-missionary-tools", "ab067", "password0");
 		
@@ -6625,7 +6625,7 @@ public class LDSTools {
 			myList = swapLastName(myList);
 		}
 		compareWebData(myList, androidList, false);
-		pageSource = getSourceOfPage();
+		//pageSource = getSourceOfPage();
 		clickButton("mpRemoveFilterButton", "id", "xpath");
 		
 		//******************
@@ -6646,8 +6646,8 @@ public class LDSTools {
 		if (!getRunningOS().equals("mac")) {
 			myList = swapLastName(myList);
 		}
-		compareWebData(myList, androidList, true);
-		pageSource = getSourceOfPage();
+		compareWebData(myList, androidList, false);
+		//pageSource = getSourceOfPage();
 		clickButton("mpRemoveFilterButton", "id", "xpath");
 		
 		//******************
@@ -6668,8 +6668,8 @@ public class LDSTools {
 		if (!getRunningOS().equals("mac")) {
 			myList = swapLastName(myList);
 		}
-		compareWebData(myList, androidList, true);
-		pageSource = getSourceOfPage();
+		compareWebData(myList, androidList, false);
+		//pageSource = getSourceOfPage();
 		clickButton("mpRemoveFilterButton", "id", "xpath");
 		
 		
@@ -6691,8 +6691,8 @@ public class LDSTools {
 		if (!getRunningOS().equals("mac")) {
 			myList = swapLastName(myList);
 		}
-		compareWebData(myList, androidList, true);
-		pageSource = getSourceOfPage();
+		compareWebData(myList, androidList, false);
+		//pageSource = getSourceOfPage();
 		clickButton("mpRemoveFilterButton", "id", "xpath");
 
 		//******************
@@ -6713,8 +6713,8 @@ public class LDSTools {
 		if (!getRunningOS().equals("mac")) {
 			myList = swapLastName(myList);
 		}
-		compareWebData(myList, androidList, true);
-		pageSource = getSourceOfPage();
+		compareWebData(myList, androidList, false);
+		//pageSource = getSourceOfPage();
 		clickButton("mpRemoveFilterButton", "id", "xpath");
 		
 		
@@ -8135,6 +8135,7 @@ public class LDSTools {
 					}
 				}
 				*/
+				System.out.println("****** Android Users ******");
 				if(!myList.isEmpty()) {
 					for(int myCounter = 0 ; myCounter < androidList.size() ; myCounter++) {
 						if ((myList.get(myCounter).contains("Jr")) || (myList.get(myCounter).contains("Salvador")) 
@@ -8146,6 +8147,7 @@ public class LDSTools {
 						}
 					}
 				}	
+				System.out.println("****** Done Android Users ******");
 			}
 			
 
