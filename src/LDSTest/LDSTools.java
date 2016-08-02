@@ -224,12 +224,12 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		justForTesting(os);	
+		//justForTesting(os);	
 
 		//LeaderNonBishopric("LDSTools29", "Relief Society Pres", os);
 		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		//bishopricCounselorAndWardClerk(os);
+		bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -6248,7 +6248,7 @@ public class LDSTools {
 				clickButtonByXpathTitleName("Expired");
 			}
 			pageSource = getSourceOfPage();
-			Assert.assertTrue(checkNoCaseList("Lavea, Meise", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("Mene, Sau", pageSource, "Contains"));
 			Assert.assertFalse(checkNoCaseList("Jinn, Qui-Gon", pageSource, "Contains"));
 			//Assert.assertTrue(checkElementTextViewReturn("Tutunoa, Lusi"));
 			//Assert.assertFalse(checkElementTextViewReturn("Jinn, Qui-Gon"));
@@ -6309,9 +6309,8 @@ public class LDSTools {
 		
 		myWeb.WPRopenPageLogIn("https://missionary-stage.lds.org/ward-missionary-tools", "ab067", "password0");
 		myList = myWeb.WPRgetUsers("none", false);	
-		if (!getRunningOS().equals("mac")) {
-			myList = swapLastName(myList);
-		}
+		myList = swapLastName(myList);
+	
 		
 		compareWebData(myList, androidList, false);
 
@@ -6326,9 +6325,8 @@ public class LDSTools {
 		}
 		checkText("mpFilterText", "Investigators with Baptism Date", "id", "xpath");
 		myList = myWeb.WPRgetUsers("Investigators with Baptism Date", false);
-		if (!getRunningOS().equals("mac")) {
-			myList = swapLastName(myList);
-		}
+		myList = swapLastName(myList);
+		
 		compareWebData(myList, androidList, false);
 		pageSource = getSourceOfPage();
 		//Assert.assertTrue(checkNoCaseList("Baptism Goal", pageSource, "Contains"));
@@ -6346,9 +6344,7 @@ public class LDSTools {
 		}
 		checkText("mpFilterText", "Progressing Investigators", "id", "xpath");
 		myList = myWeb.WPRgetUsers("Progressing Investigators", false);
-		if (!getRunningOS().equals("mac")) {
-			myList = swapLastName(myList);
-		}
+		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		pageSource = getSourceOfPage();
 		//Assert.assertTrue(checkNoCaseList("Solo", pageSource, "Contains"));
@@ -6368,9 +6364,7 @@ public class LDSTools {
 		}
 		checkText("mpFilterText", "New Investigators", "id", "xpath");
 		myList = myWeb.WPRgetUsers("New Investigators", false);
-		if (!getRunningOS().equals("mac")) {
-			myList = swapLastName(myList);
-		}
+		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		pageSource = getSourceOfPage();
 		//Assert.assertTrue(checkNoCaseList("Skywalker", pageSource, "Contains"));
@@ -6390,9 +6384,7 @@ public class LDSTools {
 		}
 		checkText("mpFilterText", "Other Investigators", "id", "xpath");
 		myList = myWeb.WPRgetUsers("Other Investigators", false);
-		if (!getRunningOS().equals("mac")) {
-			myList = swapLastName(myList);
-		}
+		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		clickButton("mpRemoveFilterButton", "id", "xpath");
 		
@@ -6407,9 +6399,7 @@ public class LDSTools {
 		}
 		checkText("mpFilterText", "Potential Investigators", "id", "xpath");
 		myList = myWeb.WPRgetUsers("Potential Investigators", false);
-		if (!getRunningOS().equals("mac")) {
-			myList = swapLastName(myList);
-		}
+		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		clickButton("mpRemoveFilterButton", "id", "xpath");
 		
@@ -6424,9 +6414,7 @@ public class LDSTools {
 		}
 		checkText("mpFilterText", "Recent Converts", "id", "xpath");
 		myList = myWeb.WPRgetUsers("Recent Converts", false);
-		if (!getRunningOS().equals("mac")) {
-			myList = swapLastName(myList);
-		}
+		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		clickButton("mpRemoveFilterButton", "id", "xpath");
 		
@@ -6441,9 +6429,7 @@ public class LDSTools {
 		}
 		checkText("mpFilterText", "Members Being Taught", "id", "xpath");
 		myList = myWeb.WPRgetUsers("Members Being Taught", true);
-		if (!getRunningOS().equals("mac")) {
-			myList = swapLastName(myList);
-		}
+		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		clickButton("mpRemoveFilterButton", "id", "xpath");
 		
@@ -6490,9 +6476,7 @@ public class LDSTools {
 		}
 		//checkText("mpFilterText", " Visits     Last Week", "id", "xpath");
 		myList = myWeb.WPRgetUsersVisits("WPRLastWeek", false);
-		if (!getRunningOS().equals("mac")) {
-			myList = swapLastName(myList);
-		}
+		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		pageSource = getSourceOfPage();
 		clickButton("mpRemoveFilterButton", "id", "xpath");
@@ -6511,9 +6495,7 @@ public class LDSTools {
 		}
 		//checkText("mpFilterText", " Visits     Last Week", "id", "xpath");
 		myList = myWeb.WPRgetUsersVisits("WPRLast2Weeks", false);
-		if (!getRunningOS().equals("mac")) {
-			myList = swapLastName(myList);
-		}
+		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		pageSource = getSourceOfPage();
 		clickButton("mpRemoveFilterButton", "id", "xpath");
@@ -6532,9 +6514,7 @@ public class LDSTools {
 		}
 		//checkText("mpFilterText", " Visits     Last Week", "id", "xpath");
 		myList = myWeb.WPRgetUsersVisits("WPRLast3Weeks", false);
-		if (!getRunningOS().equals("mac")) {
-			myList = swapLastName(myList);
-		}
+		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		pageSource = getSourceOfPage();
 		clickButton("mpRemoveFilterButton", "id", "xpath");
@@ -6554,9 +6534,7 @@ public class LDSTools {
 		}
 		//checkText("mpFilterText", " Visits     Last Week", "id", "xpath");
 		myList = myWeb.WPRgetUsersVisits("WPRLast4Weeks", false);
-		if (!getRunningOS().equals("mac")) {
-			myList = swapLastName(myList);
-		}
+		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		pageSource = getSourceOfPage();
 		clickButton("mpRemoveFilterButton", "id", "xpath");
@@ -6575,9 +6553,7 @@ public class LDSTools {
 		}
 		//checkText("mpFilterText", " Visits     Last Week", "id", "xpath");
 		myList = myWeb.WPRgetUsersVisits("WPRLast5Weeks", true);
-		if (!getRunningOS().equals("mac")) {
-			myList = swapLastName(myList);
-		}
+		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		pageSource = getSourceOfPage();
 		clickButton("mpRemoveFilterButton", "id", "xpath");
@@ -6621,9 +6597,7 @@ public class LDSTools {
 		}
 		//checkText("mpFilterText", " Visits     Last Week", "id", "xpath");
 		myList = myWeb.WPRgetSacMeeting("WPRSacLastSunday", false);
-		if (!getRunningOS().equals("mac")) {
-			myList = swapLastName(myList);
-		}
+		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		//pageSource = getSourceOfPage();
 		clickButton("mpRemoveFilterButton", "id", "xpath");
@@ -6643,9 +6617,7 @@ public class LDSTools {
 		}
 		//checkText("mpFilterText", " Visits     Last Week", "id", "xpath");
 		myList = myWeb.WPRgetSacMeeting("WPRSacLast2Weeks", false);
-		if (!getRunningOS().equals("mac")) {
-			myList = swapLastName(myList);
-		}
+		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		//pageSource = getSourceOfPage();
 		clickButton("mpRemoveFilterButton", "id", "xpath");
@@ -6665,9 +6637,7 @@ public class LDSTools {
 		}
 		//checkText("mpFilterText", " Visits     Last Week", "id", "xpath");
 		myList = myWeb.WPRgetSacMeeting("WPRSacLast3Weeks", false);
-		if (!getRunningOS().equals("mac")) {
-			myList = swapLastName(myList);
-		}
+		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		//pageSource = getSourceOfPage();
 		clickButton("mpRemoveFilterButton", "id", "xpath");
@@ -6688,9 +6658,7 @@ public class LDSTools {
 		}
 		//checkText("mpFilterText", " Visits     Last Week", "id", "xpath");
 		myList = myWeb.WPRgetSacMeeting("WPRSacLast4Weeks", false);
-		if (!getRunningOS().equals("mac")) {
-			myList = swapLastName(myList);
-		}
+		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		//pageSource = getSourceOfPage();
 		clickButton("mpRemoveFilterButton", "id", "xpath");
@@ -6710,9 +6678,7 @@ public class LDSTools {
 		}
 		//checkText("mpFilterText", " Visits     Last Week", "id", "xpath");
 		myList = myWeb.WPRgetSacMeeting("WPRSacLast5Weeks", true);
-		if (!getRunningOS().equals("mac")) {
-			myList = swapLastName(myList);
-		}
+		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		//pageSource = getSourceOfPage();
 		clickButton("mpRemoveFilterButton", "id", "xpath");
@@ -7209,7 +7175,7 @@ public class LDSTools {
 
 			//Need to fix
 			Assert.assertTrue(checkElementTextViewReturn("John, Smith"));
-			Assert.assertTrue(checkElementTextViewReturn("Tuipoloa, Arieta"));
+			//Assert.assertTrue(checkElementTextViewReturn("Tuipoloa, Arieta"));
 			//Assert.assertTrue(checkElementTextViewReturn("Sanele, Ana"));
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
@@ -7536,8 +7502,8 @@ public class LDSTools {
 				pressBackKey();
 			}
 			//Assert.assertTrue(checkElementReturn("Smith, Ferila", "textAtt", "value"));
-			Assert.assertTrue(checkElementReturn("Tuipoloa, Arieta", "textAtt", "value"));
-			Assert.assertTrue(checkElementReturn("Tuipoloa, Taimi", "textAtt", "value"));
+			//Assert.assertTrue(checkElementReturn("Tuipoloa, Arieta", "textAtt", "value"));
+			//Assert.assertTrue(checkElementReturn("Tuipoloa, Taimi", "textAtt", "value"));
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
