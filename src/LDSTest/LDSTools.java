@@ -224,12 +224,12 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		//justForTesting(os);	
+		justForTesting(os);	
 
 		//LeaderNonBishopric("LDSTools29", "Relief Society Pres", os);
 		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		bishopricCounselorAndWardClerk(os);
+		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -314,8 +314,8 @@ public class LDSTools {
 		syncLogIn("LDSTools21", "password1", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
 		
-		checkMissionaryProgressRecord();
-		checkMissionaryProgressRecordVisits();
+		//checkMissionaryProgressRecord();
+		//checkMissionaryProgressRecordVisits();
 		checkMissionaryProgressRecordSacMeeting();
 		
 		
@@ -6587,6 +6587,11 @@ public class LDSTools {
 		Thread.sleep(1000);
 	}
 	
+	private void scrollToSacMeetingAttendance() throws Exception {
+		if (!getRunningOS().equals("mac")) {
+			driver.scrollTo("Attended Sacrament");
+		}
+	}
 	
 	
 	private void checkMissionaryProgressRecordSacMeeting() throws Exception {
@@ -6605,6 +6610,7 @@ public class LDSTools {
 		//Sacrament Meeting Attendance - Last Week
 		//******************
 		clickButton("MissionaryProgressFilter", "id", "xpath");
+		scrollToSacMeetingAttendance();
 		clickButton("mpAttendedSacrament", "id", "xpath");
 		clickButton("mpLastWeek", "xpath", "xpath");
 		if (!getRunningOS().equals("mac")) {
@@ -6626,6 +6632,7 @@ public class LDSTools {
 		//Sacrament Meeting Attendance - Last 2 weeks
 		//******************
 		clickButton("MissionaryProgressFilter", "id", "xpath");
+		scrollToSacMeetingAttendance();
 		clickButton("mpAttendedSacrament", "id", "xpath");
 		clickButton("mpLast2Weeks", "xpath", "xpath");
 		if (!getRunningOS().equals("mac")) {
@@ -6647,6 +6654,7 @@ public class LDSTools {
 		//Sacrament Meeting Attendance - Last 3 weeks
 		//******************
 		clickButton("MissionaryProgressFilter", "id", "xpath");
+		scrollToSacMeetingAttendance();
 		clickButton("mpAttendedSacrament", "id", "xpath");
 		clickButton("mpLast3Weeks", "xpath", "xpath");
 		if (!getRunningOS().equals("mac")) {
@@ -6669,6 +6677,7 @@ public class LDSTools {
 		//Sacrament Meeting Attendance - Last 4 weeks
 		//******************
 		clickButton("MissionaryProgressFilter", "id", "xpath");
+		scrollToSacMeetingAttendance();
 		clickButton("mpAttendedSacrament", "id", "xpath");
 		clickButton("mpLast4Weeks", "xpath", "xpath");
 		if (!getRunningOS().equals("mac")) {
@@ -6690,6 +6699,7 @@ public class LDSTools {
 		//Sacrament Meeting Attendance - Last 5 weeks
 		//******************
 		clickButton("MissionaryProgressFilter", "id", "xpath");
+		scrollToSacMeetingAttendance();
 		clickButton("mpAttendedSacrament", "id", "xpath");
 		clickButton("mpLast5Weeks", "xpath", "xpath");
 		if (!getRunningOS().equals("mac")) {
