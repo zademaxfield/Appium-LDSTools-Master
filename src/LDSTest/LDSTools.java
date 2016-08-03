@@ -226,10 +226,10 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 
-		//LeaderNonBishopric("LDSTools29", "Relief Society Pres", os);
-		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
+		LeaderNonBishopricTEST("LDSTools29", "Relief Society Pres", os);
+		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		bishopricCounselorAndWardClerk(os);
+		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -5103,7 +5103,9 @@ public class LDSTools {
 		//capabilities.setCapability("platformName", "Android");
 		myOs = getRunningOS();
 		if (myOs.equals("mac")){
-			clickButtonByXpath("TopBack");
+			if (checkElementExistsByXpath("TopBack").equals(true)) {
+				clickButtonByXpath("TopBack");
+			}	
 		} else {
 			driver.navigate().back();
 			//new Actions(driver).sendKeys(SelendroidKeys.BACK).perform();
@@ -5659,8 +5661,9 @@ public class LDSTools {
 
 		
 		if (getRunningOS().equals("mac")) {
-			pressBackToRoot();
-			clickButtonByXpath("SearchCollapse");
+			pressBackKey();
+			//pressBackToRoot();
+			//clickButtonByXpath("SearchCollapse");
 		} else {
 			pressBackToRoot();
 			clickButtonByXpath("SearchCollapse");
@@ -6065,13 +6068,13 @@ public class LDSTools {
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
 
-		Assert.assertTrue(checkNoCaseList("John, Smith", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Vui, Line", pageSource, "Contains"));
 
 		//The new unit is only available for bishop
 		if (bishop == true){
-			Assert.assertTrue(checkNoCaseList("Paia Ward", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("a Ward", pageSource, "Contains"));
 		} else {
-			Assert.assertFalse(checkNoCaseList("Paia Ward", pageSource, "Contains"));
+			Assert.assertFalse(checkNoCaseList("a Ward", pageSource, "Contains"));
 		}
 		Assert.assertFalse(checkNoCaseList("Solo, Han", pageSource, "Equals"));
 		pressBackKey();
@@ -7119,6 +7122,7 @@ public class LDSTools {
 			
 			//Test Assigned Home Teachers
 			clickButton("MenuFilter", "id", "xpath");
+			Thread.sleep(1000);
 			clickButton("AssignedHomeTeachersBox", "id", "xpath");
 			myOS = getRunningOS();
 			//System.out.println("Running OS: " + myOS);
@@ -7140,6 +7144,7 @@ public class LDSTools {
 		
 			//Test NOT Assigned Home Teachers
 			clickButton("MenuFilter", "id", "xpath");
+			Thread.sleep(1000);
 			if (getRunningOS().equals("mac")) {
 				clickButton("AssignedHomeTeachersBox", "id", "xpath");
 			}
@@ -7160,6 +7165,7 @@ public class LDSTools {
 
 			//New and Moved in Members
 			clickButton("MenuFilter", "id", "xpath");
+			Thread.sleep(1000);
 			if (getRunningOS().equals("mac")) {
 				clickButton("NotAssignedHomeTeachersBox", "id", "xpath");
 			}
@@ -7184,6 +7190,7 @@ public class LDSTools {
 			
 			//Single Sisters 18-30 years old
 			clickButton("MenuFilter", "id", "xpath");
+			Thread.sleep(1000);
 			if (getRunningOS().equals("mac")) {
 				clickButton("NewAndMovedInMembersBox", "id", "xpath");
 			}
@@ -7206,6 +7213,7 @@ public class LDSTools {
 			
 			//Single Sisters 31 and over
 			clickButton("MenuFilter", "id", "xpath");
+			Thread.sleep(1000);
 			if (getRunningOS().equals("mac")) {
 				clickButton("SingleSisters1830", "id", "xpath");
 			}
@@ -7227,6 +7235,7 @@ public class LDSTools {
 			
 			//Single Brothers 18-30 years old
 			clickButton("MenuFilter", "id", "xpath");
+			Thread.sleep(1000);
 			if (getRunningOS().equals("mac")) {
 				clickButton("SingleSisters31over", "id", "xpath");
 			}
@@ -7247,6 +7256,7 @@ public class LDSTools {
 			
 			//Single Brothers 31 and over
 			clickButton("MenuFilter", "id", "xpath");
+			Thread.sleep(1000);
 			if (getRunningOS().equals("mac")) {
 				clickButton("SingleBrothers1830", "id", "xpath");
 			}
@@ -7285,6 +7295,7 @@ public class LDSTools {
 			
 			//Test Assigned Home Teachers
 			clickButton("MenuFilter", "id", "xpath");
+			Thread.sleep(1000);
 			clickButton("AssignedHomeTeachersBox", "id", "xpath");
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
@@ -7302,6 +7313,7 @@ public class LDSTools {
 		
 			//Test NOT Assigned Home Teachers
 			clickButton("MenuFilter", "id", "xpath");
+			Thread.sleep(1000);
 			if (getRunningOS().equals("mac")) {
 				clickButton("AssignedHomeTeachersBox", "id", "xpath");
 			}
@@ -7322,6 +7334,7 @@ public class LDSTools {
 
 			//New and Moved in Members
 			clickButton("MenuFilter", "id", "xpath");
+			Thread.sleep(1000);
 			if (getRunningOS().equals("mac")) {
 				clickButton("NotAssignedHomeTeachersBox", "id", "xpath");
 			}
@@ -7343,6 +7356,7 @@ public class LDSTools {
 
 			//Single Sisters 18-30 years old
 			clickButton("MenuFilter", "id", "xpath");
+			Thread.sleep(1000);
 			if (getRunningOS().equals("mac")) {
 				clickButton("NewAndMovedInMembersBox", "id", "xpath");
 			}
@@ -7364,6 +7378,7 @@ public class LDSTools {
 			
 			//Single Sisters 31 and over
 			clickButton("MenuFilter", "id", "xpath");
+			Thread.sleep(1000);
 			if (getRunningOS().equals("mac")) {
 				clickButton("SingleSisters1830", "id", "xpath");
 			}
@@ -7385,6 +7400,7 @@ public class LDSTools {
 			
 			//Single Brothers 18-30 years old
 			clickButton("MenuFilter", "id", "xpath");
+			Thread.sleep(1000);
 			if (getRunningOS().equals("mac")) {
 				clickButton("SingleSisters31over", "id", "xpath");
 			}
@@ -7405,6 +7421,7 @@ public class LDSTools {
 			
 			//Single Brothers 31 and over
 			clickButton("MenuFilter", "id", "xpath");
+			Thread.sleep(1000);
 			if (getRunningOS().equals("mac")) {
 				clickButton("SingleBrothers1830", "id", "xpath");
 			}
@@ -7452,6 +7469,7 @@ public class LDSTools {
 			//Test Assigned Visiting Teachers
 			//clickButtonByXpath("MenuFilter");
 			clickButton("MenuFilter", "id", "xpath");
+			Thread.sleep(1000);
 			clickButton("AssignedHomeTeachersBox", "id", "xpath");
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
@@ -7469,6 +7487,7 @@ public class LDSTools {
 		
 			//Test NOT Assigned Visiting Teachers
 			clickButton("MenuFilter", "id", "xpath");
+			Thread.sleep(1000);
 			if (getRunningOS().equals("mac")) {
 				clickButton("AssignedHomeTeachersBox", "id", "xpath");
 			}
@@ -7487,9 +7506,10 @@ public class LDSTools {
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
-
+ 
 			//New and Moved in Members
 			clickButton("MenuFilter", "id", "xpath");
+			Thread.sleep(1000);
 			if (getRunningOS().equals("mac")) {
 				clickButton("NotAssignedHomeTeachersBox", "id", "xpath");
 			}
@@ -7507,10 +7527,11 @@ public class LDSTools {
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
-
+			Thread.sleep(1000);
 
 			//Single Sisters 18-30 years old
 			clickButton("MenuFilter", "id", "xpath");
+			Thread.sleep(1000);
 			if (getRunningOS().equals("mac")) {
 				clickButton("NewAndMovedInMembersBox", "id", "xpath");
 			}
@@ -7532,6 +7553,7 @@ public class LDSTools {
 			
 			//Single Sisters 31 and over
 			clickButton("MenuFilter", "id", "xpath");
+			Thread.sleep(1000);
 			if (getRunningOS().equals("mac")) {
 				clickButton("SingleSisters1830", "id", "xpath");
 			}
@@ -7897,16 +7919,22 @@ public class LDSTools {
 		Boolean checkForElement; 
 		List<WebElement> options = null;
 		int myCounter = 1;
+		WebElement myElement = null;
 		
 		String lowerCaseSearch = userToSearch.toLowerCase();
 		
 		if (getRunningOS().equals("mac")) {
 			sendTextbyXpath("SearchArea", userToSearch);
 			//sendTextbyXpath2("SearchArea", userToSearch);
+			//driver.findElement(By.xpath("//UIAButton[@label='Search']")).click();
 			Thread.sleep(2000);
 			//driver.tap(1, 10, 10, 1000);
-			driver.findElementByXPath("//UIAStaticText[@label='" + userToSearch + "']").click();
-	
+			//driver.findElementByXPath("//UIAStaticText[@label='" + userToSearch + "']").click();
+			//driver.findElementByXPath("//UIAStaticText[contains(@label, '" + userToSearch + "')]").click();
+			myElement = driver.findElement(By.xpath("//UIATableCell/UIAStaticText[contains(@label, '" + userToSearch + "')]"));
+			Point myPoint = myElement.getLocation();
+			driver.tap(1, myPoint.x, myPoint.y, 700);
+			
 		} else {
 			clickButtonByID("MenuDefaultDirectory");
 			clickButtonByXpathTitleName("Individuals");
