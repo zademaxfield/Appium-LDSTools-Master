@@ -229,7 +229,7 @@ public class LDSTools {
 		//LeaderNonBishopricTEST("LDSTools29", "Relief Society Pres", os);
 		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		bishopricCounselorAndWardClerk(os);
+		//bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -240,7 +240,7 @@ public class LDSTools {
 		//editOtherUserInvalidEmail(os);
 		
 		
-		//editVisibility(os);
+		editVisibility(os);
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
@@ -1967,7 +1967,7 @@ public class LDSTools {
 		Assert.assertFalse(checkElementTextViewRoboReturn("Tools, LDS5"));
 
 		//Collapse the search 
-		//clickButtonByXpath("SearchCollapse");
+		clickButtonByXpath("SearchCollapse");
 		
 		backToDirectory() ;
 		
@@ -3646,6 +3646,15 @@ public class LDSTools {
 		} else {
 			myReturnStatus = true;
 		}
+
+		//Check to see if the element is displayed
+		for (int i = 0 ; i < options.size(); i++ ) {
+			//System.out.println(options.get(i).getText());
+			myReturnStatus = options.get(i).isDisplayed();
+			//System.out.println(i + " My Return Status: " + myReturnStatus);
+			//allText.add(i, options.get(i).getText());
+		}
+		
 		
 		return myReturnStatus;
 	}
@@ -8568,13 +8577,14 @@ public class LDSTools {
 		Boolean backButtonCheck;
 		int myCounter = 1;
 		backButtonCheck = checkElementExistsByXpath("TopBack"); 
-		 
+		//System.out.println("Back Button Check: " + backButtonCheck);
 		
 		while ((backButtonCheck == true) && (myCounter < 5 ))  {
 			//Thread.sleep(1000);
 			pressBackKey();
 			Thread.sleep(2000);
 			backButtonCheck = checkElementExistsByXpath("TopBack");
+			//System.out.println("Back Button Check 2: " + backButtonCheck);
 			myCounter++;
 		}
 		
@@ -8585,7 +8595,7 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			pressBackToRoot();
 			Thread.sleep(1000);
-			clickButtonByXpath("SearchCollapse");
+			//clickButtonByXpath("SearchCollapse");
 		} else {
 			pressBackToRoot();
 			Thread.sleep(1000);
