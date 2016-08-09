@@ -6316,7 +6316,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		clickButtonByXpathTitleName("Missionary Progress Record");
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Potential Investigator", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("Potential Investigator", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Malcolm Reynolds", pageSource, "Contains"));
 		
 		myWeb.WPRopenPageLogIn("https://missionary-stage.lds.org/ward-missionary-tools", "ab067", "password0");
