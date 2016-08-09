@@ -229,7 +229,7 @@ public class LDSTools {
 		//LeaderNonBishopricTEST("LDSTools29", "Relief Society Pres", os);
 		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		//bishopricCounselorAndWardClerk(os);
+		bishopricCounselorAndWardClerk(os);
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -240,7 +240,7 @@ public class LDSTools {
 		//editOtherUserInvalidEmail(os);
 		
 		
-		editVisibility(os);
+		//editVisibility(os);
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
