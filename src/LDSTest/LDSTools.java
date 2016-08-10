@@ -1393,18 +1393,19 @@ public class LDSTools {
 		Thread.sleep(1000);
 		//Check Missionary drawer items - all user access
 		checkMissionary();
+		*/
 		
 		//Check the Calendar - all user access
 		Thread.sleep(1000);
 		checkCalendar();
 		
 		
-		
+		/*
 		Thread.sleep(1000);
 		//Check the reports - leadership only - true for bishopric rights, false for leaders and remove
 		//checkReports for non-leaders
 		checkReports(false, false);
-		*/
+		
 		
 		
 		Thread.sleep(1000);
@@ -1417,7 +1418,7 @@ public class LDSTools {
 		//Check Home Teaching - Visiting Teaching Household - Sisters and Filters
 		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
 		checkHTVTHouseholds(userCalling);
-		
+		*/
 	
 	}
 	
@@ -4420,6 +4421,11 @@ public class LDSTools {
 			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@text, '" + textElement + "')]")));
 		} 
 		
+		if (findElement == "nameContains") {
+			//myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(), '" + textElement + "')]")));
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@name, '" + textElement + "')]")));
+		} 
+		
 		if (findElement == "value") {
 			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@value='" + textElement + "']")));
 		} 
@@ -6016,7 +6022,8 @@ public class LDSTools {
 		String pageSource;
 
 		if (getRunningOS().equals("mac")) {
-			clickButton("6:00 PM", "text", "name");
+			//clickButton("6:00 PM", "text", "name");
+			clickButton("Worldwide Devotional for Young Adults", "text", "nameContains");
 		} else {
 			clickButton("Worldwide", "text", "text");
 		}
