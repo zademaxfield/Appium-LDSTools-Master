@@ -229,7 +229,9 @@ public class LDSTools {
 		//LeaderNonBishopricTEST("LDSTools29", "Relief Society Pres", os);
 		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		bishopricCounselorAndWardClerk(os);
+		//LeaderBishopric("ngiBPC1", false, os); //Bishopric 1st Counselor  
+		LeaderBishopric("ngiBPC2", false, os); //Bishopric 2nd Counselor 
+		//LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -504,8 +506,25 @@ public class LDSTools {
 		Assert.assertEquals(10 , myNumber);
 	}
 */	
+
 	
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "bishopric"}, priority = 1)
+	public void Bishopric1stCounselor(String os) throws Exception {
+		LeaderBishopric("ngiBPC1", false, os); //Bishopric 1st Counselor  
+	}
 	
+	@Parameters({"os"})
+	@Test (groups= {"bishopric"}, priority = 1)
+	public void Bishopric2ndCounselor(String os) throws Exception {
+		LeaderBishopric("ngiBPC2", false, os); //Bishopric 2nd Counselor  
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "bishopric"}, priority = 1)
+	public void AssistantWardClerkMembership(String os) throws Exception {
+		LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership 
+	}
 	
 	
 	
@@ -653,11 +672,46 @@ public class LDSTools {
 		LeaderNonBishopric("LDSTools39", "Ward Council", os);
 	}
 	
-	/** bishopricCounselorAndWardClerk()
-	 * This will test a user that is a member of the Bishopric and a Ward Clerk
-	 * 
-	 * @throws Exception
-	 */
+	
+	
+	public void LeaderBishopric(String leaderLogin, Boolean priorUnit, String os) throws Exception {
+
+		syncLogIn(leaderLogin, "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+
+		//Check Directory user - should be able to view everything
+		checkDirectoryUser(true, true, true, true, true, true);
+		
+		Thread.sleep(1000);
+		
+		//Check Drawer Items - If leader there should be a Reports item
+		checkDrawerItems(true);
+		
+		Thread.sleep(1000);
+		
+		//Check various callings - all users should be able to access this information
+		checkCallings();
+		
+		Thread.sleep(1000);
+		
+		//Check Missionary drawer items - all user access
+		checkMissionary();
+		
+		//Check the Calendar - all user access
+		Thread.sleep(1000);
+		checkCalendar();
+	
+		Thread.sleep(1000);
+		
+		//Check the reports - leadership only
+		checkReports(true, priorUnit);
+			
+		checkHTVTBasic("Bishopric");
+		checkHTVTHouseholds("Bishopric");
+	}
+	
+	
+	/* - Old method 
 	@Parameters({"os"})
 	@Test (groups= {"smoke", "bishopric"}, priority = 1)
 	public void bishopricCounselorAndWardClerk(String os) throws Exception {
@@ -706,6 +760,7 @@ public class LDSTools {
 		
 	
 	}
+	*/
 
 
 
@@ -6023,8 +6078,10 @@ public class LDSTools {
 
 		if (getRunningOS().equals("mac")) {
 			//clickButton("6:00 PM", "text", "name");
+			driver.scrollTo("Worldwide Devotional for Young Adults");
 			clickButton("Worldwide Devotional for Young Adults", "text", "nameContains");
 		} else {
+			driver.scrollTo("Worldwide");
 			clickButton("Worldwide", "text", "text");
 		}
 
@@ -6088,9 +6145,9 @@ public class LDSTools {
 
 		//The new unit is only available for bishop
 		if (bishop == true){
-			Assert.assertTrue(checkNoCaseList("a Ward", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("New Unit", pageSource, "Contains"));
 		} else {
-			Assert.assertFalse(checkNoCaseList("a Ward", pageSource, "Contains"));
+			Assert.assertFalse(checkNoCaseList("New Unit", pageSource, "Contains"));
 		}
 		Assert.assertFalse(checkNoCaseList("Solo, Han", pageSource, "Equals"));
 		pressBackKey();
