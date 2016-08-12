@@ -229,8 +229,9 @@ public class LDSTools {
 		//LeaderNonBishopricTEST("LDSTools29", "Relief Society Pres", os);
 		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		//LeaderBishopric("ngiBPC1", false, os); //Bishopric 1st Counselor  
-		LeaderBishopric("ngiBPC2", false, os); //Bishopric 2nd Counselor 
+		LeaderBishopric("ngiBPC1", false, os); //Bishopric 1st Counselor  
+		//LeaderBishopric("ngiBPC2", false, os); //Bishopric 2nd Counselor 
+		//LeaderBishopric("ngiWB1", true, os); //Bishop shows Stake View - something wrong with the account
 		//LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//bishopMemberOfSeparateStake(os);	
 		
@@ -519,6 +520,14 @@ public class LDSTools {
 	public void Bishopric2ndCounselor(String os) throws Exception {
 		LeaderBishopric("ngiBPC2", false, os); //Bishopric 2nd Counselor  
 	}
+	
+	/* ******** Bishop is showing Stake view first *************
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "bishopric"}, priority = 1)
+	public void BishopFagamalo(String os) throws Exception {
+		LeaderBishopric("ngiWB1", true, os); //Bishop 
+	}
+	*/
 	
 	@Parameters({"os"})
 	@Test (groups= {"smoke", "bishopric"}, priority = 1)
@@ -1448,20 +1457,20 @@ public class LDSTools {
 		Thread.sleep(1000);
 		//Check Missionary drawer items - all user access
 		checkMissionary();
-		*/
+		
 		
 		//Check the Calendar - all user access
 		Thread.sleep(1000);
 		checkCalendar();
+		*/
 		
 		
-		/*
 		Thread.sleep(1000);
 		//Check the reports - leadership only - true for bishopric rights, false for leaders and remove
 		//checkReports for non-leaders
 		checkReports(false, false);
 		
-		
+		/*
 		
 		Thread.sleep(1000);
 		//Check Home Teaching - Visiting Teaching
@@ -6126,7 +6135,7 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("Members Moved In", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("Members Moved Out", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("Members with Callings", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("Missionary Progress Record", pageSource, "Equals"));
+		//Assert.assertTrue(checkNoCaseList("Missionary Progress Record", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("New Members", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("Unit Statistics", pageSource, "Equals"));
 		Assert.assertFalse(checkNoCaseList("Death Star Reports", pageSource, "Equals"));
@@ -6254,10 +6263,15 @@ public class LDSTools {
 		pressBackKey();
 		Thread.sleep(1000);
 		
+		if (myUserName.equalsIgnoreCase("LDSTools20") || (myUserName.equalsIgnoreCase("LDSTools25") || (myUserName.equalsIgnoreCase("LDSTools30")))) {
+			Assert.assertFalse(checkNoCaseList("Missionary Progress Record", pageSource, "Contains"));
+		} else {
+			checkMissionaryProgressRecord();
+			checkMissionaryProgressRecordVisits();
+			checkMissionaryProgressRecordSacMeeting();
+		}
 		
-		checkMissionaryProgressRecord();
-		checkMissionaryProgressRecordVisits();
-		checkMissionaryProgressRecordSacMeeting();
+
 		
 		
 		//New Members
