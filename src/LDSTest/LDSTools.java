@@ -229,10 +229,10 @@ public class LDSTools {
 		//LeaderNonBishopricTEST("LDSTools29", "Relief Society Pres", os);
 		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
-		LeaderBishopric("ngiBPC1", false, os); //Bishopric 1st Counselor  
+		//LeaderBishopric("ngiBPC1", false, os); //Bishopric 1st Counselor  
 		//LeaderBishopric("ngiBPC2", false, os); //Bishopric 2nd Counselor 
 		//LeaderBishopric("ngiWB1", true, os); //Bishop shows Stake View - something wrong with the account
-		//LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership
+		LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
@@ -1711,7 +1711,9 @@ public class LDSTools {
 		
 		clickButton("MenuSave", "id", "xpath");
 		
-		Thread.sleep(3000);
+		waitForTextToDisappear("EditSaving", 500);
+		
+		Thread.sleep(6000);
 		
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("LDS41 Tools (36)");
@@ -2032,7 +2034,10 @@ public class LDSTools {
 		Assert.assertFalse(checkElementTextViewRoboReturn("Tools, LDS5"));
 
 		//Collapse the search 
-		clickButtonByXpath("SearchCollapse");
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpath("SearchCollapse");
+		}
+		
 		
 		backToDirectory() ;
 		
