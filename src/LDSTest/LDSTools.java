@@ -708,7 +708,7 @@ public class LDSTools {
 		
 		//Check the Calendar - all user access
 		Thread.sleep(1000);
-		checkCalendar();
+		//checkCalendar();
 	
 		Thread.sleep(1000);
 		
@@ -947,7 +947,7 @@ public class LDSTools {
 		Thread.sleep(1000);
 		
 		//Check the Calendar - all user access
-		checkCalendar();
+		//checkCalendar();
 		Thread.sleep(1000);
 		
 		//Check the reports - leadership only
@@ -1409,7 +1409,7 @@ public class LDSTools {
 		
 		//Check the Calendar - all user access
 		Thread.sleep(1000);
-		checkCalendar();
+		//checkCalendar();
 		
 
 		Thread.sleep(1000);
@@ -1457,20 +1457,20 @@ public class LDSTools {
 		Thread.sleep(1000);
 		//Check Missionary drawer items - all user access
 		checkMissionary();
-		
+		*/
 		
 		//Check the Calendar - all user access
 		Thread.sleep(1000);
-		checkCalendar();
-		*/
+		//checkCalendar();
 		
 		
+		/*
 		Thread.sleep(1000);
 		//Check the reports - leadership only - true for bishopric rights, false for leaders and remove
 		//checkReports for non-leaders
 		checkReports(false, false);
 		
-		/*
+		
 		
 		Thread.sleep(1000);
 		//Check Home Teaching - Visiting Teaching
@@ -1482,7 +1482,7 @@ public class LDSTools {
 		//Check Home Teaching - Visiting Teaching Household - Sisters and Filters
 		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
 		checkHTVTHouseholds(userCalling);
-		*/
+		 */
 	
 	}
 	
@@ -6092,7 +6092,9 @@ public class LDSTools {
 
 		if (getRunningOS().equals("mac")) {
 			//clickButton("6:00 PM", "text", "name");
-			driver.scrollTo("Worldwide Devotional for Young Adults");
+			//driver.scrollTo("Worldwide Devotional for Young Adults");
+			driver.swipe(50, 500, 50, 100, 750);
+			//driver.scrollToExact("Worldwide Devotional for Young Adults");
 			clickButton("Worldwide Devotional for Young Adults", "text", "nameContains");
 		} else {
 			driver.scrollTo("Worldwide");
@@ -7225,8 +7227,8 @@ public class LDSTools {
 			} else {
 				pressBackKey();
 			}
-
-			Assert.assertTrue(checkElementReturn("AFPSixteen, Member", "textAtt", "value"));
+			Thread.sleep(1000);
+			Assert.assertTrue(checkElementReturn("AFPEleven, Member", "textAtt", "value"));
 			//Assert.assertTrue(checkElementReturn("Aaron, Jane", "textAtt", "value"));
 			//Assert.assertTrue(checkElementTextViewReturn("Aaron, Jane"));
 			if (!getRunningOS().equals("mac")) {
@@ -7248,9 +7250,9 @@ public class LDSTools {
 			} else {
 				pressBackKey();
 			}
-			Assert.assertTrue(checkElementReturn("AFPEighteen, Member", "textAtt", "value"));
-			Assert.assertTrue(checkElementReturn("AFPEleven, Member", "textAtt", "value"));
-			Assert.assertTrue(checkElementReturn("AFPFifteen, Member", "textAtt", "value"));
+			Assert.assertTrue(checkElementReturn("AFPFive, Wife", "textAtt", "value"));
+			//Assert.assertTrue(checkElementReturn("AFPEleven, Member", "textAtt", "value"));
+			//Assert.assertTrue(checkElementReturn("AFPFifteen, Member", "textAtt", "value"));
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
