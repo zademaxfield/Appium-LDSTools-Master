@@ -155,7 +155,12 @@ public class LDSTools {
 	        //capabilities.setCapability("fullReset", true);
 	        //capabilities.setCapability("noReset", true);
 	        capabilities.setCapability("app", app.getAbsolutePath());
-	        capabilities.setCapability("appPackage", "org.lds.ldstools.dev");
+	        if (fileName.contains("alpha")) {
+	        	capabilities.setCapability("appPackage", "org.lds.ldstools.dev"); // *** ALPHA ***
+	        } else {
+	        	capabilities.setCapability("appPackage", "org.lds.ldstools"); //*** BETA and RELEASE ***
+	        }
+	        
 	        //capabilities.setCapability("appActivity", "org.lds.ldstools.ui.StartupActivity");
 	        //capabilities.setCapability("appActivity", "org.lds.ldstools.ui.activity.SignInActivity");
 	        
