@@ -31,6 +31,7 @@ import java.util.Hashtable;
 //import java.util.Dictionary;
 //import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 //import java.net.URL;
 import java.util.Properties;
 import java.util.UUID;
@@ -237,12 +238,12 @@ public class LDSTools {
 		//LeaderBishopric("ngiBPC1", false, os); //Bishopric 1st Counselor  
 		//LeaderBishopric("ngiBPC2", false, os); //Bishopric 2nd Counselor 
 		//LeaderBishopric("ngiWB1", true, os); //Bishop shows Stake View - something wrong with the account
-		LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership
+		//LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
 		
-		//editCurrentUserCancel(os);
+		editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
 		//editOtherUserInvalidEmail(os);
@@ -1491,6 +1492,19 @@ public class LDSTools {
 	
 	}
 	
+	private void sendTextToEditUser(String editField, String textToSend ) throws Exception {
+		Capabilities cap = driver.getCapabilities();
+		Map<String, ?> desired = (Map<String, ?>) cap.getCapability("desired");
+		Object myAppPackage = desired.get("appPackage");
+
+		if (myAppPackage.equals("org.lds.ldstools")) {
+			editField = "Release" + editField;
+		} 
+		
+		sendTextbyXpath(editField, textToSend);
+		
+	}
+	
 	
 	/** editCurrentUser()
 	 * Login as LDSTools100 and edit own information
@@ -1520,15 +1534,16 @@ public class LDSTools {
 		sendTextbyXpath("EditPersonalPhone", "1(801)240-0104");
 		//myKeyboardClear();
 		
-		sendTextbyXpath("EditHomePhone", "(801) 867-5309");
+		//sendTextbyXpath("EditHomePhone", "(801) 867-5309");
+		sendTextToEditUser("EditHomePhone", "(801) 867-5309");
 		//myKeyboardClear();
 		
-		sendTextbyXpath("EditPersonalEmail", "personal@nospam.com");
+		sendTextToEditUser("EditPersonalEmail", "personal@nospam.com");
 		Thread.sleep(1000);
 		//myKeyboardClear();;
 		scrollDownTEST(400);
 
-		sendTextbyXpath("EditHomeEmail", "home@nospam.com");
+		sendTextToEditUser("EditHomeEmail", "home@nospam.com");
 		clickButton("MenuSave", "id", "xpath");
 		//myKeyboardClear();
 		
@@ -1633,16 +1648,16 @@ public class LDSTools {
 		sendTextbyXpath("EditPersonalPhone", "1(801)240-0104");
 		//myKeyboardClear();
 		
-		sendTextbyXpath("EditHomePhone", "(801) 867-5309");
+		sendTextToEditUser("EditHomePhone", "(801) 867-5309");
 		//myKeyboardClear();
 		
-		sendTextbyXpath("EditPersonalEmail", "personal@nospam.com");
+		sendTextToEditUser("EditPersonalEmail", "personal@nospam.com");
 		//myKeyboardClear();
 		
 		scrollDownTEST(400);
 		Thread.sleep(2000);
 		
-		sendTextbyXpath("EditHomeEmail", "home@nospam.com");
+		sendTextToEditUser("EditHomeEmail", "home@nospam.com");
 		//myKeyboardClear();
 
 		
@@ -1703,15 +1718,15 @@ public class LDSTools {
 		sendTextbyXpath("EditPersonalPhone", "1(801)240-0104");
 		//myKeyboardClear();
 		
-		sendTextbyXpath("EditHomePhone", "(801) 867-5309");
+		sendTextToEditUser("EditHomePhone", "(801) 867-5309");
 		//myKeyboardClear();
 		
-		sendTextbyXpath("EditPersonalEmail", "personal@nospam.com");
+		sendTextToEditUser("EditPersonalEmail", "personal@nospam.com");
 		//myKeyboardClear();
 		scrollDownTEST(400);
 		Thread.sleep(2000);
 		
-		sendTextbyXpath("EditHomeEmail", "home@nospam.com");
+		sendTextToEditUser("EditHomeEmail", "home@nospam.com");
 		//myKeyboardClear();
 		
 		clickButton("MenuSave", "id", "xpath");
@@ -1815,7 +1830,7 @@ public class LDSTools {
 		
 		sendTextbyXpath("EditPersonalPhone", "######00000000000*****");
 		//myKeyboardClear();
-		sendTextbyXpath("EditHomePhone", "878974131648413216421321165484789798461321314644444244624424524245244545644644856465784967465456464144134424342446244323644524452344623446542326342542");
+		sendTextToEditUser("EditHomePhone", "878974131648413216421321165484789798461321314644444244624424524245244545644644856465784967465456464144134424342446244323644524452344623446542326342542");
 		//myKeyboardClear();
 		
 		clickButton("MenuSave", "id", "xpath");
@@ -1898,28 +1913,28 @@ public class LDSTools {
 		editUserOpen(); 
 		Thread.sleep(2000);
 		
-		sendTextbyXpath("EditPersonalEmail", "thisisaninvalidemailaddress");
+		sendTextToEditUser("EditPersonalEmail", "thisisaninvalidemailaddress");
 		invalidEmailCheck();
 		clearTextFieldXpath("EditPersonalEmail");
 		//myKeyboardClear();
 		
 		scrollDownTEST(400);
 		
-		sendTextbyXpath("EditHomeEmail", "thisisaninvalidemailaddress");
+		sendTextToEditUser("EditHomeEmail", "thisisaninvalidemailaddress");
 		//myKeyboardClear();
 		invalidEmailCheck();
 		Thread.sleep(2000);
 		clearTextFieldXpath("EditHomeEmail");
 		//myKeyboardClear();
 		
-		sendTextbyXpath("EditPersonalEmail", "!@#$%^&*()_+-=[]{}|");
+		sendTextToEditUser("EditPersonalEmail", "!@#$%^&*()_+-=[]{}|");
 		invalidEmailCheck();
 		clearTextFieldXpath("EditPersonalEmail");
 		//myKeyboardClear();
 		
 		scrollDownTEST(400);
 		
-		sendTextbyXpath("EditHomeEmail", "!@#$%^&*()_+-=[]{}|");
+		sendTextToEditUser("EditHomeEmail", "!@#$%^&*()_+-=[]{}|");
 		//myKeyboardClear();
 		invalidEmailCheck();
 		Thread.sleep(2000);
@@ -4664,6 +4679,7 @@ public class LDSTools {
 			myElement.click();
 			myElement.clear();
 		}
+		Thread.sleep(1000);
 		
 	}
 	
@@ -8636,7 +8652,11 @@ public class LDSTools {
 		Thread.sleep(2000);
 	}
 	
-	private void clearPhoneAndEmail() throws Exception {
+	private void clearPhoneAndEmail() throws Exception {	
+		Capabilities cap = driver.getCapabilities();
+		Map<String, ?> desired = (Map<String, ?>) cap.getCapability("desired");
+		Object myAppPackage = desired.get("appPackage");
+		
 		Thread.sleep(4000);
 		editUserOpen(); 
 		Thread.sleep(2000);
@@ -8646,18 +8666,33 @@ public class LDSTools {
 		//myKeyboardClear();
 		
 		//sendTextbyXpath("EditHomePhone", "11");
-		clearTextFieldXpath("EditHomePhone");
+		//System.out.println(desired.get("appPackage"));
+		if (myAppPackage.equals("org.lds.ldstools")) {
+			clearTextFieldXpath("ReleaseEditHomePhone");
+		} else {
+			clearTextFieldXpath("EditHomePhone");
+		}
 		//myKeyboardClear();
 		
 		Thread.sleep(1000);
 		//sendTextbyXpath("EditPersonalEmail", "aaa");
-		clearTextFieldXpath("EditPersonalEmail");
+		if (myAppPackage.equals("org.lds.ldstools")) {
+			clearTextFieldXpath("ReleaseEditPersonalEmail");
+		} else {
+			clearTextFieldXpath("EditPersonalEmail");
+		}
+		
 		//myKeyboardClear();
 		
 		Thread.sleep(1000);
 		//clickButton("EditHomeEmail", "xpath", "xpath");
 		//sendTextbyXpath("EditHomeEmail", "aaa");
-		clearTextFieldXpath("EditHomeEmail");
+		if (myAppPackage.equals("org.lds.ldstools")) {
+			clearTextFieldXpath("ReleaseEditHomeEmail");
+		} else {
+			clearTextFieldXpath("EditHomeEmail");
+		}
+		
 		
 		clickButton("MenuSave", "id", "xpath");
 		Thread.sleep(2000);
