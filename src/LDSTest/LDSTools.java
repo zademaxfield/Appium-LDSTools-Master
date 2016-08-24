@@ -233,7 +233,7 @@ public class LDSTools {
 		//justForTesting(os);	
 
 		//LeaderNonBishopricTEST("LDSTools29", "Relief Society Pres", os);
-		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
+		LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//LeaderBishopric("ngiBPC1", false, os); //Bishopric 1st Counselor  
 		//LeaderBishopric("ngiBPC2", false, os); //Bishopric 2nd Counselor 
@@ -242,8 +242,7 @@ public class LDSTools {
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
-		
-		editCurrentUserCancel(os);
+		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
 		//editOtherUserInvalidEmail(os);
@@ -1463,20 +1462,20 @@ public class LDSTools {
 		Thread.sleep(1000);
 		//Check Missionary drawer items - all user access
 		checkMissionary();
-		*/
+		
 		
 		//Check the Calendar - all user access
-		Thread.sleep(1000);
+		//Thread.sleep(1000);
 		//checkCalendar();
 		
 		
-		/*
+		
 		Thread.sleep(1000);
 		//Check the reports - leadership only - true for bishopric rights, false for leaders and remove
 		//checkReports for non-leaders
 		checkReports(false, false);
 		
-		
+		 */
 		
 		Thread.sleep(1000);
 		//Check Home Teaching - Visiting Teaching
@@ -1488,7 +1487,7 @@ public class LDSTools {
 		//Check Home Teaching - Visiting Teaching Household - Sisters and Filters
 		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
 		checkHTVTHouseholds(userCalling);
-		 */
+		
 	
 	}
 	
@@ -1502,6 +1501,19 @@ public class LDSTools {
 		} 
 		
 		sendTextbyXpath(editField, textToSend);
+		
+	}
+	
+	private void ClearTextToEditUser(String editField ) throws Exception {
+		Capabilities cap = driver.getCapabilities();
+		Map<String, ?> desired = (Map<String, ?>) cap.getCapability("desired");
+		Object myAppPackage = desired.get("appPackage");
+
+		if (myAppPackage.equals("org.lds.ldstools")) {
+			editField = "Release" + editField;
+		} 
+		
+		clearTextFieldXpath(editField);
 		
 	}
 	
@@ -1915,7 +1927,7 @@ public class LDSTools {
 		
 		sendTextToEditUser("EditPersonalEmail", "thisisaninvalidemailaddress");
 		invalidEmailCheck();
-		clearTextFieldXpath("EditPersonalEmail");
+		ClearTextToEditUser("EditPersonalEmail");
 		//myKeyboardClear();
 		
 		scrollDownTEST(400);
@@ -1924,12 +1936,12 @@ public class LDSTools {
 		//myKeyboardClear();
 		invalidEmailCheck();
 		Thread.sleep(2000);
-		clearTextFieldXpath("EditHomeEmail");
+		ClearTextToEditUser("EditHomeEmail");
 		//myKeyboardClear();
 		
 		sendTextToEditUser("EditPersonalEmail", "!@#$%^&*()_+-=[]{}|");
 		invalidEmailCheck();
-		clearTextFieldXpath("EditPersonalEmail");
+		ClearTextToEditUser("EditPersonalEmail");
 		//myKeyboardClear();
 		
 		scrollDownTEST(400);
@@ -1938,7 +1950,7 @@ public class LDSTools {
 		//myKeyboardClear();
 		invalidEmailCheck();
 		Thread.sleep(2000);
-		clearTextFieldXpath("EditHomeEmail");
+		ClearTextToEditUser("EditHomeEmail");
 		//myKeyboardClear();
 		
 		
