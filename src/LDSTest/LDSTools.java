@@ -233,7 +233,7 @@ public class LDSTools {
 		//justForTesting(os);	
 
 		//LeaderNonBishopricTEST("LDSTools29", "Relief Society Pres", os);
-		LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
+		//LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//LeaderBishopric("ngiBPC1", false, os); //Bishopric 1st Counselor  
 		//LeaderBishopric("ngiBPC2", false, os); //Bishopric 2nd Counselor 
@@ -242,7 +242,7 @@ public class LDSTools {
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
-		//editCurrentUserCancel(os);
+		editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
 		//editOtherUserInvalidEmail(os);
@@ -5311,7 +5311,8 @@ public class LDSTools {
 			//sendTextbyXpath("LoginPassword", loginPassword);
 			sendTextbyID("LoginUsername", loginName);
 			sendTextbyID("LoginPassword", loginPassword);
-			clickButtonByXpath("SignInButton");
+			clickButtonByID("SignInButton");
+			//clickButtonByXpath("SignInButton");
 			Thread.sleep(4000);
 			waitForTextToDisappearID("SyncText", 500 );
 			Thread.sleep(2000);
@@ -5415,7 +5416,8 @@ public class LDSTools {
 				
 				sendTextbyID("LoginUsername", userName);
 				sendTextbyID("LoginPassword", "toolstester");
-				clickButtonByXpath("SignInButton");
+				//clickButtonByXpath("SignInButton");
+				clickButtonByID("SignInButton");
 				Thread.sleep(4000);
 				waitForTextToDisappearID("SyncText", 500 );
 				Thread.sleep(2000);
