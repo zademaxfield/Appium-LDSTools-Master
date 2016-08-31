@@ -203,6 +203,11 @@ public class LDSTools {
 	        capabilities.setCapability("automationName","appium");
 	        capabilities.setCapability("browserName","");
 	        capabilities.setCapability("fullReset", true);
+	        //capabilities.setCapability("noReset", true);
+	        
+	        capabilities.setCapability("showIOSLog", true);
+	        
+	        
 	        capabilities.setCapability("newCommandTimeout", 600);
 	        capabilities.setCapability("app", app.getAbsolutePath());
 	        //capabilities.setCapability("appPackage", "org.lds.ldstools.dev");
@@ -238,11 +243,11 @@ public class LDSTools {
 		//LeaderBishopric("ngiBPC1", false, os); //Bishopric 1st Counselor  
 		//LeaderBishopric("ngiBPC2", false, os); //Bishopric 2nd Counselor 
 		//LeaderBishopric("ngiWB1", true, os); //Bishop shows Stake View - something wrong with the account
-		LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership
+		//LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
-		//editCurrentUserCancel(os);
+		editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
 		//editOtherUserInvalidEmail(os);
@@ -9625,6 +9630,8 @@ public class LDSTools {
 
 		if (getRunningOS().equals("mac")) {
 			driver.quit();
+			
+			Thread.sleep(5000);
 			Runtime run = Runtime.getRuntime();
 			Process pr = run.exec(new String[] {"/usr/bin/pkill", "-9", "instruments"});
 			//Process pr = run.exec(cmd);
@@ -9634,6 +9641,7 @@ public class LDSTools {
 			while ((line=buf.readLine())!=null) {
 				System.out.println(line);
 			}
+			
 			
 		} else {
 			driver.quit();
