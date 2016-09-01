@@ -134,11 +134,13 @@ public class LDSWeb {
 		
 	}
 
-	
+
 	public void openWebPage(String baseURL) {
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--start-maximized");
 		options.addArguments("--incognito");
+		options.addArguments("--no-sandbox");
+
 		
 		System.setProperty("webdriver.chrome.driver", "chromedriver");
 		
