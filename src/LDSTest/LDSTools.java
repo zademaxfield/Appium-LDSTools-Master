@@ -238,7 +238,7 @@ public class LDSTools {
 		//justForTesting(os);	
 
 		//LeaderNonBishopricTEST("LDSTools29", "Relief Society Pres", os);
-		LeaderNonBishopricTEST("LDSTools16", "High Priest Group", os);
+		LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//LeaderBishopric("ngiBPC1", false, os); //Bishopric 1st Counselor  
 		//LeaderBishopric("ngiBPC2", false, os); //Bishopric 2nd Counselor 
@@ -261,6 +261,12 @@ public class LDSTools {
 		
 		//Works in IOS not in Android - need to fix the scrolling problem
 		//checkAllUsersFromWeb(os);
+		
+		
+		//LeaderBishopricDirectory("ngiBPC1", false, os);
+		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
+		//LeaderBishopricReport("ngiBPC1", false, os);
+		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 		
 		
 		
@@ -519,16 +525,64 @@ public class LDSTools {
 */	
 
 	
+	//@Parameters({"os"})
+	//@Test (groups= {"smoke", "bishopric"}, priority = 1)
+	//public void Bishopric1stCounselor(String os) throws Exception {
+	//	LeaderBishopric("ngiBPC1", false, os); //Bishopric 1st Counselor  
+	//}
+	
 	@Parameters({"os"})
 	@Test (groups= {"smoke", "bishopric"}, priority = 1)
-	public void Bishopric1stCounselor(String os) throws Exception {
-		LeaderBishopric("ngiBPC1", false, os); //Bishopric 1st Counselor  
+	public void Bishopric1stCounselorDirectory(String os) throws Exception {
+		LeaderBishopricDirectory("ngiBPC1", false, os); //Bishopric 1st Counselor  
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"bishopric"}, priority = 1)
-	public void Bishopric2ndCounselor(String os) throws Exception {
-		LeaderBishopric("ngiBPC2", false, os); //Bishopric 2nd Counselor  
+	@Test (groups= {"smoke", "bishopric"}, priority = 1)
+	public void Bishopric1stCounselorMissionary(String os) throws Exception {
+		LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os); //Bishopric 1st Counselor  
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "bishopric"}, priority = 1)
+	public void Bishopric1stCounselorReport(String os) throws Exception {
+		LeaderBishopricReport("ngiBPC1", false, os); //Bishopric 1st Counselor  
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "bishopric"}, priority = 1)
+	public void Bishopric1stCounselorHTVT(String os) throws Exception {
+		LeaderBishopricHTVT("ngiBPC1", false, os); //Bishopric 1st Counselor  
+	}
+	
+	//@Parameters({"os"})
+	//@Test (groups= {"bishopric"}, priority = 1)
+	//public void Bishopric2ndCounselor(String os) throws Exception {
+	//	LeaderBishopric("ngiBPC2", false, os); //Bishopric 2nd Counselor  
+	//}
+	
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "bishopric"}, priority = 1)
+	public void Bishopric2ndCounselorDirectory(String os) throws Exception {
+		LeaderBishopricDirectory("ngiBPC2", false, os); //Bishopric 2nd Counselor  
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "bishopric"}, priority = 1)
+	public void Bishopric2ndCounselorMissionary(String os) throws Exception {
+		LeaderBishopricDrawerOrgMissionary("ngiBPC2", false, os); //Bishopric 2nd Counselor  
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "bishopric"}, priority = 1)
+	public void Bishopric2ndCounselorReport(String os) throws Exception {
+		LeaderBishopricReport("ngiBPC2", false, os); //Bishopric 2nd Counselor  
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "bishopric"}, priority = 1)
+	public void Bishopric2ndCounselorHTVT(String os) throws Exception {
+		LeaderBishopricHTVT("ngiBPC2", false, os); //Bishopric 2nd Counselor  
 	}
 	
 	/* ******** Bishop is showing Stake view first *************
@@ -539,61 +593,339 @@ public class LDSTools {
 	}
 	*/
 	
+	//@Parameters({"os"})
+	//@Test (groups= {"smoke", "bishopric"}, priority = 1)
+	//public void AssistantWardClerkMembership(String os) throws Exception {
+	//	LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership 
+	//}
+	
+	
+	
 	@Parameters({"os"})
 	@Test (groups= {"smoke", "bishopric"}, priority = 1)
-	public void AssistantWardClerkMembership(String os) throws Exception {
-		LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership 
+	public void AssistantWardClerkMembershipDirectory(String os) throws Exception {
+		LeaderBishopricDirectory("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "bishopric"}, priority = 1)
+	public void AssistantWardClerkMembershipMissionary(String os) throws Exception {
+		LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "bishopric"}, priority = 1)
+	public void AssistantWardClerkMembershipReport(String os) throws Exception {
+		LeaderBishopricReport("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "bishopric"}, priority = 1)
+	public void AssistantWardClerkMembershipHTVT(String os) throws Exception {
+		LeaderBishopricHTVT("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 	}
 	
 	
+	
+	
+	
+	
+	//@Parameters({"os"})
+	//@Test (groups= {"smoke", "high priest"}, priority = 1)
+	//public void HighPriestsGroupLeader(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools16", "High Priest Group", os);
+	//}
+	
+	// **************** High Priest Group Leader *************************
 	
 	@Parameters({"os"})
 	@Test (groups= {"smoke", "high priest"}, priority = 1)
-	public void HighPriestsGroupLeader(String os) throws Exception {
-		LeaderNonBishopric("LDSTools16", "High Priest Group", os);
+	public void HighPriestsGroupLeaderDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools16", "High Priest Group", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "high priest"}, priority = 1)
+	public void HighPriestsGroupLeaderMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools16", "High Priest Group", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "high priest"}, priority = 1)
+	public void HighPriestsGroupLeaderReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools16", "High Priest Group", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "high priest"}, priority = 1)
+	public void HighPriestsGroupLeaderHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools16", "High Priest Group", os);
+	}
+	
+	// **************** END High Priest Group Leader *************************
+	
+	
+	//@Parameters({"os"})
+	//@Test (groups= {"high priest"}, priority = 2)
+	//public void HighPriestsGroupFirstAssistant(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools17", "High Priest Group", os);
+	//}
+	
+	// **************** High Priest First Assistant *************************
+	
+	@Parameters({"os"})
+	@Test (groups= {"high priest"}, priority = 2)
+	public void HighPriestsGroupFirstAssistantDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools17", "High Priest Group", os);
 	}
 	
 	@Parameters({"os"})
 	@Test (groups= {"high priest"}, priority = 2)
-	public void HighPriestsGroupFirstAssistant(String os) throws Exception {
-		LeaderNonBishopric("LDSTools17", "High Priest Group", os);
+	public void HighPriestsGroupFirstAssistantMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools17", "High Priest Group", os);
 	}
 	
 	@Parameters({"os"})
 	@Test (groups= {"high priest"}, priority = 2)
-	public void HighPriestsGroupSecondAssistant(String os) throws Exception {
-		LeaderNonBishopric("LDSTools18", "High Priest Group", os);
+	public void HighPriestsGroupFirstAssistantReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools17", "High Priest Group", os);
 	}
 	
 	@Parameters({"os"})
 	@Test (groups= {"high priest"}, priority = 2)
-	public void HighPriestsGroupSecretary(String os) throws Exception {
-		LeaderNonBishopric("LDSTools19", "High Priest Group", os);
+	public void HighPriestsGroupFirstAssistantHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools17", "High Priest Group", os);
+	}
+	
+	// **************** END High Priest First Assistant *************************
+	
+
+	//@Parameters({"os"})
+	//@Test (groups= {"high priest"}, priority = 2)
+	//public void HighPriestsGroupSecondAssistant(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools18", "High Priest Group", os);
+	//}
+	
+	// **************** High Priest Second Assistant *************************
+	
+	@Parameters({"os"})
+	@Test (groups= {"high priest"}, priority = 2)
+	public void HighPriestsGroupSecondAssistantDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools18", "High Priest Group", os);
 	}
 	
 	@Parameters({"os"})
 	@Test (groups= {"high priest"}, priority = 2)
-	public void HighPriestsGroupAssistantSecretary(String os) throws Exception {
-		LeaderNonBishopric("LDSTools20", "High Priest Group", os);
+	public void HighPriestsGroupSecondAssistantMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools18", "High Priest Group", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"high priest"}, priority = 2)
+	public void HighPriestsGroupSecondAssistantReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools18", "High Priest Group", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"high priest"}, priority = 2)
+	public void HighPriestsGroupSecondAssistantHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools18", "High Priest Group", os);
+	}
+	
+	// **************** END High Priest Second Assistant *************************
+	
+	
+	//@Parameters({"os"})
+	//@Test (groups= {"high priest"}, priority = 2)
+	//public void HighPriestsGroupSecretary(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools19", "High Priest Group", os);
+	//}
+	
+	// **************** High Priest Secretary  *************************
+	
+	@Parameters({"os"})
+	@Test (groups= {"high priest"}, priority = 2)
+	public void HighPriestsGroupSecretaryDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools19", "High Priest Group", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"high priest"}, priority = 2)
+	public void HighPriestsGroupSecretaryMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools19", "High Priest Group", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"high priest"}, priority = 2)
+	public void HighPriestsGroupSecretaryReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools19", "High Priest Group", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"high priest"}, priority = 2)
+	public void HighPriestsGroupSecretaryHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools19", "High Priest Group", os);
+	}
+	
+	// **************** END High Priest Secretary  *************************
+	
+	//@Parameters({"os"})
+	//@Test (groups= {"high priest"}, priority = 2)
+	//public void HighPriestsGroupAssistantSecretary(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools20", "High Priest Group", os);
+	//}
+	
+	// **************** High Priest Assistant Secretary  *************************
+	
+	@Parameters({"os"})
+	@Test (groups= {"high priest"}, priority = 2)
+	public void HighPriestsGroupAssistantSecretaryDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools20", "High Priest Group", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"high priest"}, priority = 2)
+	public void HighPriestsGroupAssistantSecretaryMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools20", "High Priest Group", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"high priest"}, priority = 2)
+	public void HighPriestsGroupAssistantSecretaryReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools20", "High Priest Group", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"high priest"}, priority = 2)
+	public void HighPriestsGroupAssistantSecretaryHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools20", "High Priest Group", os);
+	}
+	
+	// **************** END High Priest Assistant Secretary  *************************
+	
+	
+	//@Parameters({"os"})
+	//@Test (groups= {"elders quorum"}, priority = 1)
+	//public void EldersQuorumPresident(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools21", "Elders Quorum Pres", os);
+	//}
+	
+	// **************** Elders Quorum President  *************************
+	
+	@Parameters({"os"})
+	@Test (groups= {"elders quorum"}, priority = 1)
+	public void EldersQuorumPresidentDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools21", "High Priest Group", os);
 	}
 	
 	@Parameters({"os"})
 	@Test (groups= {"elders quorum"}, priority = 1)
-	public void EldersQuorumPresident(String os) throws Exception {
-		LeaderNonBishopric("LDSTools21", "Elders Quorum Pres", os);
+	public void EldersQuorumPresidentMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools21", "High Priest Group", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"elders quorum"}, priority = 1)
+	public void EldersQuorumPresidentReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools21", "High Priest Group", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"elders quorum"}, priority = 1)
+	public void EldersQuorumPresidentHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools21", "High Priest Group", os);
+	}
+	
+	// **************** END Elders Quorum President  *************************
+	
+	//@Parameters({"os"})
+	//@Test (groups= {"elders quorum"}, priority = 2)
+	//public void EldersQuorumFirstCounselor(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools22", "Elders Quorum Pres", os);
+	//}
+	
+	// **************** Elders Quorum First Counselor  *************************
+	
+	@Parameters({"os"})
+	@Test (groups= {"elders quorum"}, priority = 2)
+	public void EldersQuorumFirstCounselorDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools22", "Elders Quorum Pres", os);
 	}
 	
 	@Parameters({"os"})
 	@Test (groups= {"elders quorum"}, priority = 2)
-	public void EldersQuorumFirstCounselor(String os) throws Exception {
-		LeaderNonBishopric("LDSTools22", "Elders Quorum Pres", os);
+	public void EldersQuorumFirstCounselorMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools22", "Elders Quorum Pres", os);
 	}
 	
 	@Parameters({"os"})
 	@Test (groups= {"elders quorum"}, priority = 2)
-	public void EldersQuorumSecondCounselor(String os) throws Exception {
-		LeaderNonBishopric("LDSTools23", "Elders Quorum Pres", os);
+	public void EldersQuorumFirstCounselorReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools22", "Elders Quorum Pres", os);
 	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"elders quorum"}, priority = 2)
+	public void EldersQuorumFirstCounselorHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools22", "Elders Quorum Pres", os);
+	}
+	
+	// **************** END Elders Quorum First Counselor  *************************
+	
+	//@Parameters({"os"})
+	//@Test (groups= {"elders quorum"}, priority = 2)
+	//public void EldersQuorumSecondCounselor(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools23", "Elders Quorum Pres", os);
+	//}
+	
+	// **************** Elders Quorum First Counselor  *************************
+	
+	@Parameters({"os"})
+	@Test (groups= {"elders quorum"}, priority = 2)
+	public void EldersQuorumSecondCounselorDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools23", "Elders Quorum Pres", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"elders quorum"}, priority = 2)
+	public void EldersQuorumSecondCounselorMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools23", "Elders Quorum Pres", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"elders quorum"}, priority = 2)
+	public void EldersQuorumSecondCounselorReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools23", "Elders Quorum Pres", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"elders quorum"}, priority = 2)
+	public void EldersQuorumSecondCounselorHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools23", "Elders Quorum Pres", os);
+	}
+	
+	// **************** END Elders Quorum First Counselor  *************************
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@Parameters({"os"})
 	@Test (groups= {"elders quorum"}, priority = 2)
@@ -728,6 +1060,53 @@ public class LDSTools {
 		checkHTVTBasic("Bishopric");
 		checkHTVTHouseholds("Bishopric");
 	}
+	
+	public void LeaderBishopricDirectory(String leaderLogin, Boolean priorUnit, String os) throws Exception {
+
+		syncLogIn(leaderLogin, "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+
+		//Check Directory user - should be able to view everything
+		checkDirectoryUser(true, true, true, true, true, true);
+	}
+	
+	public void LeaderBishopricDrawerOrgMissionary(String leaderLogin, Boolean priorUnit, String os) throws Exception {
+
+		syncLogIn(leaderLogin, "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+
+		//Check Drawer Items - If leader there should be a Reports item
+		checkDrawerItems(true);
+		
+		Thread.sleep(1000);
+		
+		//Check various callings - all users should be able to access this information
+		checkCallings();
+		
+		Thread.sleep(1000);
+		
+		//Check Missionary drawer items - all user access
+		checkMissionary();
+	}
+	
+	public void LeaderBishopricReport(String leaderLogin, Boolean priorUnit, String os) throws Exception {
+
+		syncLogIn(leaderLogin, "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+
+		//Check the reports - leadership only
+		checkReports(true, priorUnit);
+	}
+	
+	public void LeaderBishopricHTVT(String leaderLogin, Boolean priorUnit, String os) throws Exception {
+
+		syncLogIn(leaderLogin, "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+
+		checkHTVTBasic("Bishopric");
+		checkHTVTHouseholds("Bishopric");
+	}
+	
 	
 	
 	/* - Old method 
@@ -1389,6 +1768,129 @@ public class LDSTools {
 		*/
 	}
 	
+	public void LeaderNonBishopricDirectory(String leaderLogin, String userCalling, String os) throws Exception {
+		syncLogIn(leaderLogin, "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+
+		//Check to see if the user can view the directory
+		Thread.sleep(2000);
+		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
+		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
+		
+		//Check Directory user - should be able to view everything
+		checkDirectoryUser(true, true, true, false, false, true);
+		Thread.sleep(1000);
+	}
+	
+	public void LeaderNonBishopricMissionary(String leaderLogin, String userCalling, String os) throws Exception {
+		syncLogIn(leaderLogin, "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+		
+		
+		//Check Drawer Items - If leader there should be a Reports item
+		checkDrawerItems(true);
+
+		Thread.sleep(1000);	
+		//Check various callings - all users should be able to access this information
+		checkCallings();
+
+		Thread.sleep(1000);
+		//Check Missionary drawer items - all user access
+		checkMissionary();
+		
+		//Check the Calendar - all user access
+		Thread.sleep(1000);
+		//checkCalendar();
+	}
+	
+	public void LeaderNonBishopricReport(String leaderLogin, String userCalling, String os) throws Exception {
+		syncLogIn(leaderLogin, "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+		
+
+		Thread.sleep(1000);
+		//Check the reports - leadership only - true for bishopric rights, false for leaders and remove
+		//checkReports for non-leaders
+		checkReports(false, false);
+	}
+	
+	public void LeaderNonBishopricHTVT(String leaderLogin, String userCalling, String os) throws Exception {
+		syncLogIn(leaderLogin, "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+		
+		
+		Thread.sleep(1000);
+		//Check Home Teaching - Visiting Teaching
+		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
+		checkHTVTBasic(userCalling);
+		
+		Thread.sleep(1000);
+		//Check Home Teaching - Visiting Teaching Household - Sisters and Filters
+		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
+		checkHTVTHouseholds(userCalling);
+	}
+	
+	public void LeaderNonBishopricBAD(String leaderLogin, String userCalling, String os) throws Exception {
+
+		syncLogIn(leaderLogin, "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+
+		//Check to see if the user can view the directory
+		Thread.sleep(2000);
+		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
+		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
+		
+		//Check Directory user - should be able to view everything
+		checkDirectoryUser(true, true, true, false, false, true);
+		Thread.sleep(1000);
+		
+		
+		syncLogIn(leaderLogin, "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+		
+		
+		//Check Drawer Items - If leader there should be a Reports item
+		checkDrawerItems(true);
+
+		Thread.sleep(1000);	
+		//Check various callings - all users should be able to access this information
+		checkCallings();
+
+		Thread.sleep(1000);
+		//Check Missionary drawer items - all user access
+		checkMissionary();
+		
+		//Check the Calendar - all user access
+		Thread.sleep(1000);
+		//checkCalendar();
+		
+		myTeardown();
+		
+		syncLogIn(leaderLogin, "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+		
+
+		Thread.sleep(1000);
+		//Check the reports - leadership only - true for bishopric rights, false for leaders and remove
+		//checkReports for non-leaders
+		checkReports(false, false);
+		
+		myTeardown();
+		
+		syncLogIn(leaderLogin, "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+		
+		
+		Thread.sleep(1000);
+		//Check Home Teaching - Visiting Teaching
+		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
+		checkHTVTBasic(userCalling);
+		
+		Thread.sleep(1000);
+		//Check Home Teaching - Visiting Teaching Household - Sisters and Filters
+		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
+		checkHTVTHouseholds(userCalling);
+	}
 
 	public void LeaderNonBishopric(String leaderLogin, String userCalling, String os) throws Exception {
 
@@ -9602,7 +10104,30 @@ public class LDSTools {
 	// **************************END OLD METHODS ********************************************
 	// **************************************************************************************
 	
-	
+	public void myTeardown() throws Exception {
+		if (getRunningOS().equals("mac")) {
+			driver.quit();
+			
+			Thread.sleep(5000);
+			Runtime run = Runtime.getRuntime();
+			Process pr = run.exec(new String[] {"/usr/bin/pkill", "-9", "instruments"});
+			//Process pr = run.exec(cmd);
+			pr.waitFor();
+			BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+			String line = "";
+			while ((line=buf.readLine())!=null) {
+				System.out.println(line);
+			}
+			
+			
+		} else {
+			driver.quit();
+		}
+		
+
+		
+		Thread.sleep(2000);
+	}
 
 	@AfterMethod(alwaysRun = true)
 	public void teardown(ITestResult result) throws Exception {
