@@ -140,7 +140,7 @@ public class LDSWeb {
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--start-maximized");
 		options.addArguments("--incognito");
-		options.addArguments("no-sandbox");
+		options.addArguments("--no-sandbox");
 
 		
 		System.setProperty("webdriver.chrome.driver", "chromedriver");
