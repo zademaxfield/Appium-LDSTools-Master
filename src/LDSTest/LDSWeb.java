@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -2225,12 +2226,27 @@ public class LDSWeb {
 		
 	}
 	
+	public void killProcess(String processToKill) throws Exception {
+		Runtime run = Runtime.getRuntime();
+		Process pr = run.exec(new String[] {"/usr/bin/pkill", "-9", processToKill});
+		//Process pr = run.exec(cmd);
+		pr.waitFor();
+		BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+		String line = "";
+		while ((line=buf.readLine())!=null) {
+			System.out.println(line);
+		}
+	}
 	
 	
 	
 	@After
 	public void tearDown() throws Exception {
 		driver.quit();
+		Thread.sleep(2000);
+		killProcess("chromedriver");
+		killProcess("\"Google Chrome\"");
+		
 	}
 	
 	@Before
