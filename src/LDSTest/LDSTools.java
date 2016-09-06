@@ -238,7 +238,7 @@ public class LDSTools {
 		//justForTesting(os);	
 
 		//LeaderNonBishopricTEST("LDSTools29", "Relief Society Pres", os);
-		LeaderNonBishopric("LDSTools16", "High Priest Group", os);
+		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
 		//under18HeadofHouse(os);	
 		//LeaderBishopric("ngiBPC1", false, os); //Bishopric 1st Counselor  
 		//LeaderBishopric("ngiBPC2", false, os); //Bishopric 2nd Counselor 
@@ -266,7 +266,7 @@ public class LDSTools {
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
-		//LeaderBishopricHTVT("ngiBPC1", false, os); 
+		LeaderBishopricHTVT("ngiBPC1", false, os); 
 		
 		
 		
@@ -878,7 +878,7 @@ public class LDSTools {
 	//	LeaderNonBishopric("LDSTools23", "Elders Quorum Pres", os);
 	//}
 	
-	// **************** Elders Quorum First Counselor  *************************
+	// **************** Elders Quorum Second Counselor  *************************
 	
 	@Parameters({"os"})
 	@Test (groups= {"elders quorum"}, priority = 2)
@@ -904,7 +904,7 @@ public class LDSTools {
 		LeaderNonBishopricHTVT("LDSTools23", "Elders Quorum Pres", os);
 	}
 	
-	// **************** END Elders Quorum First Counselor  *************************
+	// **************** END Elders Quorum Second Counselor  *************************
 	
 	
 	
@@ -10157,26 +10157,34 @@ public class LDSTools {
 			driver.quit();
 			
 			Thread.sleep(5000);
-			Runtime run = Runtime.getRuntime();
-			Process pr = run.exec(new String[] {"/usr/bin/pkill", "-9", "instruments"});
-			//Process pr = run.exec(cmd);
-			pr.waitFor();
-			BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
-			String line = "";
-			while ((line=buf.readLine())!=null) {
-				System.out.println(line);
-			}
+			killProcess("instruments");
 			
 			
 		} else {
 			driver.quit();
 		}
 		
+		killProcess("chromedriver");
+		killProcess("\"Google Chrome\"");
+		
 
 		
 		Thread.sleep(2000);
 		
 	}
+	
+	public void killProcess(String processToKill) throws Exception {
+		Runtime run = Runtime.getRuntime();
+		Process pr = run.exec(new String[] {"/usr/bin/pkill", "-9", processToKill});
+		//Process pr = run.exec(cmd);
+		pr.waitFor();
+		BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+		String line = "";
+		while ((line=buf.readLine())!=null) {
+			System.out.println(line);
+		}
+	}
+	
 	
 	public void takeScreenShot() throws Exception {
 		
