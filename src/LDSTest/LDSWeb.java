@@ -1425,6 +1425,7 @@ public class LDSWeb {
 			
 
 			clickElement(orgName, "linkText");
+			Thread.sleep(2000);
 			waitForTextToDisappear("LoadingSpinner", 500, "xpath");
 			Thread.sleep(2000);
 			myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
@@ -1434,7 +1435,7 @@ public class LDSWeb {
 				tearDown();
 				return foundUsers;
 			}
-			Thread.sleep(4000);
+			Thread.sleep(6000);
 			
 			if (orgName.contains("Relief")) {
 				clickElement("VisitingTeachingDropDown", "xpath");
