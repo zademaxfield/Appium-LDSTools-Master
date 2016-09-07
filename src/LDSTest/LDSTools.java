@@ -906,123 +906,789 @@ public class LDSTools {
 	
 	// **************** END Elders Quorum Second Counselor  *************************
 	
+	//@Parameters({"os"})
+	//@Test (groups= {"elders quorum"}, priority = 2)
+	//public void EldersQuorumSecretary(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools24", "Elders Quorum Pres", os);
+	//}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	// **************** Elders Quorum Secretary  *************************
 	
 	@Parameters({"os"})
 	@Test (groups= {"elders quorum"}, priority = 2)
-	public void EldersQuorumSecretary(String os) throws Exception {
-		LeaderNonBishopric("LDSTools24", "Elders Quorum Pres", os);
+	public void EldersQuorumSecretaryDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools24", "Elders Quorum Pres", os);
 	}
 	
 	@Parameters({"os"})
 	@Test (groups= {"elders quorum"}, priority = 2)
-	public void EldersQuorumAssistantSecretary(String os) throws Exception {
-		LeaderNonBishopric("LDSTools25", "Elders Quorum Pres", os);
+	public void EldersQuorumSecretaryMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools24", "Elders Quorum Pres", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"elders quorum"}, priority = 2)
+	public void EldersQuorumSecretaryReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools24", "Elders Quorum Pres", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"elders quorum"}, priority = 2)
+	public void EldersQuorumSecretaryHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools24", "Elders Quorum Pres", os);
+	}
+	
+	// **************** END Elders Quorum Secretary *************************
+	
+	//@Parameters({"os"})
+	//@Test (groups= {"elders quorum"}, priority = 2)
+	//public void EldersQuorumAssistantSecretary(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools25", "Elders Quorum Pres", os);
+	//}
+	
+	// **************** Elders Quorum Assistant Secretary  *************************
+	
+	@Parameters({"os"})
+	@Test (groups= {"elders quorum"}, priority = 2)
+	public void EldersQuorumAssistantSecretaryDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools25", "Elders Quorum Pres", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"elders quorum"}, priority = 2)
+	public void EldersQuorumAssistantSecretaryMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools25", "Elders Quorum Pres", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"elders quorum"}, priority = 2)
+	public void EldersQuorumAssistantSecretaryReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools25", "Elders Quorum Pres", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"elders quorum"}, priority = 2)
+	public void EldersQuorumAssistantSecretaryHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools25", "Elders Quorum Pres", os);
+	}
+	
+	// **************** END Elders Quorum Assistant Secretary *************************
+	
+	//@Parameters({"os"})
+	//@Test (groups= {"smoke", "relief society"}, priority = 1)
+	//public void ReliefSocietyPresident(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools26", "Relief Society Pres", os);
+	//}
+	
+	// **************** Relief Society President  *************************
+	
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "relief society"}, priority = 1)
+	public void ReliefSocietyPresidentDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools26", "Relief Society Pres", os);
 	}
 	
 	@Parameters({"os"})
 	@Test (groups= {"smoke", "relief society"}, priority = 1)
-	public void ReliefSocietyPresident(String os) throws Exception {
-		LeaderNonBishopric("LDSTools26", "Relief Society Pres", os);
+	public void ReliefSocietyPresidentMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools26", "Relief Society Pres", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "relief society"}, priority = 1)
+	public void ReliefSocietyPresidentReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools26", "Relief Society Pres", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "relief society"}, priority = 1)
+	public void ReliefSocietyPresidentHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools26", "Relief Society Pres", os);
+	}
+	
+	// **************** END Relief Society President  *************************
+	
+	//@Parameters({"os"})
+	//@Test (groups= {"relief society"}, priority = 2)
+	//public void ReliefSocietyFirstCounselor(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
+	//}
+	
+	// **************** Relief Society First Counselor *************************
+	
+	@Parameters({"os"})
+	@Test (groups= {"relief society"}, priority = 2)
+	public void ReliefSocietyFirstCounselorDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools27", "Relief Society Pres", os);
 	}
 	
 	@Parameters({"os"})
 	@Test (groups= {"relief society"}, priority = 2)
-	public void ReliefSocietyFirstCounselor(String os) throws Exception {
-		LeaderNonBishopric("LDSTools27", "Relief Society Pres", os);
+	public void ReliefSocietyFirstCounselorMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools27", "Relief Society Pres", os);
 	}
 	
 	@Parameters({"os"})
 	@Test (groups= {"relief society"}, priority = 2)
-	public void ReliefSocietySecondCounselor(String os) throws Exception {
-		LeaderNonBishopric("LDSTools28", "Relief Society Pres", os);
+	public void ReliefSocietyFirstCounselorReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools27", "Relief Society Pres", os);
 	}
 	
 	@Parameters({"os"})
 	@Test (groups= {"relief society"}, priority = 2)
-	public void ReliefSocietySecretary(String os) throws Exception {
-		LeaderNonBishopric("LDSTools29", "Relief Society Pres", os);
+	public void ReliefSocietyFirstCounselorHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools27", "Relief Society Pres", os);
+	}
+	
+	// **************** END Relief Society First Counselor *************************
+	
+	//@Parameters({"os"})
+	//@Test (groups= {"relief society"}, priority = 2)
+	//public void ReliefSocietySecondCounselor(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools28", "Relief Society Pres", os);
+	//}
+	
+	// **************** Relief Society Second Counselor *************************
+	
+	@Parameters({"os"})
+	@Test (groups= {"relief society"}, priority = 2)
+	public void ReliefSocietySecondCounselorDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools28", "Relief Society Pres", os);
 	}
 	
 	@Parameters({"os"})
 	@Test (groups= {"relief society"}, priority = 2)
-	public void ReliefSocietyAssistantSecretary(String os) throws Exception {
-		LeaderNonBishopric("LDSTools30", "Relief Society Pres", os);
+	public void ReliefSocietySecondCounselorMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools28", "Relief Society Pres", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"relief society"}, priority = 2)
+	public void ReliefSocietySecondCounselorReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools28", "Relief Society Pres", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"relief society"}, priority = 2)
+	public void ReliefSocietySecondCounselorHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools28", "Relief Society Pres", os);
+	}
+	
+	// **************** END Relief Society Second Counselor *************************
+	
+	//@Parameters({"os"})
+	//@Test (groups= {"relief society"}, priority = 2)
+	//public void ReliefSocietySecretary(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools29", "Relief Society Pres", os);
+	//}
+	
+	
+	// **************** Relief Society Secretary *************************
+	
+	@Parameters({"os"})
+	@Test (groups= {"relief society"}, priority = 2)
+	public void ReliefSocietySecretaryDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools29", "Relief Society Pres", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"relief society"}, priority = 2)
+	public void ReliefSocietySecretaryMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools29", "Relief Society Pres", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"relief society"}, priority = 2)
+	public void ReliefSocietySecretaryReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools29", "Relief Society Pres", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"relief society"}, priority = 2)
+	public void ReliefSocietySecretaryHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools29", "Relief Society Pres", os);
+	}
+	
+	// **************** END Relief Society Secretary *************************
+
+	//@Parameters({"os"})
+	//@Test (groups= {"relief society"}, priority = 2)
+	//public void ReliefSocietyAssistantSecretary(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools30", "Relief Society Pres", os);
+	//}
+	
+	// **************** Relief Society Assistant Secretary *************************
+	
+	@Parameters({"os"})
+	@Test (groups= {"relief society"}, priority = 2)
+	public void ReliefSocietyAssistantSecretaryDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools30", "Relief Society Pres", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"relief society"}, priority = 2)
+	public void ReliefSocietyAssistantSecretaryMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools30", "Relief Society Pres", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"relief society"}, priority = 2)
+	public void ReliefSocietyAssistantSecretaryReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools30", "Relief Society Pres", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"relief society"}, priority = 2)
+	public void ReliefSocietyAssistantSecretaryHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools30", "Relief Society Pres", os);
+	}
+	
+	// **************** END Relief Society Assistant Secretary *************************
+	
+	//@Parameters({"os"})
+	//@Test (groups= {"young men"}, priority = 1)
+	//public void YoungMenPresident(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools31", "Ward Council", os);
+	//}
+	
+	// **************** Young Men President *************************
+	
+	@Parameters({"os"})
+	@Test (groups= {"young men"}, priority = 1)
+	public void YoungMenPresidentDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools31", "Ward Council", os);
 	}
 	
 	@Parameters({"os"})
 	@Test (groups= {"young men"}, priority = 1)
-	public void YoungMenPresident(String os) throws Exception {
-		LeaderNonBishopric("LDSTools31", "Ward Council", os);
+	public void YoungMenPresidentMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools31", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"young men"}, priority = 1)
+	public void YoungMenPresidentReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools31", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"young men"}, priority = 1)
+	public void YoungMenPresidentHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools31", "Ward Council", os);
+	}
+	
+	// **************** END Young Men President *************************
+	
+	//@Parameters({"os"})
+	//@Test (groups= {"young men"}, priority = 2)
+	//public void YoungMenFirstCounselor(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools32", "Ward Council", os);
+	//}
+	
+	// **************** Young Men First Counselor *************************
+	
+	@Parameters({"os"})
+	@Test (groups= {"young men"}, priority = 2)
+	public void YoungMenFirstCounselorDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools32", "Ward Council", os);
 	}
 	
 	@Parameters({"os"})
 	@Test (groups= {"young men"}, priority = 2)
-	public void YoungMenFirstCounselor(String os) throws Exception {
-		LeaderNonBishopric("LDSTools32", "Ward Council", os);
+	public void YoungMenFirstCounselorMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools32", "Ward Council", os);
 	}
 	
 	@Parameters({"os"})
 	@Test (groups= {"young men"}, priority = 2)
-	public void YoungMenSecondCounselor(String os) throws Exception {
-		LeaderNonBishopric("LDSTools33", "Ward Council", os);
+	public void YoungMenFirstCounselorReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 	}
 	
 	@Parameters({"os"})
 	@Test (groups= {"young men"}, priority = 2)
-	public void YoungMenSecretary(String os) throws Exception {
-		LeaderNonBishopric("LDSTools34", "Ward Council", os);
+	public void YoungMenFirstCounselorHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools32", "Ward Council", os);
+	}
+	
+	// **************** END Young Men First Counselor  *************************
+	
+	//@Parameters({"os"})
+	//@Test (groups= {"young men"}, priority = 2)
+	//public void YoungMenSecondCounselor(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools33", "Ward Council", os);
+	//}
+	
+	// **************** Young Men Second Counselor *************************
+	
+	@Parameters({"os"})
+	@Test (groups= {"young men"}, priority = 2)
+	public void YoungMenSecondCounselorDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools33", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"young men"}, priority = 2)
+	public void YoungMenSecondCounselorMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools33", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"young men"}, priority = 2)
+	public void YoungMenSecondCounselorReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools33", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"young men"}, priority = 2)
+	public void YoungMenSecondCounselorHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools33", "Ward Council", os);
+	}
+	
+	// **************** END Young Men Second Counselor  *************************
+	
+	//@Parameters({"os"})
+	//@Test (groups= {"young men"}, priority = 2)
+	//public void YoungMenSecretary(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools34", "Ward Council", os);
+	//}
+	
+	// **************** Young Men Second Counselor *************************
+	
+	@Parameters({"os"})
+	@Test (groups= {"young men"}, priority = 2)
+	public void YoungMenSecretaryDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools34", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"young men"}, priority = 2)
+	public void YoungMenSecretaryMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools34", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"young men"}, priority = 2)
+	public void YoungMenSecretaryReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools34", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"young men"}, priority = 2)
+	public void YoungMenSecretaryHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools34", "Ward Council", os);
+	}
+	
+	// **************** END Young Men Second Counselor  *************************
+	
+	//@Parameters({"os"})
+	//@Test (groups= {"young women"}, priority = 1)
+	//public void YoungWomenPresident(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools35", "Ward Council", os);
+	//}
+	
+	// **************** Young Women President *************************
+	
+	@Parameters({"os"})
+	@Test (groups= {"young women"}, priority = 1)
+	public void YoungWomenPresidentDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools35", "Ward Council", os);
 	}
 	
 	@Parameters({"os"})
 	@Test (groups= {"young women"}, priority = 1)
-	public void YoungWomenPresident(String os) throws Exception {
-		LeaderNonBishopric("LDSTools35", "Ward Council", os);
+	public void YoungWomenPresidentMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools35", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"young women"}, priority = 1)
+	public void YoungWomenPresidentReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools35", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"young women"}, priority = 1)
+	public void YoungWomenPresidentHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools35", "Ward Council", os);
+	}
+	
+	// **************** END Young Women President *************************
+	
+	//@Parameters({"os"})
+	//@Test (groups= {"young women"}, priority = 2)
+	//public void YoungWomenFirstCounselor(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools36", "Ward Council", os);
+	//}
+	
+	// **************** Young Women First Counselor *************************
+	
+	@Parameters({"os"})
+	@Test (groups= {"young women"}, priority = 2)
+	public void YoungWomenFirstCounselorDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools36", "Ward Council", os);
 	}
 	
 	@Parameters({"os"})
 	@Test (groups= {"young women"}, priority = 2)
-	public void YoungWomenFirstCounselor(String os) throws Exception {
-		LeaderNonBishopric("LDSTools36", "Ward Council", os);
+	public void YoungWomenFirstCounselorMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools36", "Ward Council", os);
 	}
 	
 	@Parameters({"os"})
 	@Test (groups= {"young women"}, priority = 2)
-	public void YoungWomenSecondCounselor(String os) throws Exception {
-		LeaderNonBishopric("LDSTools37", "Ward Council", os);
+	public void YoungWomenFirstCounselorReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools36", "Ward Council", os);
 	}
 	
 	@Parameters({"os"})
 	@Test (groups= {"young women"}, priority = 2)
-	public void YoungWomenSecretary(String os) throws Exception {
-		LeaderNonBishopric("LDSTools38", "Ward Council", os);
+	public void YoungWomenFirstCounselorHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools36", "Ward Council", os);
+	}
+	
+	// **************** END Young Women First Counselor *************************
+	
+	//@Parameters({"os"})
+	//@Test (groups= {"young women"}, priority = 2)
+	//public void YoungWomenSecondCounselor(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools37", "Ward Council", os);
+	//}
+	
+	// **************** Young Women Second Counselor *************************
+	
+	@Parameters({"os"})
+	@Test (groups= {"young women"}, priority = 2)
+	public void YoungWomenSecondCounselorDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools37", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"young women"}, priority = 2)
+	public void YoungWomenSecondCounselorMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools37", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"young women"}, priority = 2)
+	public void YoungWomenSecondCounselorReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools37", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"young women"}, priority = 2)
+	public void YoungWomenSecondCounselorHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools37", "Ward Council", os);
+	}
+	
+	// **************** END Young Women Second Counselor *************************
+	
+	//@Parameters({"os"})
+	//@Test (groups= {"young women"}, priority = 2)
+	//public void YoungWomenSecretary(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools38", "Ward Council", os);
+	//}
+	
+	// **************** Young Women Secretary *************************
+	
+	@Parameters({"os"})
+	@Test (groups= {"young women"}, priority = 2)
+	public void YoungWomenSecretaryDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools38", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"young women"}, priority = 2)
+	public void YoungWomenSecretaryMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools38", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"young women"}, priority = 2)
+	public void YoungWomenSecretaryReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools38", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"young women"}, priority = 2)
+	public void YoungWomenSecretaryHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools38", "Ward Council", os);
+	}
+	
+	// **************** END Young Women Secretary *************************
+
+	//@Parameters({"os"})
+	//@Test (groups= {"smoke", "sunday school"}, priority = 1)
+	//public void SundaySchoolPresident(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools39", "Ward Council", os);
+	//}
+	
+	// **************** Sunday School President *************************
+	
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "sunday school"}, priority = 1)
+	public void SundaySchoolPresidentDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools39", "Ward Council", os);
 	}
 	
 	@Parameters({"os"})
 	@Test (groups= {"smoke", "sunday school"}, priority = 1)
-	public void SundaySchoolPresident(String os) throws Exception {
-		LeaderNonBishopric("LDSTools39", "Ward Council", os);
+	public void SundaySchoolPresidentMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools39", "Ward Council", os);
 	}
 	
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "sunday school"}, priority = 1)
+	public void SundaySchoolPresidentReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools39", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "sunday school"}, priority = 1)
+	public void SundaySchoolPresidentHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os);
+	}
+	
+	// **************** END Sunday School President *************************
+	
+	// **************** Sunday School First Counselor *************************
+	
+	@Parameters({"os"})
+	@Test (groups= {"sunday school"}, priority = 2)
+	public void SundaySchoolFirstCounselorDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools40", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"sunday school"}, priority = 2)
+	public void SundaySchoolFirstCounselorMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools40", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"sunday school"}, priority = 2)
+	public void SundaySchoolFirstCounselorReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools40", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"sunday school"}, priority = 2)
+	public void SundaySchoolFirstCounselorHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools40", "Ward Council", os);
+	}
+	
+	// **************** END Sunday School First Counselor *************************
+	
+	// **************** Sunday School Second Counselor *************************
+	
+	@Parameters({"os"})
+	@Test (groups= {"sunday school"}, priority = 2)
+	public void SundaySchoolSecondCounselorDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools41", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"sunday school"}, priority = 2)
+	public void SundaySchoolSecondCounselorMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools41", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"sunday school"}, priority = 2)
+	public void SundaySchoolSecondCounselorReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools41", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"sunday school"}, priority = 2)
+	public void SundaySchoolSecondCounselorHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools41", "Ward Council", os);
+	}
+	
+	// **************** END Sunday School Second Counselor *************************
+	
+	// **************** Sunday School Secretary *************************
+	
+	@Parameters({"os"})
+	@Test (groups= {"sunday school"}, priority = 2)
+	public void SundaySchoolSecretaryDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools42", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"sunday school"}, priority = 2)
+	public void SundaySchoolSecretaryMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools42", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"sunday school"}, priority = 2)
+	public void SundaySchoolSecretaryReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools42", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"sunday school"}, priority = 2)
+	public void SundaySchoolSecretaryHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools42", "Ward Council", os);
+	}
+	
+	// **************** END Sunday School Secretary *************************
+	
+	//@Parameters({"os"})
+	//@Test (groups= {"sunday school"}, priority = 2)
+	//public void SundaySchoolFirstCounselor(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools40", "Ward Council", os);
+	//}
+	
+	//@Parameters({"os"})
+	//@Test (groups= {"sunday school"}, priority = 2)
+	//public void SundaySchoolSecondCounselor(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools41", "Ward Council", os);
+	//}
+	
+	//@Parameters({"os"})
+	//@Test (groups= {"sunday school"}, priority = 2)
+	//public void SundaySchoolSecretary(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools42", "Ward Council", os);
+	//}
+	
+	//@Parameters({"os"})
+	//@Test (groups= {"primary"}, priority = 1)
+	//public void PrimaryPresident(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools43", "Ward Council", os);
+	//}
+	
+	// **************** Primary President *************************
+	
+	@Parameters({"os"})
+	@Test (groups= {"primary"}, priority = 1)
+	public void PrimaryPresidentDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools43", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"primary"}, priority = 1)
+	public void PrimaryPresidentMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools43", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"primary"}, priority = 1)
+	public void PrimaryPresidentReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools43", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"primary"}, priority = 1)
+	public void PrimaryPresidentHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools43", "Ward Council", os);
+	}
+	
+	// **************** END Primary President *************************
+
+	//@Parameters({"os"})
+	//@Test (groups= {"primary"}, priority = 2)
+	//public void PrimaryFirstCounselor(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools44", "Ward Council", os);
+	//}
+	
+	// **************** Primary First Counselor *************************
+	
+	@Parameters({"os"})
+	@Test (groups= {"primary"}, priority = 2)
+	public void PrimaryFirstCounselorDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools44", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"primary"}, priority = 2)
+	public void PrimaryFirstCounselorMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools44", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"primary"}, priority = 2)
+	public void PrimaryFirstCounselorReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools44", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"primary"}, priority = 2)
+	public void PrimaryFirstCounselorHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools44", "Ward Council", os);
+	}
+	
+	// **************** END Primary First Counselor *************************
+
+	//@Parameters({"os"})
+	//@Test (groups= {"primary"}, priority = 2)
+	//public void PrimarySecondCounselor(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools45", "Ward Council", os);
+	//}
+	
+	// **************** Primary Second Counselor *************************
+	
+	@Parameters({"os"})
+	@Test (groups= {"primary"}, priority = 2)
+	public void PrimarySecondCounselorDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools45", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"primary"}, priority = 2)
+	public void PrimarySecondCounselorMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools45", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"primary"}, priority = 2)
+	public void PrimarySecondCounselorReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools45", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"primary"}, priority = 2)
+	public void PrimarySecondCounselorHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools45", "Ward Council", os);
+	}
+	
+	// **************** END Primary Second Counselor *************************
+	
+	//@Parameters({"os"})
+	//@Test (groups= {"primary"}, priority = 2)
+	//public void PrimarySecretary(String os) throws Exception {
+	//	LeaderNonBishopric("LDSTools46", "Ward Council", os);
+	//}
+	
+	// **************** Primary Secretary *************************
+	
+	@Parameters({"os"})
+	@Test (groups= {"primary"}, priority = 2)
+	public void PrimarySecretaryDirectory(String os) throws Exception {
+		LeaderNonBishopricDirectory("LDSTools46", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"primary"}, priority = 2)
+	public void PrimarySecretaryMissionary(String os) throws Exception {
+		LeaderNonBishopricMissionary("LDSTools46", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"primary"}, priority = 2)
+	public void PrimarySecretaryReport(String os) throws Exception {
+		LeaderNonBishopricReport("LDSTools46", "Ward Council", os);
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"primary"}, priority = 2)
+	public void PrimarySecretaryHTVT(String os) throws Exception {
+		LeaderNonBishopricHTVT("LDSTools46", "Ward Council", os);
+	}
+	
+	// **************** END Primary Secretary *************************
+
 	
 	
 	public void LeaderBishopric(String leaderLogin, Boolean priorUnit, String os) throws Exception {
@@ -1160,49 +1826,6 @@ public class LDSTools {
 	}
 	*/
 
-
-
-	@Parameters({"os"})
-	@Test (groups= {"sunday school"}, priority = 2)
-	public void SundaySchoolFirstCounselor(String os) throws Exception {
-		LeaderNonBishopric("LDSTools40", "Ward Council", os);
-	}
-	
-	@Parameters({"os"})
-	@Test (groups= {"sunday school"}, priority = 2)
-	public void SundaySchoolSecondCounselor(String os) throws Exception {
-		LeaderNonBishopric("LDSTools41", "Ward Council", os);
-	}
-	
-	@Parameters({"os"})
-	@Test (groups= {"sunday school"}, priority = 2)
-	public void SundaySchoolSecretary(String os) throws Exception {
-		LeaderNonBishopric("LDSTools42", "Ward Council", os);
-	}
-	
-	@Parameters({"os"})
-	@Test (groups= {"primary"}, priority = 1)
-	public void PrimaryPresident(String os) throws Exception {
-		LeaderNonBishopric("LDSTools43", "Ward Council", os);
-	}
-	
-	@Parameters({"os"})
-	@Test (groups= {"primary"}, priority = 2)
-	public void PrimaryFirstCounselor(String os) throws Exception {
-		LeaderNonBishopric("LDSTools44", "Ward Council", os);
-	}
-	
-	@Parameters({"os"})
-	@Test (groups= {"primary"}, priority = 2)
-	public void PrimarySecondCounselor(String os) throws Exception {
-		LeaderNonBishopric("LDSTools45", "Ward Council", os);
-	}
-	
-	@Parameters({"os"})
-	@Test (groups= {"primary"}, priority = 2)
-	public void PrimarySecretary(String os) throws Exception {
-		LeaderNonBishopric("LDSTools46", "Ward Council", os);
-	}
 
 
 
