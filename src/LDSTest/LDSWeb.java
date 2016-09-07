@@ -1425,7 +1425,7 @@ public class LDSWeb {
 			
 
 			clickElement(orgName, "linkText");
-			Thread.sleep(2000);
+			Thread.sleep(4000);
 			waitForTextToDisappear("LoadingSpinner", 500, "xpath");
 			Thread.sleep(2000);
 			myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
