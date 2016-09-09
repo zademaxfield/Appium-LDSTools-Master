@@ -246,7 +246,7 @@ public class LDSTools {
 		//LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//bishopMemberOfSeparateStake(os);	
 		
-		editCurrentUser(os);	
+		//editCurrentUser(os);	
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
@@ -268,7 +268,7 @@ public class LDSTools {
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 		
-		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
+		LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		
 		
 		
@@ -10777,7 +10777,15 @@ public class LDSTools {
 
 		}
 		*/
-
+		
+		//System.out.println("Killing Google Chrome: ");
+		killProcess("Chrome");
+		
+		//System.out.println("Killing chromedriver: ");
+		killProcess("chromedriver");
+		
+		
+		
 		if (getRunningOS().equals("mac")) {
 			driver.quit();
 			
@@ -10789,8 +10797,7 @@ public class LDSTools {
 			driver.quit();
 		}
 		
-		killProcess("chromedriver");
-		killProcess("\"Google Chrome\"");
+
 		
 
 		
@@ -10799,12 +10806,12 @@ public class LDSTools {
 	}
 	
 	public void killProcess(String processToKill) throws Exception {
+		String line = "";
 		Runtime run = Runtime.getRuntime();
-		Process pr = run.exec(new String[] {"/usr/bin/pkill", "-9", processToKill});
-		//Process pr = run.exec(cmd);
+		Process pr = run.exec(new String[] {"/usr/bin/pkill", "-9", "-f", "-l", processToKill});
 		pr.waitFor();
 		BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
-		String line = "";
+		
 		while ((line=buf.readLine())!=null) {
 			System.out.println(line);
 		}
