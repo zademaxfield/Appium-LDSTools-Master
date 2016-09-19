@@ -236,6 +236,8 @@ public class LDSTools {
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
 		//justForTesting(os);	
+		
+		
 
 		//LeaderNonBishopricTEST("LDSTools29", "Relief Society Pres", os);
 		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
@@ -246,7 +248,7 @@ public class LDSTools {
 		//LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//bishopMemberOfSeparateStake(os);	
 		
-		//editCurrentUser(os);	
+		editCurrentUser(os);	
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
@@ -268,7 +270,7 @@ public class LDSTools {
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 		
-		LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
+		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		
 		
 		
@@ -332,12 +334,10 @@ public class LDSTools {
 	
 	public void justForTesting(String os) throws Exception {
 		
-		syncLogIn("LDSTools21", "password1", "UAT", os );
+		syncLogIn("LDSTools2", "toolstester", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
+		openLists();
 		
-		checkMissionaryProgressRecord();
-		checkMissionaryProgressRecordVisits();
-		checkMissionaryProgressRecordSacMeeting();
 		
 		
 		
