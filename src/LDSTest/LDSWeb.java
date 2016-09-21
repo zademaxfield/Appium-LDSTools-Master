@@ -75,7 +75,50 @@ public class LDSWeb {
 	
 	@Test
 	public void simpleTest() throws Exception {
+		String userName = "LDSTools2";
+		String passWord = "toolstester";
 		
+		String mySource;
+		List<String> myText;
+		
+		openGuiMap();
+		setUp();
+		
+		Thread.sleep(4000);
+		openWebPage("https://uat.lds.org/church/temples");
+		//openWebPage(url);
+		Thread.sleep(2000);
+		clickElement("TempleMyAccount", "xpath");
+		//Thread.sleep(2000);
+		clickElement("Sign In", "linkText");
+		
+		driver.findElement(By.id(this.prop.getProperty("UserName"))).sendKeys(userName);
+		//Thread.sleep(1000);
+		driver.findElement(By.id(this.prop.getProperty("Password"))).sendKeys(passWord);
+		clickElement("SignIn", "id");
+		
+		clickElement("Find a Temple", "linkText");
+		clickElement("Boise Idaho", "linkText");
+		
+		//Get the Physical Address
+		System.out.println("Physical Address");
+		mySource = getSourceOfElement("TemplePhysicalAddress");
+		myText = getTextFromSource(mySource);
+		
+		//Get the Mailing Address
+		System.out.println("Mailing Address");
+		mySource = getSourceOfElement("TempleMailingAddress");
+		myText = getTextFromSource(mySource);
+		
+		//Get the Telephone
+		System.out.println("Telephone");
+		mySource = getSourceOfElement("TempleTelephone");
+		myText = getTextFromSource(mySource);
+	
+		
+		Thread.sleep(10000);
+		
+		/*
 		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
 		ABSetupAutoTest();
 		ABSync();
@@ -91,7 +134,7 @@ public class LDSWeb {
 		ABSetupColinMacNeil();
 		ABSync();
 		tearDown();
-		
+		*/
 		
 		
 		//ABSetEventColinMacNeil();
@@ -840,6 +883,30 @@ public class LDSWeb {
 		
 		
 		return foundUsers;
+	}
+	
+	
+	private List<String> getTextFromSource(String pageSource){
+		List<String> foundUsers = new ArrayList<String>();
+		Document doc = Jsoup.parse(pageSource);
+		//Elements myTest = doc.getElementsByAttributeValueStarting("class", "member-card-remote");
+		//Elements myTest = doc.getAllElements();
+		Elements myTest = doc.getElementsByTag("li");
+		
+		String outerHTML;
+		
+		for (Element myElement : myTest ) {
+			outerHTML = myElement.text();
+			foundUsers.add(outerHTML);
+		}
+
+		for(String oneUser : foundUsers){
+			System.out.println("TEXT: " + oneUser);
+			
+		}
+
+		return foundUsers;
+		
 	}
 	
 	
