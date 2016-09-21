@@ -75,7 +75,7 @@ public class LDSWeb {
 	
 	@Test
 	public void simpleTest() throws Exception {
-		/*
+		
 		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
 		ABSetupAutoTest();
 		ABSync();
@@ -91,11 +91,11 @@ public class LDSWeb {
 		ABSetupColinMacNeil();
 		ABSync();
 		tearDown();
-		*/
 		
 		
-		ABSetEventColinMacNeil();
-		ABSync();
+		
+		//ABSetEventColinMacNeil();
+		//ABSync();
 		
 		
 		/*
@@ -265,7 +265,7 @@ public class LDSWeb {
 		clickElement("three", "xpath");
 		Thread.sleep(2000);
 		waitForTextToDisappear("abSync", 500, "xpath");
-		
+		clickElement("abReadLater", "id");
 	}
 	
 	public void clickElement( String elementName, String elementFind) {
