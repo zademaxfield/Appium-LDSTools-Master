@@ -248,14 +248,14 @@ public class LDSTools {
 		//LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//bishopMemberOfSeparateStake(os);	
 		
-		editCurrentUser(os);	
+		//editCurrentUser(os);	
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
 		//editOtherUserInvalidEmail(os);
 		
 		
-		//editVisibility(os);
+		editVisibility(os);
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
@@ -2659,6 +2659,7 @@ public class LDSTools {
 	@Test (groups= {"smoke", "editSetings"}, priority = 1)
 	public void editCurrentUser(String os) throws Exception {
 		String pageSource;
+		int myCounter = 0;
 		//Edit own information
 		syncLogIn("LDSTools44", "password1", "UAT", os );
 		Thread.sleep(2000);
@@ -2682,18 +2683,38 @@ public class LDSTools {
 		sendTextToEditUser("EditHomePhone", "(801) 867-5309");
 		//myKeyboardClear();
 		
-		sendTextToEditUser("EditPersonalEmail", "personal@nospam.com");
+		sendTextToEditUser("EditPersonalEmail", "personal@gmail.com");
 		Thread.sleep(1000);
 		//myKeyboardClear();;
 		scrollDownTEST(400);
 
-		sendTextToEditUser("EditHomeEmail", "home@nospam.com");
-		clickButton("MenuSave", "id", "xpath");
-		//myKeyboardClear();
+		sendTextToEditUser("EditHomeEmail", "home@gmail.com");
+		//clickButton("MenuSave", "id", "xpath");
+		//waitForTextToDisappear("EditSaving", 500);
+		//Thread.sleep(6000);
 		
-		waitForTextToDisappear("EditSaving", 500);
+		do {
+			clickButton("MenuSave", "id", "xpath");
+			waitForTextToDisappear("EditSaving", 500);
+			Thread.sleep(6000);
+			if (checkForAlertReturn() == true) {
+				clickButton("AlertOK", "id", "xpath");
+				myCounter++; 
+				System.out.println("Alert Found: " + myCounter);
+			} else {
+				myCounter = 6;
+			}
+			
+		} while (myCounter < 4);
 
-		Thread.sleep(6000);
+		if (checkForAlertReturn() == true) {
+			clickButton("AlertOK", "id", "xpath");
+			clickButton("MenuSave", "id", "xpath");
+			waitForTextToDisappear("EditSaving", 500);
+			Thread.sleep(6000);
+		}
+
+		
 		
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("LDS44 Tools (36)");
@@ -2709,8 +2730,8 @@ public class LDSTools {
 		//pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("1(801)240-0104", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("(801) 867-5309", pageSource, "Contains"));	
-		Assert.assertTrue(checkNoCaseList("personal@nospam.com", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("home@nospam.com", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("personal@gmail.com", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("home@gmail.com", pageSource, "Contains"));
 		
 
 		backToDirectory();
@@ -2740,8 +2761,8 @@ public class LDSTools {
 		//Check the users name, address membership number etc...
 		Assert.assertTrue(checkNoCaseList("1(801)240-0104", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("(801) 867-5309", pageSource, "Contains"));	
-		Assert.assertTrue(checkNoCaseList("personal@nospam.com", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("home@nospam.com", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("personal@gmail.com", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("home@gmail.com", pageSource, "Contains"));
 		
 		Thread.sleep(2000);
 		clearPhoneAndEmail();
@@ -2765,8 +2786,8 @@ public class LDSTools {
 		Thread.sleep(3000);
 		Assert.assertFalse(checkNoCaseList("1(801)240-0104", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("(801) 867-5309", pageSource, "Contains"));	
-		Assert.assertFalse(checkNoCaseList("personal@nospam.com", pageSource, "Contains"));
-		Assert.assertFalse(checkNoCaseList("home@nospam.com", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("personal@gmail.com", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("home@gmail.com", pageSource, "Contains"));
 	}
 	
 	@Parameters({"os"})
@@ -9249,8 +9270,23 @@ public class LDSTools {
 				clickButton("AlertOK", "id", "xpath");
 			}
 		}
-
 	}
+	
+	private boolean checkForAlertReturn() throws Exception {
+		//Check to see if we are getting a warning
+		if (getRunningOS().equals("mac")) {
+			if (checkElementExistsByXpath("AlertMessageCheck") == true) {
+				return true;
+			}
+		} else {
+			if (checkElementExistsByID("AlertMessageCheck") == true) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
 	private void checkWebMemberInfo(String loginName, String passWord, String userToCheck) throws Exception {
 		String pageSource;
 		//Data from Web page
