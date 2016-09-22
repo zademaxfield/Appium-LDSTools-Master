@@ -98,24 +98,49 @@ public class LDSWeb {
 		clickElement("SignIn", "id");
 		
 		clickElement("Find a Temple", "linkText");
-		clickElement("Boise Idaho", "linkText");
+		//clickElement("Boise Idaho", "linkText");
+		clickElement("Oquirrh Mountain Utah", "linkText");
 		
 		//Get the Physical Address
 		System.out.println("Physical Address");
 		mySource = getSourceOfElement("TemplePhysicalAddress");
-		myText = getTextFromSource(mySource);
+		myText = getTextFromSource(mySource, "li");
 		
 		//Get the Mailing Address
 		System.out.println("Mailing Address");
 		mySource = getSourceOfElement("TempleMailingAddress");
-		myText = getTextFromSource(mySource);
+		myText = getTextFromSource(mySource, "li");
 		
 		//Get the Telephone
 		System.out.println("Telephone");
 		mySource = getSourceOfElement("TempleTelephone");
-		myText = getTextFromSource(mySource);
+		myText = getTextFromSource(mySource, "li");
 	
+		//Get the Schedule
+		System.out.println("Schedule");
+		mySource = getSourceOfElement("TempleSchedule");
+		myText = getTextFromSource(mySource, "td");
 		
+		//Get the Family Name Cards
+		System.out.println("Family Name Cards");
+		mySource = getSourceOfElement("TempleFamilyNameCards");
+		myText = getTextFromSource(mySource, "p");
+		
+		//Get the Group Attendance
+		System.out.println("Group Attendance");
+		mySource = getSourceOfElement("TempleGroupAttendance");
+		myText = getTextFromSource(mySource, "p");
+		
+		//Get the Services
+		System.out.println("Services");
+		mySource = getSourceOfElement("TempleServices");
+		myText = getTextFromSource(mySource, "li");
+		
+		//Get the Milestones
+		System.out.println("Milestones");
+		mySource = getSourceOfElement("TempleMilestones");
+		myText = getTextFromSource(mySource, "dt, dd");
+
 		Thread.sleep(10000);
 		
 		/*
@@ -886,18 +911,26 @@ public class LDSWeb {
 	}
 	
 	
-	private List<String> getTextFromSource(String pageSource){
+	private List<String> getTextFromSource(String pageSource, String elementTag){
 		List<String> foundUsers = new ArrayList<String>();
 		Document doc = Jsoup.parse(pageSource);
+		//Document doc = Jsoup.parseBodyFragment(pageSource);
+		//int myCounter = 1;
 		//Elements myTest = doc.getElementsByAttributeValueStarting("class", "member-card-remote");
 		//Elements myTest = doc.getAllElements();
-		Elements myTest = doc.getElementsByTag("li");
+		//Elements myTest = doc.getElementsByTag(elementTag);
+		Elements myTest = doc.select(elementTag);
 		
 		String outerHTML;
 		
 		for (Element myElement : myTest ) {
 			outerHTML = myElement.text();
-			foundUsers.add(outerHTML);
+			//System.out.println("Number: " + myCounter + " " + outerHTML);
+			//myCounter++;
+			if (!outerHTML.isEmpty()) {
+				foundUsers.add(outerHTML);
+			}
+			
 		}
 
 		for(String oneUser : foundUsers){
