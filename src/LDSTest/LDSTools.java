@@ -245,8 +245,8 @@ public class LDSTools {
 		//LeaderBishopric("ngiBPC1", false, os); //Bishopric 1st Counselor  
 		//LeaderBishopric("ngiBPC2", false, os); //Bishopric 2nd Counselor 
 		//LeaderBishopric("ngiWB1", true, os); //Bishop shows Stake View - something wrong with the account
-		LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership
-		//bishopMemberOfSeparateStake(os);	
+		//LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership
+		bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
 		//editCurrentUserCancel(os);
@@ -2816,13 +2816,13 @@ public class LDSTools {
 		sendTextToEditUser("EditHomePhone", "(801) 867-5309");
 		//myKeyboardClear();
 		
-		sendTextToEditUser("EditPersonalEmail", "personal@nospam.com");
+		sendTextToEditUser("EditPersonalEmail", "personal@gmail.com");
 		//myKeyboardClear();
 		
 		scrollDownTEST(400);
 		Thread.sleep(2000);
 		
-		sendTextToEditUser("EditHomeEmail", "home@nospam.com");
+		sendTextToEditUser("EditHomeEmail", "home@gmail.com");
 		//myKeyboardClear();
 
 		
@@ -2847,8 +2847,8 @@ public class LDSTools {
 		}
 		Assert.assertFalse(checkNoCaseList("1(801)240-0104", pageSource, "Equals"));
 		Assert.assertFalse(checkNoCaseList("(801) 867-5309", pageSource, "Equals"));	
-		Assert.assertFalse(checkNoCaseList("personal@nospam.com", pageSource, "Equals"));
-		Assert.assertFalse(checkNoCaseList("home@nospam.com", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("personal@gmail.com", pageSource, "Equals"));
+		Assert.assertFalse(checkNoCaseList("home@gmail.com", pageSource, "Equals"));
 	}
 	
 	
@@ -2886,12 +2886,12 @@ public class LDSTools {
 		sendTextToEditUser("EditHomePhone", "(801) 867-5309");
 		//myKeyboardClear();
 		
-		sendTextToEditUser("EditPersonalEmail", "personal@nospam.com");
+		sendTextToEditUser("EditPersonalEmail", "personal@gmail.com");
 		//myKeyboardClear();
 		scrollDownTEST(400);
 		Thread.sleep(2000);
 		
-		sendTextToEditUser("EditHomeEmail", "home@nospam.com");
+		sendTextToEditUser("EditHomeEmail", "home@gmail.com");
 		//myKeyboardClear();
 		
 		clickButton("MenuSave", "id", "xpath");
@@ -2910,8 +2910,8 @@ public class LDSTools {
 		}
 		Assert.assertTrue(checkNoCaseList("1(801)240-0104", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("(801) 867-5309", pageSource, "Contains"));	
-		Assert.assertTrue(checkNoCaseList("personal@nospam.com", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("home@nospam.com", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("personal@gmail.com", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("home@gmail.com", pageSource, "Contains"));
 		
 		backToDirectory();
 		
@@ -2932,8 +2932,8 @@ public class LDSTools {
 		
 		Assert.assertTrue(checkNoCaseList("1(801)240-0104", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("(801) 867-5309", pageSource, "Contains"));	
-		Assert.assertTrue(checkNoCaseList("personal@nospam.com", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("home@nospam.com", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("personal@gmail.com", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("home@gmail.com", pageSource, "Contains"));
 		
 		Thread.sleep(1000);
 		clearPhoneAndEmail();
@@ -2953,8 +2953,8 @@ public class LDSTools {
 		
 		Assert.assertFalse(checkNoCaseList("1(801)240-0104", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("(801) 867-5309", pageSource, "Contains"));	
-		Assert.assertFalse(checkNoCaseList("personal@nospam.com", pageSource, "Contains"));
-		Assert.assertFalse(checkNoCaseList("home@nospam.com", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("personal@gmail.com", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("home@gmail.com", pageSource, "Contains"));
 		*/
 				
 	}
