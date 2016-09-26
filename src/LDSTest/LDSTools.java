@@ -246,11 +246,11 @@ public class LDSTools {
 		//LeaderBishopric("ngiBPC2", false, os); //Bishopric 2nd Counselor 
 		//LeaderBishopric("ngiWB1", true, os); //Bishop shows Stake View - something wrong with the account
 		//LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership
-		bishopMemberOfSeparateStake(os);	
+		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
 		//editCurrentUserCancel(os);
-		//editOtherUser(os);
+		editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
 		//editOtherUserInvalidEmail(os);
 		
@@ -6178,7 +6178,15 @@ public class LDSTools {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		//List<WebElement> options= driver.findElements(By.xpath("//*[@name='" + myText + "']"));
 		List<WebElement> options= driver.findElements(By.xpath("//*[@label='" + myText + "']"));
-		WebElement element = options.get(options.size() -1 ) ;
+		if (options.size() > 0 ) {
+			WebElement element = options.get(options.size() -1 );
+			
+			HashMap<String, String> scrollObject = new HashMap<String, String>();
+			scrollObject.put("direction", "down");
+			scrollObject.put("element", ((RemoteWebElement) element).getId());
+			js.executeScript("mobile: scroll", scrollObject);
+		} 
+		
 
 		//WebElement element = driver.findElement(By.xpath("//*[@name='" + myText + "']"));
 		//HashMap<String, String> scrollToObject = new HashMap<String, String>();
@@ -6187,10 +6195,7 @@ public class LDSTools {
 		//js.executeScript("mobile: scroll", scrollToObject);
 		
 
-		HashMap<String, String> scrollObject = new HashMap<String, String>();
-		scrollObject.put("direction", "down");
-		scrollObject.put("element", ((RemoteWebElement) element).getId());
-		js.executeScript("mobile: scroll", scrollObject);
+
 
 		
 		//element.click();
