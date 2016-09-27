@@ -6995,7 +6995,7 @@ public class LDSTools {
 			Assert.assertTrue(checkElementReturn("Missionaries", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("Lists", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("Calendar", "textAtt", "value"));
-			Assert.assertTrue(checkElementReturn("Meetinghouses", "textAtt", "value"));
+			Assert.assertTrue(checkElementReturn("Maps", "textAtt", "value"));
 			if (leader == true) {
 				Assert.assertTrue(checkElementReturn("Reports", "textAtt", "value"));
 			} else {
