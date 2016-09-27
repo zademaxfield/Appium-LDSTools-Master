@@ -245,12 +245,12 @@ public class LDSTools {
 		//LeaderBishopric("ngiBPC1", false, os); //Bishopric 1st Counselor  
 		//LeaderBishopric("ngiBPC2", false, os); //Bishopric 2nd Counselor 
 		//LeaderBishopric("ngiWB1", true, os); //Bishop shows Stake View - something wrong with the account
-		//LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership
+		LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
 		//editCurrentUserCancel(os);
-		editOtherUser(os);
+		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
 		//editOtherUserInvalidEmail(os);
 		
@@ -7478,7 +7478,7 @@ public class LDSTools {
 		clickButtonByXpathTitleName("New Members");
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Lilotoe, Tapatasi", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("17", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("18", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("M", pageSource, "Contains"));
 		if (newUnit == true){
 			Assert.assertTrue(checkNoCaseList("October 15, 2015", pageSource, "Contains"));
