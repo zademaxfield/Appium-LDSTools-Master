@@ -245,8 +245,8 @@ public class LDSTools {
 		//LeaderBishopric("ngiBPC1", false, os); //Bishopric 1st Counselor  
 		//LeaderBishopric("ngiBPC2", false, os); //Bishopric 2nd Counselor 
 		//LeaderBishopric("ngiWB1", true, os); //Bishop shows Stake View - something wrong with the account
-		LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership
-		//bishopMemberOfSeparateStake(os);	
+		//LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership
+		bishopMemberOfSeparateStake(os);	
 		
 		//editCurrentUser(os);	
 		//editCurrentUserCancel(os);
@@ -327,6 +327,7 @@ public class LDSTools {
 		//LarkinPalmer(os);
 		//LarryJensen(os);
 		//RalphHowes(os);
+		//AlbequerqueSync(os);
 
 	}
 
@@ -334,14 +335,6 @@ public class LDSTools {
 	
 	public void justForTesting(String os) throws Exception {
 		
-		syncLogIn("LDSTools2", "toolstester", "UAT", os );
-		pinPage("1", "1", "3", "3", true);
-		openLists();
-		
-		
-		
-		
-		/*
 		//LDSWeb myWeb = new LDSWeb();
 		//Data from Web page
 		List<String> myList = new ArrayList<String>();
@@ -460,7 +453,7 @@ public class LDSTools {
 		
 		//checkWebMemberInfo("LDSTools23", "password1", "Aaron, Jane");
 
-	    */
+
 		
 		/*
 		//Data from Web page
@@ -4397,6 +4390,24 @@ public class LDSTools {
 
 	}
 	
+	@Parameters({"os"})
+	@Test (groups= {"header"}, priority = 3)
+	public void AlbequerqueSync(String os) throws Exception {
+		//Bug: https://code.ldschurch.org/jira/browse/MMA-2903
+		loginProxyData("3827822643",
+				"7u33995/5u504629/",
+				"p135/7u33995/5u502758/:p1395/7u33995/5u502758/",
+				"Proxy", "AlbequerqueSync");
+		
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		Thread.sleep(2000);
+		checkDirectoryForUser();
+		//checkAllWardDirectories();
+
+	}
+	
 	/*
 	@Parameters({"os"})
 	@Test (groups= {"header"})
@@ -7469,6 +7480,7 @@ public class LDSTools {
 			checkMissionaryProgressRecord();
 			checkMissionaryProgressRecordVisits();
 			checkMissionaryProgressRecordSacMeeting();
+			MissionaryProgressRecordDetails();
 		}
 		
 
@@ -7851,6 +7863,35 @@ public class LDSTools {
 		Thread.sleep(1000);
 		pressBackKey();
 		Thread.sleep(1000);
+	}
+	
+	private void MissionaryProgressRecordDetails() throws Exception {
+		String pageSource;
+		List<String> myList = new ArrayList<String>();
+		List<String> androidList = new ArrayList<String>();
+		
+		openReports();
+		Thread.sleep(2000);
+		clickButtonByXpathTitleName("Missionary Progress Record");
+		pageSource = getSourceOfPage();
+		
+		myWeb.WPRopenPageLogIn("https://missionary-stage.lds.org/ward-missionary-tools", "ab067", "password0");
+		myList = myWeb.WPRgetUsers("none", false);	
+		myList = swapLastName(myList);
+		compareWebData(myList, androidList, false);
+		
+		for(String oneUser : myList){
+			clickButton(oneUser, "text", "nameContains");
+			pageSource = getSourceOfPage();
+			if (getRunningOS().equals("mac")) {
+				Assert.assertTrue(checkNoCaseList("Add to Contacts", pageSource, "Contains"));
+			} else {
+				Assert.assertTrue(checkNoCaseList("Contact Information", pageSource, "Contains"));
+			}
+			
+			pressBackKey();
+		}
+		pressBackKey();
 	}
 	
 	private void scrollToSacMeetingAttendance() throws Exception {
