@@ -9934,8 +9934,11 @@ public class LDSTools {
 		
 		while ((backButtonCheck == true) && (myCounter < 5 ))  {
 			Thread.sleep(1000);
+			System.out.println("Pressing Back Key " + myCounter);
 			pressBackKey();
 			Thread.sleep(2000);
+			System.out.println("Back Key pressed");
+			System.out.println("Checking for back key....");
 			backButtonCheck = checkElementExistsByXpath("TopBack");
 			Thread.sleep(2000);
 			System.out.println("Back Button Check in loop: "+ myCounter + " Check: " + backButtonCheck);
