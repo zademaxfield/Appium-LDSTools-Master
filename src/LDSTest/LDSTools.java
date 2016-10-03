@@ -9930,7 +9930,7 @@ public class LDSTools {
 		Boolean backButtonCheck;
 		int myCounter = 1;
 		backButtonCheck = checkElementExistsByXpath("TopBack"); 
-		//System.out.println("Back Button Check: " + backButtonCheck);
+		System.out.println("Back Button Check - before loop: " + backButtonCheck);
 		
 		while ((backButtonCheck == true) && (myCounter < 5 ))  {
 			//Thread.sleep(1000);
@@ -9938,7 +9938,7 @@ public class LDSTools {
 			Thread.sleep(2000);
 			backButtonCheck = checkElementExistsByXpath("TopBack");
 			Thread.sleep(2000);
-			//System.out.println("Back Button Check 2: " + backButtonCheck);
+			System.out.println("Back Button Check in loop: "+ myCounter + " Check: " + backButtonCheck);
 			myCounter++;
 		}
 		
@@ -9951,9 +9951,13 @@ public class LDSTools {
 			Thread.sleep(1000);
 			//clickButtonByXpath("SearchCollapse");
 		} else {
+			System.out.println("Start of Back To Root");
 			pressBackToRoot();
+			System.out.println("End of Back To Root");
 			Thread.sleep(3000);
+			System.out.println("Start of Search Collapse");
 			clickButtonByXpath("SearchCollapse");
+			System.out.println("End of Search Collapse");
 			Thread.sleep(1000);
 			clickButton("CollapseButton", "xpath", "xpath");
 		}
