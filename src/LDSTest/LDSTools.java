@@ -9933,7 +9933,7 @@ public class LDSTools {
 		System.out.println("Back Button Check - before loop: " + backButtonCheck);
 		
 		while ((backButtonCheck == true) && (myCounter < 5 ))  {
-			//Thread.sleep(1000);
+			Thread.sleep(1000);
 			pressBackKey();
 			Thread.sleep(2000);
 			backButtonCheck = checkElementExistsByXpath("TopBack");
