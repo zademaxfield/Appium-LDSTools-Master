@@ -4905,14 +4905,18 @@ public class LDSTools {
 	
 	private Boolean checkElementExistsByXpath(String textElement) {
 		Boolean myReturnStatus;
+		System.out.println("Start checkElementExistsByXpath");
 		//List<WebElement> options= driver.findElements(By.xpath("//TextView[@value='" + textElement + "']"));
 		List<WebElement> options= driver.findElements(By.xpath(this.prop.getProperty(textElement)));
+		System.out.println("List of Web Elements - done");
+		
 		if (options.isEmpty()) {
 			myReturnStatus = false;	
 		} else {
 			myReturnStatus = true;
 		}
-
+		
+		System.out.println("Check to see if web element is displayed");
 		//Check to see if the element is displayed
 		for (int i = 0 ; i < options.size(); i++ ) {
 			System.out.println(options.get(i).getText());
