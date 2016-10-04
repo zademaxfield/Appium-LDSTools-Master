@@ -4915,9 +4915,9 @@ public class LDSTools {
 
 		//Check to see if the element is displayed
 		for (int i = 0 ; i < options.size(); i++ ) {
-			//System.out.println(options.get(i).getText());
+			System.out.println(options.get(i).getText());
 			myReturnStatus = options.get(i).isDisplayed();
-			//System.out.println(i + " My Return Status: " + myReturnStatus);
+			System.out.println(i + " My Return Status: " + myReturnStatus);
 			//allText.add(i, options.get(i).getText());
 		}
 		
