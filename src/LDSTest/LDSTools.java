@@ -164,10 +164,12 @@ public class LDSTools {
 	        }
 	        
 	        //capabilities.setCapability("appActivity", "org.lds.ldstools.ui.StartupActivity");
-	        //capabilities.setCapability("appActivity", "org.lds.ldstools.ui.activity.SignInActivity");
+	        capabilities.setCapability("appActivity", "org.lds.ldstools.ui.activity.SignInActivity");
 	        
 	        capabilities.setCapability("unicodeKeyboard", "true");
 	        capabilities.setCapability("resetKeyboard", "true");
+	        capabilities.setCapability("deviceReadyTimeout", "60");
+	        
 	        
 	        
 	        
@@ -4906,7 +4908,7 @@ public class LDSTools {
 	
 	private Boolean checkElementExistsByXpath(String textElement) {
 		Boolean myReturnStatus;
-		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		//driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
 		System.out.println("Start checkElementExistsByXpath");
 		//List<WebElement> options= driver.findElements(By.xpath("//TextView[@value='" + textElement + "']"));
