@@ -35,6 +35,7 @@ import java.util.Map;
 //import java.net.URL;
 import java.util.Properties;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
@@ -4905,6 +4906,8 @@ public class LDSTools {
 	
 	private Boolean checkElementExistsByXpath(String textElement) {
 		Boolean myReturnStatus;
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+
 		System.out.println("Start checkElementExistsByXpath");
 		//List<WebElement> options= driver.findElements(By.xpath("//TextView[@value='" + textElement + "']"));
 		List<WebElement> options= driver.findElements(By.xpath(this.prop.getProperty(textElement)));
