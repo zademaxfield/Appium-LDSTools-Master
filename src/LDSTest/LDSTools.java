@@ -47,13 +47,7 @@ import io.appium.java_client.ios.*;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.remote.HideKeyboardStrategy;
-//import io.appium.java_client.android.AndroidDriver;
-//import io.appium.java_client.AppiumDriver;
-//import io.appium.java_client.android.AndroidDriver;
-//import io.selendroid.SelendroidCapabilities;
-//import io.selendroid.SelendroidDriver;
 import io.selendroid.SelendroidKeys;
-//import io.selendroid.exceptions.NoSuchElementException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -352,8 +346,6 @@ public class LDSTools {
 		pinPage("1", "1", "3", "3", true);
 		
 		openReports();
-		
-
 		
 		
 		//Check web data vs LDS Tools
@@ -4910,10 +4902,10 @@ public class LDSTools {
 		Boolean myReturnStatus;
 		//driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
-		System.out.println("Start checkElementExistsByXpath");
+		//System.out.println("Start checkElementExistsByXpath");
 		//List<WebElement> options= driver.findElements(By.xpath("//TextView[@value='" + textElement + "']"));
 		List<WebElement> options= driver.findElements(By.xpath(this.prop.getProperty(textElement)));
-		System.out.println("List of Web Elements - done");
+		//System.out.println("List of Web Elements - done");
 		
 		if (options.isEmpty()) {
 			myReturnStatus = false;	
@@ -4921,12 +4913,12 @@ public class LDSTools {
 			myReturnStatus = true;
 		}
 		
-		System.out.println("Check to see if web element is displayed");
+		//System.out.println("Check to see if web element is displayed");
 		//Check to see if the element is displayed
 		for (int i = 0 ; i < options.size(); i++ ) {
-			System.out.println(options.get(i).getText());
+			//System.out.println(options.get(i).getText());
 			myReturnStatus = options.get(i).isDisplayed();
-			System.out.println(i + " My Return Status: " + myReturnStatus);
+			//System.out.println(i + " My Return Status: " + myReturnStatus);
 			//allText.add(i, options.get(i).getText());
 		}
 		
@@ -9688,7 +9680,7 @@ public class LDSTools {
 			//clickButtonByName("Sync Now");
 			Thread.sleep(6000);
 			waitForTextToDisappear("SyncText", 500 );
-			//Thread.sleep(2000);
+			Thread.sleep(2000);
 			//pinPage("1", "1", "3", "3", true);
 			
 		} else {
@@ -9939,18 +9931,18 @@ public class LDSTools {
 		Boolean backButtonCheck;
 		int myCounter = 1;
 		backButtonCheck = checkElementExistsByXpath("TopBack"); 
-		System.out.println("Back Button Check - before loop: " + backButtonCheck);
+		//System.out.println("Back Button Check - before loop: " + backButtonCheck);
 		
 		while ((backButtonCheck == true) && (myCounter < 5 ))  {
 			Thread.sleep(1000);
-			System.out.println("Pressing Back Key " + myCounter);
+			//System.out.println("Pressing Back Key " + myCounter);
 			pressBackKey();
 			Thread.sleep(2000);
-			System.out.println("Back Key pressed");
-			System.out.println("Checking for back key....");
+			//System.out.println("Back Key pressed");
+			//System.out.println("Checking for back key....");
 			backButtonCheck = checkElementExistsByXpath("TopBack");
 			Thread.sleep(2000);
-			System.out.println("Back Button Check in loop: "+ myCounter + " Check: " + backButtonCheck);
+			//System.out.println("Back Button Check in loop: "+ myCounter + " Check: " + backButtonCheck);
 			myCounter++;
 		}
 		
@@ -9963,13 +9955,13 @@ public class LDSTools {
 			Thread.sleep(1000);
 			//clickButtonByXpath("SearchCollapse");
 		} else {
-			System.out.println("Start of Back To Root");
+			//System.out.println("Start of Back To Root");
 			pressBackToRoot();
-			System.out.println("End of Back To Root");
+			//System.out.println("End of Back To Root");
 			Thread.sleep(3000);
-			System.out.println("Start of Search Collapse");
+			//System.out.println("Start of Search Collapse");
 			clickButtonByXpath("SearchCollapse");
-			System.out.println("End of Search Collapse");
+			//System.out.println("End of Search Collapse");
 			Thread.sleep(1000);
 			clickButton("CollapseButton", "xpath", "xpath");
 		}
