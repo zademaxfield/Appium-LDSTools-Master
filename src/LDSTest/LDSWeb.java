@@ -146,7 +146,7 @@ public class LDSWeb {
 		Thread.sleep(10000);
 		*/
 		
-		
+		/*
 		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
 		ABSetupAutoTest();
 		ABSync();
@@ -162,11 +162,11 @@ public class LDSWeb {
 		ABSetupColinMacNeil();
 		ABSync();
 		tearDown();
+		*/
 		
 		
-		
-		//ABSetEventColinMacNeil();
-		//ABSync();
+		ABSetEventColinMacNeil();
+		ABSync();
 		
 		
 		/*
