@@ -120,6 +120,8 @@ public class LDSTools {
 	
 	private String myUserName = "Not Set";
 	private String myPassword = "Not Set";
+	
+	public String myAppPackage;
 
 	
 	/** Setup Appium driver
@@ -156,8 +158,10 @@ public class LDSTools {
 	        capabilities.setCapability("app", app.getAbsolutePath());
 	        if (fileName.contains("alpha")) {
 	        	capabilities.setCapability("appPackage", "org.lds.ldstools.dev"); // *** ALPHA ***
+	        	myAppPackage = "org.lds.ldstools.dev";
 	        } else {
 	        	capabilities.setCapability("appPackage", "org.lds.ldstools"); //*** BETA and RELEASE ***
+	        	myAppPackage = "org.lds.ldstools";
 	        }
 	        
 	        //capabilities.setCapability("appActivity", "org.lds.ldstools.ui.StartupActivity");
@@ -189,6 +193,7 @@ public class LDSTools {
 	        File appDir = new File(classpathRoot, "../../../Selenium");
 	        //File app = new File(appDir, "LDS Tools.app");
 	        File app = new File(appDir, fileName);
+	        myAppPackage = "org.lds.ldstools.dev";
 	        DesiredCapabilities capabilities = new DesiredCapabilities();
 
 	        //capabilities.setCapability(CapabilityType.VERSION, "9.0");
@@ -212,7 +217,7 @@ public class LDSTools {
 	        capabilities.setCapability("newCommandTimeout", 600);
 	        capabilities.setCapability("app", app.getAbsolutePath());
 	        //capabilities.setCapability("appPackage", "org.lds.ldstools.dev");
-	        capabilities.setCapability("appPackage", "org.lds.ldstools.dev");
+	        //capabilities.setCapability("appPackage", "org.lds.ldstools.dev");
 	        //capabilities.setCapability("sendKeysStrategy", "setValue");
 	        capabilities.setCapability("sendKeysStrategy", "grouped");
 	        capabilities.setCapability("launchTimeout", 90000);
@@ -262,7 +267,7 @@ public class LDSTools {
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
-		//CheckUnitsToSync(os);
+		CheckUnitsToSync(os);
 		
 		//Works in IOS not in Android - need to fix the scrolling problem
 		//checkAllUsersFromWeb(os);
@@ -270,7 +275,7 @@ public class LDSTools {
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
-		LeaderBishopricReport("ngiBPC1", false, os);
+		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 		
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
@@ -2619,10 +2624,6 @@ public class LDSTools {
 	}
 	
 	private void sendTextToEditUser(String editField, String textToSend ) throws Exception {
-		Capabilities cap = driver.getCapabilities();
-		Map<String, ?> desired = (Map<String, ?>) cap.getCapability("desired");
-		Object myAppPackage = desired.get("appPackage");
-
 		if (myAppPackage.equals("org.lds.ldstools")) {
 			editField = "Release" + editField;
 		} 
@@ -2632,10 +2633,6 @@ public class LDSTools {
 	}
 	
 	private void ClearTextToEditUser(String editField ) throws Exception {
-		Capabilities cap = driver.getCapabilities();
-		Map<String, ?> desired = (Map<String, ?>) cap.getCapability("desired");
-		Object myAppPackage = desired.get("appPackage");
-
 		if (myAppPackage.equals("org.lds.ldstools")) {
 			editField = "Release" + editField;
 		} 
@@ -4667,6 +4664,10 @@ public class LDSTools {
 		if (findElement == "text") {
 			AssertJUnit.assertEquals(driver.findElement(By.xpath("//*[contains(text(), '" + textElement + "')]")).getText(),(textToCheck));
 		}
+		
+		if (findElement == "byName") {
+			AssertJUnit.assertEquals(driver.findElement(By.name(textElement)).getText(),(textToCheck));
+		}
 
 	}
 	
@@ -5729,6 +5730,10 @@ public class LDSTools {
 			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.name(textElement)));
 		}
 		
+		if (findElement == "byNameProp") {
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.name(this.prop.getProperty(textElement))));
+		}
+		
 		
 		if (findElement == "text") {
 			//myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(), '" + textElement + "')]")));
@@ -5755,6 +5760,17 @@ public class LDSTools {
 		myElement.click();
 
 	}
+	
+	
+	private void clickButtonByNameMultiple(String textElement, int myButton) {
+		Boolean myReturnStatus;
+		List<WebElement> options = driver.findElements(By.name(textElement));
+		
+		options.get(myButton).click();
+	}
+	
+	
+	
 	
 
 	/** clickButtonByXpath(String textElement)
@@ -6594,9 +6610,19 @@ public class LDSTools {
 				clickButton("Proxy", "byName", "byName");
 				//clickButtonByXpath(chooseNetwork);
 				clickButton(chooseNetwork, "byName", "byName");
-				clickButtonByXpath("TopDeveloper");
-				clickButtonByXpath("TopHelp");
-				clickButtonByXpath("TopSignIn");
+				
+				
+				pressBackKey();
+				pressBackKey();
+				pressBackKey();
+				
+				
+				
+				
+				
+				//clickButtonByXpath("TopDeveloper");
+				//clickButtonByXpath("TopHelp");
+				//clickButtonByXpath("TopSignIn");
 			}
 			
 			//sendTextbyXpath("LoginUsername", "LDSTools14");
@@ -7601,6 +7627,7 @@ public class LDSTools {
 		
 		
 		//New Members
+		openReports();
 		clickButtonByXpathTitleName("New Members");
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Faapili, Tautinoga", pageSource, "Contains"));
@@ -7732,7 +7759,7 @@ public class LDSTools {
 		compareWebData(myList, androidList, false);
 
 		//Investigators with Baptism Date
-		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("MissionaryProgressFilter", "id", "byNameProp");
 		clickButton("mpInvestigatorsWithBaptismDate", "id", "xpath");
 		if (!getRunningOS().equals("mac")) {
 			clickButton("mpMenuSave", "id", "xpath");
@@ -7740,18 +7767,19 @@ public class LDSTools {
 		} else {
 			pressBackKey();
 		}
-		checkText("mpFilterText", "Investigators with Baptism Date", "id", "xpath");
+		//checkText("mpFilterText", "Investigators with Baptism Date", "id", "byName");
 		myList = myWeb.WPRgetUsers("Investigators with Baptism Date", false);
 		myList = swapLastName(myList);
 		
 		compareWebData(myList, androidList, false);
 		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("Investigators with Baptism Date", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("Baptism Goal", pageSource, "Contains"));
 		//Assert.assertFalse(checkNoCaseList("Skywalker", pageSource, "Contains"));
-		clickButton("mpRemoveFilterButton", "id", "xpath");
+		clickButton("mpRemoveFilterButton", "id", "byNameProp");
 		
 		//Progressing Investigators
-		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("MissionaryProgressFilter", "id", "byNameProp");
 		clickButton("mpProgressingInvestigators", "id", "xpath");
 		if (!getRunningOS().equals("mac")) {
 			clickButton("mpMenuSave", "id", "xpath");
@@ -7759,19 +7787,20 @@ public class LDSTools {
 		} else {
 			pressBackKey();
 		}
-		checkText("mpFilterText", "Progressing Investigators", "id", "xpath");
+		//checkText("mpFilterText", "Progressing Investigators", "id", "byName");
 		myList = myWeb.WPRgetUsers("Progressing Investigators", false);
 		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("Progressing Investigators", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("Solo", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("Han", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("Baptism Goal", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Skywalker", pageSource, "Contains"));
-		clickButton("mpRemoveFilterButton", "id", "xpath");
+		clickButton("mpRemoveFilterButton", "id", "byNameProp");
 		
 		//New Investigators
-		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("MissionaryProgressFilter", "id", "byNameProp");
 		clickButton("mpNewInvestigators", "id", "xpath");
 		if (!getRunningOS().equals("mac")) {
 			clickButton("mpMenuSave", "id", "xpath");
@@ -7779,19 +7808,20 @@ public class LDSTools {
 		} else {
 			pressBackKey();
 		}
-		checkText("mpFilterText", "New Investigators", "id", "xpath");
+		//checkText("mpFilterText", "New Investigators", "id", "byName");
 		myList = myWeb.WPRgetUsers("New Investigators", false);
 		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("New Investigators", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("Skywalker", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("Luke", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("New Investigator", pageSource, "Contains"));
 		//Assert.assertFalse(checkNoCaseList("James", pageSource, "Contains"));
-		clickButton("mpRemoveFilterButton", "id", "xpath");
+		clickButton("mpRemoveFilterButton", "id", "byNameProp");
 		
 		//Other Investigators
-		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("MissionaryProgressFilter", "id", "byNameProp");
 		clickButton("mpOtherInvestigators", "id", "xpath");
 		if (!getRunningOS().equals("mac")) {
 			clickButton("mpMenuSave", "id", "xpath");
@@ -7799,14 +7829,16 @@ public class LDSTools {
 		} else {
 			pressBackKey();
 		}
-		checkText("mpFilterText", "Other Investigators", "id", "xpath");
+		//checkText("mpFilterText", "Other Investigators", "id", "byName");
 		myList = myWeb.WPRgetUsers("Other Investigators", false);
 		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
-		clickButton("mpRemoveFilterButton", "id", "xpath");
+		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("Other Investigators", pageSource, "Contains"));
+		clickButton("mpRemoveFilterButton", "id", "byNameProp");
 		
 		//Potential Investigators
-		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("MissionaryProgressFilter", "id", "byNameProp");
 		clickButton("mpPotentialInvestigators", "id", "xpath");
 		if (!getRunningOS().equals("mac")) {
 			clickButton("mpMenuSave", "id", "xpath");
@@ -7814,14 +7846,16 @@ public class LDSTools {
 		} else {
 			pressBackKey();
 		}
-		checkText("mpFilterText", "Potential Investigators", "id", "xpath");
+		//checkText("mpFilterText", "Potential Investigators", "id", "byName");
 		myList = myWeb.WPRgetUsers("Potential Investigators", false);
 		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
-		clickButton("mpRemoveFilterButton", "id", "xpath");
+		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("Potential Investigators", pageSource, "Contains"));
+		clickButton("mpRemoveFilterButton", "id", "byNameProp");
 		
 		//Recent Converts
-		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("MissionaryProgressFilter", "id", "byNameProp");
 		clickButton("mpRecentConverts", "id", "xpath");
 		if (!getRunningOS().equals("mac")) {
 			clickButton("mpMenuSave", "id", "xpath");
@@ -7829,14 +7863,16 @@ public class LDSTools {
 		} else {
 			pressBackKey();
 		}
-		checkText("mpFilterText", "Recent Converts", "id", "xpath");
+		//checkText("mpFilterText", "Recent Converts", "id", "byName");
 		myList = myWeb.WPRgetUsers("Recent Converts", false);
 		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
-		clickButton("mpRemoveFilterButton", "id", "xpath");
+		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("Recent Converts", pageSource, "Contains"));
+		clickButton("mpRemoveFilterButton", "id", "byNameProp");
 		
 		//Members Being Taught
-		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("MissionaryProgressFilter", "id", "byNameProp");
 		clickButton("mpMembersBeingTaught", "id", "xpath");
 		if (!getRunningOS().equals("mac")) {
 			clickButton("mpMenuSave", "id", "xpath");
@@ -7844,21 +7880,19 @@ public class LDSTools {
 		} else {
 			pressBackKey();
 		}
-		checkText("mpFilterText", "Members Being Taught", "id", "xpath");
+		//checkText("mpFilterText", "Members Being Taught", "id", "byName");
 		myList = myWeb.WPRgetUsers("Members Being Taught", true);
 		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
-		clickButton("mpRemoveFilterButton", "id", "xpath");
-		
-		
-		
-		
-	
-	
+		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("Members Being Taught", pageSource, "Contains"));
+		clickButton("mpRemoveFilterButton", "id", "byNameProp");
+
 
 		Thread.sleep(1000);
 		pressBackKey();
 		Thread.sleep(1000);
+		openDirectory();
 		
 		//*************************************************************************************
 		//*************************************************************************************
@@ -7882,9 +7916,9 @@ public class LDSTools {
 		//******************
 		//Visits - Last Week
 		//******************
-		clickButton("MissionaryProgressFilter", "id", "xpath");
-		clickButton("mpReceivedAVisit", "id", "xpath");
-		clickButton("mpLastWeek", "xpath", "xpath");
+		clickButton("MissionaryProgressFilter", "id", "byNameProp");
+		clickButton("mpReceivedAVisit", "id", "byNameProp");
+		clickButton("mpLastWeek", "xpath", "byNameProp");
 		if (!getRunningOS().equals("mac")) {
 			clickButton("mpMenuSave", "id", "xpath");
 			clickButton("mpExpandFilter", "id", "xpath");
@@ -7896,14 +7930,14 @@ public class LDSTools {
 		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		pageSource = getSourceOfPage();
-		clickButton("mpRemoveFilterButton", "id", "xpath");
+		clickButton("mpRemoveFilterButton", "id", "byNameProp");
 		
 		//******************
 		//Visits - Last 2 weeks
 		//******************
-		clickButton("MissionaryProgressFilter", "id", "xpath");
-		clickButton("mpReceivedAVisit", "id", "xpath");
-		clickButton("mpLast2Weeks", "xpath", "xpath");
+		clickButton("MissionaryProgressFilter", "id", "byNameProp");
+		clickButton("mpReceivedAVisit", "id", "byNameProp");
+		clickButton("mpLast2Weeks", "xpath", "byNameProp");
 		if (!getRunningOS().equals("mac")) {
 			clickButton("mpMenuSave", "id", "xpath");
 			clickButton("mpExpandFilter", "id", "xpath");
@@ -7915,14 +7949,14 @@ public class LDSTools {
 		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		pageSource = getSourceOfPage();
-		clickButton("mpRemoveFilterButton", "id", "xpath");
+		clickButton("mpRemoveFilterButton", "id", "byNameProp");
 		
 		//******************
 		//Visits - Last 3 weeks
 		//******************
-		clickButton("MissionaryProgressFilter", "id", "xpath");
-		clickButton("mpReceivedAVisit", "id", "xpath");
-		clickButton("mpLast3Weeks", "xpath", "xpath");
+		clickButton("MissionaryProgressFilter", "id", "byNameProp");
+		clickButton("mpReceivedAVisit", "id", "byNameProp");
+		clickButton("mpLast3Weeks", "xpath", "byNameProp");
 		if (!getRunningOS().equals("mac")) {
 			clickButton("mpMenuSave", "id", "xpath");
 			clickButton("mpExpandFilter", "id", "xpath");
@@ -7934,15 +7968,15 @@ public class LDSTools {
 		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		pageSource = getSourceOfPage();
-		clickButton("mpRemoveFilterButton", "id", "xpath");
+		clickButton("mpRemoveFilterButton", "id", "byNameProp");
 		
 		
 		//******************
 		//Visits - Last 4 weeks
 		//******************
-		clickButton("MissionaryProgressFilter", "id", "xpath");
-		clickButton("mpReceivedAVisit", "id", "xpath");
-		clickButton("mpLast4Weeks", "xpath", "xpath");
+		clickButton("MissionaryProgressFilter", "id", "byNameProp");
+		clickButton("mpReceivedAVisit", "id", "byNameProp");
+		clickButton("mpLast4Weeks", "xpath", "byNameProp");
 		if (!getRunningOS().equals("mac")) {
 			clickButton("mpMenuSave", "id", "xpath");
 			clickButton("mpExpandFilter", "id", "xpath");
@@ -7954,14 +7988,14 @@ public class LDSTools {
 		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		pageSource = getSourceOfPage();
-		clickButton("mpRemoveFilterButton", "id", "xpath");
+		clickButton("mpRemoveFilterButton", "id", "byNameProp");
 
 		//******************
 		//Visits - Last 5 weeks
 		//******************
-		clickButton("MissionaryProgressFilter", "id", "xpath");
-		clickButton("mpReceivedAVisit", "id", "xpath");
-		clickButton("mpLast5Weeks", "xpath", "xpath");
+		clickButton("MissionaryProgressFilter", "id", "byNameProp");
+		clickButton("mpReceivedAVisit", "id", "byNameProp");
+		clickButton("mpLast5Weeks", "xpath", "byNameProp");
 		if (!getRunningOS().equals("mac")) {
 			clickButton("mpMenuSave", "id", "xpath");
 			clickButton("mpExpandFilter", "id", "xpath");
@@ -7973,11 +8007,12 @@ public class LDSTools {
 		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		pageSource = getSourceOfPage();
-		clickButton("mpRemoveFilterButton", "id", "xpath");
+		clickButton("mpRemoveFilterButton", "id", "byNameProp");
 		
 		Thread.sleep(1000);
 		pressBackKey();
 		Thread.sleep(1000);
+		openDirectory();
 	}
 	
 	private void MissionaryProgressRecordDetails() throws Exception {
@@ -8007,6 +8042,7 @@ public class LDSTools {
 			pressBackKey();
 		}
 		pressBackKey();
+		openDirectory();
 	}
 	
 	private void scrollToSacMeetingAttendance() throws Exception {
@@ -8032,10 +8068,10 @@ public class LDSTools {
 		//******************
 		//Sacrament Meeting Attendance - Last Week
 		//******************
-		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("MissionaryProgressFilter", "id", "byNameProp");
 		scrollToSacMeetingAttendance();
-		clickButton("mpAttendedSacrament", "id", "xpath");
-		clickButton("mpLastWeek", "xpath", "xpath");
+		clickButton("mpAttendedSacrament", "id", "byNameProp");
+		clickButton("mpLastWeek", "xpath", "byNameProp");
 		if (!getRunningOS().equals("mac")) {
 			clickButton("mpMenuSave", "id", "xpath");
 			clickButton("mpExpandFilter", "id", "xpath");
@@ -8047,15 +8083,15 @@ public class LDSTools {
 		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		//pageSource = getSourceOfPage();
-		clickButton("mpRemoveFilterButton", "id", "xpath");
+		clickButton("mpRemoveFilterButton", "id", "byNameProp");
 		
 		//******************
 		//Sacrament Meeting Attendance - Last 2 weeks
 		//******************
-		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("MissionaryProgressFilter", "id", "byNameProp");
 		scrollToSacMeetingAttendance();
-		clickButton("mpAttendedSacrament", "id", "xpath");
-		clickButton("mpLast2Weeks", "xpath", "xpath");
+		clickButton("mpAttendedSacrament", "id", "byNameProp");
+		clickButton("mpLast2Weeks", "xpath", "byNameProp");
 		if (!getRunningOS().equals("mac")) {
 			clickButton("mpMenuSave", "id", "xpath");
 			clickButton("mpExpandFilter", "id", "xpath");
@@ -8067,15 +8103,15 @@ public class LDSTools {
 		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		//pageSource = getSourceOfPage();
-		clickButton("mpRemoveFilterButton", "id", "xpath");
+		clickButton("mpRemoveFilterButton", "id", "byNameProp");
 		
 		//******************
 		//Sacrament Meeting Attendance - Last 3 weeks
 		//******************
-		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("MissionaryProgressFilter", "id", "byNameProp");
 		scrollToSacMeetingAttendance();
-		clickButton("mpAttendedSacrament", "id", "xpath");
-		clickButton("mpLast3Weeks", "xpath", "xpath");
+		clickButton("mpAttendedSacrament", "id", "byNameProp");
+		clickButton("mpLast3Weeks", "xpath", "byNameProp");
 		if (!getRunningOS().equals("mac")) {
 			clickButton("mpMenuSave", "id", "xpath");
 			clickButton("mpExpandFilter", "id", "xpath");
@@ -8087,16 +8123,16 @@ public class LDSTools {
 		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		//pageSource = getSourceOfPage();
-		clickButton("mpRemoveFilterButton", "id", "xpath");
+		clickButton("mpRemoveFilterButton", "id", "byNameProp");
 		
 		
 		//******************
 		//Sacrament Meeting Attendance - Last 4 weeks
 		//******************
-		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("MissionaryProgressFilter", "id", "byNameProp");
 		scrollToSacMeetingAttendance();
-		clickButton("mpAttendedSacrament", "id", "xpath");
-		clickButton("mpLast4Weeks", "xpath", "xpath");
+		clickButton("mpAttendedSacrament", "id", "byNameProp");
+		clickButton("mpLast4Weeks", "xpath", "byNameProp");
 		if (!getRunningOS().equals("mac")) {
 			clickButton("mpMenuSave", "id", "xpath");
 			clickButton("mpExpandFilter", "id", "xpath");
@@ -8108,15 +8144,15 @@ public class LDSTools {
 		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		//pageSource = getSourceOfPage();
-		clickButton("mpRemoveFilterButton", "id", "xpath");
+		clickButton("mpRemoveFilterButton", "id", "byNameProp");
 
 		//******************
 		//Sacrament Meeting Attendance - Last 5 weeks
 		//******************
-		clickButton("MissionaryProgressFilter", "id", "xpath");
+		clickButton("MissionaryProgressFilter", "id", "byNameProp");
 		scrollToSacMeetingAttendance();
-		clickButton("mpAttendedSacrament", "id", "xpath");
-		clickButton("mpLast5Weeks", "xpath", "xpath");
+		clickButton("mpAttendedSacrament", "id", "byNameProp");
+		clickButton("mpLast5Weeks", "xpath", "byNameProp");
 		if (!getRunningOS().equals("mac")) {
 			clickButton("mpMenuSave", "id", "xpath");
 			clickButton("mpExpandFilter", "id", "xpath");
@@ -8128,13 +8164,14 @@ public class LDSTools {
 		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		//pageSource = getSourceOfPage();
-		clickButton("mpRemoveFilterButton", "id", "xpath");
+		clickButton("mpRemoveFilterButton", "id", "byNameProp");
 		
 		
 		
 		Thread.sleep(1000);
 		pressBackKey();
 		Thread.sleep(1000);
+		openDirectory();
 	}
 	
 
@@ -8179,7 +8216,8 @@ public class LDSTools {
 			
 			clickButtonByXpathTitleName("Home Teaching");
 			if (getRunningOS().equals("mac")) {
-				clickButton("HPGHouseHoldsNotVisisted", "xpath", "xpath");
+				//clickButton("HPGHouseHoldsNotVisisted", "xpath", "xpath");
+				clickButtonByNameMultiple("Households Not Visited", 0);
 			} else {
 				clickButtonByXpathTitleName("Households Not Visited");
 			}
@@ -8197,9 +8235,11 @@ public class LDSTools {
 			
 			
 			if (getRunningOS().equals("mac")) {
-				clickButton("HPGUnassignedHouseholds", "xpath", "xpath");
+				//clickButton("HPGUnassignedHouseholds", "xpath", "xpath");
+				clickButtonByNameMultiple("Unassigned Households", 0);
 			} else {
 				clickButtonByXpathTitleName("Unassigned Households");
+				
 			}
 			Thread.sleep(2000);
 			getHTVTReport("High Priests Group", "NotAssignedHomeTeachers", userCalling);
@@ -8212,7 +8252,8 @@ public class LDSTools {
 			//Elders Quorum Households Not Visited
 			clickButtonByXpathTitleName("Home Teaching");
 			if (getRunningOS().equals("mac")) {
-				clickButton("EldersHouseholdsNotVisited", "xpath", "xpath");
+				//clickButton("EldersHouseholdsNotVisited", "xpath", "xpath");
+				clickButtonByNameMultiple("Households Not Visited", 1);
 			} else {
 				clickLastTextViewRoboReturnContains("Households Not Visited");
 			}
@@ -8227,7 +8268,8 @@ public class LDSTools {
 
 			
 			if (getRunningOS().equals("mac")) {
-				clickButton("EldersUnassignedHouseholds", "xpath", "xpath");
+				//clickButton("EldersUnassignedHouseholds", "xpath", "xpath");
+				clickButtonByNameMultiple("Unassigned Households", 1);
 			} else {
 				Thread.sleep(1000);
 				scrollDownTEST(100);
@@ -8287,6 +8329,7 @@ public class LDSTools {
 
 			pressBackKey();
 			pressBackKey();
+			openDirectory();
 
 		}	
 		
@@ -8535,6 +8578,7 @@ public class LDSTools {
 
 			pressBackKey();
 			pressBackKey();
+			openDirectory();
 
 		}
 		
@@ -8556,7 +8600,8 @@ public class LDSTools {
 			
 			//High Priests
 			if(getRunningOS().equals("mac")) {
-				clickButton("HPGHouseholds", "xpath", "xpath");
+				//clickButton("HPGHouseholds", "xpath", "xpath");
+				clickButtonByNameMultiple("Households", 0);
 			} else {
 				clickButtonByXpathTitleName("Households");
 			}
@@ -8575,7 +8620,7 @@ public class LDSTools {
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
 				clickButton("HTVTExpand", "id", "xpath");
-				checkText("HTVTFiltersApplied", "Assigned Home Teachers", "id", "xpath");
+				checkText("HTVTFiltersApplied", "Assigned Home Teachers", "id", "byName");
 			} else {
 				pressBackKey();
 			}
@@ -8598,7 +8643,7 @@ public class LDSTools {
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
 				clickButton("HTVTExpand", "id", "xpath");
-				checkText("HTVTFiltersApplied", "Not Assigned Home Teachers", "id", "xpath");
+				checkText("HTVTFiltersApplied", "Not Assigned Home Teachers", "id", "byName");
 			} else {
 				pressBackKey();
 			}
@@ -8619,7 +8664,7 @@ public class LDSTools {
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
 				clickButton("HTVTExpand", "id", "xpath");
-				checkText("HTVTFiltersApplied", "New & Moved-In Members", "id", "xpath");
+				checkText("HTVTFiltersApplied", "New & Moved-In Members", "id", "byName");
 			} else {
 				pressBackKey();
 				Thread.sleep(2000);
@@ -8728,7 +8773,8 @@ public class LDSTools {
 			
 			//Elders Quorum
 			if (getRunningOS().equals("mac")) {
-				clickButton("EldersHouseholds", "xpath", "xpath");
+				//clickButton("EldersHouseholds", "xpath", "xpath");
+				clickButtonByNameMultiple("Households", 1);
 			} else {
 				scrollDownTEST(100);
 				clickLastTextViewRoboReturnContains("Households");
@@ -8746,7 +8792,7 @@ public class LDSTools {
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
 				clickButton("HTVTExpand", "id", "xpath");
-				checkText("HTVTFiltersApplied", "Assigned Home Teachers", "id", "xpath");
+				checkText("HTVTFiltersApplied", "Assigned Home Teachers", "id", "byName");
 			} else {
 				pressBackKey();
 			}
@@ -8767,7 +8813,7 @@ public class LDSTools {
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
 				clickButton("HTVTExpand", "id", "xpath");
-				checkText("HTVTFiltersApplied", "Not Assigned Home Teachers", "id", "xpath");
+				checkText("HTVTFiltersApplied", "Not Assigned Home Teachers", "id", "byName");
 			} else {
 				pressBackKey();
 			}
@@ -8788,7 +8834,7 @@ public class LDSTools {
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
 				clickButton("HTVTExpand", "id", "xpath");
-				checkText("HTVTFiltersApplied", "New & Moved-In Members", "id", "xpath");
+				checkText("HTVTFiltersApplied", "New & Moved-In Members", "id", "byName");
 			} else {
 				pressBackKey();
 			}
@@ -8891,6 +8937,7 @@ public class LDSTools {
 			
 			pressBackKey();
 			pressBackKey();
+			
 		
 		}
 		
@@ -8921,7 +8968,7 @@ public class LDSTools {
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
 				clickButton("HTVTExpand", "id", "xpath");
-				checkText("HTVTFiltersApplied", "Assigned Visiting Teachers", "id", "xpath");
+				checkText("HTVTFiltersApplied", "Assigned Visiting Teachers", "id", "byName");
 			} else {
 				pressBackKey();
 			}
@@ -8943,7 +8990,7 @@ public class LDSTools {
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
 				clickButton("HTVTExpand", "id", "xpath");
-				checkText("HTVTFiltersApplied", "Not Assigned Visiting Teachers", "id", "xpath");
+				checkText("HTVTFiltersApplied", "Not Assigned Visiting Teachers", "id", "byName");
 			} else {
 				pressBackKey();
 			}
@@ -8964,7 +9011,7 @@ public class LDSTools {
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTApply", "id", "xpath");
 				clickButton("HTVTExpand", "id", "xpath");
-				checkText("HTVTFiltersApplied", "New & Moved-In Members", "id", "xpath");
+				checkText("HTVTFiltersApplied", "New & Moved-In Members", "id", "byName");
 			} else {
 				pressBackKey();
 			}
@@ -9025,6 +9072,7 @@ public class LDSTools {
 			
 			pressBackKey();
 			pressBackKey();
+			openDirectory();
 			
 
 		}
@@ -10029,13 +10077,11 @@ public class LDSTools {
 	}
 	
 	private void clearPhoneAndEmail() throws Exception {	
-		Capabilities cap = driver.getCapabilities();
-		Map<String, ?> desired = (Map<String, ?>) cap.getCapability("desired");
-		Object myAppPackage = desired.get("appPackage");
-		
-		Thread.sleep(4000);
+
 		editUserOpen(); 
 		Thread.sleep(2000);
+		
+		printPageSource();
 		
 		//sendTextbyXpath("EditPersonalPhone", "11");
 		clearTextFieldXpath("EditPersonalPhone");
