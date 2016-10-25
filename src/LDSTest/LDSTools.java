@@ -255,6 +255,7 @@ public class LDSTools {
 		//LeaderBishopric("ngiWB1", true, os); //Bishop shows Stake View - something wrong with the account
 		//LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//bishopMemberOfSeparateStake(os);	
+		LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
 		//editCurrentUser(os);	
 		//editCurrentUserCancel(os);
@@ -273,7 +274,7 @@ public class LDSTools {
 		//checkAllUsersFromWeb(os);
 		
 		
-		LeaderBishopricDirectory("ngiBPC1", false, os);
+		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
@@ -6730,43 +6731,50 @@ public class LDSTools {
 						clickButtonByXpath("EnableDevSettings");
 					}
 				}
-
-				
-				clickButtonByXpathTitleNameContains("Environment");
 				
 				
-				clickButtonByXpath(chooseNetwork);
+				//clickButtonByXpath("DevEnviroment");
+				clickButton("Environment: Prod", "byName", "byName");
+				//clickButtonByXpath("Proxy");
+				//clickButton("Proxy", "byName", "byName");
+				//clickButtonByXpath(chooseNetwork);
+				clickButton(chooseNetwork, "byName", "byName");
 				
-				clickButtonByXpath("TopDeveloper");
+				
+				pressBackKey();
+	
+				//clickButtonByXpath("TopDeveloper");
 				//Thread.sleep(2000);
 				
 				//Set the ID
-				clickButtonByXpath("Id");
+				clickButton("Id", "byName", "byName");
 				sendTextbyXpath("HeaderAlertTextId", IndividualId );
 				clickButtonByXpath("HeaderOK");
 				
-				//Set the Positions
-				clickButtonByXpath("Units");
+				scrollDownIOS();
+				
+				clickButton("Units", "byName", "byName");
 				sendTextbyXpath("HeaderAlertTextUnits", units );
 				clickButtonByXpath("HeaderOK");
-				
-				scrollToElement("Positions");
+
 				//driver.scrollTo("Positions");
 				//Set the Positions
-				clickButtonByXpath("Positions");
+				clickButton("Positions", "byName", "byName");
 				sendTextbyXpath("HeaderAlertTextPositions", positions );
 				clickButtonByXpath("HeaderOK");
 				
+				pressBackKey();
+				pressBackKey();
 
 				
-				clickButtonByXpath("TopHelp");
+				//clickButtonByXpath("TopHelp");
 				//Thread.sleep(4000);
-				clickButtonByXpath("TopSignIn");
+				//clickButtonByXpath("TopSignIn");
 				
 				//sendTextbyXpath("LoginUsername", "LDSTools14");
 				//sendTextbyXpath("LoginPassword", "toolstester");
-				sendTextbyXpath2("LoginUsername", "paigekrebs" );
-				sendTextbyXpath2("LoginPassword", "sweets2005");
+				sendTextbyXpath("LoginUsername", "paigekrebs" );
+				sendTextbyXpath("LoginPassword", "sweets2005");
 				
 				//Thread.sleep(1000);
 				clickButtonByXpath("DoneButton");
@@ -6778,7 +6786,7 @@ public class LDSTools {
 				unitsToSync();
 				
 				//waitForTextToDisappear("DownloadingSync", 500 );
-				waitForTextToDisappearName("UAT", 500 );
+				waitForTextToDisappearName("Proxy", 500 );
 				Thread.sleep(8000);
 			}
 		}
@@ -7099,7 +7107,7 @@ public class LDSTools {
 	private void checkDrawerItems (boolean leader) throws Exception {
 		if (getRunningOS().equals("mac")){
 			Assert.assertTrue(checkElementNameReturn("Directory"));
-			Assert.assertTrue(checkElementNameReturn("Calendar"));
+			Assert.assertTrue(checkElementNameReturn("Calendars"));
 			
 			if (leader == true) {
 				Assert.assertTrue(checkElementNameReturn("Reports"));
@@ -8947,7 +8955,7 @@ public class LDSTools {
 			} else {
 				//scrollDownTEST(200);
 				//Thread.sleep(1000);
-				scrollToElementMemberList("Visiting Teaching");
+				scrollToElementDrawerMenu("Visiting Teaching");
 				//driver.scrollToExact("Visiting Teaching");
 				clickButtonByXpathTitleName("Visiting Teaching");
 			}
@@ -9096,7 +9104,9 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpath("SpinnerSubTitle");
 			//Get Stake and all Wards
-			options= driver.findElements(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell/UIAStaticText"));
+			//options= driver.findElements(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell/UIAStaticText"));
+			options= driver.findElements(By.xpath("//XCUIElementTypeApplication/XCUIElementTypeWindow/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText"));
+
 			for (int i = 0 ; i < options.size(); i++ ) {
 				//System.out.println(options.get(i).getText());
 				StakeWard.add(options.get(i).getText());
@@ -9186,7 +9196,9 @@ public class LDSTools {
 		String myString;
 		//String myString = driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[1]/UIAStaticText[1]")).getText();
 		if (getRunningOS().equals("mac")) {
-			myString = driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[2]/UIAStaticText[1]")).getText();
+			//myString = driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[2]/UIAStaticText[1]")).getText();
+			myString = driver.findElement(By.xpath("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeTable[1]/XCUIElementTypeCell[1]/XCUIElementTypeStaticText[1]")).getText();
+			//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeTable[1]/XCUIElementTypeCell[1]/XCUIElementTypeStaticText[1]
 		} else {
 			//myString = driver.findElement(By.xpath("//android.widget.TextView[@resource-id='org.lds.ldstools.dev:id/text1'][1]")).getText();
 			myString = driver.findElement(By.xpath("//android.widget.RelativeLayout[@resource-id='org.lds.ldstools.dev:id/top_layout']//android.widget.TextView")).getText();
@@ -9253,7 +9265,9 @@ public class LDSTools {
 
 		if (getRunningOS().equals("mac")) {
 			//options = driver.findElements(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[1]/UIAStaticText[1]"));
-			options = driver.findElements(By.xpath("//UIAApplication/UIAWindow/UIATableView/UIATableCell/UIAStaticText"));
+			//options = driver.findElements(By.xpath("//UIAApplication/UIAWindow/UIATableView/UIATableCell/UIAStaticText"));
+			options = driver.findElements(By.xpath("//XCUIElementTypeApplication/XCUIElementTypeWindow/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText"));
+			
 
 		} else {
 			//myString = driver.findElement(By.xpath("//android.widget.TextView[@resource-id='org.lds.ldstools.dev:id/text1'][1]")).getText();
@@ -10756,17 +10770,18 @@ public class LDSTools {
 		//Thread.sleep(1000);
 		
 		
-		if (getRunningOS().equals("mac")) {
-			clickButtonByXpathTitleName("Young Single Adult Interviews");
-		} else {
-			scrollToElement("Young Single Adult Interviews");
-			clickButton("Young Single Adult Interviews", "text", "text");
+		//if (getRunningOS().equals("mac")) {
+		//	clickButtonByXpathTitleName("Young Single Adult Interviews");
+		//} else {
+			//Thread.sleep(1000);
+			//scrollToElementRecyclerView("Young Single Adult Interviews");
+			//clickButton("Young Single Adult Interviews", "text", "text");
 			//driver.scrollToExact("Young Single Adult Interviews").click();
-		}
-		RotateAndCheckText();
+		//}
+		//RotateAndCheckText();
 		
-		pressBackKey();
-		Thread.sleep(1000);
+		//pressBackKey();
+		//Thread.sleep(1000);
 		
 		pressBackKey();
 		Thread.sleep(1000);
@@ -10965,6 +10980,34 @@ public class LDSTools {
 	        assertEquals(slider.getAttribute("name"), myElement);
 		} else {
 		    MobileElement list = (MobileElement) driver.findElement(By.id("org.lds.ldstools.dev:id/scroll_area"));
+		    MobileElement radioGroup = (MobileElement) list.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
+		                    + "new UiSelector().text(\"" + myElement + "\"));"));
+		    assertNotNull(radioGroup.getLocation());
+		}
+	}
+	
+	public void scrollToElementDrawerMenu(String myElement) throws Exception {
+		if(getRunningOS().equals("mac")) {
+	        MobileElement table = (MobileElement) driver.findElement(MobileBy.IosUIAutomation(".tableViews()[0]"));
+	        MobileElement slider = table.findElement(MobileBy
+	                .IosUIAutomation(".scrollToElementWithPredicate(\"name CONTAINS '" + myElement + "'\")"));
+	        assertEquals(slider.getAttribute("name"), myElement);
+		} else {
+		    MobileElement list = (MobileElement) driver.findElement(By.id("org.lds.ldstools.dev:id/drawer_layout"));
+		    MobileElement radioGroup = (MobileElement) list.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
+		                    + "new UiSelector().text(\"" + myElement + "\"));"));
+		    assertNotNull(radioGroup.getLocation());
+		}
+	}
+	
+	public void scrollToElementRecyclerView(String myElement) throws Exception {
+		if(getRunningOS().equals("mac")) {
+	        MobileElement table = (MobileElement) driver.findElement(MobileBy.IosUIAutomation(".tableViews()[0]"));
+	        MobileElement slider = table.findElement(MobileBy
+	                .IosUIAutomation(".scrollToElementWithPredicate(\"name CONTAINS '" + myElement + "'\")"));
+	        assertEquals(slider.getAttribute("name"), myElement);
+		} else {
+		    MobileElement list = (MobileElement) driver.findElement(By.id("org.lds.ldstools.dev:id/top_layout"));
 		    MobileElement radioGroup = (MobileElement) list.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
 		                    + "new UiSelector().text(\"" + myElement + "\"));"));
 		    assertNotNull(radioGroup.getLocation());
