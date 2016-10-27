@@ -171,6 +171,8 @@ public class LDSTools {
 	        capabilities.setCapability("resetKeyboard", "true");
 	        capabilities.setCapability("deviceReadyTimeout", "60");
 	        
+	        capabilities.setCapability("autoAcceptAlerts", true);
+	        
 	        
 	        
 	        
@@ -255,7 +257,7 @@ public class LDSTools {
 		//LeaderBishopric("ngiWB1", true, os); //Bishop shows Stake View - something wrong with the account
 		//LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//bishopMemberOfSeparateStake(os);	
-		LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
+		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
 		//editCurrentUser(os);	
 		//editCurrentUserCancel(os);
@@ -273,7 +275,7 @@ public class LDSTools {
 		//Works in IOS not in Android - need to fix the scrolling problem
 		//checkAllUsersFromWeb(os);
 		
-		
+		LeaderNonBishopricReport("LDSTools16", "High Priest Group", os);
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
@@ -6543,18 +6545,32 @@ public class LDSTools {
 				//Just for testing
 				Thread.sleep(10000);
 				
-				//longPressByID("SignInText");
-				longPressByTextView("Sign in to your LDS Account");
-				Thread.sleep(1000);
-				longPressByTextView("Sign in to your LDS Account");
-				Thread.sleep(1000);
-				
-				
 				clickButtonByXpath("Menu");
-				Thread.sleep(1000);
 				clickButtonByXpath("OverflowSettings");
-				Thread.sleep(2000);
+				scrollToElement("About");
+				clickButton("About", "textAtt", "textAtt");
 				
+				
+				//New way to enable dev settings
+				for (int x = 1; x <= 7; x++ ) {
+					clickButton("AboutLogo", "id", "id");
+					//System.out.println("COUNT: " + x);
+				}
+				pressBackKey();
+				
+				
+				//longPressByID("SignInText");
+				//longPressByTextView("Sign in to your LDS Account");
+				//Thread.sleep(1000);
+				//longPressByTextView("Sign in to your LDS Account");
+				//Thread.sleep(1000);
+				
+				
+				//clickButtonByXpath("Menu");
+				//Thread.sleep(1000);
+				//clickButtonByXpath("OverflowSettings");
+				
+				Thread.sleep(2000);
 				scrollToElement("Network Environment");
 				clickButton("Network Environment", "text", "text");
 				//driver.scrollToExact("Network Environment").click();
@@ -6845,7 +6861,8 @@ public class LDSTools {
 				if (elementCheck == true) {
 					clickButton("Yes", "id", "xpath");
 				} else {
-					clickButton("AlertOK", "id", "xpath");
+					//clickButton("AlertOK", "id", "xpath");
+					clickButton("OK", "textAtt", "xpath");
 				}
 				Thread.sleep(1000);
 			}
@@ -9340,6 +9357,7 @@ public class LDSTools {
 		
 		
 		if (getRunningOS().equals("mac")) {
+			//printPageSource();
 			textCheck = getTextXpath("VisibilityHVL");
 			if (!textCheck.contains("Stake")) {
 				clickButton("HouseholdVisibilityLimit", "id", "xpath");
@@ -10180,6 +10198,7 @@ public class LDSTools {
 		Boolean myErrorTest;
 		int myCounter = 1;
 		clickButton("MenuEdit", "id", "xpath");
+		Thread.sleep(2000);
 		waitForTextToDisappear("Downloading", 500 );
 		myErrorTest = checkElementReturn("Please connect to the Internet", "text", "contValue");
 		
