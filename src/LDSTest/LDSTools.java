@@ -266,7 +266,7 @@ public class LDSTools {
 		//editOtherUserInvalidEmail(os);
 		
 		
-		//editVisibility(os);
+		editVisibility(os);
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
@@ -275,7 +275,10 @@ public class LDSTools {
 		//Works in IOS not in Android - need to fix the scrolling problem
 		//checkAllUsersFromWeb(os);
 		
-		LeaderNonBishopricReport("LDSTools16", "High Priest Group", os);
+		//LeaderNonBishopricReport("LDSTools16", "High Priest Group", os);
+		//LeaderNonBishopricHTVT("LDSTools16", "High Priest Group", os);
+		//LeaderNonBishopricDirectory("LDSTools39", "Ward Council", os);
+		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
@@ -1865,8 +1868,8 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("LDS6 Tools (16)");
 			Thread.sleep(2000);
-			iosExpandAllDirectory();
-			pageSource = getSourceOfPage();
+			pageSource = iosExpandAllDirectory();
+			//pageSource = getSourceOfPage();
 			Assert.assertTrue(checkNoCaseList("Tools", pageSource, "Contains"));
 			Assert.assertTrue(checkNoCaseList("LDS6", pageSource, "Contains"));
 		} else {
@@ -2713,8 +2716,8 @@ public class LDSTools {
 		
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("LDS44 Tools (36)");
-			iosExpandAllDirectory();
-			pageSource = getSourceOfPage();
+			pageSource = iosExpandAllDirectory();
+			//pageSource = getSourceOfPage();
 		} else {
 			//clickButton("Tools, LDS44", "text", "text");
 			pageSource = androidGetMemberInfo();
@@ -2742,8 +2745,8 @@ public class LDSTools {
 		
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("LDS44 Tools (36)");
-			iosExpandAllDirectory();
-			pageSource = getSourceOfPage();
+			pageSource = iosExpandAllDirectory();
+			//pageSource = getSourceOfPage();
 			Assert.assertTrue(checkNoCaseList("LDS44 Tools", pageSource, "Contains"));
 		} else {
 			pageSource = androidGetMemberInfo();
@@ -2770,8 +2773,8 @@ public class LDSTools {
 		
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("LDS44 Tools (36)");
-			iosExpandAllDirectory();
-			pageSource = getSourceOfPage();
+			pageSource = iosExpandAllDirectory();
+			//pageSource = getSourceOfPage();
 			Assert.assertTrue(checkNoCaseList("LDS44 Tools", pageSource, "Contains"));
 		} else {
 			pageSource = androidGetMemberInfo();
@@ -2833,8 +2836,8 @@ public class LDSTools {
 
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("LDS44 Tools (36)");
-			iosExpandAllDirectory();
-			pageSource = getSourceOfPage();
+			pageSource = iosExpandAllDirectory();
+			//pageSource = getSourceOfPage();
 			Assert.assertTrue(checkNoCaseList("LDS44 Tools", pageSource, "Contains"));
 		} else {
 			pageSource = androidGetMemberInfo();
@@ -2897,8 +2900,8 @@ public class LDSTools {
 		
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("LDS41 Tools (36)");
-			iosExpandAllDirectory();
-			pageSource = getSourceOfPage();
+			pageSource = iosExpandAllDirectory();
+			//pageSource = getSourceOfPage();
 		} else {
 			//clickButtonByXpathTitleName("Tools, LDS41");
 			pageSource = androidGetMemberInfo();
@@ -2917,8 +2920,8 @@ public class LDSTools {
 		
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("LDS41 Tools (36)");
-			iosExpandAllDirectory();
-			pageSource = getSourceOfPage();
+			pageSource = iosExpandAllDirectory();
+			//pageSource = getSourceOfPage();
 			Assert.assertTrue(checkNoCaseList("LDS41 Tools", pageSource, "Contains"));
 		} else {
 			pageSource = androidGetMemberInfo();
@@ -2971,8 +2974,8 @@ public class LDSTools {
 		
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("LDS41 Tools (36)");
-			iosExpandAllDirectory();
-			pageSource = getSourceOfPage();
+			pageSource = iosExpandAllDirectory();
+			//pageSource = getSourceOfPage();
 			Assert.assertTrue(checkNoCaseList("LDS41 Tools", pageSource, "Contains"));
 		} else {
 			pageSource = androidGetMemberInfo();
@@ -3025,8 +3028,8 @@ public class LDSTools {
 		
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("LDS41 Tools (36)");
-			iosExpandAllDirectory();
-			pageSource = getSourceOfPage();
+			pageSource = iosExpandAllDirectory();
+			//pageSource = getSourceOfPage();
 			Assert.assertTrue(checkNoCaseList("LDS41 Tools", pageSource, "Contains"));
 		} else {
 			pageSource = androidGetMemberInfo();
@@ -3118,8 +3121,8 @@ public class LDSTools {
 		
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("LDS41 Tools (36)");
-			iosExpandAllDirectory();
-			pageSource = getSourceOfPage();
+			pageSource = iosExpandAllDirectory();
+			//pageSource = getSourceOfPage();
 			Assert.assertTrue(checkNoCaseList("LDS41 Tools", pageSource, "Contains"));
 		} else {
 			pageSource = androidGetMemberInfo();
@@ -3365,8 +3368,8 @@ public class LDSTools {
 		
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("LDS5 Tools");
-			iosExpandAllDirectory();
-			pageSource = getSourceOfPage();
+			pageSource = iosExpandAllDirectory();
+			//pageSource = getSourceOfPage();
 			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
 		} else {
 			//clickButtonByXpathTitleName("Tools, LDS5");
@@ -3449,8 +3452,8 @@ public class LDSTools {
 		
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("LDS5 Tools");
-			iosExpandAllDirectory();
-			pageSource = getSourceOfPage();
+			pageSource = iosExpandAllDirectory();
+			//pageSource = getSourceOfPage();
 			Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
 		} else {
 			//clickButtonByXpathTitleName("Tools, LDS5");
@@ -3567,8 +3570,8 @@ public class LDSTools {
 		
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("LDS5 Tools");
-			iosExpandAllDirectory();
-			pageSource = getSourceOfPage();
+			pageSource = iosExpandAllDirectory();
+			//pageSource = getSourceOfPage();
 			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
 		} else {
 			//clickButtonByXpathTitleName("Tools, LDS5");
@@ -3647,8 +3650,8 @@ public class LDSTools {
 		
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("LDS5 Tools");
-			iosExpandAllDirectory();
-			pageSource = getSourceOfPage();
+			pageSource = iosExpandAllDirectory();
+			//pageSource = getSourceOfPage();
 			//Assert.assertTrue(checkNoCaseList("LDS5 Tools", pageSource, "Contains"));
 		} else {
 			//clickButtonByXpathTitleName("Tools, LDS5");
@@ -4524,27 +4527,35 @@ public class LDSTools {
 						clickButtonByXpath("EnableDevSettings");
 					}
 				}
+				
+				
+				clickButton("Environment: Prod", "byName", "byName");
+				clickButton("Proxy", "byName", "byName");
+				clickButton(chooseNetwork, "byName", "byName");
 
+				pressBackKey();
 				
-				clickButtonByXpathTitleNameContains("Environment");
-				clickButtonByXpath("Proxy");
-				clickButtonByXpath(chooseNetwork);
-				clickButtonByXpath("TopDeveloper");
+				//clickButtonByXpathTitleNameContains("Environment");
+				//clickButtonByXpath("Proxy");
+				//clickButtonByXpath(chooseNetwork);
+				//clickButtonByXpath("TopDeveloper");
 				
-				scrollToElement("Set Max Units");
+				//scrollToElement("Set Max Units");
+				scrollDownIOS();
 				//driver.scrollTo("Set Max Units");
 				clickButtonByXpathTitleNameContains("Set Max Units");
 				sendTextbyXpath("SetMaxUnits", "3");
 				clickButton("OK", "xpath", "xpath");
 				
-
-				clickButtonByXpath("TopHelp");
-				clickButtonByXpath("TopSignIn");
+				pressBackKey();
+				pressBackKey();
+				//clickButtonByXpath("TopHelp");
+				//clickButtonByXpath("TopSignIn");
 				
 			}
 			
-			sendTextbyXpath2("LoginUsername", loginName);
-			sendTextbyXpath2("LoginPassword", loginPassword);
+			sendTextbyXpath("LoginUsername", loginName);
+			sendTextbyXpath("LoginPassword", loginPassword);
 			clickButtonByXpath("DoneButton");
 			Thread.sleep(4000);
 			
@@ -4565,7 +4576,8 @@ public class LDSTools {
 			
 			clickButtonByXpath("SpinnerSubTitle");
 			//Get Stake and all Wards
-			options= driver.findElements(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell/UIAStaticText"));
+			//options= driver.findElements(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell/UIAStaticText"));
+			options= driver.findElements(By.xpath("//XCUIElementTypeApplication/XCUIElementTypeWindow/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText"));
 			for (int i = 0 ; i < options.size(); i++ ) {
 				//System.out.println(options.get(i).getText());
 				StakeWard.add(options.get(i).getText());
@@ -6604,16 +6616,17 @@ public class LDSTools {
 				Thread.sleep(1000);
 				clickButtonByXpath("TopHelp");
 				
-				
-				if (checkElementExistsByXpath("DeveloperSettings") == true) {
-					clickButtonByXpath("DeveloperSettings");
-				} else {
-					//New way to enable dev settings
+
+				//New way to enable dev settings
+				if (checkElementNameReturn("Developer Settings") == false) {
 					for (int x = 1; x <= 5; x++ ) {
 						clickButtonByXpath("EnableDevSettings");
 						//System.out.println("COUNT: " + x);
 					}
+				} else {
+					clickButton("Developer Settings", "byName", "byName");
 				}
+
 
 				
 				//clickButtonByXpathTitleNameContains("Environment");
@@ -6622,14 +6635,15 @@ public class LDSTools {
 				//System.out.println("***********************************************");
 
 				//clickButtonByXpath("DevEnviroment");
-				clickButton("Environment: Prod", "byName", "byName");
-				//clickButtonByXpath("Proxy");
-				clickButton("Proxy", "byName", "byName");
-				//clickButtonByXpath(chooseNetwork);
-				clickButton(chooseNetwork, "byName", "byName");
-				
-				
-				pressBackKey();
+				if (checkElementNameReturn("Environment: UAT") == false) {
+					clickButton("Environment: Prod", "byName", "byName");
+					//clickButtonByXpath("Proxy");
+					clickButton("Proxy", "byName", "byName");
+					//clickButtonByXpath(chooseNetwork);
+					clickButton(chooseNetwork, "byName", "byName");
+					pressBackKey();
+				}
+
 				pressBackKey();
 				pressBackKey();
 				
@@ -6848,7 +6862,7 @@ public class LDSTools {
 			clickButtonByXpath("OK");
 			Thread.sleep(5000);
 		}
-		
+		Thread.sleep(1000);
 		
 		//If this is a non-leader account the PIN message will be different
 		//myCheck = checkTextByXpathReturn("AlertMessage", "Please create a PIN to protect sensitive data available to leaders.");
@@ -6961,8 +6975,8 @@ public class LDSTools {
 			}
 			
 			//clickButton("Jane Aaron", "text", "text");
-			iosExpandAllDirectory();
-			pageSource = getSourceOfPage();
+			pageSource = iosExpandAllDirectory();
+			//pageSource = getSourceOfPage();
 			//Assert.assertTrue(checkNoCaseList("Aaron, Jane", pageSource, "Contains"));
 		} else {
 			//clickButtonByXpathTitleName("Aaron, Jane");
@@ -8352,11 +8366,13 @@ public class LDSTools {
 				Assert.assertTrue(checkElementTextViewReturnContains("AFPMisc, Member12"));
 			}
 
+
 			pressBackKey();
+
 			pressBackKey();
-			openDirectory();
 
 		}	
+		openDirectory();
 		
 	}
 	
@@ -9569,8 +9585,8 @@ public class LDSTools {
 		
 		if (getRunningOS().equals("mac")) {
 			//clickButtonByXpathTitleName(userSwitch);
-			iosExpandAllDirectory();
-			pageSource = getSourceOfPage();
+			pageSource = iosExpandAllDirectory();
+			//pageSource = getSourceOfPage();
 			Assert.assertTrue(checkNoCaseList(userToCheck, pageSource, "Equals"));
 		} else {
 			clickButtonByXpathTitleName(userToCheck);
@@ -10001,11 +10017,12 @@ public class LDSTools {
 	}
 	
 	
-	private void iosExpandAllDirectory() throws Exception {
+	private String iosExpandAllDirectory() throws Exception {
 		scrollDownIOS();
 		//Thread.sleep(1000);
 		boolean checkArrowDown;
 		boolean checkForLabel;
+		String myPageSource;
 		
 		//scrollToLastElementIOS("Open Drawer");
 		//driver.swipe(50, 1000, 50, 500, 1000);
@@ -10039,7 +10056,21 @@ public class LDSTools {
 			checkForLabel = false;
 		}	
 		
+		
+		
+		
+		//Contact Tab
+		Thread.sleep(1000);
+		myPageSource = getSourceOfPage();
+		//scrollDownTEST(100);
 		scrollDownIOS();
+
+		myPageSource = myPageSource + getSourceOfPage();
+		
+		//scrollToTheTop();
+		return myPageSource;
+		
+		
 
 		/*
 		//checkArrowDown = checkElementTextViewRoboReturn("\u25BC");
