@@ -266,7 +266,7 @@ public class LDSTools {
 		//editOtherUserInvalidEmail(os);
 		
 		
-		editVisibility(os);
+		//editVisibility(os);
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
@@ -291,7 +291,7 @@ public class LDSTools {
 		
 		
 		//Not clearing the username and password on iOS
-		//invalidLoginCheck(os);	
+		invalidLoginCheck(os);	
 		
 		//searchForUsersFromWeb(os);
 
