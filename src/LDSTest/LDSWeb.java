@@ -798,14 +798,16 @@ public class LDSWeb {
 			//System.out.println("Outer HTML:" + outerHTML);
 		}
 		
-		
+
 		for (Element myElement : myTestRemove ) {
 			//myElement = myElement.attr("class", "ng-binding ng-isolate-scope popover-link");
+			myElement = myElement.attr("title", "Delete teacher");
 			outerHTML = myElement.text();
+			System.out.println("Before Outer HTML:" + outerHTML);
 			if (outerHTML.contains("Home")) {
-				outerHTML = StringUtils.substringBefore(outerHTML, " Home");
+				outerHTML = StringUtils.substringBefore(outerHTML, " Home Teachers");
 			} else {
-				outerHTML = StringUtils.substringBefore(outerHTML, " Visiting");
+				outerHTML = StringUtils.substringBefore(outerHTML, " Visiting Teachers");
 			}
 			
 			if (outerHTML.contains(",")) {
@@ -814,15 +816,13 @@ public class LDSWeb {
 				}
 				removeUsers.add(outerHTML);
 			}
-			//System.out.println("Outer HTML:" + outerHTML);
+			System.out.println("After Outer HTML:" + outerHTML);
 		}
 		
 		for(String removeOneUser : removeUsers){
 			System.out.println("Remove User: " + removeOneUser);
 			foundUsers.remove(removeOneUser);
 		}
-		
-		
 		
 		/*
 		for (Element myElement : myTest1 ) {
