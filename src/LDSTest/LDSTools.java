@@ -277,13 +277,14 @@ public class LDSTools {
 		
 		//LeaderNonBishopricReport("LDSTools16", "High Priest Group", os);
 		//LeaderNonBishopricHTVT("LDSTools16", "High Priest Group", os);
+		//LeaderNonBishopricDirectory("LDSTools16", "High Priest Group", os);
 		//LeaderNonBishopricDirectory("LDSTools39", "Ward Council", os);
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
-		//LeaderBishopricHTVT("ngiBPC1", false, os); 
-		
+		LeaderBishopricHTVT("ngiBPC1", false, os); 
+
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		
 		
@@ -291,7 +292,7 @@ public class LDSTools {
 		
 		
 		//Not clearing the username and password on iOS
-		invalidLoginCheck(os);	
+		//invalidLoginCheck(os);	
 		
 		//searchForUsersFromWeb(os);
 
@@ -8986,9 +8987,9 @@ public class LDSTools {
 			if (getRunningOS().equals("mac")) {
 				clickButtonByXpathTitleName("Visiting Teaching");
 			} else {
-				//scrollDownTEST(200);
+				scrollDownTEST(200);
 				//Thread.sleep(1000);
-				scrollToElementDrawerMenu("Visiting Teaching");
+				//scrollToElementRecyclerView("Visiting Teaching");
 				//driver.scrollToExact("Visiting Teaching");
 				clickButtonByXpathTitleName("Visiting Teaching");
 			}
@@ -9691,6 +9692,11 @@ public class LDSTools {
 					}
 				}
 				*/
+				//System.out.println("###### Printing List #######");
+				//for (int x = 0 ; x < myList.size() ; x++ )	{
+				//	System.out.println(myList.get(x));
+				//}
+				//System.out.println("###### Done Printing List #######");
 				System.out.println("****** Android Users ******");
 				if(!myList.isEmpty()) {
 					for(int myCounter = 0 ; myCounter < androidList.size() ; myCounter++) {
@@ -9698,7 +9704,7 @@ public class LDSTools {
 								|| (myList.get(myCounter).contains("Joseph")) || (myList.get(myCounter).contains("Junior"))) {
 							System.out.println("Skipping: " + myList.get(myCounter));
 						} else {
-							System.out.println("Android USER: " + myList.get(myCounter));
+							System.out.println("Android USER: " + androidList.get(myCounter));
 							Assert.assertTrue(myList.contains(androidList.get(myCounter)));
 						}
 					}
@@ -10824,7 +10830,7 @@ public class LDSTools {
 		//	clickButtonByXpathTitleName("Young Single Adult Interviews");
 		//} else {
 			//Thread.sleep(1000);
-			//scrollToElementRecyclerView("Young Single Adult Interviews");
+			//scrollToElementMemberList("Young Single Adult Interviews");
 			//clickButton("Young Single Adult Interviews", "text", "text");
 			//driver.scrollToExact("Young Single Adult Interviews").click();
 		//}
@@ -11057,7 +11063,7 @@ public class LDSTools {
 	                .IosUIAutomation(".scrollToElementWithPredicate(\"name CONTAINS '" + myElement + "'\")"));
 	        assertEquals(slider.getAttribute("name"), myElement);
 		} else {
-		    MobileElement list = (MobileElement) driver.findElement(By.id("org.lds.ldstools.dev:id/top_layout"));
+		    MobileElement list = (MobileElement) driver.findElement(By.id("org.lds.ldstools.dev:id/recycler_view"));
 		    MobileElement radioGroup = (MobileElement) list.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
 		                    + "new UiSelector().text(\"" + myElement + "\"));"));
 		    assertNotNull(radioGroup.getLocation());
