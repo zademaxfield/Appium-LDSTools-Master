@@ -281,6 +281,8 @@ public class LDSTools {
 		//LeaderNonBishopricDirectory("LDSTools39", "Ward Council", os);
 		//LeaderNonBishopricHTVT("LDSTools26", "Relief Society Pres", os);
 		
+		//LeaderNonBishopricReport("LDSTools39", "Ward Council", os);
+		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		LeaderBishopricReport("ngiBPC1", false, os);
@@ -7760,8 +7762,8 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("Unit Statistics");
 		} else {
-			//scrollDownTEST(100);
-			scrollToElementMemberList("Unit Statistics");
+			scrollDownTEST(100);
+			//scrollToElementMemberList("Unit Statistics");
 			//driver.scrollToExact("Unit Statistics");
 			clickButtonByXpathTitleName("Unit Statistics");
 		}
