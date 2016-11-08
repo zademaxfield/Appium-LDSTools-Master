@@ -188,6 +188,7 @@ public class LDSTools {
 		//Setup for iOS
 		if (os.equals("ios")) {
 			//IOSDriver driver;
+			
 	        // set up appium
 	        File classpathRoot = new File(System.getProperty("user.dir"));
 	        //File appDir = new File(classpathRoot, "..\\..\\..\\..\\Selenium");
@@ -280,12 +281,13 @@ public class LDSTools {
 		//LeaderNonBishopricDirectory("LDSTools16", "High Priest Group", os);
 		//LeaderNonBishopricDirectory("LDSTools39", "Ward Council", os);
 		//LeaderNonBishopricHTVT("LDSTools26", "Relief Society Pres", os);
+		//LeaderNonBishopricMissionary("LDSTools20", "High Priest Group", os);
 		
 		//LeaderNonBishopricReport("LDSTools39", "Ward Council", os);
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
-		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
-		LeaderBishopricReport("ngiBPC1", false, os);
+		LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
+		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
@@ -349,10 +351,54 @@ public class LDSTools {
 
 	}
 
+
 	
 	
 	public void justForTesting(String os) throws Exception {
+		String mySource;
+		List<String> myList = new ArrayList<String>();
 		
+		syncLogIn("LDSTools21", "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+		openTemples();
+		runSync();
+		Thread.sleep(2000);
+		openTemples();
+
+		mySource = driver.getPageSource();
+		
+		myWeb.MyTemplePageLogIn("https://uat.lds.org/mls/mbr/?lang=eng", myUserName, myPassword);
+		//Check the Temple Name
+		if (mySource.contains(myWeb.TempleGetName())){
+			Assert.assertTrue(true);
+		} else {
+			System.out.println("Not Found: " + myWeb.TempleGetName());
+			Assert.assertTrue(false);
+		}
+		
+		myList = myWeb.TempleGetPhysicalAddress();
+		checkSource(mySource, myList);
+		
+		myList = myWeb.TempleGetServices();
+		checkSource(mySource, myList);
+		
+		myList = myWeb.TempleGetMilestones();
+		checkSource(mySource, myList);
+		
+		
+		//TempleGetName()
+		//TempleGetPhysicalAddress()
+		//TempleGetMailingAddress() 
+		//TempleGetTelephone()
+		//TempleGetSchedule()
+		//TempleGetFamilyNameCards() 
+		//TempleGetGroupAttendance()
+		//TempleGetServices()
+		//TempleGetMilestones() 
+
+		
+		
+		/*
 		//LDSWeb myWeb = new LDSWeb();
 		//Data from Web page
 		List<String> myList = new ArrayList<String>();
@@ -467,7 +513,7 @@ public class LDSTools {
 		pressBackKey();
 			
 		
-		
+		*/
 		
 		//checkWebMemberInfo("LDSTools23", "password1", "Aaron, Jane");
 
@@ -6019,6 +6065,11 @@ public class LDSTools {
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.name(textElement)));
 	}
 	
+	private void waitForTextToDisappearByText(String textElement, int myTimeOut){
+		WebDriverWait wait = new WebDriverWait(driver, myTimeOut);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(@name, '" + textElement + "')]")));
+	}
+	
 	private void waitForTextToDisappearID(String textElement, int myTimeOut){
 		WebDriverWait wait = new WebDriverWait(driver, myTimeOut);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id(this.prop.getProperty(textElement))));
@@ -6677,7 +6728,8 @@ public class LDSTools {
 			
 			unitsToSync();
 			
-			waitForTextToDisappear("DownloadingSync", 500 );
+			//waitForTextToDisappear("DownloadingSync", 500 );
+			waitForTextToDisappearName(chooseNetwork, 500 );
 			Thread.sleep(8000);
 		}
 	}
@@ -6745,6 +6797,7 @@ public class LDSTools {
 				clickButtonByID("SignInButton");
 				Thread.sleep(4000);
 				waitForTextToDisappearID("SyncText", 500 );
+				
 				Thread.sleep(2000);
 
 			}
@@ -6820,8 +6873,9 @@ public class LDSTools {
 				unitsToSync();
 				
 				//waitForTextToDisappear("DownloadingSync", 500 );
-				waitForTextToDisappearName("Proxy", 500 );
-				Thread.sleep(8000);
+				printPageSource();
+				waitForTextToDisappearName("SVProgressHUD", 500 );
+				Thread.sleep(25000);
 			}
 		}
 	}
@@ -7186,6 +7240,12 @@ public class LDSTools {
 			clickButtonByXpath("DrawerDirectory");
 		}
 	
+	}
+	
+	private void checkForLater() throws Exception {
+		if (checkElementReturn("Later", "textAtt", "value") == true ) {
+			clickButtonByXpathTitleName("Later");
+		}
 	}
 	
 	/** checkCallings()
@@ -9846,6 +9906,7 @@ public class LDSTools {
 			clickButton("Directory", "byName", "byName");
 		} else {
 			clickButtonByXpath("Drawer");
+			checkForLater();
 			clickButtonByXpath("DrawerDirectory");
 		}
 	}
@@ -9857,6 +9918,7 @@ public class LDSTools {
 			clickButton("Organizations", "byName", "byName");
 		} else {
 			clickButtonByXpath("Drawer");
+			checkForLater();
 			clickButtonByXpath("DrawerOrganizations");
 		}
 	}
@@ -9868,6 +9930,7 @@ public class LDSTools {
 			clickButtonByXpath("DrawerMissionary");
 		} else {
 			clickButtonByXpath("Drawer");
+			checkForLater();
 			clickButtonByXpath("DrawerMissionary");
 		}
 	}
@@ -9878,6 +9941,7 @@ public class LDSTools {
 			clickButton("Reports", "byName", "byName");
 		} else {
 			clickButtonByXpath("Drawer");
+			checkForLater();
 			clickButtonByXpath("DrawerReports");
 		}
 	}
@@ -9888,6 +9952,7 @@ public class LDSTools {
 			clickButton("Calendar", "byName", "byName");
 		} else {
 			clickButtonByXpath("Drawer");
+			checkForLater();
 			clickButtonByXpath("DrawerCalendar");
 		}
 	}
@@ -9901,7 +9966,20 @@ public class LDSTools {
 			clickButton("Lists", "byName", "byName");
 		} else {
 			clickButtonByXpath("Drawer");
+			checkForLater();
 			clickButtonByXpath("DrawerLists");
+		}
+	}
+	
+	
+	private void openTemples() throws Exception {
+		if (getRunningOS().equals("mac")) {
+			clickButton("More", "byName", "byName");
+			clickButton("Temples", "byName", "byName");
+		} else {
+			clickButtonByXpath("Drawer");
+			checkForLater();
+			clickButtonByXpath("DrawerTemples");
 		}
 	}
 	
@@ -9909,19 +9987,25 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			//clickButtonByXpath("DrawerMore");
 			clickButton("More", "byName", "byName");
-			//Check to see if the sync page is dispalyed
+			//Check to see if the sync page is displayed
 			if (checkElementNameReturn("Sync Now") == true) {
 				pressBackKey();
 			}
 			
-			//clickButtonByXpath("DrawerUpdate");
-			clickButton("Update", "byName", "byName");
+			if (checkElementNameReturn("Update") == true) {
+				clickButton("Update", "byName", "byName");
+			} else {
+				clickButton("Sync", "byName", "byName");
+			}
+
+			
 			
 			//This will probably change
 			Thread.sleep(1000);
 			//clickButtonByXpath("SignInButton");
 			//driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[1]/UIAStaticText[@name='Sync Now']")).click();
-			clickButton("Sync Now", "byName", "byName");
+			//clickButton("Sync Now", "byName", "byName");
+			clickButtonByNameMultiple("Sync Now", 1);
 			//clickButtonByName("Sync Now");
 			Thread.sleep(6000);
 			waitForTextToDisappear("SyncText", 500 );
@@ -11079,6 +11163,22 @@ public class LDSTools {
 		System.out.println("***********************************************");
 	}
 	
+	public void checkSourceString(String pageSource, String textToCheck) throws Exception {
+		if (pageSource.contains(textToCheck)){
+			Assert.assertTrue(true);
+		} else {
+			System.out.println("Not Found: " + textToCheck);
+			Assert.assertTrue(false);
+		}
+	}
+	
+	public void checkSource(String pageSource, List<String> myList) throws Exception {
+		for(String oneLine : myList){
+			//System.out.println("TEXT: " + oneLine);
+			checkSourceString(pageSource, oneLine);	
+		}
+	}
+	
 	// **************************************************************************************
 	// **************************OLD METHODS ************************************************
 	// **************************************************************************************
@@ -11237,9 +11337,6 @@ public class LDSTools {
 			driver.quit();
 		}
 		
-
-		
-
 		
 		Thread.sleep(2000);
 		
@@ -11285,9 +11382,7 @@ public class LDSTools {
 		}
 		*/
 	}
-	
-	
-	
+
 
 	@Parameters({"os"})
 	@BeforeMethod(alwaysRun = true)
