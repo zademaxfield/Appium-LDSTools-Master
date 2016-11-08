@@ -76,7 +76,7 @@ public class LDSWeb {
 	@Test
 	public void simpleTest() throws Exception {
 		
-		/*
+		
 		String userName = "LDSTools2";
 		String passWord = "toolstester";
 		
@@ -87,21 +87,28 @@ public class LDSWeb {
 		setUp();
 		
 		Thread.sleep(4000);
-		openWebPage("https://uat.lds.org/church/temples");
+		//openWebPage("https://uat.lds.org/church/temples");
+		openWebPage("https://uat.lds.org/mls/mbr");
 		//openWebPage(url);
 		Thread.sleep(2000);
-		clickElement("TempleMyAccount", "xpath");
+		//clickElement("TempleMyAccount", "xpath");
 		//Thread.sleep(2000);
-		clickElement("Sign In", "linkText");
+		//clickElement("Sign In", "linkText");
 		
 		driver.findElement(By.id(this.prop.getProperty("UserName"))).sendKeys(userName);
 		//Thread.sleep(1000);
 		driver.findElement(By.id(this.prop.getProperty("Password"))).sendKeys(passWord);
 		clickElement("SignIn", "id");
+		clickElement("MyAccountAndWard", "id");
+		clickElement("My Temple", "linkText");
 		
-		clickElement("Find a Temple", "linkText");
+		//clickElement("Find a Temple", "linkText");
 		//clickElement("Boise Idaho", "linkText");
-		clickElement("Oquirrh Mountain Utah", "linkText");
+		//clickElement("Oquirrh Mountain Utah", "linkText");
+		
+		//Get the Temple Name
+		System.out.println("Temple Name");
+		System.out.println(getText("TempleTitle", "xpath"));
 		
 		//Get the Physical Address
 		System.out.println("Physical Address");
@@ -144,7 +151,7 @@ public class LDSWeb {
 		myText = getTextFromSource(mySource, "dt, dd");
 
 		Thread.sleep(10000);
-		*/
+		
 		
 		/*
 		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
@@ -165,8 +172,8 @@ public class LDSWeb {
 		*/
 		
 		
-		ABSetEventColinMacNeil();
-		ABSync();
+		//ABSetEventColinMacNeil();
+		//ABSync();
 		
 		
 		/*
@@ -284,6 +291,21 @@ public class LDSWeb {
 		clickElement("Progress Record", "linkText");
 		Thread.sleep(4000);
 		clickElement("Visit last 2 wks", "text");
+	}
+	
+	public void MyTemplePageLogIn(String url, String userName, String passWord) throws Exception {
+		openGuiMap();
+		setUp();
+		
+		Thread.sleep(4000);
+		openWebPage("https://uat.lds.org/mls/mbr");
+		Thread.sleep(2000);
+		
+		driver.findElement(By.id(this.prop.getProperty("UserName"))).sendKeys(userName);
+		driver.findElement(By.id(this.prop.getProperty("Password"))).sendKeys(passWord);
+		clickElement("SignIn", "id");
+		clickElement("MyAccountAndWard", "id");
+		clickElement("My Temple", "linkText");
 	}
 	
 	
@@ -2342,7 +2364,122 @@ public class LDSWeb {
 		}
 	}
 	
+	//Get the Temple Name
+	public String TempleGetName() throws Exception {
+		String templeName;
+		templeName = getText("TempleTitle", "xpath");
+		//System.out.println("Temple Name");
+		//System.out.println(templeName);
+		
+		return templeName;
+		
+	}
 	
+	//Get the Temple Physical Address
+	public List<String> TempleGetPhysicalAddress() throws Exception {
+		String mySource;
+		List<String> templePhysicalAddress = new ArrayList<String>();
+		
+		//System.out.println("Physical Address");
+		mySource = getSourceOfElement("TemplePhysicalAddress");
+		templePhysicalAddress = getTextFromSource(mySource, "li");
+		
+		return templePhysicalAddress;
+		
+	}
+	
+	//Get the Temple Mailing Address
+	public List<String> TempleGetMailingAddress() throws Exception {
+		String mySource;
+		List<String> templeMailingAddress = new ArrayList<String>();
+		
+		//System.out.println("Physical Address");
+		mySource = getSourceOfElement("TempleMailingAddress");
+		templeMailingAddress = getTextFromSource(mySource, "li");
+		
+		return templeMailingAddress;
+		
+	}
+	
+	//Get the Temple Telephone
+	public List<String> TempleGetTelephone() throws Exception {
+		String mySource;
+		List<String> templeTelephone = new ArrayList<String>();
+		
+		//System.out.println("Physical Address");
+		mySource = getSourceOfElement("TempleTelephone");
+		templeTelephone = getTextFromSource(mySource, "li");
+		
+		return templeTelephone;
+		
+	}
+	
+	//Get the Temple Schedule
+	public List<String> TempleGetSchedule() throws Exception {
+		String mySource;
+		List<String> templeSchedule= new ArrayList<String>();
+		
+		//System.out.println("Physical Address");
+		mySource = getSourceOfElement("TempleSchedule");
+		templeSchedule = getTextFromSource(mySource, "li");
+		
+		return templeSchedule;
+		
+	}
+	
+	//Get the Temple Family Name cards
+	public List<String> TempleGetFamilyNameCards() throws Exception {
+		String mySource;
+		List<String> templeFamilyNameCards = new ArrayList<String>();
+		
+		//System.out.println("Physical Address");
+		mySource = getSourceOfElement("TempleFamilyNameCards");
+		templeFamilyNameCards = getTextFromSource(mySource, "li");
+		
+		return templeFamilyNameCards;
+		
+	}
+	
+	//Get the Temple Group Attendance
+	public List<String> TempleGetGroupAttendance() throws Exception {
+		String mySource;
+		List<String> templeGroupAttendance = new ArrayList<String>();
+		
+		//System.out.println("Physical Address");
+		mySource = getSourceOfElement("TempleGroupAttendance");
+		templeGroupAttendance = getTextFromSource(mySource, "li");
+		
+		return templeGroupAttendance;
+		
+	}
+	
+	//Get the Temple Services
+	public List<String> TempleGetServices() throws Exception {
+		String mySource;
+		List<String> templeServices = new ArrayList<String>();
+		
+		//System.out.println("Physical Address");
+		mySource = getSourceOfElement("TempleServices");
+		templeServices = getTextFromSource(mySource, "li");
+		
+		return templeServices;
+		
+	}
+	
+	//Get the Temple Milestones
+	public List<String> TempleGetMilestones() throws Exception {
+		String mySource;
+		List<String> templeMilestones = new ArrayList<String>();
+		
+		//System.out.println("Physical Address");
+		mySource = getSourceOfElement("TempleMilestones");
+		templeMilestones = getTextFromSource(mySource, "li");
+		
+		return templeMilestones;
+		
+	}
+	
+
 	
 	@After
 	public void tearDown() throws Exception {
