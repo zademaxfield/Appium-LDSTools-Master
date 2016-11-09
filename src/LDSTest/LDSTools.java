@@ -18,7 +18,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
@@ -47,6 +49,8 @@ import io.appium.java_client.ios.*;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.remote.HideKeyboardStrategy;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
+import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.selendroid.SelendroidKeys;
 
 import org.apache.commons.io.FileUtils;
@@ -64,6 +68,7 @@ import org.junit.runner.Description;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Request;
 import org.junit.runners.model.Statement;
+import org.openqa.jetty.jetty.win32.Service;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Dimension;
@@ -95,6 +100,10 @@ import com.thoughtworks.selenium.Wait;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import io.appium.java_client.service.local.AppiumDriverLocalService;
+import io.appium.java_client.service.local.AppiumServiceBuilder;
+import io.appium.java_client.service.local.flags.GeneralServerFlag;
+
 //Not used yet
 //import org.openqa.selenium.WebElement;
 
@@ -122,6 +131,9 @@ public class LDSTools {
 	private String myPassword = "Not Set";
 	
 	public String myAppPackage;
+	AppiumDriverLocalService myAppiumService;
+	
+
 
 	
 	/** Setup Appium driver
@@ -138,6 +150,21 @@ public class LDSTools {
 		
 		//Android Setup
 		if (os.equals("android")) {
+			
+			
+			File appiumLogFile = new File("screenshot/myAppiumLog.txt");
+			new FileOutputStream(appiumLogFile, false).close();
+			AppiumDriverLocalService myAppiumService = new AppiumServiceBuilder()
+					.usingPort(4444)
+					.withIPAddress("127.0.0.1")
+					.withLogFile(appiumLogFile)
+					.withArgument(GeneralServerFlag.LOG_LEVEL, "error")
+					.build();
+			
+			myAppiumService.start();
+			
+			
+			
 			 // set up appium
 	        File classpathRoot = new File(System.getProperty("user.dir"));
 	        //File appDir = new File(classpathRoot, "..\\..\\..\\..\\Selenium");
@@ -189,6 +216,21 @@ public class LDSTools {
 		if (os.equals("ios")) {
 			//IOSDriver driver;
 			
+			//startAppiumServer();
+			//new AppiumServiceBuilder().usingPort(4445);
+			File appiumLogFile = new File("screenshot/myAppiumLog.txt");
+			new FileOutputStream(appiumLogFile, false).close();
+			AppiumDriverLocalService myAppiumService = new AppiumServiceBuilder()
+					.usingPort(4445)
+					.withIPAddress("127.0.0.1")
+					.withLogFile(appiumLogFile)
+					.withArgument(GeneralServerFlag.LOG_LEVEL, "error")
+					.build();
+			
+			myAppiumService.start();
+			//Thread.sleep(8000);
+
+			
 	        // set up appium
 	        File classpathRoot = new File(System.getProperty("user.dir"));
 	        //File appDir = new File(classpathRoot, "..\\..\\..\\..\\Selenium");
@@ -214,7 +256,7 @@ public class LDSTools {
 	        capabilities.setCapability("fullReset", true);
 	        //capabilities.setCapability("noReset", true);
 	        
-	        capabilities.setCapability("showIOSLog", true);
+	        //capabilities.setCapability("showIOSLog", true);
 	        
 	        
 	        capabilities.setCapability("newCommandTimeout", 600);
@@ -278,7 +320,7 @@ public class LDSTools {
 		
 		//LeaderNonBishopricReport("LDSTools16", "High Priest Group", os);
 		//LeaderNonBishopricHTVT("LDSTools16", "High Priest Group", os);
-		//LeaderNonBishopricDirectory("LDSTools16", "High Priest Group", os);
+		LeaderNonBishopricDirectory("LDSTools16", "High Priest Group", os);
 		//LeaderNonBishopricDirectory("LDSTools39", "Ward Council", os);
 		//LeaderNonBishopricHTVT("LDSTools26", "Relief Society Pres", os);
 		//LeaderNonBishopricMissionary("LDSTools20", "High Priest Group", os);
@@ -286,7 +328,7 @@ public class LDSTools {
 		//LeaderNonBishopricReport("LDSTools39", "Ward Council", os);
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
-		LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
+		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
@@ -9541,9 +9583,18 @@ public class LDSTools {
 			//driver.findElementByXPath("//UIAStaticText[@label='" + userToSearch + "']").click();
 			//driver.findElementByXPath("//UIAStaticText[contains(@label, '" + userToSearch + "')]").click();
 			//myElement = driver.findElement(By.xpath("//UIATableCell/UIAStaticText[contains(@label, '" + userToSearch + "')]"));
+			
+			//printPageSource();
+			//clickButtonByName(userToSearch);
+			
 			myElement = driver.findElement(By.name(userToSearch));
+			//driver.tap(1, myElement, 700);
+
 			Point myPoint = myElement.getLocation();
 			driver.tap(1, myPoint.x, myPoint.y, 700);
+			
+			//clickButtonByNameMultiple(userToSearch, 0);
+
 			
 		} else {
 			clickButtonByID("MenuDefaultDirectory");
@@ -11336,8 +11387,11 @@ public class LDSTools {
 		} else {
 			driver.quit();
 		}
-		
-		
+		//myAppiumService.stop();
+		//if (myAppiumService.isRunning()) {
+		System.out.println("Killing the Appium Service");
+		killProcess("main.js");
+		//}
 		Thread.sleep(2000);
 		
 	}
@@ -11353,6 +11407,43 @@ public class LDSTools {
 			System.out.println(line);
 		}
 	}
+	
+	public void startAppiumServer() throws Exception {
+	   List<String> list = new ArrayList<String>();
+	   list.add("/usr/local/bin/appium");
+	   list.add("--address");
+	   list.add("127.0.0.1");
+	   list.add("--port");
+	   list.add("4445");
+	   list.add("--log-level");
+	   list.add("debug");
+	      
+	   // create the process builder
+	   ProcessBuilder pb = new ProcessBuilder(list);
+	      
+	   // get the command list
+	   System.out.println(""+pb.command());
+	   Process process = pb.start();
+	   System.out.println("Echo Output:\n" + output(process.getInputStream())); 
+	   Thread.sleep(30000);
+
+	}
+	
+	private static String output(InputStream inputStream) throws IOException {
+		StringBuilder sb = new StringBuilder();
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new InputStreamReader(inputStream));
+			String line = null;
+			while ((line = br.readLine()) != null) {
+				sb.append(line + System.getProperty("line.separator"));
+			}
+		} finally {
+			br.close();
+		}
+		return sb.toString();
+
+}
 	
 	
 	public void takeScreenShot() throws Exception {
