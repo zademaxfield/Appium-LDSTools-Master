@@ -155,6 +155,7 @@ public class LDSTools {
 			File appiumLogFile = new File("screenshot/myAppiumLog.txt");
 			new FileOutputStream(appiumLogFile, false).close();
 			AppiumDriverLocalService myAppiumService = new AppiumServiceBuilder()
+					.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
 					.usingPort(4444)
 					.withIPAddress("127.0.0.1")
 					.withLogFile(appiumLogFile)
@@ -221,6 +222,7 @@ public class LDSTools {
 			File appiumLogFile = new File("screenshot/myAppiumLog.txt");
 			new FileOutputStream(appiumLogFile, false).close();
 			AppiumDriverLocalService myAppiumService = new AppiumServiceBuilder()
+					.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
 					.usingPort(4445)
 					.withIPAddress("127.0.0.1")
 					.withLogFile(appiumLogFile)
@@ -7071,7 +7073,7 @@ public class LDSTools {
 			if (fullName == false ) {
 				clickButtonByXpathTitleName("Jane Aaron");
 			} else {
-				clickButtonByXpathTitleName("Jane Aaron (55)");
+				clickButtonByXpathTitleName("Jane Aaron (56)");
 			}
 			
 			//clickButton("Jane Aaron", "text", "text");
