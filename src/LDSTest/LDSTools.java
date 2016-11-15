@@ -322,14 +322,14 @@ public class LDSTools {
 		
 		//LeaderNonBishopricReport("LDSTools16", "High Priest Group", os);
 		//LeaderNonBishopricHTVT("LDSTools16", "High Priest Group", os);
-		LeaderNonBishopricDirectory("LDSTools16", "High Priest Group", os);
+		//LeaderNonBishopricDirectory("LDSTools16", "High Priest Group", os);
 		//LeaderNonBishopricDirectory("LDSTools39", "Ward Council", os);
 		//LeaderNonBishopricHTVT("LDSTools26", "Relief Society Pres", os);
 		//LeaderNonBishopricMissionary("LDSTools20", "High Priest Group", os);
 		
 		//LeaderNonBishopricReport("LDSTools39", "Ward Council", os);
 		
-		//LeaderBishopricDirectory("ngiBPC1", false, os);
+		LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
@@ -7526,7 +7526,7 @@ public class LDSTools {
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Young Single Adult Leader", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Solomona, Solomona", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Young Yen", pageSource, "Contains"));
 		pressBackKey();
 		clickButtonByXpathTitleName("Music");
 		Thread.sleep(1000);
@@ -7639,7 +7639,7 @@ public class LDSTools {
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
 
-		Assert.assertTrue(checkNoCaseList("Vui, Line", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Tulia, Malu", pageSource, "Contains"));
 
 		//The new unit is only available for bishop
 		if (bishop == true){
@@ -7657,8 +7657,8 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Members Moved In");
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Endemann", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Eddie", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Kitara", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("June", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Skywalker, Luke", pageSource, "Equals"));
 
 		Thread.sleep(1000);
@@ -7684,10 +7684,10 @@ public class LDSTools {
 			clickButtonByXpathTitleName("Organization");
 		}
 		pageSource = getSourceOfPage();
-		//Assert.assertTrue(checkNoCaseList("Ward Clerk", pageSource, "Equals"));
-		//Assert.assertTrue(checkNoCaseList("Kitara, Lafaele (3 months)", pageSource, "Equals"));
+		Assert.assertTrue(checkNoCaseList("Ward Clerk", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Kitara, Lafaele", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Bishop", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Kitara, Sam", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Ami, Samu", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("2 years, 4 months", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Kenobi, Obi-Wan", pageSource, "Equals"));
 
@@ -7698,8 +7698,8 @@ public class LDSTools {
 			clickButtonByXpathTitleName("Duration");
 		}
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Young Women President", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Tutunoa, Lusi", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Sunday School President", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Lealaiauloto, Uana Iosefa Sao", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Amidala, Padme", pageSource, "Contains"));
 
 		if (getRunningOS().equals("mac")) {
@@ -7709,9 +7709,9 @@ public class LDSTools {
 			clickButtonByXpathTitleName("Not Set Apart");
 		}
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Ward Executive Secretary", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Relief Society Second Counselor", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("6 months", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Mene, Taavili Maalona", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Patiole, Luafa", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("P0, C3", pageSource, "Contains"));
 
 		Thread.sleep(1000);
@@ -7777,13 +7777,13 @@ public class LDSTools {
 		openReports();
 		clickButtonByXpathTitleName("New Members");
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Faapili, Tautinoga", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("10", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Faamanu, Agalelei", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("15", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("F", pageSource, "Contains"));
 		if (newUnit == true){
-			Assert.assertTrue(checkNoCaseList("August 4, 2016", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("November 6, 2016", pageSource, "Contains"));
 		} else {
-			Assert.assertFalse(checkNoCaseList("August 4, 2016", pageSource, "Contains"));
+			Assert.assertFalse(checkNoCaseList("November 6, 2016", pageSource, "Contains"));
 		}
 		
 		Assert.assertTrue(checkNoCaseList("Member", pageSource, "Contains"));
@@ -7838,7 +7838,7 @@ public class LDSTools {
 				clickButtonByXpathTitleName("Expired");
 			}
 			pageSource = getSourceOfPage();
-			Assert.assertTrue(checkNoCaseList("Betham, Scott", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("Mene, Sau", pageSource, "Contains"));
 			Assert.assertFalse(checkNoCaseList("Jinn, Qui-Gon", pageSource, "Contains"));
 			//Assert.assertTrue(checkElementTextViewReturn("Tutunoa, Lusi"));
 			//Assert.assertFalse(checkElementTextViewReturn("Jinn, Qui-Gon"));
@@ -8459,7 +8459,7 @@ public class LDSTools {
 			Thread.sleep(2000);
 			Assert.assertTrue(checkElementReturn("AFPFourteen, Member", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("AFPMisc, Member12", "textAtt", "value"));
-			Assert.assertTrue(checkElementReturn("AFPMisc, Member14", "textAtt", "value"));
+			//Assert.assertTrue(checkElementReturn("AFPMisc, Member14", "textAtt", "value"));
 			pressBackKey();
 			
 			clickButtonByXpathTitleName("Potential Visiting Teachers");
@@ -8945,9 +8945,9 @@ public class LDSTools {
 			} else {
 				pressBackKey();
 			}
-			Assert.assertTrue(checkElementReturn("AFPTen, Husband", "textAtt", "value"));
-			Assert.assertTrue(checkElementReturn("Tools, LDS24", "textAtt", "value"));
-			Assert.assertTrue(checkElementReturn("Tools, LDS47", "textAtt", "value"));
+			Assert.assertTrue(checkElementReturn("Tools, LDS50", "textAtt", "value"));
+			//Assert.assertTrue(checkElementReturn("Tools, LDS24", "textAtt", "value"));
+			//Assert.assertTrue(checkElementReturn("Tools, LDS47", "textAtt", "value"));
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
@@ -9121,9 +9121,9 @@ public class LDSTools {
 			} else {
 				pressBackKey();
 			}
-			Assert.assertTrue(checkElementReturn("Galuvao, Logo", "textAtt", "value"));
-			Assert.assertTrue(checkElementReturn("Tools, LDS44", "textAtt", "value"));
-			Assert.assertTrue(checkElementReturn("Aaron, Jane", "textAtt", "value"));
+			//Assert.assertTrue(checkElementReturn("Galuvao, Logo", "textAtt", "value"));
+			Assert.assertTrue(checkElementReturn("Tools, LDS28", "textAtt", "value"));
+			//Assert.assertTrue(checkElementReturn("Aaron, Jane", "textAtt", "value"));
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
@@ -9145,7 +9145,7 @@ public class LDSTools {
 			}
 			Assert.assertTrue(checkElementReturn("AFPFourteen, Member", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("AFPMisc, Member12", "textAtt", "value"));
-			Assert.assertTrue(checkElementReturn("AFPMisc, Member14", "textAtt", "value"));
+			Assert.assertTrue(checkElementReturn("AFPMisc, Member8", "textAtt", "value"));
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
