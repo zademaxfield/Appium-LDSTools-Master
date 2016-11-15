@@ -76,7 +76,7 @@ public class LDSWeb {
 	@Test
 	public void simpleTest() throws Exception {
 		
-		
+		/*
 		String userName = "LDSTools2";
 		String passWord = "toolstester";
 		
@@ -151,9 +151,9 @@ public class LDSWeb {
 		myText = getTextFromSource(mySource, "dt, dd");
 
 		Thread.sleep(10000);
+		*/
 		
 		
-		/*
 		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
 		ABSetupAutoTest();
 		ABSync();
@@ -169,7 +169,7 @@ public class LDSWeb {
 		ABSetupColinMacNeil();
 		ABSync();
 		tearDown();
-		*/
+		
 		
 		
 		//ABSetEventColinMacNeil();
@@ -1822,7 +1822,7 @@ public class LDSWeb {
 	
 	public void ABSetupAutoTest() throws Exception {
 		//ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
-		clickElement("InvestigatorsAdd", "id");
+		clickElement("InvestigatorsAdd", "xpath");
 		enterText("abFirstName", "xpath", "Auto");
 		enterText("abLastName", "xpath", "Test");
 		
