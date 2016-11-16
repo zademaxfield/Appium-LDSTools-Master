@@ -329,10 +329,10 @@ public class LDSTools {
 		
 		//LeaderNonBishopricReport("LDSTools39", "Ward Council", os);
 		
-		LeaderBishopricDirectory("ngiBPC1", false, os);
+		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
-		//LeaderBishopricHTVT("ngiBPC1", false, os); 
+		LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		
@@ -5647,7 +5647,7 @@ public class LDSTools {
 		pressBackKey();
 		
 		sundaySchoolClassSub("Gospel Doctrine", "GospelDoctrine");
-		sundaySchoolClassSub("Course 17", "Course17");
+		//sundaySchoolClassSub("Course 17", "Course17");
 		sundaySchoolClassSub("Course 16", "Course16");
 		sundaySchoolClassSub("Course 15", "Course15");
 		sundaySchoolClassSub("Course 14", "Course14");
@@ -9122,8 +9122,8 @@ public class LDSTools {
 				pressBackKey();
 			}
 			//Assert.assertTrue(checkElementReturn("Galuvao, Logo", "textAtt", "value"));
-			Assert.assertTrue(checkElementReturn("Tools, LDS28", "textAtt", "value"));
-			//Assert.assertTrue(checkElementReturn("Aaron, Jane", "textAtt", "value"));
+			//Assert.assertTrue(checkElementReturn("Tools, LDS28", "textAtt", "value"));
+			Assert.assertTrue(checkElementReturn("Aaron, Jane", "textAtt", "value"));
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
@@ -9145,7 +9145,7 @@ public class LDSTools {
 			}
 			Assert.assertTrue(checkElementReturn("AFPFourteen, Member", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("AFPMisc, Member12", "textAtt", "value"));
-			Assert.assertTrue(checkElementReturn("AFPMisc, Member8", "textAtt", "value"));
+			//Assert.assertTrue(checkElementReturn("AFPMisc, Member8", "textAtt", "value"));
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
