@@ -645,7 +645,9 @@ public class LDSWeb {
 		
 		for (Element myElement : myTest ) {
 			outerHTML = myElement.text();
-			if (outerHTML.contains("&")) {
+			if (outerHTML.contains("&") || (outerHTML.contains("772"))) {
+			//if (outerHTML.contains("&") || (Character.isDigit(outerHTML.charAt(0)))) {
+			//if (outerHTML.contains("&")) {
 				System.out.println("Skipping:" + outerHTML);
 			} else {
 				if (outerHTML.contains(",")) {
