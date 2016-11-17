@@ -301,7 +301,7 @@ public class LDSTools {
 		//LeaderBishopric("ngiBPC2", false, os); //Bishopric 2nd Counselor 
 		//LeaderBishopric("ngiWB1", true, os); //Bishop shows Stake View - something wrong with the account
 		//LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership
-		//bishopMemberOfSeparateStake(os);	
+		bishopMemberOfSeparateStake(os);	
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
 		//editCurrentUser(os);	
@@ -332,7 +332,7 @@ public class LDSTools {
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
-		LeaderBishopricHTVT("ngiBPC1", false, os); 
+		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		
@@ -7882,6 +7882,8 @@ public class LDSTools {
 		//Assert.assertTrue(checkElementTextViewReturnContains("51"));
 		Assert.assertFalse(checkElementTextViewReturnContains("8675309"));
 		pressBackKey();
+		Thread.sleep(1000);
+		openDirectory();
 	}
 	
 	private void checkMissionaryProgressRecord() throws Exception {
