@@ -198,11 +198,8 @@ public class LDSTools {
 	        capabilities.setCapability("unicodeKeyboard", "true");
 	        capabilities.setCapability("resetKeyboard", "true");
 	        capabilities.setCapability("deviceReadyTimeout", "60");
-	        
+
 	        capabilities.setCapability("autoAcceptAlerts", true);
-	        
-	        
-	        
 	        
 	        driver = new AndroidDriver<WebElement>(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
 	        //driver = new AppiumSwipeableDriver(new URL("http://127.0.0.1:4444/wd/hub"),capabilities);
@@ -274,6 +271,8 @@ public class LDSTools {
 	        capabilities.setCapability("nativeInstrumentsLib", true);
 	        
 	        capabilities.setCapability("autoAcceptAlerts", true);
+	        capabilities.setCapability("clearSystemFiles", true);
+	        
 	       
 	        
 	        //capabilities.setCapability("appActivity", "org.lds.ldstools.ui.StartupActivity");
@@ -301,7 +300,7 @@ public class LDSTools {
 		//LeaderBishopric("ngiBPC2", false, os); //Bishopric 2nd Counselor 
 		//LeaderBishopric("ngiWB1", true, os); //Bishop shows Stake View - something wrong with the account
 		//LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership
-		bishopMemberOfSeparateStake(os);	
+		//bishopMemberOfSeparateStake(os);	
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
 		//editCurrentUser(os);	
@@ -329,7 +328,7 @@ public class LDSTools {
 		
 		//LeaderNonBishopricReport("LDSTools39", "Ward Council", os);
 		
-		//LeaderBishopricDirectory("ngiBPC1", false, os);
+		LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
@@ -11387,6 +11386,8 @@ public class LDSTools {
 			
 			Thread.sleep(5000);
 			killProcess("instruments");
+			//This directory is getting huge fast
+			
 			
 			
 		} else {
@@ -11398,6 +11399,7 @@ public class LDSTools {
 		killProcess("main.js");
 		//}
 		Thread.sleep(2000);
+
 		
 	}
 	
@@ -11412,6 +11414,9 @@ public class LDSTools {
 			System.out.println(line);
 		}
 	}
+
+	
+
 	
 	public void startAppiumServer() throws Exception {
 	   List<String> list = new ArrayList<String>();
