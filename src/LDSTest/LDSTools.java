@@ -270,7 +270,7 @@ public class LDSTools {
 	        capabilities.setCapability("launchTimeout", 90000);
 	        
 	        
-	        capabilities.setCapability("platformVersion", "10.0");
+	        capabilities.setCapability("platformVersion", "10.1");
 	        capabilities.setCapability("nativeInstrumentsLib", true);
 	        
 	        capabilities.setCapability("autoAcceptAlerts", true);
@@ -323,8 +323,8 @@ public class LDSTools {
 		//checkAllUsersFromWeb(os);
 		
 		//LeaderNonBishopricReport("LDSTools16", "High Priest Group", os);
-		//LeaderNonBishopricHTVT("LDSTools16", "High Priest Group", os);
-		LeaderNonBishopricDirectory("LDSTools16", "High Priest Group", os);
+		LeaderNonBishopricHTVT("LDSTools16", "High Priest Group", os);
+		//LeaderNonBishopricDirectory("LDSTools16", "High Priest Group", os);
 		//LeaderNonBishopricDirectory("LDSTools39", "Ward Council", os);
 		//LeaderNonBishopricHTVT("LDSTools26", "Relief Society Pres", os);
 		//LeaderNonBishopricMissionary("LDSTools20", "High Priest Group", os);
@@ -9598,11 +9598,21 @@ public class LDSTools {
 			//clickButtonByName(userToSearch);
 			
 			myElement = driver.findElement(By.name(userToSearch));
-			//driver.tap(1, myElement, 700);
+			//myElement = driver.findElement(By.xpath("//XCUIElementTypeApplication/XCUIElementTypeWindow/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText[@label='" + userToSearch + "']"));
+			//myElement.click();
+			
+			//driver.tap(1, myElement, 200);
+			TouchAction myAction = new TouchAction(driver);
+			
 
 			Point myPoint = myElement.getLocation();
-			driver.tap(1, myPoint.x, myPoint.y, 700);
+			//System.out.println("X Point: " + myPoint.x);
+			//System.out.println("Y Point: " + myPoint.y);
+			//driver.tap(1, myPoint.x, myPoint.y, 200);
 			
+			myAction.press(myPoint.x, myPoint.y).release();
+			driver.performTouchAction(myAction);
+
 			//clickButtonByNameMultiple(userToSearch, 0);
 
 			
@@ -11394,7 +11404,7 @@ public class LDSTools {
 			Thread.sleep(5000);
 			killProcess("instruments");
 			//This directory is getting huge fast
-			deleteAppleFiles();
+			//deleteAppleFiles();
 			
 			
 		} else {
