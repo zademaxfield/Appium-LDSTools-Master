@@ -216,8 +216,11 @@ public class LDSTools {
 			
 			//startAppiumServer();
 			//new AppiumServiceBuilder().usingPort(4445);
+			
+		
 			File appiumLogFile = new File("screenshot/myAppiumLog.txt");
 			new FileOutputStream(appiumLogFile, false).close();
+			
 			AppiumDriverLocalService myAppiumService = new AppiumServiceBuilder()
 					.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
 					.usingPort(4445)
@@ -299,7 +302,7 @@ public class LDSTools {
 		//LeaderBishopric("ngiBPC1", false, os); //Bishopric 1st Counselor  
 		//LeaderBishopric("ngiBPC2", false, os); //Bishopric 2nd Counselor 
 		//LeaderBishopric("ngiWB1", true, os); //Bishop shows Stake View - something wrong with the account
-		LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership
+		//LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//bishopMemberOfSeparateStake(os);	
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
@@ -321,7 +324,7 @@ public class LDSTools {
 		
 		//LeaderNonBishopricReport("LDSTools16", "High Priest Group", os);
 		//LeaderNonBishopricHTVT("LDSTools16", "High Priest Group", os);
-		//LeaderNonBishopricDirectory("LDSTools16", "High Priest Group", os);
+		LeaderNonBishopricDirectory("LDSTools16", "High Priest Group", os);
 		//LeaderNonBishopricDirectory("LDSTools39", "Ward Council", os);
 		//LeaderNonBishopricHTVT("LDSTools26", "Relief Society Pres", os);
 		//LeaderNonBishopricMissionary("LDSTools20", "High Priest Group", os);
@@ -11391,7 +11394,7 @@ public class LDSTools {
 			Thread.sleep(5000);
 			killProcess("instruments");
 			//This directory is getting huge fast
-			
+			deleteAppleFiles();
 			
 			
 		} else {
@@ -11403,7 +11406,28 @@ public class LDSTools {
 		killProcess("main.js");
 		//}
 		Thread.sleep(2000);
+		
 
+
+		
+	}
+	
+	public void deleteAppleFiles() throws Exception {
+		//File deleteLog = new File("/Users/zmaxfield/Library/Developer/Xcode/DerivedData/WebDriverAgent-brdadhpuduowllgivnnvuygpwhzy/Logs/Test/Attachments/");
+		File deleteLog = new File("~/Library/Developer/Xcode/DerivedData/WebDriverAgent-brdadhpuduowllgivnnvuygpwhzy/Logs/Test/Attachments/");
+		//FileUtils.cleanDirectory(deleteLog);
+		for (File f: deleteLog.listFiles()) {
+			if (f.getName().startsWith("Elements")) {
+				System.out.println("Element: " + f.getName());
+				f.delete();
+				//f.deleteOnExit();
+			}
+			if (f.getName().startsWith("Screenshot")) {
+				System.out.println("Screenshot: " + f.getName());
+				f.delete();
+				//f.deleteOnExit();
+			}
+		}
 		
 	}
 	
