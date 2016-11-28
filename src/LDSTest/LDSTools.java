@@ -323,7 +323,7 @@ public class LDSTools {
 		//checkAllUsersFromWeb(os);
 		
 		//LeaderNonBishopricReport("LDSTools16", "High Priest Group", os);
-		LeaderNonBishopricHTVT("LDSTools16", "High Priest Group", os);
+		//LeaderNonBishopricHTVT("LDSTools16", "High Priest Group", os);
 		//LeaderNonBishopricDirectory("LDSTools16", "High Priest Group", os);
 		//LeaderNonBishopricDirectory("LDSTools39", "Ward Council", os);
 		//LeaderNonBishopricHTVT("LDSTools26", "Relief Society Pres", os);
@@ -334,7 +334,7 @@ public class LDSTools {
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
-		//LeaderBishopricHTVT("ngiBPC1", false, os); 
+		LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		
@@ -8782,7 +8782,7 @@ public class LDSTools {
 				pressBackKey();
 			}
 			Thread.sleep(1000);
-			Assert.assertTrue(checkElementReturn("AFPEleven, Member", "textAtt", "value"));
+			Assert.assertTrue(checkElementReturn("AFPFive, Wife", "textAtt", "value"));
 			//Assert.assertTrue(checkElementReturn("Aaron, Jane", "textAtt", "value"));
 			//Assert.assertTrue(checkElementTextViewReturn("Aaron, Jane"));
 			if (!getRunningOS().equals("mac")) {
@@ -8804,8 +8804,8 @@ public class LDSTools {
 			} else {
 				pressBackKey();
 			}
-			Assert.assertTrue(checkElementReturn("AFPFive, Wife", "textAtt", "value"));
-			//Assert.assertTrue(checkElementReturn("AFPEleven, Member", "textAtt", "value"));
+			//Assert.assertTrue(checkElementReturn("Afiafi, Efi", "textAtt", "value"));
+			Assert.assertTrue(checkElementReturn("AFPEleven, Member", "textAtt", "value"));
 			//Assert.assertTrue(checkElementReturn("AFPFifteen, Member", "textAtt", "value"));
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
@@ -8953,7 +8953,7 @@ public class LDSTools {
 			} else {
 				pressBackKey();
 			}
-			Assert.assertTrue(checkElementReturn("Tools, LDS50", "textAtt", "value"));
+			Assert.assertTrue(checkElementReturn("Tools, LDS47", "textAtt", "value"));
 			//Assert.assertTrue(checkElementReturn("Tools, LDS24", "textAtt", "value"));
 			//Assert.assertTrue(checkElementReturn("Tools, LDS47", "textAtt", "value"));
 			if (!getRunningOS().equals("mac")) {
