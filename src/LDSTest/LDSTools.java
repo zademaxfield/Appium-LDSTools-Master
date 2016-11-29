@@ -332,7 +332,7 @@ public class LDSTools {
 		//LeaderNonBishopricReport("LDSTools39", "Ward Council", os);
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
-		LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
+		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
@@ -363,7 +363,7 @@ public class LDSTools {
 		
 		//Header Tests
 		//ChristieWhiting(os);
-		//CliffHigby(os);
+		CliffHigby(os);
 		//KevinPalmer(os);
 		//PatriarchOtherWards(os); //Not working!
 		//TravisLyman(os);
@@ -6885,6 +6885,8 @@ public class LDSTools {
 				
 				//Set the ID
 				clickButton("Id", "byName", "byName");
+				//Thread.sleep(2000);
+				//printPageSource();
 				sendTextbyXpath("HeaderAlertTextId", IndividualId );
 				clickButtonByXpath("HeaderOK");
 				
@@ -7281,7 +7283,7 @@ public class LDSTools {
 			Assert.assertTrue(checkElementReturn("Missionaries", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("Lists", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("Calendar", "textAtt", "value"));
-			Assert.assertTrue(checkElementReturn("Maps", "textAtt", "value"));
+			Assert.assertTrue(checkElementReturn("Meetinghouses", "textAtt", "value"));
 			if (leader == true) {
 				Assert.assertTrue(checkElementReturn("Reports", "textAtt", "value"));
 			} else {
