@@ -75,125 +75,29 @@ public class LDSWeb {
 	
 	@Test
 	public void simpleTest() throws Exception {
-		
-		/*
+		String url = "https://uat.lds.org/mls/mbr/?lang=eng";
 		String userName = "LDSTools2";
 		String passWord = "toolstester";
 		
-		String mySource;
-		List<String> myText;
+		openPageLogIn(url, userName, passWord);
 		
-		openGuiMap();
-		setUp();
 		
+		
+		clickElement("Organizations", "linkText");
 		Thread.sleep(4000);
-		//openWebPage("https://uat.lds.org/church/temples");
-		openWebPage("https://uat.lds.org/mls/mbr");
-		//openWebPage(url);
+		clickElement("Sunday School", "linkText");
 		Thread.sleep(2000);
-		//clickElement("TempleMyAccount", "xpath");
-		//Thread.sleep(2000);
-		//clickElement("Sign In", "linkText");
+		waitForTextToDisappear("Loading", 500, "id" );
+		clickElement("Members", "linkText");
+		clickElement("Gospel Doctrine", "linkText");
 		
-		driver.findElement(By.id(this.prop.getProperty("UserName"))).sendKeys(userName);
-		//Thread.sleep(1000);
-		driver.findElement(By.id(this.prop.getProperty("Password"))).sendKeys(passWord);
-		clickElement("SignIn", "id");
-		clickElement("MyAccountAndWard", "id");
-		clickElement("My Temple", "linkText");
 		
-		//clickElement("Find a Temple", "linkText");
-		//clickElement("Boise Idaho", "linkText");
-		//clickElement("Oquirrh Mountain Utah", "linkText");
-		
-		//Get the Temple Name
-		System.out.println("Temple Name");
-		System.out.println(getText("TempleTitle", "xpath"));
-		
-		//Get the Physical Address
-		System.out.println("Physical Address");
-		mySource = getSourceOfElement("TemplePhysicalAddress");
-		myText = getTextFromSource(mySource, "li");
-		
-		//Get the Mailing Address
-		System.out.println("Mailing Address");
-		mySource = getSourceOfElement("TempleMailingAddress");
-		myText = getTextFromSource(mySource, "li");
-		
-		//Get the Telephone
-		System.out.println("Telephone");
-		mySource = getSourceOfElement("TempleTelephone");
-		myText = getTextFromSource(mySource, "li");
-	
-		//Get the Schedule
-		System.out.println("Schedule");
-		mySource = getSourceOfElement("TempleSchedule");
-		myText = getTextFromSource(mySource, "td");
-		
-		//Get the Family Name Cards
-		System.out.println("Family Name Cards");
-		mySource = getSourceOfElement("TempleFamilyNameCards");
-		myText = getTextFromSource(mySource, "p");
-		
-		//Get the Group Attendance
-		System.out.println("Group Attendance");
-		mySource = getSourceOfElement("TempleGroupAttendance");
-		myText = getTextFromSource(mySource, "p");
-		
-		//Get the Services
-		System.out.println("Services");
-		mySource = getSourceOfElement("TempleServices");
-		myText = getTextFromSource(mySource, "li");
-		
-		//Get the Milestones
-		System.out.println("Milestones");
-		mySource = getSourceOfElement("TempleMilestones");
-		myText = getTextFromSource(mySource, "dt, dd");
+		addMemberToOrg("aaron");
+
 
 		Thread.sleep(10000);
-		*/
-		
-		
-		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
-		ABSetupAutoTest();
-		ABSync();
-		tearDown();
-		
-		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
-		ABSetupDebbieSmith();
-		ABSync();
-		tearDown();
-		
-		
-		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
-		ABSetupColinMacNeil();
-		ABSync();
-		tearDown();
-		
-		
-		
-		//ABSetEventColinMacNeil();
-		//ABSync();
-		
-		
-		/*
-		
-		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
-		Thread.sleep(1000);
-		clickElement("abPeople", "xpath");
-		Thread.sleep(1000);
-		ABSelectUser("Auto Test");
 
-		clickElement("Message of the Restoration", "text");
-		clickElement("The gospel blesses families", "text");
-		
-		clickElement("abEditSave", "xpath");
-
-
-		
-		
-		Thread.sleep(20000);
-		*/
+		//setupAfterUATReset();
 
 		/*
 		populateFile();
@@ -211,6 +115,337 @@ public class LDSWeb {
 		}
 		*/
 		
+	}
+	
+	public void setupAfterUATReset() throws Exception {
+		String url = "https://uat.lds.org/mls/mbr/?lang=eng";
+		String userName = "LDSTools2";
+		String passWord = "toolstester";
+		
+		openPageLogIn(url, userName, passWord);
+		
+		setupMembers();
+		setupAJcalling();
+		setupCallings();
+		setupDistricts();
+		addCompanionHousehold();
+	}
+	
+	public void addCompanionHousehold() throws Exception {
+		clickElement("Organizations", "linkText");
+		Thread.sleep(4000);
+		clickElement("High Priests Group", "linkText");
+		Thread.sleep(2000);
+		waitForTextToDisappear("Loading", 500, "id" );
+		clickElement("HomeTeachingDropDown", "xpath");
+		clickElement("Companionships", "linkText");
+		Thread.sleep(2000);
+		waitForTextToDisappear("LoadingSpinner", 500, "xpath");
+		Thread.sleep(2000);
+		
+		
+		selectDistrictHTVT("District 1");
+		
+		// Create Companionship
+		addCompanionshipHTVT("lds16");
+		addCompanionshipHTVT("lds17");
+		
+		//Add Households to Companionship
+		addHouseholdHTVT("aaron");
+		addHouseholdHTVT("lds18");
+		addHouseholdHTVT("lds19");
+		
+		clickDistrictSaveButton("District 1");
+		//clickElement("MemberSave", "xpath");
+		
+		clickElement("QuorumAuxSelect", "xpath");
+		clickElement("QuorumAuxReliefSociety", "xpath");
+		Thread.sleep(4000);
+		
+		selectDistrictHTVT("District 1");
+		
+		// Create Companionship
+		addCompanionshipHTVT("lds26");
+		addCompanionshipHTVT("lds27");
+		
+		//Add Households to Companionship
+		addHouseholdHTVT("lds38");
+		addHouseholdHTVT("lds28");
+		addHouseholdHTVT("lds29");
+		
+		//clickElement("MemberSave", "xpath");
+		clickDistrictSaveButton("District 1");
+		
+		selectDistrictHTVT("District 2");
+		
+		// Create Companionship
+		addCompanionshipHTVT("lds35");
+		addCompanionshipHTVT("lds36");
+		
+		//Add Households to Companionship
+		addHouseholdHTVT("lds12");
+		addHouseholdHTVT("lds26");
+		addHouseholdHTVT("lds27");
+		
+		//clickElement("MemberSave", "xpath");
+		clickDistrictSaveButton("District 2");
+		
+		
+		clickElement("QuorumAuxSelect", "xpath");
+		clickElement("QuorumAuxElders", "xpath");
+		Thread.sleep(4000);
+		
+		selectDistrictHTVT("District 1");
+		
+		// Create Companionship
+		addCompanionshipHTVT("lds21");
+		addCompanionshipHTVT("lds22");
+		
+		//Add Households to Companionship
+		addHouseholdHTVT("afpten");
+		addHouseholdHTVT("lds23");
+		addHouseholdHTVT("lds24");
+		
+		clickDistrictSaveButton("District 1");
+		//clickElement("MemberSave", "xpath");
+		
+		Thread.sleep(2000);
+		clickElement("HomeButton", "xpath");
+	}
+	
+	
+	public void selectDistrictHTVT(String districtToSelect) throws Exception {
+		driver.findElement(By.xpath("//span[contains(text(), '" + districtToSelect + "')]/../../following-sibling::div//a[contains(text(), 'Create new companionship')]")).click();
+		Thread.sleep(2000);
+	}
+	
+	public void clickDistrictSaveButton(String districtToSelect) throws Exception {
+		driver.findElement(By.xpath("//span[contains(text(), '" + districtToSelect + "')]/../../following-sibling::div//button[.='Save']")).click();
+		Thread.sleep(2000);
+	}
+	
+	public void addCompanionshipHTVT(String companionToAdd) throws Exception {
+		clickElement("AddNewCompanion", "xpath");
+		enterText("SearchForTeacher", "xpath", companionToAdd);
+		Thread.sleep(2000);
+		clickElement("FoundMember", "xpath");
+	}
+	
+	public void addHouseholdHTVT(String householdToAdd) throws Exception {
+		clickElement("AddNewAssignment", "xpath");
+		enterText("SearchForHousehold", "xpath", householdToAdd);
+		Thread.sleep(2000);
+		clickElement("FoundMember", "xpath");
+	}
+	
+	public void setupDistricts() throws Exception {
+		clickElement("Organizations", "linkText");
+		Thread.sleep(4000);
+		clickElement("High Priests Group", "linkText");
+		Thread.sleep(2000);
+		waitForTextToDisappear("Loading", 500, "id" );
+		clickElement("HomeTeachingDropDown", "xpath");
+		clickElement("Companionships", "linkText");
+		Thread.sleep(2000);
+		waitForTextToDisappear("LoadingSpinner", 500, "xpath");
+		Thread.sleep(2000);
+
+		addDistrict("District 1", "Tools, LDS50" );
+
+		clickElement("QuorumAuxSelect", "xpath");
+		clickElement("QuorumAuxReliefSociety", "xpath");
+		Thread.sleep(4000);
+		
+		addDistrict("District 1", "Tools, LDS52" );
+		addDistrict("District 2", "Tools, LDS53" );
+		
+		clickElement("QuorumAuxSelect", "xpath");
+		clickElement("QuorumAuxElders", "xpath");
+		Thread.sleep(4000);
+		
+		addDistrict("District 1", "Tools, LDS51" );
+		
+		Thread.sleep(2000);
+		clickElement("HomeButton", "xpath");
+	}
+	
+	public void addMemberToCalling(String memberCalling, String memberToAdd) throws Exception {
+		driver.findElement(By.xpath("//span[contains(text(), '"+ memberCalling +"')]/../following-sibling::td//button[.='Edit']")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//span[contains(text(), '"+ memberCalling +"')]/../following-sibling::td//input[@ng-model='c.memberLookup']")).sendKeys(memberToAdd);
+		Thread.sleep(2000);
+		clickElement("MemberMatch", "xpath");
+		driver.findElement(By.xpath("//span[contains(text(), '"+ memberCalling +"')]/../following-sibling::td//button[contains(text(), 'Save')]")).click();
+		Thread.sleep(4000);
+	}
+	
+	public void setupCallings() throws Exception {
+		clickElement("Organizations", "linkText");
+		Thread.sleep(4000);
+		clickElement("High Priests Group", "linkText");
+		Thread.sleep(2000);
+		waitForTextToDisappear("Loading", 500, "id" );
+		clickElement("High Priests Group Leadership", "linkText");
+		
+		
+		addMemberToCalling("First Assistant", "lds17");
+		addMemberToCalling("Second Assistant", "lds18");
+		addMemberToCalling("Group Secretary", "lds19");
+		clickElement("Clear Filters", "linkText");
+		
+	
+		
+		clickElement("Organizations", "linkText");
+		Thread.sleep(4000);
+		clickElement("High Priests Group", "linkText");
+		Thread.sleep(2000);
+		waitForTextToDisappear("Loading", 500, "id" );
+		clickElement("Home Teaching District Supervisors", "linkText");
+		
+		addMemberToCalling("District Supervisor", "lds50");
+		clickElement("Clear Filters", "linkText");
+		
+		clickElement("Organizations", "linkText");
+		Thread.sleep(4000);
+		clickElement("Elders Quorum", "linkText");
+		Thread.sleep(2000);
+		waitForTextToDisappear("Loading", 500, "id" );
+		clickElement("Elders Quorum Presidency", "linkText");
+		
+		addMemberToCalling("Elders Quorum President", "lds21");
+		addMemberToCalling("First Counselor", "lds22");
+		addMemberToCalling("Second Counselor", "lds23");
+		addMemberToCalling("Quorum Secretary", "lds24");
+		clickElement("Clear Filters", "linkText");
+	
+		
+		clickElement("Organizations", "linkText");
+		Thread.sleep(4000);
+		clickElement("Elders Quorum", "linkText");
+		Thread.sleep(2000);
+		waitForTextToDisappear("Loading", 500, "id" );
+		clickElement("Home Teaching District Supervisors", "linkText");
+		
+		addMemberToCalling("District Supervisor", "lds51");
+		clickElement("Clear Filters", "linkText");
+		
+		clickElement("Organizations", "linkText");
+		Thread.sleep(4000);
+		clickElement("Relief Society", "linkText");
+		Thread.sleep(2000);
+		waitForTextToDisappear("Loading", 500, "id" );
+		clickElement("Visiting Teaching", "linkText");
+		
+		addMemberToCalling("Teaching Coordinator", "lds52");
+		addMemberToCalling("Teaching District Supervisor", "lds53");
+		clickElement("Clear Filters", "linkText");
+		
+		Thread.sleep(2000);
+		clickElement("HomeButton", "xpath");
+	}
+	
+	public void setupAJcalling() throws Exception {
+		clickElement("Organizations", "linkText");
+		Thread.sleep(4000);
+		clickElement("Relief Society", "linkText");
+		Thread.sleep(2000);
+		waitForTextToDisappear("Loading", 500, "id" );
+		clickElement("Music", "linkText");
+		
+		clickElement("EditReliefSocityPianist", "xpath");
+		enterText("AddMemberToCallingPianist", "xpath", "aaron");
+		Thread.sleep(2000);
+		clickElement("MemberMatch", "xpath");
+		clickElement("MemberSavePianist", "xpath");
+		Thread.sleep(2000);
+		
+		//Add Aaron, Jane to Class
+		clickElement("Organizations", "linkText");
+		Thread.sleep(4000);
+		clickElement("Sunday School", "linkText");
+		Thread.sleep(2000);
+		waitForTextToDisappear("Loading", 500, "id" );
+		clickElement("Members", "linkText");
+		clickElement("Gospel Doctrine", "linkText");
+		
+		
+		addMemberToOrg("aaron");
+		
+		Thread.sleep(2000);
+		clickElement("HomeButton", "xpath");
+		
+	}
+	
+	
+	public void setupMembers() throws Exception {
+		//Browse to the Membership page
+		clickElement("Organizations", "linkText");
+		Thread.sleep(4000);
+		clickElement("High Priests Group", "linkText");
+		Thread.sleep(2000);
+		waitForTextToDisappear("Loading", 500, "id" );
+		clickElement("Members", "linkText");
+		
+		addMemberToOrg("lds16");
+		addMemberToOrg("lds17");
+		addMemberToOrg("lds18");
+		addMemberToOrg("lds19");
+		addMemberToOrg("lds20");
+		addMemberToOrg("lds50");
+		
+		clickElement("Organizations", "linkText");
+		Thread.sleep(4000);
+		clickElement("Elders Quorum", "linkText");
+		Thread.sleep(2000);
+		waitForTextToDisappear("Loading", 500, "id" );
+		clickElement("Members", "linkText");
+		
+		addMemberToOrg("lds21");
+		addMemberToOrg("lds22");
+		addMemberToOrg("lds23");
+		addMemberToOrg("lds24");
+		addMemberToOrg("lds25");
+		addMemberToOrg("lds51");
+		addMemberToOrg("lds31");
+		addMemberToOrg("lds32");
+		 
+		
+		clickElement("Organizations", "linkText");
+		Thread.sleep(4000);
+		clickElement("Relief Society", "linkText");
+		Thread.sleep(2000);
+		waitForTextToDisappear("Loading", 500, "id" );
+		clickElement("Members", "linkText");
+		
+		addMemberToOrg("lds26");
+		addMemberToOrg("lds27");
+		addMemberToOrg("lds28");
+		addMemberToOrg("lds29");
+		addMemberToOrg("lds30");
+		addMemberToOrg("lds52");
+		addMemberToOrg("lds53");
+		
+		addMemberToOrg("aaron");
+		
+		addMemberToOrg("lds35");
+		addMemberToOrg("lds36");
+		addMemberToOrg("lds37");
+		addMemberToOrg("lds38");
+		
+		Thread.sleep(2000);
+		clickElement("HomeButton", "xpath");
+		
+	}
+
+	public void addMemberToOrg(String addMember) throws Exception {
+		
+		scrollToElement("Add Member", "linkText");
+		clickElement("Add Member", "linkText");
+		
+		enterText("AddMemberText", "xpath", addMember);
+		Thread.sleep(2000);
+		clickElement("MemberMatch", "xpath");
+		clickElement("MemberSave", "xpath");
 	}
 
 
@@ -576,11 +811,16 @@ public class LDSWeb {
 	}
 	
 	public void addDistrict(String districtName, String districtSupervisor ) throws Exception {
-		List<WebElement> options= driver.findElements(By.xpath(this.prop.getProperty("EditDistricts")));
-		if (options.isEmpty()) {
-			clickElement("AddDistricts", "id");	
-		} else {
+		WebElement myElement;
+		//List<WebElement> options= driver.findElements(By.id(this.prop.getProperty("EditDistricts")));
+		myElement = driver.findElement(By.id(this.prop.getProperty("EditDistricts"))); 
+		//myElement.isDisplayed();
+		
+		
+		if(myElement.isDisplayed()) {	
 			clickElement("EditDistricts", "id");
+		} else {
+			clickElement("AddDistricts", "id");
 		}
 		
 		Thread.sleep(3000);
@@ -589,7 +829,9 @@ public class LDSWeb {
 		Thread.sleep(1000);
 		clickElement("AddDistrictButton", "xpath");
 		Thread.sleep(3000);
-		WebElement mySelect = driver.findElement(By.xpath(this.prop.getProperty("DistrictSupervisorSelect")));
+		
+		WebElement mySelect = driver.findElement(By.xpath("//input[contains(@value, '" + districtName + "')]/../following-sibling::td/select[@ng-model='district.districtLeader']"));		
+		//WebElement mySelect = driver.findElement(By.xpath(this.prop.getProperty("DistrictSupervisorSelect")));
 		Select testSelect = new Select(mySelect);
 		
 		/*
@@ -1462,7 +1704,7 @@ public class LDSWeb {
 		
 		if (leaderShip.equals("High Priest Group") && (orgName.equals("High Priests Group")))  {
 			
-
+ 
 			clickElement(orgName, "linkText");
 			waitForTextToDisappear("LoadingSpinner", 500, "xpath");
 			Thread.sleep(2000);
@@ -1792,6 +2034,30 @@ public class LDSWeb {
 		
 		clickElement("HomeButton", "xpath");
 		
+	}
+	
+	public void AreaBookSetup() throws Exception {
+		
+		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
+		ABSetupAutoTest();
+		ABSync();
+		tearDown();
+		
+		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
+		ABSetupDebbieSmith();
+		ABSync();
+		tearDown();
+		
+		
+		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab067", "password0");
+		ABSetupColinMacNeil();
+		ABSync();
+		tearDown();
+		
+		
+		
+		//ABSetEventColinMacNeil();
+		//ABSync();
 	}
 	
 	public void ABSelectUser(String elementName ) throws Exception {
