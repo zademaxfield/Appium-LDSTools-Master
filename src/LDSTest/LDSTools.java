@@ -1,12 +1,15 @@
 package LDSTest;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Configuration;
 import org.testng.AssertJUnit;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.TestRunner;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
@@ -135,14 +138,15 @@ public class LDSTools {
 	
 
 
+
 	
 	/** Setup Appium driver
 	 * Note the difference between the classpathRoot on Windows vs Mac
 	 * 
 	 * @throws Exception
 	 */
-	@Parameters({"os", "fileName", "testDevice"})
 	@BeforeMethod(alwaysRun = true)
+	@Parameters({"os", "fileName", "testDevice"})
 	public void setUp(String os, String fileName, String testDevice) throws Exception {
 		//System.out.println("OS: " + os );
 		//System.out.println("File Name: " + fileName);
@@ -334,7 +338,7 @@ public class LDSTools {
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
-		//LeaderBishopricHTVT("ngiBPC1", false, os); 
+		LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		
@@ -363,7 +367,7 @@ public class LDSTools {
 		
 		//Header Tests
 		//ChristieWhiting(os);
-		CliffHigby(os);
+		//CliffHigby(os);
 		//KevinPalmer(os);
 		//PatriarchOtherWards(os); //Not working!
 		//TravisLyman(os);
@@ -6341,6 +6345,8 @@ public class LDSTools {
 		
 	}
 	
+
+	
 	private void scrollDownSlow(int scrollDistance) throws Exception {
 		Dimension dimensions = driver.manage().window().getSize();
 		int screenWidth = dimensions.getWidth();
@@ -6855,6 +6861,7 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			userName = "paigekrebs";
 			chooseNetwork = "Proxy";
+			WebElement myElement; 
 			if (!chooseNetwork.equals("Production")) {
 				Thread.sleep(1000);
 				clickButtonByXpath("TopHelp");
@@ -6885,8 +6892,22 @@ public class LDSTools {
 				
 				//Set the ID
 				clickButton("Id", "byName", "byName");
-				//Thread.sleep(2000);
+				Thread.sleep(2000);
 				//printPageSource();
+
+				
+				
+				//myElement = driver.findElement(By.xpath("//XCUIElementTypeTextField"));
+				//TouchAction myAction = new TouchAction(driver);
+			
+				//Point myPoint = myElement.getLocation();
+				
+				//myAction.press(myPoint.x, myPoint.y).release();
+				//driver.performTouchAction(myAction);
+				
+				//myElement.sendKeys(IndividualId);
+				//driver.switchTo().alert().sendKeys(IndividualId);
+				
 				sendTextbyXpath("HeaderAlertTextId", IndividualId );
 				clickButtonByXpath("HeaderOK");
 				
@@ -7636,8 +7657,25 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("New Members", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("Unit Statistics", pageSource, "Equals"));
 		Assert.assertFalse(checkNoCaseList("Death Star Reports", pageSource, "Equals"));
-
 		
+		openOrgnizations();
+		
+		
+		openReports();
+		//Members Moved In
+		//Thread.sleep(1000);
+		clickButtonByXpathTitleName("Members Moved In");
+		Thread.sleep(1000);
+		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("Kitara", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("June", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("Skywalker, Luke", pageSource, "Equals"));
+
+		Thread.sleep(1000);
+		pressBackKey();
+		Thread.sleep(1000);
+		//clickButtonByXpath("Drawer");
+		//clickButtonByXpath("DrawerReports");
 		
 		
 		//Check the members moved out report
@@ -7660,20 +7698,7 @@ public class LDSTools {
 		//clickButtonByXpath("Drawer");
 		//clickButtonByXpath("DrawerReports");
 		
-		//Members Moved In
-		//Thread.sleep(1000);
-		clickButtonByXpathTitleName("Members Moved In");
-		Thread.sleep(1000);
-		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Kitara", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("June", pageSource, "Contains"));
-		Assert.assertFalse(checkNoCaseList("Skywalker, Luke", pageSource, "Equals"));
 
-		Thread.sleep(1000);
-		pressBackKey();
-		Thread.sleep(1000);
-		//clickButtonByXpath("Drawer");
-		//clickButtonByXpath("DrawerReports");
 		
 		//Members with Callings
 		clickButtonByXpathTitleName("Members with Callings");
@@ -7717,9 +7742,9 @@ public class LDSTools {
 			clickButtonByXpathTitleName("Not Set Apart");
 		}
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Relief Society Second Counselor", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("High Priests Group First Assistant", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("6 months", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Patiole, Luafa", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Tools, LDS17", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("P0, C3", pageSource, "Contains"));
 
 		Thread.sleep(1000);
@@ -8367,6 +8392,8 @@ public class LDSTools {
 			Assert.assertTrue(checkNoCaseList("Home Teaching", pageSource, "Equals"));
 			Assert.assertTrue(checkNoCaseList("Visiting Teaching", pageSource, "Equals"));
 		}
+		openDirectory();
+		openReports();
 		
 		
 		if ((userCalling.equals("Bishopric")) || (userCalling.equals("High Priest Group")) || (userCalling.equals("Elders Quorum Pres"))) {
@@ -8446,8 +8473,8 @@ public class LDSTools {
 			if (getRunningOS().equals("mac")) {
 				clickButtonByXpathTitleName("Visiting Teaching");
 			} else {
-				//scrollDownTEST(100);
-				scrollToElementMemberList("Visiting Teaching");
+				scrollDownTEST(100);
+				//scrollToElementMemberList("Visiting Teaching");
 				//driver.scrollToExact("Visiting Teaching");
 				clickButtonByXpathTitleName("Visiting Teaching");
 			}
@@ -8784,8 +8811,8 @@ public class LDSTools {
 				pressBackKey();
 			}
 			Thread.sleep(1000);
-			Assert.assertTrue(checkElementReturn("AFPFive, Wife", "textAtt", "value"));
-			//Assert.assertTrue(checkElementReturn("Aaron, Jane", "textAtt", "value"));
+			//Assert.assertTrue(checkElementReturn("AFPFive, Wife", "textAtt", "value"));
+			Assert.assertTrue(checkElementReturn("Aaron, Jane", "textAtt", "value"));
 			//Assert.assertTrue(checkElementTextViewReturn("Aaron, Jane"));
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
@@ -8955,8 +8982,8 @@ public class LDSTools {
 			} else {
 				pressBackKey();
 			}
-			Assert.assertTrue(checkElementReturn("Tools, LDS47", "textAtt", "value"));
-			//Assert.assertTrue(checkElementReturn("Tools, LDS24", "textAtt", "value"));
+			//Assert.assertTrue(checkElementReturn("Tools, LDS47", "textAtt", "value"));
+			Assert.assertTrue(checkElementReturn("Tools, LDS24", "textAtt", "value"));
 			//Assert.assertTrue(checkElementReturn("Tools, LDS47", "textAtt", "value"));
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
@@ -11367,62 +11394,36 @@ public class LDSTools {
 		
 		Thread.sleep(2000);
 	}
-
+	
 	@AfterMethod(alwaysRun = true)
-	public void teardown(ITestResult result) throws Exception {
+	public void teardownTest(ITestResult result) throws Exception {
 		
 
 		// Here will compare if test is failing then only it will enter into if condition
 		if(ITestResult.FAILURE==result.getStatus()) {
-			takeScreenShot();
-			//System.out.println("Orientation: " + driver.getOrientation().value());
-			//if (driver.getOrientation().value() == "landscape") {
-			//	driver.rotate(ScreenOrientation.PORTRAIT);
-			//}
-			
+			takeScreenShot();	
 		}
-		
-		/*
-		if (getRunningOS().equals("mac")) {
 
-		} else {
-			//adbCommand("stopApp");
-			driver.removeApp("org.lds.ldstools.dev");
-
-		}
-		*/
-		
-		//System.out.println("Killing Google Chrome: ");
 		killProcess("Chrome");
-		
-		//System.out.println("Killing chromedriver: ");
 		killProcess("chromedriver");
-		
-		
-		
+			
 		if (getRunningOS().equals("mac")) {
 			driver.quit();
 			
 			Thread.sleep(5000);
 			killProcess("instruments");
-			//This directory is getting huge fast
-			//deleteAppleFiles();
-			
-			
+		
 		} else {
 			driver.quit();
 		}
-		//myAppiumService.stop();
-		//if (myAppiumService.isRunning()) {
+		
 		System.out.println("Killing the Appium Service");
 		killProcess("main.js");
-		//}
-		Thread.sleep(2000);
-		
-
 
 		
 	}
+
+
 	
 	public void deleteAppleFiles() throws Exception {
 		//File deleteLog = new File("/Users/zmaxfield/Library/Developer/Xcode/DerivedData/WebDriverAgent-brdadhpuduowllgivnnvuygpwhzy/Logs/Test/Attachments/");
