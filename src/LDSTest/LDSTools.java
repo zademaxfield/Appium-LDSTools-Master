@@ -337,8 +337,8 @@ public class LDSTools {
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
-		//LeaderBishopricReport("ngiBPC1", false, os);
-		LeaderBishopricHTVT("ngiBPC1", false, os); 
+		LeaderBishopricReport("ngiBPC1", false, os);
+		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		
@@ -11417,6 +11417,10 @@ public class LDSTools {
 			driver.quit();
 		}
 		
+
+		
+		myAppiumService.stop();
+		Thread.sleep(4000);
 		System.out.println("Killing the Appium Service");
 		killProcess("main.js");
 
