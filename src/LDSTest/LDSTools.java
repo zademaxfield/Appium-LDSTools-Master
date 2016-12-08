@@ -10,6 +10,7 @@ import org.testng.ITestResult;
 import org.testng.TestRunner;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
@@ -136,6 +137,45 @@ public class LDSTools {
 	public String myAppPackage;
 	AppiumDriverLocalService myAppiumService;
 	
+	
+	@BeforeSuite(alwaysRun = true)
+	@Parameters({"os"})
+	public void beforeTestStarts(String os) throws Exception {
+		
+		
+		System.out.println("Killing the Appium Service");
+		killProcess("main.js");
+		Thread.sleep(4000);
+		
+		//Android Setup
+		if (os.equals("android")) {
+			File appiumLogFile = new File("screenshot/myAppiumLog.txt");
+			new FileOutputStream(appiumLogFile, false).close();
+			AppiumDriverLocalService myAppiumService = new AppiumServiceBuilder()
+					.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
+					.usingPort(4444)
+					.withIPAddress("127.0.0.1")
+					.withLogFile(appiumLogFile)
+					.withArgument(GeneralServerFlag.LOG_LEVEL, "error")
+					.build();
+			System.out.println("Starting Appium Android");
+			myAppiumService.start();
+		} else {
+			File appiumLogFile = new File("screenshot/myAppiumLog.txt");
+			new FileOutputStream(appiumLogFile, false).close();
+			
+			AppiumDriverLocalService myAppiumService = new AppiumServiceBuilder()
+					.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
+					.usingPort(4445)
+					.withIPAddress("127.0.0.1")
+					.withLogFile(appiumLogFile)
+					.withArgument(GeneralServerFlag.LOG_LEVEL, "error")
+					.build();
+			
+			myAppiumService.start();
+		}
+		
+	}
 
 
 
@@ -155,7 +195,7 @@ public class LDSTools {
 		//Android Setup
 		if (os.equals("android")) {
 			
-			
+			/*
 			File appiumLogFile = new File("screenshot/myAppiumLog.txt");
 			new FileOutputStream(appiumLogFile, false).close();
 			AppiumDriverLocalService myAppiumService = new AppiumServiceBuilder()
@@ -167,6 +207,8 @@ public class LDSTools {
 					.build();
 			
 			myAppiumService.start();
+			
+			*/
 			
 			
 			
@@ -205,6 +247,10 @@ public class LDSTools {
 
 	        capabilities.setCapability("autoAcceptAlerts", true);
 	        
+	        capabilities.setCapability("fullReset", false);
+	        capabilities.setCapability("dontStopAppOnReset", true);
+	        
+	        
 	        driver = new AndroidDriver<WebElement>(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
 	        //driver = new AppiumSwipeableDriver(new URL("http://127.0.0.1:4444/wd/hub"),capabilities);
 	        //driver = new AppiumDriver(new URL("http://127.0.0.1:4444/wd/hub"),capabilities);
@@ -221,7 +267,7 @@ public class LDSTools {
 			//startAppiumServer();
 			//new AppiumServiceBuilder().usingPort(4445);
 			
-		
+			/*
 			File appiumLogFile = new File("screenshot/myAppiumLog.txt");
 			new FileOutputStream(appiumLogFile, false).close();
 			
@@ -235,7 +281,8 @@ public class LDSTools {
 			
 			myAppiumService.start();
 			//Thread.sleep(8000);
-
+			*/
+			
 			
 	        // set up appium
 	        File classpathRoot = new File(System.getProperty("user.dir"));
@@ -259,8 +306,8 @@ public class LDSTools {
 	        //capabilities.setCapability("automationName","Appium");
 	        capabilities.setCapability("automationName","XCUITest");
 	        capabilities.setCapability("browserName","");
-	        capabilities.setCapability("fullReset", true);
-	        //capabilities.setCapability("noReset", true);
+	        capabilities.setCapability("fullReset", false);
+	        capabilities.setCapability("noReset", false);
 	        
 	        //capabilities.setCapability("showIOSLog", true);
 	        
@@ -335,9 +382,9 @@ public class LDSTools {
 		
 		//LeaderNonBishopricReport("LDSTools39", "Ward Council", os);
 		
-		//LeaderBishopricDirectory("ngiBPC1", false, os);
+		LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
-		LeaderBishopricReport("ngiBPC1", false, os);
+		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
@@ -10453,6 +10500,19 @@ public class LDSTools {
 				System.out.println(line);
 			}
 		}
+		
+		if (myCommand.equals("clearApp")) {
+			//String cmd = "adb shell am force-stop org.lds.ldstools.dev";
+			Runtime run = Runtime.getRuntime();
+			Process pr = run.exec(new String[] {"/Users/zmaxfield/android-sdks/platform-tools/adb", "shell", "pm", "clear", "org.lds.ldstools.dev"});
+			//Process pr = run.exec(cmd);
+			pr.waitFor();
+			BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+			String line = "";
+			while ((line=buf.readLine())!=null) {
+				System.out.println(line);
+			}
+		}
 	}
 	
 	private String adbGetPath() throws Exception {
@@ -11396,17 +11456,41 @@ public class LDSTools {
 	}
 	
 	@AfterMethod(alwaysRun = true)
-	public void teardownTest(ITestResult result) throws Exception {
+	public void teardown(ITestResult result) throws Exception {
+		//Capabilities cap = driver.getCapabilities();
+		String androidApp = "../../../Selenium/ldstools-alpha.apk";
 		
+		
+		//Map<String, ?> desired = (Map<String, ?>) cap.getCapability("desired");
+		//androidApp = (String) desired.get("app");
+		//System.out.println(desired.get("app"));
 
 		// Here will compare if test is failing then only it will enter into if condition
 		if(ITestResult.FAILURE==result.getStatus()) {
 			takeScreenShot();	
 		}
-
+		
+		//driver.resetApp();
+		
+		
+		if(getRunningOS().equals("mac")) {
+			System.out.println("Remove App");
+			driver.removeApp(myAppPackage);
+			System.out.println("Install App");
+			driver.installApp(myAppPackage);
+		} else {
+			System.out.println("Clear App");
+			adbCommand("clearApp");
+			Thread.sleep(2000);
+			driver.quit();
+		}
+		
+		
+		System.out.println("Killing Chrome and chromedriver");
 		killProcess("Chrome");
 		killProcess("chromedriver");
-			
+
+		/*
 		if (getRunningOS().equals("mac")) {
 			driver.quit();
 			
@@ -11423,8 +11507,30 @@ public class LDSTools {
 		Thread.sleep(4000);
 		System.out.println("Killing the Appium Service");
 		killProcess("main.js");
+		*/
 
 		
+	}
+	
+	@AfterSuite(alwaysRun = true)
+	public void afterAllTests() throws Exception {
+		System.out.println("Stopping the driver");
+		if (getRunningOS().equals("mac")) {
+			driver.quit();
+			
+			Thread.sleep(5000);
+			killProcess("instruments");
+		
+		} else {
+			driver.quit();
+		}
+		
+
+		
+		//myAppiumService.stop();
+		Thread.sleep(4000);
+		System.out.println("Killing the Appium Service");
+		killProcess("main.js");
 	}
 
 
