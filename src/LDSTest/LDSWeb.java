@@ -75,6 +75,8 @@ public class LDSWeb {
 	
 	@Test
 	public void simpleTest() throws Exception {
+		
+		
 		String url = "https://uat.lds.org/mls/mbr/?lang=eng";
 		String userName = "LDSTools2";
 		String passWord = "toolstester";
@@ -94,9 +96,11 @@ public class LDSWeb {
 		
 		addMemberToOrg("aaron");
 
+	
 
 		Thread.sleep(10000);
-
+		
+		
 		//setupAfterUATReset();
 
 		/*
