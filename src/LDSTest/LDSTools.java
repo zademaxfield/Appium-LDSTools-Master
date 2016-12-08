@@ -306,7 +306,7 @@ public class LDSTools {
 	        //capabilities.setCapability("automationName","Appium");
 	        capabilities.setCapability("automationName","XCUITest");
 	        capabilities.setCapability("browserName","");
-	        capabilities.setCapability("fullReset", false);
+	        capabilities.setCapability("fullReset", true);
 	        capabilities.setCapability("noReset", false);
 	        
 	        //capabilities.setCapability("showIOSLog", true);
@@ -11474,6 +11474,8 @@ public class LDSTools {
 		
 		
 		if(getRunningOS().equals("mac")) {
+			//System.out.println("Reset App");
+			//driver.resetApp();
 			System.out.println("Remove App");
 			driver.removeApp(myAppPackage);
 			System.out.println("Install App");
