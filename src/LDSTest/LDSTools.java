@@ -138,8 +138,8 @@ public class LDSTools {
 	AppiumDriverLocalService myAppiumService;
 	
 	
-	@BeforeSuite(alwaysRun = true)
-	@Parameters({"os"})
+	//@BeforeSuite(alwaysRun = true)
+	//@Parameters({"os"})
 	public void beforeTestStarts(String os) throws Exception {
 		
 		
@@ -185,12 +185,13 @@ public class LDSTools {
 	 * 
 	 * @throws Exception
 	 */
-	@BeforeMethod(alwaysRun = true)
+	//@BeforeMethod(alwaysRun = true)
+	@BeforeSuite(alwaysRun = true)
 	@Parameters({"os", "fileName", "testDevice"})
 	public void setUp(String os, String fileName, String testDevice) throws Exception {
 		//System.out.println("OS: " + os );
 		//System.out.println("File Name: " + fileName);
-		
+		beforeTestStarts(os);
 		
 		//Android Setup
 		if (os.equals("android")) {
@@ -318,7 +319,7 @@ public class LDSTools {
 	        //capabilities.setCapability("appPackage", "org.lds.ldstools.dev");
 	        //capabilities.setCapability("sendKeysStrategy", "setValue");
 	        capabilities.setCapability("sendKeysStrategy", "grouped");
-	        capabilities.setCapability("launchTimeout", 90000);
+	        capabilities.setCapability("launchTimeout", 900000);
 	        
 	        
 	        capabilities.setCapability("platformVersion", "10.1");
@@ -7054,7 +7055,10 @@ public class LDSTools {
 					clickButton("Yes", "id", "xpath");
 				} else {
 					//clickButton("AlertOK", "id", "xpath");
-					clickButton("OK", "textAtt", "xpath");
+					if (checkElementExistsByXpath("OK")) {
+						clickButton("OK", "textAtt", "xpath");
+					}
+					
 				}
 				Thread.sleep(1000);
 			}
@@ -7068,17 +7072,25 @@ public class LDSTools {
 				clickButton("AlertOK", "id", "xpath");
 			}
 
-			//checkTextByXpath("PinTitle", "Choose your PIN");
-			clickButton("PinKey" + digit1, "id", "xpath");
-			clickButton("PinKey" + digit2, "id", "xpath");
-			clickButton("PinKey" + digit3, "id", "xpath");
-			clickButton("PinKey" + digit4, "id", "xpath");
-			
-			//checkTextByXpath("PinTitle", "Confirm PIN");
-			clickButton("PinKey" + digit1, "id", "xpath");
-			clickButton("PinKey" + digit2, "id", "xpath");
-			clickButton("PinKey" + digit3, "id", "xpath");
-			clickButton("PinKey" + digit4, "id", "xpath");
+			if (checkElementTextViewReturnContains("Create New Passcode")) {
+				//checkTextByXpath("PinTitle", "Choose your PIN");
+				clickButton("PinKey" + digit1, "id", "xpath");
+				clickButton("PinKey" + digit2, "id", "xpath");
+				clickButton("PinKey" + digit3, "id", "xpath");
+				clickButton("PinKey" + digit4, "id", "xpath");
+				
+				//checkTextByXpath("PinTitle", "Confirm PIN");
+				clickButton("PinKey" + digit1, "id", "xpath");
+				clickButton("PinKey" + digit2, "id", "xpath");
+				clickButton("PinKey" + digit3, "id", "xpath");
+				clickButton("PinKey" + digit4, "id", "xpath");
+			} else {
+				clickButton("PinKey" + digit1, "id", "xpath");
+				clickButton("PinKey" + digit2, "id", "xpath");
+				clickButton("PinKey" + digit3, "id", "xpath");
+				clickButton("PinKey" + digit4, "id", "xpath");
+			}
+
 
 		} else {
 			clickButton("AlertNotNow", "id", "xpath");
@@ -9693,7 +9705,11 @@ public class LDSTools {
 
 			
 		} else {
-			clickButtonByID("MenuDefaultDirectory");
+			//clickButtonByID("MenuDefaultDirectory");
+			//checkForLater();
+			clickButton("DrawerDirectory", "xpath", "id");
+			Thread.sleep(2000);
+			clickButton("MenuDefaultDirectory", "id", "id");
 			clickButtonByXpathTitleName("Individuals");
 			clickButtonByID("MenuSearch");
 			sendTextbyXpath("SearchArea", lowerCaseSearch + " ");
@@ -11476,10 +11492,12 @@ public class LDSTools {
 		if(getRunningOS().equals("mac")) {
 			//System.out.println("Reset App");
 			//driver.resetApp();
+			
 			System.out.println("Remove App");
 			driver.removeApp(myAppPackage);
 			System.out.println("Install App");
 			driver.installApp(myAppPackage);
+			driver.launchApp();
 		} else {
 			System.out.println("Clear App");
 			adbCommand("clearApp");
