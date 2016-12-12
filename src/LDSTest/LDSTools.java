@@ -322,7 +322,7 @@ public class LDSTools {
 	        capabilities.setCapability("launchTimeout", 900000);
 	        
 	        
-	        capabilities.setCapability("platformVersion", "10.1");
+	        capabilities.setCapability("platformVersion", "10.2");
 	        capabilities.setCapability("nativeInstrumentsLib", true);
 	        
 	        capabilities.setCapability("autoAcceptAlerts", true);
@@ -6172,6 +6172,11 @@ public class LDSTools {
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(@name, '" + textElement + "')]")));
 	}
 	
+	private void waitForTextToDisappearTEXT(String textElement, int myTimeOut){
+		WebDriverWait wait = new WebDriverWait(driver, myTimeOut);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(@text, '" + textElement + "')]")));
+	}
+	
 	private void waitForTextToDisappearID(String textElement, int myTimeOut){
 		WebDriverWait wait = new WebDriverWait(driver, myTimeOut);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id(this.prop.getProperty(textElement))));
@@ -6766,7 +6771,9 @@ public class LDSTools {
 			clickButtonByID("SignInButton");
 			//clickButtonByXpath("SignInButton");
 			Thread.sleep(4000);
-			waitForTextToDisappearID("SyncText", 500 );
+			waitForTextToDisappearTEXT("Sync Progress", 500 );
+			//waitForTextToDisappearByText("Sync Progress", 500 );
+			//waitForTextToDisappearID("SyncText", 500 );
 			Thread.sleep(2000);
 		}
 		
@@ -6834,7 +6841,7 @@ public class LDSTools {
 			
 			//waitForTextToDisappear("DownloadingSync", 500 );
 			waitForTextToDisappearName(chooseNetwork, 500 );
-			Thread.sleep(8000);
+			Thread.sleep(12000);
 		}
 	}
 	
@@ -7014,87 +7021,65 @@ public class LDSTools {
 	 */
 	private void pinPage(String digit1, String digit2, String digit3, String digit4, Boolean nonLeaderPin ) throws Exception {
 		int myCheck = 0;
+		int yesCheck = 0;
+		int OKCheck = 0;
 		String myAlertText;
-		boolean elementCheck;
-		
-		//Check to see if we are getting a warning
-		if (checkElementReturn("AlertMessage", "id", "xpath").equals(true)) {
-			myCheck = checkTextReturn("AlertMessage", "Warning", "id", "xpath");
-		}
-		//Check to see if we are getting a warning
-		if (checkElementExistsByXpath("AlertCalendarMessage").equals(true)) {
-			System.out.println("Calendar Message!");
-			clickButton("AlertOK", "id", "xpath");
-			Thread.sleep(2000);
-		}
-		
-		
 
-		if (myCheck == 1) {
-			//myAlertText = getTextXpath("AlertMessageView");
-			myAlertText = getText("AlertMessageView", "id", "xpath");
-			System.out.println("Found Warning: " + myAlertText);
-			
-			//Make sure we are not getting the Action and Interview warning
-			Assert.assertFalse(myAlertText.contains("Action and Interview"));
-			
-			clickButtonByXpath("OK");
-			Thread.sleep(5000);
-		}
-		Thread.sleep(1000);
+		int whileCheck = 1;
 		
-		//If this is a non-leader account the PIN message will be different
-		//myCheck = checkTextByXpathReturn("AlertMessage", "Please create a PIN to protect sensitive data available to leaders.");
-		myCheck = alertCheck();
-		if ((myCheck == 1) || (nonLeaderPin)){
-			if (myCheck == 1) {
-				clickButton("AlertOK", "id", "xpath");
+		//Check for OK or Yes
+		while (whileCheck == 1) {
+			System.out.println("Start while check!");
+
+			if (checkElementReturn("Yes", "id", "xpath")) {
+				System.out.println("YES Found!");
+				clickButton("Yes", "id", "xpath");
+				yesCheck = 1;
 			} else {
-				elementCheck = checkElementExistsByXpath("Yes");
-				if (elementCheck == true) {
-					clickButton("Yes", "id", "xpath");
-				} else {
-					//clickButton("AlertOK", "id", "xpath");
-					if (checkElementExistsByXpath("OK")) {
-						clickButton("OK", "textAtt", "xpath");
-					}
-					
-				}
-				Thread.sleep(1000);
+				yesCheck = 0;
 			}
-
-			Thread.sleep(2000);
-			
-			//Check for a warning
-			elementCheck = checkElementReturn("AlertMessage", "id", "xpath");
-			if (elementCheck == true) {
-				//clickButtonByXpath("OK");
-				clickButton("AlertOK", "id", "xpath");
-			}
-
-			if (checkElementTextViewReturnContains("Create New Passcode")) {
-				//checkTextByXpath("PinTitle", "Choose your PIN");
-				clickButton("PinKey" + digit1, "id", "xpath");
-				clickButton("PinKey" + digit2, "id", "xpath");
-				clickButton("PinKey" + digit3, "id", "xpath");
-				clickButton("PinKey" + digit4, "id", "xpath");
-				
-				//checkTextByXpath("PinTitle", "Confirm PIN");
-				clickButton("PinKey" + digit1, "id", "xpath");
-				clickButton("PinKey" + digit2, "id", "xpath");
-				clickButton("PinKey" + digit3, "id", "xpath");
-				clickButton("PinKey" + digit4, "id", "xpath");
+		
+			if (checkElementReturn("OK", "textAtt", "xpath")) {
+				System.out.println("OK Found!");
+				clickButton("OK", "textAtt", "xpath");
+				OKCheck = 1;
 			} else {
-				clickButton("PinKey" + digit1, "id", "xpath");
-				clickButton("PinKey" + digit2, "id", "xpath");
-				clickButton("PinKey" + digit3, "id", "xpath");
-				clickButton("PinKey" + digit4, "id", "xpath");
+				OKCheck = 0;
 			}
+			
+			if ((yesCheck == 1 ) || (OKCheck == 1)) {
+				whileCheck = 1;
+			} else {
+				whileCheck = 0;
+			}	
+			
+			System.out.println("While Check: " + whileCheck);
+			myCheck = 0;
+			Thread.sleep(4000);
+		}
+		
 
 
+		if ((checkElementTextViewReturnContains("Create New Passcode")) || (checkElementTextViewReturnContains("Choose your PIN"))) {
+			System.out.println("Create New Passcode. ");
+			//checkTextByXpath("PinTitle", "Choose your PIN");
+			clickButton("PinKey" + digit1, "id", "xpath");
+			clickButton("PinKey" + digit2, "id", "xpath");
+			clickButton("PinKey" + digit3, "id", "xpath");
+			clickButton("PinKey" + digit4, "id", "xpath");
+			
+			//checkTextByXpath("PinTitle", "Confirm PIN");
+			clickButton("PinKey" + digit1, "id", "xpath");
+			clickButton("PinKey" + digit2, "id", "xpath");
+			clickButton("PinKey" + digit3, "id", "xpath");
+			clickButton("PinKey" + digit4, "id", "xpath");
 		} else {
-			clickButton("AlertNotNow", "id", "xpath");
+			clickButton("PinKey" + digit1, "id", "xpath");
+			clickButton("PinKey" + digit2, "id", "xpath");
+			clickButton("PinKey" + digit3, "id", "xpath");
+			clickButton("PinKey" + digit4, "id", "xpath");
 		}
+
 		Thread.sleep(2000);
 
 	}
@@ -9706,7 +9691,7 @@ public class LDSTools {
 			
 		} else {
 			//clickButtonByID("MenuDefaultDirectory");
-			//checkForLater();
+			checkForLater();
 			clickButton("DrawerDirectory", "xpath", "id");
 			Thread.sleep(2000);
 			clickButton("MenuDefaultDirectory", "id", "id");
