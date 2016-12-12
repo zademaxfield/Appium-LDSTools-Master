@@ -383,8 +383,8 @@ public class LDSTools {
 		
 		//LeaderNonBishopricReport("LDSTools39", "Ward Council", os);
 		
-		LeaderBishopricDirectory("ngiBPC1", false, os);
-		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
+		//LeaderBishopricDirectory("ngiBPC1", false, os);
+		LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
@@ -1929,6 +1929,10 @@ public class LDSTools {
 		syncLogIn(leaderLogin, "password1", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
 
+		if (!getRunningOS().equals("mac")) {
+			pressBackKey();
+		}
+		
 		checkHTVTBasic("Bishopric");
 		checkHTVTHouseholds("Bishopric");
 	}
@@ -2603,6 +2607,11 @@ public class LDSTools {
 		
 		
 		Thread.sleep(1000);
+		
+		if (!getRunningOS().equals("mac")) {
+			pressBackKey();
+		}
+		
 		//Check Home Teaching - Visiting Teaching
 		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
 		checkHTVTBasic(userCalling);
@@ -7339,6 +7348,7 @@ public class LDSTools {
 			clickButtonByXpath("DrawerDirectory");
 		} else {
 			//Check the Drawer items
+			pressBackKey();
 			clickButtonByXpath("Drawer");
 			if (checkElementReturn("Later", "textAtt", "value") == true ) {
 				clickButtonByXpathTitleName("Later");
@@ -7377,6 +7387,10 @@ public class LDSTools {
 		//clickButtonByXpath("DrawerCallings");
 		String pageSource;
 		//LDSWeb myWeb = new LDSWeb();
+		
+		if (!getRunningOS().equals("mac")) {
+			pressBackKey();
+		}
 		
 		openOrgnizations();
 		
@@ -7617,6 +7631,11 @@ public class LDSTools {
 	 */
 	private void checkMissionary() throws Exception {
 		String pageSource;
+		
+		if (!getRunningOS().equals("mac")) {
+			pressBackKey();
+		}
+		
 		openMissionary();
 		Thread.sleep(1000);
 		
@@ -7640,6 +7659,11 @@ public class LDSTools {
 	}
 	
 	private void checkCalendar() throws Exception {
+		
+		if (!getRunningOS().equals("mac")) {
+			pressBackKey();
+		}
+		
 		openCalendar();
 		
 		String pageSource;
@@ -7680,6 +7704,10 @@ public class LDSTools {
 		//List<String> checkReportText = new ArrayList<String>();
 		String pageSource = null;
 		//boolean myTestbool;
+		
+		if (!getRunningOS().equals("mac")) {
+			pressBackKey();
+		}
 		
 		openReports();
 		Thread.sleep(2000);
@@ -7969,6 +7997,10 @@ public class LDSTools {
 		String pageSource;
 		List<String> myList = new ArrayList<String>();
 		List<String> androidList = new ArrayList<String>();
+		
+		if (!getRunningOS().equals("mac")) {
+			pressBackKey();
+		}
 		
 		openReports();
 		Thread.sleep(2000);
