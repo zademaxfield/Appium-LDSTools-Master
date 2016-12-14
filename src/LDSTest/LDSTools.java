@@ -384,8 +384,8 @@ public class LDSTools {
 		//LeaderNonBishopricReport("LDSTools39", "Ward Council", os);
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
-		LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
-		//LeaderBishopricReport("ngiBPC1", false, os);
+		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
+		LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
@@ -7090,6 +7090,10 @@ public class LDSTools {
 		}
 
 		Thread.sleep(2000);
+		
+		if (!getRunningOS().equals("mac")) {
+			pressBackKey();
+		}
 
 	}
 	
@@ -7348,7 +7352,7 @@ public class LDSTools {
 			clickButtonByXpath("DrawerDirectory");
 		} else {
 			//Check the Drawer items
-			pressBackKey();
+			//pressBackKey();
 			clickButtonByXpath("Drawer");
 			if (checkElementReturn("Later", "textAtt", "value") == true ) {
 				clickButtonByXpathTitleName("Later");
@@ -7388,9 +7392,6 @@ public class LDSTools {
 		String pageSource;
 		//LDSWeb myWeb = new LDSWeb();
 		
-		if (!getRunningOS().equals("mac")) {
-			pressBackKey();
-		}
 		
 		openOrgnizations();
 		
@@ -7632,9 +7633,6 @@ public class LDSTools {
 	private void checkMissionary() throws Exception {
 		String pageSource;
 		
-		if (!getRunningOS().equals("mac")) {
-			pressBackKey();
-		}
 		
 		openMissionary();
 		Thread.sleep(1000);
@@ -7659,10 +7657,7 @@ public class LDSTools {
 	}
 	
 	private void checkCalendar() throws Exception {
-		
-		if (!getRunningOS().equals("mac")) {
-			pressBackKey();
-		}
+
 		
 		openCalendar();
 		
@@ -7705,9 +7700,6 @@ public class LDSTools {
 		String pageSource = null;
 		//boolean myTestbool;
 		
-		if (!getRunningOS().equals("mac")) {
-			pressBackKey();
-		}
 		
 		openReports();
 		Thread.sleep(2000);
@@ -7998,9 +7990,6 @@ public class LDSTools {
 		List<String> myList = new ArrayList<String>();
 		List<String> androidList = new ArrayList<String>();
 		
-		if (!getRunningOS().equals("mac")) {
-			pressBackKey();
-		}
 		
 		openReports();
 		Thread.sleep(2000);
@@ -10520,11 +10509,14 @@ public class LDSTools {
 	}
 	
 	private void adbCommand(String myCommand) throws Exception {
+		String pathToADB = "../../../android-sdks/platform-tools/adb";
+
+
 		
 		if (myCommand.equals("stopApp")) {
 			//String cmd = "adb shell am force-stop org.lds.ldstools.dev";
 			Runtime run = Runtime.getRuntime();
-			Process pr = run.exec(new String[] {"/Users/zmaxfield/android-sdks/platform-tools/adb", "shell", "am", "force-stop", "org.lds.ldstools.dev"});
+			Process pr = run.exec(new String[] {pathToADB, "shell", "am", "force-stop", "org.lds.ldstools.dev"});
 			//Process pr = run.exec(cmd);
 			pr.waitFor();
 			BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
@@ -10537,7 +10529,7 @@ public class LDSTools {
 		if (myCommand.equals("clearApp")) {
 			//String cmd = "adb shell am force-stop org.lds.ldstools.dev";
 			Runtime run = Runtime.getRuntime();
-			Process pr = run.exec(new String[] {"/Users/zmaxfield/android-sdks/platform-tools/adb", "shell", "pm", "clear", "org.lds.ldstools.dev"});
+			Process pr = run.exec(new String[] { pathToADB, "shell", "pm", "clear", "org.lds.ldstools.dev"});
 			//Process pr = run.exec(cmd);
 			pr.waitFor();
 			BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
