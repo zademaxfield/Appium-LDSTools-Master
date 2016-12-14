@@ -381,11 +381,11 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools26", "Relief Society Pres", os);
 		//LeaderNonBishopricMissionary("LDSTools20", "High Priest Group", os);
 		
-		//LeaderNonBishopricReport("LDSTools39", "Ward Council", os);
+		LeaderNonBishopricReport("LDSTools39", "Ward Council", os);
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
-		LeaderBishopricReport("ngiBPC1", false, os);
+		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
@@ -9712,9 +9712,9 @@ public class LDSTools {
 			
 		} else {
 			//clickButtonByID("MenuDefaultDirectory");
-			checkForLater();
-			clickButton("DrawerDirectory", "xpath", "id");
-			Thread.sleep(2000);
+			//checkForLater();
+			//clickButton("DrawerDirectory", "xpath", "id");
+			//Thread.sleep(2000);
 			clickButton("MenuDefaultDirectory", "id", "id");
 			clickButtonByXpathTitleName("Individuals");
 			clickButtonByID("MenuSearch");
