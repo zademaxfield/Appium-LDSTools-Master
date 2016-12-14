@@ -76,32 +76,19 @@ public class LDSWeb {
 	@Test
 	public void simpleTest() throws Exception {
 		
-		
+		/*
 		String url = "https://uat.lds.org/mls/mbr/?lang=eng";
 		String userName = "LDSTools2";
 		String passWord = "toolstester";
 		
 		openPageLogIn(url, userName, passWord);
-		
-		
-		
-		clickElement("Organizations", "linkText");
-		Thread.sleep(4000);
-		clickElement("Sunday School", "linkText");
-		Thread.sleep(2000);
-		waitForTextToDisappear("Loading", 500, "id" );
-		clickElement("Members", "linkText");
-		clickElement("Gospel Doctrine", "linkText");
-		
-		
-		addMemberToOrg("aaron");
-
 	
-
 		Thread.sleep(10000);
+		*/
 		
 		
 		//setupAfterUATReset();
+		AreaBookSetup();
 
 		/*
 		populateFile();
@@ -133,6 +120,21 @@ public class LDSWeb {
 		setupCallings();
 		setupDistricts();
 		addCompanionHousehold();
+		addJaneAaronToClass();
+	}
+	
+	public void addJaneAaronToClass() throws Exception {
+		
+		clickElement("Organizations", "linkText");
+		Thread.sleep(4000);
+		clickElement("Sunday School", "linkText");
+		Thread.sleep(2000);
+		waitForTextToDisappear("Loading", 500, "id" );
+		clickElement("Members", "linkText");
+		clickElement("Gospel Doctrine", "linkText");
+		
+		
+		addMemberToOrg("aaron");
 	}
 	
 	public void addCompanionHousehold() throws Exception {
@@ -598,6 +600,10 @@ public class LDSWeb {
 		Thread.sleep(2000);
 		waitForTextToDisappear("abSync", 500, "xpath");
 		//clickElement("abReadLater", "id");
+		
+		Thread.sleep(4000);
+		clickElement("abReadLater", "id");
+		Thread.sleep(2000);
 	}
 	
 	public void clickElement( String elementName, String elementFind) {
@@ -2198,6 +2204,9 @@ public class LDSWeb {
 		Thread.sleep(4000);
 		clickElement("abDashboard", "xpath");
 		Thread.sleep(4000);
+		
+
+		
 
 
 	}
