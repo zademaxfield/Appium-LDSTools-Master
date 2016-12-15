@@ -365,7 +365,7 @@ public class LDSTools {
 		//editOtherUserInvalidEmail(os);
 		
 		
-		//editVisibility(os);
+		editVisibility(os);
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
@@ -381,7 +381,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools26", "Relief Society Pres", os);
 		//LeaderNonBishopricMissionary("LDSTools20", "High Priest Group", os);
 		
-		LeaderNonBishopricReport("LDSTools39", "Ward Council", os);
+		//LeaderNonBishopricReport("LDSTools39", "Ward Council", os);
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
@@ -3328,7 +3328,7 @@ public class LDSTools {
 		//editUserOpen(); 
 		editUserOpen(); 
 
-		
+		Thread.sleep(2000);
 		//This will reset the visibility back to Stake
 		resetVisibility();
 		
@@ -4705,6 +4705,7 @@ public class LDSTools {
 				scrollDownIOS();
 				//driver.scrollTo("Set Max Units");
 				clickButtonByXpathTitleNameContains("Set Max Units");
+				Thread.sleep(2000);
 				sendTextbyXpath("SetMaxUnits", "3");
 				clickButton("OK", "xpath", "xpath");
 				
@@ -4719,6 +4720,7 @@ public class LDSTools {
 			sendTextbyXpath("LoginPassword", loginPassword);
 			clickButtonByXpath("DoneButton");
 			Thread.sleep(4000);
+			waitForTextToDisappearTEXT("UAT", 500 );
 			
 			pageSource = getSourceOfPage();
 			Assert.assertTrue(checkNoCaseList("Select up to 3", pageSource, "Contains"));
@@ -4729,9 +4731,9 @@ public class LDSTools {
 			clickButton("SyncButton", "xpath", "xpath");
 			
 			
-			waitForTextToDisappear("SyncText", 500 );
+			waitForTextToDisappearTEXT("UAT", 500 );
 			//waitForTextToDisappear("DownloadingSync", 500 );
-			Thread.sleep(2000);
+			Thread.sleep(15000);
 			pinPage("1", "1", "3", "3", true);
 			Thread.sleep(2000);
 			
@@ -4740,7 +4742,7 @@ public class LDSTools {
 			//options= driver.findElements(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell/UIAStaticText"));
 			options= driver.findElements(By.xpath("//XCUIElementTypeApplication/XCUIElementTypeWindow/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText"));
 			for (int i = 0 ; i < options.size(); i++ ) {
-				//System.out.println(options.get(i).getText());
+				System.out.println(options.get(i).getText());
 				StakeWard.add(options.get(i).getText());
 			}
 			clickButtonByXpath("TopCancel");
@@ -4752,7 +4754,10 @@ public class LDSTools {
 			
 			
 			//Go through each Stake and Ward to make sure it isn't blank
+			//System.out.println("Select each ward.");
 			for(String StakeWardItem : StakeWard){
+				//System.out.println("Hit spinner");
+				Thread.sleep(2000);
 				clickButtonByXpath("SpinnerSubTitle");
 				Thread.sleep(2000);
 				//System.out.println("To Click: " + StakeWardItem);	
@@ -6841,15 +6846,14 @@ public class LDSTools {
 			//Thread.sleep(1000);
 			clickButtonByXpath("DoneButton");
 			//clickButtonByXpath("SignInButton");
-			//Thread.sleep(1000);
-			//clickButtonByXpath("SignInButton");
+
 			Thread.sleep(4000);
 			
 			
 			unitsToSync();
 			
 			//waitForTextToDisappear("DownloadingSync", 500 );
-			waitForTextToDisappearName(chooseNetwork, 500 );
+			waitForTextToDisappearTEXT(chooseNetwork, 500 );
 			Thread.sleep(12000);
 		}
 	}
@@ -7056,7 +7060,7 @@ public class LDSTools {
 				OKCheck = 0;
 			}
 			
-			if ((yesCheck == 1 ) || (OKCheck == 1)) {
+			if (yesCheck == 1 || OKCheck == 1) {
 				whileCheck = 1;
 			} else {
 				whileCheck = 0;
@@ -7067,9 +7071,13 @@ public class LDSTools {
 			Thread.sleep(4000);
 		}
 		
+		Boolean myEleCheck = checkElementReturn("Create New Passcode", "text", "contValue");
+		System.out.println("Create New Passcode " + myEleCheck);
+		
+		Boolean myEleCheckAnd = checkElementTextViewReturnContains("Choose your PIN");
+		System.out.println("Choose your PIN " + myEleCheckAnd);
 
-
-		if ((checkElementTextViewReturnContains("Create New Passcode")) || (checkElementTextViewReturnContains("Choose your PIN"))) {
+		if (checkElementReturn("Create New Passcode", "text", "contValue") || checkElementTextViewReturnContains("Choose your PIN")) {
 			System.out.println("Create New Passcode. ");
 			//checkTextByXpath("PinTitle", "Choose your PIN");
 			clickButton("PinKey" + digit1, "id", "xpath");
@@ -9583,7 +9591,7 @@ public class LDSTools {
 		
 		
 		if (getRunningOS().equals("mac")) {
-			//printPageSource();
+			printPageSource();
 			textCheck = getTextXpath("VisibilityHVL");
 			if (!textCheck.contains("Stake")) {
 				clickButton("HouseholdVisibilityLimit", "id", "xpath");
