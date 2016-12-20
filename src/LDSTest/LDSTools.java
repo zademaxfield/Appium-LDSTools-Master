@@ -319,7 +319,7 @@ public class LDSTools {
 	        //capabilities.setCapability("appPackage", "org.lds.ldstools.dev");
 	        //capabilities.setCapability("sendKeysStrategy", "setValue");
 	        capabilities.setCapability("sendKeysStrategy", "grouped");
-	        capabilities.setCapability("launchTimeout", 900000);
+	        capabilities.setCapability("launchTimeout", 300000);
 	        
 	        
 	        capabilities.setCapability("platformVersion", "10.2");
@@ -365,7 +365,7 @@ public class LDSTools {
 		//editOtherUserInvalidEmail(os);
 		
 		
-		editVisibility(os);
+		//editVisibility(os);
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
@@ -386,7 +386,7 @@ public class LDSTools {
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
-		//LeaderBishopricHTVT("ngiBPC1", false, os); 
+		LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		
@@ -8906,9 +8906,10 @@ public class LDSTools {
 			} else {
 				pressBackKey();
 			}
-			//Assert.assertTrue(checkElementReturn("Afiafi, Efi", "textAtt", "value"));
-			Assert.assertTrue(checkElementReturn("AFPEleven, Member", "textAtt", "value"));
-			//Assert.assertTrue(checkElementReturn("AFPFifteen, Member", "textAtt", "value"));
+			Thread.sleep(1000);
+			//Assert.assertTrue(checkElementReturn("Fau, Valu", "textAtt", "value"));
+			//Assert.assertTrue(checkElementReturn("AFPEleven, Member", "textAtt", "value"));
+			Assert.assertTrue(checkElementReturn("AFPFifteen, Member", "textAtt", "value"));
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
@@ -8928,7 +8929,7 @@ public class LDSTools {
 				pressBackKey();
 				Thread.sleep(2000);
 			}
-
+			Thread.sleep(1000);
 			//Need to fix
 			//Assert.assertTrue(checkElementTextViewReturn("John, Smith"));
 			//Assert.assertTrue(checkElementTextViewReturn("Tuipoloa, Arieta"));
@@ -8951,6 +8952,7 @@ public class LDSTools {
 			} else {
 				pressBackKey();
 			}
+			Thread.sleep(1000);
 			//checkTextByXpath("HTVTFiltersApplied", "Single Sisters 18-30 years old");
 			Assert.assertTrue(checkElementReturn("Fiamatai, Solomua", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("Ielv, Gasolo", "textAtt", "value"));
@@ -8975,6 +8977,7 @@ public class LDSTools {
 				pressBackKey();
 			}
 			//checkTextByXpath("HTVTFiltersApplied", "Single Sisters 31 and over");
+			Thread.sleep(1000);
 			Assert.assertTrue(checkElementReturn("AFPEighteen, Member", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("AFPFive, Wife", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("AFPFourteen, Member", "textAtt", "value"));
@@ -8997,6 +9000,7 @@ public class LDSTools {
 				pressBackKey();
 			}
 			//checkTextByXpath("HTVTFiltersApplied", "Single Brothers 18-30 years old");
+			Thread.sleep(1000);
 			Assert.assertTrue(checkElementReturn("Anderson, Edward", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("Galo Meli, Mulivai", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("Faivaa, Tepa", "textAtt", "value"));
@@ -9018,6 +9022,7 @@ public class LDSTools {
 				pressBackKey();
 			}
 			//checkTextByXpath("HTVTFiltersApplied", "Single Sisters 31 and over");
+			Thread.sleep(1000);
 			Assert.assertTrue(checkElementReturn("AFPEleven, Member", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("AFPFifteen, Member", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("AFPMisc, Member1", "textAtt", "value"));
@@ -9055,6 +9060,7 @@ public class LDSTools {
 			} else {
 				pressBackKey();
 			}
+			Thread.sleep(1000);
 			//Assert.assertTrue(checkElementReturn("Tools, LDS47", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("Tools, LDS24", "textAtt", "value"));
 			//Assert.assertTrue(checkElementReturn("Tools, LDS47", "textAtt", "value"));
@@ -9076,6 +9082,7 @@ public class LDSTools {
 			} else {
 				pressBackKey();
 			}
+			Thread.sleep(1000);
 			//Assert.assertTrue(checkElementReturn("Apofasa, Sasa'a", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("AFPSix, Husband", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("AFPMisc, Member15", "textAtt", "value"));
@@ -9097,6 +9104,7 @@ public class LDSTools {
 			} else {
 				pressBackKey();
 			}
+			Thread.sleep(1000);
 			Assert.assertFalse(checkElementReturn("AFPMisc, Member15", "textAtt", "value"));
 			Assert.assertFalse(checkElementReturn("AFPSix, Husband", "textAtt", "value"));
 			Assert.assertFalse(checkElementReturn("AFPTen, Husband", "textAtt", "value"));
@@ -9118,6 +9126,7 @@ public class LDSTools {
 			} else {
 				pressBackKey();
 			}
+			Thread.sleep(1000);
 			//checkTextByXpath("HTVTFiltersApplied", "Single Sisters 18-30 years old");
 			Assert.assertFalse(checkElementReturn("Fiamatai, Solomua", "textAtt", "value"));
 			Assert.assertFalse(checkElementReturn("Ielv, Gasolo", "textAtt", "value"));
@@ -9140,6 +9149,7 @@ public class LDSTools {
 			} else {
 				pressBackKey();
 			}
+			Thread.sleep(1000);
 			//checkTextByXpath("HTVTFiltersApplied", "Single Sisters 31 and over");
 			Assert.assertFalse(checkElementReturn("AFPEighteen, Member", "textAtt", "value"));
 			Assert.assertFalse(checkElementReturn("AFPFive, Wife", "textAtt", "value"));
@@ -9162,6 +9172,7 @@ public class LDSTools {
 			} else {
 				pressBackKey();
 			}
+			Thread.sleep(1000);
 			//checkTextByXpath("HTVTFiltersApplied", "Single Brothers 18-30 years old");
 			Assert.assertTrue(checkElementReturn("Mene, Taavili Maalona", "textAtt", "value"));
 			Assert.assertFalse(checkElementReturn("Etene, Max", "textAtt", "value"));
@@ -9183,6 +9194,7 @@ public class LDSTools {
 			} else {
 				pressBackKey();
 			}
+			Thread.sleep(1000);
 			//checkTextByXpath("HTVTFiltersApplied", "Single Sisters 31 and over");
 			Assert.assertTrue(checkElementReturn("AFPMisc, Member15", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("AFPSix, Husband", "textAtt", "value"));
@@ -9231,6 +9243,7 @@ public class LDSTools {
 			} else {
 				pressBackKey();
 			}
+			Thread.sleep(1000);
 			//Assert.assertTrue(checkElementReturn("Galuvao, Logo", "textAtt", "value"));
 			//Assert.assertTrue(checkElementReturn("Tools, LDS28", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("Aaron, Jane", "textAtt", "value"));
@@ -9253,6 +9266,7 @@ public class LDSTools {
 			} else {
 				pressBackKey();
 			}
+			Thread.sleep(1000);
 			Assert.assertTrue(checkElementReturn("AFPFourteen, Member", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("AFPMisc, Member12", "textAtt", "value"));
 			//Assert.assertTrue(checkElementReturn("AFPMisc, Member8", "textAtt", "value"));
@@ -9274,6 +9288,7 @@ public class LDSTools {
 			} else {
 				pressBackKey();
 			}
+			Thread.sleep(1000);
 			//Assert.assertTrue(checkElementReturn("Smith, Ferila", "textAtt", "value"));
 			//Assert.assertTrue(checkElementReturn("Tuipoloa, Arieta", "textAtt", "value"));
 			//Assert.assertTrue(checkElementReturn("Tuipoloa, Taimi", "textAtt", "value"));
@@ -9295,6 +9310,7 @@ public class LDSTools {
 			} else {
 				pressBackKey();
 			}
+			Thread.sleep(1000);
 			//checkTextByXpath("HTVTFiltersApplied", "Single Sisters 18-30 years old");
 			Assert.assertTrue(checkElementReturn("Aitusavali, Solofuti Saluatai", "textAtt", "value"));
 			//Assert.assertTrue(checkElementReturn("Ami, Faleatafa", "textAtt", "value"));
@@ -9317,6 +9333,7 @@ public class LDSTools {
 			} else {
 				pressBackKey();
 			}
+			Thread.sleep(1000);
 			//checkTextByXpath("HTVTFiltersApplied", "Single Sisters 31 and over");
 			Assert.assertTrue(checkElementReturn("AFPEighteen, Member", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("AFPFive, Wife", "textAtt", "value"));
