@@ -1930,7 +1930,9 @@ public class LDSTools {
 		pinPage("1", "1", "3", "3", true);
 
 		if (!getRunningOS().equals("mac")) {
-			pressBackKey();
+			//pressBackKey();
+			//clickButtonByXpath("DrawerDirectory");
+			//Thread.sleep(2000);
 		}
 		
 		checkHTVTBasic("Bishopric");
@@ -11536,7 +11538,8 @@ public class LDSTools {
 			System.out.println("Clear App");
 			adbCommand("clearApp");
 			Thread.sleep(2000);
-			driver.quit();
+			driver.resetApp();
+			//driver.quit();
 		}
 		
 		
