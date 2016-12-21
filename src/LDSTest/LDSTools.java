@@ -381,12 +381,13 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools26", "Relief Society Pres", os);
 		//LeaderNonBishopricMissionary("LDSTools20", "High Priest Group", os);
 		
+		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools39", "Ward Council", os);
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
-		LeaderBishopricHTVT("ngiBPC1", false, os); 
+		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		
@@ -415,7 +416,7 @@ public class LDSTools {
 		
 		//Header Tests
 		//ChristieWhiting(os);
-		//CliffHigby(os);
+		CliffHigby(os);
 		//KevinPalmer(os);
 		//PatriarchOtherWards(os); //Not working!
 		//TravisLyman(os);
@@ -2610,9 +2611,9 @@ public class LDSTools {
 		
 		Thread.sleep(1000);
 		
-		if (!getRunningOS().equals("mac")) {
-			pressBackKey();
-		}
+		//if (!getRunningOS().equals("mac")) {
+		//	pressBackKey();
+		//}
 		
 		//Check Home Teaching - Visiting Teaching
 		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
@@ -6896,6 +6897,7 @@ public class LDSTools {
 				clickButton("AlertOK", "id", "xpath");
 				Thread.sleep(2000);
 				
+				scrollDownTEST(300);
 				//driver.scrollToExact("px_u").click();
 				//scrollDown("px_u", 130 );
 				clickButton("px_u", "textAtt", "xpath");
@@ -6984,6 +6986,7 @@ public class LDSTools {
 				scrollDownIOS();
 				
 				clickButton("Units", "byName", "byName");
+				Thread.sleep(1000);
 				sendTextbyXpath("HeaderAlertTextUnits", units );
 				clickButtonByXpath("HeaderOK");
 
@@ -7016,8 +7019,9 @@ public class LDSTools {
 				unitsToSync();
 				
 				//waitForTextToDisappear("DownloadingSync", 500 );
-				printPageSource();
-				waitForTextToDisappearName("SVProgressHUD", 500 );
+				
+				//waitForTextToDisappearName("SVProgressHUD", 500 );
+				waitForTextToDisappearTEXT(chooseNetwork, 500 );
 				Thread.sleep(25000);
 			}
 		}
@@ -9387,6 +9391,7 @@ public class LDSTools {
 			//Go through each Stake and Ward to make sure it isn't blank
 			for(String StakeWardItem : StakeWard){
 				//clickButtonByXpath("SpinnerNav");
+				Thread.sleep(2000);
 				clickButtonByXpath("SpinnerSubTitle");
 				Thread.sleep(2000);
 				//System.out.println("To Click: " + StakeWardItem);	
@@ -11519,6 +11524,7 @@ public class LDSTools {
 
 		// Here will compare if test is failing then only it will enter into if condition
 		if(ITestResult.FAILURE==result.getStatus()) {
+			printPageSource();
 			takeScreenShot();	
 		}
 		
