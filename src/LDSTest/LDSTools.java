@@ -225,7 +225,7 @@ public class LDSTools {
 	        
 	        capabilities.setCapability("deviceName", testDevice);
 	        capabilities.setCapability("platformName", "Android");
-	        //capabilities.setCapability("automationName","uiautomator2");
+	        capabilities.setCapability("automationName","uiautomator2");
 	        capabilities.setCapability("newCommandTimeout", 600);
 	        //capabilities.setCapability("platformVersion", "6.0.1");
 	        //capabilities.setCapability("fullReset", true);
@@ -384,7 +384,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools39", "Ward Council", os);
 		
-		//LeaderBishopricDirectory("ngiBPC1", false, os);
+		LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
@@ -416,7 +416,7 @@ public class LDSTools {
 		
 		//Header Tests
 		//ChristieWhiting(os);
-		CliffHigby(os);
+		//CliffHigby(os);
 		//KevinPalmer(os);
 		//PatriarchOtherWards(os); //Not working!
 		//TravisLyman(os);
@@ -6764,7 +6764,8 @@ public class LDSTools {
 				//clickButtonByXpath("OverflowSettings");
 				
 				Thread.sleep(2000);
-				scrollToElement("Network Environment");
+				scrollDown("Network Environment", 100);
+				//scrollToElement("Network Environment");
 				clickButton("Network Environment", "text", "text");
 				//driver.scrollToExact("Network Environment").click();
 				//scrollDown("Network Environment", 35 );
@@ -7106,7 +7107,9 @@ public class LDSTools {
 		Thread.sleep(2000);
 		
 		if (!getRunningOS().equals("mac")) {
+			Thread.sleep(2000);
 			pressBackKey();
+			Thread.sleep(2000);
 		}
 
 	}
@@ -10260,6 +10263,7 @@ public class LDSTools {
 		scrollDownTEST(800);
 		
 		clickButtonByXpath("TabHousehold");
+		//clickButton("HOUSEHOLD", "text", "text");
 		Thread.sleep(1000);
 		myPageSource = myPageSource + getSourceOfPage();
 		
