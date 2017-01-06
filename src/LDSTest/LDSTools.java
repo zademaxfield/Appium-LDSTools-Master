@@ -47,8 +47,10 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.SwipeElementDirection;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.AndroidDeviceActionShortcuts;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.android.AndroidKeyCode;
 import io.appium.java_client.ios.*;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSElement;
@@ -84,8 +86,9 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-//import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+//import org.openqa.selenium.WebDriver;
+
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.HasTouchScreen;
 import org.openqa.selenium.interactions.TouchScreen;
@@ -95,6 +98,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteTouchScreen;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.RemoteWebElement;
+
 //import org.openqa.selenium.remote.CapabilityType;
 //import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -109,7 +113,7 @@ import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
 
 //Not used yet
-//import org.openqa.selenium.WebElement;
+//import org.openqa.selenium.MobileElement;
 
 //import com.opera.core.systems.scope.protos.SelftestProtos.SelftestResult.Result;
 
@@ -123,7 +127,8 @@ import io.appium.java_client.service.local.flags.GeneralServerFlag;
  */
 public class LDSTools {
 	private Properties prop;
-	AppiumDriver<WebElement> driver;
+	//AppiumDriver<MobileElement> driver;
+	AppiumDriver<MobileElement> driver;
 	LDSWeb myWeb = new LDSWeb();
 	//AppiumDriver driver;
 	//AppiumDriver driver;
@@ -252,7 +257,8 @@ public class LDSTools {
 	        capabilities.setCapability("dontStopAppOnReset", true);
 	        
 	        
-	        driver = new AndroidDriver<WebElement>(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
+	        //driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
+	        driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
 	        //driver = new AppiumSwipeableDriver(new URL("http://127.0.0.1:4444/wd/hub"),capabilities);
 	        //driver = new AppiumDriver(new URL("http://127.0.0.1:4444/wd/hub"),capabilities);
 	        //touch = new TouchActions(driver);
@@ -333,7 +339,8 @@ public class LDSTools {
 	        //capabilities.setCapability("appActivity", "org.lds.ldstools.ui.StartupActivity");
 	        //driver = new AndroidDriver(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
 	        //driver = new AppiumSwipeableDriver(new URL("http://127.0.0.1:4445/wd/hub"),capabilities);
-	        driver = new IOSDriver<WebElement>(new URL("http://127.0.0.1:4445/wd/hub"),capabilities);
+	        //driver = new IOSDriver<MobileElement>(new URL("http://127.0.0.1:4445/wd/hub"),capabilities);
+	        driver = new IOSDriver<MobileElement>(new URL("http://127.0.0.1:4445/wd/hub"),capabilities);
 	       // touch = new TouchActions(driver);
 		}
        
@@ -384,10 +391,10 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools39", "Ward Council", os);
 		
-		LeaderBishopricDirectory("ngiBPC1", false, os);
+		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
-		//LeaderBishopricHTVT("ngiBPC1", false, os); 
+		LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		
@@ -4627,7 +4634,7 @@ public class LDSTools {
 		String chooseNetwork = "UAT";
 		
 		List<String> StakeWard = new ArrayList<String>();
-		List<WebElement> options = new ArrayList<WebElement>();
+		List<MobileElement> options = new ArrayList<MobileElement>();
 		Thread.sleep(2000);
 		String pageSource;
 		
@@ -4928,7 +4935,7 @@ public class LDSTools {
 	
 	private Boolean checkElementReturn(String textElement, String andEle, String iosEle) {
 		Boolean myReturnStatus;
-		List<WebElement> options = null;
+		List<MobileElement> options = null;
 		String findElement;
 		if (getRunningOS().equals("mac")) {
 			findElement = iosEle;
@@ -4992,8 +4999,8 @@ public class LDSTools {
 	
 	private Boolean checkElementNameReturn(String textElement) {
 		Boolean myReturnStatus;
-		//List<WebElement> options= driver.findElements(By.xpath("//*[@name='" + textElement + "']"));
-		List<WebElement> options= driver.findElements(By.name(textElement));
+		//List<MobileElement> options= driver.findElements(By.xpath("//*[@name='" + textElement + "']"));
+		List<MobileElement> options= driver.findElements(By.name(textElement));
 		if (options.isEmpty()) {
 			myReturnStatus = false;	
 		} else {
@@ -5011,8 +5018,8 @@ public class LDSTools {
 	 */
 	private Boolean checkElementTextViewReturnContains(String textElement) {
 		Boolean myReturnStatus;
-		List<WebElement> options;
-		//List<WebElement> options= driver.findElements(By.xpath("//TextView[contains(@value,'" + textElement + "')]"));
+		List<MobileElement> options;
+		//List<MobileElement> options= driver.findElements(By.xpath("//TextView[contains(@value,'" + textElement + "')]"));
 		if (getRunningOS().equals("mac")) {
 			options= driver.findElements(By.xpath("//*[contains(@value,'" + textElement + "')]"));
 		} else {
@@ -5052,8 +5059,8 @@ public class LDSTools {
 	 */
 	private Boolean checkElementTextViewRoboReturn(String textElement) {
 		Boolean myReturnStatus;
-		List<WebElement> options;
-		//List<WebElement> options= driver.findElements(By.xpath("//RobotoTextView[@value='" + textElement + "']"));
+		List<MobileElement> options;
+		//List<MobileElement> options= driver.findElements(By.xpath("//RobotoTextView[@value='" + textElement + "']"));
 		if (getRunningOS().equals("mac")) {
 			options= driver.findElements(By.xpath("//*[@value='" + textElement + "']"));
 		} else {
@@ -5082,9 +5089,9 @@ public class LDSTools {
 		Boolean myReturnStatus;
 		
 		//[contains(translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'test')]
-		List<WebElement> options= driver.findElements(By.xpath("//" + customText + "[contains(translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')," + textElement + "']"));
+		List<MobileElement> options= driver.findElements(By.xpath("//" + customText + "[contains(translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')," + textElement + "']"));
 		
-		//List<WebElement> options= driver.findElements(By.xpath("//" + customText + "[@value='" + textElement + "']"));
+		//List<MobileElement> options= driver.findElements(By.xpath("//" + customText + "[@value='" + textElement + "']"));
 		if (options.isEmpty()) {
 			myReturnStatus = false;
 		} else {
@@ -5100,8 +5107,8 @@ public class LDSTools {
 		//driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
 		//System.out.println("Start checkElementExistsByXpath");
-		//List<WebElement> options= driver.findElements(By.xpath("//TextView[@value='" + textElement + "']"));
-		List<WebElement> options= driver.findElements(By.xpath(this.prop.getProperty(textElement)));
+		//List<MobileElement> options= driver.findElements(By.xpath("//TextView[@value='" + textElement + "']"));
+		List<MobileElement> options= driver.findElements(By.xpath(this.prop.getProperty(textElement)));
 		//System.out.println("List of Web Elements - done");
 		
 		if (options.isEmpty()) {
@@ -5125,8 +5132,8 @@ public class LDSTools {
 	
 	private Boolean checkElementExistsByID(String textElement) {
 		Boolean myReturnStatus;
-		//List<WebElement> options= driver.findElements(By.xpath("//TextView[@value='" + textElement + "']"));
-		List<WebElement> options= driver.findElements(By.id(this.prop.getProperty(textElement)));
+		//List<MobileElement> options= driver.findElements(By.xpath("//TextView[@value='" + textElement + "']"));
+		List<MobileElement> options= driver.findElements(By.id(this.prop.getProperty(textElement)));
 		if (options.isEmpty()) {
 			myReturnStatus = false;	
 		} else {
@@ -5138,7 +5145,7 @@ public class LDSTools {
 	
 	private Boolean checkElementExistsByName(String textElement) {
 		Boolean myReturnStatus;
-		List<WebElement> options= driver.findElements(By.name(textElement));
+		List<MobileElement> options= driver.findElements(By.name(textElement));
 		if (options.isEmpty()) {
 			myReturnStatus = false;	
 		} else {
@@ -5326,7 +5333,7 @@ public class LDSTools {
 	 * 
 	 */
 	private void displayAllTextViewElements(String textElement) {
-		List<WebElement> options= driver.findElements(By.xpath("//" + textElement ));
+		List<MobileElement> options= driver.findElements(By.xpath("//" + textElement ));
 		for (int i = 0 ; i < options.size(); i++ ) {
 			System.out.println(options.get(i).getText());
 		}
@@ -5356,8 +5363,8 @@ public class LDSTools {
 	
 	
 	private List<String> getAllText() {
-		//List<WebElement> options= driver.findElements(By.xpath("//TextView[@enabled='true']"));
-		List<WebElement> options= driver.findElements(By.xpath("//*[contains(@value, ',')]"));
+		//List<MobileElement> options= driver.findElements(By.xpath("//TextView[@enabled='true']"));
+		List<MobileElement> options= driver.findElements(By.xpath("//*[contains(@value, ',')]"));
 		
 		List<String> allText = new ArrayList<String>();
 		String myText;
@@ -5833,9 +5840,9 @@ public class LDSTools {
 	 */
 	private void clickLastTextViewRoboReturn(String textElement) {
 		int myCounter;
-		List<WebElement> options;
+		List<MobileElement> options;
 		//displayAllTextViewElements(textElement);
-		//List<WebElement> options= driver.findElements(By.xpath("//RobotoTextView[@id='text1'][@value='" + textElement + "']"));
+		//List<MobileElement> options= driver.findElements(By.xpath("//RobotoTextView[@id='text1'][@value='" + textElement + "']"));
 		if (getRunningOS().equals("mac")) {
 			options= driver.findElements(By.xpath("//*[@value='" + textElement + "']"));
 		} else {
@@ -5849,8 +5856,8 @@ public class LDSTools {
 	
 	private void clickLastTextViewRoboReturnContains(String textElement) {
 		int myCounter;
-		List<WebElement> options;
-		//List<WebElement> options= driver.findElements(By.xpath("//RobotoTextView[contains(@value, '" + textElement + "')]"));
+		List<MobileElement> options;
+		//List<MobileElement> options= driver.findElements(By.xpath("//RobotoTextView[contains(@value, '" + textElement + "')]"));
 		
 		if (getRunningOS().equals("mac")) {
 			options= driver.findElements(By.xpath("//*[contains(@value, '" + textElement + "')]"));
@@ -5859,7 +5866,7 @@ public class LDSTools {
 		}
 		
 		
-		//List<WebElement> options= driver.findElements(By.xpath("//*[contains(@value, '" + textElement + "')]"));
+		//List<MobileElement> options= driver.findElements(By.xpath("//*[contains(@value, '" + textElement + "')]"));
 		//driver.findElement(By.xpath("//RobotoTextView[contains(@value='" + textElement + "')]")).click();
 		myCounter = options.size() - 1;
 		options.get(myCounter).click();
@@ -5948,7 +5955,7 @@ public class LDSTools {
 	
 	private void clickButtonByNameMultiple(String textElement, int myButton) {
 		Boolean myReturnStatus;
-		List<WebElement> options = driver.findElements(By.name(textElement));
+		List<MobileElement> options = driver.findElements(By.name(textElement));
 		
 		options.get(myButton).click();
 	}
@@ -5978,7 +5985,7 @@ public class LDSTools {
 	 */
 	private void clickButtonByXpathTitleName(String textElement ) {
 		WebDriverWait wait = new WebDriverWait(driver, 10);
-		WebElement myElement; 
+		WebElement myElement = null; 
 		//Changing this for Android 6.0 and later
 		if(getRunningOS().equals("mac")) {
 			//myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@value='" + textElement + "']")));
@@ -5996,9 +6003,28 @@ public class LDSTools {
 		}
 	}
 	
+	private void clickButtonByXpathTitleNameNoCase(String textElement) {
+		System.out.println("clickButtonByXpathTitleNameNoCase " + textElement);
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		WebElement myElement = null; 
+		if (checkElementReturn(textElement, "textAtt", "textAtt")) {
+			System.out.println("Found Lower case! " + textElement);
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@text='" + textElement + "']")));
+			myElement.click();
+		} else {
+			textElement = textElement.toUpperCase();
+			if (checkElementReturn(textElement, "textAtt", "textAtt")) {
+				System.out.println("Found UPPER case! " + textElement);
+				myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@text='" + textElement + "']")));
+				myElement.click();
+			}
+			
+		}
+	}
+	
 	private void clickButtonByName(String textElement ) {
 		WebDriverWait wait = new WebDriverWait(driver, 10);
-		//WebElement myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@name='" + textElement + "']")));
+		//MobileElement myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@name='" + textElement + "']")));
 		WebElement myElement = wait.until(ExpectedConditions.elementToBeClickable(By.name(textElement)));
 		myElement.click();
 
@@ -6037,7 +6063,7 @@ public class LDSTools {
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		WebElement myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@name, '" + textElement + "')]")));
 		myElement.click();
-		//WebElement element;
+		//MobileElement element;
 		//System.out.println("TEXT ELEMENT: " + textElement);
 		//driver.findElement(By.xpath("//RobotoTextView[contains(@value, '" + textElement + "')]")).click();
 		//driver.findElement(By.xpath("//*[contains(@name, '" + textElement + "')]")).click();
@@ -6096,13 +6122,13 @@ public class LDSTools {
 		//IOSElement myElement = (IOSElement) driver.findElement(By.xpath(this.prop.getProperty(textElement)));
 		//myElement.setValue(textToSend);
 		
-		//WebElement myElement = driver.findElement(By.xpath(this.prop.getProperty(textElement)));
+		//MobileElement myElement = driver.findElement(By.xpath(this.prop.getProperty(textElement)));
 		//myElement.sendKeys(textToSend);
 	}
 	
 	
 	private void clearTextFieldXpath(String textElement) throws Exception {
-		WebElement myElement = driver.findElement(By.xpath(this.prop.getProperty(textElement)));
+		MobileElement myElement = driver.findElement(By.xpath(this.prop.getProperty(textElement)));
 		if (getRunningOS().equals("mac")) {
 			myElement.click();
 			myElement.clear();
@@ -6117,7 +6143,7 @@ public class LDSTools {
 	
 	private void clearTextField(String textElement, String andEle, String iosEle  ) {
 
-		WebElement myElement = null;
+		MobileElement myElement = null;
 		String findElement;
 		if (getRunningOS().equals("mac")) {
 			findElement = iosEle;
@@ -6204,7 +6230,7 @@ public class LDSTools {
 	 * 
 	 */
 	private void flickRightToLeft(){
-		WebElement pages = driver.findElement(By.id("pager"));
+		MobileElement pages = driver.findElement(By.id("pager"));
 		//Smaller Devices
 		//TouchActions flick = new TouchActions(driver).flick(pages, -1500, 0, 0);
 		//Larger devices - seems to work for larger and smaller devices
@@ -6216,7 +6242,7 @@ public class LDSTools {
 	 * Flick or swipe from left to right
 	 */
 	private void flickLeftToRight(){
-		WebElement pages = driver.findElement(By.id("pager"));
+		MobileElement pages = driver.findElement(By.id("pager"));
 		TouchActions flick = new TouchActions(driver).flick(pages, 5500, 0, 0);
 		flick.perform();
 	}
@@ -6227,7 +6253,7 @@ public class LDSTools {
 	 * @param yNumber Number of pixel to swipe up or down
 	 */
 	private void flickUpOrDown(int yNumber){
-		WebElement pages = driver.findElement(By.id("pager"));
+		MobileElement pages = driver.findElement(By.id("pager"));
 		TouchActions flick = new TouchActions(driver).flick(pages, 0, yNumber, 0);
 		flick.perform();
 	}
@@ -6241,7 +6267,7 @@ public class LDSTools {
 	 * @param moveSpeed - speed of movement
 	 */
 	private void moveSlider(String textElement, int xCords, int yCords, int moveSpeed ) {
-        WebElement objSlider = driver.findElement(By.xpath(this.prop.getProperty(textElement)));
+        MobileElement objSlider = driver.findElement(By.xpath(this.prop.getProperty(textElement)));
         TouchActions drag = new TouchActions(driver).flick(objSlider, xCords, yCords, moveSpeed);
         drag.perform();
 	}
@@ -6256,7 +6282,7 @@ public class LDSTools {
 	 */
 	/*
 	private void scrollDown(String textElement, int distanceMove){
-		WebElement myElement = driver.findElement(By.xpath("//TextView[@value='" + textElement + "']"));
+		MobileElement myElement = driver.findElement(By.xpath("//TextView[@value='" + textElement + "']"));
 		TouchActions actions = new TouchActions(driver);
 		Point p=myElement.getLocation();
 		actions.down(p.x, p.y);
@@ -6315,7 +6341,7 @@ public class LDSTools {
 	 */
 	private int checkElementXpathReturn(String textElement) {
 		int myReturnStatus = 0;
-		List<WebElement> options= driver.findElements(By.xpath(textElement));
+		List<MobileElement> options= driver.findElements(By.xpath(textElement));
 		if (options.isEmpty()) {
 			myReturnStatus = 0;
 			return myReturnStatus;
@@ -6373,7 +6399,7 @@ public class LDSTools {
 	
 	private void scrollDownTEST(int scrollDistance ) throws Exception {
 		//TouchActions actions = new TouchActions(driver);
-		//WebElement myElement = driver.findElement(By.xpath("//CheckableLinearLayout[10]/RelativeLayout/LinearLayout"));
+		//MobileElement myElement = driver.findElement(By.xpath("//CheckableLinearLayout[10]/RelativeLayout/LinearLayout"));
 		//actions.flick(driver.findElement(By.xpath("//LinearLayout")), 0, scrollDistance, 100);
 
 		Dimension dimensions = driver.manage().window().getSize();
@@ -6447,8 +6473,8 @@ public class LDSTools {
 	
 	private void scrollToElementIOS(String myText) throws Exception {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-		//List<WebElement> options= driver.findElements(By.xpath("//*[@name='" + myText + "']"));
-		WebElement element = driver.findElement(By.xpath("//*[@label='" + myText + "']"));
+		//List<MobileElement> options= driver.findElements(By.xpath("//*[@name='" + myText + "']"));
+		MobileElement element = driver.findElement(By.xpath("//*[@label='" + myText + "']"));
 
 		HashMap<String, String> scrollObject = new HashMap<String, String>();
 		scrollObject.put("direction", "down");
@@ -6460,11 +6486,11 @@ public class LDSTools {
 	
 	private void scrollToLastElementIOS(String myText) throws Exception {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-		//List<WebElement> options= driver.findElements(By.xpath("//*[@name='" + myText + "']"));
-		//List<WebElement> options= driver.findElements(By.xpath("//*[@label='" + myText + "']"));
-		List<WebElement> options= driver.findElements(By.name(myText));
+		//List<MobileElement> options= driver.findElements(By.xpath("//*[@name='" + myText + "']"));
+		//List<MobileElement> options= driver.findElements(By.xpath("//*[@label='" + myText + "']"));
+		List<MobileElement> options= driver.findElements(By.name(myText));
 		if (options.size() > 0 ) {
-			WebElement element = options.get(options.size() -1 );
+			MobileElement element = options.get(options.size() -1 );
 			
 			HashMap<String, String> scrollObject = new HashMap<String, String>();
 			scrollObject.put("direction", "down");
@@ -6473,9 +6499,9 @@ public class LDSTools {
 		} 
 		
 
-		//WebElement element = driver.findElement(By.xpath("//*[@name='" + myText + "']"));
+		//MobileElement element = driver.findElement(By.xpath("//*[@name='" + myText + "']"));
 		//HashMap<String, String> scrollToObject = new HashMap<String, String>();
-		//scrollToObject.put("element",((RemoteWebElement) element).getId());
+		//scrollToObject.put("element",((RemoteMobileElement) element).getId());
 		//js.executeScript("mobile: scrollTo", scrollToObject);
 		//js.executeScript("mobile: scroll", scrollToObject);
 		
@@ -6501,7 +6527,7 @@ public class LDSTools {
 	
 	private void scrollToTopDirectoryIOS() throws Exception {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-		WebElement element = driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[1]/UIAStaticText[3]"));;
+		MobileElement element = driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[1]/UIAStaticText[3]"));;
 		HashMap<String, String> scrollToObject = new HashMap<String, String>();
 		scrollToObject.put("element",((RemoteWebElement) element).getId());
 		js.executeScript("mobile: scrollTo", scrollToObject);
@@ -6515,7 +6541,7 @@ public class LDSTools {
 	
 	private void scrollDownPerPage(int scrollDistance ) throws Exception {
 		TouchActions actions = new TouchActions(driver);
-		//WebElement myElement = driver.findElement(By.xpath("//CheckableLinearLayout[10]/RelativeLayout/LinearLayout"));
+		//MobileElement myElement = driver.findElement(By.xpath("//CheckableLinearLayout[10]/RelativeLayout/LinearLayout"));
 		//actions.flick(driver.findElement(By.xpath("//LinearLayout")), 0, scrollDistance, 100);
 
 		Dimension dimensions = driver.manage().window().getSize();
@@ -6549,7 +6575,7 @@ public class LDSTools {
 	
 	private void scrollUpTEST(int scrollDistance ) throws Exception {
 		//TouchActions actions = new TouchActions(driver);
-		//WebElement myElement = driver.findElement(By.xpath("//CheckableLinearLayout[10]/RelativeLayout/LinearLayout"));
+		//MobileElement myElement = driver.findElement(By.xpath("//CheckableLinearLayout[10]/RelativeLayout/LinearLayout"));
 		//actions.flick(driver.findElement(By.xpath("//LinearLayout")), 0, scrollDistance, 100);
 
 		Dimension dimensions = driver.manage().window().getSize();
@@ -6581,7 +6607,7 @@ public class LDSTools {
 	
 	private void scrollUpFromElement( String textElement, int scrollDistance ) throws Exception {
 		TouchActions actions = new TouchActions(driver);
-		WebElement myElement = driver.findElement(By.xpath(this.prop.getProperty(textElement)));
+		MobileElement myElement = driver.findElement(By.xpath(this.prop.getProperty(textElement)));
 		//actions.flick(myElement, 0, scrollDistance, 100);
 		actions.scroll(myElement, 0, scrollDistance);
 		actions.perform();
@@ -6596,7 +6622,7 @@ public class LDSTools {
 	 * @param textElement - xpath element must be in uiMap
 	 */
 	private void longPressByXpath(String textElement) {
-		WebElement myElement = driver.findElement(By.xpath(this.prop.getProperty(textElement)));
+		MobileElement myElement = driver.findElement(By.xpath(this.prop.getProperty(textElement)));
 		//This was doing a longpress on the wrong element
 		//TouchActions longPress = new TouchActions(driver).longPress(myElement);
 		//longPress.perform();
@@ -6614,15 +6640,15 @@ public class LDSTools {
 	 * @param textElement - text of an element
 	 */
 	private void longPressByTextView(String textElement) {
-		//WebElement myElement = driver.findElement(By.xpath("//*[@value='" + textElement + "']"));
-		//WebElement myElement = driver.findElement(By.xpath("//*[contains(@value, '" + textElement + "')]"));
+		//MobileElement myElement = driver.findElement(By.xpath("//*[@value='" + textElement + "']"));
+		//MobileElement myElement = driver.findElement(By.xpath("//*[contains(@value, '" + textElement + "')]"));
 		//AppiumDriver myElement = driver.findElement(By.xpath("//*[contains(@text, '" + textElement + "')]"));
 		
-		WebElement myElement = driver.findElement(By.xpath("//*[contains(@text, '" + textElement + "')]"));
+		MobileElement myElement = driver.findElement(By.xpath("//*[contains(@text, '" + textElement + "')]"));
 		
 		
-		//WebElement myElement = driver.findElement(By.id("signin_instructions"));
-		//WebElement muElements = (WebElement) driver.findElements(By.id("signin_instructions"));
+		//MobileElement myElement = driver.findElement(By.id("signin_instructions"));
+		//MobileElement muElements = (MobileElement) driver.findElements(By.id("signin_instructions"));
 
 		//This was doing a longpress on the wrong element
 		//TouchActions longPress = new TouchActions(driver).longPress(myElement);
@@ -6650,7 +6676,7 @@ public class LDSTools {
 	}
 	
 	private void longPressByID(String textElement) {
-		WebElement myElement = driver.findElement(By.id(this.prop.getProperty(textElement)));
+		MobileElement myElement = driver.findElement(By.id(this.prop.getProperty(textElement)));
 		TouchAction action = new TouchAction(driver);
 		action.longPress(myElement).release().perform();
 	}
@@ -6681,9 +6707,17 @@ public class LDSTools {
 				clickButton("Back", "byName", "byName");	
 			}	
 		} else {
-			driver.navigate().back();
-			//new Actions(driver).sendKeys(SelendroidKeys.BACK).perform();
 			Thread.sleep(1000);
+			//driver.context("NATIVE_APP");
+			if (checkElementReturn("Back", "xpath", "xpath")) {
+				clickButton("Back", "xpath", "xpath");
+			} else {
+				driver.navigate().back();
+			}
+			
+			
+			//new Actions(driver).sendKeys(SelendroidKeys.BACK).perform();
+			Thread.sleep(3000);
 		}
 
 	}
@@ -6770,7 +6804,9 @@ public class LDSTools {
 				//driver.scrollToExact("Network Environment").click();
 				//scrollDown("Network Environment", 35 );
 				
-				clickButtonByXpathTitleName(chooseNetwork);
+				//clickButtonByXpathTitleName(chooseNetwork);
+				Thread.sleep(1000);
+				clickButton(chooseNetwork, "text", "text");
 				clickButtonByXpath("Back");
 				Thread.sleep(5000);
 			}
@@ -6934,7 +6970,7 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			userName = "paigekrebs";
 			chooseNetwork = "Proxy";
-			WebElement myElement; 
+			MobileElement myElement; 
 			if (!chooseNetwork.equals("Production")) {
 				Thread.sleep(1000);
 				clickButtonByXpath("TopHelp");
@@ -7049,10 +7085,10 @@ public class LDSTools {
 		
 		//Check for OK or Yes
 		while (whileCheck == 1) {
-			System.out.println("Start while check!");
+			//System.out.println("Start while check!");
 
 			if (checkElementReturn("Yes", "id", "xpath")) {
-				System.out.println("YES Found!");
+				//System.out.println("YES Found!");
 				clickButton("Yes", "id", "xpath");
 				yesCheck = 1;
 			} else {
@@ -7060,7 +7096,7 @@ public class LDSTools {
 			}
 		
 			if (checkElementReturn("OK", "textAtt", "xpath")) {
-				System.out.println("OK Found!");
+				//System.out.println("OK Found!");
 				clickButton("OK", "textAtt", "xpath");
 				OKCheck = 1;
 			} else {
@@ -7073,19 +7109,19 @@ public class LDSTools {
 				whileCheck = 0;
 			}	
 			
-			System.out.println("While Check: " + whileCheck);
+			//System.out.println("While Check: " + whileCheck);
 			myCheck = 0;
 			Thread.sleep(4000);
 		}
 		
 		Boolean myEleCheck = checkElementReturn("Create New Passcode", "text", "contValue");
-		System.out.println("Create New Passcode " + myEleCheck);
+		//System.out.println("Create New Passcode " + myEleCheck);
 		
 		Boolean myEleCheckAnd = checkElementTextViewReturnContains("Choose your PIN");
-		System.out.println("Choose your PIN " + myEleCheckAnd);
+		//System.out.println("Choose your PIN " + myEleCheckAnd);
 
 		if (checkElementReturn("Create New Passcode", "text", "contValue") || checkElementTextViewReturnContains("Choose your PIN")) {
-			System.out.println("Create New Passcode. ");
+			//System.out.println("Create New Passcode. ");
 			//checkTextByXpath("PinTitle", "Choose your PIN");
 			clickButton("PinKey" + digit1, "id", "xpath");
 			clickButton("PinKey" + digit2, "id", "xpath");
@@ -7108,7 +7144,9 @@ public class LDSTools {
 		
 		if (!getRunningOS().equals("mac")) {
 			Thread.sleep(2000);
-			pressBackKey();
+			//pressBackKey();
+			checkForLater();
+			clickButtonByXpath("DrawerDirectory");
 			Thread.sleep(2000);
 		}
 
@@ -7393,6 +7431,10 @@ public class LDSTools {
 	private void checkForLater() throws Exception {
 		if (checkElementReturn("Later", "textAtt", "value") == true ) {
 			clickButtonByXpathTitleName("Later");
+		}
+		
+		if (checkElementReturn("LATER", "textAtt", "value") == true ) {
+			clickButtonByXpathTitleName("LATER");
 		}
 	}
 	
@@ -7795,7 +7837,8 @@ public class LDSTools {
 			clickButtonByXpath("TopSort");
 			clickButtonByName("Organization");
 		} else {
-			clickButtonByXpathTitleName("Organization");
+			//clickButtonByXpathTitleName("ORGANIZATION");
+			clickButtonByXpathTitleNameNoCase("Organization");
 		}
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Ward Clerk", pageSource, "Contains"));
@@ -7809,7 +7852,8 @@ public class LDSTools {
 			clickButtonByXpath("TopSort");
 			clickButtonByName("Duration");
 		} else {
-			clickButtonByXpathTitleName("Duration");
+			//clickButtonByXpathTitleName("DURATION");
+			clickButtonByXpathTitleNameNoCase("Duration");
 		}
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Sunday School President", pageSource, "Contains"));
@@ -7820,8 +7864,10 @@ public class LDSTools {
 			clickButtonByXpath("TopSort");
 			clickButtonByName("Not Set Apart");
 		} else {
-			clickButtonByXpathTitleName("Not Set Apart");
+			//clickButtonByXpathTitleName("NOT SET APART");
+			clickButtonByXpathTitleNameNoCase("Not Set Apart");
 		}
+		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("High Priests Group First Assistant", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("6 months", pageSource, "Contains"));
@@ -7848,7 +7894,8 @@ public class LDSTools {
 			clickButton("Sort", "textAtt", "byName");
 			clickButton("Male", "textAtt", "byName");
 		} else {
-			clickButtonByXpathTitleName("Male");
+			//clickButtonByXpathTitleName("MALE");
+			clickButtonByXpathTitleNameNoCase("Male");
 		}
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
@@ -7862,7 +7909,8 @@ public class LDSTools {
 			//clickButtonByName("Female");
 			clickButton("Female", "textAtt", "byName");
 		} else {
-			clickButtonByXpathTitleName("Female");
+			//clickButtonByXpathTitleName("FEMALE");
+			clickButtonByXpathTitleNameNoCase("Female");
 		}
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
@@ -7915,7 +7963,7 @@ public class LDSTools {
 			Assert.assertFalse(checkNoCaseList("Ahsoka, Tano", pageSource, "Contains"));
 			//Assert.assertTrue(checkElementTextViewReturn("Expired"));
 			
-			
+			Thread.sleep(1000);
 			if (getRunningOS().equals("mac")) {
 				clickButtonByXpath("TopSort");
 				clickButtonByName("Active");
@@ -7923,6 +7971,7 @@ public class LDSTools {
 				//clickButtonByXpathTitleName("Active");
 				clickButtonByXpath("ActiveMenu");
 			}
+			Thread.sleep(1000);
 			pageSource = getSourceOfPage();
 			Assert.assertTrue(checkNoCaseList("Ami, Lealofi", pageSource, "Contains"));
 			Assert.assertFalse(checkNoCaseList("Maul, Darth", pageSource, "Contains"));
@@ -7935,7 +7984,8 @@ public class LDSTools {
 				clickButtonByXpath("TopSort");
 				clickButtonByName("Expiring");
 			} else {
-				clickButtonByXpathTitleName("Expiring");
+				//clickButtonByXpathTitleName("Expiring");
+				clickButtonByXpathTitleNameNoCase("Expiring");
 			}
 			pageSource = getSourceOfPage();
 			Assert.assertFalse(checkNoCaseList("Windu, Mace", pageSource, "Contains"));
@@ -7943,13 +7993,14 @@ public class LDSTools {
 			//Assert.assertFalse(checkElementTextViewReturn("Windu, Mace"));
 
 			
-			
+			Thread.sleep(1000);
 			
 			if (getRunningOS().equals("mac")) {
 				clickButtonByXpath("TopSort");
 				clickButtonByName("Expired");
 			} else {
-				clickButtonByXpathTitleName("Expired");
+				//clickButtonByXpathTitleName("Expired");
+				clickButtonByXpathTitleNameNoCase("Expired");
 			}
 			pageSource = getSourceOfPage();
 			Assert.assertTrue(checkNoCaseList("Mene, Sau", pageSource, "Contains"));
@@ -7961,7 +8012,8 @@ public class LDSTools {
 				clickButtonByXpath("TopSort");
 				clickButtonByName("Other");
 			} else {
-				clickButtonByXpathTitleName("Other");
+				//clickButtonByXpathTitleName("Other");
+				clickButtonByXpathTitleNameNoCase("Other");
 			}
 			pageSource = getSourceOfPage();
 			Assert.assertTrue(checkNoCaseList("Lavea, Lonise", pageSource, "Contains"));
@@ -7986,9 +8038,15 @@ public class LDSTools {
 			clickButtonByXpathTitleName("Unit Statistics");
 		}
 		
-		Thread.sleep(1000);
+		Thread.sleep(2000);
 		//clickButtonByXpath("AlertOK");
-		checkForAlertOK();
+		//checkForAlertOK();
+		
+		if (checkElementReturn("OK", "textAtt", "xpath")) {
+			//System.out.println("OK Found!");
+			clickButton("OK", "textAtt", "xpath");
+		}
+		
 		Thread.sleep(1000);
 		//Assert.assertTrue(checkElementTextViewReturnContains("611"));
 		Assert.assertTrue(checkElementTextViewReturnContains("17"));
@@ -8311,10 +8369,12 @@ public class LDSTools {
 	
 	private void scrollToSacMeetingAttendance() throws Exception {
 		if (!getRunningOS().equals("mac")) {
-			scrollToElementMemberList("Attended Sacrament");
+			//scrollToElementMemberList("Attended Sacrament");
+			myScroll("Attended Sacrament");
 			//driver.scrollTo("Attended Sacrament");
 		}
 	}
+	
 	
 	
 	private void checkMissionaryProgressRecordSacMeeting() throws Exception {
@@ -9373,7 +9433,7 @@ public class LDSTools {
 	
 	private void checkAllWardDirectories() throws Exception {
 		List<String> StakeWard = new ArrayList<String>();
-		List<WebElement> options = new ArrayList<WebElement>();
+		List<MobileElement> options = new ArrayList<MobileElement>();
 		int pageSize;
 		int myCounter = 1;
 		Thread.sleep(2000);
@@ -9538,7 +9598,7 @@ public class LDSTools {
 	}
 	
 	private List<String> GetTextForElements() {
-		List<WebElement> options;
+		List<MobileElement> options;
 		List<String> allText = new ArrayList<String>();
 
 		if (getRunningOS().equals("mac")) {
@@ -9706,9 +9766,9 @@ public class LDSTools {
 	
 	private void searchForUser(String userToSearch) throws Exception {
 		Boolean checkForElement; 
-		List<WebElement> options = null;
+		List<MobileElement> options = null;
 		int myCounter = 1;
-		WebElement myElement = null;
+		MobileElement myElement = null;
 		
 		String lowerCaseSearch = userToSearch.toLowerCase();
 		
@@ -10240,7 +10300,7 @@ public class LDSTools {
 	private String getLastIcon() throws Exception {
 		int listSize;
 		String returnString;
-		List<WebElement> options= driver.findElements(By.xpath("//RecyclerView/LinearLayout"));
+		List<MobileElement> options= driver.findElements(By.xpath("//RecyclerView/LinearLayout"));
 		listSize = options.size();
 		//listSize = listSize + 1;
 		//returnString = "//RecyclerView/LinearLayout[" + listSize +"]/LinearLayout/*[@id='icon']";
@@ -11305,6 +11365,64 @@ public class LDSTools {
 		
 	}
 	
+	public void myScroll(String myElement) throws Exception {
+		boolean elementNotFound = false;
+		boolean endOfList = false;
+		String topElement = "";
+		String topElement2 = "";
+		
+		do {
+			if(checkElementReturn(myElement, "text", "text")) {
+				System.out.println("Text Found! " + myElement);
+				elementNotFound = true;
+			} else {
+				topElement = scrollCheckText();
+				driver.swipe(0, getScrollStart(), 0, getScrollEnd(), 1000);
+				topElement2 = scrollCheckText();
+			}
+			
+			if (topElement.equals(topElement2)) {
+				System.out.println("End of list searching for: " + myElement);
+				endOfList = true;
+			}
+			
+			
+		} while ((!elementNotFound) && (!endOfList));
+	}
+	
+	public String scrollCheckText() throws Exception {
+		String myString;
+		myString = driver.findElement(By.xpath("//android.widget.RelativeLayout[@resource-id='org.lds.ldstools.dev:id/top_layout']//android.widget.TextView")).getText();
+		return myString;
+	}
+	
+
+    public int getScrollStart() {
+    	int scrollStart;
+    	
+        Dimension dimensions = driver.manage().window().getSize();
+        Double screenHeightStart = dimensions.getHeight() * 0.5;
+        scrollStart = screenHeightStart.intValue();
+
+        
+        return scrollStart;
+
+    }
+
+    public int getScrollEnd() {
+    	int scrollEnd;
+    	
+        Dimension dimensions = driver.manage().window().getSize();
+
+
+        Double screenHeightEnd = dimensions.getHeight() * 0.2;
+        scrollEnd = screenHeightEnd.intValue();
+        
+        return scrollEnd;
+
+    }
+	
+	
 	
 	public void scrollToElement(String myElement) throws Exception {
 		if(getRunningOS().equals("mac")) {
@@ -11314,7 +11432,7 @@ public class LDSTools {
 	        assertEquals(slider.getAttribute("name"), myElement);
 			
 	        //RemoteWebDriver table = null;
-			//WebElement slider = table.findElement(MobileBy.IosUIAutomation(".scrollToElementWithPredicate(\"name CONTAINS '" + myElement +"'\")"));
+			//MobileElement slider = table.findElement(MobileBy.IosUIAutomation(".scrollToElementWithPredicate(\"name CONTAINS '" + myElement +"'\")"));
 		} else {
 		    MobileElement list = (MobileElement) driver.findElement(By.id("org.lds.ldstools.dev:id/list"));
 		    MobileElement radioGroup = (MobileElement) list.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
@@ -11468,7 +11586,7 @@ public class LDSTools {
 	 */
 	private Boolean checkElementTextViewReturn(String textElement) {
 		Boolean myReturnStatus;
-		List<WebElement> options;
+		List<MobileElement> options;
 		if (getRunningOS().equals("mac")) {
 			options= driver.findElements(By.xpath("//*[@value='" + textElement + "']"));
 		} else {
