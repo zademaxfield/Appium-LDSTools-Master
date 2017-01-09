@@ -365,7 +365,7 @@ public class LDSTools {
 		//bishopMemberOfSeparateStake(os);	
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
-		//editCurrentUser(os);	
+		editCurrentUser(os);	
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
@@ -394,7 +394,7 @@ public class LDSTools {
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
-		LeaderBishopricHTVT("ngiBPC1", false, os); 
+		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		
@@ -11638,6 +11638,7 @@ public class LDSTools {
 	public void teardown(ITestResult result) throws Exception {
 		//Capabilities cap = driver.getCapabilities();
 		String androidApp = "../../../Selenium/ldstools-alpha.apk";
+		String os;
 		
 		
 		//Map<String, ?> desired = (Map<String, ?>) cap.getCapability("desired");
@@ -11648,6 +11649,21 @@ public class LDSTools {
 		if(ITestResult.FAILURE==result.getStatus()) {
 			printPageSource();
 			takeScreenShot();	
+		}
+		if (getRunningOS().equals("mac")) {
+			os = "mac";
+		} else {
+			os = "android";
+		}
+	
+		if (ITestResult.SKIP==result.getStatus()) {
+			driver.quit();
+			myAppiumService.stop();
+			Thread.sleep(5000);
+			beforeTestStarts(os);
+
+			Thread.sleep(10000);
+			driver.launchApp();
 		}
 		
 		//driver.resetApp();
