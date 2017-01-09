@@ -11635,11 +11635,10 @@ public class LDSTools {
 	}
 	
 	@AfterMethod(alwaysRun = true)
-	public void teardown(ITestResult result) throws Exception {
+	@Parameters({"os", "fileName", "testDevice"})
+	public void teardown(ITestResult result, String os, String fileName, String testDevice) throws Exception {
 		//Capabilities cap = driver.getCapabilities();
 		String androidApp = "../../../Selenium/ldstools-alpha.apk";
-		String os;
-		
 		
 		//Map<String, ?> desired = (Map<String, ?>) cap.getCapability("desired");
 		//androidApp = (String) desired.get("app");
@@ -11660,10 +11659,9 @@ public class LDSTools {
 			driver.quit();
 			myAppiumService.stop();
 			Thread.sleep(5000);
-			beforeTestStarts(os);
+			setUp(os, fileName, testDevice);
+			Thread.sleep(5000);
 
-			Thread.sleep(10000);
-			driver.launchApp();
 		}
 		
 		//driver.resetApp();
