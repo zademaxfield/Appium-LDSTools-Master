@@ -365,7 +365,7 @@ public class LDSTools {
 		//bishopMemberOfSeparateStake(os);	
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
-		editCurrentUser(os);	
+		//editCurrentUser(os);	
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
@@ -393,7 +393,7 @@ public class LDSTools {
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
-		//LeaderBishopricReport("ngiBPC1", false, os);
+		LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
@@ -7840,6 +7840,7 @@ public class LDSTools {
 			//clickButtonByXpathTitleName("ORGANIZATION");
 			clickButtonByXpathTitleNameNoCase("Organization");
 		}
+		Thread.sleep(2000);
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Ward Clerk", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Kitara, Lafaele", pageSource, "Contains"));
@@ -7987,6 +7988,7 @@ public class LDSTools {
 				//clickButtonByXpathTitleName("Expiring");
 				clickButtonByXpathTitleNameNoCase("Expiring");
 			}
+			Thread.sleep(2000);
 			pageSource = getSourceOfPage();
 			Assert.assertFalse(checkNoCaseList("Windu, Mace", pageSource, "Contains"));
 			//Assert.assertFalse(checkElementTextViewReturn("Sitivi, Tama Kiliona"));
@@ -8002,6 +8004,7 @@ public class LDSTools {
 				//clickButtonByXpathTitleName("Expired");
 				clickButtonByXpathTitleNameNoCase("Expired");
 			}
+			Thread.sleep(2000);
 			pageSource = getSourceOfPage();
 			Assert.assertTrue(checkNoCaseList("Mene, Sau", pageSource, "Contains"));
 			Assert.assertFalse(checkNoCaseList("Jinn, Qui-Gon", pageSource, "Contains"));
@@ -11646,7 +11649,7 @@ public class LDSTools {
 
 		// Here will compare if test is failing then only it will enter into if condition
 		if(ITestResult.FAILURE==result.getStatus()) {
-			printPageSource();
+			//printPageSource();
 			takeScreenShot();	
 		}
 		if (getRunningOS().equals("mac")) {
@@ -11656,6 +11659,7 @@ public class LDSTools {
 		}
 	
 		if (ITestResult.SKIP==result.getStatus()) {
+			System.out.println("SKIP found!");
 			driver.quit();
 			myAppiumService.stop();
 			Thread.sleep(5000);
