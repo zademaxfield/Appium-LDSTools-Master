@@ -58,6 +58,7 @@ import io.appium.java_client.remote.HideKeyboardStrategy;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.selendroid.SelendroidKeys;
+import javafx.scene.control.Alert;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -393,7 +394,7 @@ public class LDSTools {
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
-		LeaderBishopricReport("ngiBPC1", false, os);
+		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
@@ -454,6 +455,7 @@ public class LDSTools {
 		//LarryJensen(os);
 		//RalphHowes(os);
 		//AlbequerqueSync(os);
+		GaryPetersen(os);
 		
 
 	}
@@ -4627,6 +4629,40 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
+	@Test (groups= {"header"}, priority = 3, enabled = false)
+	public void GaryPetersen(String os) throws Exception {
+		String pageSource;
+		loginProxyData("1034324396",
+				"/7u191892/5u506745/",
+				"p57/7u191892/5u506745/:p3134/467u2008602/28u381772/",
+				"Proxy", "GaryPetersen");
+		//Thread.sleep(2000);
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		Thread.sleep(2000);
+		if (getRunningOS().equals("mac")) {
+			searchForUser("Muncey, Ron & Janet");
+		} else {
+			searchForUser("Muncey, Ron");
+		}
+		
+
+		if (getRunningOS().equals("mac")) {
+			pageSource = iosExpandAllDirectory();
+		} else {
+			pageSource = androidGetMemberInfo();
+		}
+
+
+		Assert.assertTrue(checkNoCaseList("Stake Clerk", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Branch Clerk", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Care Center", pageSource, "Contains"));
+	}
+	
+	
+	
+	@Parameters({"os"})
 	@Test (groups= {"smoke", "setings"}, priority = 1)
 	public void CheckUnitsToSync(String os) throws Exception {
 		String loginName = "LDSTools2";
@@ -6904,19 +6940,25 @@ public class LDSTools {
 		System.out.println("User Name: " + userName);
 		if (!getRunningOS().equals("mac")) {
 			if (!chooseNetwork.equals("Production")) {
+				
 				Thread.sleep(10000);
-				longPressByTextView("Sign in to your LDS Account");
-				Thread.sleep(1000);
-				longPressByTextView("Sign in to your LDS Account");
-				//Thread.sleep(1000);
 				clickButtonByXpath("Menu");
-				Thread.sleep(1000);
-				clickButtonByXpathTitleName("Settings");
-				//clickButtonByXpath("OverflowSettings");
-				//Thread.sleep(1000);
-				//scrollDown("Sign Out", 40 );
+				clickButtonByXpath("OverflowSettings");
+				scrollToElement("About");
+				clickButton("About", "textAtt", "textAtt");
+				
+				
+				//New way to enable dev settings
+				for (int x = 1; x <= 7; x++ ) {
+					clickButton("AboutLogo", "id", "id");
+					//System.out.println("COUNT: " + x);
+				}
+				pressBackKey();
+				
+
 				Thread.sleep(2000);
 				
+
 				scrollToElement("Network Environment");
 				clickButton("Network Environment", "text", "text");
 				//driver.scrollToExact("Network Environment").click();
@@ -6930,8 +6972,11 @@ public class LDSTools {
 				//driver.scrollToExact("px_i").click();
 				//scrollDown("px_i", 130 );
 				Thread.sleep(2000);
-				sendTextbyID("AlertEditText", IndividualId);
-				clickButton("AlertOK", "id", "xpath");
+				
+				//sendTextbyID("AlertEditText", IndividualId);
+				sendTextbyXpath("AlertEditText", IndividualId);
+				clickButton("OK", "textAtt", "xpath");
+				//clickButton("AlertOK", "id", "xpath");
 				Thread.sleep(2000);
 				
 				scrollDownTEST(300);
@@ -6939,16 +6984,18 @@ public class LDSTools {
 				//scrollDown("px_u", 130 );
 				clickButton("px_u", "textAtt", "xpath");
 				Thread.sleep(2000);
-				sendTextbyID("AlertEditText", units);
-				clickButton("AlertOK", "id", "xpath");
+				sendTextbyXpath("AlertEditText", units);
+				//clickButton("AlertOK", "id", "xpath");
+				clickButton("OK", "textAtt", "xpath");
 				Thread.sleep(2000);
 				
 				//driver.scrollToExact("px_p").click();
 				//scrollDown("px_p", 130 );
 				clickButton("px_p", "textAtt", "xpath");
 				Thread.sleep(2000);
-				sendTextbyID("AlertEditText", positions);
-				clickButton("AlertOK", "id", "xpath");
+				sendTextbyXpath("AlertEditText", positions);
+				//clickButton("AlertOK", "id", "xpath");
+				clickButton("OK", "textAtt", "xpath");
 				clickButtonByXpath("Back");
 				Thread.sleep(2000);
 				
@@ -11649,7 +11696,7 @@ public class LDSTools {
 
 		// Here will compare if test is failing then only it will enter into if condition
 		if(ITestResult.FAILURE==result.getStatus()) {
-			//printPageSource();
+			printPageSource();
 			takeScreenShot();	
 		}
 		if (getRunningOS().equals("mac")) {
@@ -11658,15 +11705,6 @@ public class LDSTools {
 			os = "android";
 		}
 	
-		if (ITestResult.SKIP==result.getStatus()) {
-			System.out.println("SKIP found!");
-			driver.quit();
-			myAppiumService.stop();
-			Thread.sleep(5000);
-			setUp(os, fileName, testDevice);
-			Thread.sleep(5000);
-
-		}
 		
 		//driver.resetApp();
 		
