@@ -2,21 +2,21 @@ package LDSTest;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Configuration;
+//import org.testng.annotations.BeforeTest;
+//import org.testng.annotations.Configuration;
 import org.testng.AssertJUnit;
-import org.testng.ITestContext;
+//import org.testng.ITestContext;
 import org.testng.ITestResult;
-import org.testng.TestRunner;
+//import org.testng.TestRunner;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
-import org.testng.annotations.AfterTest;
+//import org.testng.annotations.AfterTest;
 import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
-import org.testng.annotations.BeforeMethod;
-import org.testng.asserts.SoftAssert;
+//import org.testng.annotations.Test;
+//import org.testng.annotations.BeforeMethod;
+//import org.testng.asserts.SoftAssert;
 import org.testng.Assert;
-import org.testng.AssertJUnit;
+//import org.testng.AssertJUnit;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -26,78 +26,81 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+//import java.util.Arrays;
+//import java.util.Collections;
 import java.util.HashMap;
-import java.util.Hashtable;
+//import java.util.Hashtable;
 //import java.util.ArrayList;
 //import java.util.Arrays;
 //import java.util.Dictionary;
 //import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+//import java.util.Map;
 //import java.net.URL;
 import java.util.Properties;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
+//import java.util.concurrent.TimeUnit;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
-import io.appium.java_client.SwipeElementDirection;
+//import io.appium.java_client.SwipeElementDirection;
 import io.appium.java_client.TouchAction;
-import io.appium.java_client.android.AndroidDeviceActionShortcuts;
+//import io.appium.java_client.android.AndroidDeviceActionShortcuts;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
-import io.appium.java_client.android.AndroidKeyCode;
+//import io.appium.java_client.android.AndroidElement;
+//import io.appium.java_client.android.AndroidKeyCode;
 import io.appium.java_client.ios.*;
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.ios.IOSElement;
-import io.appium.java_client.remote.HideKeyboardStrategy;
+//import io.appium.java_client.ios.IOSElement;
+//import io.appium.java_client.remote.HideKeyboardStrategy;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
+import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import io.selendroid.SelendroidKeys;
-import javafx.scene.control.Alert;
+//import javafx.scene.control.Alert;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.hamcrest.CoreMatchers;
+//import org.apache.commons.lang3.StringUtils;
+//import org.hamcrest.CoreMatchers;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.DataNode;
+//import org.jsoup.nodes.DataNode;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.junit.Rule;
+//import org.junit.Rule;
 import org.junit.rules.ErrorCollector;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
-import org.junit.runner.JUnitCore;
-import org.junit.runner.Request;
+//import org.junit.runner.JUnitCore;
+//import org.junit.runner.Request;
 import org.junit.runners.model.Statement;
-import org.openqa.jetty.jetty.win32.Service;
+//import org.openqa.jetty.jetty.win32.Service;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Capabilities;
+//import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
+//import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
 //import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.ScreenOrientation;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
+//import org.openqa.selenium.TakesScreenshot;
+//import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 //import org.openqa.selenium.WebDriver;
 
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.interactions.HasTouchScreen;
-import org.openqa.selenium.interactions.TouchScreen;
+//import org.openqa.selenium.interactions.HasTouchScreen;
+//import org.openqa.selenium.interactions.TouchScreen;
 import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteTouchScreen;
-import org.openqa.selenium.remote.RemoteWebDriver;
+//import org.openqa.selenium.remote.RemoteTouchScreen;
+//import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.RemoteWebElement;
 
 //import org.openqa.selenium.remote.CapabilityType;
@@ -105,13 +108,13 @@ import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.thoughtworks.selenium.Wait;
+//import com.thoughtworks.selenium.Wait;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import io.appium.java_client.service.local.AppiumDriverLocalService;
-import io.appium.java_client.service.local.AppiumServiceBuilder;
-import io.appium.java_client.service.local.flags.GeneralServerFlag;
+//import io.appium.java_client.service.local.AppiumDriverLocalService;
+//import io.appium.java_client.service.local.AppiumServiceBuilder;
+//import io.appium.java_client.service.local.flags.GeneralServerFlag;
 
 //Not used yet
 //import org.openqa.selenium.MobileElement;
@@ -143,9 +146,7 @@ public class LDSTools {
 	public String myAppPackage;
 	AppiumDriverLocalService myAppiumService;
 	
-	
-	//@BeforeSuite(alwaysRun = true)
-	//@Parameters({"os"})
+
 	public void beforeTestStarts(String os) throws Exception {
 		
 		
@@ -395,7 +396,7 @@ public class LDSTools {
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
-		//LeaderBishopricHTVT("ngiBPC1", false, os); 
+		LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		
@@ -455,7 +456,7 @@ public class LDSTools {
 		//LarryJensen(os);
 		//RalphHowes(os);
 		//AlbequerqueSync(os);
-		GaryPetersen(os);
+		//GaryPetersen(os);
 		
 
 	}
@@ -469,10 +470,11 @@ public class LDSTools {
 		
 		syncLogIn("LDSTools21", "password1", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(10000);
 		openTemples();
-		runSync();
-		Thread.sleep(2000);
-		openTemples();
+		//runSync();
+		//Thread.sleep(2000);
+		//openTemples();
 		
 		Thread.sleep(2000);
 		mySource = driver.getPageSource();
@@ -497,6 +499,8 @@ public class LDSTools {
 		myList = myWeb.TempleGetMilestones();
 		checkSource(mySource, myList);
 		
+		myList = myWeb.TempleGetSchedule();
+		checkSource(mySource, myList);
 		
 		//TempleGetName()
 		//TempleGetPhysicalAddress()
@@ -2227,12 +2231,12 @@ public class LDSTools {
 		//Data from android list
 		List<String> androidList = new ArrayList<String>();
 		
-		String pageSource;
+		//String pageSource;
 		//boolean testForElement;
 		//int checkUser = 0;
-		int pageSize;
+		//int pageSize;
 		
-		//Login as LDSTools2 - Bishiop
+		//Login as LDSTools2 - Bishop
 		syncLogIn("LDSTools2", "toolstester", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
 		Thread.sleep(2000);	
@@ -2530,12 +2534,12 @@ public class LDSTools {
 		//Data from android list
 		List<String> androidList = new ArrayList<String>();
 		
-		String pageSource;
+		//String pageSource;
 		boolean testForElement;
 		//int checkUser = 0;
-		int pageSize;
+		//int pageSize;
 		
-		//Login as LDSTools2 - Bishiop
+		//Login as LDSTools2 - Bishop
 		syncLogIn("LDSTools2", "toolstester", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
 		Thread.sleep(2000);	
@@ -10733,6 +10737,15 @@ public class LDSTools {
 		}
 	}
 	
+	private boolean checkForAppiumRunning(int appiumPort) throws Exception {
+	    try (Socket ignored = new Socket("localhost", appiumPort)) {
+	        return true;
+	    } catch (IOException ignored) {
+	        return false;
+	    }
+	}
+
+	
 
 	
 	
@@ -11687,16 +11700,11 @@ public class LDSTools {
 	@AfterMethod(alwaysRun = true)
 	@Parameters({"os", "fileName", "testDevice"})
 	public void teardown(ITestResult result, String os, String fileName, String testDevice) throws Exception {
-		//Capabilities cap = driver.getCapabilities();
-		String androidApp = "../../../Selenium/ldstools-alpha.apk";
-		
-		//Map<String, ?> desired = (Map<String, ?>) cap.getCapability("desired");
-		//androidApp = (String) desired.get("app");
-		//System.out.println(desired.get("app"));
 
+		
 		// Here will compare if test is failing then only it will enter into if condition
 		if(ITestResult.FAILURE==result.getStatus()) {
-			printPageSource();
+			//printPageSource();
 			takeScreenShot();	
 		}
 		if (getRunningOS().equals("mac")) {
@@ -11707,11 +11715,18 @@ public class LDSTools {
 	
 		
 		//driver.resetApp();
+	
 		
 		
 		if(getRunningOS().equals("mac")) {
 			//System.out.println("Reset App");
 			//driver.resetApp();
+			
+			if (!checkForAppiumRunning(4445)) {
+				System.out.println("Appium iOS not running, trying to restart...");
+				openGuiMap(os);
+				setUp(os, fileName, testDevice);
+			}
 			
 			System.out.println("Remove App");
 			driver.removeApp(myAppPackage);
@@ -11719,6 +11734,13 @@ public class LDSTools {
 			driver.installApp(myAppPackage);
 			driver.launchApp();
 		} else {
+
+			if (!checkForAppiumRunning(4444)) {
+				System.out.println("Appium Android not running, trying to restart...");
+				openGuiMap(os);
+				setUp(os, fileName, testDevice);
+			}
+			
 			System.out.println("Clear App");
 			adbCommand("clearApp");
 			Thread.sleep(2000);
