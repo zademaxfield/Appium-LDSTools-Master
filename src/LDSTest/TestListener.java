@@ -37,12 +37,13 @@ public class TestListener implements ITestListener {
 
     @Parameters({"os", "fileName", "testDevice"})
     public void onTestSkipped(ITestResult result) {  
+    	/*
     	System.out.println("SKIP found!");
     	System.out.println("OS: " + os);
     	System.out.println("File Name: " + fileName);
     	System.out.println("Test Device: " + testDevice);
     	
-    	myLDSTools.driver.quit();
+    	//myLDSTools.driver.quit();
     	myLDSTools.myAppiumService.stop();
     	try {
 			myLDSTools.setUp(os, fileName, testDevice);
@@ -50,6 +51,7 @@ public class TestListener implements ITestListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
 
     }
 
