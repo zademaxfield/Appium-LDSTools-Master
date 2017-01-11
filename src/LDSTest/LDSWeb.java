@@ -1193,6 +1193,7 @@ public class LDSWeb {
 	private List<String> getTextFromSource(String pageSource, String elementTag){
 		List<String> foundUsers = new ArrayList<String>();
 		Document doc = Jsoup.parse(pageSource);
+		
 		//Document doc = Jsoup.parseBodyFragment(pageSource);
 		//int myCounter = 1;
 		//Elements myTest = doc.getElementsByAttributeValueStarting("class", "member-card-remote");
@@ -1207,7 +1208,18 @@ public class LDSWeb {
 			//System.out.println("Number: " + myCounter + " " + outerHTML);
 			//myCounter++;
 			if (!outerHTML.isEmpty()) {
-				foundUsers.add(outerHTML);
+				if (outerHTML.contains(",")) {
+					String[] splitText = outerHTML.split(", ");
+					String splitText1 = splitText[0];
+					splitText1 = splitText1.trim();
+					String splitText2 = splitText[1];
+					splitText2 = splitText2.trim();
+					foundUsers.add(splitText1);
+					foundUsers.add(splitText2);
+				} else {
+					foundUsers.add(outerHTML);
+				}
+				
 			}
 			
 		}
