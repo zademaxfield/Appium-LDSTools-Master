@@ -6,7 +6,7 @@ import javax.mail.*;
 import javax.mail.internet.*;
 import javax.activation.*;
 
-import com.sun.mail.smtp.SMTPTransport;
+//import com.sun.mail.smtp.SMTPTransport;
 
 public class SendFileEmail
 {
