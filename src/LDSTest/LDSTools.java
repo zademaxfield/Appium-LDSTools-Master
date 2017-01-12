@@ -353,8 +353,10 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		//justForTesting(os);	
+		justForTesting(os);	
 		
+		
+		//myTempleSimpleTest(os);
 		
 
 		//LeaderNonBishopricTEST("LDSTools29", "Relief Society Pres", os);
@@ -396,7 +398,7 @@ public class LDSTools {
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
-		LeaderBishopricHTVT("ngiBPC1", false, os); 
+		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		
@@ -466,41 +468,49 @@ public class LDSTools {
 	
 	public void justForTesting(String os) throws Exception {
 		String mySource;
-		List<String> myList = new ArrayList<String>();
 		
-		syncLogIn("LDSTools21", "password1", "UAT", os );
+		syncLogIn("ngiBPC1", "password1", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
 		Thread.sleep(10000);
+		openSettings();
+		clickButton("Temple Recommend Reminder: None", "byName", "byName");
+		clickButton("in_weeks", "byName", "byName");
+		
 		openTemples();
-		//runSync();
-		//Thread.sleep(2000);
-		//openTemples();
+		clickButton("Yes, remind me", "textAtt", "textAtt");
+		
+		openDeveloperSettings();
+		
+		clickButton("Set Temple Recommend Status", "byName", "byName");
+		clickButton("Active/Expired", "byName", "byName");
+		Thread.sleep(1000);
+		
+		clickButton("Set Temple Recommend Expiration", "byName", "byName");
+		Thread.sleep(1000);
+		sendTextbyXpath("TempleDaysExpiration", "5");
+		clickButton("OK", "textAtt", "xpath");
+		Thread.sleep(1000);
+		
+		clickButton("Set Temple Recommend Warning Days", "byName", "byName");
+		Thread.sleep(1000);
+		sendTextbyXpath("TempleDaysWarning", "0");
+		clickButton("OK", "textAtt", "xpath");
+		Thread.sleep(1000);
+		pressBackKey();
+		
+		openTemples();
+
 		
 		Thread.sleep(2000);
-		mySource = driver.getPageSource();
-		
-		//printPageSource();
-		
-		myWeb.MyTemplePageLogIn("https://uat.lds.org/mls/mbr/?lang=eng", myUserName, myPassword);
-		//Check the Temple Name
-		if (mySource.contains(myWeb.TempleGetName())){
-			Assert.assertTrue(true);
+		if (getRunningOS().equals("mac")) {
+			mySource = driver.getPageSource();
 		} else {
-			System.out.println("Not Found: " + myWeb.TempleGetName());
-			Assert.assertTrue(false);
+			mySource = androidGetTempleInfo();
 		}
+
+		Assert.assertTrue(checkNoCaseList("Contact bishipric", mySource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Got it, thanks", mySource, "Contains"));
 		
-		myList = myWeb.TempleGetPhysicalAddress();
-		checkSource(mySource, myList);
-		
-		myList = myWeb.TempleGetServices();
-		checkSource(mySource, myList);
-		
-		myList = myWeb.TempleGetMilestones();
-		checkSource(mySource, myList);
-		
-		myList = myWeb.TempleGetSchedule();
-		checkSource(mySource, myList);
 		
 		//TempleGetName()
 		//TempleGetPhysicalAddress()
@@ -4664,6 +4674,49 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("Care Center", pageSource, "Contains"));
 	}
 	
+	
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "temple"}, priority = 1)
+	public void myTempleSimpleTest(String os) throws Exception {
+		String mySource;
+		List<String> myList = new ArrayList<String>();
+		
+		syncLogIn("LDSTools21", "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(10000);
+		openTemples();
+		//runSync();
+		//Thread.sleep(2000);
+		//openTemples();
+		
+		Thread.sleep(2000);
+		if (getRunningOS().equals("mac")) {
+			mySource = driver.getPageSource();
+		} else {
+			mySource = androidGetTempleInfo();
+		}
+
+		
+		//printPageSource();
+		
+		myWeb.MyTemplePageLogIn("https://uat.lds.org/mls/mbr/?lang=eng", myUserName, myPassword);
+		//Check the Temple Name
+		if (mySource.contains(myWeb.TempleGetName())){
+			Assert.assertTrue(true);
+		} else {
+			System.out.println("Not Found: " + myWeb.TempleGetName());
+			Assert.assertTrue(false);
+		}
+		
+		myList = myWeb.TempleGetPhysicalAddress();
+		checkSource(mySource, myList);
+		
+		myList = myWeb.TempleGetServices();
+		checkSource(mySource, myList);
+		
+		myList = myWeb.TempleGetMilestones();
+		checkSource(mySource, myList);
+	}
 	
 	
 	@Parameters({"os"})
@@ -10302,6 +10355,30 @@ public class LDSTools {
 		}
 	}
 	
+	private void openSettings() throws Exception {
+		if (getRunningOS().equals("mac")) {
+			clickButton("More", "byName", "byName");
+			clickButton("Settings", "byName", "byName");
+		} else {
+			clickButtonByXpath("Drawer");
+			checkForLater();
+			clickButtonByXpath("DrawerTemples");
+		}
+	}
+	
+	
+	private void openDeveloperSettings() throws Exception {
+		if (getRunningOS().equals("mac")) {
+			clickButton("More", "byName", "byName");
+			clickButton("Help", "byName", "byName");
+			clickButton("Developer Settings", "byName", "byName");
+		} else {
+			clickButtonByXpath("Drawer");
+			checkForLater();
+			clickButtonByXpath("DrawerTemples");
+		}
+	}
+	
 	private void runSync() throws Exception {
 		if (getRunningOS().equals("mac")) {
 			//clickButtonByXpath("DrawerMore");
@@ -11428,6 +11505,10 @@ public class LDSTools {
 		
 	}
 	
+	public void scrollDownOnePage() throws Exception {
+		driver.swipe(0, getScrollStart(), 0, getScrollEnd(), 1000);
+	}
+	
 	public void myScroll(String myElement) throws Exception {
 		boolean elementNotFound = false;
 		boolean endOfList = false;
@@ -11580,6 +11661,18 @@ public class LDSTools {
 			//System.out.println("TEXT: " + oneLine);
 			checkSourceString(pageSource, oneLine);	
 		}
+	}
+	
+	public String androidGetTempleInfo() throws Exception {
+		String mySource;
+		mySource = driver.getPageSource();
+		for (int i = 0; i < 4; i ++) {
+			scrollDownOnePage();
+			mySource = mySource + driver.getPageSource();
+		}
+
+		
+		return mySource;
 	}
 	
 	// **************************************************************************************
