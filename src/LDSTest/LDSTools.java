@@ -1,5 +1,8 @@
 package LDSTest;
 import org.testng.annotations.Test;
+
+import com.gargoylesoftware.htmlunit.javascript.host.html.Option;
+
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 //import org.testng.annotations.BeforeTest;
@@ -398,7 +401,7 @@ public class LDSTools {
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
-		//LeaderBishopricReport("ngiBPC1", false, os);
+		LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
@@ -459,7 +462,7 @@ public class LDSTools {
 		//LarkinPalmer(os);
 		//LarryJensen(os);
 		//RalphHowes(os);
-		AlbequerqueSync(os);
+		//AlbequerqueSync(os);
 		//GaryPetersen(os);
 		
 
@@ -6909,7 +6912,9 @@ public class LDSTools {
 				//clickButtonByXpath("OverflowSettings");
 				
 				Thread.sleep(2000);
-				scrollDown("Network Environment", 100);
+				myScroll("Network Environment");
+				//scrollDown("Network Environment", 100);
+				
 				//scrollToElement("Network Environment");
 				clickButton("Network Environment", "text", "text");
 				//driver.scrollToExact("Network Environment").click();
@@ -11538,7 +11543,8 @@ public class LDSTools {
 		String topElement2 = "";
 		
 		do {
-			if(checkElementReturn(myElement, "text", "text")) {
+			//Check to see if the text is on the page
+			if(checkElementReturn(myElement, "textAtt", "text")) {
 				System.out.println("Text Found! " + myElement);
 				elementNotFound = true;
 			} else {
@@ -11547,7 +11553,10 @@ public class LDSTools {
 				topElement2 = scrollCheckText();
 			}
 			
+			//Check to see if the bottom of the page has been reached. 
 			if (topElement.equals(topElement2)) {
+				System.out.println("Top Element Found:"  + topElement);
+				System.out.println("Next Element Found:"  + topElement2);
 				System.out.println("End of list searching for: " + myElement);
 				endOfList = true;
 			}
@@ -11558,7 +11567,16 @@ public class LDSTools {
 	
 	public String scrollCheckText() throws Exception {
 		String myString;
-		myString = driver.findElement(By.xpath("//android.widget.RelativeLayout[@resource-id='org.lds.ldstools.dev:id/top_layout']//android.widget.TextView")).getText();
+		//myString = driver.findElement(By.xpath("//android.widget.RelativeLayout[@resource-id='org.lds.ldstools.dev:id/top_layout']//android.widget.TextView")).getText();
+		List<MobileElement> options = driver.findElements(By.xpath("//android.widget.FrameLayout[@resource-id='org.lds.ldstools.dev:id/container']//android.widget.TextView"));
+		
+		if (options.isEmpty()) {
+			System.out.println("No text found on page!");
+			myString = "";	
+		} else {
+			myString = options.get(0).getText();
+		}
+		
 		return myString;
 	}
 	
@@ -11567,7 +11585,7 @@ public class LDSTools {
     	int scrollStart;
     	
         Dimension dimensions = driver.manage().window().getSize();
-        Double screenHeightStart = dimensions.getHeight() * 0.5;
+        Double screenHeightStart = dimensions.getHeight() * 0.7;
         scrollStart = screenHeightStart.intValue();
 
         
@@ -11581,7 +11599,7 @@ public class LDSTools {
         Dimension dimensions = driver.manage().window().getSize();
 
 
-        Double screenHeightEnd = dimensions.getHeight() * 0.2;
+        Double screenHeightEnd = dimensions.getHeight() * 0.3;
         scrollEnd = screenHeightEnd.intValue();
         
         return scrollEnd;
