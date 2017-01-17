@@ -6062,7 +6062,7 @@ public class LDSTools {
 		myElement.click();
 
 	}
-	
+
 	
 	private void clickButtonByNameMultiple(String textElement, int myButton) {
 		Boolean myReturnStatus;
@@ -6932,6 +6932,7 @@ public class LDSTools {
 			//sendTextbyXpath("LoginUsername", loginName);
 			//sendTextbyXpath("LoginPassword", loginPassword);
 			sendTextbyID("LoginUsername", loginName);
+			clickButton("LoginPassword", "id", "id");
 			sendTextbyID("LoginPassword", loginPassword);
 			clickButtonByID("SignInButton");
 			//clickButtonByXpath("SignInButton");
@@ -7079,6 +7080,7 @@ public class LDSTools {
 				//Thread.sleep(2000);
 				
 				sendTextbyID("LoginUsername", userName);
+				clickButton("LoginPassword", "id", "id");
 				sendTextbyID("LoginPassword", "toolstester");
 				//clickButtonByXpath("SignInButton");
 				clickButtonByID("SignInButton");
