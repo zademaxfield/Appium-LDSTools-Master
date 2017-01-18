@@ -382,7 +382,7 @@ public class LDSTools {
 		
 		//editVisibility(os);
 		//editVisibiltyPersonal(os);
-		//editVisibiltyHousehold(os);
+		editVisibiltyHousehold(os);
 		
 		//CheckUnitsToSync(os);
 		
@@ -401,7 +401,7 @@ public class LDSTools {
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
-		LeaderBishopricReport("ngiBPC1", false, os);
+		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
@@ -478,32 +478,65 @@ public class LDSTools {
 		pinPage("1", "1", "3", "3", true);
 		Thread.sleep(10000);
 		openSettings();
-		clickButton("Temple Recommend Reminder: None", "byName", "byName");
-		clickButton("in_weeks", "byName", "byName");
 		
+		if (getRunningOS().equals("mac")) {
+			clickButton("Temple Recommend Reminder: None", "byName", "byName");
+			clickButton("in_weeks", "byName", "byName");	
+		} else {
+			myScroll("Temple Recommend Status");
+			clickButton("Temple Recommend Status", "textAtt", "byName");
+			clickButton("ACTIVE", "textAtt", "byName");
+			pressBackKey();
+		}
+		
+
 		openTemples();
-		clickButton("Yes", "textAtt", "text");
+		clickButton("Yes", "text", "text");
 		
-		openDeveloperSettings();
 		
-		clickButton("Set Temple Recommend Status", "byName", "byName");
-		clickButton("Active/Expired", "byName", "byName");
-		Thread.sleep(1000);
 		
-		clickButton("Set Temple Recommend Expiration", "byName", "byName");
-		Thread.sleep(1000);
-		sendTextbyXpath("TempleDaysExpiration", "5");
-		clickButton("OK", "textAtt", "xpath");
-		Thread.sleep(1000);
+		if (getRunningOS().equals("mac")) {
+			openDeveloperSettings();
+			clickButton("Set Temple Recommend Status", "byName", "byName");
+			clickButton("Active/Expired", "byName", "byName");
+			Thread.sleep(1000);
+		} else {
+			openSettings();
+			myScroll("Temple Recommend Status");
+			clickButton("Temple Recommend Status", "textAtt", "byName");
+			clickButton("ACTIVE", "textAtt", "byName");
+		}
 		
-		clickButton("Set Temple Recommend Warning Days", "byName", "byName");
-		Thread.sleep(1000);
-		sendTextbyXpath("TempleDaysWarning", "0");
-		clickButton("OK", "textAtt", "xpath");
-		Thread.sleep(1000);
-		pressBackKey();
+
+		if (getRunningOS().equals("mac")) {
+			clickButton("Set Temple Recommend Expiration", "byName", "byName");
+			Thread.sleep(1000);
+			sendTextbyXpath("TempleDaysExpiration", "5");
+			clickButton("OK", "textAtt", "xpath");
+			Thread.sleep(1000);
+		} else {
+			myScroll("Override temple recommend expiration");
+			clickButton("Override temple recommend expiration", "textAtt", "byName");
+			Thread.sleep(2000);
+			sendTextbyXpath("AlertEditText", "10");
+			clickButton("OK", "textAtt", "xpath");
+			pressBackKey();
+			
+		}
 		
-		openTemples();
+
+		if (getRunningOS().equals("mac")) {
+			clickButton("Set Temple Recommend Warning Days", "byName", "byName");
+			Thread.sleep(1000);
+			sendTextbyXpath("TempleDaysWarning", "0");
+			clickButton("OK", "textAtt", "xpath");
+			Thread.sleep(1000);
+			pressBackKey();
+			openTemples();
+		}
+
+		
+		
 
 		
 		Thread.sleep(2000);
@@ -513,7 +546,9 @@ public class LDSTools {
 			mySource = androidGetTempleInfo();
 		}
 
-		Assert.assertTrue(checkNoCaseList("Contact bishipric", mySource, "Contains"));
+		System.out.println("Checking temple contact");
+		Thread.sleep(2000);
+		Assert.assertTrue(checkNoCaseList("Contact bishopric", mySource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Got it, thanks", mySource, "Contains"));
 		
 		
@@ -3002,12 +3037,15 @@ public class LDSTools {
 		
 		
 		sendTextbyXpath("EditPersonalPhone", "1(801)240-0104");
+		clickButton("EditHomePhone", "xpath", "xpath");
 		//myKeyboardClear();
 		
 		sendTextToEditUser("EditHomePhone", "(801) 867-5309");
+		clickButton("EditPersonalEmail", "xpath", "xpath");
 		//myKeyboardClear();
 		
 		sendTextToEditUser("EditPersonalEmail", "personal@gmail.com");
+		clickButton("EditHomeEmail", "xpath", "xpath");
 		//myKeyboardClear();
 		
 		scrollDownTEST(400);
@@ -3022,7 +3060,7 @@ public class LDSTools {
 		} else {
 			clickButtonByXpath("MenuCancel");
 		}
-		
+		Thread.sleep(3000);
 		checkForAlertOK();
 		
 		Thread.sleep(3000);
@@ -3375,7 +3413,7 @@ public class LDSTools {
 			clickButton("HouseholdVisibilityLimit", "id", "xpath");
 			Thread.sleep(2000);
 			clickButton("RadioPrivate", "id", "xpath");
-			clickButton("SetLimit", "id", "xpath");
+			clickButton("SetLimit", "xpath", "xpath");
 			Thread.sleep(1000);
 		}
 		
@@ -3724,7 +3762,8 @@ public class LDSTools {
 		} else {
 			clickButtonByXpathTitleName("Privacy");
 			
-			scrollToElement("Show on Map");
+			//myScroll("Show on Map");
+			scrollDownTEST(300);
 			//driver.scrollToExact("Show on Map");
 			
 			clickButton("PrivacyHouseholdPhoto", "xpath", "xpath");
@@ -4922,10 +4961,10 @@ public class LDSTools {
 				pinPage("1", "1", "3", "3", true);
 				
 				clickButtonByXpath("Drawer");
-				clickButtonByXpath("DrawerSETTINGS");
+				clickButtonByXpath("DrawerSettings");
 				
 				clickButtonByXpathTitleName("Sign Out");
-				clickButton("SignOutOK", "id", "xpath");
+				clickButton("SignOutOK", "xpath", "xpath");
 			}
 		}
 	}
@@ -7039,8 +7078,8 @@ public class LDSTools {
 
 				Thread.sleep(2000);
 				
-
-				scrollToElement("Network Environment");
+				myScroll("Network Environment");
+				//scrollToElement("Network Environment");
 				clickButton("Network Environment", "text", "text");
 				//driver.scrollToExact("Network Environment").click();
 				//scrollDown("Network Environment", 100 );
@@ -7048,7 +7087,8 @@ public class LDSTools {
 				clickButtonByXpathTitleName(chooseNetwork);
 				Thread.sleep(2000);
 				
-				scrollToElement("px_i");
+				myScroll("px_i");
+				//scrollToElement("px_i");
 				clickButton("px_i", "text", "text");
 				//driver.scrollToExact("px_i").click();
 				//scrollDown("px_i", 130 );
@@ -7060,9 +7100,10 @@ public class LDSTools {
 				//clickButton("AlertOK", "id", "xpath");
 				Thread.sleep(2000);
 				
-				scrollDownTEST(300);
+				//scrollDownTEST(300);
 				//driver.scrollToExact("px_u").click();
 				//scrollDown("px_u", 130 );
+				myScroll("px_u");
 				clickButton("px_u", "textAtt", "xpath");
 				Thread.sleep(2000);
 				sendTextbyXpath("AlertEditText", units);
@@ -7072,6 +7113,7 @@ public class LDSTools {
 				
 				//driver.scrollToExact("px_p").click();
 				//scrollDown("px_p", 130 );
+				myScroll("px_p");
 				clickButton("px_p", "textAtt", "xpath");
 				Thread.sleep(2000);
 				sendTextbyXpath("AlertEditText", positions);
@@ -9770,18 +9812,18 @@ public class LDSTools {
 			if (checkElementNameReturn("Sync Now") == true) {
 				pressBackKey();
 			}
-			clickButtonByXpath("DrawerSETTINGS");
+			clickButtonByXpath("DrawerSettings");
 		}else {
 			clickButtonByXpath("Drawer");
 			if (checkElementReturn("Later", "textAtt", "value") == true ) {
 				clickButtonByXpathTitleName("Later");
 			}
 			//scrollDown("Settings", -5 );
-			clickButtonByXpath("DrawerSETTINGS");
+			clickButtonByXpath("DrawerSettings");
 		}
 		Thread.sleep(2000);
 		clickButtonByXpathTitleName("Sign Out");
-		clickButton("SignOutOK", "id", "xpath");
+		clickButton("SignOutOK", "xpath", "xpath");
 		checkForAlert();
 		if (getRunningOS().equals("mac")) {
 			driver.resetApp();
@@ -9852,7 +9894,7 @@ public class LDSTools {
 				clickButton("HouseholdVisibilityLimit", "id", "xpath");
 				Thread.sleep(2000);
 				clickButton("RadioStake", "id", "xpath");
-				clickButton("SetLimit", "id", "xpath");
+				clickButton("SetLimit", "xpath", "xpath");
 				Thread.sleep(1000);
 			}
 			
@@ -9991,8 +10033,11 @@ public class LDSTools {
 				clickButton("AlertOK", "id", "xpath");
 			}
 		} else {
-			if (checkElementExistsByID("AlertMessageCheck") == true) {
-				clickButton("AlertOK", "id", "xpath");
+			if (checkElementExistsByXpath("AlertMessageCheck") == true) {
+				clickButton("AlertOK", "xpath", "xpath");
+				//clickButton("NewAlertOK", "xpath", "xpath");
+				//driver.switchTo().alert().accept();
+				
 			}
 		}
 	}
@@ -10389,7 +10434,9 @@ public class LDSTools {
 		} else {
 			clickButtonByXpath("Drawer");
 			checkForLater();
-			clickButtonByXpath("DrawerTemples");
+			Thread.sleep(1000);
+			myScroll("Settings");
+			clickButtonByXpath("DrawerSettings");
 		}
 	}
 	
@@ -10402,7 +10449,7 @@ public class LDSTools {
 		} else {
 			clickButtonByXpath("Drawer");
 			checkForLater();
-			clickButtonByXpath("DrawerTemples");
+			clickButtonByXpath("DrawerSettings");
 		}
 	}
 	
@@ -10661,7 +10708,7 @@ public class LDSTools {
 		editUserOpen(); 
 		Thread.sleep(2000);
 		
-		printPageSource();
+		//printPageSource();
 		
 		//sendTextbyXpath("EditPersonalPhone", "11");
 		clearTextFieldXpath("EditPersonalPhone");
@@ -11865,6 +11912,7 @@ public class LDSTools {
 			driver.removeApp(myAppPackage);
 			System.out.println("Install App");
 			driver.installApp(myAppPackage);
+			Thread.sleep(5000);
 			driver.launchApp();
 		} else {
 
