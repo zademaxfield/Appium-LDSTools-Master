@@ -373,7 +373,7 @@ public class LDSTools {
 		//bishopMemberOfSeparateStake(os);	
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
-		//editCurrentUser(os);	
+		editCurrentUser(os);	
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
@@ -382,7 +382,7 @@ public class LDSTools {
 		
 		//editVisibility(os);
 		//editVisibiltyPersonal(os);
-		editVisibiltyHousehold(os);
+		//editVisibiltyHousehold(os);
 		
 		//CheckUnitsToSync(os);
 		
@@ -390,7 +390,7 @@ public class LDSTools {
 		//checkAllUsersFromWeb(os);
 		
 		//LeaderNonBishopricReport("LDSTools16", "High Priest Group", os);
-		//LeaderNonBishopricHTVT("LDSTools16", "High Priest Group", os);
+		//LeaderNonBishopricHTVT("LDSTools20", "High Priest Group", os);
 		//LeaderNonBishopricDirectory("LDSTools16", "High Priest Group", os);
 		//LeaderNonBishopricDirectory("LDSTools39", "Ward Council", os);
 		//LeaderNonBishopricHTVT("LDSTools26", "Relief Society Pres", os);
@@ -2903,16 +2903,19 @@ public class LDSTools {
 
 		
 		sendTextbyXpath("EditPersonalPhone", "1(801)240-0104");
+		clickButton("EditHomePhone", "xpath", "xpath");
 		//myKeyboardClear();
 		
 		//sendTextbyXpath("EditHomePhone", "(801) 867-5309");
 		sendTextToEditUser("EditHomePhone", "(801) 867-5309");
+		clickButton("EditPersonalEmail", "xpath", "xpath");
 		//myKeyboardClear();
 		
 		sendTextToEditUser("EditPersonalEmail", "personal@gmail.com");
 		Thread.sleep(1000);
 		//myKeyboardClear();;
 		scrollDownTEST(400);
+		clickButton("EditHomeEmail", "xpath", "xpath");
 
 		sendTextToEditUser("EditHomeEmail", "home@gmail.com");
 		//clickButton("MenuSave", "id", "xpath");
@@ -2924,7 +2927,7 @@ public class LDSTools {
 			waitForTextToDisappear("EditSaving", 500);
 			Thread.sleep(6000);
 			if (checkForAlertReturn() == true) {
-				clickButton("AlertOK", "id", "xpath");
+				clickButton("AlertOK", "xpath", "xpath");
 				myCounter++; 
 				System.out.println("Alert Found: " + myCounter);
 			} else {
@@ -2934,7 +2937,7 @@ public class LDSTools {
 		} while (myCounter < 4);
 
 		if (checkForAlertReturn() == true) {
-			clickButton("AlertOK", "id", "xpath");
+			clickButton("AlertOK", "xpath", "xpath");
 			clickButton("MenuSave", "id", "xpath");
 			waitForTextToDisappear("EditSaving", 500);
 			Thread.sleep(6000);
@@ -2993,6 +2996,9 @@ public class LDSTools {
 		Thread.sleep(2000);
 		clearPhoneAndEmail();
 		
+		Thread.sleep(1000);
+		scrollDownTEST(-400);
+		Thread.sleep(1000);
 		backToDirectory();
 		
 		//Search for logged in user
@@ -3232,14 +3238,14 @@ public class LDSTools {
 		
 		alertCheck = alertCheckInvalidInput();
 		if (alertCheck == 1 ) {
-			clickButton("AlertOK", "id", "xpath");
+			clickButton("AlertOK", "xpath", "xpath");
 		}
 		
 		if (getRunningOS().equals("mac")){
 			pressBackKey();
 		} else {
 			clickButton("MenuCancel", "xpath", "xpath");
-			clickButton("AlertOK", "id", "xpath");
+			clickButton("AlertOK", "xpath", "xpath");
 		}
 		
 		Thread.sleep(3000);
@@ -4034,10 +4040,10 @@ public class LDSTools {
 			Assert.assertTrue(checkElementReturn(errorMessage, "textAtt", "value"));
 		}
 		
-		clickButton("AlertOK", "id", "xpath");	
+		clickButton("AlertOK", "xpath", "xpath");	
 		
 		if (getRunningOS().equals("mac")) {
-			clickButton("AlertOK", "id", "xpath");	
+			clickButton("AlertOK", "xpath", "xpath");	
 		}
 	}
 	
@@ -6981,7 +6987,7 @@ public class LDSTools {
 			clickButtonByID("SignInButton");
 			//clickButtonByXpath("SignInButton");
 			Thread.sleep(4000);
-			waitForTextToDisappearTEXT("Sync Progress", 500 );
+			waitForTextToDisappearTEXT("Sync", 500 );
 			//waitForTextToDisappearByText("Sync Progress", 500 );
 			//waitForTextToDisappearID("SyncText", 500 );
 			Thread.sleep(2000);
@@ -7097,7 +7103,7 @@ public class LDSTools {
 				//sendTextbyID("AlertEditText", IndividualId);
 				sendTextbyXpath("AlertEditText", IndividualId);
 				clickButton("OK", "textAtt", "xpath");
-				//clickButton("AlertOK", "id", "xpath");
+				//clickButton("AlertOK", "xpath", "xpath");
 				Thread.sleep(2000);
 				
 				//scrollDownTEST(300);
@@ -7107,7 +7113,7 @@ public class LDSTools {
 				clickButton("px_u", "textAtt", "xpath");
 				Thread.sleep(2000);
 				sendTextbyXpath("AlertEditText", units);
-				//clickButton("AlertOK", "id", "xpath");
+				//clickButton("AlertOK", "xpath", "xpath");
 				clickButton("OK", "textAtt", "xpath");
 				Thread.sleep(2000);
 				
@@ -7117,7 +7123,7 @@ public class LDSTools {
 				clickButton("px_p", "textAtt", "xpath");
 				Thread.sleep(2000);
 				sendTextbyXpath("AlertEditText", positions);
-				//clickButton("AlertOK", "id", "xpath");
+				//clickButton("AlertOK", "xpath", "xpath");
 				clickButton("OK", "textAtt", "xpath");
 				clickButtonByXpath("Back");
 				Thread.sleep(2000);
@@ -7132,7 +7138,8 @@ public class LDSTools {
 				//clickButtonByXpath("SignInButton");
 				clickButtonByID("SignInButton");
 				Thread.sleep(4000);
-				waitForTextToDisappearID("SyncText", 500 );
+				//waitForTextToDisappearID("SyncText", 500 );
+				waitForTextToDisappearTEXT("Sync", 500 );
 				
 				Thread.sleep(2000);
 
@@ -8247,7 +8254,7 @@ public class LDSTools {
 		//Assert.assertTrue(checkNoCaseList("Potential Investigator", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Malcolm Reynolds", pageSource, "Contains"));
 		
-		myWeb.WPRopenPageLogIn("https://missionary-stage.lds.org/ward-missionary-tools", "ab067", "password0");
+		myWeb.WPRopenPageLogIn("https://missionary-stage.lds.org/ward-missionary-tools", "ab253", "pa$$w0rd0");
 		myList = myWeb.WPRgetUsers("none", false);	
 		myList = swapLastName(myList);
 	
@@ -8407,7 +8414,7 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Missionary Progress Record");
 		pageSource = getSourceOfPage();
 		
-		myWeb.WPRopenPageLogIn("https://missionary-stage.lds.org/ward-missionary-tools", "ab067", "password0");
+		myWeb.WPRopenPageLogIn("https://missionary-stage.lds.org/ward-missionary-tools", "ab253", "pa$$w0rd0");
 		
 		//******************
 		//Visits - Last Week
@@ -8521,7 +8528,7 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Missionary Progress Record");
 		pageSource = getSourceOfPage();
 		
-		myWeb.WPRopenPageLogIn("https://missionary-stage.lds.org/ward-missionary-tools", "ab067", "password0");
+		myWeb.WPRopenPageLogIn("https://missionary-stage.lds.org/ward-missionary-tools", "ab253", "pa$$w0rd0");
 		myList = myWeb.WPRgetUsers("none", false);	
 		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
@@ -8530,9 +8537,9 @@ public class LDSTools {
 			clickButton(oneUser, "text", "nameContains");
 			pageSource = getSourceOfPage();
 			if (getRunningOS().equals("mac")) {
-				Assert.assertTrue(checkNoCaseList("Add to Contacts", pageSource, "Contains"));
+				//Assert.assertTrue(checkNoCaseList("Add to Contacts", pageSource, "Contains"));
 			} else {
-				Assert.assertTrue(checkNoCaseList("Contact Information", pageSource, "Contains"));
+				//Assert.assertTrue(checkNoCaseList("Contact Information", pageSource, "Contains"));
 			}
 			
 			pressBackKey();
@@ -8561,7 +8568,7 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Missionary Progress Record");
 		//pageSource = getSourceOfPage();
 		
-		myWeb.WPRopenPageLogIn("https://missionary-stage.lds.org/ward-missionary-tools", "ab067", "password0");
+		myWeb.WPRopenPageLogIn("https://missionary-stage.lds.org/ward-missionary-tools", "ab253", "pa$$w0rd0");
 		
 		//******************
 		//Sacrament Meeting Attendance - Last Week
@@ -8789,6 +8796,7 @@ public class LDSTools {
 			if (getRunningOS().equals("mac")) {
 				clickButtonByXpathTitleName("Visiting Teaching");
 			} else {
+				Thread.sleep(1000);
 				scrollDownTEST(100);
 				//scrollToElementMemberList("Visiting Teaching");
 				//driver.scrollToExact("Visiting Teaching");
@@ -10030,7 +10038,7 @@ public class LDSTools {
 		//Check to see if we are getting a warning
 		if (getRunningOS().equals("mac")) {
 			if (checkElementExistsByXpath("AlertMessageCheck") == true) {
-				clickButton("AlertOK", "id", "xpath");
+				clickButton("AlertOK", "xpath", "xpath");
 			}
 		} else {
 			if (checkElementExistsByXpath("AlertMessageCheck") == true) {
@@ -10492,7 +10500,7 @@ public class LDSTools {
 			//Thread.sleep(4000);
 			//clickButtonByXpath("DrawerSYNC");
 			Thread.sleep(4000);
-			clickButton("AlertOK", "id", "xpath");
+			clickButton("AlertOK", "xpath", "xpath");
 			
 			Thread.sleep(4000);
 			waitForTextToDisappearID("SyncText", 500 );
@@ -10800,7 +10808,7 @@ public class LDSTools {
 		
 		while ((myErrorTest == true) && (myCounter < 4)) {
 			System.out.println("Not connected to the Internet: " + myErrorTest + " Count: "+ myCounter);
-			clickButton("AlertOK", "id", "xpath");
+			clickButton("AlertOK", "xpath", "xpath");
 			clickButton("MenuEdit", "id", "xpath");
 			waitForTextToDisappear("Downloading", 500 );
 			myErrorTest = checkElementReturn("NotConnected", "xpath", "xpath");
@@ -10914,12 +10922,17 @@ public class LDSTools {
 		
 		for (int myCounter = 0; myCounter < listToSwitch.size(); myCounter++) {
 			String[] parts = listToSwitch.get(myCounter).split(" ");
-			String part1 = parts[0];
-			//part1 = part1.replace(",", "");
-			String part2 = parts[1];
-			userSwitch = part2 + ", " + part1;
-			System.out.println("SWITCH: " + userSwitch);
-			listToSwitch.set(myCounter, userSwitch);
+			if (parts.length == 1) {
+				listToSwitch.set(myCounter, parts[0]);
+			} else {
+				String part1 = parts[0];
+				//part1 = part1.replace(",", "");
+				String part2 = parts[1];
+				userSwitch = part2 + ", " + part1;
+				System.out.println("SWITCH: " + userSwitch);
+				listToSwitch.set(myCounter, userSwitch);
+			}
+
 		}
 		
 		return listToSwitch;
@@ -11632,7 +11645,7 @@ public class LDSTools {
     	int scrollStart;
     	
         Dimension dimensions = driver.manage().window().getSize();
-        Double screenHeightStart = dimensions.getHeight() * 0.7;
+        Double screenHeightStart = dimensions.getHeight() * 0.8;
         scrollStart = screenHeightStart.intValue();
 
         
@@ -11646,7 +11659,7 @@ public class LDSTools {
         Dimension dimensions = driver.manage().window().getSize();
 
 
-        Double screenHeightEnd = dimensions.getHeight() * 0.3;
+        Double screenHeightEnd = dimensions.getHeight() * 0.2;
         scrollEnd = screenHeightEnd.intValue();
         
         return scrollEnd;
