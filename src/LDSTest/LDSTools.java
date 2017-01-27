@@ -380,7 +380,7 @@ public class LDSTools {
 		//editOtherUserInvalidEmail(os);
 		
 		
-		//editVisibility(os);
+		editVisibility(os);
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
@@ -393,11 +393,11 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools20", "High Priest Group", os);
 		//LeaderNonBishopricDirectory("LDSTools16", "High Priest Group", os);
 		//LeaderNonBishopricDirectory("LDSTools39", "Ward Council", os);
-		LeaderNonBishopricHTVT("LDSTools26", "Relief Society Pres", os);
+		//LeaderNonBishopricHTVT("LDSTools26", "Relief Society Pres", os);
 		//LeaderNonBishopricMissionary("LDSTools20", "High Priest Group", os);
 		
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
-		//LeaderNonBishopricReport("LDSTools39", "Ward Council", os);
+		//LeaderNonBishopricReport("LDSTools46", "Ward Council", os);
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
@@ -2996,7 +2996,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		clearPhoneAndEmail();
 		
-		Thread.sleep(1000);
+		Thread.sleep(2000);
 		scrollDownTEST(-400);
 		Thread.sleep(1000);
 		backToDirectory();
@@ -3416,7 +3416,7 @@ public class LDSTools {
 			Thread.sleep(1000);
 		} else {
 			clickButtonByXpathTitleName("Privacy");
-			clickButton("HouseholdVisibilityLimit", "id", "xpath");
+			clickButton("HouseholdVisibilityLimit", "xpath", "xpath");
 			Thread.sleep(2000);
 			clickButton("RadioPrivate", "id", "xpath");
 			clickButton("SetLimit", "xpath", "xpath");
@@ -6866,6 +6866,9 @@ public class LDSTools {
 				clickButton("Back", "byName", "byName");	
 			}	
 		} else {
+			driver.navigate().back();
+			
+			/*
 			Thread.sleep(1000);
 			//driver.context("NATIVE_APP");
 			if (checkElementReturn("Back", "xpath", "xpath")) {
@@ -6873,7 +6876,7 @@ public class LDSTools {
 			} else {
 				driver.navigate().back();
 			}
-			
+			*/
 			
 			//new Actions(driver).sendKeys(SelendroidKeys.BACK).perform();
 			Thread.sleep(3000);
@@ -9899,7 +9902,7 @@ public class LDSTools {
 			if ((myCheck == 1)) {
 				clickButtonByXpathTitleName("Privacy");
 				//clickButtonByXpathTitleName("Household Visibility Limit");
-				clickButton("HouseholdVisibilityLimit", "id", "xpath");
+				clickButton("HouseholdVisibilityLimit", "xpath", "xpath");
 				Thread.sleep(2000);
 				clickButton("RadioStake", "id", "xpath");
 				clickButton("SetLimit", "xpath", "xpath");
@@ -10540,6 +10543,15 @@ public class LDSTools {
 		Thread.sleep(1000);
 		myPageSource = myPageSource + getSourceOfPage();
 		
+		myCheck = checkElementExistsByXpath("TabMembership");
+		if (myCheck == true) {
+			clickButtonByXpath("TabMembership");
+			Thread.sleep(1000);
+			myPageSource = myPageSource + getSourceOfPage();
+			scrollDownTEST(800);
+			myPageSource = myPageSource + getSourceOfPage();
+		}
+		
 		clickButtonByXpath("TabCallings");
 		Thread.sleep(1000);
 		myPageSource = myPageSource + getSourceOfPage();
@@ -10552,14 +10564,7 @@ public class LDSTools {
 			myPageSource = myPageSource + getSourceOfPage();
 		}
 		
-		myCheck = checkElementExistsByXpath("TabMembership");
-		if (myCheck == true) {
-			clickButtonByXpath("TabMembership");
-			Thread.sleep(1000);
-			myPageSource = myPageSource + getSourceOfPage();
-			scrollDownTEST(800);
-			myPageSource = myPageSource + getSourceOfPage();
-		}
+
 		
 		myCheck = checkElementExistsByXpath("TabHomeTeaching");
 		if (myCheck == true) {
@@ -10568,6 +10573,10 @@ public class LDSTools {
 		}
 		
 		clickButtonByXpath("TabCallings");
+		myCheck = checkElementExistsByXpath("TabMembership");
+		if (myCheck == true) {
+			clickButtonByXpath("TabMembership");
+		}
 		clickButtonByXpath("TabHousehold");
 		clickButtonByXpath("TabContact");
 
