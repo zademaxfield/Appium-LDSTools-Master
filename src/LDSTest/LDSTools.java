@@ -380,7 +380,7 @@ public class LDSTools {
 		//editOtherUserInvalidEmail(os);
 		
 		
-		editVisibility(os);
+		//editVisibility(os);
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
@@ -440,7 +440,7 @@ public class LDSTools {
 		//TerryBallard(os); //Check to see Tim and Jessica Beck
 		//AdminUnit(os); //Not working in 2.5.0
 		//WardStakeCouncilor(os);
-		//JustinKrebs(os);
+		JustinKrebs(os);
 		//BjornGabler(os);
 		//AaronWeech(os);
 		//BlakeHeyer(os);
@@ -7070,7 +7070,7 @@ public class LDSTools {
 		if (!getRunningOS().equals("mac")) {
 			if (!chooseNetwork.equals("Production")) {
 				
-				Thread.sleep(10000);
+				Thread.sleep(1000);
 				clickButtonByXpath("Menu");
 				clickButtonByXpath("OverflowSettings");
 				scrollToElement("About");
