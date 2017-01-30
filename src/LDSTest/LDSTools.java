@@ -373,7 +373,7 @@ public class LDSTools {
 		//bishopMemberOfSeparateStake(os);	
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
-		//editCurrentUser(os);	
+		editCurrentUser(os);	
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
@@ -397,7 +397,7 @@ public class LDSTools {
 		//LeaderNonBishopricMissionary("LDSTools20", "High Priest Group", os);
 		
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
-		//LeaderNonBishopricReport("LDSTools46", "Ward Council", os);
+		//LeaderNonBishopricReport("LDSTools38", "Ward Council", os);
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
@@ -440,7 +440,7 @@ public class LDSTools {
 		//TerryBallard(os); //Check to see Tim and Jessica Beck
 		//AdminUnit(os); //Not working in 2.5.0
 		//WardStakeCouncilor(os);
-		JustinKrebs(os);
+		//JustinKrebs(os);
 		//BjornGabler(os);
 		//AaronWeech(os);
 		//BlakeHeyer(os);
@@ -4767,8 +4767,8 @@ public class LDSTools {
 		myList = myWeb.TempleGetPhysicalAddress();
 		checkSource(mySource, myList);
 		
-		myList = myWeb.TempleGetServices();
-		checkSource(mySource, myList);
+		//myList = myWeb.TempleGetServices();
+		//checkSource(mySource, myList);
 		
 		myList = myWeb.TempleGetMilestones();
 		checkSource(mySource, myList);
