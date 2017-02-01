@@ -6557,46 +6557,51 @@ public class LDSTools {
 	
 	
 	private void scrollDownTEST(int scrollDistance ) throws Exception {
-		//TouchActions actions = new TouchActions(driver);
-		//MobileElement myElement = driver.findElement(By.xpath("//CheckableLinearLayout[10]/RelativeLayout/LinearLayout"));
-		//actions.flick(driver.findElement(By.xpath("//LinearLayout")), 0, scrollDistance, 100);
+		if (getRunningOS().equals("mac")) {
+			scrollDownIOS();
+		} else {
+			//TouchActions actions = new TouchActions(driver);
+			//MobileElement myElement = driver.findElement(By.xpath("//CheckableLinearLayout[10]/RelativeLayout/LinearLayout"));
+			//actions.flick(driver.findElement(By.xpath("//LinearLayout")), 0, scrollDistance, 100);
 
-		Dimension dimensions = driver.manage().window().getSize();
-		int screenWidth = dimensions.getWidth();
-		int screenHeight = dimensions.getHeight();
-		//int screenUp;
-		
-		//System.out.println("Trying to move!");
-		//System.out.println("Width: " + screenWidth);
-		//System.out.println("Height: " + screenHeight);
-		
-		screenWidth = screenWidth / 3;
-		//screenWidth = screenWidth - 75;
-		//screenHeight = screenHeight / 2;
-		screenHeight = screenHeight - 100;
-		//scrollDistance = screenHeight - scrollDistance;
-		
-		//System.out.println("Width: " + screenWidth);
-		//System.out.println("Height: " + screenHeight);
-		//System.out.println("Distance: " + scrollDistance);
-		TouchAction actions = new TouchAction(driver);
-		//actions.press(screenWidth, screenHeight).moveTo(0, -scrollDistance).release().perform();
+			Dimension dimensions = driver.manage().window().getSize();
+			int screenWidth = dimensions.getWidth();
+			int screenHeight = dimensions.getHeight();
+			//int screenUp;
+			
+			//System.out.println("Trying to move!");
+			//System.out.println("Width: " + screenWidth);
+			//System.out.println("Height: " + screenHeight);
+			
+			screenWidth = screenWidth / 3;
+			//screenWidth = screenWidth - 75;
+			//screenHeight = screenHeight / 2;
+			screenHeight = screenHeight - 100;
+			//scrollDistance = screenHeight - scrollDistance;
+			
+			//System.out.println("Width: " + screenWidth);
+			//System.out.println("Height: " + screenHeight);
+			//System.out.println("Distance: " + scrollDistance);
+			TouchAction actions = new TouchAction(driver);
+			//actions.press(screenWidth, screenHeight).moveTo(0, -scrollDistance).release().perform();
 
-		actions.press(screenWidth, screenHeight).moveTo(0, -scrollDistance).waitAction(2000).release().perform();
+			actions.press(screenWidth, screenHeight).moveTo(0, -scrollDistance).waitAction(2000).release().perform();
+			
+			/*
+			actions.down(screenWidth, screenHeight);
+			//actions.pause(1000);
+			//actions.move(screenWidth, screenHeight -100 );
+			actions.move(screenWidth, screenHeight - scrollDistance );
+			//actions.pause(3000);
+			//actions.up(screenWidth, screenUp);
+			actions.up(screenWidth, 0);
 		
-		/*
-		actions.down(screenWidth, screenHeight);
-		//actions.pause(1000);
-		//actions.move(screenWidth, screenHeight -100 );
-		actions.move(screenWidth, screenHeight - scrollDistance );
-		//actions.pause(3000);
-		//actions.up(screenWidth, screenUp);
-		actions.up(screenWidth, 0);
-	
-		actions.perform();
-		*/
-		
-		Thread.sleep(5000);
+			actions.perform();
+			*/
+			
+			Thread.sleep(5000);
+		}
+
 		
 	}
 	
@@ -10490,7 +10495,7 @@ public class LDSTools {
 			//clickButtonByName("Sync Now");
 			Thread.sleep(6000);
 			waitForTextToDisappear("SyncText", 500 );
-			Thread.sleep(2000);
+			Thread.sleep(4000);
 			//pinPage("1", "1", "3", "3", true);
 			
 		} else {
