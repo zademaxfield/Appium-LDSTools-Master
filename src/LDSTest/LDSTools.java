@@ -373,7 +373,7 @@ public class LDSTools {
 		//bishopMemberOfSeparateStake(os);	
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
-		editCurrentUser(os);	
+		//editCurrentUser(os);	
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
@@ -399,7 +399,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools38", "Ward Council", os);
 		
-		//LeaderBishopricDirectory("ngiBPC1", false, os);
+		LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
@@ -7064,7 +7064,7 @@ public class LDSTools {
 			
 			//waitForTextToDisappear("DownloadingSync", 500 );
 			waitForTextToDisappearTEXT(chooseNetwork, 500 );
-			Thread.sleep(12000);
+			Thread.sleep(25000);
 		}
 	}
 	
@@ -8805,7 +8805,7 @@ public class LDSTools {
 				clickButtonByXpathTitleName("Visiting Teaching");
 			} else {
 				Thread.sleep(1000);
-				scrollDownTEST(100);
+				scrollDownTEST(200);
 				//scrollToElementMemberList("Visiting Teaching");
 				//driver.scrollToExact("Visiting Teaching");
 				clickButtonByXpathTitleName("Visiting Teaching");
