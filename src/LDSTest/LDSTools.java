@@ -380,7 +380,7 @@ public class LDSTools {
 		//editOtherUserInvalidEmail(os);
 		
 		
-		//editVisibility(os);
+		editVisibility(os);
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
@@ -397,9 +397,9 @@ public class LDSTools {
 		//LeaderNonBishopricMissionary("LDSTools20", "High Priest Group", os);
 		
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
-		//LeaderNonBishopricReport("LDSTools38", "Ward Council", os);
+		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		LeaderBishopricDirectory("ngiBPC1", false, os);
+		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
@@ -9475,8 +9475,9 @@ public class LDSTools {
 			if (getRunningOS().equals("mac")) {
 				clickButtonByXpathTitleName("Visiting Teaching");
 			} else {
+				Thread.sleep(2000);
 				scrollDownTEST(200);
-				//Thread.sleep(1000);
+				Thread.sleep(1000);
 				//scrollToElementRecyclerView("Visiting Teaching");
 				//driver.scrollToExact("Visiting Teaching");
 				clickButtonByXpathTitleName("Visiting Teaching");
@@ -9868,7 +9869,7 @@ public class LDSTools {
 		
 		
 		if (getRunningOS().equals("mac")) {
-			printPageSource();
+			//printPageSource();
 			textCheck = getTextXpath("VisibilityHVL");
 			if (!textCheck.contains("Stake")) {
 				clickButton("HouseholdVisibilityLimit", "id", "xpath");
@@ -9879,6 +9880,7 @@ public class LDSTools {
 			}
 			
 			textCheck = getTextXpath("VisibilityPersonal");
+			System.out.println("TEXT: " + textCheck);
 			if (!textCheck.contains("Stake")) {
 				clickButtonByXpath("VisibilityPersonal");
 				Thread.sleep(2000);
@@ -10794,7 +10796,11 @@ public class LDSTools {
 		Thread.sleep(2000);
 		if (getRunningOS().equals("mac")) {
 			pressBackToRoot();
-			Thread.sleep(1000);
+			Thread.sleep(2000);
+			//clickButton("Clear text", "byName", "byName");
+			clickByCords("Clear text");
+			//clickButton("SearchClearText", "xpath", "xpath");
+			clickButton("Cancel", "byName", "byName");
 			//clickButtonByXpath("SearchCollapse");
 		} else {
 			//System.out.println("Start of Back To Root");
@@ -10808,6 +10814,16 @@ public class LDSTools {
 			clickButton("CollapseButton", "xpath", "xpath");
 		}
 		Thread.sleep(2000);
+	}
+	
+	private void clickByCords(String elementName) throws Exception {
+		MobileElement myElement = null;
+		TouchAction myAction = new TouchAction(driver);
+		
+		myElement = driver.findElement(By.name(elementName));
+		Point myPoint = myElement.getLocation();
+		myAction.press(myPoint.x, myPoint.y).release();
+		driver.performTouchAction(myAction);
 	}
 	
 	
