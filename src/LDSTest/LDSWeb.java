@@ -75,6 +75,13 @@ public class LDSWeb {
 	
 	@Test
 	public void simpleTest() throws Exception {
+		String mySource;
+		MyTemplePageLogIn("https://uat.lds.org/mls/mbr", "ldstools2", "toolstester");
+		clickElement("Find a Temple", "linkText");
+		
+		mySource = getSourceOfMember("AllTemplesTable");
+		getAllTemples(mySource);
+		
 		
 		/*
 		String url = "https://uat.lds.org/mls/mbr/?lang=eng";
@@ -88,7 +95,7 @@ public class LDSWeb {
 		
 		
 		//setupAfterUATReset();
-		AreaBookSetup();
+		//AreaBookSetup();
 
 		/*
 		populateFile();
@@ -921,6 +928,30 @@ public class LDSWeb {
 		return foundUsers;
 		
 	}
+	
+	private List<String> getAllTemples(String pageSource){
+		List<String> foundUsers = new ArrayList<String>();
+		Document doc = Jsoup.parse(pageSource);
+		Elements myTest = doc.select("a[href]");
+		//Elements myTest = doc.getElementsByAttributeValueStarting("class", "ng-binding");
+		String outerHTML;
+		
+		for (Element myElement : myTest ) {
+			outerHTML = myElement.text();
+			outerHTML = outerHTML.replace(",", "");
+			foundUsers.add(outerHTML);
+		}
+
+		for(String oneUser : foundUsers){
+			System.out.println("Found User: " + oneUser);
+			
+		}
+
+		return foundUsers;
+		
+	}
+	
+	
 	
 	private List<String> getMembersWithoutCallings(String pageSource){
 		List<WebElement> options= driver.findElements(By.xpath("//tr[@class='ng-scope']//ng-transclude[@class='ng-binding']"));
@@ -2656,6 +2687,20 @@ public class LDSWeb {
 			System.out.println(line);
 		}
 	}
+	
+	public List<String> GetAllTemples() throws Exception {
+		String mySource;
+		List<String> allTemples = new ArrayList<String>();
+		MyTemplePageLogIn("https://uat.lds.org/mls/mbr", "ldstools2", "toolstester");
+		clickElement("Find a Temple", "linkText");
+		
+		mySource = getSourceOfMember("AllTemplesTable");
+		allTemples = getAllTemples(mySource);
+		
+		return allTemples;
+	}
+	
+	
 	
 	//Get the Temple Name
 	public String TempleGetName() throws Exception {
