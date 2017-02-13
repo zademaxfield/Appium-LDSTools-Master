@@ -357,7 +357,7 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		//justForTesting(os);	
+		justForTesting(os);	
 		
 		
 		//myTempleSimpleTest(os);
@@ -380,7 +380,7 @@ public class LDSTools {
 		//editOtherUserInvalidEmail(os);
 		
 		
-		editVisibility(os);
+		//editVisibility(os);
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
@@ -472,10 +472,32 @@ public class LDSTools {
 	
 	
 	public void justForTesting(String os) throws Exception {
-		String mySource;
-		
-		syncLogIn("ngiBPC1", "password1", "UAT", os );
+		//String mySource = null;
+		List<String> myList = new ArrayList<String>();
+		syncLogIn("LDSTools16", "password1", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
+		openTemples();
+		Thread.sleep(3000);
+		if (getRunningOS().equals("mac")) {
+			//clickByCordsTextContains("My Temple");
+			//Thread.sleep(5000);
+			clickButton("TempleMenu", "xpath", "xpath");
+		} else {
+			//clickButton("Yes", "text", "text");
+		}
+		
+		
+		clickButton("All Temples", "xpath", "name");
+		
+		
+		
+		
+		myList = myWeb.GetAllTemples();
+
+		compareTemples(myList);
+		
+		
+		/*
 		Thread.sleep(10000);
 		openSettings();
 		
@@ -550,6 +572,8 @@ public class LDSTools {
 		Thread.sleep(2000);
 		Assert.assertTrue(checkNoCaseList("Contact bishopric", mySource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Got it, thanks", mySource, "Contains"));
+		
+		*/
 		
 		
 		//TempleGetName()
@@ -5485,6 +5509,50 @@ public class LDSTools {
 		return userList;
 	}
 	
+	private List<String> createTempleList(List<String> userList, String pageSource){
+		Document doc = Jsoup.parse(pageSource);
+		Elements myTest = doc.getAllElements();
+		String foundText;
+		
+		for (Element myElement : myTest ) {
+			//System.out.println("Searching for user: ");
+			//System.out.println(myElement.attributes().get("value"));
+			if (!myElement.attributes().get("text").equals("")) {
+				foundText = myElement.attributes().get("text");
+				//foundText = foundText.toLowerCase();
+
+				userList.add(foundText);
+				System.out.println("Adding Temple Text: " + foundText);
+
+				
+				
+				//System.out.println("******************************");
+				//System.out.println("Found Text:" + foundText);
+				//System.out.println("Text To Check: " + textToCheck);
+				//System.out.println("******************************");
+			}
+			
+			if (!myElement.attributes().get("name").equals("")) {
+				foundText = myElement.attributes().get("name");
+				if(foundText.contains("Temple")) {
+					userList.add(foundText);
+					System.out.println("Adding Temple Name: " + foundText);
+				}
+				//foundText = foundText.toLowerCase();
+
+
+
+				
+				
+				//System.out.println("******************************");
+				//System.out.println("Found Text:" + foundText);
+				//System.out.println("Text To Check: " + textToCheck);
+				//System.out.println("******************************");
+			}
+		}
+		return userList;
+	}
+	
 	
 	
 	/** displayAllTextViewElements()
@@ -10241,6 +10309,97 @@ public class LDSTools {
 		}	
 	}
 	
+	private void compareTemples(List<String> myList) throws Exception {
+		String pageSource = null;
+		int pageSize;
+		String lastMember;
+		String lastMemberCheck;
+		boolean userFound;
+		List<String> androidList = new ArrayList<String>();
+		
+		String memberToSelect;
+		
+		if (getRunningOS().equals("mac")){
+			/*
+			pageSource = getSourceOfPage();
+			for(String oneUser : myList){
+				//System.out.println("USER: " + oneUser);
+				userFound = checkNoCaseList(oneUser, pageSource, "Contains");
+				if (userFound == false) {
+					System.out.println("USER NOT FOUND: " + oneUser);
+				}
+			}
+			*/
+			
+
+			//This will scroll through the android pages and get all of the data. 
+			do {
+				pageSource = getSourceOfPage();
+				//System.out.println("PAGE SOURCE: " + pageSource);
+				androidList = createTempleList(androidList, pageSource);
+				lastMember = androidList.get(androidList.size() - 1 );
+
+				scrollDownIOS();
+				Thread.sleep(1000);
+				pageSource =  getSourceOfPage();
+				androidList = createTempleList(androidList, pageSource);
+				lastMemberCheck = androidList.get(androidList.size() - 1 );
+				System.out.println("Last Member: " + lastMember);
+				System.out.println("Last Member Check: " + lastMemberCheck);
+			} while (!lastMember.equals(lastMemberCheck));
+			
+			for(String oneUser : myList){
+				//System.out.println("USER: " + oneUser);
+				userFound = checkNoCaseList(oneUser, pageSource, "Contains");
+				if (userFound == false) {
+					System.out.println("USER NOT FOUND: " + oneUser);
+				}
+			}
+
+		} else {
+			
+			pageSize = driver.manage().window().getSize().getHeight();
+			pageSize = pageSize - 100;
+
+			//This will scroll through the android pages and get all of the data. 
+			do {
+				pageSource = getSourceOfPage();
+				androidList = createTempleList(androidList, pageSource);
+				lastMember = androidList.get(androidList.size() - 1 );
+				//memberToSelect = androidList.get(androidList.size() / 2 );
+				
+				//System.out.println("Member To Select: " + memberToSelect);
+				//scrollDownPerPage(pageSize);
+				scrollDownSlow(pageSize);
+				//scrollDownTEST(pageSize);
+				//flickUpOrDown(pageSize);
+				Thread.sleep(1000);
+				pageSource = getSourceOfPage();
+				androidList = createTempleList(androidList, pageSource);
+				lastMemberCheck = androidList.get(androidList.size() - 1 );
+				System.out.println("Last Member: " + lastMember);
+				System.out.println("Last Member Check: " + lastMemberCheck);
+			} while (!lastMember.equals(lastMemberCheck));
+			
+				
+			//System.out.println("***************************");
+			//pageSource = getSourceOfPage();
+			//androidList = createUserList(androidList, pageSource);
+			//System.out.println("***************************");
+
+			for(String oneUser : myList) {
+				System.out.println("USER: " + oneUser);
+				userFound = checkNoCaseList(oneUser, pageSource, "Contains");
+				if (userFound == false) {
+					System.out.println("USER NOT FOUND: " + oneUser);
+				}
+				
+			}
+		}
+	}
+	
+	
+	
 	private void compareWebDataCheck(List<String> myList, List<String> androidList, Boolean onePage) throws Exception {
 		String pageSource = null;
 		int pageSize;
@@ -10821,6 +10980,16 @@ public class LDSTools {
 		TouchAction myAction = new TouchAction(driver);
 		
 		myElement = driver.findElement(By.name(elementName));
+		Point myPoint = myElement.getLocation();
+		myAction.press(myPoint.x, myPoint.y).release();
+		driver.performTouchAction(myAction);
+	}
+	
+	private void clickByCordsTextContains(String elementName) throws Exception {
+		MobileElement myElement = null;
+		TouchAction myAction = new TouchAction(driver);
+	
+		myElement = driver.findElement(By.xpath("//*[contains(@text, '" + elementName + "')]"));
 		Point myPoint = myElement.getLocation();
 		myAction.press(myPoint.x, myPoint.y).release();
 		driver.performTouchAction(myAction);
