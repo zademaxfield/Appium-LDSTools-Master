@@ -357,7 +357,7 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		justForTesting(os);	
+		//justForTesting(os);	
 		
 		
 		//myTempleSimpleTest(os);
@@ -402,7 +402,7 @@ public class LDSTools {
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
-		//LeaderBishopricHTVT("ngiBPC1", false, os); 
+		LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		
@@ -5346,6 +5346,7 @@ public class LDSTools {
 					///System.out.println(myElement.attributes().get("value"));
 					foundText = myElement.attributes().get("name");
 					foundText = foundText.toLowerCase();
+					foundText = foundText.trim();
 					//System.out.println("******************************");
 					//System.out.println("   Found Text: " + foundText);
 					//System.out.println("Text To Check: " + textToCheck);
@@ -7923,12 +7924,12 @@ public class LDSTools {
 		}
 		
 		Thread.sleep(1000);
-		clickButtonByXpathTitleName("Young Single Adult");
-		Thread.sleep(1000);
-		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Young Single Adult Leader", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Young Yen", pageSource, "Contains"));
-		pressBackKey();
+		//clickButtonByXpathTitleName("Young Single Adult");
+		//Thread.sleep(1000);
+		//pageSource = getSourceOfPage();
+		//Assert.assertTrue(checkNoCaseList("Young Single Adult Leader", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("Young Yen", pageSource, "Contains"));
+		//pressBackKey();
 		clickButtonByXpathTitleName("Music");
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
@@ -8045,7 +8046,7 @@ public class LDSTools {
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Kitara", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("June", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("February", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Skywalker, Luke", pageSource, "Equals"));
 
 		Thread.sleep(1000);
@@ -8260,7 +8261,7 @@ public class LDSTools {
 			}
 			Thread.sleep(2000);
 			pageSource = getSourceOfPage();
-			Assert.assertTrue(checkNoCaseList("Mene, Sau", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("Lavea, Meise", pageSource, "Contains"));
 			Assert.assertFalse(checkNoCaseList("Jinn, Qui-Gon", pageSource, "Contains"));
 			//Assert.assertTrue(checkElementTextViewReturn("Tutunoa, Lusi"));
 			//Assert.assertFalse(checkElementTextViewReturn("Jinn, Qui-Gon"));
@@ -10329,10 +10330,8 @@ public class LDSTools {
 					System.out.println("USER NOT FOUND: " + oneUser);
 				}
 			}
-			*/
 			
-
-			//This will scroll through the android pages and get all of the data. 
+			
 			do {
 				pageSource = getSourceOfPage();
 				//System.out.println("PAGE SOURCE: " + pageSource);
@@ -10347,9 +10346,22 @@ public class LDSTools {
 				System.out.println("Last Member: " + lastMember);
 				System.out.println("Last Member Check: " + lastMemberCheck);
 			} while (!lastMember.equals(lastMemberCheck));
+
+
+			*/
+			
+			
+			//This will scroll through the android pages and get all of the data. 
+
+
+			scrollDownIOS();
+			Thread.sleep(1000);
+			pageSource =  getSourceOfPage();
+
+
 			
 			for(String oneUser : myList){
-				//System.out.println("USER: " + oneUser);
+				System.out.println("LDS Tools Temple: " + oneUser);
 				userFound = checkNoCaseList(oneUser, pageSource, "Contains");
 				if (userFound == false) {
 					System.out.println("USER NOT FOUND: " + oneUser);
