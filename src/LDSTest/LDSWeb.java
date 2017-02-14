@@ -939,6 +939,7 @@ public class LDSWeb {
 		for (Element myElement : myTest ) {
 			outerHTML = myElement.text();
 			outerHTML = outerHTML.replace(",", "");
+			outerHTML = outerHTML.trim();
 			foundUsers.add(outerHTML);
 		}
 
