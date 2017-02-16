@@ -400,9 +400,9 @@ public class LDSTools {
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
-		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
+		LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
-		LeaderBishopricHTVT("ngiBPC1", false, os); 
+		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		
@@ -5838,16 +5838,16 @@ public class LDSTools {
 		pressBackKey();
 		
 		clickButtonByXpathTitleName("Teachers Quorum");
-		if (getRunningOS().equals("mac")) {
-			clickButtonByXpathTitleName("Teachers Quorum Presidency");
-		}
+		//if (getRunningOS().equals("mac")) {
+		//	clickButtonByXpathTitleName("Teachers Quorum Presidency");
+		//}
 
-		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "TeachersQuorum", false);
-		compareWebData(myList, androidList, true);
+		//myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "Young Men", "TeachersQuorum", false);
+		//compareWebData(myList, androidList, true);
 		
-		if (getRunningOS().equals("mac")) {
-			pressBackKey();
-		}
+		//if (getRunningOS().equals("mac")) {
+		//	pressBackKey();
+		//}
 		pressBackKey();
 
 		clickButtonByXpathTitleName("Deacons Quorum");
