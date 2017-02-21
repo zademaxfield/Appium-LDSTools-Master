@@ -68,6 +68,7 @@ import io.selendroid.SelendroidKeys;
 //import javafx.scene.control.Alert;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 //import org.apache.commons.lang3.StringUtils;
 //import org.hamcrest.CoreMatchers;
 import org.jsoup.Jsoup;
@@ -373,7 +374,7 @@ public class LDSTools {
 		//bishopMemberOfSeparateStake(os);	
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
-		//editCurrentUser(os);	
+		editCurrentUser(os);	
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
@@ -400,7 +401,7 @@ public class LDSTools {
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
-		LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
+		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
@@ -8046,7 +8047,7 @@ public class LDSTools {
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Kitara", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("February", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("February", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Skywalker, Luke", pageSource, "Equals"));
 
 		Thread.sleep(1000);
@@ -10357,14 +10358,16 @@ public class LDSTools {
 			scrollDownIOS();
 			Thread.sleep(1000);
 			pageSource =  getSourceOfPage();
-
+			pageSource  = StringUtils.stripAccents(pageSource);
+			//printPageSource();
 
 			
 			for(String oneUser : myList){
-				System.out.println("LDS Tools Temple: " + oneUser);
+				oneUser = StringUtils.stripAccents(oneUser);
+				//System.out.println("LDS Tools Temple From Web: " + oneUser);
 				userFound = checkNoCaseList(oneUser, pageSource, "Contains");
 				if (userFound == false) {
-					System.out.println("USER NOT FOUND: " + oneUser);
+					System.out.println("Temple NOT FOUND: " + oneUser);
 				}
 			}
 
@@ -10730,10 +10733,14 @@ public class LDSTools {
 			myPageSource = myPageSource + getSourceOfPage();
 		}
 		
-		clickButtonByXpath("TabCallings");
-		Thread.sleep(1000);
-		myPageSource = myPageSource + getSourceOfPage();
-		
+		myCheck = checkElementExistsByXpath("TabCallings");
+		if (myCheck == true) {
+			clickButtonByXpath("TabCallings");
+			Thread.sleep(1000);
+			myPageSource = myPageSource + getSourceOfPage();
+		}
+
+
 		
 		myCheck = checkElementExistsByXpath("TabHomeTeaching");
 		if (myCheck == true) {
@@ -10750,7 +10757,12 @@ public class LDSTools {
 			Thread.sleep(1000);
 		}
 		
-		clickButtonByXpath("TabCallings");
+		myCheck = checkElementExistsByXpath("TabCallings");
+		if (myCheck == true) {
+			clickButtonByXpath("TabCallings");
+			Thread.sleep(1000);
+		}
+		
 		myCheck = checkElementExistsByXpath("TabMembership");
 		if (myCheck == true) {
 			clickButtonByXpath("TabMembership");
