@@ -374,7 +374,7 @@ public class LDSTools {
 		//bishopMemberOfSeparateStake(os);	
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
-		editCurrentUser(os);	
+		//editCurrentUser(os);	
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
@@ -402,7 +402,7 @@ public class LDSTools {
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
-		//LeaderBishopricReport("ngiBPC1", false, os);
+		LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
@@ -3436,7 +3436,8 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			clickButton("HouseholdVisibilityLimit", "id", "xpath");
 			Thread.sleep(2000);
-			clickButtonByXpath("PrivatePopUp");
+			//clickButtonByXpath("PrivatePopUp");
+			clickButton("Private—Leadership Only", "name", "name");
 			//clickButtonByXpathTitleNameContains("Private");
 			Thread.sleep(1000);
 		} else {
@@ -3481,10 +3482,12 @@ public class LDSTools {
 		//Collapse the search 
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpath("SearchCollapse");
+		} else {
+			backToDirectory() ;
 		}
 		
 		
-		backToDirectory() ;
+		
 		
 		//Log out 
 		drawerSignOut();
@@ -9944,7 +9947,8 @@ public class LDSTools {
 			if (!textCheck.contains("Stake")) {
 				clickButton("HouseholdVisibilityLimit", "id", "xpath");
 				Thread.sleep(2000);
-				clickButtonByXpath("StakePopUp");
+				clickButton("Stake Visibility", "byName", "byName");
+				//clickButtonByXpath("StakePopUp");
 				//clickButtonByXpathTitleNameContains("Stake Visibility");
 				Thread.sleep(1000);
 			}
