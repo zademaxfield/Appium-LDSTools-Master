@@ -75,13 +75,14 @@ public class LDSWeb {
 	
 	@Test
 	public void simpleTest() throws Exception {
+		/*
 		String mySource;
 		MyTemplePageLogIn("https://uat.lds.org/mls/mbr", "ldstools2", "toolstester");
 		clickElement("Find a Temple", "linkText");
 		
 		mySource = getSourceOfMember("AllTemplesTable");
 		getAllTemples(mySource);
-		
+		*/
 		
 		/*
 		String url = "https://uat.lds.org/mls/mbr/?lang=eng";
@@ -95,7 +96,7 @@ public class LDSWeb {
 		
 		
 		//setupAfterUATReset();
-		//AreaBookSetup();
+		AreaBookSetup();
 
 		/*
 		populateFile();
