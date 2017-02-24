@@ -381,7 +381,7 @@ public class LDSTools {
 		//editOtherUserInvalidEmail(os);
 		
 		
-		editVisibility(os);
+		//editVisibility(os);
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
@@ -403,7 +403,7 @@ public class LDSTools {
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
-		//LeaderBishopricHTVT("ngiBPC1", false, os); 
+		LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		
@@ -3339,7 +3339,10 @@ public class LDSTools {
 		Thread.sleep(2000);
 		
 		sendTextToEditUser("EditPersonalEmail", "thisisaninvalidemailaddress");
+		Thread.sleep(2000);
+		//printPageSource();
 		invalidEmailCheck();
+	
 		ClearTextToEditUser("EditPersonalEmail");
 		//myKeyboardClear();
 		
@@ -5200,7 +5203,7 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			options= driver.findElements(By.xpath("//*[contains(@value,'" + textElement + "')]"));
 		} else {
-			options= driver.findElements(By.xpath("//*[contains(@text,'" + textElement + "')]"));
+			options= driver.findElements(By.xpath("//android.widget.TextView[contains(@text,'" + textElement + "')]"));
 		}
 	
 		if (options.isEmpty()) {
@@ -7425,9 +7428,9 @@ public class LDSTools {
 	
 	private int alertCheckInvalidInput() {
 		int myCheck = 0;
-		myCheck = checkTextContainsReturn("AlertMessageMember", "Save failed", "id", "xpath");
+		myCheck = checkTextContainsReturn("AlertMessageMember", "Save failed", "xpath", "xpath");
 		if (myCheck == 0 ) {
-			myCheck = checkTextContainsReturn("AlertMessageMember", "Invalid", "id", "xpath");
+			myCheck = checkTextContainsReturn("AlertMessageMember", "Invalid", "xpath", "xpath");
 		}
 		
 		return myCheck;
