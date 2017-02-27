@@ -378,7 +378,7 @@ public class LDSTools {
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
-		//editOtherUserInvalidEmail(os);
+		editOtherUserInvalidEmail(os);
 		
 		
 		//editVisibility(os);
@@ -403,7 +403,7 @@ public class LDSTools {
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
-		LeaderBishopricHTVT("ngiBPC1", false, os); 
+		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		
@@ -3141,12 +3141,15 @@ public class LDSTools {
 		Thread.sleep(1000);
 		
 		sendTextbyXpath("EditPersonalPhone", "1(801)240-0104");
+		clickButton("EditHomePhone", "xpath", "xpath");
 		//myKeyboardClear();
 		
 		sendTextToEditUser("EditHomePhone", "(801) 867-5309");
+		clickButton("EditPersonalEmail", "xpath", "xpath");
 		//myKeyboardClear();
 		
 		sendTextToEditUser("EditPersonalEmail", "personal@gmail.com");
+		clickButton("EditHomeEmail", "xpath", "xpath");
 		//myKeyboardClear();
 		scrollDownTEST(400);
 		Thread.sleep(2000);
@@ -3341,6 +3344,7 @@ public class LDSTools {
 		sendTextToEditUser("EditPersonalEmail", "thisisaninvalidemailaddress");
 		Thread.sleep(2000);
 		//printPageSource();
+		clickButton("EditPersonalPhone", "xpath", "xpath");
 		invalidEmailCheck();
 	
 		ClearTextToEditUser("EditPersonalEmail");
@@ -8118,6 +8122,7 @@ public class LDSTools {
 			//clickButtonByXpathTitleName("DURATION");
 			clickButtonByXpathTitleNameNoCase("Duration");
 		}
+		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Sunday School President", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Lealaiauloto, Uana Iosefa Sao", pageSource, "Contains"));
@@ -8146,6 +8151,7 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Members without Callings");
 		Thread.sleep(1000);
 		//System.out.println("Getting Page Source");
+		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("AFPEighteen, Member", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("AFPEleven, Member", pageSource, "Contains"));
