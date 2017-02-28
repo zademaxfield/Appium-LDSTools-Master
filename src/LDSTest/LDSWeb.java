@@ -510,8 +510,8 @@ public class LDSWeb {
 		clickElement("SignIn", "id");
 		
 		Thread.sleep(4000);
-		clickElement("IAgreeCheck", "id");
-		clickElement("Agree and Continue", "text");
+		//clickElement("IAgreeCheck", "id");
+		//clickElement("Agree and Continue", "text");
 		
 		clickElement("HomeButton", "xpath");
 		
