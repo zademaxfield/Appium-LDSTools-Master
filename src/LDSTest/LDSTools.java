@@ -378,7 +378,7 @@ public class LDSTools {
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
-		editOtherUserInvalidEmail(os);
+		//editOtherUserInvalidEmail(os);
 		
 		
 		//editVisibility(os);
@@ -395,7 +395,7 @@ public class LDSTools {
 		//LeaderNonBishopricDirectory("LDSTools16", "High Priest Group", os);
 		//LeaderNonBishopricDirectory("LDSTools39", "Ward Council", os);
 		//LeaderNonBishopricHTVT("LDSTools26", "Relief Society Pres", os);
-		//LeaderNonBishopricMissionary("LDSTools20", "High Priest Group", os);
+		LeaderNonBishopricMissionary("LDSTools20", "High Priest Group", os);
 		
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
@@ -432,6 +432,7 @@ public class LDSTools {
 		
 		
 		//Header Tests
+		//JeffAnderson(os);
 		//ChristieWhiting(os);
 		//CliffHigby(os);
 		//KevinPalmer(os);
@@ -4134,6 +4135,22 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
+	@Test (groups= {"header", "smoke"}, priority = 1)
+	public void JeffAnderson(String os) throws Exception {
+		//List<String> StakeWard = new ArrayList<String>();
+		loginProxyData("20536583369",
+				"/7u7110/5u505528/",
+				"p1/5u505528/1u425303/:p1933/1316u1968068/:p1680/32u1326376/:p428/467u376892/28u381772/:p1887/14u1004816/467u376892/:p1711/59u1004603/22u388300/",
+				"Proxy", "JeffAnderson");
+		
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);
+		checkAllWardDirectories();
+		
+	}
+	
+	@Parameters({"os"})
 	@Test (groups= {"header"}, priority = 3)
 	public void KevinPalmer(String os) throws Exception {
 		loginProxyData("3182767230",
@@ -7430,9 +7447,15 @@ public class LDSTools {
 		return myCheck;
 	}
 	
-	private int alertCheckInvalidInput() {
+	private int alertCheckInvalidInput() throws Exception {
 		int myCheck = 0;
-		myCheck = checkTextContainsReturn("AlertMessageMember", "Save failed", "xpath", "xpath");
+		//printPageSource();
+		if (getRunningOS().equals("mac")) {
+			myCheck = checkTextContainsReturn("AlertMessageMember", "Warning", "xpath", "xpath");
+		} else {
+			myCheck = checkTextContainsReturn("AlertMessageMember", "Save failed", "xpath", "xpath");
+		}
+		
 		if (myCheck == 0 ) {
 			myCheck = checkTextContainsReturn("AlertMessageMember", "Invalid", "xpath", "xpath");
 		}
