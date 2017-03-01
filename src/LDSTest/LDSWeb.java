@@ -510,8 +510,13 @@ public class LDSWeb {
 		clickElement("SignIn", "id");
 		
 		Thread.sleep(4000);
-		//clickElement("IAgreeCheck", "id");
-		//clickElement("Agree and Continue", "text");
+		//Check to see if the Beta agreement is displayed
+		//There have been days when they have removed the beta agreement 
+		if (checkElementExists("IAgreeCheck", "id")) {
+			clickElement("IAgreeCheck", "id");
+			clickElement("Agree and Continue", "text");
+		}
+
 		
 		clickElement("HomeButton", "xpath");
 		
@@ -1353,6 +1358,7 @@ public class LDSWeb {
 			System.out.println(myReport + " " + subReport +" Page did not load... Skipping");
 			foundUsers.clear();
 		} else {
+			Thread.sleep(2000);
 			if (subReport.contains("Member")) {
 				clickElement("Members", "linkText");
 				if (myReport.contains("Sunday School")) {
