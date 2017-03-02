@@ -393,9 +393,9 @@ public class LDSTools {
 		//LeaderNonBishopricReport("LDSTools20", "High Priest Group", os);
 		//LeaderNonBishopricHTVT("LDSTools20", "High Priest Group", os);
 		//LeaderNonBishopricDirectory("LDSTools16", "High Priest Group", os);
-		//LeaderNonBishopricDirectory("LDSTools39", "Ward Council", os);
+		LeaderNonBishopricDirectory("LDSTools39", "Ward Council", os);
 		//LeaderNonBishopricHTVT("LDSTools26", "Relief Society Pres", os);
-		LeaderNonBishopricMissionary("LDSTools20", "High Priest Group", os);
+		//LeaderNonBishopricMissionary("LDSTools20", "High Priest Group", os);
 		
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
@@ -12182,6 +12182,7 @@ public class LDSTools {
 			
 			System.out.println("Remove App");
 			driver.removeApp(myAppPackage);
+			killProcess("tail");
 			System.out.println("Install App");
 			driver.installApp(myAppPackage);
 			Thread.sleep(5000);
@@ -12237,6 +12238,8 @@ public class LDSTools {
 			
 			Thread.sleep(5000);
 			killProcess("instruments");
+			killProcess("Simulator");
+			killProcess("com.apple.CoreSimulator.CoreSimulatorService");
 		
 		} else {
 			driver.quit();
