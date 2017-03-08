@@ -95,8 +95,8 @@ public class LDSWeb {
 		*/
 		
 		
-		//setupAfterUATReset();
-		AreaBookSetup();
+		setupAfterUATReset();
+		//AreaBookSetup();
 
 		/*
 		populateFile();
@@ -224,7 +224,7 @@ public class LDSWeb {
 		//clickElement("MemberSave", "xpath");
 		
 		Thread.sleep(2000);
-		clickElement("HomeButton", "xpath");
+		clickElement("LCRHomeButton", "xpath");
 	}
 	
 	
@@ -280,7 +280,7 @@ public class LDSWeb {
 		addDistrict("District 1", "Tools, LDS51" );
 		
 		Thread.sleep(2000);
-		clickElement("HomeButton", "xpath");
+		clickElement("LCRHomeButton", "xpath");
 	}
 	
 	public void addMemberToCalling(String memberCalling, String memberToAdd) throws Exception {
@@ -457,7 +457,7 @@ public class LDSWeb {
 		clickElement("Add Member", "linkText");
 		
 		enterText("AddMemberText", "xpath", addMember);
-		Thread.sleep(2000);
+		Thread.sleep(4000);
 		clickElement("MemberMatch", "xpath");
 		clickElement("MemberSave", "xpath");
 	}
