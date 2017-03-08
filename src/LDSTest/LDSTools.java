@@ -64,7 +64,7 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
-import io.selendroid.SelendroidKeys;
+//import io.selendroid.SelendroidKeys;
 //import javafx.scene.control.Alert;
 
 import org.apache.commons.io.FileUtils;
@@ -328,7 +328,7 @@ public class LDSTools {
 	        
 	        capabilities.setCapability("newCommandTimeout", 600);
 	        capabilities.setCapability("app", app.getAbsolutePath());
-	        //capabilities.setCapability("appPackage", "org.lds.ldstools.dev");
+	        capabilities.setCapability("appPackage", myAppPackage);
 	        //capabilities.setCapability("appPackage", "org.lds.ldstools.dev");
 	        //capabilities.setCapability("sendKeysStrategy", "setValue");
 	        capabilities.setCapability("sendKeysStrategy", "grouped");
@@ -391,7 +391,7 @@ public class LDSTools {
 		//checkAllUsersFromWeb(os);
 		
 		//LeaderNonBishopricReport("LDSTools20", "High Priest Group", os);
-		LeaderNonBishopricHTVT("LDSTools20", "High Priest Group", os);
+		//LeaderNonBishopricHTVT("LDSTools20", "High Priest Group", os);
 		//LeaderNonBishopricDirectory("LDSTools16", "High Priest Group", os);
 		//LeaderNonBishopricDirectory("LDSTools39", "Ward Council", os);
 		//LeaderNonBishopricHTVT("LDSTools26", "Relief Society Pres", os);
@@ -406,7 +406,7 @@ public class LDSTools {
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
-		
+		LeaderBishopricReport("ngiBPC2", false, os); //Bishopric 2nd Counselor  
 		
 		
 		
@@ -6182,7 +6182,6 @@ public class LDSTools {
 			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.name(this.prop.getProperty(textElement))));
 		}
 		
-		
 		if (findElement == "text") {
 			//myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(), '" + textElement + "')]")));
 			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@text, '" + textElement + "')]")));
@@ -6945,13 +6944,6 @@ public class LDSTools {
 	
 	
 
-	/** pressMenuKey()
-	 * Press the menu key
-	 * 
-	 */
-	private void pressMenuKey() {
-		new Actions(driver).sendKeys(SelendroidKeys.MENU).perform();
-	}
 	
 	/** pressBackKey()
 	 * Press the back key
@@ -6987,6 +6979,7 @@ public class LDSTools {
 
 	}
 	
+	/*
 	private void pressEnterKey() {
 		new Actions(driver).sendKeys(SelendroidKeys.ENTER).perform();
 	}
@@ -6995,13 +6988,14 @@ public class LDSTools {
 		new Actions(driver).sendKeys(SelendroidKeys.SEARCH).perform();
 	}
 	
-	/** pressHomeKey()
-	 * Press the home key
-	 * 
-	 */
 	private void pressHomeKey() {
 		new Actions(driver).sendKeys(SelendroidKeys.ANDROID_HOME).perform();
 	}
+	
+		private void pressMenuKey() {
+		new Actions(driver).sendKeys(SelendroidKeys.MENU).perform();
+	}
+	*/
 	
 	
 	//************************************************************
@@ -7030,6 +7024,7 @@ public class LDSTools {
 			System.out.println("Orientation: " + driver.getOrientation().value());
 			if (driver.getOrientation().value() == "landscape") {
 				driver.rotate(ScreenOrientation.PORTRAIT);
+				
 			}
 			
 			
@@ -8310,6 +8305,7 @@ public class LDSTools {
 				//clickButtonByXpathTitleName("Other");
 				clickButtonByXpathTitleNameNoCase("Other");
 			}
+			Thread.sleep(2000);
 			pageSource = getSourceOfPage();
 			Assert.assertTrue(checkNoCaseList("Lavea, Lonise", pageSource, "Contains"));
 			Assert.assertFalse(checkNoCaseList("Calrissian, Lando", pageSource, "Contains"));
@@ -9857,11 +9853,12 @@ public class LDSTools {
 		
 		Thread.sleep(2000);
 		//System.out.println("PORTRAIT MODE: ");
-		origText = GetTextForElements();
+		origText = GetTextForElements();   
 		int myCounter = 3;
 		
 		//Thread.sleep(2000);
 		driver.rotate(ScreenOrientation.LANDSCAPE);
+		//driver.rotate(ScreenOrientation.LANDSCAPE);
 		Thread.sleep(2000);
 		//System.out.println("LANDSCAPE MODE: ");
 		
@@ -12153,11 +12150,21 @@ public class LDSTools {
 		Thread.sleep(2000);
 	}
 	
+	public void restartAppiumService(String os, String fileName, String testDevice) throws Exception {
+		System.out.println("Appium Service is not running!");
+		System.out.println("Killing the Appium Service");
+		killProcess("main.js");
+		Thread.sleep(4000);
+		myAppiumService.stop();
+		myAppiumService.start();
+		openGuiMap(os);
+		setUp(os, fileName, testDevice);
+		driver.installApp(myAppPackage);
+	}
+	
 	@AfterMethod(alwaysRun = true)
 	@Parameters({"os", "fileName", "testDevice"})
 	public void teardown(ITestResult result, String os, String fileName, String testDevice) throws Exception {
-
-		
 		// Here will compare if test is failing then only it will enter into if condition
 		if(ITestResult.FAILURE==result.getStatus()) {
 			//printPageSource();
@@ -12169,11 +12176,8 @@ public class LDSTools {
 			os = "android";
 		}
 	
-		
 		//driver.resetApp();
-	
-		
-		
+
 		if(getRunningOS().equals("mac")) {
 			//System.out.println("Reset App");
 			//driver.resetApp();
@@ -12190,6 +12194,9 @@ public class LDSTools {
 			System.out.println("Install App");
 			driver.installApp(myAppPackage);
 			Thread.sleep(5000);
+			//if (!myAppiumService.isRunning()) {
+			//	restartAppiumService(os, fileName, testDevice);
+			//}
 			driver.launchApp();
 		} else {
 
