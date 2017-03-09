@@ -358,7 +358,7 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		//justForTesting(os);	
+		justForTesting(os);	
 		
 		
 		//myTempleSimpleTest(os);
@@ -406,7 +406,7 @@ public class LDSTools {
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
-		LeaderBishopricReport("ngiBPC2", false, os); //Bishopric 2nd Counselor  
+		//LeaderBishopricReport("ngiBPC2", false, os); //Bishopric 2nd Counselor  
 		
 		
 		
@@ -889,7 +889,7 @@ public class LDSTools {
 	// **************** High Priest Group Leader *************************
 	
 	@Parameters({"os"})
-	@Test (groups= {"smoke", "high priest"}, priority = 1)
+	@Test (groups= {"smoke", "high priest", "myTest"}, priority = 1)
 	public void HighPriestsGroupLeaderDirectory(String os) throws Exception {
 		LeaderNonBishopricDirectory("LDSTools16", "High Priest Group", os);
 	}
@@ -2908,7 +2908,7 @@ public class LDSTools {
 	 * @throws Exception
 	 */
 	@Parameters({"os"})
-	@Test (groups= {"smoke", "editSetings"}, priority = 1)
+	@Test (groups= {"smoke", "editSetings", "myTest"}, priority = 1)
 	public void editCurrentUser(String os) throws Exception {
 		String pageSource;
 		int myCounter = 0;
@@ -4119,7 +4119,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"header", "smoke"}, priority = 1)
+	@Test (groups= {"header", "smoke", "myTest"}, priority = 1)
 	public void CliffHigby(String os) throws Exception {
 		//List<String> StakeWard = new ArrayList<String>();
 		loginProxyData("295740465",
@@ -12179,9 +12179,10 @@ public class LDSTools {
 		//driver.resetApp();
 
 		if(getRunningOS().equals("mac")) {
-			//System.out.println("Reset App");
-			//driver.resetApp();
-			
+			System.out.println("Reset App");
+			driver.resetApp();
+			killProcess("tail");
+			/*
 			if (!checkForAppiumRunning(4445)) {
 				System.out.println("Appium iOS not running, trying to restart...");
 				openGuiMap(os);
@@ -12194,10 +12195,13 @@ public class LDSTools {
 			System.out.println("Install App");
 			driver.installApp(myAppPackage);
 			Thread.sleep(5000);
+			driver.launchApp();
+			*/
+			
 			//if (!myAppiumService.isRunning()) {
 			//	restartAppiumService(os, fileName, testDevice);
 			//}
-			driver.launchApp();
+			
 		} else {
 
 			if (!checkForAppiumRunning(4444)) {
