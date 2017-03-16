@@ -26,6 +26,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -358,7 +359,7 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		justForTesting(os);	
+		//justForTesting(os);	
 		
 		
 		//myTempleSimpleTest(os);
@@ -395,7 +396,7 @@ public class LDSTools {
 		//LeaderNonBishopricDirectory("LDSTools16", "High Priest Group", os);
 		//LeaderNonBishopricDirectory("LDSTools39", "Ward Council", os);
 		//LeaderNonBishopricHTVT("LDSTools26", "Relief Society Pres", os);
-		//LeaderNonBishopricMissionary("LDSTools20", "High Priest Group", os);
+		LeaderNonBishopricMissionary("LDSTools20", "High Priest Group", os);
 		
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
@@ -474,12 +475,34 @@ public class LDSTools {
 	
 	
 	public void justForTesting(String os) throws Exception {
-		//String mySource = null;
+
 		List<String> myList = new ArrayList<String>();
-		syncLogIn("LDSTools16", "password1", "UAT", os );
+
+		
+
+		//syncLogIn("LDSTools16", "password1", "UAT", os );
+		syncLogIn("paigekrebs", "sweets2005", "Production", os );
 		pinPage("1", "1", "3", "3", true);
 		openTemples();
-		Thread.sleep(3000);
+		
+		String myFileName = "ConfigFiles/AllTemples.csv";
+		BufferedReader br = null;
+		String line = "";
+
+		
+		try {
+			br = new BufferedReader(new FileReader(myFileName));
+			while ((line = br.readLine()) != null) {
+				//System.out.println("Temple: " + line);
+				myList.add(line);
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		Thread.sleep(5000);
 		if (getRunningOS().equals("mac")) {
 			//clickByCordsTextContains("My Temple");
 			//Thread.sleep(5000);
@@ -490,13 +513,33 @@ public class LDSTools {
 		
 		
 		clickButton("All Temples", "xpath", "name");
+		Thread.sleep(5000);
 		
 		
 		
-		
-		myList = myWeb.GetAllTemples();
+		//myList = myWeb.GetAllTemples();
 
 		compareTemples(myList);
+		for (int myCounter = 1 ; myCounter < 75; myCounter++) {
+			//runSync();
+			drawerSignOut();
+			syncLogIn("paigekrebs", "sweets2005", "Production", os );
+			pinPage("1", "1", "3", "3", true);
+			Thread.sleep(5000);
+			openTemples();
+			Thread.sleep(3000);
+			if (getRunningOS().equals("mac")) {
+				clickButton("TempleMenu", "xpath", "xpath");
+			} else {
+				//clickButton("Yes", "text", "text");
+			}
+
+			clickButton("All Temples", "xpath", "name");
+			Thread.sleep(5000);
+			System.out.println("Counter: " + myCounter);
+			compareTemples(myList);
+		}
+
 		
 		
 		/*
@@ -728,7 +771,7 @@ public class LDSTools {
 		clickButtonByXpath("DrawerReports");
 		clickButtonByXpathTitleName("Birthday List");
 		if (!getRunningOS().equals("mac")) {
-			clickButtonByXpathTitleName("All Members");
+			clickButton("AllMembers", "xpath", "xpath");
 			scrollToTheTop();	
 		}
 		Thread.sleep(1000);
@@ -2368,7 +2411,7 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("All High Priests Group Members");
 		} else {
-			clickButtonByXpathTitleName("All Members");
+			clickButton("AllMembers", "xpath", "xpath");
 		}
 
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "High Priests Group", "HighPriestGroupMembers", true);
@@ -2410,7 +2453,7 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("All Elders Quorum Members");
 		} else {
-			clickButtonByXpathTitleName("All Members");
+			clickButton("AllMembers", "xpath", "xpath");
 		}
 
 
@@ -2454,7 +2497,7 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("All Relief Society Members");
 		} else {
-			clickButtonByXpathTitleName("All Members");
+			clickButton("AllMembers", "xpath", "xpath");
 		}
 		
 
@@ -4693,6 +4736,26 @@ public class LDSTools {
 	
 	@Parameters({"os"})
 	@Test (groups= {"header"}, priority = 3)
+	public void OutOfUnitOwnWard(String os) throws Exception {
+		//"Gary Petersen", "comments": "Out of unit not showing correctly"
+		loginProxyData("1034324396",
+				"/7u191892/5u506745/",
+				"p57/7u191892/5u506745/:p3134/467u2008602/28u381772/",
+				"Proxy", "OutOfUnit");
+		
+		//true will setup ping for a non-leader
+		pinPage("1", "1", "3", "3", true);
+		
+		Thread.sleep(2000);
+		checkDirectoryForUser();
+		//checkAllWardDirectories();
+
+	}
+	
+
+	
+	@Parameters({"os"})
+	@Test (groups= {"header"}, priority = 3)
 	public void AlbequerqueSync(String os) throws Exception {
 		//Bug: https://code.ldschurch.org/jira/browse/MMA-2903
 		loginProxyData("3827822643",
@@ -5605,6 +5668,14 @@ public class LDSTools {
 		return myOs;
 	}
 	
+	private Object getOsVersion() {
+		String stringOS;
+		Object osVersion = driver.getCapabilities().getCapability("platformVersion");
+		stringOS = osVersion.toString();
+		System.out.println("OS: " + stringOS);
+		return osVersion;
+	}
+	
 	private String getSourceOfPage() {
 		String myString;
 		myString = driver.getPageSource();
@@ -5718,7 +5789,9 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("All High Priests Group Members");
 		} else {
-			clickButtonByXpathTitleName("All Members");
+			//clickButton("AllMembers", "xpath", "xpath");
+			clickButton("AllMembers", "xpath", "xpath");
+		
 		}
 
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "High Priests Group", "HighPriestGroupMembers", false);
@@ -5764,7 +5837,7 @@ public class LDSTools {
 			//clickButtonByXpathTitleName("All Elders Quorum Members");
 			clickButton("All Elders Quorum Members", "textAtt", "byName");
 		} else {
-			clickButtonByXpathTitleName("All Members");
+			clickButton("AllMembers", "xpath", "xpath");
 		}
 
 
@@ -5815,7 +5888,7 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("All Relief Society Members");
 		} else {
-			clickButtonByXpathTitleName("All Members");
+			clickButton("AllMembers", "xpath", "xpath");
 			
 			
 		}
@@ -6017,7 +6090,7 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName(macAllMembers);
 		} else {
-			clickButtonByXpathTitleName("All Members");
+			clickButton("AllMembers", "xpath", "xpath");
 		}
 		
 		
@@ -6225,7 +6298,23 @@ public class LDSTools {
 	 * 
 	 * @param textElement - Xpath of element must be found if uiMap
 	 */
-	private void clickButtonByXpath(String textElement) {
+	private void clickButtonByXpath(String textElement) throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		WebElement myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(this.prop.getProperty(textElement))));
+		myElement.click();
+		//driver.findElement(By.xpath(this.prop.getProperty(textElement))).click();
+	}
+	
+	private void clickButtonByXpathCaseCheck(String textElement) throws Exception {
+		String myOSVersion;
+		if (!getRunningOS().equals("mac")) {
+			myOSVersion = adbGetOsVersion();
+			if (myOSVersion.contains("7")) {
+				textElement = textElement + "UC";
+				System.out.println("TEXT ELEMENT: " + textElement);
+			}
+		}
+
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		WebElement myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(this.prop.getProperty(textElement))));
 		myElement.click();
@@ -6371,7 +6460,7 @@ public class LDSTools {
 		driver.findElement(By.className(textElement)).sendKeys(textToSend);
 	}
 	
-	private void sendTextbyXpath2(String textElement, String textToSend) {
+	private void sendTextbyXpath2(String textElement, String textToSend) throws Exception  {
 		clickButtonByXpath(textElement);
 		driver.executeScript("target.frontMostApp().keyboard().typeString('" + textToSend + "')");
 		
@@ -10804,6 +10893,9 @@ public class LDSTools {
 		if (myCheck == true) {
 			clickButtonByXpath("TabMembership");
 		}
+		
+		
+		
 		clickButtonByXpath("TabHousehold");
 		clickButtonByXpath("TabContact");
 
@@ -11156,6 +11248,22 @@ public class LDSTools {
 		}
 	}
 	
+	private String adbGetOsVersion() throws Exception {
+		String myReturn = "";
+		String adbPath = adbGetPath();
+		Runtime run = Runtime.getRuntime();
+		Process pr = run.exec(new String[] {adbPath, "shell", "getprop", "ro.build.version.release"});
+		//Process pr = run.exec(cmd);
+		pr.waitFor();
+		BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+		String line = "";
+		while ((line=buf.readLine())!=null) {
+			System.out.println(line);
+			myReturn = line;
+		}
+		return myReturn;
+	}
+	
 	private boolean checkForAppiumRunning(int appiumPort) throws Exception {
 	    try (Socket ignored = new Socket("localhost", appiumPort)) {
 	        return true;
@@ -11233,7 +11341,7 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("All High Priests Group Members");
 		} else {
-			clickButtonByXpathTitleName("All Members");
+			clickButton("AllMembers", "xpath", "xpath");
 		}
 		RotateAndCheckText();
 		
@@ -11268,7 +11376,7 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("All Elders Quorum Members");
 		} else {
-			clickButtonByXpathTitleName("All Members");
+			clickButton("AllMembers", "xpath", "xpath");
 		}
 		RotateAndCheckText();
 		
@@ -11309,7 +11417,7 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("All Relief Society Members");
 		} else {
-			clickButtonByXpathTitleName("All Members");
+			clickButton("AllMembers", "xpath", "xpath");
 		}
 		RotateAndCheckText();
 		
@@ -11355,7 +11463,7 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("All Young Men Members");
 		} else {
-			clickButtonByXpathTitleName("All Members");
+			clickButton("AllMembers", "xpath", "xpath");
 		}
 		RotateAndCheckText();
 		
@@ -11402,7 +11510,7 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("All Young Women Members");
 		} else {
-			clickButtonByXpathTitleName("All Members");
+			clickButton("AllMembers", "xpath", "xpath");
 		}
 		RotateAndCheckText();
 		
@@ -11434,7 +11542,7 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("All Gospel Doctrine Members");
 		} else {
-			clickButtonByXpathTitleName("All Members");
+			clickButton("AllMembers", "xpath", "xpath");
 		}
 		RotateAndCheckText();
 		
@@ -11453,7 +11561,7 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("All Course 17 Members");
 		} else {
-			clickButtonByXpathTitleName("All Members");
+			clickButton("AllMembers", "xpath", "xpath");
 		}
 		RotateAndCheckText();
 		
@@ -11471,7 +11579,7 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("All Course 16 Members");
 		} else {
-			clickButtonByXpathTitleName("All Members");
+			clickButton("AllMembers", "xpath", "xpath");
 		}
 		RotateAndCheckText();
 		
@@ -11490,7 +11598,7 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("All Course 15 Members");
 		} else {
-			clickButtonByXpathTitleName("All Members");
+			clickButton("AllMembers", "xpath", "xpath");
 		}
 		RotateAndCheckText();
 		
@@ -11508,7 +11616,7 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("All Course 14 Members");
 		} else {
-			clickButtonByXpathTitleName("All Members");
+			clickButton("AllMembers", "xpath", "xpath");
 		}
 		RotateAndCheckText();
 		
@@ -11526,7 +11634,7 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("All Course 13 Members");
 		} else {
-			clickButtonByXpathTitleName("All Members");
+			clickButton("AllMembers", "xpath", "xpath");
 		}
 		RotateAndCheckText();
 		
@@ -11544,7 +11652,7 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("All Course 12 Members");
 		} else {
-			clickButtonByXpathTitleName("All Members");
+			clickButton("AllMembers", "xpath", "xpath");
 		}
 		RotateAndCheckText();
 		
@@ -11575,7 +11683,7 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("All Primary Members");
 		} else {
-			clickButtonByXpathTitleName("All Members");
+			clickButton("AllMembers", "xpath", "xpath");
 		}
 		RotateAndCheckText();
 		
@@ -11709,7 +11817,7 @@ public class LDSTools {
 		RotateAndCheckText();
 		
 		if (!getRunningOS().equals("mac") ){
-			clickButtonByXpathTitleName("All Members");
+			clickButton("AllMembers", "xpath", "xpath");
 			RotateAndCheckText();
 			
 			pressBackKey();
