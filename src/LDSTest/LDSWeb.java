@@ -76,12 +76,32 @@ public class LDSWeb {
 	@Test
 	public void simpleTest() throws Exception {
 		/*
+		List<String> myTempleList = new ArrayList<String>();
 		String mySource;
 		MyTemplePageLogIn("https://uat.lds.org/mls/mbr", "ldstools2", "toolstester");
 		clickElement("Find a Temple", "linkText");
 		
 		mySource = getSourceOfMember("AllTemplesTable");
-		getAllTemples(mySource);
+		myTempleList = getAllTemples(mySource);
+		
+		String myFileName = "ConfigFiles/AllTemples.csv";
+		//List<String> foundUsers = new ArrayList<String>();
+		
+		try {
+			FileWriter writer = new FileWriter(myFileName, true);
+			for(String oneTemple : myTempleList){
+				System.out.println("Temple: " + oneTemple);
+				writer.append(oneTemple);
+				writer.append('\n');
+			}
+			
+		    writer.flush();
+		    writer.close();
+				
+		} catch(IOException e) {
+			 e.printStackTrace();
+		}
+		
 		*/
 		
 		/*
@@ -289,6 +309,7 @@ public class LDSWeb {
 		driver.findElement(By.xpath("//span[contains(text(), '"+ memberCalling +"')]/../following-sibling::td//input[@ng-model='c.memberLookup']")).sendKeys(memberToAdd);
 		Thread.sleep(2000);
 		clickElement("MemberMatch", "xpath");
+		Thread.sleep(2000);
 		driver.findElement(By.xpath("//span[contains(text(), '"+ memberCalling +"')]/../following-sibling::td//button[contains(text(), 'Save')]")).click();
 		Thread.sleep(4000);
 	}
