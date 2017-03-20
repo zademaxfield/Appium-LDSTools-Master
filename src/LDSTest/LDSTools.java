@@ -382,7 +382,7 @@ public class LDSTools {
 		//editOtherUserInvalidEmail(os);
 		
 		
-		//editVisibility(os);
+		editVisibility(os);
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
@@ -396,7 +396,7 @@ public class LDSTools {
 		//LeaderNonBishopricDirectory("LDSTools16", "High Priest Group", os);
 		//LeaderNonBishopricDirectory("LDSTools39", "Ward Council", os);
 		//LeaderNonBishopricHTVT("LDSTools26", "Relief Society Pres", os);
-		LeaderNonBishopricMissionary("LDSTools20", "High Priest Group", os);
+		//LeaderNonBishopricMissionary("LDSTools20", "High Priest Group", os);
 		
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
@@ -475,11 +475,24 @@ public class LDSTools {
 	
 	
 	public void justForTesting(String os) throws Exception {
-
-		List<String> myList = new ArrayList<String>();
-
+		
+		//List Test
+		// Some of the list buttons are not showing up in page source
+		syncLogIn("LDSTools21", "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+		
+		openLists();
+		
+		clickButton("addList", "xpath", "xpath");
+		sendTextbyXpath("listName", "MyList");
+		clickButton("listContinue", "xpath", "xpath");
+		
+		printPageSource();
+		Thread.sleep(3000);
 		
 
+		/*  //Temple List Test
+		List<String> myList = new ArrayList<String>();
 		//syncLogIn("LDSTools16", "password1", "UAT", os );
 		syncLogIn("paigekrebs", "sweets2005", "Production", os );
 		pinPage("1", "1", "3", "3", true);
@@ -540,7 +553,7 @@ public class LDSTools {
 			compareTemples(myList);
 		}
 
-		
+		*/
 		
 		/*
 		Thread.sleep(10000);
@@ -3492,7 +3505,7 @@ public class LDSTools {
 			//clickButtonByXpathTitleNameContains("Private");
 			Thread.sleep(1000);
 		} else {
-			clickButtonByXpathTitleName("Privacy");
+			clickButtonByXpathTitleNameNoCase("Privacy");
 			clickButton("HouseholdVisibilityLimit", "xpath", "xpath");
 			Thread.sleep(2000);
 			clickButton("RadioPrivate", "id", "xpath");
@@ -3523,7 +3536,8 @@ public class LDSTools {
 			clickButtonByXpathTitleName("Individuals");
 			clickButtonByID("MenuSearch");
 		}
-
+		
+		Thread.sleep(2000);
 		sendTextbyXpath("SearchArea", "Tools, LDS5 " );
 		
 		Thread.sleep(2000);
@@ -3652,7 +3666,7 @@ public class LDSTools {
 			clickButtonByXpath("DoneButton");
 			
 		} else {
-			clickButtonByXpathTitleName("Privacy");
+			clickButtonByXpathTitleNameNoCase("Privacy");
 			
 			clickButton("PrivacyPersonalPhoto", "xpath", "xpath");
 			clickButton("PrivacyPrivateVisibility", "xpath", "xpath");
@@ -3845,7 +3859,7 @@ public class LDSTools {
 			clickButtonByXpath("DoneButton");
 			
 		} else {
-			clickButtonByXpathTitleName("Privacy");
+			clickButtonByXpathTitleNameNoCase("Privacy");
 			
 			//myScroll("Show on Map");
 			scrollDownTEST(300);
@@ -4724,24 +4738,6 @@ public class LDSTools {
 				"/7u25941/5u515124/",
 				"p158/7u25941/5u515124/",
 				"Proxy", "TerryBallard");
-		
-		//true will setup ping for a non-leader
-		pinPage("1", "1", "3", "3", true);
-		
-		Thread.sleep(2000);
-		checkDirectoryForUser();
-		//checkAllWardDirectories();
-
-	}
-	
-	@Parameters({"os"})
-	@Test (groups= {"header"}, priority = 3)
-	public void OutOfUnitOwnWard(String os) throws Exception {
-		//"Gary Petersen", "comments": "Out of unit not showing correctly"
-		loginProxyData("1034324396",
-				"/7u191892/5u506745/",
-				"p57/7u191892/5u506745/:p3134/467u2008602/28u381772/",
-				"Proxy", "OutOfUnit");
 		
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -7123,6 +7119,7 @@ public class LDSTools {
 				
 				clickButtonByXpath("Menu");
 				clickButtonByXpath("OverflowSettings");
+				Thread.sleep(1000);
 				scrollToElement("About");
 				clickButton("About", "textAtt", "textAtt");
 				
@@ -8316,13 +8313,13 @@ public class LDSTools {
 		openReports();
 		clickButtonByXpathTitleName("New Members");
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Faamanu, Agalelei", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("15", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Manuloto, Aofia", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("20", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("F", pageSource, "Contains"));
 		if (newUnit == true){
-			Assert.assertTrue(checkNoCaseList("November 6, 2016", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("September 11, 2016", pageSource, "Contains"));
 		} else {
-			Assert.assertFalse(checkNoCaseList("November 6, 2016", pageSource, "Contains"));
+			Assert.assertFalse(checkNoCaseList("September 11, 2016", pageSource, "Contains"));
 		}
 		
 		Assert.assertTrue(checkNoCaseList("Member", pageSource, "Contains"));
@@ -10100,7 +10097,7 @@ public class LDSTools {
 			myCheck = 1;
 
 			if ((myCheck == 1)) {
-				clickButtonByXpathTitleName("Privacy");
+				clickButtonByXpathTitleNameNoCase("Privacy");
 				//clickButtonByXpathTitleName("Household Visibility Limit");
 				clickButton("HouseholdVisibilityLimit", "xpath", "xpath");
 				Thread.sleep(2000);
