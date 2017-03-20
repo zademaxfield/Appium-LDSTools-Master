@@ -115,8 +115,8 @@ public class LDSWeb {
 		*/
 		
 		
-		setupAfterUATReset();
-		//AreaBookSetup();
+		//setupAfterUATReset();
+		AreaBookSetup();
 
 		/*
 		populateFile();
@@ -636,8 +636,11 @@ public class LDSWeb {
 		//clickElement("abReadLater", "id");
 		
 		Thread.sleep(4000);
-		clickElement("abReadLater", "id");
-		Thread.sleep(2000);
+		if (checkElementExists("abReadLater", "id")) {
+			clickElement("abReadLater", "id");
+			Thread.sleep(2000);
+		}
+
 	}
 	
 	public void clickElement( String elementName, String elementFind) {
@@ -2177,7 +2180,7 @@ public class LDSWeb {
 		enterText("abLastName", "xpath", "Test");
 		
 		//Should check on what the toggle is first
-		clickElement("LocalOnlineToggle", "id");
+		//clickElement("LocalOnlineToggle", "id");
 		
 		clickElement("Add phone number", "text");
 		enterText("abAddPhoneNumberMobile", "xpath", "1 (801) 867-5309");
@@ -2254,12 +2257,12 @@ public class LDSWeb {
 		//clickElement("Fagamalo 1st Ward", "text");
 		
 		//Set Finding Method
-		clickElement("abFindingMethod", "xpath");
-		Thread.sleep(2000);
-		clickElement("Missionary Contact", "text");
-		Thread.sleep(2000);
-		clickElement("Church Tour", "text");
-		Thread.sleep(2000);
+		//clickElement("abFindingMethod", "xpath");
+		//Thread.sleep(2000);
+		//clickElement("Missionary Contact", "text");
+		//Thread.sleep(2000);
+		//clickElement("Church Tour", "text");
+		//Thread.sleep(2000);
 		
 		//Set Finding Campaign
 		//clickElement("abFindingCampaign", "xpath");
@@ -2356,6 +2359,7 @@ public class LDSWeb {
 		//clickElement("Fagamalo 1st Ward", "text");
 		
 		//Set Finding Method
+		/*
 		scrollToElement("abFindingMethod", "xpath");
 		clickElement("abFindingMethod", "xpath");
 		Thread.sleep(2000);
@@ -2365,6 +2369,7 @@ public class LDSWeb {
 		Thread.sleep(2000);
 		clickElement("Chat", "text");
 		Thread.sleep(2000);
+		*/
 		
 		//Set Help Needed
 		scrollToElement("abHelpNeeded", "xpath");
@@ -2445,6 +2450,7 @@ public class LDSWeb {
 		//clickElement("Fagamalo 1st Ward", "text");
 		
 		//Set Finding Method
+		/*
 		scrollToElement("abFindingMethod", "xpath");
 		clickElement("abFindingMethod", "xpath");
 		Thread.sleep(2000);
@@ -2454,6 +2460,7 @@ public class LDSWeb {
 		Thread.sleep(2000);
 		clickElement("TV", "text");
 		Thread.sleep(2000);
+		*/
 		
 		//Set Help Needed
 		scrollToElement("abHelpNeeded", "xpath");
