@@ -382,7 +382,7 @@ public class LDSTools {
 		//editOtherUserInvalidEmail(os);
 		
 		
-		editVisibility(os);
+		//editVisibility(os);
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
@@ -399,7 +399,7 @@ public class LDSTools {
 		//LeaderNonBishopricMissionary("LDSTools20", "High Priest Group", os);
 		
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
-		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
+		LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
@@ -6869,7 +6869,7 @@ public class LDSTools {
 		   scrollObject.put("direction", "up");
 		   js.executeScript("mobile: scroll", scrollObject);
 	           
-		}
+	}
 	
 	private void scrollToTopDirectoryIOS() throws Exception {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -7119,8 +7119,8 @@ public class LDSTools {
 				
 				clickButtonByXpath("Menu");
 				clickButtonByXpath("OverflowSettings");
-				Thread.sleep(1000);
-				scrollToElement("About");
+				newScrollToElement("About");
+				//scrollToElement("About");
 				clickButton("About", "textAtt", "textAtt");
 				
 				
@@ -8551,6 +8551,10 @@ public class LDSTools {
 		compareWebData(myList, androidList, false);
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Potential Investigators", pageSource, "Contains"));
+		if (getRunningOS().equals("mac")) {
+			scrollUpIOS();
+		}
+		
 		clickButton("mpRemoveFilterButton", "id", "byNameProp");
 		
 		//Recent Converts
@@ -12030,6 +12034,28 @@ public class LDSTools {
         return scrollEnd;
 
     }
+    public void newScrollToElement(String myElement) throws Exception {
+    	
+    	if (!checkElementReturn(myElement, "text", "text")) {
+    	    MobileElement list = (MobileElement) driver.findElement(By.id("org.lds.ldstools.dev:id/list"));
+    	    MobileElement radioGroup = (MobileElement) list.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
+    	                    + "new UiSelector().text(\"" + myElement + "\"));"));
+    	    if (!radioGroup.isDisplayed()) {
+    	    	radioGroup = (MobileElement) list.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
+                        + "new UiSelector().text(\"" + myElement + "\"));"));
+    	    }
+    	    
+    	    if (!radioGroup.isDisplayed()) {
+    	    	radioGroup = (MobileElement) list.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
+                        + "new UiSelector().text(\"" + myElement + "\"));"));
+    	    }
+
+    	    assertNotNull(radioGroup.getLocation());
+    	}
+
+
+    }
+
 	
 	
 	
