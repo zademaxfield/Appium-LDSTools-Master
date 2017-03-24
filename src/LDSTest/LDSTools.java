@@ -359,7 +359,7 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		//justForTesting(os);	
+		justForTesting(os);	
 		
 		
 		//myTempleSimpleTest(os);
@@ -399,7 +399,7 @@ public class LDSTools {
 		//LeaderNonBishopricMissionary("LDSTools20", "High Priest Group", os);
 		
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
-		LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
+		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
@@ -483,12 +483,23 @@ public class LDSTools {
 		
 		openLists();
 		
-		clickButton("addList", "xpath", "xpath");
+		//XCUIElementTypeButton[@name="Add List"]
+		//driver.findElement(MobileBy.iOSNsPredicateString("name CONTAINS 'Add List'")).click();
+		//driver.findElement(MobileBy.iOSNsPredicateString("name == 'Add List'")).click();
+		clickButton("addList", "xpath", "pred");
+		
 		sendTextbyXpath("listName", "MyList");
 		clickButton("listContinue", "xpath", "xpath");
 		
-		printPageSource();
 		Thread.sleep(3000);
+		
+		//driver.findElement(MobileBy.iOSNsPredicateString("name == 'icon tab plus'")).click();
+		//driver.findElement(MobileBy.iOSNsPredicateString("name == 'Share'")).click();
+		printPageSource();
+		clickButton("Share", "xpath", "AccID");
+		//printPageSource();
+		Thread.sleep(8000);
+		
 		
 
 		/*  //Temple List Test
@@ -4947,7 +4958,8 @@ public class LDSTools {
 		if (os.equals("ios")) {
 			if (!chooseNetwork.equals("Production")) {
 				Thread.sleep(1000);
-				clickButtonByXpath("TopHelp");
+				//clickButtonByXpath("TopHelp");
+				clickButton("TopHelp", "xpath", "pred");
 				
 				
 				if (checkElementExistsByXpath("DeveloperSettings") == true) {
@@ -6247,6 +6259,10 @@ public class LDSTools {
 			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.name(textElement)));
 		}
 		
+		if (findElement == "AccID") {
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(MobileBy.AccessibilityId(textElement)));
+		}
+		
 		if (findElement == "byNameProp") {
 			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.name(this.prop.getProperty(textElement))));
 		}
@@ -6269,9 +6285,17 @@ public class LDSTools {
 			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@name='" + textElement + "']")));
 		} 
 		
+		if (findElement == "title") {
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@title='" + textElement + "']")));
+		} 
+		
 		if (findElement == "textAtt") {
 			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@text='" + textElement + "']")));
 		} 
+		
+		if (findElement == "pred")  {
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(MobileBy.iOSNsPredicateString(this.prop.getProperty(textElement))));	
+		}
 
 		myElement.click();
 
@@ -6330,7 +6354,8 @@ public class LDSTools {
 		//Changing this for Android 6.0 and later
 		if(getRunningOS().equals("mac")) {
 			//myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@value='" + textElement + "']")));
-			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.name(textElement)));
+			//myElement = wait.until(ExpectedConditions.elementToBeClickable(By.name(textElement)));
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(MobileBy.AccessibilityId(textElement)));
 		} else {
 			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@text='" + textElement + "']")));
 		}
@@ -7183,7 +7208,8 @@ public class LDSTools {
 		if (os.equals("ios")) {
 			if (!chooseNetwork.equals("Production")) {
 				Thread.sleep(1000);
-				clickButtonByXpath("TopHelp");
+				//clickButtonByXpath("TopHelp");
+				clickButton("TopHelp", "xpath", "pred");
 				
 
 				//New way to enable dev settings
@@ -7193,7 +7219,7 @@ public class LDSTools {
 						//System.out.println("COUNT: " + x);
 					}
 				} else {
-					clickButton("Developer Settings", "byName", "byName");
+					clickButton("Developer Settings", "byName", "AccID");
 				}
 
 
@@ -7205,11 +7231,11 @@ public class LDSTools {
 
 				//clickButtonByXpath("DevEnviroment");
 				if (checkElementNameReturn("Environment: UAT") == false) {
-					clickButton("Environment: Prod", "byName", "byName");
+					clickButton("Environment: Prod", "byName", "AccID");
 					//clickButtonByXpath("Proxy");
-					clickButton("Proxy", "byName", "byName");
+					clickButton("Proxy", "byName", "AccID");
 					//clickButtonByXpath(chooseNetwork);
-					clickButton(chooseNetwork, "byName", "byName");
+					clickButton(chooseNetwork, "byName", "AccID");
 					pressBackKey();
 				}
 
@@ -7338,7 +7364,8 @@ public class LDSTools {
 			MobileElement myElement; 
 			if (!chooseNetwork.equals("Production")) {
 				Thread.sleep(1000);
-				clickButtonByXpath("TopHelp");
+				//clickButtonByXpath("TopHelp");
+				clickButton("TopHelp", "xpath", "pred");
 				
 				
 				if (checkElementExistsByXpath("DeveloperSettings") == true) {
@@ -7488,21 +7515,21 @@ public class LDSTools {
 		if (checkElementReturn("Create New Passcode", "text", "contValue") || checkElementTextViewReturnContains("Choose your PIN")) {
 			//System.out.println("Create New Passcode. ");
 			//checkTextByXpath("PinTitle", "Choose your PIN");
-			clickButton("PinKey" + digit1, "id", "xpath");
-			clickButton("PinKey" + digit2, "id", "xpath");
-			clickButton("PinKey" + digit3, "id", "xpath");
-			clickButton("PinKey" + digit4, "id", "xpath");
+			clickButton("PinKey" + digit1, "id", "pred");
+			clickButton("PinKey" + digit2, "id", "pred");
+			clickButton("PinKey" + digit3, "id", "pred");
+			clickButton("PinKey" + digit4, "id", "pred");
 			
 			//checkTextByXpath("PinTitle", "Confirm PIN");
-			clickButton("PinKey" + digit1, "id", "xpath");
-			clickButton("PinKey" + digit2, "id", "xpath");
-			clickButton("PinKey" + digit3, "id", "xpath");
-			clickButton("PinKey" + digit4, "id", "xpath");
+			clickButton("PinKey" + digit1, "id", "pred");
+			clickButton("PinKey" + digit2, "id", "pred");
+			clickButton("PinKey" + digit3, "id", "pred");
+			clickButton("PinKey" + digit4, "id", "pred");
 		} else {
-			clickButton("PinKey" + digit1, "id", "xpath");
-			clickButton("PinKey" + digit2, "id", "xpath");
-			clickButton("PinKey" + digit3, "id", "xpath");
-			clickButton("PinKey" + digit4, "id", "xpath");
+			clickButton("PinKey" + digit1, "id", "pred");
+			clickButton("PinKey" + digit2, "id", "pred");
+			clickButton("PinKey" + digit3, "id", "pred");
+			clickButton("PinKey" + digit4, "id", "pred");
 		}
 
 		Thread.sleep(2000);
@@ -10666,7 +10693,7 @@ public class LDSTools {
 	private void openDirectory() throws Exception {
 		if (getRunningOS().equals("mac")) {
 			//clickButtonByXpath("DrawerOrganizations");
-			clickButton("Directory", "byName", "byName");
+			clickButton("Directory", "byName", "AccID");
 		} else {
 			clickButtonByXpath("Drawer");
 			checkForLater();
@@ -10678,7 +10705,7 @@ public class LDSTools {
 	private void openOrgnizations() throws Exception {
 		if (getRunningOS().equals("mac")) {
 			//clickButtonByXpath("DrawerOrganizations");
-			clickButton("Organizations", "byName", "byName");
+			clickButton("Organizations", "byName", "AccID");
 		} else {
 			clickButtonByXpath("Drawer");
 			checkForLater();
@@ -10689,7 +10716,7 @@ public class LDSTools {
 	private void openMissionary() throws Exception {
 		if (getRunningOS().equals("mac")) {
 			//clickButtonByXpath("DrawerMore");
-			clickButton("More", "byName", "byName");
+			clickButton("More", "byName", "AccID");
 			clickButtonByXpath("DrawerMissionary");
 		} else {
 			clickButtonByXpath("Drawer");
@@ -10701,7 +10728,7 @@ public class LDSTools {
 	private void openReports() throws Exception {
 		if (getRunningOS().equals("mac")) {
 			//clickButtonByXpath("DrawerReports");
-			clickButton("Reports", "byName", "byName");
+			clickButton("Reports", "byName", "AccID");
 		} else {
 			clickButtonByXpath("Drawer");
 			checkForLater();
@@ -10712,7 +10739,7 @@ public class LDSTools {
 	private void openCalendar() throws Exception {
 		if (getRunningOS().equals("mac")) {
 			//clickButtonByXpath("DrawerCalendar");
-			clickButton("Calendar", "byName", "byName");
+			clickButton("Calendar", "byName", "AccID");
 		} else {
 			clickButtonByXpath("Drawer");
 			checkForLater();
