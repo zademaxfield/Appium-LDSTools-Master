@@ -115,8 +115,8 @@ public class LDSWeb {
 		*/
 		
 		
-		//setupAfterUATReset();
-		AreaBookSetup();
+		setupAfterUATReset();
+		//AreaBookSetup();
 
 		/*
 		populateFile();
