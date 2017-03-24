@@ -73,6 +73,7 @@ import org.apache.commons.lang3.StringUtils;
 //import org.apache.commons.lang3.StringUtils;
 //import org.hamcrest.CoreMatchers;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Attribute;
 //import org.jsoup.nodes.DataNode;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -475,8 +476,36 @@ public class LDSTools {
 	
 	
 	public void justForTesting(String os) throws Exception {
+		String pageSource;
 		
-		//List Test
+		syncLogIn("LDSTools21", "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+		
+		searchForUser("Aaron, Jane");
+		clickButton("Jane Aaron (56)", "textAtt", "AccID");
+		clickButton("Add to Contacts", "textAtt", "AccID");
+		
+		
+		Thread.sleep(2000);
+		if (checkElementReturn("OK", "textAtt", "xpath")) {
+			clickButton("OK", "textAtt", "xpath");
+		} 
+		Thread.sleep(2000);
+		pageSource = driver.getPageSource();
+		
+		//For Debug
+		//listAllElements(myPageSource);
+		Assert.assertTrue(checkNoCaseList("(555) 555-5555", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("no-reply@ldschurch.org", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("123 Happieness", pageSource, "Contains"));
+		
+		scrollDownTEST(200);
+		Thread.sleep(2000);
+
+		pressBackKey();
+		
+		
+		/*  //List Test
 		// Some of the list buttons are not showing up in page source
 		syncLogIn("LDSTools21", "password1", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
@@ -499,7 +528,7 @@ public class LDSTools {
 		clickButton("Share", "xpath", "AccID");
 		//printPageSource();
 		Thread.sleep(8000);
-		
+		*/
 		
 
 		/*  //Temple List Test
@@ -5425,6 +5454,28 @@ public class LDSTools {
 		}
 		
 		return myReturnStatus;
+	}
+	
+	private void listAllElements(String pageSource) {
+		Document doc = Jsoup.parse(pageSource);
+		Elements myTest = doc.getAllElements();
+		List<Attribute> elementAttributes = new ArrayList<Attribute>();
+
+		for (Element myElement : myTest ) {
+
+			System.out.println("*********************************************************************");
+			elementAttributes = myElement.attributes().asList();
+			for (Attribute myAttribute : elementAttributes ) {
+				System.out.println("To String: " + myAttribute.toString());
+				//System.out.println("Get Key: " + myAttribute.getKey());
+				//System.out.println("Get Value: " + myAttribute.getValue());
+				//System.out.println("Get HTML: " + myAttribute.html());
+				//System.out.println("Get Class: " + myAttribute.getClass());
+			}
+			
+			System.out.println("*********************************************************************");
+			
+		}
 	}
 	
 	
