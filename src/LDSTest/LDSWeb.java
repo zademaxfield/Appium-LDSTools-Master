@@ -75,6 +75,24 @@ public class LDSWeb {
 	
 	@Test
 	public void simpleTest() throws Exception {
+		
+		/*
+		String url = "https://uat.lds.org/directory/";
+		String userName = "LDSTools2";
+		String passWord = "toolstester";
+		List<String> myList = new ArrayList<String>();
+		
+		openPageLogInDirectory(url, userName, passWord);
+	
+		Thread.sleep(10000);
+		
+		myList = getAllMembersOnPageDirectory("Ward Leaders", "High Priests Group", true);
+		
+		for(String oneUser : myList){
+			System.out.println("Found User: " + oneUser);
+		}
+		*/
+		
 		/*
 		List<String> myTempleList = new ArrayList<String>();
 		String mySource;
@@ -544,6 +562,32 @@ public class LDSWeb {
 		myWindow = driver.getWindowHandle();
 	}
 	
+	public void openPageLogInDirectory(String url, String userName, String passWord) throws Exception {
+		
+		openGuiMap();
+		setUp();
+		
+		Thread.sleep(4000);
+		openWebPage(url);
+		Thread.sleep(2000);
+
+		driver.findElement(By.id(this.prop.getProperty("UserName"))).sendKeys(userName);
+		//Thread.sleep(1000);
+		driver.findElement(By.id(this.prop.getProperty("Password"))).sendKeys(passWord);
+		clickElement("SignIn", "id");
+		
+		Thread.sleep(4000);
+		//Check to see if the Beta agreement is displayed
+		//There have been days when they have removed the beta agreement 
+		if (checkElementExists("CloseButton", "xpath")) {
+			clickElement("CloseButton", "xpath");
+		}
+
+		
+	}
+	
+	
+	
 	public void WPRopenPageLogIn(String url, String userName, String passWord) throws Exception {
 		
 		url = "https://missionary-stage.lds.org/ward-missionary-tools";
@@ -923,6 +967,42 @@ public class LDSWeb {
 		myString = myElement.getAttribute("innerHTML");
 
 		return myString;
+	}
+	
+	private List<String> getMembersDirectory(String pageSource){
+		List<String> foundUsers = new ArrayList<String>();
+		Document doc = Jsoup.parse(pageSource);
+		//Elements myTest = doc.getElementsByAttributeValueStarting("class", "member-card-remote");
+		//Elements myTest = doc.getElementsByAttributeValueStarting("class", "ng-binding");
+		Elements myTest = doc.getElementsByAttributeValueStarting("id", "leaderName");
+		String outerHTML;
+
+		
+		for (Element myElement : myTest ) {
+			outerHTML = myElement.text();
+			//System.out.println("Raw Data:" + outerHTML);
+			if (outerHTML.contains("&") || (outerHTML.contains("772"))) {
+			//if (outerHTML.contains("&") || (Character.isDigit(outerHTML.charAt(0)))) {
+			//if (outerHTML.contains("&")) {
+				System.out.println("Skipping:" + outerHTML);
+			} else {
+				String[] parts = outerHTML.split(" ");
+				for (String addname : parts ) {
+					//System.out.println("Add Name: " + addname);
+					foundUsers.add(addname);
+				}
+				
+			}
+
+		}
+
+		for(String oneUser : foundUsers){
+			System.out.println("Found User: " + oneUser);
+			
+		}
+
+		return foundUsers;
+		
 	}
 	
 	private List<String> getMembers(String pageSource){
@@ -1308,6 +1388,32 @@ public class LDSWeb {
 		}
 		
 		Thread.sleep(2000);
+		
+	}
+	
+	public List<String> getAllMembersOnPageDirectory(String menuItem, String myReport, Boolean newSession) throws Exception {		
+		String mySource;
+		List<String> foundUsers = new ArrayList<String>();
+		
+
+		System.out.println("Menu Item: " + menuItem);
+	
+		//clickElement("ReportsMenu", "id");
+		Thread.sleep(4000);
+		clickElement(menuItem, "linkText");
+		Thread.sleep(4000);
+		//clickElement("Member List", "linkText");
+		clickElement(myReport, "linkText");
+		Thread.sleep(2000);
+		//waitForTextToDisappear("Loading", 500, "id" );
+		mySource = getSourceOfPage();
+		foundUsers = getMembersDirectory(mySource);
+		
+		if (newSession == true ) {
+			tearDown();
+		}
+		
+		return foundUsers;
 		
 	}
 	
