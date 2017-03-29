@@ -360,7 +360,7 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		justForTesting(os);	
+		//justForTesting(os);	
 		
 		
 		//myTempleSimpleTest(os);
@@ -402,7 +402,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		//LeaderBishopricDirectory("ngiBPC1", false, os);
+		LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
@@ -426,6 +426,8 @@ public class LDSTools {
 		
 		//webCheckYoungMen(os);
 		//webCheckYoungWomen(os); //Remove the skipping "Salvador"
+		
+		//createContact(os);
 		
 		
 		//RotateTest(os);
@@ -476,33 +478,8 @@ public class LDSTools {
 	
 	
 	public void justForTesting(String os) throws Exception {
-		String pageSource;
-		
-		syncLogIn("LDSTools21", "password1", "UAT", os );
-		pinPage("1", "1", "3", "3", true);
-		
-		searchForUser("Aaron, Jane");
-		clickButton("Jane Aaron (56)", "textAtt", "AccID");
-		clickButton("Add to Contacts", "textAtt", "AccID");
-		
-		
-		Thread.sleep(2000);
-		if (checkElementReturn("OK", "textAtt", "xpath")) {
-			clickButton("OK", "textAtt", "xpath");
-		} 
-		Thread.sleep(2000);
-		pageSource = driver.getPageSource();
-		
-		//For Debug
-		//listAllElements(myPageSource);
-		Assert.assertTrue(checkNoCaseList("(555) 555-5555", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("no-reply@ldschurch.org", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("123 Happieness", pageSource, "Contains"));
-		
-		scrollDownTEST(200);
-		Thread.sleep(2000);
 
-		pressBackKey();
+		
 		
 		
 		/*  //List Test
@@ -2997,6 +2974,46 @@ public class LDSTools {
 		
 	}
 	
+	@Parameters({"os"})
+	@Test (groups= {"smoke"}, priority = 1)
+	public void createContact(String os) throws Exception {
+		String pageSource;
+		
+		syncLogIn("LDSTools21", "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+		
+		searchForUser("Aaron, Jane");
+		if (getRunningOS().equals("mac")) {
+			clickButton("Jane Aaron (56)", "textAtt", "AccID");
+			clickButton("Add to Contacts", "textAtt", "AccID");
+		} else {
+			clickButton("Menu", "xpath", "xpath");
+			clickButton("Create a new contact", "textAtt", "xpath");
+		}
+
+		
+		
+		Thread.sleep(2000);
+		if (checkElementReturn("OK", "textAtt", "xpath")) {
+			clickButton("OK", "textAtt", "xpath");
+		} 
+		Thread.sleep(4000);
+		pageSource = driver.getPageSource();
+		scrollDownTEST(400);
+		pageSource = pageSource + driver.getPageSource();
+		
+		//For Debug
+		//listAllElements(myPageSource);
+		
+		Assert.assertTrue(checkNoCaseList("(555) 555-5555", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("no-reply@ldschurch.org", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("123 Happieness", pageSource, "Contains"));
+
+		pressBackKey();
+		if (!getRunningOS().equals("mac")) {
+			clickButton("DISCARD", "textAtt", "xpath");
+		} 
+	}
 	
 	/** editCurrentUser()
 	 * Login as LDSTools100 and edit own information
@@ -5811,6 +5828,7 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Bishopric");
 		
 		//Go to web and get all users
+		//myList = myWeb.getAllMembersOnPageDirectory("Ward Leaders", "Bishopric", false);
 		myList = myWeb.getAllMembersOnPage("OrganizationsMenu", "Bishopric", false);
 		compareWebData(myList, androidList, true);
 		
@@ -5835,6 +5853,7 @@ public class LDSTools {
 		
 		
 		//Check web data vs LDS Tools
+		//myList = myWeb.getAllMembersOnPageDirectory("Ward Leaders", "High Priests Group", false);
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "High Priests Group", "HighPriestGroupLeadership", false);
 		compareWebData(myList, androidList, true);
 		
@@ -6633,8 +6652,14 @@ public class LDSTools {
 	}
 	
 	private void waitForTextToDisappearTEXT(String textElement, int myTimeOut){
+		long startTime = System.nanoTime();
 		WebDriverWait wait = new WebDriverWait(driver, myTimeOut);
+		System.out.println("Waiting for Text to disappear: " + textElement);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(@text, '" + textElement + "')]")));
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime);
+		duration = duration / 1000000;
+		System.out.println("Done waiting for Text to disappear: " + textElement + " Took: " + duration);
 	}
 	
 	private void waitForTextToDisappearID(String textElement, int myTimeOut){
@@ -7310,8 +7335,8 @@ public class LDSTools {
 			sendTextbyXpath("LoginPassword", loginPassword);
 			
 			//Thread.sleep(1000);
-			clickButtonByXpath("DoneButton");
-			//clickButtonByXpath("SignInButton");
+			//clickButtonByXpath("DoneButton");
+			clickButtonByXpath("SignInButton");
 
 			Thread.sleep(4000);
 			
