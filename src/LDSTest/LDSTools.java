@@ -376,7 +376,7 @@ public class LDSTools {
 		//bishopMemberOfSeparateStake(os);	
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
-		//editCurrentUser(os);	
+		editCurrentUser(os);	
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
@@ -402,7 +402,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		LeaderBishopricDirectory("ngiBPC1", false, os);
+		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
@@ -7467,6 +7467,7 @@ public class LDSTools {
 				//clickButtonByXpath("TopDeveloper");
 				//Thread.sleep(2000);
 				
+				scrollDownIOS();
 				//Set the ID
 				clickButton("Id", "byName", "byName");
 				Thread.sleep(2000);
@@ -7515,9 +7516,9 @@ public class LDSTools {
 				sendTextbyXpath("LoginPassword", "sweets2005");
 				
 				//Thread.sleep(1000);
-				clickButtonByXpath("DoneButton");
+				//clickButtonByXpath("DoneButton");
 				//Thread.sleep(1000);
-				//clickButtonByXpath("SignInButton");
+				clickButtonByXpath("SignInButton");
 				Thread.sleep(4000);
 				
 				
@@ -10896,12 +10897,19 @@ public class LDSTools {
 			Thread.sleep(1000);
 			//clickButtonByXpath("SignInButton");
 			//driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell[1]/UIAStaticText[@name='Sync Now']")).click();
-			//clickButton("Sync Now", "byName", "byName");
-			clickButtonByNameMultiple("Sync Now", 1);
+			clickButton("Sync Now", "byName", "byName");
+			
+
+			//clickButtonByNameMultiple("Sync Now", 1);
 			//clickButtonByName("Sync Now");
 			Thread.sleep(6000);
 			waitForTextToDisappear("SyncText", 500 );
 			Thread.sleep(4000);
+			
+			if (checkElementReturn("Enter Current Passcode", "text", "contValue")) {
+				System.out.println("Enter Current Passcode Found!");
+				pinPage("1", "1", "3", "3", true);
+			}
 			//pinPage("1", "1", "3", "3", true);
 			
 		} else {
