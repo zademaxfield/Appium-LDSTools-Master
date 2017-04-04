@@ -376,7 +376,7 @@ public class LDSTools {
 		//bishopMemberOfSeparateStake(os);	
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
-		editCurrentUser(os);	
+		//editCurrentUser(os);	
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
@@ -437,7 +437,7 @@ public class LDSTools {
 		
 		//Header Tests
 		//JeffAnderson(os);
-		//ChristieWhiting(os);
+		ChristieWhiting(os);
 		//CliffHigby(os);
 		//KevinPalmer(os);
 		//PatriarchOtherWards(os); //Not working!
@@ -6651,11 +6651,16 @@ public class LDSTools {
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(@name, '" + textElement + "')]")));
 	}
 	
-	private void waitForTextToDisappearTEXT(String textElement, int myTimeOut){
+	private void waitForTextToDisappearTEXT(String textElement, int myTimeOut) throws Exception {
 		long startTime = System.nanoTime();
 		WebDriverWait wait = new WebDriverWait(driver, myTimeOut);
 		System.out.println("Waiting for Text to disappear: " + textElement);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(@text, '" + textElement + "')]")));
+		//printPageSource();
+		if (getRunningOS().equals("mac")) {
+			wait.until(ExpectedConditions.invisibilityOfElementLocated(MobileBy.iOSNsPredicateString("label CONTAINS '"+ textElement + "'")));
+		} else {
+			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(@text, '" + textElement + "')]")));
+		}
 		long endTime = System.nanoTime();
 		long duration = (endTime - startTime);
 		duration = duration / 1000000;
@@ -7345,7 +7350,7 @@ public class LDSTools {
 			
 			//waitForTextToDisappear("DownloadingSync", 500 );
 			waitForTextToDisappearTEXT(chooseNetwork, 500 );
-			Thread.sleep(25000);
+			Thread.sleep(8000);
 		}
 	}
 	
@@ -7528,7 +7533,7 @@ public class LDSTools {
 				
 				//waitForTextToDisappearName("SVProgressHUD", 500 );
 				waitForTextToDisappearTEXT(chooseNetwork, 500 );
-				Thread.sleep(25000);
+				Thread.sleep(8000);
 			}
 		}
 	}
