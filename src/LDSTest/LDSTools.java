@@ -10264,6 +10264,7 @@ public class LDSTools {
 		
 		if (getRunningOS().equals("mac")) {
 			//sendTextbyXpath("SearchArea", userToSearch);
+			//printPageSource();
 			sendTextbyClassName("SearchField", userToSearch);
 			//sendTextbyXpath2("SearchArea", userToSearch);
 			//driver.findElement(By.xpath("//UIAButton[@label='Search']")).click();
