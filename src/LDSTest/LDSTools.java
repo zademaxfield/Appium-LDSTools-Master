@@ -337,7 +337,7 @@ public class LDSTools {
 	        capabilities.setCapability("launchTimeout", 300000);
 	        
 	        
-	        capabilities.setCapability("platformVersion", "10.2");
+	        capabilities.setCapability("platformVersion", "10.3");
 	        capabilities.setCapability("nativeInstrumentsLib", true);
 	        
 	        capabilities.setCapability("autoAcceptAlerts", true);
@@ -402,7 +402,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		//LeaderBishopricDirectory("ngiBPC1", false, os);
+		LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
@@ -437,7 +437,7 @@ public class LDSTools {
 		
 		//Header Tests
 		//JeffAnderson(os);
-		ChristieWhiting(os);
+		//ChristieWhiting(os);
 		//CliffHigby(os);
 		//KevinPalmer(os);
 		//PatriarchOtherWards(os); //Not working!
