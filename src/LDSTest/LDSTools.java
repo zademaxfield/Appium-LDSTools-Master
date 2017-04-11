@@ -7343,7 +7343,7 @@ public class LDSTools {
 			//clickButtonByXpath("DoneButton");
 			clickButtonByXpath("SignInButton");
 
-			Thread.sleep(4000);
+			Thread.sleep(5000);
 			
 			
 			unitsToSync();
@@ -12461,7 +12461,8 @@ public class LDSTools {
 			System.out.println("Clear App");
 			adbCommand("clearApp");
 			Thread.sleep(2000);
-			driver.resetApp();
+			//driver.resetApp();
+			
 			//driver.quit();
 		}
 		
