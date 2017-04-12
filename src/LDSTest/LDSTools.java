@@ -12460,7 +12460,20 @@ public class LDSTools {
 			
 			System.out.println("Clear App");
 			adbCommand("clearApp");
+			
+			
+			//System.out.println("Remove App " + myAppPackage);
+			//driver.removeApp(myAppPackage);
+			//killProcess("tail");
 			Thread.sleep(2000);
+			//System.out.println("Install App " + myAppPackage);
+			//driver.installApp(myAppPackage);
+	
+			Thread.sleep(5000);
+			driver.launchApp();
+			
+			
+			//Thread.sleep(2000);
 			//driver.resetApp();
 			
 			//driver.quit();
