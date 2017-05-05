@@ -3,13 +3,16 @@
 <suite name="Just For Testing suite">
   <parameter name="os" value="android" />
   <parameter name="fileName" value="ldstools-alpha.apk" />
-  <parameter name="testDevice" value="03aadbed215c8e5f" />
+  <!-- <parameter name="testDevice" value="MyTest" /> -->
+  <!-- <parameter name="testDevice" value="03aadbed215c8e5f" /> -->
+  <parameter name="testDevice" value="STF-05157df5a1394b1c" />
   
   <test verbose="2" name="JFT test">
       <parameter name="os" value="android" />
       <parameter name="fileName" value="ldstools-alpha.apk" />
-      <parameter name="testDevice" value="03aadbed215c8e5f" />
-     
+	  <!-- <parameter name="testDevice" value="MyTest" /> -->
+	  <!-- <parameter name="testDevice" value="03aadbed215c8e5f" /> -->
+      <parameter name="testDevice" value="STF-05157df5a1394b1c" />
       
       <groups>
           <run>
@@ -23,4 +26,4 @@
       </classes> 
       
   </test> <!-- Default test -->
-</suite> <!-- Default suite -->	
+</suite> <!-- Default suite -->
