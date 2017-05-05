@@ -3,6 +3,7 @@ import org.testng.annotations.Test;
 
 import com.gargoylesoftware.htmlunit.javascript.host.html.Option;
 
+
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 //import org.testng.annotations.BeforeTest;
@@ -130,6 +131,16 @@ import static org.junit.Assert.assertNotNull;
 
 
 
+/*
+ * STF-8XV5T15A30006448 Nexus 6p
+ * STF-00765a54959507be Nexus 4
+ * STF-03aadbed215c8e5f Nexus 5
+ * STF-05157df5a1394b1c Samsung Galaxy 6S Edge
+ * 
+ */
+
+
+
 
 /** LDSTools class - suite of tests to test LDSTools app
  * 
@@ -152,6 +163,10 @@ public class LDSTools {
 	
 	public String myAppPackage;
 	AppiumDriverLocalService myAppiumService;
+	String deviceSerial = "";
+	
+	
+	
 	
 
 	public void beforeTestStarts(String os) throws Exception {
@@ -224,6 +239,31 @@ public class LDSTools {
 			myAppiumService.start();
 			
 			*/
+			
+			if (testDevice.contains("STF")) {
+				String accessToken = "aae7b8255b4a49368618fc0d4fa0e943e3d5df77ab444a1987b6f757b2762982";
+				String deviceIPPort;
+				
+				
+				String[] parts = testDevice.split("-");
+				String part1 = parts[0];
+				String part2 = parts[1];
+				//Remove all whitespace
+				//part1 = part1.trim();
+				//part2 = part2.trim();
+
+				
+				deviceSerial = part2;
+				System.out.println("SERIAL NUMBER: " + deviceSerial);
+				
+				
+				STFService mySTFService = new STFService("http://10.109.45.162:7100", accessToken);
+				DeviceApi myDevice = new DeviceApi(mySTFService);
+				myDevice.connectDevice(deviceSerial);
+				deviceIPPort = myDevice.remoteControl(deviceSerial);
+				testDevice = getRemoteIPPort(deviceIPPort);
+				adbRemoteConnect(testDevice);
+			}
 			
 			
 			
@@ -402,10 +442,10 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		//LeaderBishopricDirectory("ngiBPC1", false, os);
+		LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
-		LeaderBishopricHTVT("ngiBPC1", false, os); 
+		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//LeaderBishopricReport("ngiBPC2", false, os); //Bishopric 2nd Counselor  
@@ -8693,7 +8733,7 @@ public class LDSTools {
 			pressBackKey();
 		}
 		//checkText("mpFilterText", "Members Being Taught", "id", "byName");
-		myList = myWeb.WPRgetUsers("Members Being Taught", true);
+		myList = myWeb.WPRgetUsers("Members", true);
 		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		pageSource = getSourceOfPage();
@@ -10759,6 +10799,29 @@ public class LDSTools {
 		}	
 	}
 	
+	private void editUserOpen() throws Exception {
+		Boolean myErrorTest;
+		int myCounter = 1;
+		clickButton("MenuEdit", "id", "xpath");
+		Thread.sleep(2000);
+		waitForTextToDisappear("Downloading", 500 );
+		myErrorTest = checkElementReturn("Please connect to the Internet", "text", "contValue");
+		
+		
+		while ((myErrorTest == true) && (myCounter < 4)) {
+			System.out.println("Not connected to the Internet: " + myErrorTest + " Count: "+ myCounter);
+			clickButton("AlertOK", "xpath", "xpath");
+			clickButton("MenuEdit", "id", "xpath");
+			waitForTextToDisappear("Downloading", 500 );
+			myErrorTest = checkElementReturn("NotConnected", "xpath", "xpath");
+			myCounter++;
+		}
+		
+	}
+
+
+
+
 	private void scrollToTheTop() throws Exception {
 		int pageSize;
 		pageSize = driver.manage().window().getSize().getHeight();
@@ -11266,26 +11329,6 @@ public class LDSTools {
 		driver.performTouchAction(myAction);
 	}
 	
-	
-	private void editUserOpen() throws Exception {
-		Boolean myErrorTest;
-		int myCounter = 1;
-		clickButton("MenuEdit", "id", "xpath");
-		Thread.sleep(2000);
-		waitForTextToDisappear("Downloading", 500 );
-		myErrorTest = checkElementReturn("Please connect to the Internet", "text", "contValue");
-		
-		
-		while ((myErrorTest == true) && (myCounter < 4)) {
-			System.out.println("Not connected to the Internet: " + myErrorTest + " Count: "+ myCounter);
-			clickButton("AlertOK", "xpath", "xpath");
-			clickButton("MenuEdit", "id", "xpath");
-			waitForTextToDisappear("Downloading", 500 );
-			myErrorTest = checkElementReturn("NotConnected", "xpath", "xpath");
-			myCounter++;
-		}
-		
-	}
 	
 	private void adbCommand(String myCommand) throws Exception {
 		String pathToADB = "../../../android-sdks/platform-tools/adb";
@@ -12373,6 +12416,29 @@ public class LDSTools {
 	// **************************END OLD METHODS ********************************************
 	// **************************************************************************************
 	
+	
+	
+	public String chooseRemoteDevice(String testDevice) throws Exception {
+		String remoteDevice = null;
+		
+		//Authorize to STF
+		remoteAuth();
+		
+		//Choose a device
+		remoteUseDevice();
+		
+		//Remote connect to the device
+		remoteDevice = remoteConnect();
+		
+		//Get the IP and Port for the remote device
+		remoteDevice = getRemoteIPPort(remoteDevice);
+		
+		//do an adb connect 
+		adbRemoteConnect(remoteDevice);
+		
+		return remoteDevice;
+	}
+	
 	public void myTeardown() throws Exception {
 		if (getRunningOS().equals("mac")) {
 			driver.quit();
@@ -12519,6 +12585,10 @@ public class LDSTools {
 			killProcess("com.apple.CoreSimulator.CoreSimulatorService");
 		
 		} else {
+			STFService mySTFService = new STFService("http://10.109.45.162:7100", "aae7b8255b4a49368618fc0d4fa0e943e3d5df77ab444a1987b6f757b2762982");
+			DeviceApi myDevice = new DeviceApi(mySTFService);
+			System.out.println("SERIAL NUMBER: " + deviceSerial);
+			myDevice.releaseDevice(deviceSerial);
 			driver.quit();
 		}
 		
@@ -12562,7 +12632,144 @@ public class LDSTools {
 			System.out.println(line);
 		}
 	}
+	
+	public void adbRemoteConnect(String ipPort) throws Exception {
+		String pathToADB = "../../../android-sdks/platform-tools/adb";
 
+		//String cmd = "adb shell am force-stop org.lds.ldstools.dev";
+		Runtime run = Runtime.getRuntime();
+		Process pr = run.exec(new String[] {pathToADB, "connect", ipPort});
+		//Process pr = run.exec(cmd);
+		pr.waitFor();
+		BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+		String line = "";
+		
+		while ((line=buf.readLine())!=null) {
+			System.out.println(line);
+		}
+		
+
+
+	}
+
+	public void remoteAuth() throws Exception {
+		String line = "";
+		Runtime run = Runtime.getRuntime();
+
+		Process pr = run.exec(new String[] {"/usr/bin/curl", 
+				"-H",
+				"\"Authorization: Bearer aae7b8255b4a49368618fc0d4fa0e943e3d5df77ab444a1987b6f757b2762982\"", 
+				"http://10.109.45.162:7100/api/v1/user"});
+		pr.waitFor();
+		BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+		
+		
+		while ((line=buf.readLine())!=null) {
+			System.out.println(line);
+		}
+		
+		System.out.println("remoteAuth() ERROR: ");
+		BufferedReader bufError = new BufferedReader(new InputStreamReader(pr.getErrorStream()));
+		while ((line=bufError.readLine())!=null) {
+			System.out.println(line);
+		}
+
+	}
+	
+	//TODO: Need choose a serial number
+	public void remoteUseDevice() throws Exception {
+		String line = "";
+		Runtime run = Runtime.getRuntime();
+		Process pr = run.exec(new String[] {"/usr/bin/curl", 
+				"-X", 
+				"POST",
+				"--header",
+				"\"Content-Type: application/json\"",
+				"--data",
+				"'{\"serial\":\"8XV5T15A30006448\"}'",
+				"-H",
+				"\"Authorization: Bearer aae7b8255b4a49368618fc0d4fa0e943e3d5df77ab444a1987b6f757b2762982\"", 
+				"http://10.109.45.162:7100/api/v1/user/devices"});
+		pr.waitFor();
+		BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+		
+		while ((line=buf.readLine())!=null) {
+			System.out.println(line);
+		}
+		
+		System.out.println("remoteUserDevice() ERROR: ");
+		BufferedReader bufError = new BufferedReader(new InputStreamReader(pr.getErrorStream()));
+		while ((line=bufError.readLine())!=null) {
+			System.out.println(line);
+		}
+	}
+	
+	//To get the remote IP and Port number for adb
+	public String remoteConnect() throws Exception {
+		String myReturn = null;
+		String line = "";
+		Runtime run = Runtime.getRuntime();
+		Process pr = run.exec(new String[] {"/usr/bin/curl", 
+				"-X", 
+				"POST",
+				"--header",
+				"\"Content-Type: application/json\"",
+				"-H",
+				"\"Authorization: Bearer aae7b8255b4a49368618fc0d4fa0e943e3d5df77ab444a1987b6f757b2762982\"", 
+				"http://10.109.45.162:7100/api/v1/user/devices/{8XV5T15A30006448}/remoteConnect"});
+
+		pr.waitFor();
+		BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+		
+		while ((line=buf.readLine())!=null) {
+			System.out.println(line);
+			myReturn = line;
+		}
+		
+		System.out.println("remoteConnect() ERROR: ");
+		BufferedReader bufError = new BufferedReader(new InputStreamReader(pr.getErrorStream()));
+		while ((line=bufError.readLine())!=null) {
+			System.out.println(line);
+		}
+		
+		return myReturn;
+	}
+	
+	public String remoteDisconnect() throws Exception {
+		String myReturn = null;
+		String line = "";
+		Runtime run = Runtime.getRuntime();
+		Process pr = run.exec(new String[] {"/usr/bin/curl", 
+				"-X", 
+				"DELETE",
+				"-H",
+				"\"Authorization: Bearer aae7b8255b4a49368618fc0d4fa0e943e3d5df77ab444a1987b6f757b2762982\"", 
+				"http://10.109.45.162:7100/api/v1/user/devices/{8XV5T15A30006448}/remoteConnect"});
+		
+		pr.waitFor();
+		BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+		
+		while ((line=buf.readLine())!=null) {
+			System.out.println(line);
+			myReturn = line;
+		}
+		
+		return myReturn;
+	}
+	
+	public String getRemoteIPPort(String myText) throws Exception {
+		String myIPPort = null;
+		System.out.println("MY PORT: " + myIPPort);
+		String[] ipArray = StringUtils.substringsBetween(myText, "\"", "\"");
+		
+		for (String getIP : ipArray) {
+			System.out.println("GET IP: " + getIP);
+		}
+		
+		myIPPort = ipArray[ipArray.length -1];
+		
+		return myIPPort;
+	}
 	
 
 	
