@@ -6,6 +6,8 @@ import com.gargoylesoftware.htmlunit.javascript.host.html.Option;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Factory;
 //import org.testng.annotations.BeforeTest;
 //import org.testng.annotations.Configuration;
 import org.testng.AssertJUnit;
@@ -48,6 +50,7 @@ import java.util.List;
 //import java.util.Map;
 //import java.net.URL;
 import java.util.Properties;
+import java.util.Random;
 import java.util.UUID;
 //import java.util.concurrent.TimeUnit;
 
@@ -136,6 +139,7 @@ import static org.junit.Assert.assertNotNull;
  * STF-00765a54959507be Nexus 4
  * STF-03aadbed215c8e5f Nexus 5
  * STF-05157df5a1394b1c Samsung Galaxy 6S Edge
+ * STF-HT43CWM01647 HTC One M8
  * 
  */
 
@@ -207,7 +211,6 @@ public class LDSTools {
 	}
 
 
-
 	
 	/** Setup Appium driver
 	 * Note the difference between the classpathRoot on Windows vs Mac
@@ -239,7 +242,7 @@ public class LDSTools {
 			myAppiumService.start();
 			
 			*/
-			
+			List<String> deviceList = new ArrayList<String>();
 			if (testDevice.contains("STF")) {
 				String accessToken = "aae7b8255b4a49368618fc0d4fa0e943e3d5df77ab444a1987b6f757b2762982";
 				String deviceIPPort;
@@ -256,9 +259,19 @@ public class LDSTools {
 				deviceSerial = part2;
 				System.out.println("SERIAL NUMBER: " + deviceSerial);
 				
-				
 				STFService mySTFService = new STFService("http://10.109.45.162:7100", accessToken);
 				DeviceApi myDevice = new DeviceApi(mySTFService);
+
+				
+				if (deviceSerial.equals("Pool")) {
+
+					deviceList = myDevice.getAvalibleDevices();
+					deviceSerial = deviceList.get(new Random().nextInt(deviceList.size()));
+					System.out.println("DEVICE TO USE: " + deviceSerial);
+					deviceSerial = deviceSerial.replace("\"", "");
+				} 
+
+				
 				myDevice.connectDevice(deviceSerial);
 				deviceIPPort = myDevice.remoteControl(deviceSerial);
 				testDevice = getRemoteIPPort(deviceIPPort);
@@ -12585,11 +12598,12 @@ public class LDSTools {
 			killProcess("com.apple.CoreSimulator.CoreSimulatorService");
 		
 		} else {
+			driver.quit();
 			STFService mySTFService = new STFService("http://10.109.45.162:7100", "aae7b8255b4a49368618fc0d4fa0e943e3d5df77ab444a1987b6f757b2762982");
 			DeviceApi myDevice = new DeviceApi(mySTFService);
 			System.out.println("SERIAL NUMBER: " + deviceSerial);
 			myDevice.releaseDevice(deviceSerial);
-			driver.quit();
+			
 		}
 		
 
