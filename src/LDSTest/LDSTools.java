@@ -174,8 +174,6 @@ public class LDSTools {
 	
 
 	public void beforeTestStarts(String os) throws Exception {
-		
-		
 		System.out.println("Killing the Appium Service");
 		killProcess("main.js");
 		Thread.sleep(4000);
@@ -429,7 +427,7 @@ public class LDSTools {
 		//bishopMemberOfSeparateStake(os);	
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
-		//editCurrentUser(os);	
+		editCurrentUser(os);	
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
@@ -455,7 +453,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		LeaderBishopricDirectory("ngiBPC1", false, os);
+		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
@@ -532,7 +530,12 @@ public class LDSTools {
 	
 	public void justForTesting(String os) throws Exception {
 
-		
+		//List<String> StakeWard = new ArrayList<String>();
+		syncLogIn("LDSTools21", "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+
+		Thread.sleep(2000);
+		checkAllWardDirectories();
 		
 		
 		/*  //List Test
