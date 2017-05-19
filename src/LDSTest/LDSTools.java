@@ -427,7 +427,7 @@ public class LDSTools {
 		//bishopMemberOfSeparateStake(os);	
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
-		editCurrentUser(os);	
+		//editCurrentUser(os);	
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
@@ -454,7 +454,7 @@ public class LDSTools {
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
-		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
+		LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
@@ -5102,7 +5102,8 @@ public class LDSTools {
 			
 			sendTextbyXpath("LoginUsername", loginName);
 			sendTextbyXpath("LoginPassword", loginPassword);
-			clickButtonByXpath("DoneButton");
+			//clickButtonByXpath("DoneButton");
+			clickButtonByXpath("SignInButton");
 			Thread.sleep(4000);
 			waitForTextToDisappearTEXT("UAT", 500 );
 			
@@ -5113,11 +5114,12 @@ public class LDSTools {
 			clickButton("Fatuvalu Ward", "value", "value");
 			
 			clickButton("SyncButton", "xpath", "xpath");
+			Thread.sleep(2000);
 			
-			
-			waitForTextToDisappearTEXT("UAT", 500 );
+			//waitForTextToDisappearTEXT("UAT", 500 );
+			waitForTextToDisappearPopUp("UAT", 500 );
 			//waitForTextToDisappear("DownloadingSync", 500 );
-			Thread.sleep(15000);
+			Thread.sleep(5000);
 			pinPage("1", "1", "3", "3", true);
 			Thread.sleep(2000);
 			
@@ -6723,6 +6725,23 @@ public class LDSTools {
 		System.out.println("Done waiting for Text to disappear: " + textElement + " Took: " + duration);
 	}
 	
+	private void waitForTextToDisappearPopUp(String textElement, int myTimeOut) throws Exception {
+		long startTime = System.nanoTime();
+		WebDriverWait wait = new WebDriverWait(driver, myTimeOut);
+		System.out.println("Waiting for Text to disappear: " + textElement);
+		//printPageSource();
+		if (getRunningOS().equals("mac")) {
+			wait.until(ExpectedConditions.invisibilityOfElementLocated(MobileBy.iOSNsPredicateString("name == 'SVProgressHUD'")));
+
+		} else {
+			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(@text, '" + textElement + "')]")));
+		}
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime);
+		duration = duration / 1000000;
+		System.out.println("Done waiting for Text to disappear: " + textElement + " Took: " + duration);
+	}
+	
 	private void waitForTextToDisappearID(String textElement, int myTimeOut){
 		WebDriverWait wait = new WebDriverWait(driver, myTimeOut);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id(this.prop.getProperty(textElement))));
@@ -7405,7 +7424,8 @@ public class LDSTools {
 			unitsToSync();
 			
 			//waitForTextToDisappear("DownloadingSync", 500 );
-			waitForTextToDisappearTEXT(chooseNetwork, 500 );
+			//waitForTextToDisappearTEXT(chooseNetwork, 500 );
+			waitForTextToDisappearPopUp(chooseNetwork, 500 );
 			Thread.sleep(8000);
 		}
 	}
@@ -10987,8 +11007,12 @@ public class LDSTools {
 
 			//clickButtonByNameMultiple("Sync Now", 1);
 			//clickButtonByName("Sync Now");
-			Thread.sleep(6000);
-			waitForTextToDisappear("SyncText", 500 );
+			Thread.sleep(3000);
+			
+			//waitForTextToDisappear("DownloadingSync", 500 );
+			//waitForTextToDisappear("connection", 500 );
+			waitForTextToDisappearTEXT("connection", 500 );
+
 			Thread.sleep(4000);
 			
 			if (checkElementReturn("Enter Current Passcode", "text", "contValue")) {
@@ -11010,7 +11034,7 @@ public class LDSTools {
 			clickButton("AlertOK", "xpath", "xpath");
 			
 			Thread.sleep(4000);
-			waitForTextToDisappearID("SyncText", 500 );
+			waitForTextToDisappearTEXT("connection", 500 );
 			Thread.sleep(2000);
 		}
 
@@ -11274,7 +11298,7 @@ public class LDSTools {
 		} else {
 			clearTextFieldXpath("EditHomeEmail");
 		}
-		
+		Thread.sleep(1000);
 		
 		clickButton("MenuSave", "id", "xpath");
 		Thread.sleep(2000);
