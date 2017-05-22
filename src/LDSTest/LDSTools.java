@@ -13,9 +13,11 @@ import org.testng.annotations.Factory;
 import org.testng.AssertJUnit;
 //import org.testng.ITestContext;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterClass;
 //import org.testng.TestRunner;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeClass;
 //import org.testng.annotations.AfterTest;
 import org.testng.annotations.Parameters;
 //import org.testng.annotations.Test;
@@ -154,7 +156,7 @@ import static org.junit.Assert.assertNotNull;
 public class LDSTools {
 	private Properties prop;
 	//AppiumDriver<MobileElement> driver;
-	AppiumDriver<MobileElement> driver;
+	public AppiumDriver<MobileElement> driver;
 	LDSWeb myWeb = new LDSWeb();
 	//AppiumDriver driver;
 	//AppiumDriver driver;
@@ -167,24 +169,23 @@ public class LDSTools {
 	
 	public String myAppPackage;
 	AppiumDriverLocalService myAppiumService;
+	AppiumService newAppiumService = new AppiumService();
+	
 	String deviceSerial = "";
 	
 	
 	
 	
 
-	public void beforeTestStarts(String os) throws Exception {
-		System.out.println("Killing the Appium Service");
-		killProcess("main.js");
-		Thread.sleep(4000);
-		
+	public void beforeTestStarts(String os, int myPort) throws Exception {
+
 		//Android Setup
 		if (os.equals("android")) {
 			File appiumLogFile = new File("screenshot/myAppiumLog.txt");
 			new FileOutputStream(appiumLogFile, false).close();
 			AppiumDriverLocalService myAppiumService = new AppiumServiceBuilder()
 					.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
-					.usingPort(4444)
+					.usingPort(myPort)
 					.withIPAddress("127.0.0.1")
 					.withLogFile(appiumLogFile)
 					.withArgument(GeneralServerFlag.LOG_LEVEL, "error")
@@ -197,7 +198,7 @@ public class LDSTools {
 			
 			AppiumDriverLocalService myAppiumService = new AppiumServiceBuilder()
 					.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
-					.usingPort(4445)
+					.usingPort(myPort)
 					.withIPAddress("127.0.0.1")
 					.withLogFile(appiumLogFile)
 					.withArgument(GeneralServerFlag.LOG_LEVEL, "error")
@@ -205,7 +206,8 @@ public class LDSTools {
 			
 			myAppiumService.start();
 		}
-		
+		Thread.sleep(20000);
+
 	}
 
 
@@ -216,15 +218,34 @@ public class LDSTools {
 	 * @throws Exception
 	 */
 	//@BeforeMethod(alwaysRun = true)
-	@BeforeSuite(alwaysRun = true)
-	@Parameters({"os", "fileName", "testDevice"})
-	public void setUp(String os, String fileName, String testDevice) throws Exception {
+	@BeforeClass(alwaysRun = true)
+	//@BeforeSuite(alwaysRun = true)
+	@Parameters({"os", "fileName", "testDevice", "startSleepTime"})
+	public void setUp(String os, String fileName, String testDevice, int startSleepTime) throws Exception {
 		//System.out.println("OS: " + os );
 		//System.out.println("File Name: " + fileName);
-		beforeTestStarts(os);
+		Random randomPort = new Random();
+		int myPort = 4444;
+		int lowPort = 4500;
+		int highPort = 4999;
+		//Random randomSleep = new Random();
+		//int sleepTime = 1000;
+		//int lowSleep = 1000;
+		//int highSleep = 9999;
+
+		myPort = randomPort.nextInt(highPort - lowPort) + lowPort;
+		//sleepTime = randomSleep.nextInt(highSleep - lowSleep) + lowSleep;
+		System.out.println("Sleep Time: " + startSleepTime);
+		Thread.sleep(startSleepTime);
+		
+		//System.out.println("OS: " + os);
+		//System.out.println("PORT: " + myPort);
+		
+		newAppiumService.startAppiumService(os, myPort);
 		
 		//Android Setup
 		if (os.equals("android")) {
+			
 			
 			/*
 			File appiumLogFile = new File("screenshot/myAppiumLog.txt");
@@ -318,7 +339,29 @@ public class LDSTools {
 	        
 	        
 	        //driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
-	        driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
+	        
+	        
+	        
+	        
+	        
+	        
+	       
+	       // beforeTestStarts(os, myPort);
+
+	        //System.out.println("Before Driver Starts");
+	        //System.out.println(driver == null);
+	        driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:" + myPort + "/wd/hub"), capabilities);
+	        //System.out.println("After Driver Starts");
+	        //System.out.println(driver == null);
+	        
+	        Thread.sleep(2000);
+	        //newAppiumService.appiumServiceRunning();
+	        //newAppiumService.appiumServiceURL();
+	        
+	        
+	        //System.out.println("Orientation: " + driver.getOrientation().value());
+	        
+	        
 	        //driver = new AppiumSwipeableDriver(new URL("http://127.0.0.1:4444/wd/hub"),capabilities);
 	        //driver = new AppiumDriver(new URL("http://127.0.0.1:4444/wd/hub"),capabilities);
 	        //touch = new TouchActions(driver);
@@ -329,6 +372,8 @@ public class LDSTools {
 		
 		//Setup for iOS
 		if (os.equals("ios")) {
+			
+			
 			//IOSDriver driver;
 			
 			//startAppiumServer();
@@ -400,10 +445,16 @@ public class LDSTools {
 	        //driver = new AndroidDriver(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
 	        //driver = new AppiumSwipeableDriver(new URL("http://127.0.0.1:4445/wd/hub"),capabilities);
 	        //driver = new IOSDriver<MobileElement>(new URL("http://127.0.0.1:4445/wd/hub"),capabilities);
-	        driver = new IOSDriver<MobileElement>(new URL("http://127.0.0.1:4445/wd/hub"),capabilities);
+	        
+	        
+	        beforeTestStarts(os, myPort);
+	       
+	        driver = new IOSDriver<MobileElement>(new URL("http://127.0.0.1:" + myPort + "/wd/hub"),capabilities);
 	       // touch = new TouchActions(driver);
 		}
        
+		
+
     }	
 	
     
@@ -453,8 +504,8 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		//LeaderBishopricDirectory("ngiBPC1", false, os);
-		LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
+		LeaderBishopricDirectory("ngiBPC1", false, os);
+		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
@@ -7287,6 +7338,8 @@ public class LDSTools {
 		//If the login is using any of the test networks we need to change it. 
 		//valid enteries "Production", "UAT", "Proxy - UAT", "Proxy"
 		if (os.equals("android")) {
+			Thread.sleep(3000);
+			
 			System.out.println("Orientation: " + driver.getOrientation().value());
 			if (driver.getOrientation().value() == "landscape") {
 				driver.rotate(ScreenOrientation.PORTRAIT);
@@ -12511,14 +12564,17 @@ public class LDSTools {
 		Thread.sleep(4000);
 		myAppiumService.stop();
 		myAppiumService.start();
+
+		
+		
 		openGuiMap(os);
-		setUp(os, fileName, testDevice);
+		setUp(os, fileName, testDevice, 1000);
 		driver.installApp(myAppPackage);
 	}
 	
 	@AfterMethod(alwaysRun = true)
-	@Parameters({"os", "fileName", "testDevice"})
-	public void teardown(ITestResult result, String os, String fileName, String testDevice) throws Exception {
+	@Parameters({"os", "fileName", "testDevice", "startSleepTime"})
+	public void teardown(ITestResult result, String os, String fileName, String testDevice, int startSleepTime) throws Exception {
 		// Here will compare if test is failing then only it will enter into if condition
 		if(ITestResult.FAILURE==result.getStatus()) {
 			//printPageSource();
@@ -12558,11 +12614,11 @@ public class LDSTools {
 			
 		} else {
 
-			if (!checkForAppiumRunning(4444)) {
-				System.out.println("Appium Android not running, trying to restart...");
-				openGuiMap(os);
-				setUp(os, fileName, testDevice);
-			}
+			//if (!checkForAppiumRunning(4444)) {
+			//	System.out.println("Appium Android not running, trying to restart...");
+			//	openGuiMap(os);
+			//	setUp(os, fileName, testDevice);
+			//}
 			
 			System.out.println("Clear App");
 			adbCommand("clearApp");
@@ -12571,24 +12627,27 @@ public class LDSTools {
 			//System.out.println("Remove App " + myAppPackage);
 			//driver.removeApp(myAppPackage);
 			//killProcess("tail");
-			Thread.sleep(2000);
+			
+			//Thread.sleep(2000);
 			//System.out.println("Install App " + myAppPackage);
 			//driver.installApp(myAppPackage);
 	
 			Thread.sleep(5000);
 			driver.launchApp();
 			
+
 			
 			//Thread.sleep(2000);
 			//driver.resetApp();
+			
 			
 			//driver.quit();
 		}
 		
 		
-		System.out.println("Killing Chrome and chromedriver");
-		killProcess("Chrome");
-		killProcess("chromedriver");
+		//System.out.println("Killing Chrome and chromedriver");
+		//killProcess("Chrome");
+		//killProcess("chromedriver");
 		//test
 
 		/*
@@ -12613,6 +12672,16 @@ public class LDSTools {
 		
 	}
 	
+	@AfterClass(alwaysRun = true)
+	public void afterClass() throws Exception {
+		driver.quit();
+		STFService mySTFService = new STFService("http://10.109.45.162:7100", "aae7b8255b4a49368618fc0d4fa0e943e3d5df77ab444a1987b6f757b2762982");
+		DeviceApi myDevice = new DeviceApi(mySTFService);
+		System.out.println("SERIAL NUMBER: " + deviceSerial);
+		myDevice.releaseDevice(deviceSerial);
+		
+	}
+	
 	@AfterSuite(alwaysRun = true)
 	public void afterAllTests() throws Exception {
 		System.out.println("Stopping the driver");
@@ -12633,9 +12702,12 @@ public class LDSTools {
 			
 		}
 		
-
+		System.out.println("Killing Chrome and chromedriver");
+		killProcess("Chrome");
+		killProcess("chromedriver");
 		
 		//myAppiumService.stop();
+		newAppiumService.stopAppiumService();
 		Thread.sleep(4000);
 		System.out.println("Killing the Appium Service");
 		killProcess("main.js");
