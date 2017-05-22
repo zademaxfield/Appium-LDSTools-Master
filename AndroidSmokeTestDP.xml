@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Android Smoke Test suite" configfailurepolicy="continue" parallel="tests"  thread-count="2">
+	<parameter name="os" value="android" />
+	<parameter name="fileName" value="ldstools-alpha.apk" />
+	<parameter name="testDevice" value="STF-Pool" />
+	
+	<test name="TEST1" thread-count="2" parallel="instances">
+	    <parameter name="os" value="android" />
+	    <parameter name="fileName" value="ldstools-alpha.apk" />
+	    <parameter name="testDevice" value="STF-Pool" />
+	    <parameter name="startSleepTime" value="1000" />
+
+		<classes>
+		    <class name="LDSTest.LDSTools">
+		    	<methods>
+		    	    <include name="Bishopric1stCounselorDirectory" />
+		    	    <include name="Bishopric1stCounselorMissionary" />
+		    	</methods>   
+		    </class>
+		</classes>     
+	</test> <!-- TEST1 -->
+	
+	<test name="TEST2" thread-count="2" parallel="instances">
+	    <parameter name="os" value="android" />
+	    <parameter name="fileName" value="ldstools-alpha.apk" />
+	    <parameter name="testDevice" value="STF-Pool" />
+		<parameter name="startSleepTime" value="20000" />
+		
+		<classes>	    
+		    <class name="LDSTest.LDSTools">
+		    	<methods>
+		    	    <include name="Bishopric2ndCounselorDirectory" />
+		    	    <include name="Bishopric2ndCounselorMissionary" />
+		    	</methods>   
+		    </class>
+		</classes>     
+	</test> <!--TEST2 -->
+	
+</suite> <!-- Default suite -->
