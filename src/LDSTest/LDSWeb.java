@@ -2965,8 +2965,8 @@ public class LDSWeb {
 	public void tearDown() throws Exception {
 		driver.quit();
 		Thread.sleep(2000);
-		killProcess("chromedriver");
-		killProcess("\"Google Chrome\"");
+		//killProcess("chromedriver");
+		//killProcess("\"Google Chrome\"");
 		
 	}
 	
