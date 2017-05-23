@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Android All Tests suite" configfailurepolicy="continue" parallel="tests"  thread-count="4">	
+	<listeners>
+	    <listener class-name="LDSTest.RetryListener"/>
+	    <listener class-name= "LDSTest.CustomReporter" />
+	    <listener class-name="LDSTest.TestListener" />
+	</listeners>
+	
+	<test name="All Test 1" thread-count="4" parallel="instances">
+	    <parameter name="os" value="android" />
+	    <parameter name="fileName" value="ldstools-alpha.apk" />
+	    <parameter name="testDevice" value="STF-Pool" />
+	    <parameter name="startSleepTime" value="1000" />
+
+		<groups>
+		    <run>
+		        <include name="all1"/>
+		    </run>
+		</groups>
+		
+		<classes>
+		    <class name="LDSTest.LDSTools"/>
+		    <class name="LDSTest.LDSTools$Retry"/>      
+		</classes>
+	</test> 
+	
+	<test name="All Test 2" thread-count="4" parallel="instances">
+	    <parameter name="os" value="android" />
+	    <parameter name="fileName" value="ldstools-alpha.apk" />
+	    <parameter name="testDevice" value="STF-Pool" />
+	    <parameter name="startSleepTime" value="15000" />
+
+		<groups>
+		    <run>
+		        <include name="all2"/>
+		    </run>
+		</groups>
+		
+		<classes>
+		    <class name="LDSTest.LDSTools"/>
+		    <class name="LDSTest.LDSTools$Retry"/>      
+		</classes>
+	</test> 
+	
+	<test name="All Test 3" thread-count="4" parallel="instances">
+	    <parameter name="os" value="android" />
+	    <parameter name="fileName" value="ldstools-alpha.apk" />
+	    <parameter name="testDevice" value="STF-Pool" />
+	    <parameter name="startSleepTime" value="30000" />
+
+		<groups>
+		    <run>
+		        <include name="all3"/>
+		    </run>
+		</groups>
+		
+		<classes>
+		    <class name="LDSTest.LDSTools"/>
+		    <class name="LDSTest.LDSTools$Retry"/>      
+		</classes>
+	</test> 
+	
+	<test name="All Test 4" thread-count="4" parallel="instances">
+	    <parameter name="os" value="android" />
+	    <parameter name="fileName" value="ldstools-alpha.apk" />
+	    <parameter name="testDevice" value="STF-Pool" />
+	    <parameter name="startSleepTime" value="45000" />
+
+		<groups>
+		    <run>
+		        <include name="all4"/>
+		    </run>
+		</groups>
+		
+		<classes>
+		    <class name="LDSTest.LDSTools"/>
+		    <class name="LDSTest.LDSTools$Retry"/>      
+		</classes>
+	</test> 
+</suite> 
