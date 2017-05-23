@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Android Smoke Test suite" configfailurepolicy="continue" parallel="tests"  thread-count="2">	
+	<listeners>
+	    <listener class-name="LDSTest.RetryListener"/>
+	    <listener class-name= "LDSTest.CustomReporter" />
+	    <listener class-name="LDSTest.TestListener" />
+	</listeners>
+	
+	<test name="Smoke Test 1" thread-count="2" parallel="instances">
+	    <parameter name="os" value="android" />
+	    <parameter name="fileName" value="ldstools-alpha.apk" />
+	    <parameter name="testDevice" value="STF-Pool" />
+	    <parameter name="startSleepTime" value="1000" />
+
+		<groups>
+		    <run>
+		        <include name="smoke1"/>
+		    </run>
+		</groups>
+		
+		<classes>
+		    <class name="LDSTest.LDSTools"/>
+		    <class name="LDSTest.LDSTools$Retry"/>      
+		</classes>
+	</test> <!-- Smoke Test 1-->
+	
+		<test name="Smoke Test 2" thread-count="2" parallel="instances">
+	    <parameter name="os" value="android" />
+	    <parameter name="fileName" value="ldstools-alpha.apk" />
+	    <parameter name="testDevice" value="STF-Pool" />
+	    <parameter name="startSleepTime" value="15000" />
+
+		<groups>
+		    <run>
+		        <include name="smoke2"/>
+		    </run>
+		</groups>
+		
+		<classes>
+		    <class name="LDSTest.LDSTools"/>
+		    <class name="LDSTest.LDSTools$Retry"/>      
+		</classes>
+	</test> <!-- Smoke Test 2 -->
+</suite> <!-- Default suite -->
