@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Smoke Test suite" configfailurepolicy="continue">
-    <parameter name="os" value="ios" />
-    <parameter name="fileName" value="LDS Tools.app" />
-	<parameter name="testDevice" value="iPhone 7" />
-	
 	 <listeners>
 	    <listener class-name="LDSTest.RetryListener"/>
 	    <listener class-name= "LDSTest.CustomReporter" />
@@ -15,6 +11,7 @@
 		<parameter name="os" value="ios" />
 		<parameter name="fileName" value="LDS Tools.app" />
 		<parameter name="testDevice" value="iPhone 7" />
+		<parameter name="startSleepTime" value="1000" /> 
 		
 		<groups>
 		    <run>
