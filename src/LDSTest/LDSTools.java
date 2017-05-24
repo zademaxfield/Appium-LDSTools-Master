@@ -485,7 +485,7 @@ public class LDSTools {
 		//editOtherUserInvalidEmail(os);
 		
 		
-		editVisibility(os);
+		//editVisibility(os);
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
@@ -504,7 +504,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		//LeaderBishopricDirectory("ngiBPC1", false, os);
+		LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
@@ -5847,6 +5847,7 @@ public class LDSTools {
 		String myOs;
 		myOs = driver.getCapabilities().getPlatform().toString();
 		myOs = myOs.toLowerCase();
+		//System.out.println("OS: " + myOs);
 		if (myOs.equals("any")) {
 			myOs = "android";
 		}
@@ -7818,6 +7819,7 @@ public class LDSTools {
 		String pageSource;
 		//Search for logged in user
 		searchForUser("Aaron, Jane");
+		
 		
 		if (getRunningOS().equals("mac")) {
 			if (fullName == false ) {
@@ -10410,23 +10412,21 @@ public class LDSTools {
 			
 			//printPageSource();
 			//clickButtonByName(userToSearch);
-			
+			printPageSource();
+			clickButton(userToSearch, "byName", "byName");
+			//This is a bug - remove when bug is fixed
+			clickButton(userToSearch, "byName", "byName");
+			/*
 			myElement = driver.findElement(By.name(userToSearch));
-			//myElement = driver.findElement(By.xpath("//XCUIElementTypeApplication/XCUIElementTypeWindow/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText[@label='" + userToSearch + "']"));
-			//myElement.click();
-			
-			//driver.tap(1, myElement, 200);
 			TouchAction myAction = new TouchAction(driver);
-			
-
 			Point myPoint = myElement.getLocation();
 			//System.out.println("X Point: " + myPoint.x);
 			//System.out.println("Y Point: " + myPoint.y);
 			//driver.tap(1, myPoint.x, myPoint.y, 200);
-			
 			myAction.press(myPoint.x, myPoint.y).release();
 			driver.performTouchAction(myAction);
-
+			*/
+			
 			//clickButtonByNameMultiple(userToSearch, 0);
 
 			
