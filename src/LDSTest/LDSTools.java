@@ -485,7 +485,7 @@ public class LDSTools {
 		//editOtherUserInvalidEmail(os);
 		
 		
-		//editVisibility(os);
+		editVisibility(os);
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
@@ -504,7 +504,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		LeaderBishopricDirectory("ngiBPC1", false, os);
+		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
@@ -512,7 +512,7 @@ public class LDSTools {
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//LeaderBishopricReport("ngiBPC2", false, os); //Bishopric 2nd Counselor  
 		
-		
+		//AssistantWardClerkMembershipReport(os);
 		
 		
 		//Not clearing the username and password on iOS
@@ -11087,7 +11087,7 @@ public class LDSTools {
 			clickButton("AlertOK", "xpath", "xpath");
 			
 			Thread.sleep(4000);
-			waitForTextToDisappearTEXT("connection", 500 );
+			waitForTextToDisappearTEXT("UAT", 500 );
 			Thread.sleep(2000);
 		}
 
