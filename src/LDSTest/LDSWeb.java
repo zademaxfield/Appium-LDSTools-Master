@@ -161,7 +161,7 @@ public class LDSWeb {
 		
 		openPageLogIn(url, userName, passWord);
 		
-		//setupMembers();
+		setupMembers();
 		setupAJcalling();
 		setupCallings();
 		setupDistricts();
