@@ -10412,7 +10412,7 @@ public class LDSTools {
 			
 			//printPageSource();
 			//clickButtonByName(userToSearch);
-			printPageSource();
+			//printPageSource();
 			clickButton(userToSearch, "byName", "byName");
 			//This is a bug - remove when bug is fixed
 			clickButton(userToSearch, "byName", "byName");
