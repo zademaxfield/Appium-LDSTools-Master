@@ -2959,6 +2959,10 @@ public class LDSWeb {
 		
 	}
 	
+	public void isRunning() throws Exception {
+		//driver.getTitle();
+		System.out.println("Chrome Title: " + driver.getTitle());
+	}
 
 	
 	@After
@@ -2969,6 +2973,8 @@ public class LDSWeb {
 		//killProcess("\"Google Chrome\"");
 		
 	}
+	
+	
 	
 	@Before
 	public void openGuiMap() {
