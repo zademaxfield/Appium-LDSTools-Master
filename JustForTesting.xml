@@ -7,7 +7,7 @@
 	  <parameter name="os" value="ios" />
 	  <parameter name="fileName" value="LDS Tools.app" />
 	  <parameter name="testDevice" value="iPhone 7" />
-	  <parameter name="startSleepTime" value="1000" />  
+	  <parameter name="startSleepTime" value="0200" />  
       
       <groups>
           <run>
