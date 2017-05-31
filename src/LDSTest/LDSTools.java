@@ -7478,8 +7478,8 @@ public class LDSTools {
 			unitsToSync();
 			
 			//waitForTextToDisappear("DownloadingSync", 500 );
-			//waitForTextToDisappearTEXT(chooseNetwork, 500 );
-			waitForTextToDisappearPopUp(chooseNetwork, 500 );
+			waitForTextToDisappearTEXT(chooseNetwork, 500 );
+			//waitForTextToDisappearPopUp(chooseNetwork, 500 );
 			Thread.sleep(8000);
 		}
 	}
@@ -10414,8 +10414,10 @@ public class LDSTools {
 			//clickButtonByName(userToSearch);
 			//printPageSource();
 			clickButton(userToSearch, "byName", "byName");
+			
+			
 			//This is a bug - remove when bug is fixed
-			clickButton(userToSearch, "byName", "byName");
+			//clickButton(userToSearch, "byName", "byName");
 			/*
 			myElement = driver.findElement(By.name(userToSearch));
 			TouchAction myAction = new TouchAction(driver);
@@ -12643,7 +12645,7 @@ public class LDSTools {
 			
 			//driver.quit();
 		}
-		
+		//myWeb.isRunning();
 		
 		//System.out.println("Killing Chrome and chromedriver");
 		//killProcess("Chrome");
@@ -12661,7 +12663,7 @@ public class LDSTools {
 			driver.quit();
 		}
 		
-
+		
 		
 		myAppiumService.stop();
 		Thread.sleep(4000);
