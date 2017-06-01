@@ -478,7 +478,7 @@ public class LDSTools {
 		//bishopMemberOfSeparateStake(os);	
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
-		//editCurrentUser(os);	
+		editCurrentUser(os);	
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
@@ -506,7 +506,7 @@ public class LDSTools {
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
-		LeaderBishopricReport("ngiBPC1", false, os);
+		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
@@ -11066,7 +11066,7 @@ public class LDSTools {
 			
 			//waitForTextToDisappear("DownloadingSync", 500 );
 			//waitForTextToDisappear("connection", 500 );
-			waitForTextToDisappearTEXT("connection", 500 );
+			waitForTextToDisappearTEXT("UAT", 500 );
 
 			Thread.sleep(4000);
 			
@@ -11074,6 +11074,11 @@ public class LDSTools {
 				System.out.println("Enter Current Passcode Found!");
 				pinPage("1", "1", "3", "3", true);
 			}
+			
+			//if (checkElementReturn("Create New Passcode", "text", "contValue")) {
+			//	System.out.println("Create New Passcode Found!");
+			//	pinPage("1", "1", "3", "3", true);
+			//}
 			//pinPage("1", "1", "3", "3", true);
 			
 		} else {
