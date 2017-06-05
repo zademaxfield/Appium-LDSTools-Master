@@ -2,8 +2,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="medium test suite" configfailurepolicy="continue">
     <parameter name="os" value="ios" />
-    <parameter name="fileName" value="LDS Tools.app" />
-	<parameter name="testDevice" value="iPhone 7" />
 		      
      <listeners>
          <listener class-name="LDSTest.RetryListener"/>

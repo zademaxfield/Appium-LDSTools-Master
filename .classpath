@@ -4,11 +4,15 @@
 	<classpathentry kind="src" path="ConfigFiles"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="/Users/zmaxfield/Selenium/selenium-server-standalone-2.46.0.jar"/>
-	<classpathentry kind="lib" path="/Users/zmaxfield/Selenium/selendroid-client-0.10.0.jar"/>
+	<classpathentry kind="lib" path="/Users/zmaxfield/Documents/workspace/Appium-LDSTools-Master/ExternalJars/selenium-server-standalone-3.2.0.jar"/>
+	<classpathentry kind="lib" path="/Users/zmaxfield/Documents/workspace/Appium-LDSTools-Master/ExternalJars/selendroid-client-0.17.0.jar"/>
 	<classpathentry kind="lib" path="/Users/zmaxfield/Selenium/javax.jar"/>
 	<classpathentry kind="lib" path="/Users/zmaxfield/Selenium/javax.mail.jar"/>
-	<classpathentry kind="lib" path="/Users/zmaxfield/Selenium/java-client-3.4.0.jar"/>
 	<classpathentry kind="lib" path="/Users/zmaxfield/Selenium/jsoup-1.9.2.jar"/>
+	<classpathentry kind="lib" path="/Users/zmaxfield/Documents/workspace/Appium-LDSTools-Master/ExternalJars/commons-validator-1.6.jar"/>
+	<classpathentry kind="lib" path="/Users/zmaxfield/Documents/workspace/Appium-LDSTools-Master/ExternalJars/java-client-5.0.0-BETA6.jar"/>
+	<classpathentry kind="con" path="org.testng.TESTNG_CONTAINER"/>
+	<classpathentry kind="lib" path="/Users/zmaxfield/Documents/workspace/Appium-LDSTools-Master/ExternalJars/okhttp-3.7.0.jar"/>
+	<classpathentry kind="lib" path="/Users/zmaxfield/Documents/workspace/Appium-LDSTools-Master/ExternalJars/okio-1.12.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

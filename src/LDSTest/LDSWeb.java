@@ -45,6 +45,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.*;
 import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.SessionId;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -56,6 +58,7 @@ public class LDSWeb {
 	WebDriver driver;
 	private Properties prop;
 	private String myWindow;
+	private String driverRunning = null;
 	
 
 	public static void main(String[] args) {
@@ -66,7 +69,7 @@ public class LDSWeb {
 	@Before
     public void setUp() throws Exception {
 		//Moved setUp stuff to openWebPage - seems to work better this way. 
-
+		driverRunning = "Running";
 
 	
 		//driver = new FirefoxDriver();
@@ -2959,15 +2962,20 @@ public class LDSWeb {
 		
 	}
 	
-	public void isRunning() throws Exception {
-		//driver.getTitle();
-		System.out.println("Chrome Title: " + driver.getTitle());
+	public String isRunning() throws Exception {
+		String runningStatus = null;
+
+		runningStatus = driverRunning;
+		System.out.println("Running Status: " + runningStatus);
+		
+		return runningStatus;
 	}
 
 	
 	@After
 	public void tearDown() throws Exception {
 		driver.quit();
+		driverRunning = null;
 		Thread.sleep(2000);
 		//killProcess("chromedriver");
 		//killProcess("\"Google Chrome\"");

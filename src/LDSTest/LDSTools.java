@@ -478,7 +478,7 @@ public class LDSTools {
 		//bishopMemberOfSeparateStake(os);	
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
-		editCurrentUser(os);	
+		//editCurrentUser(os);	
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
@@ -505,7 +505,7 @@ public class LDSTools {
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
-		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
+		LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
@@ -12582,6 +12582,7 @@ public class LDSTools {
 	@AfterMethod(alwaysRun = true)
 	@Parameters({"os", "fileName", "testDevice", "startSleepTime"})
 	public void teardown(ITestResult result, String os, String fileName, String testDevice, int startSleepTime) throws Exception {
+		System.out.println("Start teardown");
 		// Here will compare if test is failing then only it will enter into if condition
 		if(ITestResult.FAILURE==result.getStatus()) {
 			//printPageSource();
@@ -12675,8 +12676,16 @@ public class LDSTools {
 		System.out.println("Killing the Appium Service");
 		killProcess("main.js");
 		*/
-
 		
+		System.out.println("Check to see if web is running");
+		
+		if (myWeb.isRunning() == null) {
+			System.out.println("Web is not running!");
+		} else {
+			myWeb.tearDown();
+		}
+
+		System.out.println("End teardown");
 	}
 	
 	@AfterClass(alwaysRun = true)
@@ -12964,7 +12973,7 @@ public class LDSTools {
 
 
 	@Parameters({"os"})
-	@BeforeMethod(alwaysRun = true)
+	@BeforeSuite(alwaysRun = true)
 	public void openGuiMap(String os) {
 		FileInputStream fileInput = null;
 		
