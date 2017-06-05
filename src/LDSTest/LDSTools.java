@@ -504,8 +504,8 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		//LeaderBishopricDirectory("ngiBPC1", false, os);
-		LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
+		LeaderBishopricDirectory("ngiBPC1", false, os);
+		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
@@ -12973,7 +12973,7 @@ public class LDSTools {
 
 
 	@Parameters({"os"})
-	@BeforeSuite(alwaysRun = true)
+	@BeforeClass(alwaysRun = true)
 	public void openGuiMap(String os) {
 		FileInputStream fileInput = null;
 		
