@@ -504,7 +504,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		LeaderBishopricDirectory("ngiBPC1", false, os);
+		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
@@ -516,7 +516,7 @@ public class LDSTools {
 		
 		
 		//Not clearing the username and password on iOS
-		//invalidLoginCheck(os);	
+		invalidLoginCheck(os);	
 		
 		//searchForUsersFromWeb(os);
 
@@ -4340,7 +4340,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"header", "medium", "myTest", "all4"}, priority = 1)
+	@Test (groups= {"header", "all4"}, priority = 1)
 	public void CliffHigby(String os) throws Exception {
 		//List<String> StakeWard = new ArrayList<String>();
 		loginProxyData("295740465",
@@ -5056,6 +5056,7 @@ public class LDSTools {
 		String loginName = "LDSTools2";
 		String loginPassword = "toolstester";
 		String chooseNetwork = "UAT";
+		String myStake;
 		
 		List<String> StakeWard = new ArrayList<String>();
 		List<MobileElement> options = new ArrayList<MobileElement>();
@@ -5165,10 +5166,11 @@ public class LDSTools {
 			clickButton("Fatuvalu Ward", "value", "value");
 			
 			clickButton("SyncButton", "xpath", "xpath");
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 			
 			//waitForTextToDisappearTEXT("UAT", 500 );
-			waitForTextToDisappearPopUp("UAT", 500 );
+			//waitForTextToDisappearPopUp("UAT", 500 );
+			waitForTextToDisappearTEXT("UAT", 500 );
 			//waitForTextToDisappear("DownloadingSync", 500 );
 			Thread.sleep(5000);
 			pinPage("1", "1", "3", "3", true);
@@ -5179,10 +5181,13 @@ public class LDSTools {
 			//options= driver.findElements(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIATableView[1]/UIATableCell/UIAStaticText"));
 			options= driver.findElements(By.xpath("//XCUIElementTypeApplication/XCUIElementTypeWindow/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText"));
 			for (int i = 0 ; i < options.size(); i++ ) {
-				System.out.println(options.get(i).getText());
-				StakeWard.add(options.get(i).getText());
+				myStake = options.get(i).getText();
+				myStake = myStake.trim();
+				//System.out.println("Found List: " + i + " " + myStake);
+				StakeWard.add(myStake);
 			}
 			clickButtonByXpath("TopCancel");
+			Thread.sleep(2000);
 			
 			Assert.assertTrue(StakeWard.size() == 3);
 			Assert.assertTrue(StakeWard.contains("Fagamalo 1st Ward"));
@@ -5196,10 +5201,13 @@ public class LDSTools {
 				//System.out.println("Hit spinner");
 				Thread.sleep(2000);
 				clickButtonByXpath("SpinnerSubTitle");
+				
 				Thread.sleep(2000);
 				//System.out.println("To Click: " + StakeWardItem);	
 
-				clickButtonByXpathTitleName(StakeWardItem);
+				//clickButtonByXpathTitleName(StakeWardItem);
+				//printPageSource();
+				clickButton(StakeWardItem, "text", "nameContains");
 				//displayAllTextViewElements();
 				Thread.sleep(2000);
 				//This will check to see if the first user has text.  
@@ -7472,7 +7480,7 @@ public class LDSTools {
 			//clickButtonByXpath("DoneButton");
 			clickButtonByXpath("SignInButton");
 
-			Thread.sleep(5000);
+			Thread.sleep(2000);
 			
 			
 			unitsToSync();
@@ -8554,7 +8562,7 @@ public class LDSTools {
 		clickButtonByXpathTitleName("New Members");
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Manuloto, Aofia", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("20", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("21", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("F", pageSource, "Contains"));
 		if (newUnit == true){
 			Assert.assertTrue(checkNoCaseList("September 11, 2016", pageSource, "Contains"));
