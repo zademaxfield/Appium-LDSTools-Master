@@ -465,7 +465,7 @@ public class LDSTools {
 		//justForTesting(os);	
 		
 		
-		//myTempleSimpleTest(os);
+		myTempleSimpleTest(os);
 		
 
 		//LeaderNonBishopricTEST("LDSTools29", "Relief Society Pres", os);
@@ -516,7 +516,7 @@ public class LDSTools {
 		
 		
 		//Not clearing the username and password on iOS
-		invalidLoginCheck(os);	
+		//invalidLoginCheck(os);	
 		
 		//searchForUsersFromWeb(os);
 
@@ -4299,9 +4299,9 @@ public class LDSTools {
 		
 		clickButton("AlertOK", "xpath", "xpath");	
 		
-		if (getRunningOS().equals("mac")) {
-			clickButton("AlertOK", "xpath", "xpath");	
-		}
+		//if (getRunningOS().equals("mac")) {
+		//	clickButton("AlertOK", "xpath", "xpath");	
+		//}
 	}
 	
 	//TODO: Need to check more pages
@@ -11323,8 +11323,10 @@ public class LDSTools {
 	private void clearLoginPassword() throws Exception {
 		//Clear the login and password fields
 		Thread.sleep(2000);
+		//printPageSource();
 		clearTextField("LoginUsername", "id", "xpath");
 		clearTextField("LoginPassword", "id", "xpath");
+		
 		Thread.sleep(2000);
 	}
 	
