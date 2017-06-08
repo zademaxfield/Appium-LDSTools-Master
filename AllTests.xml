@@ -12,6 +12,7 @@
 		<parameter name="os" value="ios" />
 		<parameter name="fileName" value="LDS Tools.app" />
 		<parameter name="testDevice" value="iPhone 6" />
+		<parameter name="startSleepTime" value="1000" />
 		
 		<!-- Excluding Headers tests for now they are broken -->
 		<groups>
