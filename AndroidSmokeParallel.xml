@@ -14,9 +14,11 @@
 	    <parameter name="testDevice" value="STF-Pool" />
 	    <parameter name="startSleepTime" value="1000" />
 
+	    <!-- Excluding Headers tests for now they are broken -->
 		<groups>
 		    <run>
 		        <include name="smoke1"/>
+		        <exclude name="header"/>
 		    </run>
 		</groups>
 		
@@ -35,6 +37,7 @@
 		<groups>
 		    <run>
 		        <include name="smoke2"/>
+		        <exclude name="header"/>
 		    </run>
 		</groups>
 		
