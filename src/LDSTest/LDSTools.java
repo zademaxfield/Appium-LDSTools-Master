@@ -494,7 +494,7 @@ public class LDSTools {
 		//Works in IOS not in Android - need to fix the scrolling problem
 		//checkAllUsersFromWeb(os);
 		
-		LeaderNonBishopricReport("LDSTools20", "High Priest Group", os);
+		//LeaderNonBishopricReport("LDSTools20", "High Priest Group", os);
 		//LeaderNonBishopricHTVT("LDSTools20", "High Priest Group", os);
 		//LeaderNonBishopricDirectory("LDSTools16", "High Priest Group", os);
 		//LeaderNonBishopricDirectory("LDSTools39", "Ward Council", os);
@@ -516,7 +516,7 @@ public class LDSTools {
 		
 		
 		//Not clearing the username and password on iOS
-		//invalidLoginCheck(os);	
+		invalidLoginCheck(os);	
 		
 		//searchForUsersFromWeb(os);
 
@@ -3118,7 +3118,9 @@ public class LDSTools {
 
 		pressBackKey();
 		if (!getRunningOS().equals("mac")) {
-			clickButton("DISCARD", "textAtt", "xpath");
+			Thread.sleep(2000);
+			clickButtonByXpathTitleNameNoCase("DISCARD");
+			//clickButton("DISCARD", "textAtt", "xpath");
 		} 
 	}
 	
@@ -8409,7 +8411,7 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Members Moved In");
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Kitara", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Patiole", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("February", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Skywalker, Luke", pageSource, "Equals"));
 
