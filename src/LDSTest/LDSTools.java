@@ -494,6 +494,7 @@ public class LDSTools {
 		//Works in IOS not in Android - need to fix the scrolling problem
 		//checkAllUsersFromWeb(os);
 		
+		//AssistantWardClerkMembershipDirectory(os);
 		//LeaderNonBishopricReport("LDSTools20", "High Priest Group", os);
 		//LeaderNonBishopricHTVT("LDSTools20", "High Priest Group", os);
 		//LeaderNonBishopricDirectory("LDSTools16", "High Priest Group", os);
@@ -10339,6 +10340,7 @@ public class LDSTools {
 				clickButtonByXpath("VisibilityHousehold");
 				Thread.sleep(2000);
 				clickButtonByXpath("EditAllVisibility");
+				//printPageSource();
 				clickButtonByXpath("StakeVisibility");
 				Thread.sleep(1000);
 				clickButtonByXpath("DoneButton");
