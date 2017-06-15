@@ -505,10 +505,10 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		LeaderBishopricDirectory("ngiBPC1", false, os);
+		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
-		//LeaderBishopricHTVT("ngiBPC1", false, os); 
+		LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//LeaderBishopricReport("ngiBPC2", false, os); //Bishopric 2nd Counselor  
@@ -9776,7 +9776,7 @@ public class LDSTools {
 			}
 
 			Thread.sleep(2000);
-			Assert.assertTrue(checkElementReturn("AFPMisc, Member15", "textAtt", "value"));
+			//Assert.assertTrue(checkElementReturn("AFPMisc, Member15", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("AFPTen, Husband", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("AFPSix, Husband", "textAtt", "value"));
 			
@@ -9816,7 +9816,7 @@ public class LDSTools {
 			Thread.sleep(1000);
 			//Assert.assertTrue(checkElementReturn("Apofasa, Sasa'a", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("AFPSix, Husband", "textAtt", "value"));
-			Assert.assertTrue(checkElementReturn("AFPMisc, Member15", "textAtt", "value"));
+			//Assert.assertTrue(checkElementReturn("AFPMisc, Member15", "textAtt", "value"));
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
 			}
@@ -9927,7 +9927,7 @@ public class LDSTools {
 			}
 			Thread.sleep(1000);
 			//checkTextByXpath("HTVTFiltersApplied", "Single Sisters 31 and over");
-			Assert.assertTrue(checkElementReturn("AFPMisc, Member15", "textAtt", "value"));
+			//Assert.assertTrue(checkElementReturn("AFPMisc, Member15", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("AFPSix, Husband", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("AFPTen, Husband", "textAtt", "value"));
 			if (!getRunningOS().equals("mac")) {
