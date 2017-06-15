@@ -164,9 +164,9 @@ public class LDSWeb {
 		
 		openPageLogIn(url, userName, passWord);
 		
-		setupMembers();
-		setupAJcalling();
-		setupCallings();
+		//setupMembers();
+		//setupAJcalling();
+		//setupCallings();
 		setupDistricts();
 		addCompanionHousehold();
 		addJaneAaronToClass();
@@ -227,6 +227,7 @@ public class LDSWeb {
 		addHouseholdHTVT("lds38");
 		addHouseholdHTVT("lds28");
 		addHouseholdHTVT("lds29");
+		addHouseholdHTVT("aaron");
 		
 		//clickElement("MemberSave", "xpath");
 		clickDistrictSaveButton("District 1");
@@ -464,7 +465,7 @@ public class LDSWeb {
 		addMemberToOrg("lds51");
 		addMemberToOrg("lds31");
 		addMemberToOrg("lds32");
-		 
+		
 		
 		clickElement("Organizations", "linkText");
 		Thread.sleep(4000);
@@ -480,6 +481,7 @@ public class LDSWeb {
 		addMemberToOrg("lds30");
 		addMemberToOrg("lds52");
 		addMemberToOrg("lds53");
+		
 		
 		addMemberToOrg("aaron");
 		
