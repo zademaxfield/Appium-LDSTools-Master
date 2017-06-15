@@ -505,7 +505,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		//LeaderBishopricDirectory("ngiBPC1", false, os);
+		LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
@@ -517,7 +517,7 @@ public class LDSTools {
 		
 		
 		//Not clearing the username and password on iOS
-		invalidLoginCheck(os);	
+		//invalidLoginCheck(os);	
 		
 		//searchForUsersFromWeb(os);
 
@@ -583,12 +583,33 @@ public class LDSTools {
 	public void justForTesting(String os) throws Exception {
 
 		//List<String> StakeWard = new ArrayList<String>();
-		syncLogIn("LDSTools21", "password1", "UAT", os );
+		syncLogIn("LDSTools60", "testpassword1", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
 
 		Thread.sleep(2000);
-		checkAllWardDirectories();
+		openSyncPage();
 		
+		//Check Status of Additional Units Button 
+		
+		if (checkTextContainsReturn("IncludeAdditionalUnit", "OFF", "id", "xpath" ) == 1 ) {
+			//Switch is off
+			clickButton("IncludeAdditionalUnit", "id", "xpath");
+		}
+		
+		//Click the search button to get rid of the helper screen
+		clickButton("SearchUnitImage", "id", "xpath");
+		//Click it again to go to the search screen
+		clickButton("SearchUnitImage", "id", "xpath");
+		Thread.sleep(1000);
+		
+		//Search for a Unit
+		sendTextbyID("AddUnitFind", "Vernal 4th");
+		
+		//May need to click the OK button... may not
+		
+		//Select the found unit
+		addUnitSelectFoundUnit("Vernal");
+
 		
 		/*  //List Test
 		// Some of the list buttons are not showing up in page source
@@ -6633,6 +6654,14 @@ public class LDSTools {
 		}
 	}
 	
+	public void addUnitSelectFoundUnit(String unitToClick) throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+
+		WebElement myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("'//android.widget.ViewGroup//*[contains(@text, \"" + unitToClick + "\")]'")));
+		myElement.click();
+		//driver.findElement(By.xpath(this.prop.getProperty(textElement))).click();
+	}
+	
 	private void clickDirectoryUserIOS(String textElement ) {
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		WebElement myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//UIATableCell/UIAStaticText[contains(@name, '" + textElement + "')]")));
@@ -11047,6 +11076,33 @@ public class LDSTools {
 			clickButtonByXpath("DrawerSettings");
 		}
 	}
+	
+	private void openSyncPage() throws Exception {
+		if (getRunningOS().equals("mac")) {
+			clickButton("More", "byName", "byName");
+			
+			//Check to see if the sync page is displayed
+			if (checkElementNameReturn("Sync Now") == true) {
+				pressBackKey();
+			}
+			
+			if (checkElementNameReturn("Update") == true) {
+				clickButton("Update", "byName", "byName");
+			} else {
+				clickButton("Sync", "byName", "byName");
+			}
+
+		} else {
+			clickButtonByXpath("Drawer");
+			if (checkElementReturn("Later", "textAtt", "value") == true ) {
+				clickButtonByXpathTitleName("Later");
+			}
+			scrollDown("Sync", -5 );
+		}
+
+	}
+	
+	
 	
 	private void runSync() throws Exception {
 		if (getRunningOS().equals("mac")) {
