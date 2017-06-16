@@ -142,6 +142,7 @@ import static org.junit.Assert.assertNotNull;
  * STF-03aadbed215c8e5f Nexus 5
  * STF-05157df5a1394b1c Samsung Galaxy 6S Edge
  * STF-HT43CWM01647 HTC One M8
+ * STF-HT6AN0200005 Pixel XL
  * 
  */
 
@@ -506,9 +507,9 @@ public class LDSTools {
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
-		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
+		LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
-		LeaderBishopricHTVT("ngiBPC1", false, os); 
+		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//LeaderBishopricReport("ngiBPC2", false, os); //Bishopric 2nd Counselor  
@@ -5475,21 +5476,33 @@ public class LDSTools {
 	 * @param textElement - Text to search for
 	 * @return - true if element is found, false if not
 	 */
-	private Boolean checkElementTextViewReturnContains(String textElement) {
+	private Boolean checkElementTextViewReturnContains(String textElement) throws Exception {
+		String myPageSource;
 		Boolean myReturnStatus;
-		List<MobileElement> options;
+		//List<MobileElement> options;
+		
+		myPageSource = driver.getPageSource();
+		
 		//List<MobileElement> options= driver.findElements(By.xpath("//TextView[contains(@value,'" + textElement + "')]"));
-		if (getRunningOS().equals("mac")) {
-			options= driver.findElements(By.xpath("//*[contains(@value,'" + textElement + "')]"));
-		} else {
-			options= driver.findElements(By.xpath("//android.widget.TextView[contains(@text,'" + textElement + "')]"));
-		}
+		//if (getRunningOS().equals("mac")) {
+		//	options= driver.findElements(By.xpath("//*[contains(@value,'" + textElement + "')]"));
+		//} else {
+			//options= driver.findElements(By.xpath("//android.widget.TextView[contains(@text,'" + textElement + "')]"));
+			//options= driver.findElements(By.xpath("//*[contains(@text,'" + textElement + "')]"));
+		//}
 	
-		if (options.isEmpty()) {
-			myReturnStatus = false;	
-		} else {
+		//if (options.isEmpty()) {
+		//	myReturnStatus = false;	
+		//} else {
+		//	myReturnStatus = true;
+		//}
+		
+		if(myPageSource.contains(textElement)) {
 			myReturnStatus = true;
+		} else {
+			myReturnStatus = false;	
 		}
+
 		
 		return myReturnStatus;
 	}
@@ -7201,13 +7214,20 @@ public class LDSTools {
 		int screenWidth = dimensions.getWidth();
 		int screenHeight = dimensions.getHeight();
 		
-		//System.out.println("Trying to move!");
-		//System.out.println("Width: " + screenWidth);
-		//System.out.println("Height: " + screenHeight);
+		System.out.println("Screen Dimensions");
+		System.out.println("Width: " + screenWidth);
+		System.out.println("Height: " + screenHeight);
 		
 		screenWidth = screenWidth / 2;
 		//screenWidth = screenWidth - 75;
 		screenHeight = (int) (screenHeight / 1.5);
+		
+		
+		System.out.println("Pressing At");
+		System.out.println("Width: " + screenWidth);
+		System.out.println("Height: " + screenHeight);
+		System.out.println("Scroll Distance: " + scrollDistance);
+		
 		
 		TouchAction actions = new TouchAction(driver);
 		actions.press(screenWidth, screenHeight).moveTo(0, scrollDistance).release().perform();
@@ -7835,6 +7855,8 @@ public class LDSTools {
 				clickButtonByXpath("AlertOK");
 			}
 		} else {
+			Thread.sleep(2000);
+			//Assert.assertTrue(checkElementTextViewReturnContains("valid email address"));
 			Assert.assertTrue(checkElementTextViewReturnContains("valid email address"));
 		}
 	}
@@ -8613,7 +8635,7 @@ public class LDSTools {
 			//Temple Recommend Status
 			clickButtonByXpathTitleName("Temple Recommend Status");
 			pageSource = getSourceOfPage();
-			Assert.assertTrue(checkNoCaseList("AFPMisc, Member15", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("AFPSix, Husband", pageSource, "Contains"));
 			Assert.assertFalse(checkNoCaseList("Ahsoka, Tano", pageSource, "Contains"));
 			//Assert.assertTrue(checkElementTextViewReturn("Expired"));
 			
@@ -10384,6 +10406,7 @@ public class LDSTools {
 			if ((myCheck == 1)) {
 				clickButtonByXpathTitleNameNoCase("Privacy");
 				//clickButtonByXpathTitleName("Household Visibility Limit");
+				Thread.sleep(1000);
 				clickButton("HouseholdVisibilityLimit", "xpath", "xpath");
 				Thread.sleep(2000);
 				clickButton("RadioStake", "id", "xpath");
@@ -10620,7 +10643,7 @@ public class LDSTools {
 				if ((oneUser.contains("Jr")) || (oneUser.contains("Salvador")) || (oneUser.contains("Junior") || (oneUser.contains("Farley")
 						|| (oneUser.contains("Raymundo") || (oneUser.contains("Sarwar") ||(oneUser.contains("Dylan") || (oneUser.contains("Siteni") 
 						|| (oneUser.contains("Ah Kam") || (oneUser.contains("Peterson") || (oneUser.contains("Latu") ||(oneUser.contains("Morgan")
-						|| (oneUser.contains("Nouata") || (oneUser.contains("Lili") ||(oneUser.contains("Wilson, Tina"))))))))))))))){
+						|| (oneUser.contains("Nouata") || (oneUser.contains("Lili") || (oneUser.contains("Lott") || (oneUser.contains("Wilson, Tina")))))))))))))))){
 					System.out.println("Skipping: " + oneUser);
 				} else {
 					Assert.assertTrue(checkNoCaseList(oneUser, pageSource, "Contains"));
@@ -12365,6 +12388,7 @@ public class LDSTools {
 
     }
     public void newScrollToElement(String myElement) throws Exception {
+    	//scrollUpTEST(500);
     	
     	if (!checkElementReturn(myElement, "text", "text")) {
     	    MobileElement list = (MobileElement) driver.findElement(By.id("org.lds.ldstools.dev:id/list"));
