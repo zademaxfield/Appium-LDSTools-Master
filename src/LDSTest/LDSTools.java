@@ -507,7 +507,7 @@ public class LDSTools {
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
-		LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
+		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
@@ -522,7 +522,7 @@ public class LDSTools {
 		
 		//searchForUsersFromWeb(os);
 
-		//checkAllUsersFromWeb(os);
+		checkAllUsersFromWeb(os);
 		//webCheckBishopric(os);
 		//webCheckEldersQuorum(os);
 		//webCheckReliefSociety(os); // Getting errors on the web page for Relief Society
@@ -5591,12 +5591,12 @@ public class LDSTools {
 		
 		//System.out.println("Check to see if web element is displayed");
 		//Check to see if the element is displayed
-		for (int i = 0 ; i < options.size(); i++ ) {
+		//for (int i = 0 ; i < options.size(); i++ ) {
 			//System.out.println(options.get(i).getText());
-			myReturnStatus = options.get(i).isDisplayed();
+			//myReturnStatus = options.get(i).isDisplayed();
 			//System.out.println(i + " My Return Status: " + myReturnStatus);
 			//allText.add(i, options.get(i).getText());
-		}
+		//}
 		
 		
 		return myReturnStatus;
@@ -10336,6 +10336,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		clickButtonByXpathTitleName("Sign Out");
 		clickButton("SignOutOK", "xpath", "xpath");
+		Thread.sleep(2000);
 		checkForAlert();
 		if (getRunningOS().equals("mac")) {
 			driver.resetApp();
@@ -10697,7 +10698,7 @@ public class LDSTools {
 					System.out.println("USER: " + oneUser);
 					if ((oneUser.contains("Jr")) || (oneUser.contains("Salvador")) || (oneUser.contains("Junior") || (oneUser.contains("Farley")
 							|| (oneUser.contains("Raymundo") || (oneUser.contains("Dylan") || (oneUser.contains("Siteni") 
-							|| (oneUser.contains("Morgan") || (oneUser.contains("Wilson, Tina"))))))))){
+							|| (oneUser.contains("Morgan") || (oneUser.contains("Lott")|| (oneUser.contains("Wilson, Tina")))))))))){
 						System.out.println("Skipping: " + oneUser);
 					} else {
 						Assert.assertTrue(androidList.contains(oneUser));
@@ -12451,7 +12452,9 @@ public class LDSTools {
 	                .IosUIAutomation(".scrollToElementWithPredicate(\"name CONTAINS '" + myElement + "'\")"));
 	        assertEquals(slider.getAttribute("name"), myElement);
 		} else {
-		    MobileElement list = (MobileElement) driver.findElement(By.id("org.lds.ldstools.dev:id/scroll_area"));
+		   // MobileElement list = (MobileElement) driver.findElement(By.id("org.lds.ldstools.dev:id/scroll_area"));
+			//printPageSource();
+		    MobileElement list = (MobileElement) driver.findElement(By.id("scroll_area"));
 		    MobileElement radioGroup = (MobileElement) list.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
 		                    + "new UiSelector().text(\"" + myElement + "\"));"));
 		    assertNotNull(radioGroup.getLocation());
