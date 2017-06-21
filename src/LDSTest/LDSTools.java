@@ -507,8 +507,8 @@ public class LDSTools {
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
-		LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
-		//LeaderBishopricReport("ngiBPC1", false, os);
+		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
+		LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
@@ -8479,7 +8479,7 @@ public class LDSTools {
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
 
-		Assert.assertTrue(checkNoCaseList("Young Yen", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Kitara", pageSource, "Contains"));
 
 		//The new unit is only available for bishop
 		if (bishop == true){
@@ -8693,7 +8693,7 @@ public class LDSTools {
 			}
 			Thread.sleep(2000);
 			pageSource = getSourceOfPage();
-			Assert.assertTrue(checkNoCaseList("Lavea, Lonise", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("Kitara, June", pageSource, "Contains"));
 			Assert.assertFalse(checkNoCaseList("Calrissian, Lando", pageSource, "Contains"));
 			//Assert.assertTrue(checkElementTextViewReturn("Mene, Matagalu"));
 			//Assert.assertFalse(checkElementTextViewReturn("Calrissian, Lando"));
