@@ -997,13 +997,13 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"medium", "bishopric", "smoke1", "smoke", "all1"}, priority = 1)
+	@Test (groups= {"medium", "bishopric", "smoke3", "smoke", "all1"}, priority = 1)
 	public void Bishopric1stCounselorReport(String os) throws Exception {
 		LeaderBishopricReport("ngiBPC1", false, os); //Bishopric 1st Counselor  
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"medium", "bishopric", "smoke2", "smoke", "all1"}, priority = 1)
+	@Test (groups= {"medium", "bishopric", "smoke4", "smoke", "all1"}, priority = 1)
 	public void Bishopric1stCounselorHTVT(String os) throws Exception {
 		LeaderBishopricHTVT("ngiBPC1", false, os); //Bishopric 1st Counselor  
 	}
