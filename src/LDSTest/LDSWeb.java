@@ -167,7 +167,7 @@ public class LDSWeb {
 		//setupMembers();
 		//setupAJcalling();
 		//setupCallings();
-		setupDistricts();
+		//setupDistricts();
 		addCompanionHousehold();
 		addJaneAaronToClass();
 	}
