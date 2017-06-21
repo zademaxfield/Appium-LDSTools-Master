@@ -507,7 +507,7 @@ public class LDSTools {
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
-		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
+		LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
@@ -522,7 +522,7 @@ public class LDSTools {
 		
 		//searchForUsersFromWeb(os);
 
-		checkAllUsersFromWeb(os);
+		//checkAllUsersFromWeb(os);
 		//webCheckBishopric(os);
 		//webCheckEldersQuorum(os);
 		//webCheckReliefSociety(os); // Getting errors on the web page for Relief Society
@@ -6122,8 +6122,6 @@ public class LDSTools {
 			clickButtonByXpathTitleName("All Relief Society Members");
 		} else {
 			clickButton("AllMembers", "xpath", "xpath");
-			
-			
 		}
 
 		
