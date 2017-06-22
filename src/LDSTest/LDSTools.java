@@ -488,7 +488,7 @@ public class LDSTools {
 		
 		//editVisibility(os);
 		//editVisibiltyPersonal(os);
-		//editVisibiltyHousehold(os);
+		editVisibiltyHousehold(os);
 		
 		//CheckUnitsToSync(os);
 		
@@ -508,7 +508,7 @@ public class LDSTools {
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
-		LeaderBishopricReport("ngiBPC1", false, os);
+		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
@@ -4048,12 +4048,19 @@ public class LDSTools {
 			clickButtonByXpath("DoneButton");
 			
 		} else {
+			Thread.sleep(2000);
+			//printPageSource();
+			clickButtonByXpathTitleNameNoCase("Photos");
+			Thread.sleep(2000);
 			clickButtonByXpathTitleNameNoCase("Privacy");
 			
 			//myScroll("Show on Map");
-			scrollDownTEST(300);
+			//scrollDownTEST(500);
+			//scrollDownTEMP(800);
 			//driver.scrollToExact("Show on Map");
-			
+			scrollToElementPrivacy("Show on Map");
+
+			printPageSource();
 			clickButton("PrivacyHouseholdPhoto", "xpath", "xpath");
 			clickButton("PrivacyPrivateVisibility", "xpath", "xpath");
 			
@@ -7065,6 +7072,31 @@ public class LDSTools {
 			actions.perform();
 			*/
 			
+			Thread.sleep(5000);
+		}
+
+		
+	}
+	
+	private void scrollDownTEMP(int scrollDistance ) throws Exception {
+		if (getRunningOS().equals("mac")) {
+			scrollDownIOS();
+		} else {
+			Dimension dimensions = driver.manage().window().getSize();
+			int screenWidth = dimensions.getWidth();
+			int screenHeight = dimensions.getHeight();
+
+			
+			//System.out.println("Trying to move!");
+			//System.out.println("Width: " + screenWidth);
+			//System.out.println("Height: " + screenHeight);
+			
+			screenWidth = screenWidth / 3;
+			screenHeight = screenHeight - 200;
+			scrollDistance = screenHeight - 100;
+
+			TouchAction actions = new TouchAction(driver);
+			actions.press(screenWidth, screenHeight).moveTo(0, -scrollDistance).waitAction(2000).release().perform();
 			Thread.sleep(5000);
 		}
 
@@ -10423,6 +10455,7 @@ public class LDSTools {
 			clickButton("PrivacyPersonalEmail", "xpath", "xpath");
 			clickButton("PrivacyStakeVisibility", "xpath", "xpath");
 			
+			Thread.sleep(1000);
 			scrollToElementPrivacy("Show on Map");
 			//driver.scrollToExact("Show on Map");
 			
@@ -10446,7 +10479,7 @@ public class LDSTools {
 		
 
 		clickButton("MenuSave", "id", "xpath");
-		Thread.sleep(2000);
+		Thread.sleep(4000);
 		editUserOpen(); 
 
 
