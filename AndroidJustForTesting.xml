@@ -8,6 +8,8 @@
       <parameter name="fileName" value="ldstools-alpha.apk" />
 	  <!-- <parameter name="testDevice" value="MyTest" /> -->
 	  <!-- <parameter name="testDevice" value="03aadbed215c8e5f" /> -->
+	  <!-- <parameter name="testDevice" value="STF-HT6AN0200005" /> -->
+	  <!-- <parameter name="testDevice" value="STF-00765a54959507be" /> -->
       <parameter name="testDevice" value="STF-Pool" />
       <parameter name="startSleepTime" value="1000" /> 
       
