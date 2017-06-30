@@ -11428,6 +11428,7 @@ public class LDSTools {
 		String myPageSource;
 		
 		//Assigned Tab
+		clickButtonByXpath("MissAssignedTab");
 		myPageSource = getSourceOfPage();
 		
 		clickButtonByXpath("MissWardTab");
