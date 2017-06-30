@@ -440,6 +440,12 @@ public class LDSTools {
 	        capabilities.setCapability("autoAcceptAlerts", true);
 	        capabilities.setCapability("clearSystemFiles", true);
 	        
+	        
+	        
+	        capabilities.setCapability("xcodeOrgId", "X555J2KHFQ");
+	        capabilities.setCapability("xcodeSigningId", "iPhoneDeveloper");
+	        capabilities.setCapability("udid","003b84623cec55b5fc7e2c7ab7e1a6e131c8bb73");
+
 	       
 	        
 	        //capabilities.setCapability("appActivity", "org.lds.ldstools.ui.StartupActivity");
@@ -488,7 +494,7 @@ public class LDSTools {
 		
 		//editVisibility(os);
 		//editVisibiltyPersonal(os);
-		editVisibiltyHousehold(os);
+		//editVisibiltyHousehold(os);
 		
 		//CheckUnitsToSync(os);
 		
@@ -506,7 +512,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		//LeaderBishopricDirectory("ngiBPC1", false, os);
+		LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
