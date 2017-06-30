@@ -49,6 +49,7 @@ import java.util.HashMap;
 //import java.util.Dictionary;
 //import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 //import java.util.Map;
 //import java.net.URL;
 import java.util.Properties;
@@ -443,8 +444,8 @@ public class LDSTools {
 	        
 	        
 	        capabilities.setCapability("xcodeOrgId", "X555J2KHFQ");
-	        capabilities.setCapability("xcodeSigningId", "iPhoneDeveloper");
-	        capabilities.setCapability("udid","003b84623cec55b5fc7e2c7ab7e1a6e131c8bb73");
+	        capabilities.setCapability("xcodeSigningId", "iPhone Developer");
+	        //capabilities.setCapability("udid","003b84623cec55b5fc7e2c7ab7e1a6e131c8bb73");
 
 	       
 	        
