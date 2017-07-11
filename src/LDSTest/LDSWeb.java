@@ -164,10 +164,10 @@ public class LDSWeb {
 		
 		openPageLogIn(url, userName, passWord);
 		
-		//setupMembers();
-		//setupAJcalling();
-		//setupCallings();
-		//setupDistricts();
+		setupMembers();
+		setupAJcalling();
+		setupCallings();
+		setupDistricts();
 		addCompanionHousehold();
 		addJaneAaronToClass();
 	}
