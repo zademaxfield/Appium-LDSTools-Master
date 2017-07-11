@@ -446,6 +446,11 @@ public class LDSTools {
 	        capabilities.setCapability("xcodeOrgId", "X555J2KHFQ");
 	        capabilities.setCapability("xcodeSigningId", "iPhone Developer");
 	        //capabilities.setCapability("udid","003b84623cec55b5fc7e2c7ab7e1a6e131c8bb73");
+	        
+	        
+	        capabilities.setCapability("allowTouchIdEnroll", true);
+	        
+	        
 
 	       
 	        
@@ -470,9 +475,9 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		//justForTesting(os);	
+		justForTesting(os);	
 		
-		
+		//additonalUnitSimpleTest(os);
 		//myTempleSimpleTest(os);
 		
 
@@ -513,7 +518,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		LeaderBishopricDirectory("ngiBPC1", false, os);
+		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
@@ -587,37 +592,68 @@ public class LDSTools {
 
 
 	
+
+	
 	
 	public void justForTesting(String os) throws Exception {
-
-		//List<String> StakeWard = new ArrayList<String>();
+		String pageSource;
 		syncLogIn("LDSTools60", "testpassword1", "UAT", os );
+		//printPageSource();
+		
+		//((PerformsTouchID) driver).performTouchID(true);
 		pinPage("1", "1", "3", "3", true);
-
 		Thread.sleep(2000);
-		openSyncPage();
-		
-		//Check Status of Additional Units Button 
-		
-		if (checkTextContainsReturn("IncludeAdditionalUnit", "OFF", "id", "xpath" ) == 1 ) {
-			//Switch is off
-			clickButton("IncludeAdditionalUnit", "id", "xpath");
-		}
-		
-		//Click the search button to get rid of the helper screen
-		clickButton("SearchUnitImage", "id", "xpath");
-		//Click it again to go to the search screen
-		clickButton("SearchUnitImage", "id", "xpath");
-		Thread.sleep(1000);
-		
-		//Search for a Unit
-		sendTextbyID("AddUnitFind", "Vernal 4th");
-		
-		//May need to click the OK button... may not
-		
-		//Select the found unit
-		addUnitSelectFoundUnit("Vernal");
+		addUnitsSync("Starcrest", "Starcrest Ward");
+		Thread.sleep(2000);
 
+		if (getRunningOS().equals("mac")){
+			clickButtonByXpath("SpinnerSubTitle");
+			Thread.sleep(2000);
+			scrollDownIOS();
+		} else {
+			clickButtonByID("SpinnerNav");
+			Thread.sleep(2000);
+			//scrollDownTEST(400);
+			myScrollUnitList("Starcrest Ward");
+			//scrollToElementUnitLists("Vernal 4th Ward");
+		}
+		//System.out.println("Open Units Done");
+		
+		
+		Thread.sleep(2000);
+		clickButton("Starcrest Ward", "text", "nameContains");
+		//clickButtonByXpathTitleName("Vernal 4th Ward");
+		Thread.sleep(2000);
+		
+		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("Ainslie", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Akhtar", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Tega", pageSource, "Contains"));
+
+		openOrgnizations();
+		clickButtonByXpathTitleName("Bishopric");
+		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("Dunkley", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Luker", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Terry", pageSource, "Contains"));
+		
+		pressBackKey();
+		
+		openReports();
+		//Members Moved In
+		clickButtonByXpathTitleName("Members Moved In");
+		Thread.sleep(1000);
+		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("Butandu", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("Skywalker, Luke", pageSource, "Contains"));
+		
+		pressBackKey();
+		
+		openMissionary();
+		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("Painter", pageSource, "Contains"));
+
+		
 		
 		/*  //List Test
 		// Some of the list buttons are not showing up in page source
@@ -5300,6 +5336,44 @@ public class LDSTools {
 		}
 	}
 	
+	@Parameters({"os"})
+	@Test (groups= {"smoke", "medium", "all1"}, priority = 1)
+	public void additonalUnitSimpleTest(String os) throws Exception {
+		String pageSource;
+		syncLogIn("LDSTools60", "testpassword1", "UAT", os );
+		//printPageSource();
+		
+		//((PerformsTouchID) driver).performTouchID(true);
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);
+		addUnitsSync("Vernal 4th", "Vernal  4th Ward");
+		Thread.sleep(2000);
+
+		if (getRunningOS().equals("mac")){
+			clickButtonByXpath("SpinnerSubTitle");
+			Thread.sleep(2000);
+			scrollDownIOS();
+		} else {
+			clickButtonByID("SpinnerNav");
+			Thread.sleep(2000);
+			//scrollDownTEST(400);
+			myScrollUnitList("Vernal 4th Ward");
+			//scrollToElementUnitLists("Vernal 4th Ward");
+		}
+		//System.out.println("Open Units Done");
+		
+		
+		Thread.sleep(2000);
+		clickButton("Vernal 4th", "text", "nameContains");
+		//clickButtonByXpathTitleName("Vernal 4th Ward");
+		Thread.sleep(2000);
+		
+		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("Adams", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Addlesee", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Agho", pageSource, "Contains"));
+	}
+	
 	//**************************************************************
 	//**************** Start of Methods ****************************
 	//**************************************************************
@@ -5388,6 +5462,7 @@ public class LDSTools {
 		}
 		if (findElement == "xpath") {
 			myText = driver.findElement(By.xpath(this.prop.getProperty(textElement))).getText();	
+			myText = driver.findElement(By.xpath(this.prop.getProperty(textElement))).getAttribute("value");
 		}
 		if (andEle == "className") {
 			myText = driver.findElement(By.className(this.prop.getProperty(textElement))).getText();
@@ -5397,6 +5472,13 @@ public class LDSTools {
 		}
 		if (findElement == "text") {
 			myText = driver.findElement(By.xpath("//*[contains(text(), '" + textElement + "')]")).getText();
+		}
+		if (findElement == "pred")  {
+			myText = driver.findElement(MobileBy.iOSNsPredicateString(this.prop.getProperty(textElement))).getText();	
+		}
+		if (findElement == "xpathValue") {
+			myText = driver.findElement(By.xpath(this.prop.getProperty(textElement))).getAttribute("value");
+			//System.out.println("VALUE: " + myText);
 		}
 		
 		if (myText.contains(textToCheck)) {
@@ -7574,11 +7656,28 @@ public class LDSTools {
 			
 			unitsToSync();
 			
-			//waitForTextToDisappear("DownloadingSync", 500 );
-			waitForTextToDisappearTEXT(chooseNetwork, 500 );
-			//waitForTextToDisappearPopUp(chooseNetwork, 500 );
+
+			//waitForTextToDisappearTEXT(chooseNetwork, 500 );
+
+			waitUntilAlert();
 			Thread.sleep(8000);
 		}
+	}
+	
+	private void waitUntilAlert() throws Exception {
+		
+		long startTime = System.nanoTime();
+		System.out.println("Waiting for Text to appear: ");
+		
+		WebDriverWait wait = new WebDriverWait(driver, 120);
+		//WebElement myElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@name, '" + textElement + "']")));
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//XCUIElementTypeAlert")));
+		
+
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime);
+		duration = duration / 1000000;
+		System.out.println("Done waiting for Text to appear took: " + duration);
 	}
 	
 	private void loginProxyData(String IndividualId, String units, String positions, String chooseNetwork, String userName )  throws Exception {
@@ -7764,6 +7863,10 @@ public class LDSTools {
 			}
 		}
 	}
+	
+	private void pressTouchID() throws Exception {
+		((PerformsTouchID) driver).performTouchID(true);
+	}
 
 	
 	/** pinPage(String digit1, String digit2, String digit3, String digit4, Boolean nonLeaderPin )
@@ -7780,68 +7883,81 @@ public class LDSTools {
 		int myCheck = 0;
 		int yesCheck = 0;
 		int OKCheck = 0;
+		int touchIDCheck = 0; // 0 = no touch ID
 		String myAlertText;
 
 		int whileCheck = 1;
 		
-		//Check for OK or Yes
-		while (whileCheck == 1) {
-			//System.out.println("Start while check!");
-
-			if (checkElementReturn("Yes", "id", "xpath")) {
-				//System.out.println("YES Found!");
-				clickButton("Yes", "id", "xpath");
-				yesCheck = 1;
-			} else {
-				yesCheck = 0;
-			}
-		
-			if (checkElementReturn("OK", "textAtt", "xpath")) {
-				//System.out.println("OK Found!");
-				clickButton("OK", "textAtt", "xpath");
-				OKCheck = 1;
-			} else {
-				OKCheck = 0;
-			}
-			
-			if (yesCheck == 1 || OKCheck == 1) {
-				whileCheck = 1;
-			} else {
-				whileCheck = 0;
-			}	
-			
-			//System.out.println("While Check: " + whileCheck);
-			myCheck = 0;
-			Thread.sleep(4000);
+		//Check for Touch ID then press the ID
+		if (checkElementReturn("TouchIDFound", "id", "xpath")) {
+			pressTouchID();
+			touchIDCheck = 1;
 		}
 		
-		Boolean myEleCheck = checkElementReturn("Create New Passcode", "text", "contValue");
-		//System.out.println("Create New Passcode " + myEleCheck);
-		
-		Boolean myEleCheckAnd = checkElementTextViewReturnContains("Choose your PIN");
-		//System.out.println("Choose your PIN " + myEleCheckAnd);
-
-		if (checkElementReturn("Create New Passcode", "text", "contValue") || checkElementTextViewReturnContains("Choose your PIN")) {
-			//System.out.println("Create New Passcode. ");
-			//checkTextByXpath("PinTitle", "Choose your PIN");
-			clickButton("PinKey" + digit1, "id", "pred");
-			clickButton("PinKey" + digit2, "id", "pred");
-			clickButton("PinKey" + digit3, "id", "pred");
-			clickButton("PinKey" + digit4, "id", "pred");
+		if (touchIDCheck == 0 )	 {
+			//Check for OK or Yes
+			while (whileCheck == 1) {
+				//System.out.println("Start while check!");
+	
+				if (checkElementReturn("Yes", "id", "xpath")) {
+					//System.out.println("YES Found!");
+					clickButton("Yes", "id", "xpath");
+					yesCheck = 1;
+				} else {
+					yesCheck = 0;
+				}
 			
-			//checkTextByXpath("PinTitle", "Confirm PIN");
-			clickButton("PinKey" + digit1, "id", "pred");
-			clickButton("PinKey" + digit2, "id", "pred");
-			clickButton("PinKey" + digit3, "id", "pred");
-			clickButton("PinKey" + digit4, "id", "pred");
-		} else {
-			clickButton("PinKey" + digit1, "id", "pred");
-			clickButton("PinKey" + digit2, "id", "pred");
-			clickButton("PinKey" + digit3, "id", "pred");
-			clickButton("PinKey" + digit4, "id", "pred");
+				if (checkElementReturn("OK", "textAtt", "xpath")) {
+					//System.out.println("OK Found!");
+					clickButton("OK", "textAtt", "xpath");
+					OKCheck = 1;
+				} else {
+					OKCheck = 0;
+				}
+				
+				if (yesCheck == 1 || OKCheck == 1) {
+					whileCheck = 1;
+				} else {
+					whileCheck = 0;
+				}	
+				
+				//System.out.println("While Check: " + whileCheck);
+				myCheck = 0;
+				Thread.sleep(4000);
+			}
+			
+			
+			//Boolean myEleCheck = checkElementReturn("Create New Passcode", "text", "contValue");
+			//System.out.println("Create New Passcode " + myEleCheck);
+			
+			//Boolean myEleCheckAnd = checkElementTextViewReturnContains("Choose your PIN");
+			//System.out.println("Choose your PIN " + myEleCheckAnd);
+		
+
+			if (checkElementReturn("Create New Passcode", "text", "contValue") || checkElementTextViewReturnContains("Choose your PIN")) {
+				//System.out.println("Create New Passcode. ");
+				//checkTextByXpath("PinTitle", "Choose your PIN");
+				clickButton("PinKey" + digit1, "id", "pred");
+				clickButton("PinKey" + digit2, "id", "pred");
+				clickButton("PinKey" + digit3, "id", "pred");
+				clickButton("PinKey" + digit4, "id", "pred");
+				
+				//checkTextByXpath("PinTitle", "Confirm PIN");
+				clickButton("PinKey" + digit1, "id", "pred");
+				clickButton("PinKey" + digit2, "id", "pred");
+				clickButton("PinKey" + digit3, "id", "pred");
+				clickButton("PinKey" + digit4, "id", "pred");
+			} else {
+				clickButton("PinKey" + digit1, "id", "pred");
+				clickButton("PinKey" + digit2, "id", "pred");
+				clickButton("PinKey" + digit3, "id", "pred");
+				clickButton("PinKey" + digit4, "id", "pred");
+			}
+
+			Thread.sleep(2000);
 		}
 
-		Thread.sleep(2000);
+
 		
 		if (!getRunningOS().equals("mac")) {
 			Thread.sleep(2000);
@@ -11153,6 +11269,7 @@ public class LDSTools {
 			} else {
 				clickButton("Sync", "byName", "byName");
 			}
+			
 
 		} else {
 			clickButtonByXpath("Drawer");
@@ -12387,6 +12504,45 @@ public class LDSTools {
 		} while ((!elementNotFound) && (!endOfList));
 	}
 	
+	public void myScrollUnitList(String myElement) throws Exception {
+		boolean elementNotFound = false;
+		boolean endOfList = false;
+		String bottomElement = "";
+		String bottomElement2 = "";
+		int myScrollStart; 
+		TouchAction actions = new TouchAction(driver);
+		WebElement myBottomElement;
+		
+		do {
+			//Check to see if the text is on the page
+			if(checkElementReturn(myElement, "textAtt", "text")) {
+				System.out.println("Text Found! " + myElement);
+				elementNotFound = true;
+			} else {
+				bottomElement = scrollCheckUnitList();
+				myBottomElement = driver.findElement(By.xpath("//*[@text='" + bottomElement + "']"));
+				
+				//actions.press(screenWidth, screenHeight).moveTo(0, -scrollDistance).release().perform();
+
+				//actions.press(screenWidth, screenHeight).moveTo(0, -scrollDistance).waitAction(2000).release().perform();
+				
+				actions.press(myBottomElement).moveTo(0, -100).waitAction(2000).release().perform();
+
+				bottomElement2 = scrollCheckUnitList();
+			}
+			
+			//Check to see if the bottom of the page has been reached. 
+			if (bottomElement.equals(bottomElement2)) {
+				System.out.println("Bottom Element Found:"  + bottomElement);
+				System.out.println("Next Element Found:"  + bottomElement2);
+				System.out.println("End of list searching for: " + myElement);
+				endOfList = true;
+			}
+			
+			
+		} while ((!elementNotFound) && (!endOfList));
+	}
+	
 	public String scrollCheckText() throws Exception {
 		String myString;
 		//myString = driver.findElement(By.xpath("//android.widget.RelativeLayout[@resource-id='org.lds.ldstools.dev:id/top_layout']//android.widget.TextView")).getText();
@@ -12402,6 +12558,21 @@ public class LDSTools {
 		return myString;
 	}
 	
+	public String scrollCheckUnitList() throws Exception {
+		String myString;
+		//myString = driver.findElement(By.xpath("//android.widget.RelativeLayout[@resource-id='org.lds.ldstools.dev:id/top_layout']//android.widget.TextView")).getText();
+		List<MobileElement> options = driver.findElements(By.xpath("//android.widget.TextView[@resource-id='org.lds.ldstools.dev:id/unitNameTextView']"));
+		
+		if (options.isEmpty()) {
+			System.out.println("No text found on page!");
+			myString = "";	
+		} else {
+			//myString = options.get(0).getText();
+			myString = options.get(options.size() - 1).getText();
+		}
+		
+		return myString;
+	}
 
     public int getScrollStart() {
     	int scrollStart;
@@ -12464,6 +12635,20 @@ public class LDSTools {
 			//MobileElement slider = table.findElement(MobileBy.IosUIAutomation(".scrollToElementWithPredicate(\"name CONTAINS '" + myElement +"'\")"));
 		} else {
 		    MobileElement list = (MobileElement) driver.findElement(By.id("org.lds.ldstools.dev:id/list"));
+		    MobileElement radioGroup = (MobileElement) list.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
+		                    + "new UiSelector().text(\"" + myElement + "\"));"));
+		    assertNotNull(radioGroup.getLocation());
+		}
+	}
+	
+	public void scrollToElementUnitLists(String myElement) throws Exception {
+		if(getRunningOS().equals("mac")) {
+	        MobileElement table = (MobileElement) driver.findElement(MobileBy.IosUIAutomation(".tableViews()[0]"));
+	        MobileElement slider = table.findElement(MobileBy
+	                .IosUIAutomation(".scrollToElementWithPredicate(\"name CONTAINS '" + myElement + "'\")"));
+	        assertEquals(slider.getAttribute("name"), myElement);
+		} else {
+		    MobileElement list = (MobileElement) driver.findElement(By.id("list_units"));
 		    MobileElement radioGroup = (MobileElement) list.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
 		                    + "new UiSelector().text(\"" + myElement + "\"));"));
 		    assertNotNull(radioGroup.getLocation());
@@ -12561,6 +12746,59 @@ public class LDSTools {
 		
 		return mySource;
 	}
+	
+	
+	
+	public void addUnitsSync(String searchName, String foundName) throws Exception {
+		Thread.sleep(2000);
+		openSyncPage();
+		Thread.sleep(2000);
+		
+
+		if (!getRunningOS().equals("mac")) {
+			if (checkTextContainsReturn("IncludeAdditionalUnit", "OFF", "id", "pred" ) == 1 ) {
+				//Switch is off
+				clickButton("IncludeAdditionalUnit", "id", "pred");
+			}
+			
+			//Click the search button to get rid of the helper screen
+			clickButton("SearchUnitImage", "id", "xpath");
+			clickButton("SearchUnitImage", "id", "xpath");
+			Thread.sleep(1000);
+			//Search for a Unit
+			sendTextbyID("AddUnitFind", searchName);
+			//Select the found unit
+			clickButton(foundName, "text", "id");
+			//printPageSource();
+			//addUnitSelectFoundUnit(foundName);
+			clickButton("SyncNow", "id", "id");
+			Thread.sleep(2000);
+			waitForTextToDisappearTEXT("Sync", 500 );
+			Thread.sleep(2000);
+
+		} else {
+			if (checkTextContainsReturn("IncludeAdditionalUnit", "false", "id", "xpathValue" ) == 1 ) {
+				//Switch is off
+				clickButton("IncludeAdditionalUnit", "id", "xpath");
+			}
+
+			clickButton("SearchUnitImage", "id", "pred");
+			clickButton("Allow", "id", "byName");
+			Thread.sleep(1000);
+			sendTextbyXpath("AddUnitFind", searchName);
+			clickButton("Search", "byName", "byName");
+			Thread.sleep(3000);
+			//printPageSource();
+			clickButton(foundName, "name", "nameContains");
+			clickButton("Sync Now", "id", "byName");
+			waitUntilAlert();
+			//waitForTextToDisappearTEXT("UAT", 500 );
+			Thread.sleep(2000);
+			pressTouchID();
+		}
+	}
+	
+	
 	
 	// **************************************************************************************
 	// **************************OLD METHODS ************************************************
