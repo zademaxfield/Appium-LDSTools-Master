@@ -477,6 +477,7 @@ public class LDSTools {
 		Thread.sleep(4000);
 		justForTesting(os);	
 		
+		//additionalUnit(os);	
 		//additonalUnitSimpleTest(os);
 		//myTempleSimpleTest(os);
 		
@@ -598,62 +599,40 @@ public class LDSTools {
 	public void justForTesting(String os) throws Exception {
 		String pageSource;
 		syncLogIn("LDSTools60", "testpassword1", "UAT", os );
-		//printPageSource();
-		
-		//((PerformsTouchID) driver).performTouchID(true);
 		pinPage("1", "1", "3", "3", true);
 		Thread.sleep(2000);
-		addUnitsSync("Starcrest", "Starcrest Ward");
+		
+		
 		Thread.sleep(2000);
+		openSyncPage();
+		Thread.sleep(2000);
+		
 
-		if (getRunningOS().equals("mac")){
-			clickButtonByXpath("SpinnerSubTitle");
-			Thread.sleep(2000);
-			scrollDownIOS();
+		if (getRunningOS().equals("mac")) {
+			if (checkTextContainsReturn("IncludeAdditionalUnit", "false", "id", "xpathValue" ) == 1 ) {
+				//Switch is off
+				clickButton("IncludeAdditionalUnit", "id", "xpath");
+			}
 		} else {
-			clickButtonByID("SpinnerNav");
-			Thread.sleep(2000);
-			//scrollDownTEST(400);
-			myScrollUnitList("Starcrest Ward");
-			//scrollToElementUnitLists("Vernal 4th Ward");
+			if (checkTextContainsReturn("IncludeAdditionalUnit", "OFF", "id", "pred" ) == 1 ) {
+				//Switch is off
+				clickButton("IncludeAdditionalUnit", "id", "pred");
+			}
+
 		}
-		//System.out.println("Open Units Done");
 		
+		addUnitsSelectUnit("Vernal 4th", "Vernal  4th Ward");
+		addUnitsSelectUnit("Starcrest", "Starcrest Ward");
+		addUnitsSelectUnit("Roosevelt 1st", "Roosevelt  1st Ward");
 		
-		Thread.sleep(2000);
-		clickButton("Starcrest Ward", "text", "nameContains");
-		//clickButtonByXpathTitleName("Vernal 4th Ward");
-		Thread.sleep(2000);
+		clickButton("SearchUnitImage", "id", "xpath");
 		
+		clickButton("AddUnitRecentTab", "xpath", "pred");
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Ainslie", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Akhtar", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Tega", pageSource, "Contains"));
-
-		openOrgnizations();
-		clickButtonByXpathTitleName("Bishopric");
-		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Dunkley", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Luker", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Terry", pageSource, "Contains"));
 		
-		pressBackKey();
-		
-		openReports();
-		//Members Moved In
-		clickButtonByXpathTitleName("Members Moved In");
-		Thread.sleep(1000);
-		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Butandu", pageSource, "Contains"));
-		Assert.assertFalse(checkNoCaseList("Skywalker, Luke", pageSource, "Contains"));
-		
-		pressBackKey();
-		
-		openMissionary();
-		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Painter", pageSource, "Contains"));
-
-		
+		Assert.assertTrue(checkNoCaseList("Vernal 4th", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Starcrest", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Roosevelt 1st", pageSource, "Contains"));
 		
 		/*  //List Test
 		// Some of the list buttons are not showing up in page source
@@ -5337,7 +5316,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"smoke", "medium", "all1"}, priority = 1)
+	@Test (groups= {"addUnit", "smoke", "medium", "all1"}, priority = 1)
 	public void additonalUnitSimpleTest(String os) throws Exception {
 		String pageSource;
 		syncLogIn("LDSTools60", "testpassword1", "UAT", os );
@@ -5372,6 +5351,87 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("Adams", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Addlesee", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Agho", pageSource, "Contains"));
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"addUnit", "medium", "all2"}, priority = 1)
+	public void additionalUnit(String os) throws Exception {
+		String pageSource;
+		syncLogIn("LDSTools60", "testpassword1", "UAT", os );
+		//printPageSource();
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);
+		addUnitsSync("Starcrest", "Starcrest Ward");
+		Thread.sleep(2000);
+
+		if (getRunningOS().equals("mac")){
+			clickButtonByXpath("SpinnerSubTitle");
+			Thread.sleep(2000);
+			scrollDownIOS();
+		} else {
+			clickButtonByID("SpinnerNav");
+			Thread.sleep(2000);
+			//scrollDownTEST(400);
+			myScrollUnitList("Starcrest Ward");
+			//scrollToElementUnitLists("Vernal 4th Ward");
+		}
+		//System.out.println("Open Units Done");
+		
+		
+		Thread.sleep(2000);
+		//printPageSource();
+		clickButton("Starcrest Ward", "text", "nameContains");
+		//clickButtonByXpathTitleName("Vernal 4th Ward");
+		Thread.sleep(2000);
+		
+		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("Ainslie", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Akhtar", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Tega", pageSource, "Contains"));
+
+		openOrgnizations();
+		clickButtonByXpathTitleName("Bishopric");
+		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("Dunkley", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Luker", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Terry", pageSource, "Contains"));
+		
+		pressBackKey();
+		
+		openReports();
+		
+		pageSource = getSourceOfPage();
+		scrollDownTEST(400);
+		pageSource = pageSource + getSourceOfPage();
+		//System.out.println(pageSource);
+		Assert.assertTrue(checkNoCaseList("Action and Interview List", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Birthday List", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Home Teaching", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Members Moved In", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Members Moved Out", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Members with Callings", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("New Members", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Temple Recommend Status", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Unit Statistics", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Visiting Teaching", pageSource, "Contains"));
+
+		
+		//Members Moved In
+		clickButtonByXpathTitleName("Members Moved In");
+		Thread.sleep(1000);
+		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("Butandu", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("Skywalker, Luke", pageSource, "Contains"));
+		
+		pressBackKey();
+		
+		openMissionary();
+		if (!getRunningOS().equals("mac")) {
+			clickButton("MissAssignedTab", "xpath", "xpath");
+		}
+		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("Painter", pageSource, "Contains"));
+
 	}
 	
 	//**************************************************************
@@ -5534,6 +5594,10 @@ public class LDSTools {
 		if (findElement == "contValue") {
 			options= driver.findElements(By.xpath("//*[contains(@value,'" + textElement + "')]"));
 		} 
+		
+		if (findElement == "byName") {
+			options= driver.findElements(By.name(textElement));
+		}
 
 		
 	
@@ -7880,13 +7944,8 @@ public class LDSTools {
 	 * @throws Exception
 	 */
 	private void pinPage(String digit1, String digit2, String digit3, String digit4, Boolean nonLeaderPin ) throws Exception {
-		int myCheck = 0;
-		int yesCheck = 0;
-		int OKCheck = 0;
 		int touchIDCheck = 0; // 0 = no touch ID
-		String myAlertText;
 
-		int whileCheck = 1;
 		
 		//Check for Touch ID then press the ID
 		if (checkElementReturn("TouchIDFound", "id", "xpath")) {
@@ -7895,44 +7954,7 @@ public class LDSTools {
 		}
 		
 		if (touchIDCheck == 0 )	 {
-			//Check for OK or Yes
-			while (whileCheck == 1) {
-				//System.out.println("Start while check!");
-	
-				if (checkElementReturn("Yes", "id", "xpath")) {
-					//System.out.println("YES Found!");
-					clickButton("Yes", "id", "xpath");
-					yesCheck = 1;
-				} else {
-					yesCheck = 0;
-				}
-			
-				if (checkElementReturn("OK", "textAtt", "xpath")) {
-					//System.out.println("OK Found!");
-					clickButton("OK", "textAtt", "xpath");
-					OKCheck = 1;
-				} else {
-					OKCheck = 0;
-				}
-				
-				if (yesCheck == 1 || OKCheck == 1) {
-					whileCheck = 1;
-				} else {
-					whileCheck = 0;
-				}	
-				
-				//System.out.println("While Check: " + whileCheck);
-				myCheck = 0;
-				Thread.sleep(4000);
-			}
-			
-			
-			//Boolean myEleCheck = checkElementReturn("Create New Passcode", "text", "contValue");
-			//System.out.println("Create New Passcode " + myEleCheck);
-			
-			//Boolean myEleCheckAnd = checkElementTextViewReturnContains("Choose your PIN");
-			//System.out.println("Choose your PIN " + myEleCheckAnd);
-		
+			testForAlert();
 
 			if (checkElementReturn("Create New Passcode", "text", "contValue") || checkElementTextViewReturnContains("Choose your PIN")) {
 				//System.out.println("Create New Passcode. ");
@@ -7966,7 +7988,43 @@ public class LDSTools {
 			clickButtonByXpath("DrawerDirectory");
 			Thread.sleep(2000);
 		}
+		
+		//testForAlert();
 
+	}
+	
+	private void testForAlert() throws Exception {
+		int yesCheck = 0;
+		int OKCheck = 0;
+
+		int whileCheck = 1;
+		while (whileCheck == 1) {
+			//System.out.println("Start while check!");
+
+			if (checkElementReturn("Yes", "id", "xpath")) {
+				//System.out.println("YES Found!");
+				clickButton("Yes", "id", "xpath");
+				yesCheck = 1;
+			} else {
+				yesCheck = 0;
+			}
+		
+			if (checkElementReturn("OK", "textAtt", "xpath")) {
+				//System.out.println("OK Found!");
+				clickButton("OK", "textAtt", "xpath");
+				OKCheck = 1;
+			} else {
+				OKCheck = 0;
+			}
+			
+			if (yesCheck == 1 || OKCheck == 1) {
+				whileCheck = 1;
+			} else {
+				whileCheck = 0;
+			}	
+
+			Thread.sleep(4000);
+		}
 	}
 	
 	private int alertCheck() {
@@ -12526,7 +12584,7 @@ public class LDSTools {
 
 				//actions.press(screenWidth, screenHeight).moveTo(0, -scrollDistance).waitAction(2000).release().perform();
 				
-				actions.press(myBottomElement).moveTo(0, -100).waitAction(2000).release().perform();
+				actions.press(myBottomElement).moveTo(0, -60).waitAction(2000).release().perform();
 
 				bottomElement2 = scrollCheckUnitList();
 			}
@@ -12747,6 +12805,31 @@ public class LDSTools {
 		return mySource;
 	}
 	
+	public void addUnitsSelectUnit(String searchName, String foundName) throws Exception {
+		if (getRunningOS().equals("mac")) {
+			clickButton("SearchUnitImage", "id", "xpath");
+			
+			if (checkElementReturn("Allow", "id", "byName") == true ) {
+				clickButton("Allow", "id", "byName");
+			}
+			
+			Thread.sleep(1000);
+			sendTextbyXpath("AddUnitFind", searchName);
+			clickButton("Search", "byName", "byName");
+			Thread.sleep(3000);
+			//printPageSource();
+			clickButton(foundName, "name", "nameContains");
+		} else {
+			clickButton("SearchUnitImage", "id", "xpath");
+			clickButton("SearchUnitImage", "id", "xpath");
+			Thread.sleep(1000);
+			//Search for a Unit
+			sendTextbyID("AddUnitFind", searchName);
+			//Select the found unit
+			clickButton(foundName, "text", "id");
+		}
+	}
+	
 	
 	
 	public void addUnitsSync(String searchName, String foundName) throws Exception {
@@ -12761,16 +12844,8 @@ public class LDSTools {
 				clickButton("IncludeAdditionalUnit", "id", "pred");
 			}
 			
-			//Click the search button to get rid of the helper screen
-			clickButton("SearchUnitImage", "id", "xpath");
-			clickButton("SearchUnitImage", "id", "xpath");
-			Thread.sleep(1000);
-			//Search for a Unit
-			sendTextbyID("AddUnitFind", searchName);
-			//Select the found unit
-			clickButton(foundName, "text", "id");
-			//printPageSource();
-			//addUnitSelectFoundUnit(foundName);
+			addUnitsSelectUnit(searchName, foundName);
+
 			clickButton("SyncNow", "id", "id");
 			Thread.sleep(2000);
 			waitForTextToDisappearTEXT("Sync", 500 );
@@ -12782,14 +12857,7 @@ public class LDSTools {
 				clickButton("IncludeAdditionalUnit", "id", "xpath");
 			}
 
-			clickButton("SearchUnitImage", "id", "pred");
-			clickButton("Allow", "id", "byName");
-			Thread.sleep(1000);
-			sendTextbyXpath("AddUnitFind", searchName);
-			clickButton("Search", "byName", "byName");
-			Thread.sleep(3000);
-			//printPageSource();
-			clickButton(foundName, "name", "nameContains");
+			addUnitsSelectUnit(searchName, foundName);
 			clickButton("Sync Now", "id", "byName");
 			waitUntilAlert();
 			//waitForTextToDisappearTEXT("UAT", 500 );
