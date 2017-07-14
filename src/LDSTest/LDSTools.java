@@ -499,7 +499,7 @@ public class LDSTools {
 		//editOtherUserInvalidEmail(os);
 		
 		
-		editVisibility(os);
+		//editVisibility(os);
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
@@ -553,7 +553,7 @@ public class LDSTools {
 		
 		
 		//Header Tests
-		//JeffAnderson(os);
+		JeffAnderson(os);
 		//ChristieWhiting(os);
 		//CliffHigby(os);
 		//KevinPalmer(os);
@@ -626,6 +626,9 @@ public class LDSTools {
 		addUnitsSelectUnit("Vernal 4th", "Vernal  4th Ward");
 		addUnitsSelectUnit("Starcrest", "Starcrest Ward");
 		addUnitsSelectUnit("Roosevelt 1st", "Roosevelt  1st Ward");
+		addUnitsSelectUnit("Desert Willow", "Desert Willow Ward");
+		addUnitsSelectUnit("Sunnydell", "Sunnydell Ward");
+		addUnitsSelectUnit("Hamburg", "Hamburg Ward");
 		
 		clickButton("SearchUnitImage", "id", "xpath");
 		
@@ -635,6 +638,9 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("Vernal  4th", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Starcrest", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Roosevelt  1st", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Desert Willow", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Sunnydell", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Hamburg", pageSource, "Contains"));
 		
 		//Need to sort list
 		
@@ -13194,8 +13200,11 @@ public class LDSTools {
 			driver.quit();
 			
 			Thread.sleep(5000);
+			//System.out.println("Kill instruments");
 			killProcess("instruments");
+			//System.out.println("Kill Simulator");
 			killProcess("Simulator");
+			//System.out.println("Kill CoreSimulator");
 			killProcess("com.apple.CoreSimulator.CoreSimulatorService");
 		
 		} else {
@@ -13216,6 +13225,7 @@ public class LDSTools {
 		Thread.sleep(4000);
 		System.out.println("Killing the Appium Service");
 		killProcess("main.js");
+		
 	}
 
 
