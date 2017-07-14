@@ -312,7 +312,7 @@ public class LDSTools {
 	        DesiredCapabilities capabilities = new DesiredCapabilities();
 	        
 	        capabilities.setCapability("deviceName", testDevice);
-	        capabilities.setCapability("platformName", "Android");
+	        capabilities.setCapability("platformName", "android");
 	        capabilities.setCapability("automationName","uiautomator2");
 	        capabilities.setCapability("newCommandTimeout", 600);
 	        //capabilities.setCapability("platformVersion", "6.0.1");
@@ -475,7 +475,7 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		justForTesting(os);	
+		//justForTesting(os);	
 		
 		//additionalUnit(os);	
 		//additonalUnitSimpleTest(os);
@@ -499,7 +499,7 @@ public class LDSTools {
 		//editOtherUserInvalidEmail(os);
 		
 		
-		//editVisibility(os);
+		editVisibility(os);
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
@@ -621,6 +621,8 @@ public class LDSTools {
 
 		}
 		
+		//Need more units
+		
 		addUnitsSelectUnit("Vernal 4th", "Vernal  4th Ward");
 		addUnitsSelectUnit("Starcrest", "Starcrest Ward");
 		addUnitsSelectUnit("Roosevelt 1st", "Roosevelt  1st Ward");
@@ -630,9 +632,23 @@ public class LDSTools {
 		clickButton("AddUnitRecentTab", "xpath", "pred");
 		pageSource = getSourceOfPage();
 		
-		Assert.assertTrue(checkNoCaseList("Vernal 4th", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Vernal  4th", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Starcrest", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Roosevelt 1st", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Roosevelt  1st", pageSource, "Contains"));
+		
+		//Need to sort list
+		
+		
+		//Need to clear list
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		/*  //List Test
 		// Some of the list buttons are not showing up in page source
@@ -5595,8 +5611,16 @@ public class LDSTools {
 			options= driver.findElements(By.xpath("//*[contains(@value,'" + textElement + "')]"));
 		} 
 		
+		if (findElement == "contName") {
+			options= driver.findElements(By.xpath("//*[contains(@name,'" + textElement + "')]"));
+		} 
+		
 		if (findElement == "byName") {
 			options= driver.findElements(By.name(textElement));
+		}
+		
+		if (findElement == "pred")  {
+			options= driver.findElements(MobileBy.iOSNsPredicateString(this.prop.getProperty(textElement)));	
 		}
 
 		
@@ -7929,7 +7953,9 @@ public class LDSTools {
 	}
 	
 	private void pressTouchID() throws Exception {
+		Thread.sleep(1000);
 		((PerformsTouchID) driver).performTouchID(true);
+		Thread.sleep(2000);
 	}
 
 	
@@ -7946,9 +7972,27 @@ public class LDSTools {
 	private void pinPage(String digit1, String digit2, String digit3, String digit4, Boolean nonLeaderPin ) throws Exception {
 		int touchIDCheck = 0; // 0 = no touch ID
 
+		//Check for Touch ID then press the ID
+		//System.out.println("Check for Enable Touch ID Button.");
+		if (checkElementReturn("Would you like to do this now", "contValue", "contValue")) {
+			//System.out.println("Enable Touch ID Button found, hitting the button");
+			clickButton("Yes", "byName", "byName");
+			Thread.sleep(2000);
+		}
+		
 		
 		//Check for Touch ID then press the ID
+		//System.out.println("Check for Enable Touch ID Button.");
+		if (checkElementReturn("EnableTouchID", "id", "pred")) {
+			//System.out.println("Enable Touch ID Button found, hitting the button");
+			clickButton("EnableTouchID", "id", "pred");
+			Thread.sleep(4000);
+		}
+		
+		//Check for Touch ID then press the ID
+		//System.out.println("Check for Press Touch ID");
 		if (checkElementReturn("TouchIDFound", "id", "xpath")) {
+			//System.out.println("Press Touch ID found!");
 			pressTouchID();
 			touchIDCheck = 1;
 		}
@@ -8282,7 +8326,7 @@ public class LDSTools {
 			}
 			
 			
-			Assert.assertTrue(checkElementNameReturn("Missionaries"));
+			Assert.assertTrue(checkElementNameReturn("Missionary"));
 			Assert.assertTrue(checkElementNameReturn("Lists"));
 			Assert.assertTrue(checkElementNameReturn("Meetinghouses"));
 			Assert.assertTrue(checkElementNameReturn("Sync"));
@@ -8298,7 +8342,7 @@ public class LDSTools {
 			}
 			Assert.assertTrue(checkElementReturn("Directory", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("Organizations", "textAtt", "value"));
-			Assert.assertTrue(checkElementReturn("Missionaries", "textAtt", "value"));
+			Assert.assertTrue(checkElementReturn("Missionary", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("Lists", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("Calendar", "textAtt", "value"));
 			Assert.assertTrue(checkElementReturn("Meetinghouses", "textAtt", "value"));
