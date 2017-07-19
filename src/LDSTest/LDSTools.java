@@ -519,7 +519,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		//LeaderBishopricDirectory("ngiBPC1", false, os);
+		LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
@@ -553,7 +553,7 @@ public class LDSTools {
 		
 		
 		//Header Tests
-		JeffAnderson(os);
+		//JeffAnderson(os);
 		//ChristieWhiting(os);
 		//CliffHigby(os);
 		//KevinPalmer(os);
@@ -598,6 +598,7 @@ public class LDSTools {
 	
 	public void justForTesting(String os) throws Exception {
 		String pageSource;
+		List<String> foundUnits;
 		syncLogIn("LDSTools60", "testpassword1", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
 		Thread.sleep(2000);
@@ -642,8 +643,22 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("Sunnydell", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Hamburg", pageSource, "Contains"));
 		
-		//Need to sort list
+		System.out.println("DEFAULT");
+		foundUnits = getTextFromXpathElement("AddUnitRecentMember");
+		for(String myUnit : foundUnits ) {
+			System.out.println(myUnit);
+		}
 		
+		
+		//Need to sort list
+		clickButton("AddUnitSort", "xpath", "pred"); 
+		clickButton("AddUnitOldest", "xpath", "pred");
+		
+		System.out.println("OLDEST");
+		foundUnits = getTextFromXpathElement("AddUnitRecentMember");
+		for(String myUnit : foundUnits ) {
+			System.out.println(myUnit);
+		}
 		
 		//Need to clear list
 		
@@ -6078,6 +6093,19 @@ public class LDSTools {
 		}
 	}
 	
+	
+	private List<String> getTextFromXpathElement(String textElement) throws Exception {
+		List<MobileElement> options = driver.findElements(By.xpath(textElement));
+		List<String> listText = null;
+		for (int i = 0 ; i < options.size(); i++ ) {
+			System.out.println(options.get(i).getText());
+			System.out.println(options.get(i).getAttribute("name"));
+			listText.add(i, options.get(i).getText());
+		}
+		
+		return listText;
+	}
+	
 	private String getRunningOS() {
 		String myOs;
 		myOs = driver.getCapabilities().getPlatform().toString();
@@ -7784,7 +7812,8 @@ public class LDSTools {
 				Thread.sleep(1000);
 				clickButtonByXpath("Menu");
 				clickButtonByXpath("OverflowSettings");
-				scrollToElement("About");
+				newScrollToElement("About");
+				//scrollToElement("About");
 				clickButton("About", "textAtt", "textAtt");
 				
 				
