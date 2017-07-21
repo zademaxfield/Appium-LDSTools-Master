@@ -519,8 +519,8 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		LeaderBishopricDirectory("ngiBPC1", false, os);
-		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
+		//LeaderBishopricDirectory("ngiBPC1", false, os);
+		LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
@@ -798,14 +798,14 @@ public class LDSTools {
 			clickButton("Set Temple Recommend Expiration", "byName", "byName");
 			Thread.sleep(1000);
 			sendTextbyXpath("TempleDaysExpiration", "5");
-			clickButton("OK", "textAtt", "xpath");
+			clickButton("OK", "textAtt", "pred");
 			Thread.sleep(1000);
 		} else {
 			myScroll("Override temple recommend expiration");
 			clickButton("Override temple recommend expiration", "textAtt", "byName");
 			Thread.sleep(2000);
 			sendTextbyXpath("AlertEditText", "10");
-			clickButton("OK", "textAtt", "xpath");
+			clickButton("OK", "textAtt", "pred");
 			pressBackKey();
 			
 		}
@@ -815,7 +815,7 @@ public class LDSTools {
 			clickButton("Set Temple Recommend Warning Days", "byName", "byName");
 			Thread.sleep(1000);
 			sendTextbyXpath("TempleDaysWarning", "0");
-			clickButton("OK", "textAtt", "xpath");
+			clickButton("OK", "textAtt", "pred");
 			Thread.sleep(1000);
 			pressBackKey();
 			openTemples();
@@ -3183,8 +3183,8 @@ public class LDSTools {
 		
 		
 		Thread.sleep(2000);
-		if (checkElementReturn("OK", "textAtt", "xpath")) {
-			clickButton("OK", "textAtt", "xpath");
+		if (checkElementReturn("OK", "textAtt", "pred")) {
+			clickButton("OK", "textAtt", "pred");
 		} 
 		Thread.sleep(4000);
 		pageSource = driver.getPageSource();
@@ -7845,7 +7845,7 @@ public class LDSTools {
 				
 				//sendTextbyID("AlertEditText", IndividualId);
 				sendTextbyXpath("AlertEditText", IndividualId);
-				clickButton("OK", "textAtt", "xpath");
+				clickButton("OK", "textAtt", "pred");
 				//clickButton("AlertOK", "xpath", "xpath");
 				Thread.sleep(2000);
 				
@@ -7857,7 +7857,7 @@ public class LDSTools {
 				Thread.sleep(2000);
 				sendTextbyXpath("AlertEditText", units);
 				//clickButton("AlertOK", "xpath", "xpath");
-				clickButton("OK", "textAtt", "xpath");
+				clickButton("OK", "textAtt", "pred");
 				Thread.sleep(2000);
 				
 				//driver.scrollToExact("px_p").click();
@@ -7867,7 +7867,7 @@ public class LDSTools {
 				Thread.sleep(2000);
 				sendTextbyXpath("AlertEditText", positions);
 				//clickButton("AlertOK", "xpath", "xpath");
-				clickButton("OK", "textAtt", "xpath");
+				clickButton("OK", "textAtt", "pred");
 				clickButtonByXpath("Back");
 				Thread.sleep(2000);
 				
@@ -8068,29 +8068,30 @@ public class LDSTools {
 			Thread.sleep(2000);
 		}
 		
-		//testForAlert();
+		testForAlert();
 
 	}
 	
 	private void testForAlert() throws Exception {
 		int yesCheck = 0;
 		int OKCheck = 0;
-
 		int whileCheck = 1;
+		int myCounter = 1;
+		
 		while (whileCheck == 1) {
 			//System.out.println("Start while check!");
 
-			if (checkElementReturn("Yes", "id", "xpath")) {
+			if (checkElementReturn("Yes", "id", "pred")) {
 				//System.out.println("YES Found!");
-				clickButton("Yes", "id", "xpath");
+				clickButton("Yes", "id", "pred");
 				yesCheck = 1;
 			} else {
 				yesCheck = 0;
 			}
 		
-			if (checkElementReturn("OK", "textAtt", "xpath")) {
+			if (checkElementReturn("OK", "textAtt", "pred")) {
 				//System.out.println("OK Found!");
-				clickButton("OK", "textAtt", "xpath");
+				clickButton("OK", "textAtt", "pred");
 				OKCheck = 1;
 			} else {
 				OKCheck = 0;
@@ -8101,8 +8102,13 @@ public class LDSTools {
 			} else {
 				whileCheck = 0;
 			}	
-
-			Thread.sleep(4000);
+			
+			if (myCounter > 5 ) {
+				whileCheck = 1;
+			}
+			
+			myCounter++;
+			Thread.sleep(1000);
 		}
 	}
 	
@@ -9011,9 +9017,9 @@ public class LDSTools {
 		//clickButtonByXpath("AlertOK");
 		//checkForAlertOK();
 		
-		if (checkElementReturn("OK", "textAtt", "xpath")) {
+		if (checkElementReturn("OK", "textAtt", "pred")) {
 			//System.out.println("OK Found!");
-			clickButton("OK", "textAtt", "xpath");
+			clickButton("OK", "textAtt", "pred");
 		}
 		
 		Thread.sleep(1000);
