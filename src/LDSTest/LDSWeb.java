@@ -596,8 +596,8 @@ public class LDSWeb {
 	public void WPRopenPageLogIn(String url, String userName, String passWord) throws Exception {
 		
 		url = "https://missionary-stage.lds.org/ward-missionary-tools";
-		userName = "ab253";
-		passWord = "pa$$w0rd0";
+		userName = "ab254";
+		passWord = "password0";
 
 		openGuiMap();
 		setUp();
@@ -650,8 +650,8 @@ public class LDSWeb {
 		Thread.sleep(8000);
 
 		//Login to Area book
-		enterText("abUserName", "xpath", "ab253");
-		enterText("abPassword", "xpath", "pa$$w0rd0");
+		enterText("abUserName", "xpath", "ab254");
+		enterText("abPassword", "xpath", "password0");
 		Thread.sleep(2000);
 		clickElement("abNext", "id");
 		
@@ -2234,18 +2234,18 @@ public class LDSWeb {
 	
 	public void AreaBookSetup() throws Exception {
 		
-		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab253", "pa$$w0rd0");
+		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab254", "password0");
 		ABSetupAutoTest();
 		ABSync();
 		tearDown();
 		
-		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab253", "pa$$w0rd0");
+		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab254", "password0");
 		ABSetupDebbieSmith();
 		ABSync();
 		tearDown();
 		
 		
-		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab253", "pa$$w0rd0");
+		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab254", "password0");
 		ABSetupColinMacNeil();
 		ABSync();
 		tearDown();
@@ -2273,8 +2273,8 @@ public class LDSWeb {
 		clickElement("Sync Fagamalo", "text");
 		
 		Thread.sleep(2000);
-		enterText("abSyncLogin", "xpath", "ab253");
-		enterText("abSyncPassword", "xpath", "pa$$w0rd0");
+		enterText("abSyncLogin", "xpath", "ab254");
+		enterText("abSyncPassword", "xpath", "password0");
 		clickElement("abSyncSignInButton", "id");
 		
 		Thread.sleep(10000);
@@ -2285,7 +2285,7 @@ public class LDSWeb {
 	
 	
 	public void ABSetupAutoTest() throws Exception {
-		//ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab253", "pa$$w0rd0");
+		//ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab254", "password0");
 		clickElement("InvestigatorsAdd", "xpath");
 		enterText("abFirstName", "xpath", "Auto");
 		enterText("abLastName", "xpath", "Test");
@@ -2399,7 +2399,7 @@ public class LDSWeb {
 
 	
 	public void ABSetupDebbieSmith() throws Exception {
-		//ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab253", "pa$$w0rd0");
+		//ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab254", "password0");
 		clickElement("InvestigatorsAdd", "id");
 		enterText("abFirstName", "xpath", "Debbie");
 		enterText("abLastName", "xpath", "Smith");
@@ -2495,7 +2495,7 @@ public class LDSWeb {
 	}
 	
 	public void ABSetupColinMacNeil() throws Exception {
-		//ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab253", "pa$$w0rd0");
+		//ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab254", "password0");
 		clickElement("InvestigatorsAdd", "id");
 		enterText("abFirstName", "xpath", "Colin");
 		enterText("abLastName", "xpath", "MacNeil");
@@ -2586,7 +2586,7 @@ public class LDSWeb {
 	}
 	
 	public void ABSetEventColinMacNeil() throws Exception {
-		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab253", "pa$$w0rd0");
+		ABopenPageLogIn("https://missionary-stage.lds.org/areabook/", "ab254", "password0");
 		Thread.sleep(1000);
 		clickElement("abPeople", "xpath");
 		Thread.sleep(1000);
