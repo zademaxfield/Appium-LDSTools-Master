@@ -520,7 +520,7 @@ public class LDSTools {
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
-		LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
+		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
@@ -549,6 +549,7 @@ public class LDSTools {
 		
 		//RotateTest(os);
 		//rerunSyncTest(os, 3);
+		rerunSyncTestIan(os, 50);
 		
 		
 		
@@ -599,7 +600,7 @@ public class LDSTools {
 	public void justForTesting(String os) throws Exception {
 		String pageSource;
 		List<String> foundUnits;
-		syncLogIn("LDSTools60", "testpassword1", "UAT", os );
+		syncLogIn("LDSTools60", "ldsM0b1l3", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
 		Thread.sleep(2000);
 		
@@ -633,6 +634,8 @@ public class LDSTools {
 		
 		clickButton("SearchUnitImage", "id", "xpath");
 		
+		Thread.sleep(2000);
+		printPageSource();
 		clickButton("AddUnitRecentTab", "xpath", "pred");
 		pageSource = getSourceOfPage();
 		
@@ -645,20 +648,59 @@ public class LDSTools {
 		
 		System.out.println("DEFAULT");
 		foundUnits = getTextFromXpathElement("AddUnitRecentMember");
-		for(String myUnit : foundUnits ) {
-			System.out.println(myUnit);
-		}
+		//for(String myUnit : foundUnits ) {
+		//	System.out.println(myUnit);
+		//}
 		
+		Assert.assertTrue(foundUnits.get(0).contains("Hamburg"));
+		Assert.assertTrue(foundUnits.get(1).contains("Sunnydell"));
+		Assert.assertTrue(foundUnits.get(2).contains("Desert Willow"));
+		Assert.assertTrue(foundUnits.get(3).contains("Roosevelt  1st"));
+		Assert.assertTrue(foundUnits.get(4).contains("Starcrest"));
+		Assert.assertTrue(foundUnits.get(5).contains("Vernal  4th"));
 		
 		//Need to sort list
+		if (!getRunningOS().equals("mac")) {
+			clickButton("AddUnitMore", "xpath", "pred");
+		}
 		clickButton("AddUnitSort", "xpath", "pred"); 
 		clickButton("AddUnitOldest", "xpath", "pred");
 		
 		System.out.println("OLDEST");
 		foundUnits = getTextFromXpathElement("AddUnitRecentMember");
-		for(String myUnit : foundUnits ) {
-			System.out.println(myUnit);
+		//for(String myUnit : foundUnits ) {
+		//	System.out.println(myUnit);
+		//}
+		
+		Assert.assertTrue(foundUnits.get(5).contains("Hamburg"));
+		Assert.assertTrue(foundUnits.get(4).contains("Sunnydell"));
+		Assert.assertTrue(foundUnits.get(3).contains("Desert Willow"));
+		Assert.assertTrue(foundUnits.get(2).contains("Roosevelt  1st"));
+		Assert.assertTrue(foundUnits.get(1).contains("Starcrest"));
+		Assert.assertTrue(foundUnits.get(0).contains("Vernal  4th"));
+		
+		//Need to sort list
+		if (!getRunningOS().equals("mac")) {
+			clickButton("AddUnitMore", "xpath", "pred");
 		}
+		clickButton("AddUnitSort", "xpath", "pred"); 
+		clickButton("AddUnitAlphabetical", "xpath", "pred");
+		
+		System.out.println("ALPHABETICAL");
+		foundUnits = getTextFromXpathElement("AddUnitRecentMember");
+		//for(String myUnit : foundUnits ) {
+		//	System.out.println(myUnit);
+		//}
+		
+		Assert.assertTrue(foundUnits.get(0).contains("Desert Willow"));
+		Assert.assertTrue(foundUnits.get(1).contains("Hamburg"));
+		Assert.assertTrue(foundUnits.get(2).contains("Roosevelt  1st"));
+		Assert.assertTrue(foundUnits.get(3).contains("Starcrest"));
+		Assert.assertTrue(foundUnits.get(4).contains("Sunnydell"));
+		Assert.assertTrue(foundUnits.get(5).contains("Vernal  4th"));
+		
+		
+		
 		
 		//Need to clear list
 		
@@ -4260,7 +4302,7 @@ public class LDSTools {
 	}
 	
 	@Parameters({"os", "numberOfRetries"})
-	@Test (groups= {"retrySync", "all3"}, priority = 2, enabled = false)
+	@Test (groups= {"retrySync"}, priority = 2, enabled = false)
 	public void rerunSyncTest(String os, int numberOfRetires) throws Exception {
 		
 		System.out.println("Number of Retries: " + numberOfRetires);
@@ -4296,6 +4338,42 @@ public class LDSTools {
 		
 	}
 	
+	@Parameters({"os", "numberOfRetries"})
+	@Test (groups= {"retrySync"}, priority = 2)
+	public void rerunSyncTestIan(String os, int numberOfRetires) throws Exception {
+		
+		System.out.println("Number of Retries: " + numberOfRetires);
+		
+		for (int i = 1; i < numberOfRetires; i++) {
+			System.out.println("Counter: " + i);
+			syncLogIn("imaxfield", "ldsM0b1l3", "Production", os );
+			Thread.sleep(2000);
+			pinPage("1", "1", "3", "3", true);
+			Thread.sleep(2000);
+			Assert.assertTrue(checkElementTextViewRoboReturn("Adamson, Alysa"));
+			drawerSignOut();
+		}
+		
+		
+		
+		/*
+		syncLogIn("LDSTools14", "toolstester", "UAT", os );
+		Thread.sleep(2000);
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);
+		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
+	
+		
+		
+		for (int i = 1; i < 50 ; i++) {
+			System.out.println("Counter: " + i);
+			runSync();
+			Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
+		}
+		
+		*/
+		
+	}
 	
 	
 	/** invalidLoginCheck()
@@ -5356,7 +5434,7 @@ public class LDSTools {
 	@Test (groups= {"addUnit", "smoke", "medium", "all1"}, priority = 1)
 	public void additonalUnitSimpleTest(String os) throws Exception {
 		String pageSource;
-		syncLogIn("LDSTools60", "testpassword1", "UAT", os );
+		syncLogIn("LDSTools60", "ldsM0b1l3", "UAT", os );
 		//printPageSource();
 		
 		//((PerformsTouchID) driver).performTouchID(true);
@@ -5394,7 +5472,7 @@ public class LDSTools {
 	@Test (groups= {"addUnit", "medium", "all2"}, priority = 1)
 	public void additionalUnit(String os) throws Exception {
 		String pageSource;
-		syncLogIn("LDSTools60", "testpassword1", "UAT", os );
+		syncLogIn("LDSTools60", "ldsM0b1l3", "UAT", os );
 		//printPageSource();
 		pinPage("1", "1", "3", "3", true);
 		Thread.sleep(2000);
@@ -6095,12 +6173,19 @@ public class LDSTools {
 	
 	
 	private List<String> getTextFromXpathElement(String textElement) throws Exception {
-		List<MobileElement> options = driver.findElements(By.xpath(textElement));
-		List<String> listText = null;
-		for (int i = 0 ; i < options.size(); i++ ) {
-			System.out.println(options.get(i).getText());
-			System.out.println(options.get(i).getAttribute("name"));
-			listText.add(i, options.get(i).getText());
+		List<MobileElement> options = driver.findElements(By.xpath(this.prop.getProperty(textElement)));
+		List<String> listText = new ArrayList<String>();
+		String myListText;
+		if (!options.isEmpty()) {
+			for (int i = 0 ; i < options.size(); i++ ) {
+				myListText = options.get(i).getText();
+				System.out.println( i + " - List : " + myListText);
+				//System.out.println(options.get(i).getAttribute("name"));
+				//listText.add(i, options.get(i).getText());
+				listText.add(myListText);
+			}
+		} else {
+			listText.add("EMPTY");
 		}
 		
 		return listText;
@@ -10837,7 +10922,8 @@ public class LDSTools {
 	private void checkForAlert() throws Exception {
 		//Check to see if we are getting a warning
 		if (checkElementExistsByXpath("AlertMessageCheck") == true) {
-			clickButtonByXpath("OK");
+			//clickButtonByXpath("OK");
+			clickButton("OK", "xpath", "pred");
 		}
 	}
 	
@@ -12906,7 +12992,11 @@ public class LDSTools {
 			clickButton(foundName, "name", "nameContains");
 		} else {
 			clickButton("SearchUnitImage", "id", "xpath");
-			clickButton("SearchUnitImage", "id", "xpath");
+			Thread.sleep(2000);
+			if (checkElementReturn("SearchUnitImage", "id", "xpath") == true ) {
+				clickButton("SearchUnitImage", "id", "xpath");
+			}
+			
 			Thread.sleep(1000);
 			//Search for a Unit
 			sendTextbyID("AddUnitFind", searchName);
