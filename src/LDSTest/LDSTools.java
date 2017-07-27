@@ -475,11 +475,11 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		//justForTesting(os);	
+		justForTesting(os);	
 		
 		//additionalUnit(os);	
 		//additonalUnitSimpleTest(os);
-		addUnitsRecent(os);
+		//addUnitsRecent(os);
 		
 		//myTempleSimpleTest(os);
 		
@@ -602,127 +602,29 @@ public class LDSTools {
 	public void justForTesting(String os) throws Exception {
 		String pageSource;
 		List<String> foundUnits;
-		syncLogIn("LDSTools60", "ldsM0b1l3", "UAT", os );
+		syncLogIn("LDSTools2", "toolstester", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
 		Thread.sleep(2000);
 		
 		
 		Thread.sleep(2000);
-		openSyncPage();
+		openMissionary();
 		Thread.sleep(2000);
 		
-
-		if (getRunningOS().equals("mac")) {
-			if (checkTextContainsReturn("IncludeAdditionalUnit", "false", "id", "xpathValue" ) == 1 ) {
-				//Switch is off
-				clickButton("IncludeAdditionalUnit", "id", "xpath");
-			}
-		} else {
-			if (checkTextContainsReturn("IncludeAdditionalUnit", "OFF", "id", "pred" ) == 1 ) {
-				//Switch is off
-				clickButton("IncludeAdditionalUnit", "id", "pred");
-			}
-
+		//Press Referral button
+		clickButton("MissRefSendReferral", "id", "pred");
+		
+		//Press Referral button again if found for Android
+		if (checkElementReturn("MissRefSendReferral", "id", "pred") == true ) {
+			clickButton("MissRefSendReferral", "id", "pred");
 		}
-		
-		//Need more units
-		
-		addUnitsSelectUnit("Vernal 4th", "Vernal  4th Ward");
-		addUnitsSelectUnit("Starcrest", "Starcrest Ward");
-		addUnitsSelectUnit("Roosevelt 1st", "Roosevelt  1st Ward");
-		addUnitsSelectUnit("Desert Willow", "Desert Willow Ward");
-		addUnitsSelectUnit("Sunnydell", "Sunnydell Ward");
-		addUnitsSelectUnit("Hamburg", "Hamburg Ward");
-		
-		clickButton("SearchUnitImage", "id", "xpath");
-		
+
 		Thread.sleep(2000);
-		//printPageSource();
-		clickButton("AddUnitRecentTab", "xpath", "pred");
-		pageSource = getSourceOfPage();
-		
-		if (!getRunningOS().equals("mac")) {
-			scrollToElementRecyclerView("Vernal  4th Ward");
-			//scrollDownPerPage(500);
-			//scrollDownTEST(600);
-			pageSource = pageSource + getSourceOfPage();
-		}
-
-		
-		
-		Assert.assertTrue(checkNoCaseList("Vernal  4th", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Starcrest", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Roosevelt  1st", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Desert Willow", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Sunnydell", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Hamburg", pageSource, "Contains"));
-		
-		//TODO: Android list
-		//There isn't an easy way to do this on Android 
-		if (getRunningOS().equals("mac")) {
-			System.out.println("DEFAULT");
-			foundUnits = getTextFromXpathElement("AddUnitRecentMember");
-			//for(String myUnit : foundUnits ) {
-			//	System.out.println(myUnit);
-			//}
-			
-			Assert.assertTrue(foundUnits.get(0).contains("Hamburg"));
-			Assert.assertTrue(foundUnits.get(1).contains("Sunnydell"));
-			Assert.assertTrue(foundUnits.get(2).contains("Desert Willow"));
-			Assert.assertTrue(foundUnits.get(3).contains("Roosevelt  1st"));
-			Assert.assertTrue(foundUnits.get(4).contains("Starcrest"));
-			Assert.assertTrue(foundUnits.get(5).contains("Vernal  4th"));
-			
-			//Need to sort list
-			if (!getRunningOS().equals("mac")) {
-				clickButton("AddUnitMore", "xpath", "pred");
-			}
-			clickButton("AddUnitSort", "xpath", "pred"); 
-			clickButton("AddUnitOldest", "xpath", "pred");
-			
-			System.out.println("OLDEST");
-			foundUnits = getTextFromXpathElement("AddUnitRecentMember");
-			//for(String myUnit : foundUnits ) {
-			//	System.out.println(myUnit);
-			//}
-			
-			Assert.assertTrue(foundUnits.get(5).contains("Hamburg"));
-			Assert.assertTrue(foundUnits.get(4).contains("Sunnydell"));
-			Assert.assertTrue(foundUnits.get(3).contains("Desert Willow"));
-			Assert.assertTrue(foundUnits.get(2).contains("Roosevelt  1st"));
-			Assert.assertTrue(foundUnits.get(1).contains("Starcrest"));
-			Assert.assertTrue(foundUnits.get(0).contains("Vernal  4th"));
-			
-			//Need to sort list
-			if (!getRunningOS().equals("mac")) {
-				clickButton("AddUnitMore", "xpath", "pred");
-			}
-			clickButton("AddUnitSort", "xpath", "pred"); 
-			clickButton("AddUnitAlphabetical", "xpath", "pred");
-			
-			System.out.println("ALPHABETICAL");
-			foundUnits = getTextFromXpathElement("AddUnitRecentMember");
-			//for(String myUnit : foundUnits ) {
-			//	System.out.println(myUnit);
-			//}
-			
-			Assert.assertTrue(foundUnits.get(0).contains("Desert Willow"));
-			Assert.assertTrue(foundUnits.get(1).contains("Hamburg"));
-			Assert.assertTrue(foundUnits.get(2).contains("Roosevelt  1st"));
-			Assert.assertTrue(foundUnits.get(3).contains("Starcrest"));
-			Assert.assertTrue(foundUnits.get(4).contains("Sunnydell"));
-			Assert.assertTrue(foundUnits.get(5).contains("Vernal  4th"));
-		}
-
-		
-		
-		
+		//Check to see if the Members info is correct
+		checkText("MissRefMemberPhone", "8019675309", "id", "xpath"	);
+		checkText("MissRefMemberEmail", "Lds2@yahoo.com", "id", "xpath"	);
 		
 
-		
-		
-		
-		
 		
 		
 		
@@ -5566,7 +5468,7 @@ public class LDSTools {
 	
 	@Parameters({"os"})
 	@Test (groups= {"addUnit", "smoke", "medium", "all3"}, priority = 1)
-	private void addUnitsRecent(String os) throws Exception {
+	public void addUnitsRecent(String os) throws Exception {
 		String pageSource;
 		List<String> foundUnits;
 		syncLogIn("LDSTools60", "ldsM0b1l3", "UAT", os );
@@ -5712,6 +5614,9 @@ public class LDSTools {
 		if (findElement == "text") {
 			AssertJUnit.assertEquals(driver.findElement(By.xpath("//*[contains(text(), '" + textElement + "')]")).getText(),(textToCheck));
 		}
+		if (findElement == "pred")  {
+			AssertJUnit.assertEquals(driver.findElement(MobileBy.iOSNsPredicateString(this.prop.getProperty(textElement))).getText(),(textToCheck));
+		}
 		
 		if (findElement == "byName") {
 			AssertJUnit.assertEquals(driver.findElement(By.name(textElement)).getText(),(textToCheck));
@@ -5741,6 +5646,9 @@ public class LDSTools {
 		}
 		if (findElement == "linkText") {
 			myText = driver.findElement(By.linkText(this.prop.getProperty(textElement))).getText();
+		}
+		if (findElement == "pred")  {
+			myText = driver.findElement(MobileBy.iOSNsPredicateString(this.prop.getProperty(textElement))).getText();	
 		}
 		if (findElement == "text")  {
 			myText = driver.findElement(By.xpath("//*[contains(text(), '" + textElement + "')]")).getText();
