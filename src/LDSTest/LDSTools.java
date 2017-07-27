@@ -479,6 +479,8 @@ public class LDSTools {
 		
 		//additionalUnit(os);	
 		//additonalUnitSimpleTest(os);
+		addUnitsRecent(os);
+		
 		//myTempleSimpleTest(os);
 		
 
@@ -549,7 +551,7 @@ public class LDSTools {
 		
 		//RotateTest(os);
 		//rerunSyncTest(os, 3);
-		rerunSyncTestIan(os, 50);
+		//rerunSyncTestIan(os, 50);
 		
 		
 		
@@ -635,9 +637,18 @@ public class LDSTools {
 		clickButton("SearchUnitImage", "id", "xpath");
 		
 		Thread.sleep(2000);
-		printPageSource();
+		//printPageSource();
 		clickButton("AddUnitRecentTab", "xpath", "pred");
 		pageSource = getSourceOfPage();
+		
+		if (!getRunningOS().equals("mac")) {
+			scrollToElementRecyclerView("Vernal  4th Ward");
+			//scrollDownPerPage(500);
+			//scrollDownTEST(600);
+			pageSource = pageSource + getSourceOfPage();
+		}
+
+		
 		
 		Assert.assertTrue(checkNoCaseList("Vernal  4th", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Starcrest", pageSource, "Contains"));
@@ -646,64 +657,68 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("Sunnydell", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Hamburg", pageSource, "Contains"));
 		
-		System.out.println("DEFAULT");
-		foundUnits = getTextFromXpathElement("AddUnitRecentMember");
-		//for(String myUnit : foundUnits ) {
-		//	System.out.println(myUnit);
-		//}
-		
-		Assert.assertTrue(foundUnits.get(0).contains("Hamburg"));
-		Assert.assertTrue(foundUnits.get(1).contains("Sunnydell"));
-		Assert.assertTrue(foundUnits.get(2).contains("Desert Willow"));
-		Assert.assertTrue(foundUnits.get(3).contains("Roosevelt  1st"));
-		Assert.assertTrue(foundUnits.get(4).contains("Starcrest"));
-		Assert.assertTrue(foundUnits.get(5).contains("Vernal  4th"));
-		
-		//Need to sort list
-		if (!getRunningOS().equals("mac")) {
-			clickButton("AddUnitMore", "xpath", "pred");
+		//TODO: Android list
+		//There isn't an easy way to do this on Android 
+		if (getRunningOS().equals("mac")) {
+			System.out.println("DEFAULT");
+			foundUnits = getTextFromXpathElement("AddUnitRecentMember");
+			//for(String myUnit : foundUnits ) {
+			//	System.out.println(myUnit);
+			//}
+			
+			Assert.assertTrue(foundUnits.get(0).contains("Hamburg"));
+			Assert.assertTrue(foundUnits.get(1).contains("Sunnydell"));
+			Assert.assertTrue(foundUnits.get(2).contains("Desert Willow"));
+			Assert.assertTrue(foundUnits.get(3).contains("Roosevelt  1st"));
+			Assert.assertTrue(foundUnits.get(4).contains("Starcrest"));
+			Assert.assertTrue(foundUnits.get(5).contains("Vernal  4th"));
+			
+			//Need to sort list
+			if (!getRunningOS().equals("mac")) {
+				clickButton("AddUnitMore", "xpath", "pred");
+			}
+			clickButton("AddUnitSort", "xpath", "pred"); 
+			clickButton("AddUnitOldest", "xpath", "pred");
+			
+			System.out.println("OLDEST");
+			foundUnits = getTextFromXpathElement("AddUnitRecentMember");
+			//for(String myUnit : foundUnits ) {
+			//	System.out.println(myUnit);
+			//}
+			
+			Assert.assertTrue(foundUnits.get(5).contains("Hamburg"));
+			Assert.assertTrue(foundUnits.get(4).contains("Sunnydell"));
+			Assert.assertTrue(foundUnits.get(3).contains("Desert Willow"));
+			Assert.assertTrue(foundUnits.get(2).contains("Roosevelt  1st"));
+			Assert.assertTrue(foundUnits.get(1).contains("Starcrest"));
+			Assert.assertTrue(foundUnits.get(0).contains("Vernal  4th"));
+			
+			//Need to sort list
+			if (!getRunningOS().equals("mac")) {
+				clickButton("AddUnitMore", "xpath", "pred");
+			}
+			clickButton("AddUnitSort", "xpath", "pred"); 
+			clickButton("AddUnitAlphabetical", "xpath", "pred");
+			
+			System.out.println("ALPHABETICAL");
+			foundUnits = getTextFromXpathElement("AddUnitRecentMember");
+			//for(String myUnit : foundUnits ) {
+			//	System.out.println(myUnit);
+			//}
+			
+			Assert.assertTrue(foundUnits.get(0).contains("Desert Willow"));
+			Assert.assertTrue(foundUnits.get(1).contains("Hamburg"));
+			Assert.assertTrue(foundUnits.get(2).contains("Roosevelt  1st"));
+			Assert.assertTrue(foundUnits.get(3).contains("Starcrest"));
+			Assert.assertTrue(foundUnits.get(4).contains("Sunnydell"));
+			Assert.assertTrue(foundUnits.get(5).contains("Vernal  4th"));
 		}
-		clickButton("AddUnitSort", "xpath", "pred"); 
-		clickButton("AddUnitOldest", "xpath", "pred");
-		
-		System.out.println("OLDEST");
-		foundUnits = getTextFromXpathElement("AddUnitRecentMember");
-		//for(String myUnit : foundUnits ) {
-		//	System.out.println(myUnit);
-		//}
-		
-		Assert.assertTrue(foundUnits.get(5).contains("Hamburg"));
-		Assert.assertTrue(foundUnits.get(4).contains("Sunnydell"));
-		Assert.assertTrue(foundUnits.get(3).contains("Desert Willow"));
-		Assert.assertTrue(foundUnits.get(2).contains("Roosevelt  1st"));
-		Assert.assertTrue(foundUnits.get(1).contains("Starcrest"));
-		Assert.assertTrue(foundUnits.get(0).contains("Vernal  4th"));
-		
-		//Need to sort list
-		if (!getRunningOS().equals("mac")) {
-			clickButton("AddUnitMore", "xpath", "pred");
-		}
-		clickButton("AddUnitSort", "xpath", "pred"); 
-		clickButton("AddUnitAlphabetical", "xpath", "pred");
-		
-		System.out.println("ALPHABETICAL");
-		foundUnits = getTextFromXpathElement("AddUnitRecentMember");
-		//for(String myUnit : foundUnits ) {
-		//	System.out.println(myUnit);
-		//}
-		
-		Assert.assertTrue(foundUnits.get(0).contains("Desert Willow"));
-		Assert.assertTrue(foundUnits.get(1).contains("Hamburg"));
-		Assert.assertTrue(foundUnits.get(2).contains("Roosevelt  1st"));
-		Assert.assertTrue(foundUnits.get(3).contains("Starcrest"));
-		Assert.assertTrue(foundUnits.get(4).contains("Sunnydell"));
-		Assert.assertTrue(foundUnits.get(5).contains("Vernal  4th"));
+
 		
 		
 		
 		
-		//Need to clear list
-		
+
 		
 		
 		
@@ -5546,6 +5561,125 @@ public class LDSTools {
 		}
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Painter", pageSource, "Contains"));
+
+	}
+	
+	@Parameters({"os"})
+	@Test (groups= {"addUnit", "smoke", "medium", "all3"}, priority = 1)
+	private void addUnitsRecent(String os) throws Exception {
+		String pageSource;
+		List<String> foundUnits;
+		syncLogIn("LDSTools60", "ldsM0b1l3", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+		Thread.sleep(2000);
+		
+		
+		Thread.sleep(2000);
+		openSyncPage();
+		Thread.sleep(2000);
+		
+
+		if (getRunningOS().equals("mac")) {
+			if (checkTextContainsReturn("IncludeAdditionalUnit", "false", "id", "xpathValue" ) == 1 ) {
+				//Switch is off
+				clickButton("IncludeAdditionalUnit", "id", "xpath");
+			}
+		} else {
+			if (checkTextContainsReturn("IncludeAdditionalUnit", "OFF", "id", "pred" ) == 1 ) {
+				//Switch is off
+				clickButton("IncludeAdditionalUnit", "id", "pred");
+			}
+
+		}
+		
+		//Need more units
+		
+		addUnitsSelectUnit("Vernal 4th", "Vernal  4th Ward");
+		addUnitsSelectUnit("Starcrest", "Starcrest Ward");
+		addUnitsSelectUnit("Roosevelt 1st", "Roosevelt  1st Ward");
+		addUnitsSelectUnit("Desert Willow", "Desert Willow Ward");
+		addUnitsSelectUnit("Sunnydell", "Sunnydell Ward");
+		addUnitsSelectUnit("Hamburg", "Hamburg Ward");
+		
+		clickButton("SearchUnitImage", "id", "xpath");
+		
+		Thread.sleep(2000);
+		//printPageSource();
+		clickButton("AddUnitRecentTab", "xpath", "pred");
+		pageSource = getSourceOfPage();
+		
+		if (!getRunningOS().equals("mac")) {
+			scrollToElementRecyclerView("Vernal  4th Ward");
+			//scrollDownPerPage(500);
+			//scrollDownTEST(600);
+			pageSource = pageSource + getSourceOfPage();
+		}
+
+		
+		
+		Assert.assertTrue(checkNoCaseList("Vernal  4th", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Starcrest", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Roosevelt  1st", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Desert Willow", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Sunnydell", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Hamburg", pageSource, "Contains"));
+		
+		//TODO: Android list
+		//There isn't an easy way to do this on Android 
+		if (getRunningOS().equals("mac")) {
+			System.out.println("DEFAULT");
+			foundUnits = getTextFromXpathElement("AddUnitRecentMember");
+			//for(String myUnit : foundUnits ) {
+			//	System.out.println(myUnit);
+			//}
+			
+			Assert.assertTrue(foundUnits.get(0).contains("Hamburg"));
+			Assert.assertTrue(foundUnits.get(1).contains("Sunnydell"));
+			Assert.assertTrue(foundUnits.get(2).contains("Desert Willow"));
+			Assert.assertTrue(foundUnits.get(3).contains("Roosevelt  1st"));
+			Assert.assertTrue(foundUnits.get(4).contains("Starcrest"));
+			Assert.assertTrue(foundUnits.get(5).contains("Vernal  4th"));
+			
+			//Need to sort list
+			if (!getRunningOS().equals("mac")) {
+				clickButton("AddUnitMore", "xpath", "pred");
+			}
+			clickButton("AddUnitSort", "xpath", "pred"); 
+			clickButton("AddUnitOldest", "xpath", "pred");
+			
+			System.out.println("OLDEST");
+			foundUnits = getTextFromXpathElement("AddUnitRecentMember");
+			//for(String myUnit : foundUnits ) {
+			//	System.out.println(myUnit);
+			//}
+			
+			Assert.assertTrue(foundUnits.get(5).contains("Hamburg"));
+			Assert.assertTrue(foundUnits.get(4).contains("Sunnydell"));
+			Assert.assertTrue(foundUnits.get(3).contains("Desert Willow"));
+			Assert.assertTrue(foundUnits.get(2).contains("Roosevelt  1st"));
+			Assert.assertTrue(foundUnits.get(1).contains("Starcrest"));
+			Assert.assertTrue(foundUnits.get(0).contains("Vernal  4th"));
+			
+			//Need to sort list
+			if (!getRunningOS().equals("mac")) {
+				clickButton("AddUnitMore", "xpath", "pred");
+			}
+			clickButton("AddUnitSort", "xpath", "pred"); 
+			clickButton("AddUnitAlphabetical", "xpath", "pred");
+			
+			System.out.println("ALPHABETICAL");
+			foundUnits = getTextFromXpathElement("AddUnitRecentMember");
+			//for(String myUnit : foundUnits ) {
+			//	System.out.println(myUnit);
+			//}
+			
+			Assert.assertTrue(foundUnits.get(0).contains("Desert Willow"));
+			Assert.assertTrue(foundUnits.get(1).contains("Hamburg"));
+			Assert.assertTrue(foundUnits.get(2).contains("Roosevelt  1st"));
+			Assert.assertTrue(foundUnits.get(3).contains("Starcrest"));
+			Assert.assertTrue(foundUnits.get(4).contains("Sunnydell"));
+			Assert.assertTrue(foundUnits.get(5).contains("Vernal  4th"));
+		}
 
 	}
 	
