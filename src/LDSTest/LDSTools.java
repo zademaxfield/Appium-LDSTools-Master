@@ -475,7 +475,7 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		justForTesting(os);	
+		//justForTesting(os);	
 		
 		//additionalUnit(os);	
 		//additonalUnitSimpleTest(os);
@@ -526,7 +526,7 @@ public class LDSTools {
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
-		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
+		LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//LeaderBishopricReport("ngiBPC2", false, os); //Bishopric 2nd Counselor  
 		
 		//AssistantWardClerkMembershipReport(os);
@@ -5482,9 +5482,9 @@ public class LDSTools {
 		
 
 		if (getRunningOS().equals("mac")) {
-			if (checkTextContainsReturn("IncludeAdditionalUnit", "false", "id", "xpathValue" ) == 1 ) {
+			if (checkTextContainsReturn("IncludeAdditionalUnit", "false", "id", "predValue" ) == 1 ) {
 				//Switch is off
-				clickButton("IncludeAdditionalUnit", "id", "xpath");
+				clickButton("IncludeAdditionalUnit", "id", "pred");
 			}
 		} else {
 			if (checkTextContainsReturn("IncludeAdditionalUnit", "OFF", "id", "pred" ) == 1 ) {
@@ -5693,10 +5693,15 @@ public class LDSTools {
 		if (findElement == "pred")  {
 			myText = driver.findElement(MobileBy.iOSNsPredicateString(this.prop.getProperty(textElement))).getText();	
 		}
+		if (findElement == "predValue")  {
+			myText = driver.findElement(MobileBy.iOSNsPredicateString(this.prop.getProperty(textElement))).getAttribute("value");
+		}
 		if (findElement == "xpathValue") {
 			myText = driver.findElement(By.xpath(this.prop.getProperty(textElement))).getAttribute("value");
 			//System.out.println("VALUE: " + myText);
 		}
+		
+		System.out.println("TEXT FOUND: " + myText);
 		
 		if (myText.contains(textToCheck)) {
 			myReturn = 1;
@@ -13069,9 +13074,9 @@ public class LDSTools {
 			Thread.sleep(2000);
 
 		} else {
-			if (checkTextContainsReturn("IncludeAdditionalUnit", "false", "id", "xpathValue" ) == 1 ) {
+			if (checkTextContainsReturn("IncludeAdditionalUnit", "false", "id", "predValue" ) == 1 ) {
 				//Switch is off
-				clickButton("IncludeAdditionalUnit", "id", "xpath");
+				clickButton("IncludeAdditionalUnit", "id", "pred");
 			}
 
 			addUnitsSelectUnit(searchName, foundName);
