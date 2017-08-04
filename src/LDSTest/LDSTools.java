@@ -494,7 +494,7 @@ public class LDSTools {
 		//bishopMemberOfSeparateStake(os);	
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
-		editCurrentUser(os);	
+		//editCurrentUser(os);	
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
@@ -505,7 +505,7 @@ public class LDSTools {
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
-		//CheckUnitsToSync(os);
+		CheckUnitsToSync(os);
 		
 		//Works in IOS not in Android - need to fix the scrolling problem
 		//checkAllUsersFromWeb(os);
@@ -5229,7 +5229,7 @@ public class LDSTools {
 				clickButtonByXpathTitleNameContains("Set Max Units");
 				Thread.sleep(2000);
 				sendTextbyXpath("SetMaxUnits", "3");
-				clickButton("OK", "xpath", "xpath");
+				clickButton("OK", "xpath", "pred");
 				
 				pressBackKey();
 				pressBackKey();
