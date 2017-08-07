@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Android Medium Tests suite" configfailurepolicy="continue" parallel="tests"  thread-count="4">	
+    <parameter name="os" value="android" />
+	<listeners>
+	    <listener class-name="LDSTest.RetryListener"/>
+	    <listener class-name= "LDSTest.CustomReporter" />
+	    <listener class-name="LDSTest.TestListener" />
+	</listeners>
+	
+	<test name="Medium Test 1" thread-count="4" parallel="instances">
+	    <parameter name="os" value="android" />
+	    <parameter name="fileName" value="ldstools-alpha.apk" />
+	    <parameter name="testDevice" value="STF-Pool" />
+	    <parameter name="startSleepTime" value="1000" />
+
+		<groups>
+		    <run>
+		        <include name="medium1"/>
+		    </run>
+		</groups>
+		
+		<classes>
+		    <class name="LDSTest.LDSTools"/>
+		    <class name="LDSTest.LDSTools$Retry"/>      
+		</classes>
+	</test> 
+	
+	<test name="Medium Test 2" thread-count="4" parallel="instances">
+	    <parameter name="os" value="android" />
+	    <parameter name="fileName" value="ldstools-alpha.apk" />
+	    <parameter name="testDevice" value="STF-Pool" />
+	    <parameter name="startSleepTime" value="30000" />
+
+		<groups>
+		    <run>
+		        <include name="medium2"/>
+		    </run>
+		</groups>
+		
+		<classes>
+		    <class name="LDSTest.LDSTools"/>
+		    <class name="LDSTest.LDSTools$Retry"/>      
+		</classes>
+	</test> 
+	
+	<test name="Medium Test 3" thread-count="4" parallel="instances">
+	    <parameter name="os" value="android" />
+	    <parameter name="fileName" value="ldstools-alpha.apk" />
+	    <parameter name="testDevice" value="STF-Pool" />
+	    <parameter name="startSleepTime" value="60000" />
+
+		<groups>
+		    <run>
+		        <include name="medium3"/>
+		    </run>
+		</groups>
+		
+		<classes>
+		    <class name="LDSTest.LDSTools"/>
+		    <class name="LDSTest.LDSTools$Retry"/>      
+		</classes>
+	</test> 
+	
+	<test name="Medium Test 4" thread-count="4" parallel="instances">
+	    <parameter name="os" value="android" />
+	    <parameter name="fileName" value="ldstools-alpha.apk" />
+	    <parameter name="testDevice" value="STF-Pool" />
+	    <parameter name="startSleepTime" value="90000" />
+
+		<groups>
+		    <run>
+		        <include name="medium4"/>
+		    </run>
+		</groups>
+		
+		<classes>
+		    <class name="LDSTest.LDSTools"/>
+		    <class name="LDSTest.LDSTools$Retry"/>      
+		</classes>
+	</test> 
+</suite> 
