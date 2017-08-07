@@ -498,14 +498,14 @@ public class LDSTools {
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
-		//editOtherUserInvalidEmail(os);
+		editOtherUserInvalidEmail(os);
 		
 		
 		//editVisibility(os);
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
-		CheckUnitsToSync(os);
+		//CheckUnitsToSync(os);
 		
 		//Works in IOS not in Android - need to fix the scrolling problem
 		//checkAllUsersFromWeb(os);
@@ -3610,7 +3610,6 @@ public class LDSTools {
 		//printPageSource();
 		clickButton("EditPersonalPhone", "xpath", "xpath");
 		invalidEmailCheck();
-	
 		ClearTextToEditUser("EditPersonalEmail");
 		//myKeyboardClear();
 		
@@ -3618,12 +3617,15 @@ public class LDSTools {
 		
 		sendTextToEditUser("EditHomeEmail", "thisisaninvalidemailaddress");
 		//myKeyboardClear();
+		clickButton("EditPersonalPhone", "xpath", "xpath");
 		invalidEmailCheck();
 		Thread.sleep(2000);
 		ClearTextToEditUser("EditHomeEmail");
 		//myKeyboardClear();
 		
+		
 		sendTextToEditUser("EditPersonalEmail", "!@#$%^&*()_+-=[]{}|");
+		clickButton("EditPersonalPhone", "xpath", "xpath");
 		invalidEmailCheck();
 		ClearTextToEditUser("EditPersonalEmail");
 		//myKeyboardClear();
@@ -3632,10 +3634,12 @@ public class LDSTools {
 		
 		sendTextToEditUser("EditHomeEmail", "!@#$%^&*()_+-=[]{}|");
 		//myKeyboardClear();
+		clickButton("EditPersonalPhone", "xpath", "xpath");
 		invalidEmailCheck();
 		Thread.sleep(2000);
 		ClearTextToEditUser("EditHomeEmail");
 		//myKeyboardClear();
+
 		
 		
 		clickButton("MenuSave", "id", "xpath");
@@ -7079,7 +7083,6 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			myElement.click();
 			myElement.clear();
-			
 		} else {
 			myElement.click();
 			myElement.clear();
@@ -8269,6 +8272,8 @@ public class LDSTools {
 			myCheck = checkTextContainsReturn("AlertMessageMember", "Invalid", "xpath", "xpath");
 		}
 		
+		//System.out.println("Alert Check: " + myCheck);
+		
 		return myCheck;
 	}
 	
@@ -8280,7 +8285,8 @@ public class LDSTools {
 			clickButton("MenuSave", "id", "xpath");
 			alertCheck = alertCheckInvalidInput();
 			if (alertCheck == 1 ) {
-				clickButtonByXpath("AlertOK");
+				//clickButtonByXpath("AlertOK");
+				clickButton("OK", "xpath", "pred");
 			}
 		} else {
 			Thread.sleep(2000);
