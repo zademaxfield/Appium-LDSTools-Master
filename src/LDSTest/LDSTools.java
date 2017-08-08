@@ -477,7 +477,7 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 		
-		//additionalUnit(os);	
+		additionalUnit(os);	
 		//additonalUnitSimpleTest(os);
 		//addUnitsRecent(os);
 		
@@ -556,7 +556,7 @@ public class LDSTools {
 		
 		
 		//Header Tests
-		JeffAnderson(os);
+		//JeffAnderson(os);
 		//ChristieWhiting(os);
 		//CliffHigby(os);
 		//KevinPalmer(os);
@@ -5456,13 +5456,17 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Members Moved In");
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Butandu", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Bustos", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Skywalker, Luke", pageSource, "Contains"));
 		
 		pressBackKey();
 		
 		openMissionary();
+		Thread.sleep(1000);
 		if (!getRunningOS().equals("mac")) {
+			clickButton("MissAssignedTab", "xpath", "xpath");
+			//Click it twice because of the stupid alert + button
+			Thread.sleep(1000);
 			clickButton("MissAssignedTab", "xpath", "xpath");
 		}
 		pageSource = getSourceOfPage();
