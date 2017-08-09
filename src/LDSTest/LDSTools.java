@@ -478,7 +478,7 @@ public class LDSTools {
 		//justForTesting(os);	
 		
 		//additionalUnit(os);	
-		//additonalUnitSimpleTest(os);
+		additonalUnitSimpleTest(os);
 		//addUnitsRecent(os);
 		
 		//myTempleSimpleTest(os);
@@ -556,7 +556,7 @@ public class LDSTools {
 		
 		
 		//Header Tests
-		JeffAnderson(os);
+		//JeffAnderson(os);
 		//ChristieWhiting(os);
 		//CliffHigby(os);
 		//KevinPalmer(os);
