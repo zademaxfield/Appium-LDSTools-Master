@@ -211,6 +211,7 @@ public class LDSTools {
 		Thread.sleep(20000);
 
 	}
+	
 
 
 	
@@ -226,6 +227,7 @@ public class LDSTools {
 	public void setUp(String os, String fileName, String testDevice, int startSleepTime) throws Exception {
 		//System.out.println("OS: " + os );
 		//System.out.println("File Name: " + fileName);
+		String myUdid = "";
 		Random randomPort = new Random();
 		int myPort = 4444;
 		int lowPort = 4500;
@@ -244,6 +246,8 @@ public class LDSTools {
 		//System.out.println("PORT: " + myPort);
 		
 		newAppiumService.startAppiumService(os, myPort);
+		
+
 		
 		//Android Setup
 		if (os.equals("android")) {
@@ -374,6 +378,20 @@ public class LDSTools {
 		
 		//Setup for iOS
 		if (os.equals("ios")) {
+
+			if (testDevice.contains("REAL")) {
+
+				String[] parts = testDevice.split("-");
+				String part1 = parts[0];
+				String part2 = parts[1];
+				//Remove all whitespace
+				//part1 = part1.trim();
+				//part2 = part2.trim();
+
+				testDevice = part2;
+				myUdid = deviceUDID();
+			}
+			
 			
 			
 			//IOSDriver driver;
@@ -423,7 +441,7 @@ public class LDSTools {
 	        capabilities.setCapability("fullReset", true);
 	        capabilities.setCapability("noReset", false);
 	        
-	        //capabilities.setCapability("showIOSLog", true);
+	        
 	        
 	        
 	        capabilities.setCapability("newCommandTimeout", 600);
@@ -436,23 +454,28 @@ public class LDSTools {
 	        
 	        
 	        capabilities.setCapability("platformVersion", "10.3");
-	        capabilities.setCapability("nativeInstrumentsLib", true);
+	        capabilities.setCapability("nativeInstrumentsLib", false);
 	        
 	        capabilities.setCapability("autoAcceptAlerts", true);
 	        capabilities.setCapability("clearSystemFiles", true);
 	        
-	        
-	        
-	        capabilities.setCapability("xcodeOrgId", "X555J2KHFQ");
-	        capabilities.setCapability("xcodeSigningId", "iPhone Developer");
-	        //capabilities.setCapability("udid","003b84623cec55b5fc7e2c7ab7e1a6e131c8bb73");
-	        
-	        
 	        capabilities.setCapability("allowTouchIdEnroll", true);
 	        
 	        
+	        if (!myUdid.isEmpty()) {
+		        capabilities.setCapability("xcodeOrgId", "X555J2KHFQ");
+		        capabilities.setCapability("xcodeSigningId", "iPhone Developer");
+		        capabilities.setCapability("udid", myUdid);
+	        }
 
-	       
+	      
+	        
+	        
+	        
+	        //capabilities.setCapability("backendRetries", 10);
+	        //capabilities.setCapability("agentPath", "/usr/local/lib/node_modules/appium/node_modules/appium-xcuitest-driver/WebDriverAgent/WebDriverAgent.xcodeproj");
+	        //capabilities.setCapability("bootstrapPath", "/usr/local/lib/node_modules/appium/node_modules/appium-xcuitest-driver/WebDriverAgent");
+	        //capabilities.setCapability("showIOSLog", true);
 	        
 	        //capabilities.setCapability("appActivity", "org.lds.ldstools.ui.StartupActivity");
 	        //driver = new AndroidDriver(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
@@ -478,7 +501,7 @@ public class LDSTools {
 		//justForTesting(os);	
 		
 		//additionalUnit(os);	
-		additonalUnitSimpleTest(os);
+		//additonalUnitSimpleTest(os);
 		//addUnitsRecent(os);
 		
 		//myTempleSimpleTest(os);
@@ -521,7 +544,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		//LeaderBishopricDirectory("ngiBPC1", false, os);
+		LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
@@ -13098,6 +13121,18 @@ public class LDSTools {
 		}
 	}
 	
+	
+	public String deviceUDID() throws IOException{
+		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", "/usr/local/bin/idevice_id -l");
+		builder.redirectErrorStream(true);
+		Process p = builder.start();
+		BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+		String line;
+		line = r.readLine();
+		System.out.println(line);
+		return line;
+	}
+
 	
 	
 	// **************************************************************************************
