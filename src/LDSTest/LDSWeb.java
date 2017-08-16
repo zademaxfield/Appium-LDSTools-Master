@@ -2,6 +2,11 @@ package LDSTest;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,6 +36,7 @@ import org.jsoup.select.Elements;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
@@ -47,11 +53,14 @@ import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.SessionId;
+import org.openqa.selenium.security.UserAndPassword;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+
+import bsh.org.objectweb.asm.Type;
 
 
 public class LDSWeb {
@@ -560,12 +569,73 @@ public class LDSWeb {
 			clickElement("IAgreeCheck", "id");
 			clickElement("Agree and Continue", "text");
 		}
+		
+		Thread.sleep(4000);
+		driver.switchTo().activeElement();
+		robotAuth();
+		//System.out.println("Windows " + driver.getWindowHandles());
+		//WebDriverWait wait = new WebDriverWait(driver, 20);      
+		//Alert alert = wait.until(ExpectedConditions.alertIsPresent());   
+		//driver.switchTo().alert();
+		//alert.authenticateUsing(new UserAndPassword("ldstools2", "toolstester"));
 
+	    //String URL = "https://" + userName + ":" + passWord + "@" + "uat.lds.org/mls/mbr/";
+	    //driver.get(URL);
+			
+		//driver.switchTo().alert();
+		//System.out.println(driver.getPageSource());
+		//driver.findElement(By.id("username")).sendKeys(userName);
+		//driver.findElement(By.id("password")).sendKeys(passWord);
+		//driver.switchTo().alert().accept();
+		//driver.switchTo().defaultContent();
+		
 		
 		clickElement("HomeButton", "xpath");
 		
 		myWindow = driver.getWindowHandle();
 	}
+	
+	public void robotAuth() throws Exception {
+
+	
+		// create robot for keyboard operations      
+		Robot rb = new Robot();
+		rb.mouseMove(500, 200);
+		rb.mousePress(InputEvent.BUTTON1_MASK);
+		rb.mouseRelease(InputEvent.BUTTON1_MASK);
+		
+		// Enter user name in username field 
+		StringSelection username = new StringSelection("ldstools2");
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(username, null);   
+		rb.setAutoDelay(40);
+		rb.setAutoWaitForIdle(true);
+        rb.keyPress(KeyEvent.VK_CONTROL);
+        rb.keyPress(KeyEvent.VK_V);
+        rb.keyRelease(KeyEvent.VK_V);
+        rb.keyRelease(KeyEvent.VK_CONTROL);
+	
+        // press tab to move to password field
+        rb.keyPress(KeyEvent.VK_TAB);
+        rb.keyRelease(KeyEvent.VK_TAB);
+        Thread.sleep(2000);
+	
+        //Enter password in password field
+        StringSelection pwd = new StringSelection("toolstester");
+		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(pwd, null);
+		rb.keyPress(KeyEvent.VK_CONTROL);
+		rb.keyPress(KeyEvent.VK_V);
+		rb.keyRelease(KeyEvent.VK_V);
+		rb.keyRelease(KeyEvent.VK_CONTROL);
+	
+		//press enter
+		rb.keyPress(KeyEvent.VK_ENTER);
+		rb.keyRelease(KeyEvent.VK_ENTER);
+
+	}
+	
+	
+	
+	
 	
 	public void openPageLogInDirectory(String url, String userName, String passWord) throws Exception {
 		
