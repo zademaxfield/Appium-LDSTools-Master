@@ -389,7 +389,11 @@ public class LDSTools {
 				//part2 = part2.trim();
 
 				testDevice = part2;
-				myUdid = deviceUDID();
+				
+				myUdid = getUDIDfromDeviceName(testDevice);
+				
+				
+				//myUdid = deviceUDID();
 			}
 			
 			
@@ -13132,7 +13136,69 @@ public class LDSTools {
 		System.out.println(line);
 		return line;
 	}
+	
+	public List<String> multipleDeviceUDID() throws Exception {
+		List<String> line = new ArrayList<String>();
+		String myLine;
+		
+		Runtime run = Runtime.getRuntime();
+		Process pr = run.exec(new String[] {"/usr/local/bin/idevice_id", "-l"});
+		pr.waitFor();
 
+		BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+		while ((myLine=buf.readLine())!=null) {
+			System.out.println(myLine);
+			line.add(myLine); 
+
+		}
+
+		return line;
+	}
+	
+	public String getDeviceName(String myUDID) throws Exception {
+		String deviceName;
+		String line;
+		
+		System.out.println("UDID to Test: " + myUDID);
+		Runtime run = Runtime.getRuntime();
+		//Process pr = run.exec(new String[] {"/usr/local/bin/ideviceinfo", "--udid", myUDID, "|", "grep", "DeviceName"});
+		Process pr = run.exec(new String[] {"/bin/bash", "-c", "/usr/local/bin/ideviceinfo --udid " + myUDID + " | grep DeviceName"});
+		pr.waitFor();
+		
+		BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+		
+		line = buf.readLine();
+		System.out.println(line);
+		
+		
+		String[] parts = line.split(" ");
+		String part1 = parts[0];
+		String part2 = parts[1];
+		
+		deviceName = part2;
+		
+		System.out.println(deviceName);
+		
+		return deviceName;
+	}
+
+	public String getUDIDfromDeviceName(String deviceName) throws Exception {
+		List<String> connectedUDID = new ArrayList<String>();
+		String checkDeviceName;
+		String returnUDID = "Not Found!";
+		//Get UDID from devices
+		connectedUDID = multipleDeviceUDID();
+		
+		//Match deviceName to UDID
+		for(String oneUDID : connectedUDID){
+			checkDeviceName = getDeviceName(oneUDID);
+			if (checkDeviceName.equals(deviceName))	{
+				returnUDID = oneUDID;
+			}
+		}
+		
+		return returnUDID;
+	}
 	
 	
 	// **************************************************************************************
