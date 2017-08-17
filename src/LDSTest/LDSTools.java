@@ -38,7 +38,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 //import java.util.Arrays;
 //import java.util.Collections;
@@ -212,6 +214,8 @@ public class LDSTools {
 
 	}
 	
+	
+
 
 
 	
@@ -236,8 +240,18 @@ public class LDSTools {
 		//int sleepTime = 1000;
 		//int lowSleep = 1000;
 		//int highSleep = 9999;
+		
+		Boolean portOpen;
 
-		myPort = randomPort.nextInt(highPort - lowPort) + lowPort;
+		//Check to see if the random port is open
+		//If the port is in use try a different port
+		do {
+			myPort = randomPort.nextInt(highPort - lowPort) + lowPort;
+			portOpen = portCheck(myPort);	
+		} while (portOpen.equals(false));
+
+		
+		
 		//sleepTime = randomSleep.nextInt(highSleep - lowSleep) + lowSleep;
 		System.out.println("Sleep Time: " + startSleepTime);
 		Thread.sleep(startSleepTime);
@@ -378,6 +392,13 @@ public class LDSTools {
 		
 		//Setup for iOS
 		if (os.equals("ios")) {
+			String webDriverURL = "http://localhost:";
+			String webDriverPort;
+			int tempPort;
+			
+			tempPort = myPort + 1000;
+			webDriverPort = String.valueOf(tempPort);
+			webDriverURL = webDriverURL + webDriverPort;
 
 			if (testDevice.contains("REAL")) {
 
@@ -396,7 +417,7 @@ public class LDSTools {
 				//myUdid = deviceUDID();
 			}
 			
-			
+			System.out.println("Device Name: " + testDevice + " UDID: " + myUdid);
 			
 			//IOSDriver driver;
 			
@@ -437,7 +458,7 @@ public class LDSTools {
 	        
 	        capabilities.setCapability("platformName", "iOS");
 	        capabilities.setCapability(CapabilityType.BROWSER_NAME, "iOS");
-	        capabilities.setCapability(CapabilityType.PLATFORM, "Mac");
+	        //capabilities.setCapability(CapabilityType.PLATFORM, "Mac");
 	        capabilities.setCapability("deviceName",testDevice);
 	        //capabilities.setCapability("automationName","Appium");
 	        capabilities.setCapability("automationName","XCUITest");
@@ -450,17 +471,17 @@ public class LDSTools {
 	        
 	        capabilities.setCapability("newCommandTimeout", 600);
 	        capabilities.setCapability("app", app.getAbsolutePath());
-	        capabilities.setCapability("appPackage", myAppPackage);
+	        //capabilities.setCapability("appPackage", myAppPackage);
 	        //capabilities.setCapability("appPackage", "org.lds.ldstools.dev");
 	        //capabilities.setCapability("sendKeysStrategy", "setValue");
-	        capabilities.setCapability("sendKeysStrategy", "grouped");
+	        //capabilities.setCapability("sendKeysStrategy", "grouped");
 	        capabilities.setCapability("launchTimeout", 300000);
 	        
 	        
 	        capabilities.setCapability("platformVersion", "10.3");
 	        capabilities.setCapability("nativeInstrumentsLib", false);
 	        
-	        capabilities.setCapability("autoAcceptAlerts", true);
+	        //capabilities.setCapability("autoAcceptAlerts", true);
 	        capabilities.setCapability("clearSystemFiles", true);
 	        
 	        capabilities.setCapability("allowTouchIdEnroll", true);
@@ -470,6 +491,8 @@ public class LDSTools {
 		        capabilities.setCapability("xcodeOrgId", "X555J2KHFQ");
 		        capabilities.setCapability("xcodeSigningId", "iPhone Developer");
 		        capabilities.setCapability("udid", myUdid);
+		        capabilities.setCapability("wdaLocalPort", tempPort);
+		        //capabilities.setCapability("webDriverAgentUrl", webDriverURL);
 	        }
 
 	      
@@ -13147,7 +13170,7 @@ public class LDSTools {
 
 		BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
 		while ((myLine=buf.readLine())!=null) {
-			System.out.println(myLine);
+			//System.out.println(myLine);
 			line.add(myLine); 
 
 		}
@@ -13159,7 +13182,7 @@ public class LDSTools {
 		String deviceName;
 		String line;
 		
-		System.out.println("UDID to Test: " + myUDID);
+		//System.out.println("UDID to Test: " + myUDID);
 		Runtime run = Runtime.getRuntime();
 		//Process pr = run.exec(new String[] {"/usr/local/bin/ideviceinfo", "--udid", myUDID, "|", "grep", "DeviceName"});
 		Process pr = run.exec(new String[] {"/bin/bash", "-c", "/usr/local/bin/ideviceinfo --udid " + myUDID + " | grep DeviceName"});
@@ -13168,7 +13191,7 @@ public class LDSTools {
 		BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
 		
 		line = buf.readLine();
-		System.out.println(line);
+		//System.out.println(line);
 		
 		
 		String[] parts = line.split(" ");
@@ -13177,7 +13200,7 @@ public class LDSTools {
 		
 		deviceName = part2;
 		
-		System.out.println(deviceName);
+		//System.out.println(deviceName);
 		
 		return deviceName;
 	}
@@ -13480,7 +13503,9 @@ public class LDSTools {
 	public void afterAllTests() throws Exception {
 		System.out.println("Stopping the driver");
 		if (getRunningOS().equals("mac")) {
+			//This is throwing an error on real devices. 
 			driver.quit();
+			//driver.close();
 			
 			Thread.sleep(5000);
 			//System.out.println("Kill instruments");
@@ -13680,6 +13705,25 @@ public class LDSTools {
 		myIPPort = ipArray[ipArray.length -1];
 		
 		return myIPPort;
+	}
+	
+	private boolean portCheck(int port) throws IOException {
+		  // Assume no connection is possible.
+		  boolean result = false;
+
+		  try {
+			  Socket s = new Socket("localhost", port);
+			  s.close();
+			  System.out.println("Port " + port + " is in use.");
+			  result = false;
+		  }
+		  catch(SocketException e) {
+			  // Could not connect.
+			  //System.out.println("Port " + port + " is open.");
+			  result = true;
+		  }
+
+		  return result;
 	}
 	
 
