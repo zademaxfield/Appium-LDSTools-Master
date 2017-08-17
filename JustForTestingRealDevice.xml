@@ -6,8 +6,8 @@
   <test verbose="2" name="JFT test">
 	  <parameter name="os" value="ios" />
 	  <parameter name="fileName" value="LDSTools.ipa" />
-	  <!--<parameter name="testDevice" value="iPhone 7" />-->
-	  <parameter name="testDevice" value="REAL-Z6iphone" />
+	  <parameter name="testDevice" value="REAL-ZiPhone7" /> 
+	   <!-- <parameter name="testDevice" value="REAL-Z6iphone" />  -->
 	  <parameter name="startSleepTime" value="0200" />  
       
       <groups>
