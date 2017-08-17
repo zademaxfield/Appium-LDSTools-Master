@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="iOS Smoke Test suite" configfailurepolicy="continue" parallel="tests"  thread-count="2">
+<parameter name="os" value="ios" />
+	
+	<test name="TEST1" thread-count="2" parallel="instances">	    
+		<parameter name="os" value="ios" />
+		<parameter name="fileName" value="LDSTools.ipa" />
+		<parameter name="testDevice" value="REAL-Z6iphone" />
+		<parameter name="startSleepTime" value="0200" />  
+
+		<classes>
+		    <class name="LDSTest.LDSTools">
+		    	<methods>
+		    	    <include name="Bishopric1stCounselorDirectory" />
+		    	    <include name="Bishopric1stCounselorMissionary" />
+		    	</methods>   
+		    </class>
+		</classes>     
+	</test> <!-- TEST1 -->
+	
+	<test name="TEST2" thread-count="2" parallel="instances">
+		<parameter name="os" value="ios" />
+		<parameter name="fileName" value="LDSTools.ipa" />
+		<parameter name="testDevice" value="REAL-ZiPhone7" />
+		<parameter name="startSleepTime" value="60000" />  
+		
+		<classes>	    
+		    <class name="LDSTest.LDSTools">
+		    	<methods>
+		    	    <include name="Bishopric2ndCounselorDirectory" />
+		    	    <include name="Bishopric2ndCounselorMissionary" />
+		    	</methods>   
+		    </class>
+		</classes>     
+	</test> <!--TEST2 -->
+	
+</suite> <!-- Default suite -->
