@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="iOS Smoke Test suite" configfailurepolicy="continue" parallel="tests"  thread-count="4">	
+    <parameter name="os" value="ios" />
+	<listeners>
+	    <listener class-name="LDSTest.RetryListener"/>
+	    <listener class-name= "LDSTest.CustomReporter" />
+	    <listener class-name="LDSTest.TestListener" />
+	</listeners>
+	
+	<test name="Smoke Test 1" thread-count="4" parallel="instances">
+		<parameter name="os" value="ios" />
+		<parameter name="fileName" value="LDSTools.ipa" />
+		<parameter name="testDevice" value="REAL-Z6iphone" />
+		<parameter name="startSleepTime" value="0200" />  
+
+		<groups>
+		    <run>
+		        <include name="smoke1"/>
+		    </run>
+		</groups>
+		
+		<classes>
+		    <class name="LDSTest.LDSTools"/>
+		    <class name="LDSTest.LDSTools$Retry"/>      
+		</classes>
+	</test> <!-- Smoke Test 1-->
+	
+	<test name="Smoke Test 2" thread-count="4" parallel="instances">
+		<parameter name="os" value="ios" />
+		<parameter name="fileName" value="LDSTools.ipa" />
+		<parameter name="testDevice" value="REAL-ZiPhone7" />
+		<parameter name="startSleepTime" value="60000" />  
+
+		<groups>
+		    <run>
+		        <include name="smoke2"/>
+		    </run>
+		</groups>
+		
+		<classes>
+		    <class name="LDSTest.LDSTools"/>
+		    <class name="LDSTest.LDSTools$Retry"/>      
+		</classes>
+	</test> <!-- Smoke Test 2 -->
+	
+	<test name="Smoke Test 3" thread-count="4" parallel="instances">
+		<parameter name="os" value="ios" />
+		<parameter name="fileName" value="LDSTools.ipa" />
+		<parameter name="testDevice" value="REAL-ZiPhone5" />
+		<parameter name="startSleepTime" value="90000" />  
+
+		<groups>
+		    <run>
+		        <include name="smoke3"/>
+		        <exclude name="header"/>
+		    </run>
+		</groups>
+		
+		<classes>
+		    <class name="LDSTest.LDSTools"/>
+		    <class name="LDSTest.LDSTools$Retry"/>      
+		</classes>
+	</test> <!-- Smoke Test 3 -->
+	
+	<test name="Smoke Test 4" thread-count="4" parallel="instances">
+		<parameter name="os" value="ios" />
+		<parameter name="fileName" value="LDSTools.ipa" />
+		<parameter name="testDevice" value="REAL-Z6plus" />
+		<parameter name="startSleepTime" value="120000" />  
+		
+		<groups>
+		    <run>
+		        <include name="smoke4"/>
+		        <exclude name="header"/>
+		    </run>
+		</groups>
+		
+		<classes>
+		    <class name="LDSTest.LDSTools"/>
+		    <class name="LDSTest.LDSTools$Retry"/>      
+		</classes>
+	</test> <!-- Smoke Test 4 -->
+	
+</suite> <!-- Default suite -->
