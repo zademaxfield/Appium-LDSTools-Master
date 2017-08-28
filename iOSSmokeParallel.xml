@@ -53,7 +53,6 @@
 		<groups>
 		    <run>
 		        <include name="smoke3"/>
-		        <exclude name="header"/>
 		    </run>
 		</groups>
 		
@@ -72,7 +71,6 @@
 		<groups>
 		    <run>
 		        <include name="smoke4"/>
-		        <exclude name="header"/>
 		    </run>
 		</groups>
 		
