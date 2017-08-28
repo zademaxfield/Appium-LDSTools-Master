@@ -572,7 +572,12 @@ public class LDSWeb {
 		
 		Thread.sleep(4000);
 		driver.switchTo().activeElement();
-		robotAuth();
+		
+		
+		//There was a second auth screen
+		//robotAuth();
+		
+		
 		//System.out.println("Windows " + driver.getWindowHandles());
 		//WebDriverWait wait = new WebDriverWait(driver, 20);      
 		//Alert alert = wait.until(ExpectedConditions.alertIsPresent());   
