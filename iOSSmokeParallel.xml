@@ -47,7 +47,7 @@
 	<test name="Smoke Test 3" thread-count="4" parallel="instances">
 		<parameter name="os" value="ios" />
 		<parameter name="fileName" value="LDSTools.ipa" />
-		<parameter name="testDevice" value="REAL-ZiPhone5" />
+		<parameter name="testDevice" value="REAL-Z6SPlus" />
 		<parameter name="startSleepTime" value="90000" />  
 
 		<groups>
