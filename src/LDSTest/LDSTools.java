@@ -10644,7 +10644,13 @@ public class LDSTools {
 				//System.out.println(options.get(i).getText());
 				StakeWard.add(options.get(i).getText());
 			}
-			clickButtonByXpath("TopCancel");
+			
+			if (checkElementExistsByXpath("TopCancel") == true) {
+				clickButtonByXpath("TopCancel");
+			} else {
+				clickButtonByXpath("SpinnerSubTitle");
+			}
+	
 			
 			
 			//Go through each Stake and Ward to make sure it isn't blank
