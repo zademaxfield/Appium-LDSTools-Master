@@ -417,6 +417,27 @@ public class LDSTools {
 				//myUdid = deviceUDID();
 			}
 			
+			if (testDevice.contains("FBSIM")) {
+
+				String[] parts = testDevice.split("-");
+				String part1 = parts[0];
+				String part2 = parts[1];
+				//Remove all whitespace
+				//part1 = part1.trim();
+				//part2 = part2.trim();
+
+				testDevice = part2;
+				
+				myUdid = getUDIDfromDeviceNameFBSIM(testDevice);
+				
+				//Start Simulator
+				startFbSim(myUdid, tempPort);
+				
+				//Just a test 
+				Thread.sleep(6000);
+
+			}
+			
 			System.out.println("Device Name: " + testDevice + " UDID: " + myUdid);
 			
 			//IOSDriver driver;
@@ -492,7 +513,9 @@ public class LDSTools {
 		        capabilities.setCapability("xcodeSigningId", "iPhone Developer");
 		        capabilities.setCapability("udid", myUdid);
 		        capabilities.setCapability("wdaLocalPort", tempPort);
+		        //capabilities.setCapability("prebuildWDA", true);
 		        //capabilities.setCapability("webDriverAgentUrl", webDriverURL);
+		        //capabilities.setCapability("useNewWDA", false);
 	        }
 
 	      
@@ -13204,6 +13227,37 @@ public class LDSTools {
 		
 		return deviceName;
 	}
+	
+	public String getUDIDfbsim(String deviceNameSearch) throws Exception {
+		String line;
+		
+		//System.out.println("UDID to Test: " + myUDID);
+		Runtime run = Runtime.getRuntime();
+		deviceNameSearch = "'" + deviceNameSearch + "'";
+		System.out.println("EDIT TO SEARCH " + deviceNameSearch);
+
+		//Process pr = run.exec(new String[] {"/bin/bash", "-c", "fbsimctl list ", " | grep", deviceNameSearch});
+		Process pr = run.exec(new String[] {"/bin/bash", "-c", "fbsimctl list | grep " + deviceNameSearch});
+		pr.waitFor();
+		
+		BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+		
+		line = buf.readLine();
+		System.out.println(line);
+		
+		
+		String[] parts = line.split(" | ");
+		String simUDID = parts[0];
+		String simName = parts[1];
+		String simStatus = parts[2];
+		String simModel = parts[3];
+		String simOSVersion = parts[4];
+		
+		
+		//System.out.println(deviceName);
+		
+		return simUDID;
+	}
 
 	public String getUDIDfromDeviceName(String deviceName) throws Exception {
 		List<String> connectedUDID = new ArrayList<String>();
@@ -13221,6 +13275,42 @@ public class LDSTools {
 		}
 		
 		return returnUDID;
+	}
+	
+	
+	public String getUDIDfromDeviceNameFBSIM(String deviceName) throws Exception {
+		String simUDID;
+		String deviceNameSearch = "| " + deviceName + " |";
+		System.out.println("TO SEARCH: " + deviceNameSearch);
+		
+		simUDID = getUDIDfbsim(deviceNameSearch) ;
+		
+		return simUDID;
+	}
+	
+	public void startFbSim(String myUdid, int tempPort) throws Exception {
+		String line;
+		String listenPort = Integer.toString(tempPort);
+		Runtime run = Runtime.getRuntime();
+		Process pr = run.exec(new String[] {"/bin/bash", "-c", "fbsimctl ", myUdid, " boot"});
+		pr.waitFor();
+		
+		BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+		
+		line = buf.readLine();
+		//System.out.println(line);
+	}
+	
+	public void stopFbSim() throws Exception {
+		String line;
+		Runtime run = Runtime.getRuntime();
+		Process pr = run.exec(new String[] {"/bin/bash", "-c", "fbsimctl shutdown" });
+		pr.waitFor();
+		
+		BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+		
+		line = buf.readLine();
+		//System.out.println(line);
 	}
 	
 	
@@ -13508,6 +13598,7 @@ public class LDSTools {
 			//driver.close();
 			
 			Thread.sleep(5000);
+			stopFbSim();
 			//System.out.println("Kill instruments");
 			killProcess("instruments");
 			//System.out.println("Kill Simulator");
