@@ -17,6 +17,7 @@
 		<groups>
 		    <run>
 		        <include name="all1"/>
+		        <exclude name="addUnit"/>
 		    </run>
 		</groups>
 		
@@ -35,6 +36,7 @@
 		<groups>
 		    <run>
 		        <include name="all2"/>
+		        <exclude name="addUnit"/>
 		    </run>
 		</groups>
 		
@@ -52,6 +54,7 @@
 		<groups>
 		    <run>
 		        <include name="all3"/>
+		        <exclude name="addUnit"/>
 		    </run>
 		</groups>
 		
@@ -70,6 +73,7 @@
 		<groups>
 		    <run>
 		        <include name="all4"/>
+		        <exclude name="addUnit"/>
 		    </run>
 		</groups>
 		
