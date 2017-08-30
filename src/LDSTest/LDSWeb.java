@@ -346,6 +346,7 @@ public class LDSWeb {
 	}
 	
 	public void setupCallings() throws Exception {
+		
 		clickElement("Organizations", "linkText");
 		Thread.sleep(4000);
 		clickElement("High Priests Group", "linkText");
@@ -371,6 +372,9 @@ public class LDSWeb {
 		addMemberToCalling("District Supervisor", "lds50");
 		clickElement("Clear Filters", "linkText");
 		
+		
+		
+		
 		clickElement("Organizations", "linkText");
 		Thread.sleep(4000);
 		clickElement("Elders Quorum", "linkText");
@@ -378,7 +382,7 @@ public class LDSWeb {
 		waitForTextToDisappear("Loading", 500, "id" );
 		clickElement("Elders Quorum Presidency", "linkText");
 		
-		addMemberToCalling("Elders Quorum President", "lds21");
+		//addMemberToCalling("Elders Quorum President", "lds21");
 		addMemberToCalling("First Counselor", "lds22");
 		addMemberToCalling("Second Counselor", "lds23");
 		addMemberToCalling("Quorum Secretary", "lds24");
