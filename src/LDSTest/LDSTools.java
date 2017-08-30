@@ -551,7 +551,7 @@ public class LDSTools {
 		//justForTesting(os);	
 		
 		//additionalUnit(os);	
-		//additonalUnitSimpleTest(os);
+		additonalUnitSimpleTest(os);
 		//addUnitsRecent(os);
 		
 		//myTempleSimpleTest(os);
@@ -594,7 +594,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		LeaderBishopricDirectory("ngiBPC1", false, os);
+		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
@@ -5459,7 +5459,7 @@ public class LDSTools {
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Adams", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Addlesee", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Agho", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Allen", pageSource, "Contains"));
 	}
 	
 	@Parameters({"os"})
@@ -5563,7 +5563,7 @@ public class LDSTools {
 		
 
 		if (getRunningOS().equals("mac")) {
-			if (checkTextContainsReturn("IncludeAdditionalUnit", "false", "id", "predValue" ) == 1 ) {
+			if (checkTextContainsReturn("IncludeAdditionalUnit", "0", "id", "predValue" ) == 1 ) {
 				//Switch is off
 				clickButton("IncludeAdditionalUnit", "id", "pred");
 			}
@@ -13163,7 +13163,7 @@ public class LDSTools {
 			Thread.sleep(2000);
 
 		} else {
-			if (checkTextContainsReturn("IncludeAdditionalUnit", "false", "id", "predValue" ) == 1 ) {
+			if (checkTextContainsReturn("IncludeAdditionalUnit", "0", "id", "predValue" ) == 1 ) {
 				//Switch is off
 				clickButton("IncludeAdditionalUnit", "id", "pred");
 			}
