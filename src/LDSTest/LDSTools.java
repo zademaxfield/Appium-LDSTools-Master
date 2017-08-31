@@ -568,7 +568,7 @@ public class LDSTools {
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
 		//editCurrentUser(os);	
-		editCurrentUserCancel(os);
+		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
 		//editOtherUserInvalidEmail(os);
@@ -576,7 +576,7 @@ public class LDSTools {
 		
 		//editVisibility(os);
 		//editVisibiltyPersonal(os);
-		//editVisibiltyHousehold(os);
+		editVisibiltyHousehold(os);
 		
 		//CheckUnitsToSync(os);
 		
@@ -8342,7 +8342,9 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			myCheck = checkTextContainsReturn("AlertMessageMember", "Warning", "xpath", "xpath");
 		} else {
-			myCheck = checkTextContainsReturn("AlertMessageMember", "Save failed", "xpath", "xpath");
+			//myCheck = checkTextContainsReturn("AlertMessageMember", "Save failed", "xpath", "xpath");
+			myCheck = checkTextContainsReturn("AlertMessageMemberID", "Save failed", "id", "xpath");
+			
 		}
 		
 		if (myCheck == 0 ) {
@@ -11058,6 +11060,7 @@ public class LDSTools {
 	private void checkForAlert() throws Exception {
 		//Check to see if we are getting a warning
 		if (checkElementExistsByXpath("AlertMessageCheck") == true) {
+			System.out.println("Alert Found!!!");
 			//clickButtonByXpath("OK");
 			clickButton("OK", "xpath", "pred");
 		}
@@ -11071,8 +11074,8 @@ public class LDSTools {
 			}
 		} else {
 			if (checkElementExistsByXpath("AlertMessageCheck") == true) {
-				clickButton("AlertOK", "xpath", "xpath");
-				//clickButton("NewAlertOK", "xpath", "xpath");
+				//clickButton("AlertOK", "xpath", "xpath");
+				clickButton("AlertOKid", "id", "xpath");
 				//driver.switchTo().alert().accept();
 				
 			}
@@ -11707,7 +11710,7 @@ public class LDSTools {
 			
 			Thread.sleep(4000);
 			waitForTextToDisappearTEXT("UAT", 500 );
-			Thread.sleep(2000);
+			Thread.sleep(4000);
 		}
 
 		checkForAlert();
