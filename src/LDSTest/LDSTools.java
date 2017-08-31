@@ -551,7 +551,7 @@ public class LDSTools {
 		//justForTesting(os);	
 		
 		//additionalUnit(os);	
-		additonalUnitSimpleTest(os);
+		//additonalUnitSimpleTest(os);
 		//addUnitsRecent(os);
 		
 		//myTempleSimpleTest(os);
@@ -568,7 +568,7 @@ public class LDSTools {
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
 		//editCurrentUser(os);	
-		//editCurrentUserCancel(os);
+		editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
 		//editOtherUserInvalidEmail(os);
