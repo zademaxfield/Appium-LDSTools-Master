@@ -576,7 +576,7 @@ public class LDSTools {
 		
 		//editVisibility(os);
 		//editVisibiltyPersonal(os);
-		editVisibiltyHousehold(os);
+		//editVisibiltyHousehold(os);
 		
 		//CheckUnitsToSync(os);
 		
@@ -635,7 +635,7 @@ public class LDSTools {
 		//KevinPalmer(os);
 		//PatriarchOtherWards(os); //Not working!
 		//TravisLyman(os);
-		//ElderKacher(os); //Member of Second Quorum of the Seventy
+		ElderKacher(os); //Member of Second Quorum of the Seventy
 		//TerryBallard(os); //Check to see Tim and Jessica Beck
 		//AdminUnit(os); //Not working in 2.5.0
 		//WardStakeCouncilor(os);
@@ -4645,7 +4645,7 @@ public class LDSTools {
 		//Thread.sleep(2000);
 		//Check to see if the user can view the directory
 		//Assert.assertTrue(checkElementTextViewRoboReturn("Aaron, Jane"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Alcorn, Sarah"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Baer, Linda"));
 		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
 		
 	}
@@ -5052,7 +5052,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		//Check to see if the user can view the directory
 		//Assert.assertTrue(checkElementTextViewRoboReturn("Aaron, Jane"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Baker, Joseph"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Baer, Linda"));
 		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
 		
 		
