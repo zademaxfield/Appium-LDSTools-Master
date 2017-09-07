@@ -283,7 +283,9 @@ public class LDSTools {
 			*/
 			List<String> deviceList = new ArrayList<String>();
 			if (testDevice.contains("STF")) {
-				String accessToken = "aae7b8255b4a49368618fc0d4fa0e943e3d5df77ab444a1987b6f757b2762982";
+				//String accessToken = "aae7b8255b4a49368618fc0d4fa0e943e3d5df77ab444a1987b6f757b2762982"; //Old Token
+				String accessToken = "5ac32afb2fa24289945dea68380877d0be396916fbf04a65b30e8b46e6fda014";
+				
 				String deviceIPPort;
 				
 				
@@ -338,11 +340,11 @@ public class LDSTools {
 	        //capabilities.setCapability("noReset", true);
 	        capabilities.setCapability("app", app.getAbsolutePath());
 	        if (fileName.contains("alpha")) {
-	        	capabilities.setCapability("appPackage", "org.lds.ldstools.dev"); // *** ALPHA ***
-	        	myAppPackage = "org.lds.ldstools.dev";
+	        		capabilities.setCapability("appPackage", "org.lds.ldstools.dev"); // *** ALPHA ***
+	        		myAppPackage = "org.lds.ldstools.dev";
 	        } else {
-	        	capabilities.setCapability("appPackage", "org.lds.ldstools"); //*** BETA and RELEASE ***
-	        	myAppPackage = "org.lds.ldstools";
+	        		capabilities.setCapability("appPackage", "org.lds.ldstools"); //*** BETA and RELEASE ***
+	        		myAppPackage = "org.lds.ldstools";
 	        }
 	        
 	        //capabilities.setCapability("appActivity", "org.lds.ldstools.ui.StartupActivity");
@@ -515,7 +517,7 @@ public class LDSTools {
 		        capabilities.setCapability("wdaLocalPort", tempPort);
 		        //capabilities.setCapability("prebuildWDA", true);
 		        //capabilities.setCapability("webDriverAgentUrl", webDriverURL);
-		        //capabilities.setCapability("useNewWDA", false);
+		        //capabilities.setCapability("useNewWDA", true);
 	        }
 
 	      
@@ -536,6 +538,7 @@ public class LDSTools {
 	        //beforeTestStarts(os, myPort);
 	       
 	        driver = new IOSDriver<MobileElement>(new URL("http://127.0.0.1:" + myPort + "/wd/hub"),capabilities);
+	        //driver = new IOSDriver<MobileElement>(new URL("http://127.0.0.1:" + tempPort + "/wd/hub"),capabilities);
 	       // touch = new TouchActions(driver);
 		}
        
@@ -594,7 +597,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		//LeaderBishopricDirectory("ngiBPC1", false, os);
+		LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
@@ -635,7 +638,7 @@ public class LDSTools {
 		//KevinPalmer(os);
 		//PatriarchOtherWards(os); //Not working!
 		//TravisLyman(os);
-		ElderKacher(os); //Member of Second Quorum of the Seventy
+		//ElderKacher(os); //Member of Second Quorum of the Seventy
 		//TerryBallard(os); //Check to see Tim and Jessica Beck
 		//AdminUnit(os); //Not working in 2.5.0
 		//WardStakeCouncilor(os);
@@ -4645,7 +4648,7 @@ public class LDSTools {
 		//Thread.sleep(2000);
 		//Check to see if the user can view the directory
 		//Assert.assertTrue(checkElementTextViewRoboReturn("Aaron, Jane"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Baer, Linda"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Alcorn, Sarah"));
 		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
 		
 	}
@@ -5052,7 +5055,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		//Check to see if the user can view the directory
 		//Assert.assertTrue(checkElementTextViewRoboReturn("Aaron, Jane"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Baer, Linda"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Baker, Joseph"));
 		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
 		
 		
@@ -13302,6 +13305,8 @@ public class LDSTools {
 		String listenPort = Integer.toString(tempPort);
 		Runtime run = Runtime.getRuntime();
 		Process pr = run.exec(new String[] {"/bin/bash", "-c", "fbsimctl ", myUdid, " boot"});
+		//Process pr = run.exec(new String[] {"/bin/bash", "-c", "fbsimctl ", myUdid, " boot",  "--", "listen", "--http ", listenPort});
+		//Process pr = run.exec(new String[] {"/bin/bash", "-c", "fbsimctl ", myUdid });
 		pr.waitFor();
 		
 		BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
