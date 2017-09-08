@@ -145,8 +145,15 @@ public class LDSWeb {
 		*/
 		
 		
-		setupAfterUATReset();
+		//setupAfterUATReset();
 		//AreaBookSetup();
+		
+		getAllMembersInHTVTReport("Elders Quorum", "HouseholdsNotVisited", "LDSTools2", "toolstester", "Bishopric");
+		
+		
+		
+		
+		
 
 		/*
 		populateFile();
@@ -1961,8 +1968,196 @@ public class LDSWeb {
 	
 	
 	
-	
 	public List<String> getAllMembersInHTVTReport(String orgName, String myReport, String userName, String passWord, String leaderShip) throws Exception {
+		String mySource;
+		List<String> foundUsers = new ArrayList<String>();
+		String url = "https://uat.lds.org/mls/mbr/?lang=eng";
+		Boolean myElementCheck;
+		String menuItem;
+		
+		userName = "LDSTools2";
+		passWord = "toolstester";
+
+		openPageLogIn(url, userName, passWord);
+
+		//clickElement("ReportsMenu", "id");
+		//clickElement("OrganizationsMenu", "id");
+		clickElement("Organizations", "linkText");
+		
+		if (orgName.contains("Releif")) {
+			menuItem = "Visiting Teaching";
+		} else {
+			menuItem = "Home Teaching";
+		}
+		
+		if (leaderShip.equals("High Priest Group") && (orgName.equals("High Priests Group")))  {
+			
+ 
+			//clickElement(orgName, "linkText");
+			clickElement(menuItem, "linkText");
+			waitForTextToDisappear("LoadingSpinner", 500, "xpath");
+			Thread.sleep(2000);
+			myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
+			if (myElementCheck == true ) {
+				System.out.println(orgName + " " + myReport + "Page did not load... skipping");
+				foundUsers.clear();
+				tearDown();
+				return foundUsers;
+			}
+			//clickElement("HomeTeachingDropDown", "xpath");
+			clickElement("Households", "linkText");
+			waitForTextToDisappear("LoadingSpinner", 500, "xpath");
+			Thread.sleep(9000);
+			
+			//selectList("SelectHTAux", "Elders", "xpath");
+			clickElement("SelectHTAux", "xpath");
+			clickElement("SelectHTAuxHighPriests", "xpath");
+			waitForTextToDisappear("LoadingSpinner", 500, "xpath");
+			Thread.sleep(9000);
+		}
+		
+		if (leaderShip.equals("High Priest Group") && (orgName.equals("Elders Quorum")))  {
+			
+
+			//clickElement("High Priests Group", "linkText");
+			clickElement(menuItem, "linkText");
+			waitForTextToDisappear("LoadingSpinner", 500, "xpath");
+			Thread.sleep(2000);
+			myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
+			if (myElementCheck == true ) {
+				System.out.println(orgName + " " + myReport + "Page did not load... skipping");
+				foundUsers.clear();
+				tearDown();
+				return foundUsers;
+			}
+			//clickElement("HomeTeachingDropDown", "xpath");
+			clickElement("Households", "linkText");
+			waitForTextToDisappear("LoadingSpinner", 500, "xpath");
+			Thread.sleep(9000);
+			
+			//selectList("SelectHTAux", "Elders", "xpath");
+			clickElement("SelectHTAux", "xpath");
+			clickElement("SelectHTAuxElders", "xpath");
+			waitForTextToDisappear("LoadingSpinner", 500, "xpath");
+			Thread.sleep(9000);
+		}
+		
+		if (leaderShip.equals("Elders Quorum Pres") && (orgName.equals("High Priests Group")))  {
+			
+
+			//clickElement("Elders Quorum", "linkText");
+			clickElement(menuItem, "linkText");
+			waitForTextToDisappear("LoadingSpinner", 500, "xpath");
+			Thread.sleep(2000);
+			myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
+			if (myElementCheck == true ) {
+				System.out.println(orgName + " " + myReport + "Page did not load... skipping");
+				foundUsers.clear();
+				tearDown();
+				return foundUsers;
+			}
+			//clickElement("HomeTeachingDropDown", "xpath");
+			clickElement("Households", "linkText");
+			waitForTextToDisappear("LoadingSpinner", 500, "xpath");
+			Thread.sleep(9000);
+			
+			//selectList("SelectHTAux", "High Priests", "xpath");
+			clickElement("SelectHTAux", "xpath");
+			clickElement("SelectHTAuxHighPriests", "xpath");
+			waitForTextToDisappear("LoadingSpinner", 500, "xpath");
+			Thread.sleep(9000);
+		}
+		
+		if (leaderShip.equals("Elders Quorum Pres") && (orgName.equals("Elders Quorum")))  {
+			
+			clickElement(menuItem, "linkText");
+			//clickElement(orgName, "linkText");
+			waitForTextToDisappear("LoadingSpinner", 500, "xpath");
+			Thread.sleep(2000);
+			myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
+			if (myElementCheck == true ) {
+				System.out.println(orgName + " " + myReport + "Page did not load... skipping");
+				foundUsers.clear();
+				tearDown();
+				return foundUsers;
+			}
+			//clickElement("HomeTeachingDropDown", "xpath");
+			clickElement("Households", "linkText");
+			waitForTextToDisappear("LoadingSpinner", 500, "xpath");
+			Thread.sleep(9000);
+			
+			//selectList("SelectHTAux", "Elders", "xpath");
+			clickElement("SelectHTAux", "xpath");
+			clickElement("SelectHTAuxElders", "xpath");
+			waitForTextToDisappear("LoadingSpinner", 500, "xpath");
+			Thread.sleep(9000);
+		}
+		
+		if (leaderShip.equals("Bishopric") || (leaderShip.equals("Relief Society Pres"))) {
+			
+			clickElement(menuItem, "linkText");
+			//clickElement(orgName, "linkText");
+			Thread.sleep(4000);
+			waitForTextToDisappear("LoadingSpinner", 500, "xpath");
+			Thread.sleep(2000);
+			myElementCheck = checkElementExists("AlertSomethingWrong", "xpath");
+			if (myElementCheck == true ) {
+				System.out.println(orgName + " " + myReport + "Page did not load... skipping");
+				foundUsers.clear();
+				tearDown();
+				return foundUsers;
+			}
+			Thread.sleep(6000);
+			
+			if (orgName.contains("Relief")) {
+				//clickElement("VisitingTeachingDropDown", "xpath");
+				clickElement("Households", "linkText");
+				waitForTextToDisappear("LoadingSpinner", 500, "xpath");
+				Thread.sleep(9000);
+				
+				clickElement("SelectHTAux", "xpath");
+				clickElement("SelectHTAuxReliefSociety", "xpath");
+				waitForTextToDisappear("LoadingSpinner", 500, "xpath");
+				Thread.sleep(9000);
+				
+				
+			} else {
+				//clickElement("HomeTeachingDropDown", "xpath");
+				clickElement("Households", "linkText");
+				waitForTextToDisappear("LoadingSpinner", 500, "xpath");
+				Thread.sleep(9000);
+				
+				if (orgName.contains("Elder")) {
+					//selectList("SelectHTAux", "Elders", "xpath");
+					clickElement("SelectHTAux", "xpath");
+					clickElement("SelectHTAuxElders", "xpath");
+					waitForTextToDisappear("LoadingSpinner", 500, "xpath");
+					Thread.sleep(9000);
+				}
+			}
+		}
+
+		
+		//This take a long time to load and doesn't have the loading tag
+		Thread.sleep(2000);
+		
+		clickElement("OptionsButton", "xpath");
+		clickElement(myReport, "id");
+
+		Thread.sleep(5000);
+		//mySource = getSourceOfElement(subReport);
+		mySource = getSourceOfPage();
+		foundUsers = getMembersHTVT(mySource);
+		
+		tearDown();
+		
+		return foundUsers;
+		
+	}
+
+	
+	
+	public List<String> getAllMembersInHTVTReportOLD(String orgName, String myReport, String userName, String passWord, String leaderShip) throws Exception {
 		String mySource;
 		List<String> foundUsers = new ArrayList<String>();
 		String url = "https://uat.lds.org/mls/mbr/?lang=eng";
