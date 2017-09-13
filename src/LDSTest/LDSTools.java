@@ -597,9 +597,9 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		LeaderBishopricDirectory("ngiBPC1", false, os);
+		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
-		//LeaderBishopricReport("ngiBPC1", false, os);
+		LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
@@ -8979,7 +8979,7 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Members Moved In");
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Patiole", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Pipi", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("February", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Skywalker, Luke", pageSource, "Equals"));
 
@@ -9131,13 +9131,13 @@ public class LDSTools {
 		openReports();
 		clickButtonByXpathTitleName("New Members");
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Manuloto, Aofia", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("21", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Numia, Sailiai", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("43", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("F", pageSource, "Contains"));
 		if (newUnit == true){
-			Assert.assertTrue(checkNoCaseList("September 11, 2016", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("April 16, 2017", pageSource, "Contains"));
 		} else {
-			Assert.assertFalse(checkNoCaseList("September 11, 2016", pageSource, "Contains"));
+			Assert.assertFalse(checkNoCaseList("April 16, 2017", pageSource, "Contains"));
 		}
 		
 		Assert.assertTrue(checkNoCaseList("Member", pageSource, "Contains"));
