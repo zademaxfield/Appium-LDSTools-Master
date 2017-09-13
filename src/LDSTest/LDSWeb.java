@@ -145,10 +145,10 @@ public class LDSWeb {
 		*/
 		
 		
-		//setupAfterUATReset();
+		setupAfterUATReset();
 		//AreaBookSetup();
 		
-		getAllMembersInHTVTReport("Elders Quorum", "HouseholdsNotVisited", "LDSTools2", "toolstester", "Bishopric");
+		//getAllMembersInHTVTReport("Elders Quorum", "HouseholdsNotVisited", "LDSTools2", "toolstester", "Bishopric");
 		
 		
 		
@@ -205,10 +205,11 @@ public class LDSWeb {
 	public void addCompanionHousehold() throws Exception {
 		clickElement("Organizations", "linkText");
 		Thread.sleep(4000);
-		clickElement("High Priests Group", "linkText");
+		//clickElement("High Priests Group", "linkText");
+		clickElement("Home Teaching", "linkText");
 		Thread.sleep(2000);
 		waitForTextToDisappear("Loading", 500, "id" );
-		clickElement("HomeTeachingDropDown", "xpath");
+		//clickElement("HomeTeachingDropDown", "xpath");
 		clickElement("Companionships", "linkText");
 		Thread.sleep(2000);
 		waitForTextToDisappear("LoadingSpinner", 500, "xpath");
@@ -313,10 +314,11 @@ public class LDSWeb {
 	public void setupDistricts() throws Exception {
 		clickElement("Organizations", "linkText");
 		Thread.sleep(4000);
-		clickElement("High Priests Group", "linkText");
+		//clickElement("High Priests Group", "linkText");
+		clickElement("Home Teaching", "linkText");
 		Thread.sleep(2000);
 		waitForTextToDisappear("Loading", 500, "id" );
-		clickElement("HomeTeachingDropDown", "xpath");
+		//clickElement("HomeTeachingDropDown", "xpath");
 		clickElement("Companionships", "linkText");
 		Thread.sleep(2000);
 		waitForTextToDisappear("LoadingSpinner", 500, "xpath");
