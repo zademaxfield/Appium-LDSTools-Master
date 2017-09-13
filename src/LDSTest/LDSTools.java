@@ -570,10 +570,10 @@ public class LDSTools {
 		//bishopMemberOfSeparateStake(os);	
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
-		//editCurrentUser(os);	
+		editCurrentUser(os);	
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
-		editOtherUserInvalidPhone(os);
+		//editOtherUserInvalidPhone(os);
 		//editOtherUserInvalidEmail(os);
 		
 		
