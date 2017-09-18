@@ -682,6 +682,18 @@ public class LDSTools {
 		pinPage("1", "1", "3", "3", true);
 		Thread.sleep(2000);
 		
+		openReports();
+		Thread.sleep(1000);
+		scrollDownTEST(200);
+		//scrollToElementRecyclerView2("Visiting Teaching");
+		//driver.scrollToExact("Visiting Teaching");
+		clickButtonByXpathTitleName("Visiting Teaching");
+		
+		Thread.sleep(10000);
+		
+		
+		/*
+		
 		
 		Thread.sleep(2000);
 		openMissionary();
@@ -700,7 +712,7 @@ public class LDSTools {
 		checkText("MissRefMemberPhone", "8019675309", "id", "xpath"	);
 		checkText("MissRefMemberEmail", "Lds2@yahoo.com", "id", "xpath"	);
 		
-
+		*/
 		
 		
 		
@@ -9811,13 +9823,17 @@ public class LDSTools {
 		}
 		
 		if ((userCalling.equals("Relief Society Pres")) || (userCalling.equals("Bishopric"))) {
+			openDirectory();
+			openReports();
 			if (getRunningOS().equals("mac")) {
 				clickButtonByXpathTitleName("Visiting Teaching");
 			} else {
 				Thread.sleep(1000);
 				scrollDownTEST(200);
-				//scrollToElementMemberList("Visiting Teaching");
+				Thread.sleep(1000);
+				//scrollToElementRecyclerView2("Visiting Teaching");
 				//driver.scrollToExact("Visiting Teaching");
+				//scrollToElementMemberList("Visiting Teaching");
 				clickButtonByXpathTitleName("Visiting Teaching");
 			}
 			Thread.sleep(2000);
@@ -10036,6 +10052,8 @@ public class LDSTools {
 		}
 		
 		if ((userCalling.equals("Relief Society Pres")) || (userCalling.equals("Bishopric"))) {
+			openDirectory();
+			openReports();
 			if (getRunningOS().equals("mac")) {
 				clickButtonByXpathTitleName("Visiting Teaching");
 			} else {
@@ -10482,6 +10500,8 @@ public class LDSTools {
 		}
 		
 		if ((userCalling.equals("Relief Society Pres")) || (userCalling.equals("Bishopric"))) {
+			openDirectory();
+			openReports();
 			if (getRunningOS().equals("mac")) {
 				clickButtonByXpathTitleName("Visiting Teaching");
 			} else {
@@ -10490,6 +10510,7 @@ public class LDSTools {
 				Thread.sleep(1000);
 				//scrollToElementRecyclerView("Visiting Teaching");
 				//driver.scrollToExact("Visiting Teaching");
+				//scrollToElementMemberList("Visiting Teaching");
 				clickButtonByXpathTitleName("Visiting Teaching");
 			}
 			Thread.sleep(2000);
@@ -13071,6 +13092,20 @@ public class LDSTools {
 	}
 	
 	public void scrollToElementRecyclerView(String myElement) throws Exception {
+		if(getRunningOS().equals("mac")) {
+	        MobileElement table = (MobileElement) driver.findElement(MobileBy.IosUIAutomation(".tableViews()[0]"));
+	        MobileElement slider = table.findElement(MobileBy
+	                .IosUIAutomation(".scrollToElementWithPredicate(\"name CONTAINS '" + myElement + "'\")"));
+	        assertEquals(slider.getAttribute("name"), myElement);
+		} else {
+		    MobileElement list = (MobileElement) driver.findElement(By.id("org.lds.ldstools.dev:id/recycler_view"));
+		    MobileElement radioGroup = (MobileElement) list.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
+		                    + "new UiSelector().text(\"" + myElement + "\"));"));
+		    assertNotNull(radioGroup.getLocation());
+		}
+	}
+	
+	public void scrollToElementRecyclerView2(String myElement) throws Exception {
 		if(getRunningOS().equals("mac")) {
 	        MobileElement table = (MobileElement) driver.findElement(MobileBy.IosUIAutomation(".tableViews()[0]"));
 	        MobileElement slider = table.findElement(MobileBy
