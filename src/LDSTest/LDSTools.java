@@ -551,7 +551,7 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		//justForTesting(os);	
+		justForTesting(os);	
 		
 		//additionalUnit(os);	
 		//additonalUnitSimpleTest(os);
@@ -600,7 +600,7 @@ public class LDSTools {
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
-		LeaderBishopricHTVT("ngiBPC1", false, os); 
+		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//LeaderBishopricReport("ngiBPC2", false, os); //Bishopric 2nd Counselor  
@@ -680,20 +680,6 @@ public class LDSTools {
 		List<String> foundUnits;
 		syncLogIn("LDSTools2", "toolstester", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
-		Thread.sleep(2000);
-		
-		openReports();
-		Thread.sleep(1000);
-		scrollDownTEST(200);
-		//scrollToElementRecyclerView2("Visiting Teaching");
-		//driver.scrollToExact("Visiting Teaching");
-		clickButtonByXpathTitleName("Visiting Teaching");
-		
-		Thread.sleep(10000);
-		
-		
-		/*
-		
 		
 		Thread.sleep(2000);
 		openMissionary();
@@ -703,18 +689,36 @@ public class LDSTools {
 		clickButton("MissRefSendReferral", "id", "pred");
 		
 		//Press Referral button again if found for Android
-		if (checkElementReturn("MissRefSendReferral", "id", "pred") == true ) {
-			clickButton("MissRefSendReferral", "id", "pred");
-		}
+		//if (checkElementReturn("MissRefSendReferral", "id", "pred") == true ) {
+		//	clickButton("MissRefSendReferral", "id", "pred");
+		//}
 
 		Thread.sleep(2000);
 		//Check to see if the Members info is correct
-		checkText("MissRefMemberPhone", "8019675309", "id", "xpath"	);
+		checkText("MissRefMemberPhone", "8019675306", "id", "xpath"	);
 		checkText("MissRefMemberEmail", "Lds2@yahoo.com", "id", "xpath"	);
 		
-		*/
+		//sendText(String textElement, String textToSend, String andEle, String iosEle )
+		sendText("MissRefReferralName", "Auto Test Name", "id", "pred");
+		sendText("MissRefReferralPhone", "801-867-5309", "id", "pred");
+		scrollToText("Email" );
+		sendText("MissRefReferralEmail", "autotest@gmail.com", "id", "pred");
+		
+		scrollToText("Location Description");
+		sendText("MissRefAddAddress", "1313 Mocking Bird Ln", "id", "pred");		
+				
+		sendText("MissRefAddMessage", "Hello this is a test", "id", "pred");
+		
+		//Need to finish this
+		//clickButton("MissRefPreferredLang", "id", "pred");
+
+			
+		clickButton("MissRefSendReferralDone", "id", "pred");
+		
+		//Need to check the referral and then remove it. 
 		
 		
+		Thread.sleep(10000);
 		
 		
 		
@@ -5321,7 +5325,7 @@ public class LDSTools {
 				clickButtonByXpathTitleNameContains("Set Max Units");
 				Thread.sleep(2000);
 				sendTextbyXpath("SetMaxUnits", "3");
-				clickButton("OK", "xpath", "pred");
+				clickButton("Done", "xpath", "pred");
 				
 				pressBackKey();
 				pressBackKey();
@@ -7132,6 +7136,80 @@ public class LDSTools {
 		}
 	}
 
+	
+	
+	private void sendText(String textElement, String textToSend, String andEle, String iosEle ) {
+		WebElement myElement = null;
+		String findElement;
+		if (getRunningOS().equals("mac")) {
+			//IOSElement myElement = null;
+			findElement = iosEle;
+		} else {
+			//AndroidElement myElement = null;
+			findElement = andEle;
+		}
+		
+		if (findElement == "id") {
+			myElement = driver.findElement(By.id(this.prop.getProperty(textElement)));
+		}
+		
+		if (findElement == "xpath")  {
+			myElement = driver.findElement(By.xpath(this.prop.getProperty(textElement)));	
+		}
+		
+		if (findElement == "className")  {
+			myElement = driver.findElement(By.className(textElement));
+		}
+
+		if (findElement == "linkText") {
+			myElement = driver.findElement(By.linkText(textElement));
+		}
+		
+		if (findElement == "byName") {
+			myElement = driver.findElement(By.name(textElement));
+		}
+		
+		if (findElement == "AccID") {
+			myElement = driver.findElement(MobileBy.AccessibilityId(textElement));
+		}
+		
+		if (findElement == "byNameProp") {
+			myElement = driver.findElement(By.name(this.prop.getProperty(textElement)));
+		}
+		
+		if (findElement == "text") {
+			//myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(), '" + textElement + "')]")));
+			myElement = driver.findElement(By.xpath("//*[contains(@text, '" + textElement + "')]"));
+		} 
+		
+		if (findElement == "nameContains") {
+			//myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(), '" + textElement + "')]")));
+			myElement = driver.findElement(By.xpath("//*[contains(@name, '" + textElement + "')]"));
+		} 
+		
+		if (findElement == "value") {
+			myElement = driver.findElement(By.xpath("//*[@value='" + textElement + "']"));
+		} 
+		
+		if (findElement == "name") {
+			myElement = driver.findElement(By.xpath("//*[@name='" + textElement + "']"));
+		} 
+		
+		if (findElement == "title") {
+			myElement = driver.findElement(By.xpath("//*[@title='" + textElement + "']"));
+		} 
+		
+		if (findElement == "textAtt") {
+			myElement = driver.findElement(By.xpath("//*[@text='" + textElement + "']"));
+		} 
+		
+		if (findElement == "pred")  {
+			myElement = driver.findElement(MobileBy.iOSNsPredicateString(this.prop.getProperty(textElement)));	
+		}
+
+		myElement.sendKeys(textToSend);
+
+	}
 	
 
 	/** sendTextbyID(String textElement, String textToSend )
@@ -13014,7 +13092,51 @@ public class LDSTools {
     }
 
 	
-	
+	public void scrollToText(String myText)	throws Exception {
+		if(getRunningOS().equals("mac")) {
+	        MobileElement table = (MobileElement) driver.findElement(MobileBy.IosUIAutomation(".tableViews()[0]"));
+	        MobileElement slider = table.findElement(MobileBy
+	                .IosUIAutomation(".scrollToElementWithPredicate(\"name CONTAINS '" + myText + "'\")"));
+	        assertEquals(slider.getAttribute("name"), myText);
+	        
+		} else {
+			List<String> scrollArea = new ArrayList<String>();
+			String pageSource;
+			pageSource = driver.getPageSource();
+			Document doc = Jsoup.parse(pageSource);
+			Elements myElements = doc.getElementsByAttributeValueStarting("scrollable", "true");
+			List<Attribute> elementAttributes = new ArrayList<Attribute>();
+
+			for (Element foundElement : myElements ) {
+				elementAttributes = foundElement.attributes().asList();
+				for (Attribute myAttribute : elementAttributes ) {
+
+					
+					if (myAttribute.getKey().equals("resource-id")) {
+						if (myAttribute.getValue().isEmpty()) {
+							System.out.println("Resource ID is blank skipping");
+						} else {
+							scrollArea.add(myAttribute.getValue());
+						}
+					}
+				}
+				
+			}
+			
+			if (!scrollArea.isEmpty()) {
+				for (String areaToScroll : scrollArea ) {
+				    MobileElement list = (MobileElement) driver.findElement(By.id(areaToScroll));
+				    MobileElement radioGroup = (MobileElement) list.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
+				                    + "new UiSelector().text(\"" + myText + "\"));"));
+				    if (radioGroup.getLocation().toString().isEmpty()) {
+				    		System.out.println("Text not found in: " + areaToScroll);
+				    }
+				}
+			}
+		}
+
+
+	}
 	
 	public void scrollToElement(String myElement) throws Exception {
 		if(getRunningOS().equals("mac")) {
