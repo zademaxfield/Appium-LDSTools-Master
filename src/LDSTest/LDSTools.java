@@ -501,7 +501,8 @@ public class LDSTools {
 	        capabilities.setCapability("launchTimeout", 300000);
 	        
 	        
-	        capabilities.setCapability("platformVersion", "10.3");
+	        //capabilities.setCapability("platformVersion", "10.3");
+	        capabilities.setCapability("platformVersion", "11.0");
 	        capabilities.setCapability("nativeInstrumentsLib", false);
 	        
 	        //capabilities.setCapability("autoAcceptAlerts", true);
@@ -551,7 +552,7 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		justForTesting(os);	
+		//justForTesting(os);	
 		
 		//additionalUnit(os);	
 		//additonalUnitSimpleTest(os);
@@ -598,7 +599,7 @@ public class LDSTools {
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
-		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
+		LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
@@ -9642,7 +9643,9 @@ public class LDSTools {
 		compareWebData(myList, androidList, false);
 		
 		for(String oneUser : myList){
+			scrollDownTEST(-400);
 			clickButton(oneUser, "text", "nameContains");
+			
 			pageSource = getSourceOfPage();
 			if (getRunningOS().equals("mac")) {
 				//Assert.assertTrue(checkNoCaseList("Add to Contacts", pageSource, "Contains"));
