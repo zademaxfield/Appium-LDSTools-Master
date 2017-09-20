@@ -6463,6 +6463,7 @@ public class LDSTools {
 		myList = myWeb.getAllMembersInOrganization("OrganizationsMenu", "High Priests Group", "HighPriestGroupLeadership", false);
 		compareWebData(myList, androidList, true);
 		
+		//printPageSource();
 		pressBackKey();
 		clickButtonByXpathTitleName("Home Teaching District Supervisors");
 
@@ -7881,10 +7882,14 @@ public class LDSTools {
 		myOs = getRunningOS();
 		if (myOs.equals("mac")){
 			//if (checkElementExistsByXpath("TopBack").equals(true)) {
-			if (checkElementExistsByName("Back").equals(true)) {
-				//clickButtonByXpath("TopBack");
-				clickButton("Back", "byName", "byName");	
-			}	
+			if (checkElementExistsByXpath("NewBackButton").equals(true)) {
+				clickButton("NewBackButton", "xpath", "xpath");	
+			}
+			
+			
+			//if (checkElementExistsByName("Back").equals(true)) {
+			//	clickButton("Back", "byName", "byName");	
+			//}	
 		} else {
 			driver.navigate().back();
 			
