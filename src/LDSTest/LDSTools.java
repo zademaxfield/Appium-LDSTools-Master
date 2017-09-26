@@ -580,7 +580,7 @@ public class LDSTools {
 		
 		//editVisibility(os);
 		//editVisibiltyPersonal(os);
-		//editVisibiltyHousehold(os);
+		editVisibiltyHousehold(os);
 		
 		//CheckUnitsToSync(os);
 		
@@ -598,7 +598,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		LeaderBishopricDirectory("ngiBPC1", false, os);
+		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
@@ -4021,7 +4021,7 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("5551234555", pageSource, "Contains"));
 		//This is showing up as household email or household phone
 		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
-		Assert.assertFalse(checkNoCaseList("Z@z.com", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("zademobile008@gmail.com", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("PERSONAL", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("test@test.com", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
@@ -4106,7 +4106,7 @@ public class LDSTools {
 		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("5551234555", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("Z@z.com", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("zademobile008@gmail.com", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("test@test.com", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
@@ -4231,7 +4231,7 @@ public class LDSTools {
 		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource, "Equals"));
 		Assert.assertFalse(checkNoCaseList("5551234555", pageSource, "Contains"));
 		//Assert.assertFalse(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("Z@z.com", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("zademobile008@gmail.com", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource, "Equals"));
 		Assert.assertFalse(checkNoCaseList("test@test.com", pageSource, "Contains"));
 		//Assert.assertFalse(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
@@ -4309,7 +4309,7 @@ public class LDSTools {
 		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("5551234555", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("Z@z.com", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("zademobile008@gmail.com", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("test@test.com", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
