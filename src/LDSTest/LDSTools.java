@@ -4016,7 +4016,7 @@ public class LDSTools {
 		//Assert.assertTrue(checkNoCaseListDEBUG("Fagamalo 1st Ward", pageSource, "Contains"));
 
 		//Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource, "Contains"));
-		Assert.assertFalse(checkNoCaseList("1224589900887", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("1113334444", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("PERSONAL", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("5551234555", pageSource, "Contains"));
 		//This is showing up as household email or household phone
@@ -4102,7 +4102,7 @@ public class LDSTools {
 		//Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Contains"));
 
 		//Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("1224589900887", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("1113334444", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("5551234555", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
@@ -4227,7 +4227,7 @@ public class LDSTools {
 		//Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Equals"));
 
 		//Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("1224589900887", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("1113334444", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource, "Equals"));
 		Assert.assertFalse(checkNoCaseList("5551234555", pageSource, "Contains"));
 		//Assert.assertFalse(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
@@ -4305,7 +4305,7 @@ public class LDSTools {
 		//Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Equals"));
 
 		//Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("1224589900887", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("1113334444", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("5551234555", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
@@ -13664,8 +13664,13 @@ public class LDSTools {
 		//driver.resetApp();
 
 		if(getRunningOS().equals("mac")) {
-			System.out.println("Reset App");
-			driver.resetApp();
+			if (testDevice.contains("REAL")) {
+				System.out.println("Not Reseting App on real device");
+			} else {
+				System.out.println("Reset App");
+				driver.resetApp();
+			}
+
 			killProcess("tail");
 			/*
 			if (!checkForAppiumRunning(4445)) {
