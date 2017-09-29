@@ -350,9 +350,10 @@ public class LDSTools {
 	        //capabilities.setCapability("appActivity", "org.lds.ldstools.ui.StartupActivity");
 	        capabilities.setCapability("appActivity", "org.lds.ldstools.ui.activity.SignInActivity");
 	        
-	        capabilities.setCapability("unicodeKeyboard", "true");
-	        capabilities.setCapability("resetKeyboard", "true");
+	        //capabilities.setCapability("unicodeKeyboard", "true");
+	        //capabilities.setCapability("resetKeyboard", "true");
 	        capabilities.setCapability("deviceReadyTimeout", "60");
+	        capabilities.setCapability("noSign", true);
 
 	        capabilities.setCapability("autoAcceptAlerts", true);
 	        
@@ -552,7 +553,7 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		//justForTesting(os);	
+		justForTesting(os);	
 		
 		//additionalUnit(os);	
 		//additonalUnitSimpleTest(os);
@@ -580,7 +581,7 @@ public class LDSTools {
 		
 		//editVisibility(os);
 		//editVisibiltyPersonal(os);
-		editVisibiltyHousehold(os);
+		//editVisibiltyHousehold(os);
 		
 		//CheckUnitsToSync(os);
 		
@@ -679,7 +680,7 @@ public class LDSTools {
 	public void justForTesting(String os) throws Exception {
 		String pageSource;
 		List<String> foundUnits;
-		syncLogIn("LDSTools2", "toolstester", "UAT", os );
+		syncLogIn("LDSTools20", "password1", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
 		
 		Thread.sleep(2000);
@@ -696,8 +697,8 @@ public class LDSTools {
 
 		Thread.sleep(2000);
 		//Check to see if the Members info is correct
-		checkText("MissRefMemberPhone", "8019675306", "id", "xpath"	);
-		checkText("MissRefMemberEmail", "Lds2@yahoo.com", "id", "xpath"	);
+		checkText("MissRefMemberPhone", "801-867-5309", "id", "xpath"	);
+		checkText("MissRefMemberEmail", "Test@gmail.com", "id", "xpath"	);
 		
 		//sendText(String textElement, String textToSend, String andEle, String iosEle )
 		sendText("MissRefReferralName", "Auto Test Name", "id", "pred");
@@ -705,21 +706,68 @@ public class LDSTools {
 		scrollToText("Email" );
 		sendText("MissRefReferralEmail", "autotest@gmail.com", "id", "pred");
 		
-		scrollToText("Location Description");
-		sendText("MissRefAddAddress", "1313 Mocking Bird Ln", "id", "pred");		
-				
-		sendText("MissRefAddMessage", "Hello this is a test", "id", "pred");
+		scrollToText("Locate on Map");
+		clickButton("MissRefLocateOnMap", "id", "xpath");
+		Thread.sleep(2000);
 		
+		//Check to see if locations services has been turned on. 
+		if (checkElementExistsByID("AlertOKid") ) {
+			clickButton("AlertOKid", "id", "xpath");
+			Thread.sleep(2000);
+			clickButton("AllowButton", "xpath", "xpath");
+		}
+		
+		Thread.sleep(2000);
+		sendText("MissRefMapSearch", "1313 Mocking Bird Ln, Suynnyvale", "id", "pred");
+		Thread.sleep(10000);
+		clickButton("1313 Mockingbird Lane, Sunnyvale, CA, United States", "text", "name");
+		clickButton("MissRefUseLocation", "id", "xpath");
+		
+		//Need a check for the text
+		waitForTextToDisappearTEXT("Saving", 500 );
+				
 		//Need to finish this
 		//clickButton("MissRefPreferredLang", "id", "pred");
+		
+		
+		scrollToText("Send");
+		sendText("MissRefAddMessage", "Hello this is a test", "id", "xpath"); 
 
-			
 		clickButton("MissRefSendReferralDone", "id", "pred");
+		
+		//Check for icon to disappear
+		waitForTextToDisappearTEXT("Sending Referral", 500 );
+		
+		//Check Nice message
+		checkText("MissRefEncourageMessageTitle", "Thank you!", "id", "xpath"	);
+		clickButton("AddUnitOK", "id", "xpath");
+		pageSource = driver.getPageSource();
+		Assert.assertFalse(checkNoCaseList("Thank You!", pageSource, "Contains"));
+		
+		//Check referral
+		scrollToText("Auto Test Name" );
+		clickButton("Auto Test Name", "text", "byName");
+		
+		pageSource = driver.getPageSource();
+		scrollDownTEST(400);
+		pageSource = pageSource + driver.getPageSource();
+		Assert.assertTrue(checkNoCaseList("Auto Test Name", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Hello this is a test", pageSource, "Contains"));
+		
+		Assert.assertFalse(checkNoCaseList("801-867-5309", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("Test@gmail.com", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("801-867-5309", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("autotest@gmail.com", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("1313 Mocking Bird Ln", pageSource, "Contains"));
+		
+		//Remove Referral
+		clickButton("MissRefOverflow", "id", "xpath");
+		clickButton("MissRefRemoveFromList", "xpath", "xpath");
 		
 		//Need to check the referral and then remove it. 
 		
 		
-		Thread.sleep(10000);
+		
 		
 		
 		
