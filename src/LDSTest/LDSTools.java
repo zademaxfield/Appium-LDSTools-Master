@@ -350,8 +350,8 @@ public class LDSTools {
 	        //capabilities.setCapability("appActivity", "org.lds.ldstools.ui.StartupActivity");
 	        capabilities.setCapability("appActivity", "org.lds.ldstools.ui.activity.SignInActivity");
 	        
-	        //capabilities.setCapability("unicodeKeyboard", "true");
-	        //capabilities.setCapability("resetKeyboard", "true");
+	        capabilities.setCapability("unicodeKeyboard", "true");
+	        capabilities.setCapability("resetKeyboard", "true");
 	        capabilities.setCapability("deviceReadyTimeout", "60");
 	        capabilities.setCapability("noSign", true);
 
@@ -553,7 +553,7 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	public void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		justForTesting(os);	
+		//justForTesting(os);	
 		
 		//additionalUnit(os);	
 		//additonalUnitSimpleTest(os);
@@ -576,7 +576,7 @@ public class LDSTools {
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
-		//editOtherUserInvalidEmail(os);
+		editOtherUserInvalidEmail(os);
 		
 		
 		//editVisibility(os);
