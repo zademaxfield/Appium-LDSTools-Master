@@ -555,7 +555,7 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 		
-		//additionalUnit(os);	
+		additionalUnit(os);	
 		//additonalUnitSimpleTest(os);
 		//addUnitsRecent(os);
 		
@@ -576,7 +576,7 @@ public class LDSTools {
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
-		editOtherUserInvalidEmail(os);
+		//editOtherUserInvalidEmail(os);
 		
 		
 		//editVisibility(os);
@@ -5597,7 +5597,7 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Members Moved In");
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Bustos", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Alex", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Skywalker, Luke", pageSource, "Contains"));
 		
 		pressBackKey();
@@ -12143,7 +12143,8 @@ public class LDSTools {
 	private void pressBackToRoot() throws Exception {
 		Boolean backButtonCheck;
 		int myCounter = 1;
-		backButtonCheck = checkElementExistsByXpath("TopBack"); 
+		//backButtonCheck = checkElementExistsByXpath("TopBack"); 
+		backButtonCheck = checkElementExistsByXpath("NewBackButton"); 
 		//System.out.println("Back Button Check - before loop: " + backButtonCheck);
 		
 		while ((backButtonCheck == true) && (myCounter < 5 ))  {
@@ -12153,11 +12154,18 @@ public class LDSTools {
 			Thread.sleep(2000);
 			//System.out.println("Back Key pressed");
 			//System.out.println("Checking for back key....");
-			backButtonCheck = checkElementExistsByXpath("TopBack");
+			//backButtonCheck = checkElementExistsByXpath("TopBack");
+			backButtonCheck = checkElementExistsByXpath("NewBackButton");
+			if (checkElementExistsByXpath("MenuSortOptions") == true) {
+				backButtonCheck = false;
+			}
+			
 			Thread.sleep(2000);
 			//System.out.println("Back Button Check in loop: "+ myCounter + " Check: " + backButtonCheck);
 			myCounter++;
 		}
+		
+		//System.out.println("Press Back Key Done");
 		
 	}
 	
@@ -12166,6 +12174,8 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			pressBackToRoot();
 			Thread.sleep(2000);
+			System.out.println("Try to clear text");
+			//clickButton("SearchClearText", "pred", "pred");
 			//clickButton("Clear text", "byName", "byName");
 			clickByCords("Clear text");
 			//clickButton("SearchClearText", "xpath", "xpath");
