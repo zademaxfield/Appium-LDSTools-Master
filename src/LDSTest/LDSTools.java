@@ -555,7 +555,7 @@ public class LDSTools {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 		
-		additionalUnit(os);	
+		//additionalUnit(os);	
 		//additonalUnitSimpleTest(os);
 		//addUnitsRecent(os);
 		
@@ -581,7 +581,7 @@ public class LDSTools {
 		
 		//editVisibility(os);
 		//editVisibiltyPersonal(os);
-		//editVisibiltyHousehold(os);
+		editVisibiltyHousehold(os);
 		
 		//CheckUnitsToSync(os);
 		
@@ -4221,7 +4221,8 @@ public class LDSTools {
 			//scrollDownTEST(500);
 			//scrollDownTEMP(800);
 			//driver.scrollToExact("Show on Map");
-			scrollToElementPrivacy("Show on Map");
+			//scrollToElementPrivacy("Show on Map");
+			scrollToText("Show on Map");
 
 			printPageSource();
 			clickButton("PrivacyHouseholdPhoto", "xpath", "xpath");
