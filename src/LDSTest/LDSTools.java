@@ -581,7 +581,7 @@ public class LDSTools {
 		
 		//editVisibility(os);
 		//editVisibiltyPersonal(os);
-		editVisibiltyHousehold(os);
+		//editVisibiltyHousehold(os);
 		
 		//CheckUnitsToSync(os);
 		
@@ -599,7 +599,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		//LeaderBishopricDirectory("ngiBPC1", false, os);
+		LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
@@ -5612,7 +5612,7 @@ public class LDSTools {
 			clickButton("MissAssignedTab", "xpath", "xpath");
 		}
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Painter", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Preston", pageSource, "Contains"));
 
 	}
 	
