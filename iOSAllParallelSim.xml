@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="iOS All Tests suite" configfailurepolicy="continue" parallel="tests"  thread-count="4">	
+<suite name="iOS All Tests suite Dual Sim" configfailurepolicy="continue" parallel="tests"  thread-count="2">	
     <parameter name="os" value="ios" />
 	<listeners>
 	    <listener class-name="LDSTest.RetryListener"/>
@@ -8,51 +8,15 @@
 	    <listener class-name="LDSTest.TestListener" />
 	</listeners>
 	
-	<test name="All Test 1" thread-count="4" parallel="instances">
+	<test name="All Test 1 and 3" thread-count="2" parallel="instances">
 		<parameter name="os" value="ios" />
-		<parameter name="fileName" value="LDSTools.ipa" />
+		<parameter name="fileName" value="LDS Tools.app" />
 		<parameter name="testDevice" value="FBSIM-iPhone 7" />
 		<parameter name="startSleepTime" value="0200" /> 
 
 		<groups>
 		    <run>
 		        <include name="all1"/>
-		        <exclude name="addUnit"/>
-		    </run>
-		</groups>
-		
-		<classes>
-		    <class name="LDSTest.LDSTools"/>
-		    <class name="LDSTest.LDSTools$Retry"/>      
-		</classes>
-	</test> 
-	
-	<test name="All Test 2" thread-count="4" parallel="instances">
-		<parameter name="os" value="ios" />
-		<parameter name="fileName" value="LDSTools.ipa" />
-		<parameter name="testDevice" value="FBSIM-iPhone 7 Plus" />
-		<parameter name="startSleepTime" value="60000" />  
-		
-		<groups>
-		    <run>
-		        <include name="all2"/>
-		        <exclude name="addUnit"/>
-		    </run>
-		</groups>
-		
-		<classes>
-		    <class name="LDSTest.LDSTools"/>
-		    <class name="LDSTest.LDSTools$Retry"/>      
-		</classes>
-	</test> 
-	
-	<test name="All Test 3" thread-count="4" parallel="instances">
-		<parameter name="os" value="ios" />
-		<parameter name="fileName" value="LDSTools.ipa" />
-		<parameter name="testDevice" value="FBSIM-iPhone 8" />
-		<parameter name="startSleepTime" value="90000" />  
-		<groups>
-		    <run>
 		        <include name="all3"/>
 		        <exclude name="addUnit"/>
 		    </run>
@@ -64,14 +28,15 @@
 		</classes>
 	</test> 
 	
-	<test name="All Test 4" thread-count="4" parallel="instances">
+	<test name="All Test 2 and 4" thread-count="2" parallel="instances">
 		<parameter name="os" value="ios" />
-		<parameter name="fileName" value="LDSTools.ipa" />
-		<parameter name="testDevice" value="FBSIM-iPhone 8 Plus" />
-		<parameter name="startSleepTime" value="120000" />  
-
+		<parameter name="fileName" value="LDS Tools.app" />
+		<parameter name="testDevice" value="FBSIM-iPhone 7 Plus" />
+		<parameter name="startSleepTime" value="60000" />  
+		
 		<groups>
 		    <run>
+		        <include name="all2"/>
 		        <include name="all4"/>
 		        <exclude name="addUnit"/>
 		    </run>
@@ -82,4 +47,5 @@
 		    <class name="LDSTest.LDSTools$Retry"/>      
 		</classes>
 	</test> 
+
 </suite> 
