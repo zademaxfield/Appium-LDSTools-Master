@@ -10,7 +10,7 @@
 	
 	<test name="Smoke Test 1" thread-count="2" parallel="instances">
 		<parameter name="os" value="ios" />
-		<parameter name="fileName" value="LDSTools.ipa" />
+		<parameter name="fileName" value="LDS Tools.app" />
 		<parameter name="testDevice" value="FBSIM-iPhone 7" />
 		<parameter name="startSleepTime" value="0200" />  
 
@@ -29,7 +29,7 @@
 	
 	<test name="Smoke Test 2" thread-count="2" parallel="instances">
 		<parameter name="os" value="ios" />
-		<parameter name="fileName" value="LDSTools.ipa" />
+		<parameter name="fileName" value="LDS Tools.app" />
 		<parameter name="testDevice" value="FBSIM-iPhone 7 Plus" />
 		<parameter name="startSleepTime" value="60000" />  
 
