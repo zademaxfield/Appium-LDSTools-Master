@@ -12,13 +12,12 @@
 	    <parameter name="os" value="android" />
 	    <parameter name="fileName" value="ldstools-alpha.apk" />
 	    <parameter name="testDevice" value="STF-Pool" />
-	    <parameter name="startSleepTime" value="1000" />
+	    <parameter name="startSleepTime" value="0200" />
 
 	    <!-- Excluding Headers tests for now they are broken -->
 		<groups>
 		    <run>
 		        <include name="smoke1"/>
-		        <exclude name="header"/>
 		    </run>
 		</groups>
 		
@@ -32,12 +31,11 @@
 	    <parameter name="os" value="android" />
 	    <parameter name="fileName" value="ldstools-alpha.apk" />
 	    <parameter name="testDevice" value="STF-Pool" />
-	    <parameter name="startSleepTime" value="30000" />
+	    <parameter name="startSleepTime" value="60000" />
 
 		<groups>
 		    <run>
 		        <include name="smoke2"/>
-		        <exclude name="header"/>
 		    </run>
 		</groups>
 		
@@ -51,12 +49,11 @@
 	    <parameter name="os" value="android" />
 	    <parameter name="fileName" value="ldstools-alpha.apk" />
 	    <parameter name="testDevice" value="STF-Pool" />
-	    <parameter name="startSleepTime" value="60000" />
+	    <parameter name="startSleepTime" value="120000" />
 
 		<groups>
 		    <run>
 		        <include name="smoke3"/>
-		        <exclude name="header"/>
 		    </run>
 		</groups>
 		
@@ -70,12 +67,11 @@
 	    <parameter name="os" value="android" />
 	    <parameter name="fileName" value="ldstools-alpha.apk" />
 	    <parameter name="testDevice" value="STF-Pool" />
-	    <parameter name="startSleepTime" value="90000" />
+	    <parameter name="startSleepTime" value="180000" />
 
 		<groups>
 		    <run>
 		        <include name="smoke4"/>
-		        <exclude name="header"/>
 		    </run>
 		</groups>
 		
