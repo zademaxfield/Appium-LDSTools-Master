@@ -10,7 +10,7 @@
 	  <!-- <parameter name="testDevice" value="STF-00765a54959507be" /> -->
 	  <!-- <parameter name="testDevice" value="STF-HT6AN0200005" />  -->
 	  <!-- <parameter name="testDevice" value="STF-8XV5T15A30006448" /> -->
-      <parameter name="testDevice" value="STF-Pool" /> 
+      <parameter name="testDevice" value="STF-Pool" />
       <parameter name="startSleepTime" value="1000" />
       
       <groups>
@@ -24,5 +24,5 @@
           <class name="LDSTest.LDSTools$Retry"/>      
       </classes> 
       
-  </test> <!-- Default test -->
+  </test> <!-- Default test --> 
 </suite> <!-- Default suite -->
