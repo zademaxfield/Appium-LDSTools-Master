@@ -1,141 +1,46 @@
 package LDSTest;
-import org.testng.annotations.Test;
-
-import com.gargoylesoftware.htmlunit.javascript.host.html.Option;
-
-
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Factory;
-//import org.testng.annotations.BeforeTest;
-//import org.testng.annotations.Configuration;
-import org.testng.AssertJUnit;
-//import org.testng.ITestContext;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterClass;
-//import org.testng.TestRunner;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeClass;
-//import org.testng.annotations.AfterTest;
-import org.testng.annotations.Parameters;
-//import org.testng.annotations.Test;
-//import org.testng.annotations.BeforeMethod;
-//import org.testng.asserts.SoftAssert;
-import org.testng.Assert;
-//import org.testng.AssertJUnit;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.SocketException;
-import java.net.URL;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-//import java.util.Arrays;
-//import java.util.Collections;
-import java.util.HashMap;
-//import java.util.Hashtable;
-//import java.util.ArrayList;
-//import java.util.Arrays;
-//import java.util.Dictionary;
-//import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-//import java.util.Map;
-//import java.net.URL;
-import java.util.Properties;
-import java.util.Random;
-import java.util.UUID;
-//import java.util.concurrent.TimeUnit;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
-//import io.appium.java_client.SwipeElementDirection;
-import io.appium.java_client.TouchAction;
-//import io.appium.java_client.android.AndroidDeviceActionShortcuts;
-import io.appium.java_client.android.AndroidDriver;
-//import io.appium.java_client.android.AndroidElement;
-//import io.appium.java_client.android.AndroidKeyCode;
-import io.appium.java_client.ios.*;
 import io.appium.java_client.MobileElement;
-//import io.appium.java_client.ios.IOSElement;
-//import io.appium.java_client.remote.HideKeyboardStrategy;
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.ios.PerformsTouchID;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
-//import io.selendroid.SelendroidKeys;
-//import javafx.scene.control.Alert;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-//import org.apache.commons.lang3.StringUtils;
-//import org.hamcrest.CoreMatchers;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Attribute;
-//import org.jsoup.nodes.DataNode;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-//import org.junit.Rule;
 import org.junit.rules.ErrorCollector;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
-//import org.junit.runner.JUnitCore;
-//import org.junit.runner.Request;
 import org.junit.runners.model.Statement;
-//import org.openqa.jetty.jetty.win32.Service;
-import org.openqa.selenium.By;
-//import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.JavascriptExecutor;
-//import org.openqa.selenium.Keys;
-import org.openqa.selenium.OutputType;
-//import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.ScreenOrientation;
-//import org.openqa.selenium.TakesScreenshot;
-//import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-//import org.openqa.selenium.WebDriver;
-
-import org.openqa.selenium.interactions.Actions;
-//import org.openqa.selenium.interactions.HasTouchScreen;
-//import org.openqa.selenium.interactions.TouchScreen;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
-//import org.openqa.selenium.remote.RemoteTouchScreen;
-//import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.RemoteWebElement;
-
-//import org.openqa.selenium.remote.CapabilityType;
-//import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.AssertJUnit;
+import org.testng.ITestResult;
+import org.testng.annotations.*;
 
-//import com.thoughtworks.selenium.Wait;
+import java.io.*;
+import java.net.Socket;
+import java.net.SocketException;
+import java.net.URL;
+import java.util.*;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-
-//import io.appium.java_client.service.local.AppiumDriverLocalService;
-//import io.appium.java_client.service.local.AppiumServiceBuilder;
-//import io.appium.java_client.service.local.flags.GeneralServerFlag;
-
-//Not used yet
-//import org.openqa.selenium.MobileElement;
-
-//import com.opera.core.systems.scope.protos.SelftestProtos.SelftestResult.Result;
 
 
 
@@ -161,7 +66,7 @@ public class LDSTools {
 	private Properties prop;
 	//AppiumDriver<MobileElement> driver;
 	public AppiumDriver<MobileElement> driver;
-	LDSWeb myWeb = new LDSWeb();
+	private LDSWeb myWeb = new LDSWeb();
 	//AppiumDriver driver;
 	//AppiumDriver driver;
 	TouchActions touch;
@@ -171,11 +76,11 @@ public class LDSTools {
 	private String myUserName = "Not Set";
 	private String myPassword = "Not Set";
 	
-	public String myAppPackage;
-	AppiumDriverLocalService myAppiumService;
-	AppiumService newAppiumService = new AppiumService();
+	private String myAppPackage;
+	private AppiumDriverLocalService myAppiumService;
+	private AppiumService newAppiumService = new AppiumService();
 	
-	String deviceSerial = "";
+	private String deviceSerial = "";
 	
 	
 	
@@ -551,7 +456,7 @@ public class LDSTools {
     
 	@Parameters({"os"})
 	@Test (groups= {"jft"})
-	public void simpleTest(String os) throws Exception {
+	private void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
 		//justForTesting(os);	
 		
@@ -599,8 +504,8 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		LeaderBishopricDirectory("ngiBPC1", false, os);
-		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
+		//LeaderBishopricDirectory("ngiBPC1", false, os);
+		LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
@@ -2339,7 +2244,7 @@ public class LDSTools {
 		checkHTVTHouseholds("Bishopric");
 	}
 	
-	public void LeaderBishopricDirectory(String leaderLogin, Boolean priorUnit, String os) throws Exception {
+	private void LeaderBishopricDirectory(String leaderLogin, Boolean priorUnit, String os) throws Exception {
 
 		syncLogIn(leaderLogin, "password1", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
@@ -2348,7 +2253,7 @@ public class LDSTools {
 		checkDirectoryUser(true, true, true, true, true, true);
 	}
 	
-	public void LeaderBishopricDrawerOrgMissionary(String leaderLogin, Boolean priorUnit, String os) throws Exception {
+	private void LeaderBishopricDrawerOrgMissionary(String leaderLogin, Boolean priorUnit, String os) throws Exception {
 
 		syncLogIn(leaderLogin, "password1", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
@@ -9108,7 +9013,7 @@ public class LDSTools {
 
 		Assert.assertTrue(checkNoCaseList("Birthday List", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("Members Moved In", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("Members Moved Out", pageSource, "Equals"));
+		//Assert.assertTrue(checkNoCaseList("Members Moved Out", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("Members with Callings", pageSource, "Equals"));
 		//Assert.assertTrue(checkNoCaseList("Missionary Progress Record", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("New Members", pageSource, "Equals"));
@@ -9124,7 +9029,7 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Members Moved In");
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Pipi", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Fati", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("February", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Skywalker, Luke", pageSource, "Equals"));
 
@@ -9137,21 +9042,21 @@ public class LDSTools {
 		
 		//Check the members moved out report
 		//Should have a ( ) with the age by the birth date
-		clickButtonByXpathTitleName("Members Moved Out");
+		//clickButtonByXpathTitleName("Members Moved Out");
 		
-		Thread.sleep(1000);
-		pageSource = getSourceOfPage();
+		//Thread.sleep(1000);
+		//pageSource = getSourceOfPage();
 
-		Assert.assertTrue(checkNoCaseList("Fiu", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("Fiu", pageSource, "Contains"));
 
 		//The new unit is only available for bishop
-		if (bishop == true){
-			Assert.assertTrue(checkNoCaseList("New Unit", pageSource, "Contains"));
-		} else {
-			Assert.assertFalse(checkNoCaseList("New Unit", pageSource, "Contains"));
-		}
-		Assert.assertFalse(checkNoCaseList("Solo, Han", pageSource, "Equals"));
-		pressBackKey();
+		//if (bishop == true){
+		//	Assert.assertTrue(checkNoCaseList("New Unit", pageSource, "Contains"));
+		//} else {
+		//	Assert.assertFalse(checkNoCaseList("New Unit", pageSource, "Contains"));
+		//}
+		//Assert.assertFalse(checkNoCaseList("Solo, Han", pageSource, "Equals"));
+		//pressBackKey();
 		//clickButtonByXpath("Drawer");
 		//clickButtonByXpath("DrawerReports");
 		
