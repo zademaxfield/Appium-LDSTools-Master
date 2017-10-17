@@ -458,10 +458,10 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	private void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		//justForTesting(os);	
+		//justForTesting(os);
 		
 		//additionalUnit(os);	
-		//additonalUnitSimpleTest(os);
+		additonalUnitSimpleTest(os);
 		//addUnitsRecent(os);
 		
 		//myTempleSimpleTest(os);
@@ -477,7 +477,7 @@ public class LDSTools {
 		//bishopMemberOfSeparateStake(os);	
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
-		//editCurrentUser(os);	
+		//editCurrentUser(os);
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
@@ -505,7 +505,7 @@ public class LDSTools {
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
-		LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
+		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os); 
 
@@ -635,7 +635,7 @@ public class LDSTools {
 		//clickButton("MissRefPreferredLang", "id", "pred");
 		
 		
-		scrollToText("Send");
+		scrollToText("SEND");
 		sendText("MissRefAddMessage", "Hello this is a test", "id", "xpath"); 
 
 		clickButton("MissRefSendReferralDone", "id", "pred");
@@ -671,7 +671,7 @@ public class LDSTools {
 		
 		//Need to check the referral and then remove it. 
 		
-		
+
 		
 		
 		
@@ -5419,7 +5419,9 @@ public class LDSTools {
 			clickButtonByID("SpinnerNav");
 			Thread.sleep(2000);
 			//scrollDownTEST(400);
+
 			myScrollUnitList("Vernal 4th Ward");
+			//scrollToText("Vernal 4th Ward");
 			//scrollToElementUnitLists("Vernal 4th Ward");
 		}
 		//System.out.println("Open Units Done");
@@ -13630,6 +13632,7 @@ public class LDSTools {
 		if(getRunningOS().equals("mac")) {
 			if (testDevice.contains("REAL")) {
 				System.out.println("Not Reseting App on real device");
+                driver.resetApp();
 			} else {
 				System.out.println("Reset App");
 				driver.resetApp();
