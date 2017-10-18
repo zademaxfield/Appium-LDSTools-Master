@@ -7,22 +7,22 @@
       <parameter name="os" value="android" />
       <parameter name="fileName" value="ldstools-alpha.apk" />
 	  <!-- <parameter name="testDevice" value="MyTest" /> -->
-	  <!-- <parameter name="testDevice" value="STF-00765a54959507be" /> -->
+	  <parameter name="testDevice" value="STF-00765a54959507be" /> -->
 	  <!-- <parameter name="testDevice" value="STF-HT6AN0200005" />  -->
 	  <!-- <parameter name="testDevice" value="STF-8XV5T15A30006448" /> -->
-      <parameter name="testDevice" value="STF-Pool" />
-      <parameter name="startSleepTime" value="1000" />
-      
-      <groups>
-          <run>
-              <include name="jft"/>
-          </run>
-      </groups>
+    <!-- <parameter name="testDevice" value="STF-Pool" /> -->
+    <parameter name="startSleepTime" value="1000" />
 
-      <classes>
-          <class name="LDSTest.LDSTools"/>
-          <class name="LDSTest.LDSTools$Retry"/>      
-      </classes> 
-      
-  </test> <!-- Default test --> 
+    <groups>
+        <run>
+            <include name="jft"/>
+        </run>
+    </groups>
+
+    <classes>
+        <class name="LDSTest.LDSTools"/>
+        <class name="LDSTest.LDSTools$Retry"/>
+    </classes>
+
+</test> <!-- Default test -->
 </suite> <!-- Default suite -->

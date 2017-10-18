@@ -1,5 +1,6 @@
 package LDSTest;
 
+import com.gargoylesoftware.htmlunit.javascript.host.Touch;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
@@ -37,10 +38,13 @@ import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.URL;
+import java.time.Duration;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+//import static org.testng.Assert.assertEquals;
+//import static org.testng.AssertJUnit.assertNotNull;
 
 
 
@@ -260,7 +264,7 @@ public class LDSTools {
 	        capabilities.setCapability("deviceReadyTimeout", "60");
 	        capabilities.setCapability("noSign", true);
 
-	        capabilities.setCapability("autoAcceptAlerts", true);
+	        //capabilities.setCapability("autoAcceptAlerts", true);
 	        
 	        capabilities.setCapability("fullReset", false);
 	        capabilities.setCapability("dontStopAppOnReset", true);
@@ -461,7 +465,7 @@ public class LDSTools {
 		//justForTesting(os);
 		
 		//additionalUnit(os);	
-		additonalUnitSimpleTest(os);
+		//additonalUnitSimpleTest(os);
 		//addUnitsRecent(os);
 		
 		//myTempleSimpleTest(os);
@@ -507,7 +511,7 @@ public class LDSTools {
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
-		//LeaderBishopricHTVT("ngiBPC1", false, os); 
+		LeaderBishopricHTVT("ngiBPC1", false, os);
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//LeaderBishopricReport("ngiBPC2", false, os); //Bishopric 2nd Counselor  
@@ -2538,7 +2542,7 @@ public class LDSTools {
 				if (checkUser == 0 ) {
 					System.out.println("NOT FOUND: " + oneUser);
 				}
-				Assert.assertEquals(checkUser, 1);
+				assertEquals(checkUser, 1);
 				//Thread.sleep(2000);
 				//Collapse the search 
 				clickButtonByXpath("SearchCollapse");
@@ -2555,7 +2559,7 @@ public class LDSTools {
 				if (checkUser == 0 ) {
 					System.out.println("NOT FOUND: " + oneUser);
 				}
-				Assert.assertEquals(checkUser, 1);
+				assertEquals(checkUser, 1);
 				Thread.sleep(2000);
 				//Collapse the search 
 				clickButtonByXpath("SearchCollapse");
@@ -7517,8 +7521,8 @@ public class LDSTools {
 			//int screenUp;
 			
 			//System.out.println("Trying to move!");
-			//System.out.println("Width: " + screenWidth);
-			//System.out.println("Height: " + screenHeight);
+			System.out.println("Width: " + screenWidth);
+			System.out.println("Height: " + screenHeight);
 			
 			screenWidth = screenWidth / 3;
 			//screenWidth = screenWidth - 75;
@@ -7526,13 +7530,14 @@ public class LDSTools {
 			screenHeight = screenHeight - 100;
 			//scrollDistance = screenHeight - scrollDistance;
 			
-			//System.out.println("Width: " + screenWidth);
-			//System.out.println("Height: " + screenHeight);
+			System.out.println("Width: " + screenWidth);
+			System.out.println("Height: " + screenHeight);
 			//System.out.println("Distance: " + scrollDistance);
 			TouchAction actions = new TouchAction(driver);
 			//actions.press(screenWidth, screenHeight).moveTo(0, -scrollDistance).release().perform();
 
-			actions.press(screenWidth, screenHeight).moveTo(0, -scrollDistance).waitAction(2000).release().perform();
+			//actions.press(screenWidth, screenHeight).moveTo(screenWidth, -scrollDistance).waitAction(Duration.ofMillis(2000)).release().perform();
+			actions.press(screenWidth, screenHeight).moveTo(screenWidth, -50).waitAction(Duration.ofMillis(2000)).release().perform();
 			
 			/*
 			actions.down(screenWidth, screenHeight);
@@ -7570,7 +7575,7 @@ public class LDSTools {
 			scrollDistance = screenHeight - 100;
 
 			TouchAction actions = new TouchAction(driver);
-			actions.press(screenWidth, screenHeight).moveTo(0, -scrollDistance).waitAction(2000).release().perform();
+			actions.press(screenWidth, screenHeight).moveTo(0, -scrollDistance).waitAction(Duration.ofMillis(2000)).release().perform();
 			Thread.sleep(5000);
 		}
 
@@ -7588,9 +7593,10 @@ public class LDSTools {
 		screenWidth = screenWidth / 3;
 		screenHeight = screenHeight - 70;
 		scrollDistance = screenHeight - scrollDistance;
-	
-		
-		driver.swipe(screenWidth, screenHeight, screenWidth, scrollDistance, 2000);
+
+		TouchAction mySwipe = new TouchAction(driver);
+		mySwipe.tap(screenWidth,screenHeight).moveTo(screenWidth, scrollDistance).waitAction(Duration.ofMillis(2000)).release().perform();
+		//driver.swipe(screenWidth, screenHeight, screenWidth, scrollDistance, 2000);
 
 		Thread.sleep(2000);
 		
@@ -8966,7 +8972,9 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			//clickButton("6:00 PM", "text", "name");
 			//driver.scrollTo("Worldwide Devotional for Young Adults");
-			driver.swipe(50, 500, 50, 100, 750);
+			TouchAction mySwipe = new TouchAction(driver);
+			mySwipe.tap(50,500).moveTo(50, 100).waitAction(Duration.ofMillis(2000)).release().perform();
+			//driver.swipe(50, 500, 50, 100, 750);
 			//driver.scrollToExact("Worldwide Devotional for Young Adults");
 			clickButton("Worldwide Devotional for Young Adults", "text", "nameContains");
 		} else {
@@ -10847,7 +10855,7 @@ public class LDSTools {
 		System.out.println("*****************************************");
 		for (int i = 0 ; i < myCounter; i++ ) {
 			System.out.println("Text To Check: " + textToCheck.get(i) + "   Original Text: " + origText.get(i));
-			Assert.assertEquals(textToCheck.get(i), origText.get(i));
+			assertEquals(textToCheck.get(i), origText.get(i));
 		}
 		System.out.println("*****************************************");
 		
@@ -10861,7 +10869,7 @@ public class LDSTools {
 		}
 		
 		for (int i = 0 ; i < myCounter; i++ ) {
-			Assert.assertEquals(textToCheck.get(i), origText.get(i));
+			assertEquals(textToCheck.get(i), origText.get(i));
 		}
 		
 		Thread.sleep(2000);
@@ -11125,7 +11133,7 @@ public class LDSTools {
 	
 	private void checkForAlert() throws Exception {
 		//Check to see if we are getting a warning
-		if (checkElementExistsByXpath("AlertMessageCheck") == true) {
+		if (checkElementExistsByXpath("AlertMessageCheck")) {
 			System.out.println("Alert Found!!!");
 			//clickButtonByXpath("OK");
 			clickButton("OK", "xpath", "pred");
@@ -11135,13 +11143,13 @@ public class LDSTools {
 	private void checkForAlertOK() throws Exception {
 		//Check to see if we are getting a warning
 		if (getRunningOS().equals("mac")) {
-			if (checkElementExistsByXpath("AlertMessageCheck") == true) {
+			if (checkElementExistsByXpath("AlertMessageCheck")) {
 				clickButton("AlertOK", "xpath", "xpath");
 			}
 		} else {
-			if (checkElementExistsByXpath("AlertMessageCheck") == true) {
-				//clickButton("AlertOK", "xpath", "xpath");
-				clickButton("AlertOKid", "id", "xpath");
+			if (checkElementExistsByXpath("AlertMessageCheck")) {
+				clickButton("AlertOK", "xpath", "xpath");
+				//clickButton("AlertOKid", "id", "xpath");
 				//driver.switchTo().alert().accept();
 				
 			}
@@ -12916,7 +12924,9 @@ public class LDSTools {
 	}
 	
 	public void scrollDownOnePage() throws Exception {
-		driver.swipe(0, getScrollStart(), 0, getScrollEnd(), 1000);
+		TouchAction mySwipe = new TouchAction(driver);
+		mySwipe.tap(50,getScrollStart()).moveTo(0, getScrollEnd()).waitAction(Duration.ofMillis(2000)).release().perform();
+		//driver.swipe(0, getScrollStart(), 0, getScrollEnd(), 1000);
 	}
 	
 	public void myScroll(String myElement) throws Exception {
@@ -12924,6 +12934,7 @@ public class LDSTools {
 		boolean endOfList = false;
 		String topElement = "";
 		String topElement2 = "";
+		int myScrollEnd;
 		
 		do {
 			//Check to see if the text is on the page
@@ -12932,7 +12943,14 @@ public class LDSTools {
 				elementNotFound = true;
 			} else {
 				topElement = scrollCheckText();
-				driver.swipe(0, getScrollStart(), 0, getScrollEnd(), 1000);
+				TouchAction mySwipe = new TouchAction(driver);
+				//mySwipe.tap(0,getScrollStart()).moveTo(0, getScrollEnd()).waitAction(Duration.ofMillis(2000)).release().perform();
+				myScrollEnd = getScrollEnd();
+				myScrollEnd = -myScrollEnd;
+				//mySwipe.press(0,getScrollStart()).moveTo(, getScrollEnd()).waitAction(Duration.ofMillis(2000)).release().perform();
+				mySwipe.press(0,getScrollStart()).moveTo(0, -50).waitAction(Duration.ofMillis(2000)).release().perform();
+				//driver.swipe(0, getScrollStart(), 0, getScrollEnd(), 1000);
+				Thread.sleep(2000);
 				topElement2 = scrollCheckText();
 			}
 			
@@ -12970,7 +12988,8 @@ public class LDSTools {
 
 				//actions.press(screenWidth, screenHeight).moveTo(0, -scrollDistance).waitAction(2000).release().perform();
 				
-				actions.press(myBottomElement).moveTo(0, -60).waitAction(2000).release().perform();
+				actions.press(myBottomElement).moveTo(0, -60).waitAction(Duration.ofMillis(2000)).release().perform();
+
 
 				bottomElement2 = scrollCheckUnitList();
 			}
@@ -12990,7 +13009,8 @@ public class LDSTools {
 	public String scrollCheckText() throws Exception {
 		String myString;
 		//myString = driver.findElement(By.xpath("//android.widget.RelativeLayout[@resource-id='org.lds.ldstools.dev:id/top_layout']//android.widget.TextView")).getText();
-		List<MobileElement> options = driver.findElements(By.xpath("//android.widget.FrameLayout[@resource-id='org.lds.ldstools.dev:id/container']//android.widget.TextView"));
+		List<MobileElement> options = null;
+		options = driver.findElements(By.xpath("//android.widget.FrameLayout[@resource-id='org.lds.ldstools.dev:id/container']//android.widget.TextView"));
 		
 		if (options.isEmpty()) {
 			System.out.println("No text found on page!");
@@ -13025,7 +13045,8 @@ public class LDSTools {
         Double screenHeightStart = dimensions.getHeight() * 0.8;
         scrollStart = screenHeightStart.intValue();
 
-        
+		System.out.println("Scroll Start: " + scrollStart);
+
         return scrollStart;
 
     }
@@ -13038,6 +13059,8 @@ public class LDSTools {
 
         Double screenHeightEnd = dimensions.getHeight() * 0.2;
         scrollEnd = screenHeightEnd.intValue();
+
+		System.out.println("Scroll End: " + scrollEnd);
         
         return scrollEnd;
 

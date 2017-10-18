@@ -26,19 +26,19 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="module-library">
-      <library name="testng">
+      <library>
         <CLASSES>
-          <root url="jar://$APPLICATION_HOME_DIR$/plugins/testng/lib/testng.jar!/" />
-          <root url="jar://$APPLICATION_HOME_DIR$/plugins/testng/lib/jcommander.jar!/" />
+          <root url="jar://$MODULE_DIR$/ExternalJars/java-client-5.0.4.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="selenium-server-standalone-3.2.0.jar">
+      <library name="testng">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/ExternalJars/selenium-server-standalone-3.2.0.jar!/" />
+          <root url="jar://$APPLICATION_HOME_DIR$/plugins/testng/lib/testng.jar!/" />
+          <root url="jar://$APPLICATION_HOME_DIR$/plugins/testng/lib/jcommander.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -90,15 +90,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="java-client-5.0.0-BETA9.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/ExternalJars/java-client-5.0.0-BETA9.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
       <library name="okhttp-3.7.0.jar">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/ExternalJars/okhttp-3.7.0.jar!/" />
@@ -111,6 +102,34 @@
       <library name="okio-1.12.0.jar">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/ExternalJars/okio-1.12.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/ExternalJars/selenium-server-standalone-3.6.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/ExternalJars/junit-4.7_2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="JUnit4">
+        <CLASSES>
+          <root url="jar://$APPLICATION_HOME_DIR$/lib/junit-4.12.jar!/" />
+          <root url="jar://$APPLICATION_HOME_DIR$/lib/hamcrest-core-1.3.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
