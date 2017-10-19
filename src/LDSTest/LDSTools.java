@@ -52,9 +52,8 @@ import static org.junit.Assert.assertNotNull;
  * STF-8XV5T15A30006448 Nexus 6p
  * STF-00765a54959507be Nexus 4
  * STF-03aadbed215c8e5f Nexus 5
- * STF-05157df5a1394b1c Samsung Galaxy 6S Edge
- * STF-HT43CWM01647 HTC One M8
  * STF-HT6AN0200005 Pixel XL
+ * STF-ZX1G229FWM Nexus 6
  * 
  */
 
