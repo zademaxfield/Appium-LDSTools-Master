@@ -13061,7 +13061,7 @@ public class LDSTools {
         Dimension dimensions = driver.manage().window().getSize();
 
 
-        Double screenHeightEnd = dimensions.getHeight() * 0.3;
+        Double screenHeightEnd = dimensions.getHeight() * 0.2;
         scrollEnd = screenHeightEnd.intValue();
 
 		//System.out.println("Scroll End: " + scrollEnd);
