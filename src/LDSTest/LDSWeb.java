@@ -2134,6 +2134,11 @@ public class LDSWeb {
 					clickElement("SelectHTAuxElders", "xpath");
 					waitForTextToDisappear("LoadingSpinner", 500, "xpath");
 					Thread.sleep(9000);
+				} else {
+					clickElement("SelectHTAux", "xpath");
+					clickElement("SelectHTAuxHighPriests", "xpath");
+					waitForTextToDisappear("LoadingSpinner", 500, "xpath");
+					Thread.sleep(9000);
 				}
 			}
 		}
