@@ -508,10 +508,10 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		//LeaderBishopricDirectory("ngiBPC1", false, os);
+		LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
-		LeaderBishopricHTVT("ngiBPC1", false, os);
+		//LeaderBishopricHTVT("ngiBPC1", false, os);
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//LeaderBishopricReport("ngiBPC2", false, os); //Bishopric 2nd Counselor  
@@ -12949,9 +12949,10 @@ public class LDSTools {
 				TouchAction mySwipe = new TouchAction(driver);
 				//mySwipe.tap(0,getScrollStart()).moveTo(0, getScrollEnd()).waitAction(Duration.ofMillis(2000)).release().perform();
 				myScrollEnd = getScrollEnd();
+				myScrollEnd = myScrollEnd / 4;
 				myScrollEnd = -myScrollEnd;
 				//mySwipe.press(0,getScrollStart()).moveTo(, getScrollEnd()).waitAction(Duration.ofMillis(2000)).release().perform();
-				mySwipe.press(0,getScrollStart()).moveTo(0, -50).waitAction(Duration.ofMillis(2000)).release().perform();
+				mySwipe.press(0,getScrollStart()).moveTo(0, myScrollEnd).waitAction(Duration.ofMillis(2000)).release().perform();
 				//driver.swipe(0, getScrollStart(), 0, getScrollEnd(), 1000);
 				Thread.sleep(2000);
 				topElement2 = scrollCheckText();
@@ -13048,7 +13049,7 @@ public class LDSTools {
         Double screenHeightStart = dimensions.getHeight() * 0.8;
         scrollStart = screenHeightStart.intValue();
 
-		System.out.println("Scroll Start: " + scrollStart);
+		//System.out.println("Scroll Start: " + scrollStart);
 
         return scrollStart;
 
@@ -13060,10 +13061,10 @@ public class LDSTools {
         Dimension dimensions = driver.manage().window().getSize();
 
 
-        Double screenHeightEnd = dimensions.getHeight() * 0.2;
+        Double screenHeightEnd = dimensions.getHeight() * 0.3;
         scrollEnd = screenHeightEnd.intValue();
 
-		System.out.println("Scroll End: " + scrollEnd);
+		//System.out.println("Scroll End: " + scrollEnd);
         
         return scrollEnd;
 
