@@ -7953,7 +7953,8 @@ public class LDSTools {
 				//clickButtonByXpath("OverflowSettings");
 				
 				Thread.sleep(2000);
-				myScroll("Network Environment");
+				newScrollToElement("Network Environment");
+				//myScroll("Network Environment");
 				//scrollDown("Network Environment", 100);
 				
 				//scrollToElement("Network Environment");
@@ -8611,7 +8612,7 @@ public class LDSTools {
 		} else {
 			pressBackToRoot();
 			clickButtonByXpath("SearchCollapse");
-			clickButton("CollapseButton", "xpath", "xpath");
+			//clickButton("CollapseButton", "xpath", "xpath");
 		}
 
 		
