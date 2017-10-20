@@ -3220,7 +3220,7 @@ public class LDSTools {
 	 * @throws Exception
 	 */
 	@Parameters({"os"})
-	@Test (groups= {"medium", "medium2", "editSetings", "myTest", "smoke1", "smoke", "all1"}, priority = 1)
+	@Test (groups= {"medium", "medium2", "editSettings", "myTest", "smoke1", "smoke", "all1"}, priority = 1)
 	public void editCurrentUser(String os) throws Exception {
 		String pageSource;
 		int myCounter = 0;
@@ -3362,7 +3362,7 @@ public class LDSTools {
 
 	//TODO: This test is failing on the cancel button it isn't really canceling the edit. Works on a manual test.
 	@Parameters({"os"})
-	@Test (groups= {"editSetings", "all1"}, priority = 2, enabled = false)
+	@Test (groups= {"editSettings", "all1"}, priority = 2, enabled = false)
 	public void editCurrentUserCancel(String os) throws Exception {
 		String pageSource;
 		//Edit own information
@@ -7522,8 +7522,8 @@ public class LDSTools {
 			//int screenUp;
 			
 			//System.out.println("Trying to move!");
-			System.out.println("Width: " + screenWidth);
-			System.out.println("Height: " + screenHeight);
+			//System.out.println("Width: " + screenWidth);
+			//System.out.println("Height: " + screenHeight);
 			
 			screenWidth = screenWidth / 4;
 			//screenWidth = screenWidth - 75;
@@ -7531,8 +7531,8 @@ public class LDSTools {
 			screenHeight = screenHeight - 100;
 			//scrollDistance = screenHeight - scrollDistance;
 			
-			System.out.println("Width: " + screenWidth);
-			System.out.println("Height: " + screenHeight);
+			//System.out.println("Width: " + screenWidth);
+			//System.out.println("Height: " + screenHeight);
 			//System.out.println("Distance: " + scrollDistance);
 			TouchAction actions = new TouchAction(driver);
 			actions.press(0, screenHeight).moveTo(0, -scrollDistance).release().perform();
@@ -7699,9 +7699,9 @@ public class LDSTools {
 		scrollDistance = -5;
 	
 		
-		System.out.println("Width: " + screenWidth);
-		System.out.println("Height: " + screenHeight);
-		System.out.println("Up: " + screenUp);
+		//System.out.println("Width: " + screenWidth);
+		//System.out.println("Height: " + screenHeight);
+		//System.out.println("Up: " + screenUp);
 		
 		actions.down(screenWidth, screenHeight);
 		//actions.pause(1000);
@@ -7725,19 +7725,19 @@ public class LDSTools {
 		int screenWidth = dimensions.getWidth();
 		int screenHeight = dimensions.getHeight();
 		
-		System.out.println("Screen Dimensions");
-		System.out.println("Width: " + screenWidth);
-		System.out.println("Height: " + screenHeight);
+		//System.out.println("Screen Dimensions");
+		//System.out.println("Width: " + screenWidth);
+		//System.out.println("Height: " + screenHeight);
 		
 		screenWidth = screenWidth / 2;
 		//screenWidth = screenWidth - 75;
 		screenHeight = (int) (screenHeight / 1.5);
 		
 		
-		System.out.println("Pressing At");
-		System.out.println("Width: " + screenWidth);
-		System.out.println("Height: " + screenHeight);
-		System.out.println("Scroll Distance: " + scrollDistance);
+		//System.out.println("Pressing At");
+		//System.out.println("Width: " + screenWidth);
+		//System.out.println("Height: " + screenHeight);
+		//System.out.println("Scroll Distance: " + scrollDistance);
 		
 		
 		TouchAction actions = new TouchAction(driver);
@@ -7916,11 +7916,10 @@ public class LDSTools {
 		if (os.equals("android")) {
 			Thread.sleep(3000);
 			
-			System.out.println("Orientation: " + driver.getOrientation().value());
-			if (driver.getOrientation().value() == "landscape") {
-				driver.rotate(ScreenOrientation.PORTRAIT);
-				
-			}
+			//System.out.println("Orientation: " + driver.getOrientation().value());
+			//if (driver.getOrientation().value() == "landscape") {
+			//	driver.rotate(ScreenOrientation.PORTRAIT);
+			// }
 			
 			
 			if (!chooseNetwork.equals("Production")) {
@@ -13656,13 +13655,15 @@ public class LDSTools {
 		//driver.resetApp();
 
 		if(getRunningOS().equals("mac")) {
-			if (testDevice.contains("REAL")) {
-				System.out.println("Not Reseting App on real device");
-                driver.resetApp();
-			} else {
-				System.out.println("Reset App");
-				driver.resetApp();
-			}
+//			if (testDevice.contains("REAL")) {
+//				System.out.println("Not Reseting App on real device");
+//                driver.resetApp();
+//			} else {
+//				System.out.println("Reset App");
+//				driver.resetApp();
+//			}
+			Thread.sleep(2000);
+			Thread.sleep(5000);
 
 			killProcess("tail");
 			/*
@@ -13687,32 +13688,18 @@ public class LDSTools {
 			
 		} else {
 
-			//if (!checkForAppiumRunning(4444)) {
-			//	System.out.println("Appium Android not running, trying to restart...");
-			//	openGuiMap(os);
-			//	setUp(os, fileName, testDevice);
-			//}
-			
-			System.out.println("Clear App");
-			adbCommand("clearApp");
-			
-			
-			//System.out.println("Remove App " + myAppPackage);
-			//driver.removeApp(myAppPackage);
-			//killProcess("tail");
-			
-			//Thread.sleep(2000);
-			//System.out.println("Install App " + myAppPackage);
-			//driver.installApp(myAppPackage);
-	
-			Thread.sleep(5000);
-			driver.launchApp();
+
+
+			//System.out.println("Clear App");
+			//adbCommand("clearApp");
+			//Thread.sleep(5000);
+			//driver.launchApp();
 			
 
 			
-			//Thread.sleep(2000);
-			//driver.resetApp();
-			
+			Thread.sleep(2000);
+			driver.resetApp();
+			Thread.sleep(5000);
 			
 			//driver.quit();
 		}
