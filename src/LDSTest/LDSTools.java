@@ -13664,6 +13664,7 @@ public class LDSTools {
 //				driver.resetApp();
 //			}
 			Thread.sleep(2000);
+			driver.resetApp();
 			Thread.sleep(5000);
 
 			killProcess("tail");
@@ -13703,6 +13704,7 @@ public class LDSTools {
 			Thread.sleep(5000);
 			
 			//driver.quit();
+			driver.close();
 		}
 		//myWeb.isRunning();
 		
