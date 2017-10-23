@@ -1,6 +1,5 @@
 package LDSTest;
 
-import com.gargoylesoftware.htmlunit.javascript.host.Touch;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
@@ -13692,16 +13691,16 @@ public class LDSTools {
 
 
 
-			System.out.println("Clear App");
-			adbCommand("clearApp");
-			Thread.sleep(5000);
-			driver.launchApp();
-			Thread.sleep(5000);
+			//System.out.println("Clear App");
+			//adbCommand("clearApp");
+			//Thread.sleep(5000);
+			//driver.launchApp();
+			//Thread.sleep(5000);
 
 			
-			//Thread.sleep(2000);
-			//driver.resetApp();
-			//Thread.sleep(5000);
+			Thread.sleep(2000);
+			driver.resetApp();
+			Thread.sleep(5000);
 			
 			//driver.quit();
 			//driver.close();
@@ -13830,7 +13829,8 @@ public class LDSTools {
 	public void adbRemoteConnect(String ipPort) throws Exception {
 		String pathToADB = "../../../android-sdks/platform-tools/adb";
 
-		//String cmd = "adb shell am force-stop org.lds.ldstools.dev";
+		//String cmd
+		// = "adb shell am force-stop org.lds.ldstools.dev";
 		Runtime run = Runtime.getRuntime();
 		Process pr = run.exec(new String[] {pathToADB, "connect", ipPort});
 		//Process pr = run.exec(cmd);
