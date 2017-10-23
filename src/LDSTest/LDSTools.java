@@ -13692,19 +13692,19 @@ public class LDSTools {
 
 
 
-			//System.out.println("Clear App");
-			//adbCommand("clearApp");
-			//Thread.sleep(5000);
-			//driver.launchApp();
-			
+			System.out.println("Clear App");
+			adbCommand("clearApp");
+			Thread.sleep(5000);
+			driver.launchApp();
+			Thread.sleep(5000);
 
 			
-			Thread.sleep(2000);
-			driver.resetApp();
-			Thread.sleep(5000);
+			//Thread.sleep(2000);
+			//driver.resetApp();
+			//Thread.sleep(5000);
 			
 			//driver.quit();
-			driver.close();
+			//driver.close();
 		}
 		//myWeb.isRunning();
 		
