@@ -207,7 +207,7 @@ public class LDSTools {
 				deviceSerial = part2;
 				System.out.println("SERIAL NUMBER: " + deviceSerial);
 				
-				STFService mySTFService = new STFService("http://10.109.45.162:7100", accessToken);
+				STFService mySTFService = new STFService("http://10.109.33.175:7100", accessToken);
 				DeviceApi myDevice = new DeviceApi(mySTFService);
 
 				
@@ -13691,16 +13691,16 @@ public class LDSTools {
 
 
 
-			//System.out.println("Clear App");
-			//adbCommand("clearApp");
-			//Thread.sleep(5000);
-			//driver.launchApp();
-			//Thread.sleep(5000);
+			System.out.println("Clear App");
+			adbCommand("clearApp");
+			Thread.sleep(5000);
+			driver.launchApp();
+			Thread.sleep(5000);
 
 			
-			Thread.sleep(2000);
-			driver.resetApp();
-			Thread.sleep(5000);
+			//Thread.sleep(2000);
+			//driver.resetApp();
+			//Thread.sleep(5000);
 			
 			//driver.quit();
 			//driver.close();
@@ -13747,7 +13747,7 @@ public class LDSTools {
 		if (!getRunningOS().equals("mac")) {
 			driver.quit();
 			if (!deviceSerial.equals("")) {
-				STFService mySTFService = new STFService("http://10.109.45.162:7100", "5ac32afb2fa24289945dea68380877d0be396916fbf04a65b30e8b46e6fda014");
+				STFService mySTFService = new STFService("http://10.109.33.175:7100", "5ac32afb2fa24289945dea68380877d0be396916fbf04a65b30e8b46e6fda014");
 				DeviceApi myDevice = new DeviceApi(mySTFService);
 				System.out.println("SERIAL NUMBER: " + deviceSerial);
 				myDevice.releaseDevice(deviceSerial);
@@ -13774,7 +13774,7 @@ public class LDSTools {
 		
 		} else {
 			driver.quit();
-			STFService mySTFService = new STFService("http://10.109.45.162:7100", "5ac32afb2fa24289945dea68380877d0be396916fbf04a65b30e8b46e6fda014");
+			STFService mySTFService = new STFService("http://10.109.33.175:7100", "5ac32afb2fa24289945dea68380877d0be396916fbf04a65b30e8b46e6fda014");
 			DeviceApi myDevice = new DeviceApi(mySTFService);
 			System.out.println("SERIAL NUMBER: " + deviceSerial);
 			myDevice.releaseDevice(deviceSerial);
@@ -13853,7 +13853,7 @@ public class LDSTools {
 		Process pr = run.exec(new String[] {"/usr/bin/curl", 
 				"-H",
 				"\"Authorization: Bearer 5ac32afb2fa24289945dea68380877d0be396916fbf04a65b30e8b46e6fda014\"", 
-				"http://10.109.45.162:7100/api/v1/user"});
+				"http://10.109.33.175:7100/api/v1/user"});
 		pr.waitFor();
 		BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
 		
@@ -13883,7 +13883,7 @@ public class LDSTools {
 				"'{\"serial\":\"8XV5T15A30006448\"}'",
 				"-H",
 				"\"Authorization: Bearer 5ac32afb2fa24289945dea68380877d0be396916fbf04a65b30e8b46e6fda014\"", 
-				"http://10.109.45.162:7100/api/v1/user/devices"});
+				"http://10.109.33.175:7100/api/v1/user/devices"});
 		pr.waitFor();
 		BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
 		
@@ -13910,7 +13910,7 @@ public class LDSTools {
 				"\"Content-Type: application/json\"",
 				"-H",
 				"\"Authorization: Bearer 5ac32afb2fa24289945dea68380877d0be396916fbf04a65b30e8b46e6fda014\"", 
-				"http://10.109.45.162:7100/api/v1/user/devices/{8XV5T15A30006448}/remoteConnect"});
+				"http://10.109.33.175:7100/api/v1/user/devices/{8XV5T15A30006448}/remoteConnect"});
 
 		pr.waitFor();
 		BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
@@ -13938,7 +13938,7 @@ public class LDSTools {
 				"DELETE",
 				"-H",
 				"\"Authorization: Bearer 5ac32afb2fa24289945dea68380877d0be396916fbf04a65b30e8b46e6fda014\"", 
-				"http://10.109.45.162:7100/api/v1/user/devices/{8XV5T15A30006448}/remoteConnect"});
+				"http://10.109.33.175:7100/api/v1/user/devices/{8XV5T15A30006448}/remoteConnect"});
 		
 		pr.waitFor();
 		BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
