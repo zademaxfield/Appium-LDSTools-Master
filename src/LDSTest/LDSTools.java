@@ -266,6 +266,13 @@ public class LDSTools {
 	        
 	        capabilities.setCapability("fullReset", false);
 	        capabilities.setCapability("dontStopAppOnReset", true);
+
+
+
+
+			capabilities.setCapability("maxTypingFrequency", "8");
+
+
 	        
 	        
 	        //driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
