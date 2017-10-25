@@ -424,6 +424,8 @@ public class LDSTools {
 	        capabilities.setCapability("clearSystemFiles", true);
 	        
 	        capabilities.setCapability("allowTouchIdEnroll", true);
+
+			capabilities.setCapability("maxTypingFrequency", "8");
 	        
 	        
 	        if (!myUdid.isEmpty()) {
@@ -483,7 +485,7 @@ public class LDSTools {
 		//LeaderBishopric("ngiBPC2", false, os); //Bishopric 2nd Counselor 
 		//LeaderBishopric("ngiWB1", true, os); //Bishop shows Stake View - something wrong with the account
 		//LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership
-		//bishopMemberOfSeparateStake(os);	
+		bishopMemberOfSeparateStake(os);
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
 		//editCurrentUser(os);
@@ -513,7 +515,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		LeaderBishopricDirectory("ngiBPC1", false, os);
+		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os);
@@ -8618,7 +8620,7 @@ public class LDSTools {
 		} else {
 			pressBackToRoot();
 			clickButtonByXpath("SearchCollapse");
-			//clickButton("CollapseButton", "xpath", "xpath");
+			clickButton("CollapseButton", "xpath", "xpath");
 		}
 
 		
@@ -8663,7 +8665,8 @@ public class LDSTools {
 			//Check the Drawer items
 			//pressBackKey();
 			clickButtonByXpath("Drawer");
-			if (checkElementReturn("Later", "textAtt", "value") == true ) {
+			Thread.sleep(2000);
+			if (checkElementReturn("Later", "textAtt", "value")) {
 				clickButtonByXpathTitleName("Later");
 			}
 			Assert.assertTrue(checkElementReturn("Directory", "textAtt", "value"));
