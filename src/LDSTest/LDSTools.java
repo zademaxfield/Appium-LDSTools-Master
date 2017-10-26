@@ -485,7 +485,7 @@ public class LDSTools {
 		//LeaderBishopric("ngiBPC2", false, os); //Bishopric 2nd Counselor 
 		//LeaderBishopric("ngiWB1", true, os); //Bishop shows Stake View - something wrong with the account
 		//LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership
-		bishopMemberOfSeparateStake(os);
+		//bishopMemberOfSeparateStake(os);
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
 		//editCurrentUser(os);
@@ -518,7 +518,7 @@ public class LDSTools {
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
-		//LeaderBishopricHTVT("ngiBPC1", false, os);
+		LeaderBishopricHTVT("ngiBPC1", false, os);
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//LeaderBishopricReport("ngiBPC2", false, os); //Bishopric 2nd Counselor  
@@ -7601,10 +7601,11 @@ public class LDSTools {
 		
 		screenWidth = screenWidth / 3;
 		screenHeight = screenHeight - 70;
-		scrollDistance = screenHeight - scrollDistance;
+		//scrollDistance = screenHeight - scrollDistance;
 
 		TouchAction mySwipe = new TouchAction(driver);
-		mySwipe.tap(screenWidth,screenHeight).moveTo(screenWidth, scrollDistance).waitAction(Duration.ofMillis(2000)).release().perform();
+		//mySwipe.tap(screenWidth,screenHeight).moveTo(screenWidth, scrollDistance).waitAction(Duration.ofMillis(2000)).release().perform();
+		mySwipe.press(screenWidth,screenHeight).moveTo(screenWidth, scrollDistance).release().perform();
 		//driver.swipe(screenWidth, screenHeight, screenWidth, scrollDistance, 2000);
 
 		Thread.sleep(2000);
@@ -11266,9 +11267,10 @@ public class LDSTools {
 				//System.out.println("Page Size: " + pageSize);
 				//pageSize = pageSize - 20;
 				//System.out.println("Orig Page Size: " + pageSize);
+				//pageSize = pageSize / 2;
 				pageSize = pageSize / 2;
-				//System.out.println("Half Page Size: " + pageSize);
-				pageSize = (pageSize / 2 ) + pageSize;
+				System.out.println("Page Size: " + pageSize);
+				//pageSize = (pageSize / 2 ) + pageSize;
 				//System.out.println("3/4 Page Size: " + pageSize);
 				//pageSize = -pageSize;
 				
