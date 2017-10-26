@@ -83,12 +83,15 @@ public class LDSTools {
 	private AppiumService newAppiumService = new AppiumService();
 	
 	private String deviceSerial = "";
+	private String testOS = "";
 	
 	
 	
 	
 
 	public void beforeTestStarts(String os, int myPort) throws Exception {
+
+
 
 		//Android Setup
 		if (os.equals("android")) {
@@ -136,6 +139,9 @@ public class LDSTools {
 	//@BeforeSuite(alwaysRun = true)
 	@Parameters({"os", "fileName", "testDevice", "startSleepTime"})
 	public void setUp(String os, String fileName, String testDevice, int startSleepTime) throws Exception {
+
+		testOS = os;
+
 		//System.out.println("OS: " + os );
 		//System.out.println("File Name: " + fileName);
 		String myUdid = "";
@@ -515,10 +521,10 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		//LeaderBishopricDirectory("ngiBPC1", false, os);
+		LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
-		LeaderBishopricHTVT("ngiBPC1", false, os);
+		//LeaderBishopricHTVT("ngiBPC1", false, os);
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//LeaderBishopricReport("ngiBPC2", false, os); //Bishopric 2nd Counselor  
@@ -6308,13 +6314,17 @@ public class LDSTools {
 	}
 	
 	private String getRunningOS() {
-		String myOs;
-		myOs = driver.getCapabilities().getPlatform().toString();
-		myOs = myOs.toLowerCase();
-		//System.out.println("OS: " + myOs);
-		if (myOs.equals("any")) {
+		String myOs = "";
+
+		if (testOS.equalsIgnoreCase("android")) {
 			myOs = "android";
 		}
+
+		if (testOS.equalsIgnoreCase("ios")) {
+			myOs = "mac";
+		}
+
+		myOs = myOs.toLowerCase();
 		return myOs;
 	}
 	

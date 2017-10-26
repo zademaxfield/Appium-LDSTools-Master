@@ -213,7 +213,10 @@ public class LDSWeb {
 		Thread.sleep(2000);
 		waitForTextToDisappear("LoadingSpinner", 500, "xpath");
 		Thread.sleep(2000);
-		
+
+		clickElement("QuorumAuxSelect", "xpath");
+		clickElement("QuorumAuxHighPriest", "xpath");
+		Thread.sleep(4000);
 		
 		selectDistrictHTVT("District 1");
 		
