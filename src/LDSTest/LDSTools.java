@@ -435,7 +435,7 @@ public class LDSTools {
 	        
 	        
 	        if (!myUdid.isEmpty()) {
-		        capabilities.setCapability("xcodeOrgId", "X555J2KHFQ");
+		        capabilities.setCapability("xcodeOrgId", "U3SP4KMCK6");
 		        capabilities.setCapability("xcodeSigningId", "iPhone Developer");
 		        capabilities.setCapability("udid", myUdid);
 		        capabilities.setCapability("wdaLocalPort", tempPort);
@@ -521,9 +521,9 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		LeaderBishopricDirectory("ngiBPC1", false, os);
+		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
-		//LeaderBishopricReport("ngiBPC1", false, os);
+		LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os);
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
@@ -640,7 +640,7 @@ public class LDSTools {
 		}
 		
 		Thread.sleep(2000);
-		sendText("MissRefMapSearch", "1313 Mocking Bird Ln, Suynnyvale", "id", "pred");
+		sendText("MissRefMapSearch", "1313 Mocking Bird Ln, Sunnyvale", "id", "pred");
 		Thread.sleep(10000);
 		clickButton("1313 Mockingbird Lane, Sunnyvale, CA, United States", "text", "name");
 		clickButton("MissRefUseLocation", "id", "xpath");
@@ -4279,11 +4279,11 @@ public class LDSTools {
 		//Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("1113334444", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("5551234555", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("5551239999", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("zademobile008@gmail.com", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("test@test.com", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("unfortunately@gmail.com", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
 	}
 	
@@ -7211,7 +7211,13 @@ public class LDSTools {
 		//System.out.println("Text to send: " + textToSend);
 		driver.findElement(By.xpath(this.prop.getProperty(textElement))).sendKeys(textToSend);
 	}
-	
+
+	private void sendTextbyPred(String textElement, String textToSend ) {
+		//System.out.println("Text to send: " + textToSend);
+		driver.findElement(MobileBy.iOSNsPredicateString(this.prop.getProperty(textElement))).sendKeys(textToSend);
+	}
+
+
 	private void sendTextbyClassName(String textElement, String textToSend ) {
 		//System.out.println("Text to send: " + textToSend);
 		driver.findElement(By.className(textElement)).sendKeys(textToSend);
@@ -8017,9 +8023,10 @@ public class LDSTools {
 				
 
 				//New way to enable dev settings
-				if (checkElementNameReturn("Developer Settings") == false) {
+				if (!checkElementNameReturn("Developer Settings")) {
 					for (int x = 1; x <= 5; x++ ) {
-						clickButtonByXpath("EnableDevSettings");
+						//clickButtonByXpath("EnableDevSettings");
+						clickButton("EnableDevSettings", "xpath", "pred");
 						//System.out.println("COUNT: " + x);
 					}
 				} else {
@@ -8034,7 +8041,7 @@ public class LDSTools {
 				//System.out.println("***********************************************");
 
 				//clickButtonByXpath("DevEnviroment");
-				if (checkElementNameReturn("Environment: UAT") == false) {
+				if (!checkElementNameReturn("Environment: UAT")) {
 					clickButton("Environment: Prod", "byName", "AccID");
 					//clickButtonByXpath("Proxy");
 					clickButton("Proxy", "byName", "AccID");
@@ -8046,25 +8053,18 @@ public class LDSTools {
 				pressBackKey();
 				pressBackKey();
 				
-				
-				
-				
-				
-				//clickButtonByXpath("TopDeveloper");
-				//clickButtonByXpath("TopHelp");
-				//clickButtonByXpath("TopSignIn");
+
 			}
-			
-			//sendTextbyXpath("LoginUsername", "LDSTools14");
-			//sendTextbyXpath("LoginPassword", "toolstester");
-			sendTextbyXpath("LoginUsername", loginName);
-			//sendTextbyXpath2("LoginUsername", loginName);
-			//sendTextbyXpath2("LoginPassword", loginPassword);
-			sendTextbyXpath("LoginPassword", loginPassword);
-			
-			//Thread.sleep(1000);
-			//clickButtonByXpath("DoneButton");
-			clickButtonByXpath("SignInButton");
+
+
+			//sendTextbyXpath("LoginUsername", loginName);
+			//sendTextbyXpath("LoginPassword", loginPassword);
+			//clickButtonByXpath("SignInButton");
+
+			sendTextbyPred("LoginUsernamePred", loginName);
+			sendTextbyPred("LoginPasswordPred", loginPassword);
+
+			clickButton("SignInButtonPred", "xapath", "pred");
 
 			Thread.sleep(2000);
 			
@@ -9158,7 +9158,7 @@ public class LDSTools {
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("AFPEighteen, Member", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("AFPEleven, Member", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("AFPEleven, Member", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("D2, R2", pageSource, "Contains"));
 		
 		//System.out.println("Trying to hit Top Sort");
@@ -9172,8 +9172,8 @@ public class LDSTools {
 		}
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("AFPEleven, Member", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("AFPFifteen, Member", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Afiafi, Efi", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Afamasaga, Joseph", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Binks, Jarjar", pageSource, "Contains"));
 
 		if (getRunningOS().equals("mac")) {
@@ -9729,6 +9729,7 @@ public class LDSTools {
 		myList = swapLastName(myList);
 		compareWebData(myList, androidList, false);
 		//pageSource = getSourceOfPage();
+		Thread.sleep(1000);
 		clickButton("mpRemoveFilterButton", "id", "byNameProp");
 		
 		
