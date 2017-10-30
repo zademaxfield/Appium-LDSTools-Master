@@ -2260,7 +2260,15 @@ public class LDSTools {
 		checkHTVTBasic("Bishopric");
 		checkHTVTHouseholds("Bishopric");
 	}
-	
+
+	/** LeaderBishopricDirectory Check Directory user - should be able to view everything
+	 *
+	 *
+	 * @param leaderLogin
+	 * @param priorUnit
+	 * @param os
+	 * @throws Exception
+	 */
 	private void LeaderBishopricDirectory(String leaderLogin, Boolean priorUnit, String os) throws Exception {
 
 		syncLogIn(leaderLogin, "password1", "UAT", os );
@@ -7340,21 +7348,17 @@ public class LDSTools {
 		System.out.println("Done waiting for Text to disappear: " + textElement + " Took: " + duration);
 	}
 	
-	private void waitForTextToDisappearPopUp(String textElement, int myTimeOut) throws Exception {
+	private void waitForTextToDisappearPopUp( int myTimeOut) throws Exception {
 		long startTime = System.nanoTime();
 		WebDriverWait wait = new WebDriverWait(driver, myTimeOut);
-		System.out.println("Waiting for Text to disappear: " + textElement);
 		//printPageSource();
 		if (getRunningOS().equals("mac")) {
 			wait.until(ExpectedConditions.invisibilityOfElementLocated(MobileBy.iOSNsPredicateString("name == 'SVProgressHUD'")));
-
-		} else {
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(@text, '" + textElement + "')]")));
 		}
 		long endTime = System.nanoTime();
 		long duration = (endTime - startTime);
 		duration = duration / 1000000;
-		System.out.println("Done waiting for Text to disappear: " + textElement + " Took: " + duration);
+		System.out.println("Done waiting for Text to disappear, Took: " + duration);
 	}
 	
 	private void waitForTextToDisappearID(String textElement, int myTimeOut){
@@ -8072,11 +8076,10 @@ public class LDSTools {
 			
 			
 			unitsToSync();
-			
 
+			waitForTextToDisappearPopUp( 500);
 			//waitForTextToDisappearTEXT(chooseNetwork, 500 );
-
-			waitUntilAlert();
+			//waitUntilAlert();
 			Thread.sleep(8000);
 		}
 	}
@@ -8478,7 +8481,7 @@ public class LDSTools {
 		
 		
 		if (getRunningOS().equals("mac")) {
-			if (fullName == false ) {
+			if (!fullName) {
 				clickButtonByXpathTitleName("Jane Aaron");
 			} else {
 				clickButtonByXpathTitleName("Jane Aaron (56)");
@@ -8518,7 +8521,7 @@ public class LDSTools {
 
 		//Leadership Should be able to see this information
 		//Membership Information
-		if (memberShipInfo == true ) {
+		if (memberShipInfo) {
 			Assert.assertTrue(checkNoCaseList("MEMBERSHIP INFORMATION", pageSource, "Contains"));
 		} else {
 			if (getRunningOS().equals("mac")) {
@@ -8530,7 +8533,7 @@ public class LDSTools {
 		}
 		
 		//Full Name
-		if (fullName == true){
+		if (fullName){
 			Assert.assertTrue(checkNoCaseList("AFPMisc, Member2", pageSource, "Contains"));
 			Assert.assertTrue(checkNoCaseList("FULL NAME", pageSource, "Contains"));
 			
@@ -8570,7 +8573,7 @@ public class LDSTools {
 
 		
 		//Birth Date
-		if (birthDate == true){
+		if (birthDate){
 			Assert.assertTrue(checkNoCaseList("November 11, 1960", pageSource, "Contains"));
 			Assert.assertTrue(checkNoCaseList("Birth Date", pageSource, "Contains"));
 			Assert.assertTrue(checkNoCaseList("55", pageSource, "Contains"));
@@ -8582,7 +8585,7 @@ public class LDSTools {
 
 		
 		//Record Number
-		if (recordNumber == true ){
+		if (recordNumber){
 			Assert.assertTrue(checkNoCaseList("888-0028-4326", pageSource, "Contains"));
 			Assert.assertTrue(checkNoCaseList("RECORD NUMBER", pageSource, "Contains"));
 		} else {
@@ -8591,7 +8594,7 @@ public class LDSTools {
 		}
 
 		//Check Ordinances
-		if (ordinances == true ){
+		if (ordinances){
 			Assert.assertTrue(checkNoCaseList("Baptism", pageSource, "Contains"));
 			Assert.assertTrue(checkNoCaseList("Confirmation", pageSource, "Contains"));
 			Assert.assertTrue(checkNoCaseList("November 11, 1970", pageSource, "Contains"));
@@ -8605,10 +8608,10 @@ public class LDSTools {
 		
 
 		//Check Other Information
-		if (otherInfo == true ) {
+		if (otherInfo) {
 			//clickButtonByXpathTitleName("Other Information");
 			//pageSource = getSourceOfPage();
-			if (ordinances == true) {
+			if (ordinances) {
 				Assert.assertTrue(checkNoCaseList("Gender", pageSource, "Contains"));
 				Assert.assertTrue(checkNoCaseList("Female", pageSource, "Contains"));
 				Assert.assertTrue(checkNoCaseList("Birth Country", pageSource, "Contains"));
@@ -11073,52 +11076,14 @@ public class LDSTools {
 	
 	
 	private void searchForUser(String userToSearch) throws Exception {
-		Boolean checkForElement; 
-		List<MobileElement> options = null;
-		int myCounter = 1;
-		MobileElement myElement = null;
-		
 		String lowerCaseSearch = userToSearch.toLowerCase();
 		
 		if (getRunningOS().equals("mac")) {
-			//sendTextbyXpath("SearchArea", userToSearch);
-			//printPageSource();
 			sendTextbyClassName("SearchField", userToSearch);
-			//sendTextbyXpath2("SearchArea", userToSearch);
-			//driver.findElement(By.xpath("//UIAButton[@label='Search']")).click();
 			Thread.sleep(2000);
-			//driver.tap(1, 10, 10, 1000);
-			//driver.findElementByXPath("//UIAStaticText[@label='" + userToSearch + "']").click();
-			//driver.findElementByXPath("//UIAStaticText[contains(@label, '" + userToSearch + "')]").click();
-			//myElement = driver.findElement(By.xpath("//UIATableCell/UIAStaticText[contains(@label, '" + userToSearch + "')]"));
-			
-			//printPageSource();
-			//clickButtonByName(userToSearch);
-			//printPageSource();
 			clickButton(userToSearch, "byName", "byName");
-			
-			
-			//This is a bug - remove when bug is fixed
-			//clickButton(userToSearch, "byName", "byName");
-			/*
-			myElement = driver.findElement(By.name(userToSearch));
-			TouchAction myAction = new TouchAction(driver);
-			Point myPoint = myElement.getLocation();
-			//System.out.println("X Point: " + myPoint.x);
-			//System.out.println("Y Point: " + myPoint.y);
-			//driver.tap(1, myPoint.x, myPoint.y, 200);
-			myAction.press(myPoint.x, myPoint.y).release();
-			driver.performTouchAction(myAction);
-			*/
-			
-			//clickButtonByNameMultiple(userToSearch, 0);
 
-			
 		} else {
-			//clickButtonByID("MenuDefaultDirectory");
-			//checkForLater();
-			//clickButton("DrawerDirectory", "xpath", "id");
-			//Thread.sleep(2000);
 			clickButton("MenuDefaultDirectory", "id", "id");
 			clickButtonByXpathTitleName("Individuals");
 			clickButtonByID("MenuSearch");
@@ -11127,28 +11092,8 @@ public class LDSTools {
 			adbPressSearch();
 			
 			Thread.sleep(2000);
-			
-			//driver.scrollTo(userToSearch);
 			scrollToElementMemberList(userToSearch);
-			//driver.scrollToExact(userToSearch);
-		
-			/*
-			do {
-				options = driver.findElements(By.xpath("//android.widget.TextView[@text='" + userToSearch + "']"));
-				if (options.isEmpty()) {
-					checkForElement = false;	
-					scrollDownTEST(40);
-				} else {
-					checkForElement = true;
-				}
-				myCounter++;
-				
-			} while ((checkForElement = false) || (myCounter < 12));
-			
-			*/
 			driver.findElement(By.xpath("//android.widget.TextView[@text='" + userToSearch + "']")).click();
-			//clickLastTextViewRoboReturnContains(userToSearch);
-			
 		}
 		
 		Thread.sleep(2000);
@@ -11913,8 +11858,6 @@ public class LDSTools {
 	
 	private String iosExpandAllDirectory() throws Exception {
 		scrollDownIOS();
-		//Thread.sleep(1000);
-		boolean checkArrowDown;
 		boolean checkForLabel;
 		String myPageSource;
 		
@@ -11922,29 +11865,29 @@ public class LDSTools {
 		//driver.swipe(50, 1000, 50, 500, 1000);
 		//scrollToLastElementIOS("\u25BC");
 		
-		checkForLabel = checkElementReturn("OpenHouseholdMembers", "xpath", "xpath");
-		if (checkForLabel == true) {
+		checkForLabel = checkElementReturn("OpenHouseholdMembers", "xpath", "pred");
+		if (checkForLabel) {
 			//clickButton("OpenHouseholdMembers", "xpath", "xpath");
 			clickButton("HOUSEHOLD MEMBERSOpen Drawer", "byName", "byName");
 			checkForLabel = false;
 		}
 		
-		checkForLabel = checkElementReturn("OpenHTVT", "xpath", "xpath");
-		if (checkForLabel == true) {
+		checkForLabel = checkElementReturn("OpenHTVT", "xpath", "pred");
+		if (checkForLabel) {
 			//clickButton("OpenHTVT", "xpath", "xpath");
 			clickButton("HOME AND VISITING TEACHINGOpen Drawer", "byName", "byName");
 			checkForLabel = false;
 		}
 				
-		checkForLabel = checkElementReturn("OpenCallingsAndClasses", "xpath", "xpath");
-		if (checkForLabel == true) {
+		checkForLabel = checkElementReturn("OpenCallingsAndClasses", "xpath", "pred");
+		if (checkForLabel) {
 			//clickButton("OpenCallingsAndClasses", "xpath", "xpath");
 			clickButton("CALLINGS AND CLASSESOpen Drawer", "byName", "byName");
 			checkForLabel = false;
 		}		
 		
-		checkForLabel = checkElementReturn("OpenMembershipInfo", "xpath", "xpath");
-		if (checkForLabel == true) {
+		checkForLabel = checkElementReturn("OpenMembershipInfo", "xpath", "pred");
+		if (checkForLabel) {
 			//clickButton("OpenMembershipInfo", "xpath", "xpath");
 			clickButton("MEMBERSHIP INFORMATIONOpen Drawer", "byName", "byName");
 			checkForLabel = false;
