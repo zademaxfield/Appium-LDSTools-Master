@@ -523,7 +523,7 @@ public class LDSTools {
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
-		LeaderBishopricReport("ngiBPC1", false, os);
+		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os);
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
@@ -556,7 +556,7 @@ public class LDSTools {
 		
 		
 		//Header Tests
-		//JeffAnderson(os);
+		JeffAnderson(os);
 		//ChristieWhiting(os);
 		//CliffHigby(os);
 		//KevinPalmer(os);
@@ -8189,17 +8189,20 @@ public class LDSTools {
 				Thread.sleep(1000);
 				//clickButtonByXpath("TopHelp");
 				clickButton("TopHelp", "xpath", "pred");
-				
-				
-				if (checkElementExistsByXpath("DeveloperSettings") == true) {
-					clickButtonByXpath("DeveloperSettings");
-				} else {
-					//New way to enable dev settings
+
+
+
+				//New way to enable dev settings
+				if (!checkElementNameReturn("Developer Settings")) {
 					for (int x = 1; x <= 5; x++ ) {
-						clickButtonByXpath("EnableDevSettings");
+						//clickButtonByXpath("EnableDevSettings");
+						clickButton("EnableDevSettings", "xpath", "pred");
+						//System.out.println("COUNT: " + x);
 					}
+				} else {
+					clickButton("Developer Settings", "byName", "AccID");
 				}
-				
+
 				
 				//clickButtonByXpath("DevEnviroment");
 				clickButton("Environment: Prod", "byName", "byName");
@@ -8252,20 +8255,15 @@ public class LDSTools {
 				pressBackKey();
 				pressBackKey();
 
-				
-				//clickButtonByXpath("TopHelp");
-				//Thread.sleep(4000);
-				//clickButtonByXpath("TopSignIn");
-				
-				//sendTextbyXpath("LoginUsername", "LDSTools14");
-				//sendTextbyXpath("LoginPassword", "toolstester");
-				sendTextbyXpath("LoginUsername", "paigekrebs" );
-				sendTextbyXpath("LoginPassword", "sweets2005");
-				
-				//Thread.sleep(1000);
-				//clickButtonByXpath("DoneButton");
-				//Thread.sleep(1000);
-				clickButtonByXpath("SignInButton");
+				//sendTextbyXpath("LoginUsername", "paigekrebs" );
+				//sendTextbyXpath("LoginPassword", "sweets2005");
+				//clickButtonByXpath("SignInButton");
+
+
+				sendTextbyPred("LoginUsernamePred", "paigekrebs");
+				sendTextbyPred("LoginPasswordPred", "sweets2005");
+
+				clickButton("SignInButtonPred", "xapath", "pred");
 				Thread.sleep(4000);
 				
 				
