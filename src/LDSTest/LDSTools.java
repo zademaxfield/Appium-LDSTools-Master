@@ -521,7 +521,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		//LeaderBishopricDirectory("ngiBPC1", false, os);
+		LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os);
@@ -556,7 +556,7 @@ public class LDSTools {
 		
 		
 		//Header Tests
-		JeffAnderson(os);
+		//JeffAnderson(os);
 		//ChristieWhiting(os);
 		//CliffHigby(os);
 		//KevinPalmer(os);
@@ -5269,15 +5269,16 @@ public class LDSTools {
 				Thread.sleep(1000);
 				//clickButtonByXpath("TopHelp");
 				clickButton("TopHelp", "xpath", "pred");
-				
-				
-				if (checkElementExistsByXpath("DeveloperSettings") == true) {
-					clickButtonByXpath("DeveloperSettings");
-				} else {
-					//New way to enable dev settings
+
+				//New way to enable dev settings
+				if (!checkElementNameReturn("Developer Settings")) {
 					for (int x = 1; x <= 5; x++ ) {
-						clickButtonByXpath("EnableDevSettings");
+						//clickButtonByXpath("EnableDevSettings");
+						clickButton("EnableDevSettings", "xpath", "pred");
+						//System.out.println("COUNT: " + x);
 					}
+				} else {
+					clickButton("Developer Settings", "byName", "AccID");
 				}
 				
 				
@@ -5295,7 +5296,8 @@ public class LDSTools {
 				//scrollToElement("Set Max Units");
 				scrollDownIOS();
 				//driver.scrollTo("Set Max Units");
-				clickButtonByXpathTitleNameContains("Set Max Units");
+				//clickButtonByXpathTitleNameContains("Set Max Units");
+				clickButton("Set Max Units", "xpath", "AccID");
 				Thread.sleep(2000);
 				sendTextbyXpath("SetMaxUnits", "3");
 				clickButton("Done", "xpath", "pred");
