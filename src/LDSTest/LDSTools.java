@@ -521,9 +521,9 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		LeaderBishopricDirectory("ngiBPC1", false, os);
+		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
-		//LeaderBishopricReport("ngiBPC1", false, os);
+		LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os);
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
@@ -2313,7 +2313,7 @@ public class LDSTools {
 
 		if (!getRunningOS().equals("mac")) {
 			//pressBackKey();
-			//clickButtonByXpath("DrawerDirectory");
+			//clickButton("DrawerDirectory", "xpath", "pred");
 			//Thread.sleep(2000);
 		}
 		
@@ -8360,7 +8360,7 @@ public class LDSTools {
 			Thread.sleep(2000);
 			//pressBackKey();
 			checkForLater();
-			clickButtonByXpath("DrawerDirectory");
+			clickButton("DrawerDirectory", "xpath", "pred");
 			Thread.sleep(2000);
 		}
 		
@@ -8653,7 +8653,7 @@ public class LDSTools {
 			Assert.assertTrue(checkElementNameReturn("Directory"));
 			Assert.assertTrue(checkElementNameReturn("Calendars"));
 			
-			if (leader == true) {
+			if (leader) {
 				Assert.assertTrue(checkElementNameReturn("Reports"));
 			} else {
 				Assert.assertFalse(checkElementNameReturn("Reports"));
@@ -8674,7 +8674,7 @@ public class LDSTools {
 			Assert.assertTrue(checkElementNameReturn("Sync"));
 			Assert.assertTrue(checkElementNameReturn("Settings"));
 			Assert.assertTrue(checkElementNameReturn("Help"));
-			clickButtonByXpath("DrawerDirectory");
+			clickButton("DrawerDirectory", "xpath", "pred");
 		} else {
 			//Check the Drawer items
 			//pressBackKey();
@@ -8694,7 +8694,7 @@ public class LDSTools {
 			} else {
 				Assert.assertFalse(checkElementReturn("Reports", "textAtt", "value"));
 			}
-			clickButtonByXpath("DrawerDirectory");
+			clickButton("DrawerDirectory", "xpath", "pred");
 		}
 	
 	}
@@ -8712,17 +8712,11 @@ public class LDSTools {
 	/** checkCallings()
 	 * Check the callings all users should have access to this
 	 * 
-	 * @throws Exception
+	 *
 	 */
 	private void checkCallings() throws Exception {
-		//Callings
-		//List<String> checkReportText = new ArrayList<String>();
-		//clickButtonByXpath("Drawer");
-		//clickButtonByXpath("DrawerCallings");
 		String pageSource;
-		//LDSWeb myWeb = new LDSWeb();
-		
-		
+
 		openOrgnizations();
 		
 		Thread.sleep(1000);
@@ -8762,154 +8756,7 @@ public class LDSTools {
 		
 		getPrimaryInfo();
 
-		
-		/*
-		pageSource = getSourceOfPage();
 
-		Assert.assertTrue(checkNoCaseList("Bishop", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Ami, Samu", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Bishopric Second Counselor", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Tutunoa, Ualesi Junior, Jr", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Ward Executive Secretary", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Albert", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Ward Assistant Clerk", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Kitara, Lafaele", pageSource, "Contains"));
-		
-		Thread.sleep(1000);
-		pressBackKey();
-		Thread.sleep(1000);
-		
-				
-		//High Priests Group
-		clickButtonByXpathTitleName("High Priests Group");
-		clickButtonByXpathTitleName("High Priests Group Leadership");
-		Thread.sleep(1000);
-		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("High Priests Group Leader", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Faamoe, Panapa Filifili", pageSource, "Contains"));
-		pressBackKey();
-		Thread.sleep(1000);
-		pressBackKey();
-		
-		
-		//Elders Quorum
-		clickButtonByXpathTitleName("Elders Quorum");
-		clickButtonByXpathTitleName("Elders Quorum Presidency");
-		Thread.sleep(1000);
-		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Elders Quorum President", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Kitara, Peaulele", pageSource, "Contains"));
-		pressBackKey();
-		Thread.sleep(1000);
-		pressBackKey();
-		
-				
-		//Relief Society
-		clickButtonByXpathTitleName("Relief Society");
-		Thread.sleep(1000);
-		clickButtonByXpathTitleName("Relief Society Presidency");
-		Thread.sleep(1000);
-		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Relief Society President", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Endemann, Lole", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Relief Society First Counselor", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Faamoetauloa, Fiasili", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Relief Society Second Counselor", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Puleiai, Siva", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Relief Society Secretary", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Patiole, Luafa", pageSource, "Contains"));
-		pressBackKey();
-		Thread.sleep(1000);
-		pressBackKey();
-		
-		Thread.sleep(1000);
-		//Young Men
-		clickButtonByXpathTitleName("Young Men");
-		clickButtonByXpathTitleName("Young Men Presidency");
-		Thread.sleep(1000);
-		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Young Men President", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Kitara, Lafaele", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Young Men First Counselor", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Poai, Mikaele", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Young Men Second Counselor", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Faamoetauloa Panapa Jr, Panapa Jnr", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Young Men Secretary", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Venasio Fainuu, Fogavai", pageSource, "Contains"));
-		pressBackKey();
-		//Thread.sleep(1000);
-		clickButtonByXpathTitleName("Priests Quorum");
-		Thread.sleep(1000);
-		if (getRunningOS().equals("mac")) {
-			clickButtonByXpathTitleName("Priests Quorum Presidency");
-		}
-		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Priests Quorum First Assistant", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Tulia, Tiueni", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Priests Quorum Second Assistant", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Kitara, Tumua", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Priests Quorum Secretary", pageSource, "Contains"));
-		if (getRunningOS().equals("mac")) {
-			pressBackKey();
-		}
-		pressBackKey();
-		Thread.sleep(1000);
-		pressBackKey();
-		//Thread.sleep(2000);
-		//pressBackKey();
-	
-
-		
-		//Young Women
-		clickButtonByXpathTitleName("Young Women");
-		clickButtonByXpathTitleName("Young Women Presidency");
-		Thread.sleep(1000);
-		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Young Women President", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Tutunoa, Lusi", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Young Women First Counselor", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Kitara, Etevise", pageSource, "Contains"));
-		pressBackKey();
-		Thread.sleep(1000);
-		pressBackKey();
-		
-		//Sunday School
-		clickButtonByXpathTitleName("Sunday School");
-		clickButtonByXpathTitleName("Sunday School Presidency");
-		Thread.sleep(1000);
-		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Sunday School President", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Lealaiauloto, Uana Iosefa Sao", pageSource, "Contains"));
-		pressBackKey();
-		Thread.sleep(1000);
-		pressBackKey();
-		
-				
-		//Primary
-		clickButtonByXpathTitleName("Primary");
-		clickButtonByXpathTitleName("Primary Presidency");
-		Thread.sleep(1000);
-		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Primary President", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Faamoe, Talalelagi", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Primary First Counselor", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Fepuleai, Malele Seuamuli", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Primary Second Counselor", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Tulia, Faagalo", pageSource, "Contains"));
-		//Assert.assertTrue(checkNoCaseList("Primary Secretary", pageSource, "Equals"));
-		//Assert.assertTrue(checkNoCaseList("Samu, Luisa", pageSource, "Equals"));
-		pressBackKey();
-		Thread.sleep(1000);
-		pressBackKey();
-		
-		
-		*/
-
-		
-
-
-
-		
 
 		//Ward Missionaries
 		if (getRunningOS().equals("mac")){
@@ -11564,7 +11411,7 @@ public class LDSTools {
 		} else {
 			clickButtonByXpath("Drawer");
 			checkForLater();
-			clickButtonByXpath("DrawerDirectory");
+			clickButton("DrawerDirectory", "xpath", "pred");
 		}
 	}
 	
