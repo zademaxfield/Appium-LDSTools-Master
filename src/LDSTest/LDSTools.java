@@ -9007,8 +9007,8 @@ public class LDSTools {
 		//System.out.println("Getting Page Source");
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("AFPEighteen, Member", pageSource, "Contains"));
-		//Assert.assertTrue(checkNoCaseList("AFPEleven, Member", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("AFPFive, Wife", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("AFPEleven, Member", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("D2, R2", pageSource, "Contains"));
 		
 		//System.out.println("Trying to hit Top Sort");
@@ -9037,8 +9037,8 @@ public class LDSTools {
 		}
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("AFPEighteen, Member", pageSource, "Contains"));
-		//Assert.assertTrue(checkNoCaseList("AFPFive, Wife", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("AFPEighteen, Member", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("AFPFive, Wife", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Organa, Leia", pageSource, "Contains"));
 
 		Thread.sleep(1000);
