@@ -475,7 +475,7 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	private void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		//justForTesting(os);
+		justForTesting(os);
 		
 		//additionalUnit(os);	
 		//additonalUnitSimpleTest(os);
@@ -523,7 +523,7 @@ public class LDSTools {
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
-		LeaderBishopricReport("ngiBPC1", false, os);
+		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os);
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
@@ -600,7 +600,27 @@ public class LDSTools {
 	
 	
 	public void justForTesting(String os) throws Exception {
-		String pageSource;
+
+		syncLogIn("LDSTools2", "toolstester", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+
+		for (int x = 1; x < 50 ; x++ ) {
+			System.out.println("Count: " + x);
+			openOrgnizations();
+			openMissionary();
+			openReports();
+			openSettings();
+			checkText("Sign Out", "Sign Out", "xpath", "AccID");
+			pressBackKey();
+		}
+
+
+
+
+
+
+		//Missionary Referral test
+		/*String pageSource;
 		List<String> foundUnits;
 		syncLogIn("LDSTools20", "password1", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
@@ -686,7 +706,7 @@ public class LDSTools {
 		clickButton("MissRefOverflow", "id", "xpath");
 		clickButton("MissRefRemoveFromList", "xpath", "xpath");
 		
-		//Need to check the referral and then remove it. 
+		//Need to check the referral and then remove it. */
 		
 
 		
@@ -5705,6 +5725,10 @@ public class LDSTools {
 		
 		if (findElement == "byName") {
 			AssertJUnit.assertEquals(driver.findElement(By.name(textElement)).getText(),(textToCheck));
+		}
+
+		if (findElement == "AccID") {
+			AssertJUnit.assertEquals(driver.findElement(MobileBy.AccessibilityId(textElement)).getText(),(textToCheck));
 		}
 
 	}
