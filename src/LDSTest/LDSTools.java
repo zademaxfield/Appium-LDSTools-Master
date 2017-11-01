@@ -67,7 +67,7 @@ import static org.junit.Assert.assertNotNull;
 public class LDSTools {
 	private Properties prop;
 	//AppiumDriver<MobileElement> driver;
-	public AppiumDriver<MobileElement> driver;
+	private AppiumDriver<MobileElement> driver;
 	private LDSWeb myWeb = new LDSWeb();
 	//AppiumDriver driver;
 	//AppiumDriver driver;
@@ -423,7 +423,7 @@ public class LDSTools {
 	        
 	        
 	        //capabilities.setCapability("platformVersion", "10.3");
-	        capabilities.setCapability("platformVersion", "11.0");
+	        capabilities.setCapability("platformVersion", "11.1");
 	        capabilities.setCapability("nativeInstrumentsLib", false);
 	        
 	        //capabilities.setCapability("autoAcceptAlerts", true);
@@ -475,7 +475,7 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	private void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		justForTesting(os);
+		//justForTesting(os);
 		
 		//additionalUnit(os);	
 		//additonalUnitSimpleTest(os);
@@ -521,7 +521,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		//LeaderBishopricDirectory("ngiBPC1", false, os);
+		LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os);
@@ -595,20 +595,20 @@ public class LDSTools {
 	}
 
 
-	
-
-	
-	
-	public void justForTesting(String os) throws Exception {
+	/** justForTesting - Just for testing
+	 * @param os - operating system
+	 * @throws Exception - So Thread.Sleep works
+	 */
+	private void justForTesting(String os) throws Exception {
 
 		syncLogIn("LDSTools2", "toolstester", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
 
 		for (int x = 1; x < 50 ; x++ ) {
 			System.out.println("Count: " + x);
-			openOrgnizations();
-			openMissionary();
-			openReports();
+			SignOutNoReset();
+			syncLogIn("LDSTools2", "toolstester", "UAT", os );
+			pinPage("1", "1", "3", "3", true);
 			openSettings();
 			checkText("Sign Out", "Sign Out", "xpath", "AccID");
 			pressBackKey();
@@ -2559,7 +2559,7 @@ public class LDSTools {
 		//Check to see if running iOS or Mac
 		testForElement = checkElementExistsByID("MenuDefaultDirectory");
 		//System.out.println("testForElement: " + testForElement);
-		if (testForElement == true ) {
+		if (testForElement) {
 			clickButtonByID("MenuDefaultDirectory");
 			clickButtonByXpathTitleName("Individuals");
 		} else {
@@ -3017,68 +3017,6 @@ public class LDSTools {
 		//	pressBackKey();
 		//}
 		
-		//Check Home Teaching - Visiting Teaching
-		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
-		checkHTVTBasic(userCalling);
-		
-		Thread.sleep(1000);
-		//Check Home Teaching - Visiting Teaching Household - Sisters and Filters
-		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
-		checkHTVTHouseholds(userCalling);
-	}
-	
-	public void LeaderNonBishopricBAD(String leaderLogin, String userCalling, String os) throws Exception {
-
-		syncLogIn(leaderLogin, "password1", "UAT", os );
-		pinPage("1", "1", "3", "3", true);
-
-		//Check to see if the user can view the directory
-		Thread.sleep(2000);
-		Assert.assertTrue(checkElementTextViewRoboReturn("AFPEighteen, Member"));
-		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
-		
-		//Check Directory user - should be able to view everything
-		checkDirectoryUser(true, true, true, false, false, true);
-		Thread.sleep(1000);
-		
-		
-		syncLogIn(leaderLogin, "password1", "UAT", os );
-		pinPage("1", "1", "3", "3", true);
-		
-		
-		//Check Drawer Items - If leader there should be a Reports item
-		checkDrawerItems(true);
-
-		Thread.sleep(1000);	
-		//Check various callings - all users should be able to access this information
-		checkCallings();
-
-		Thread.sleep(1000);
-		//Check Missionary drawer items - all user access
-		checkMissionary();
-		
-		//Check the Calendar - all user access
-		Thread.sleep(1000);
-		//checkCalendar();
-		
-		myTeardown();
-		
-		syncLogIn(leaderLogin, "password1", "UAT", os );
-		pinPage("1", "1", "3", "3", true);
-		
-
-		Thread.sleep(1000);
-		//Check the reports - leadership only - true for bishopric rights, false for leaders and remove
-		//checkReports for non-leaders
-		checkReports(false, false);
-		
-		myTeardown();
-		
-		syncLogIn(leaderLogin, "password1", "UAT", os );
-		pinPage("1", "1", "3", "3", true);
-		
-		
-		Thread.sleep(1000);
 		//Check Home Teaching - Visiting Teaching
 		//userCalling: Bishopric, High Priest Group, Elders Quorum Pres, Relief Society Pres, Ward Council
 		checkHTVTBasic(userCalling);
@@ -7322,9 +7260,17 @@ public class LDSTools {
 		
 		if (findElement == "textAtt") {
 			myElement = driver.findElement(By.xpath("//*[@text='" + textElement + "']"));
-		} 
+		}
 
-		
+		if (findElement == "AccID") {
+			myElement = driver.findElement(MobileBy.AccessibilityId(textElement));
+		}
+
+		if (findElement == "pred") {
+			myElement = driver.findElement(MobileBy.iOSNsPredicateString(this.prop.getProperty(textElement)));
+		}
+
+
 		myElement.click();
 		myElement.clear();
 		
@@ -10831,7 +10777,33 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			driver.resetApp();
 		}
-		
+	}
+
+	private void SignOutNoReset() throws Exception {
+		Thread.sleep(2000);
+		if (getRunningOS().equals("mac")) {
+			clickButtonByXpath("DrawerMore");
+			//Check to see if the sync page is dispalyed
+			if (checkElementNameReturn("Sync Now")) {
+				pressBackKey();
+			}
+			clickButtonByXpath("DrawerSettings");
+		}else {
+			clickButtonByXpath("Drawer");
+			if (checkElementReturn("Later", "textAtt", "value")) {
+				clickButtonByXpathTitleName("Later");
+			}
+			//scrollDown("Settings", -5 );
+			clickButtonByXpath("DrawerSettings");
+		}
+		Thread.sleep(2000);
+		clickButtonByXpathTitleName("Sign Out");
+		clickButton("SignOutOK", "xpath", "xpath");
+		Thread.sleep(2000);
+		checkForAlert();
+
+		Thread.sleep(5000);
+		clearTextField("LoginUsernamePred", "xpath", "pred");
 
 
 	}
@@ -13596,8 +13568,9 @@ public class LDSTools {
 	public void afterAllTests() throws Exception {
 		System.out.println("Stopping the driver");
 		if (getRunningOS().equals("mac")) {
-			//This is throwing an error on real devices. 
-			driver.quit();
+
+			//I don't think this is needed anymore
+			//driver.quit();
 			//driver.close();
 			
 			Thread.sleep(5000);
@@ -13610,7 +13583,7 @@ public class LDSTools {
 			killProcess("com.apple.CoreSimulator.CoreSimulatorService");
 		
 		} else {
-			driver.quit();
+			//driver.quit();
 			STFService mySTFService = new STFService("http://10.109.33.175:7100", "5ac32afb2fa24289945dea68380877d0be396916fbf04a65b30e8b46e6fda014");
 			DeviceApi myDevice = new DeviceApi(mySTFService);
 			System.out.println("SERIAL NUMBER: " + deviceSerial);
@@ -13624,7 +13597,7 @@ public class LDSTools {
 		
 		//myAppiumService.stop();
 		newAppiumService.stopAppiumService();
-		Thread.sleep(4000);
+		Thread.sleep(1000);
 		System.out.println("Killing the Appium Service");
 		killProcess("main.js");
 		
