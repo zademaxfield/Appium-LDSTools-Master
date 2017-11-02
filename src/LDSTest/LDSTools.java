@@ -521,10 +521,10 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		LeaderBishopricDirectory("ngiBPC1", false, os);
+		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
-		//LeaderBishopricHTVT("ngiBPC1", false, os);
+		LeaderBishopricHTVT("ngiBPC1", false, os);
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//LeaderBishopricReport("ngiBPC2", false, os); //Bishopric 2nd Counselor  
@@ -6780,12 +6780,21 @@ public class LDSTools {
 		
 		Thread.sleep(2000);
 		if (htvtReport.equals("HouseholdsNotVisited")) {
-			System.out.println("Hitting 3 Months");
+			//System.out.println("Hitting 3 Months");
 			clickButtonByXpath("3Months");
 		}
 		
 
 		//Check web data vs LDS Tools
+
+		System.out.println("Trying Report: ");
+		System.out.println(org);
+		System.out.println(htvtReport);
+		System.out.println(myUserName);
+		System.out.println(myPassword);
+		System.out.println(leaderShip);
+		System.out.println("******************************");
+
 		myList = myWeb.getAllMembersInHTVTReport(org, htvtReport, myUserName, myPassword, leaderShip);
 		if(getRunningOS().equals("mac")) {
 			compareWebData(myList, androidList, false);

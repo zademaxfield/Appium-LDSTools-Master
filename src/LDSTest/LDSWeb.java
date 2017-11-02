@@ -144,8 +144,10 @@ public class LDSWeb {
 		*/
 		
 		
-		setupAfterUATReset();
+		//setupAfterUATReset();
 		//AreaBookSetup();
+
+		getAllMembersInHTVTReport("Elders Quorum",  "HouseholdsNotVisited", "ngiBPC1", "password1", "Bishopric");
 		
 		//getAllMembersInHTVTReport("Elders Quorum", "HouseholdsNotVisited", "LDSTools2", "toolstester", "Bishopric");
 		
@@ -325,6 +327,10 @@ public class LDSWeb {
 		Thread.sleep(2000);
 		waitForTextToDisappear("LoadingSpinner", 500, "xpath");
 		Thread.sleep(2000);
+
+		clickElement("QuorumAuxSelect", "xpath");
+		clickElement("QuorumAuxHighPriest", "xpath");
+		Thread.sleep(4000);
 
 		addDistrict("District 1", "Tools, LDS50" );
 
@@ -536,17 +542,19 @@ public class LDSWeb {
 		options.addArguments("--start-maximized");
 		options.addArguments("--incognito");
 		options.addArguments("--no-sandbox");
-
+		options.addArguments("--no-default-browser-check");
+		options.addArguments("--disable-component-update");
 		
 		System.setProperty("webdriver.chrome.driver", "chromedriver");
 		
 		driver = new ChromeDriver(options);
-		
+
+		/*
 		driver.get("chrome://extensions-frame");
 		WebElement checkbox = driver.findElement(By.xpath("//label[@class='incognito-control']/input[@type='checkbox']"));
 		if (!checkbox.isSelected()) {
 		    checkbox.click();
-		}
+		}*/
 		
 		//driver.navigate().to(baseURL);
 		driver.get(baseURL);
@@ -1988,7 +1996,7 @@ public class LDSWeb {
 		//clickElement("OrganizationsMenu", "id");
 		clickElement("Organizations", "linkText");
 		
-		if (orgName.contains("Releif")) {
+		if (orgName.contains("Relief")) {
 			menuItem = "Visiting Teaching";
 		} else {
 			menuItem = "Home Teaching";
