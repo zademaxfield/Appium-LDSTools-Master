@@ -34,16 +34,7 @@ import org.jsoup.select.Elements;
 
 import org.junit.After;
 import org.junit.Before;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.*;
@@ -539,13 +530,15 @@ public class LDSWeb {
 
 	public void openWebPage(String baseURL) {
 		ChromeOptions options = new ChromeOptions();
-		options.addArguments("--start-maximized");
-		options.addArguments("--incognito");
-		options.addArguments("--no-sandbox");
-		options.addArguments("--no-default-browser-check");
-		options.addArguments("--disable-component-update");
-		
-		System.setProperty("webdriver.chrome.driver", "chromedriver");
+		//options.addArguments("start-maximized");
+		options.addArguments("incognito");
+		options.addArguments("start-fullscreen");
+		//options.addArguments("no-sandbox");
+		//options.addArguments("no-default-browser-check");
+		//options.addArguments("disable-component-update");
+
+		System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+
 		
 		driver = new ChromeDriver(options);
 
@@ -560,11 +553,11 @@ public class LDSWeb {
 		driver.get(baseURL);
 
 		//Maximize the window
-		Point targetPosition = new Point(0, 0);
-		driver.manage().window().setPosition(targetPosition);
+		//Point targetPosition = new Point(0, 0);
+		//driver.manage().window().setPosition(targetPosition);
 
-		Dimension targetSize = new Dimension(1680, 1050); //your screen resolution here
-		driver.manage().window().setSize(targetSize);
+		//Dimension targetSize = new Dimension(1680, 1050); //your screen resolution here
+		//driver.manage().window().setSize(targetSize);
 		//driver.manage().window().maximize();
 	}
 	
