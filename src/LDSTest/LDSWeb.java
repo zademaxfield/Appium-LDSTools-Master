@@ -135,10 +135,10 @@ public class LDSWeb {
 		*/
 		
 		
-		setupAfterUATReset();
+		//setupAfterUATReset();
 		//AreaBookSetup();
 
-		//getAllMembersInHTVTReport("Elders Quorum",  "HouseholdsNotVisited", "ngiBPC1", "password1", "Bishopric");
+		getAllMembersInHTVTReport("Elders Quorum",  "HouseholdsNotVisited", "ngiBPC1", "password1", "Bishopric");
 		
 		//getAllMembersInHTVTReport("Elders Quorum", "HouseholdsNotVisited", "LDSTools2", "toolstester", "Bishopric");
 		
@@ -530,8 +530,9 @@ public class LDSWeb {
 
 	public void openWebPage(String baseURL) {
 		ChromeOptions options = new ChromeOptions();
-		options.addArguments("start-maximized");
+		//options.addArguments("start-maximized");
 		options.addArguments("incognito");
+		options.addArguments("kiosk");
 		//options.addArguments("start-fullscreen");
 		//options.addArguments("no-sandbox");
 		//options.addArguments("no-default-browser-check");
