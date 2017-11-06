@@ -521,10 +521,10 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		//LeaderBishopricDirectory("ngiBPC1", false, os);
+		LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
-		LeaderBishopricHTVT("ngiBPC1", false, os);
+		//LeaderBishopricHTVT("ngiBPC1", false, os);
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//LeaderBishopricReport("ngiBPC2", false, os); //Bishopric 2nd Counselor  
@@ -600,27 +600,8 @@ public class LDSTools {
 	 * @throws Exception - So Thread.Sleep works
 	 */
 	private void justForTesting(String os) throws Exception {
-
-		syncLogIn("LDSTools2", "toolstester", "UAT", os );
-		pinPage("1", "1", "3", "3", true);
-
-		for (int x = 1; x < 50 ; x++ ) {
-			System.out.println("Count: " + x);
-			SignOutNoReset();
-			syncLogIn("LDSTools2", "toolstester", "UAT", os );
-			pinPage("1", "1", "3", "3", true);
-			openSettings();
-			checkText("Sign Out", "Sign Out", "xpath", "AccID");
-			pressBackKey();
-		}
-
-
-
-
-
-
 		//Missionary Referral test
-		/*String pageSource;
+		String pageSource;
 		List<String> foundUnits;
 		syncLogIn("LDSTools20", "password1", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
@@ -706,7 +687,7 @@ public class LDSTools {
 		clickButton("MissRefOverflow", "id", "xpath");
 		clickButton("MissRefRemoveFromList", "xpath", "xpath");
 		
-		//Need to check the referral and then remove it. */
+		//Need to check the referral and then remove it.
 		
 
 		
@@ -3265,6 +3246,7 @@ public class LDSTools {
 		
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("LDS44 Tools (37)");
+			Thread.sleep(2000);
 			pageSource = iosExpandAllDirectory();
 			//pageSource = getSourceOfPage();
 		} else {
@@ -11720,28 +11702,32 @@ public class LDSTools {
 		checkForLabel = checkElementReturn("OpenHouseholdMembers", "xpath", "pred");
 		if (checkForLabel) {
 			//clickButton("OpenHouseholdMembers", "xpath", "xpath");
-			clickButton("HOUSEHOLD MEMBERSOpen Drawer", "byName", "byName");
+			//clickButton("HOUSEHOLD MEMBERSOpen Drawer", "byName", "byName");
+			clickButton("OpenHouseholdMembers", "xpath", "pred");
 			checkForLabel = false;
 		}
 		
 		checkForLabel = checkElementReturn("OpenHTVT", "xpath", "pred");
 		if (checkForLabel) {
 			//clickButton("OpenHTVT", "xpath", "xpath");
-			clickButton("HOME AND VISITING TEACHINGOpen Drawer", "byName", "byName");
+			//clickButton("HOME AND VISITING TEACHINGOpen Drawer", "byName", "byName");
+			clickButton("OpenHTVT", "xpath", "pred");
 			checkForLabel = false;
 		}
 				
 		checkForLabel = checkElementReturn("OpenCallingsAndClasses", "xpath", "pred");
 		if (checkForLabel) {
 			//clickButton("OpenCallingsAndClasses", "xpath", "xpath");
-			clickButton("CALLINGS AND CLASSESOpen Drawer", "byName", "byName");
+			//clickButton("CALLINGS AND CLASSESOpen Drawer", "byName", "byName");
+			clickButton("OpenCallingsAndClasses", "xpath", "pred");
 			checkForLabel = false;
 		}		
 		
 		checkForLabel = checkElementReturn("OpenMembershipInfo", "xpath", "pred");
 		if (checkForLabel) {
 			//clickButton("OpenMembershipInfo", "xpath", "xpath");
-			clickButton("MEMBERSHIP INFORMATIONOpen Drawer", "byName", "byName");
+			//clickButton("MEMBERSHIP INFORMATIONOpen Drawer", "byName", "byName");
+			clickButton("OpenMembershipInfo", "xpath", "pred");
 			checkForLabel = false;
 		}	
 		
