@@ -530,9 +530,9 @@ public class LDSWeb {
 
 	public void openWebPage(String baseURL) {
 		ChromeOptions options = new ChromeOptions();
-		//options.addArguments("start-maximized");
+		options.addArguments("start-maximized");
 		options.addArguments("incognito");
-		options.addArguments("kiosk");
+		//options.addArguments("kiosk");
 		//options.addArguments("start-fullscreen");
 		//options.addArguments("no-sandbox");
 		//options.addArguments("no-default-browser-check");
@@ -554,12 +554,12 @@ public class LDSWeb {
 		driver.get(baseURL);
 
 		//Maximize the window
-		//Point targetPosition = new Point(0, 0);
-		//driver.manage().window().setPosition(targetPosition);
+		Point targetPosition = new Point(0, 0);
+		driver.manage().window().setPosition(targetPosition);
 
-		//Dimension targetSize = new Dimension(1680, 1050); //your screen resolution here
-		//driver.manage().window().setSize(targetSize);
-		//driver.manage().window().maximize();
+		Dimension targetSize = new Dimension(1680, 1050); //your screen resolution here
+		driver.manage().window().setSize(targetSize);
+		driver.manage().window().maximize();
 	}
 	
 	public void openPageLogIn(String url, String userName, String passWord) throws Exception {

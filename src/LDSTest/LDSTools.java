@@ -523,8 +523,8 @@ public class LDSTools {
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
-		//LeaderBishopricReport("ngiBPC1", false, os);
-		LeaderBishopricHTVT("ngiBPC1", false, os);
+		LeaderBishopricReport("ngiBPC1", false, os);
+		//LeaderBishopricHTVT("ngiBPC1", false, os);
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//LeaderBishopricReport("ngiBPC2", false, os); //Bishopric 2nd Counselor  
@@ -600,6 +600,8 @@ public class LDSTools {
 	 * @throws Exception - So Thread.Sleep works
 	 */
 	private void justForTesting(String os) throws Exception {
+
+		/*
 		//Missionary Referral test
 		String pageSource;
 		List<String> foundUnits;
@@ -690,11 +692,11 @@ public class LDSTools {
 		//Need to check the referral and then remove it.
 		
 
+		*/
 		
 		
 		
-		
-		/*  //List Test
+		//List Test
 		// Some of the list buttons are not showing up in page source
 		syncLogIn("LDSTools21", "password1", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
@@ -714,10 +716,10 @@ public class LDSTools {
 		//driver.findElement(MobileBy.iOSNsPredicateString("name == 'icon tab plus'")).click();
 		//driver.findElement(MobileBy.iOSNsPredicateString("name == 'Share'")).click();
 		printPageSource();
-		clickButton("Share", "xpath", "AccID");
+		clickButton("Add to List", "xpath", "AccID");
 		//printPageSource();
 		Thread.sleep(8000);
-		*/
+
 		
 
 		/*  //Temple List Test
