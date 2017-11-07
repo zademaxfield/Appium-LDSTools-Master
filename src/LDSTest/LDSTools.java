@@ -8985,8 +8985,8 @@ public class LDSTools {
 		}
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Afiafi, Efi", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Afamasaga, Joseph", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("AFPEleven, Member", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("AFPMisc, Member1", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Binks, Jarjar", pageSource, "Contains"));
 
 		if (getRunningOS().equals("mac")) {
