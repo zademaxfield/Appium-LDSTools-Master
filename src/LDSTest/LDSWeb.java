@@ -135,10 +135,10 @@ public class LDSWeb {
 		*/
 		
 		
-		//setupAfterUATReset();
+		setupAfterUATReset();
 		//AreaBookSetup();
 
-		getAllMembersInHTVTReport("Elders Quorum",  "HouseholdsNotVisited", "ngiBPC1", "password1", "Bishopric");
+		//getAllMembersInHTVTReport("Elders Quorum",  "HouseholdsNotVisited", "ngiBPC1", "password1", "Bishopric");
 		
 		//getAllMembersInHTVTReport("Elders Quorum", "HouseholdsNotVisited", "LDSTools2", "toolstester", "Bishopric");
 		

@@ -11,6 +11,7 @@
         <!-- <parameter name="testDevice" value="STF-HT6AN0200005" /> -->
         <!-- <parameter name="testDevice" value="STF-8XV5T15A30006448" /> -->
         <parameter name="testDevice" value="STF-Pool" />
+        <!-- <parameter name="testDevice" value="ce06171675347c0b027e" /> -->
         <parameter name="startSleepTime" value="1000" />
 
         <groups>

@@ -10,7 +10,7 @@
 	  <!-- <parameter name="testDevice" value="REAL-ZiPhone5" /> -->
 	  <!-- <parameter name="testDevice" value="REAL-ZiPhone7" /> -->
 	  <!-- <parameter name="testDevice" value="REAL-Z6iphone" />  -->
-	  <parameter name="testDevice" value="REAL-Z6SPlus" />
+	  <parameter name="testDevice" value="REAL-Ziphone7plus" />
 	  <parameter name="startSleepTime" value="0200" />  
 	  
 	  

@@ -523,13 +523,17 @@ public class LDSTools {
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
-		LeaderBishopricReport("ngiBPC1", false, os);
+		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os);
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//LeaderBishopricReport("ngiBPC2", false, os); //Bishopric 2nd Counselor  
 		
 		//AssistantWardClerkMembershipReport(os);
+
+
+		NoCallingMemberDirectory(os);
+		//NoCallingMemberMissionary(os);
 		
 		
 		//Not clearing the username and password on iOS
@@ -602,6 +606,43 @@ public class LDSTools {
 	private void justForTesting(String os) throws Exception {
 
 		/*
+		//Page Down Test
+		int pageSize;
+
+		syncLogIn("LDSTools20", "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+
+		pageSize = driver.manage().window().getSize().getHeight();
+		pageSize = pageSize / 2;
+		System.out.println("Page Size: " + pageSize);
+
+		scrollDownOnePage();
+		//scrollDownSlow(pageSize);
+		Thread.sleep(1000);
+		//scrollDownSlow(pageSize);
+		scrollDownOnePage();
+		Thread.sleep(7000);
+		*/
+
+
+
+		//Press the Share, email and text buttons in Org.
+		syncLogIn("LDSTools20", "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+
+		openOrgnizations();
+		clickButton("Bishopric", "textAtt", "AccID");
+		clickButton("icon share", "textAtt", "AccID");
+		clickButton("Send email to list", "textAtt", "AccID");
+		Thread.sleep(1000);
+		printPageSource();
+
+		//This won't work on a simulator. There is no email setup.
+
+
+
+
+		/*
 		//Missionary Referral test
 		String pageSource;
 		List<String> foundUnits;
@@ -645,7 +686,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		sendText("MissRefMapSearch", "1313 Mocking Bird Ln, Sunnyvale", "id", "pred");
 		Thread.sleep(10000);
-		clickButton("1313 Mockingbird Lane, Sunnyvale, CA, United States", "text", "name");
+		clickButton("1313 Mockingbird Ln, Sunnyvale, CA, United States", "text", "name");
 		clickButton("MissRefUseLocation", "id", "xpath");
 		
 		//Need a check for the text
@@ -661,8 +702,9 @@ public class LDSTools {
 		clickButton("MissRefSendReferralDone", "id", "pred");
 		
 		//Check for icon to disappear
+		Thread.sleep(4000);
 		waitForTextToDisappearTEXT("Sending Referral", 500 );
-		
+
 		//Check Nice message
 		checkText("MissRefEncourageMessageTitle", "Thank you!", "id", "xpath"	);
 		clickButton("AddUnitOK", "id", "xpath");
@@ -690,12 +732,11 @@ public class LDSTools {
 		clickButton("MissRefRemoveFromList", "xpath", "xpath");
 		
 		//Need to check the referral and then remove it.
-		
-
 		*/
+
 		
 		
-		
+		/*
 		//List Test
 		// Some of the list buttons are not showing up in page source
 		syncLogIn("LDSTools21", "password1", "UAT", os );
@@ -719,7 +760,7 @@ public class LDSTools {
 		clickButton("Add to List", "xpath", "AccID");
 		//printPageSource();
 		Thread.sleep(8000);
-
+		*/
 		
 
 		/*  //Temple List Test
@@ -1065,8 +1106,17 @@ public class LDSTools {
 	//@Parameters({"os"})
 	//@Test (groups= {"medium", "bishopric"}, priority = 1)
 	//public void Bishopric1stCounselor(String os) throws Exception {
-	//	LeaderBishopric("ngiBPC1", false, os); //Bishopric 1st Counselor  
+	//	LeaderBishopric("ngiBPC1", false, os); //Bishopric 1st Counselor
 	//}
+
+	@Parameters({"os"})
+	@Test (groups= {"medium", "medium1", "smoke3", "smoke", "all3"}, priority = 1)
+	public void NoCallingMemberDirectory(String os) throws Exception {
+		noCallingDirectory("LDSTools5", false, os); //Member with no calling
+	}
+
+
+
 	
 	@Parameters({"os"})
 	@Test (groups= {"medium", "medium1", "bishopric", "smoke1", "smoke", "all1"}, priority = 1)
@@ -2263,6 +2313,37 @@ public class LDSTools {
 		checkHTVTBasic("Bishopric");
 		checkHTVTHouseholds("Bishopric");
 	}
+
+	private void noCallingDirectory(String leaderLogin, Boolean priorUnit, String os) throws Exception {
+
+		syncLogIn(leaderLogin, "toolstester", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+
+		//Check Directory user
+		checkDirectoryUser(false, false, false, false, false, false);
+	}
+
+
+	private void noCallingMissionary(String leaderLogin, Boolean priorUnit, String os) throws Exception {
+
+		syncLogIn(leaderLogin, "toolstester", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+
+		//Check Drawer Items - If leader there should be a Reports item
+		checkDrawerItems(false);
+
+		Thread.sleep(1000);
+
+		//Check various callings - all users should be able to access this information
+		checkCallings();
+
+		Thread.sleep(1000);
+
+		//Check Missionary drawer items - all user access
+		checkMissionary();
+	}
+
+
 
 	/** LeaderBishopricDirectory Check Directory user - should be able to view everything
 	 *
@@ -7586,7 +7667,11 @@ public class LDSTools {
 		
 		screenWidth = screenWidth / 3;
 		screenHeight = screenHeight - 70;
-		//scrollDistance = screenHeight - scrollDistance;
+		scrollDistance = screenHeight - scrollDistance;
+
+		System.out.println("Width: " + screenWidth);
+		System.out.println("Height: " + screenHeight);
+		System.out.println("Distance: " + scrollDistance);
 
 		TouchAction mySwipe = new TouchAction(driver);
 		//mySwipe.tap(screenWidth,screenHeight).moveTo(screenWidth, scrollDistance).waitAction(Duration.ofMillis(2000)).release().perform();
@@ -7889,7 +7974,62 @@ public class LDSTools {
 	//*************** Start of command sequences *****************
 	//************************************************************
 	
-	
+	private void enableDeveloperSettings(String chooseNetwork) throws Exception {
+		if (getRunningOS().equals("mac")) {
+
+			clickButton("TopHelp", "xpath", "pred");
+
+			//New way to enable dev settings
+			if (!checkElementNameReturn("Developer Settings")) {
+				for (int x = 1; x <= 5; x++ ) {
+					//clickButtonByXpath("EnableDevSettings");
+					clickButton("EnableDevSettings", "xpath", "pred");
+					//System.out.println("COUNT: " + x);
+				}
+			} else {
+				clickButton("Developer Settings", "byName", "AccID");
+			}
+
+
+			if (!checkElementNameReturn("Environment: UAT")) {
+				clickButton("Environment: Prod", "byName", "AccID");
+				//clickButtonByXpath("Proxy");
+				clickButton("Proxy", "byName", "AccID");
+				//clickButtonByXpath(chooseNetwork);
+				clickButton(chooseNetwork, "byName", "AccID");
+				pressBackKey();
+			}
+
+			pressBackKey();
+			pressBackKey();
+
+		} else {
+			//Enable developer settings
+			clickButtonByXpath("Menu");
+			clickButtonByXpath("OverflowSettings");
+			newScrollToElement("About");
+			clickButton("About", "textAtt", "textAtt");
+
+
+			//New way to enable dev settings
+			for (int x = 1; x <= 7; x++ ) {
+				clickButton("AboutLogo", "id", "id");
+				//System.out.println("COUNT: " + x);
+			}
+			pressBackKey();
+
+			//Set the Network environment
+			Thread.sleep(2000);
+			newScrollToElement("Network Environment");
+			clickButton("Network Environment", "text", "text");
+			Thread.sleep(1000);
+			clickButton(chooseNetwork, "text", "text");
+			//clickButtonByXpath("Back");
+			clickButton("Back", "xpath", "xpath");
+			Thread.sleep(5000);
+		}
+
+	}
 	
 	/** syncLogIn(String loginName, String loginPassword, String chooseNetwork )
 	 * Log into LDS tools
@@ -7897,10 +8037,9 @@ public class LDSTools {
 	 * @param loginName - login name
 	 * @param loginPassword - login password
 	 * @param chooseNetwork - Network to use "Production", "UAT", "Proxy - UAT", "Proxy"
-	 * @throws Exception
+	 * @throws Exception - so sleeps work
 	 */
 	private void syncLogIn(String loginName, String loginPassword, String chooseNetwork, String os )  throws Exception {
-		int pageSize;
 		
 		myUserName = loginName;
 		myPassword = loginPassword;
@@ -7915,120 +8054,30 @@ public class LDSTools {
 			//	driver.rotate(ScreenOrientation.PORTRAIT);
 			// }
 			
-			
+			// If the network is production skip this part. Should only hit this if network is UAT
 			if (!chooseNetwork.equals("Production")) {
 				//Just for testing
-				Thread.sleep(10000);
-				
-				clickButtonByXpath("Menu");
-				clickButtonByXpath("OverflowSettings");
-				newScrollToElement("About");
-				//scrollToElement("About");
-				clickButton("About", "textAtt", "textAtt");
-				
-				
-				//New way to enable dev settings
-				for (int x = 1; x <= 7; x++ ) {
-					clickButton("AboutLogo", "id", "id");
-					//System.out.println("COUNT: " + x);
-				}
-				pressBackKey();
-				
-				
-				//longPressByID("SignInText");
-				//longPressByTextView("Sign in to your LDS Account");
-				//Thread.sleep(1000);
-				//longPressByTextView("Sign in to your LDS Account");
-				//Thread.sleep(1000);
-				
-				
-				//clickButtonByXpath("Menu");
-				//Thread.sleep(1000);
-				//clickButtonByXpath("OverflowSettings");
-				
 				Thread.sleep(2000);
-				newScrollToElement("Network Environment");
-				//myScroll("Network Environment");
-				//scrollDown("Network Environment", 100);
-				
-				//scrollToElement("Network Environment");
-				clickButton("Network Environment", "text", "text");
-				//driver.scrollToExact("Network Environment").click();
-				//scrollDown("Network Environment", 35 );
-				
-				//clickButtonByXpathTitleName(chooseNetwork);
-				Thread.sleep(1000);
-				clickButton(chooseNetwork, "text", "text");
-				clickButtonByXpath("Back");
-				Thread.sleep(5000);
+				enableDeveloperSettings(chooseNetwork);
 			}
 
-			//driver.resetApp();
-			//Thread.sleep(3000);
-			
-			//driver.closeApp();
-			//driver.launchApp();
-			//Thread.sleep(3000);
-			
-			//sendTextbyXpath("LoginUsername", loginName);
-			//sendTextbyXpath("LoginPassword", loginPassword);
+			//Enter in username and passcode > Hit Sign in > wait for sync to finish
 			sendTextbyID("LoginUsername", loginName);
 			clickButton("LoginPassword", "id", "id");
 			sendTextbyID("LoginPassword", loginPassword);
 			clickButtonByID("SignInButton");
-			//clickButtonByXpath("SignInButton");
+
 			Thread.sleep(4000);
 			waitForTextToDisappearTEXT("Sync", 500 );
-			//waitForTextToDisappearByText("Sync Progress", 500 );
-			//waitForTextToDisappearID("SyncText", 500 );
 			Thread.sleep(2000);
 		}
 		
 		if (os.equals("ios")) {
 			if (!chooseNetwork.equals("Production")) {
 				Thread.sleep(1000);
-				//clickButtonByXpath("TopHelp");
-				clickButton("TopHelp", "xpath", "pred");
-				
-
-				//New way to enable dev settings
-				if (!checkElementNameReturn("Developer Settings")) {
-					for (int x = 1; x <= 5; x++ ) {
-						//clickButtonByXpath("EnableDevSettings");
-						clickButton("EnableDevSettings", "xpath", "pred");
-						//System.out.println("COUNT: " + x);
-					}
-				} else {
-					clickButton("Developer Settings", "byName", "AccID");
-				}
-
-
-				
-				//clickButtonByXpathTitleNameContains("Environment");
-				//System.out.println("***********************************************");
-				//System.out.println(driver.getPageSource());
-				//System.out.println("***********************************************");
-
-				//clickButtonByXpath("DevEnviroment");
-				if (!checkElementNameReturn("Environment: UAT")) {
-					clickButton("Environment: Prod", "byName", "AccID");
-					//clickButtonByXpath("Proxy");
-					clickButton("Proxy", "byName", "AccID");
-					//clickButtonByXpath(chooseNetwork);
-					clickButton(chooseNetwork, "byName", "AccID");
-					pressBackKey();
-				}
-
-				pressBackKey();
-				pressBackKey();
-				
-
+				enableDeveloperSettings(chooseNetwork);
 			}
 
-
-			//sendTextbyXpath("LoginUsername", loginName);
-			//sendTextbyXpath("LoginPassword", loginPassword);
-			//clickButtonByXpath("SignInButton");
 
 			sendTextbyPred("LoginUsernamePred", loginName);
 			sendTextbyPred("LoginPasswordPred", loginPassword);
@@ -8041,8 +8090,6 @@ public class LDSTools {
 			unitsToSync();
 
 			waitForTextToDisappearPopUp( 500);
-			//waitForTextToDisappearTEXT(chooseNetwork, 500 );
-			//waitUntilAlert();
 			Thread.sleep(8000);
 		}
 	}
@@ -8257,11 +8304,11 @@ public class LDSTools {
 	 * Enter a pin 
 	 * 
 	 * @param digit1 - pin 0-9
-	 * @param digit2
-	 * @param digit3
-	 * @param digit4 
+	 * @param digit2 - pin 0-9
+	 * @param digit3 - pin 0-9
+	 * @param digit4 - pin 0-9
 	 * @param nonLeaderPin - false - only for non-leader will skip the pin entry , true - enter pin
-	 * @throws Exception
+	 * @throws Exception - So sleeps work
 	 */
 	private void pinPage(String digit1, String digit2, String digit3, String digit4, Boolean nonLeaderPin ) throws Exception {
 		int touchIDCheck = 0; // 0 = no touch ID
@@ -8445,54 +8492,36 @@ public class LDSTools {
 		
 		if (getRunningOS().equals("mac")) {
 			if (!fullName) {
-				clickButtonByXpathTitleName("Jane Aaron");
+				//clickButtonByXpathTitleName("Jane Aaron");
+				clickButton("Jane Aaron", "AccID", "AccID");
 			} else {
-				clickButtonByXpathTitleName("Jane Aaron (56)");
+				//clickButtonByXpathTitleName("Jane Aaron (56)");
+				clickButton("Jane Aaron (56)", "AccID", "AccID");
 			}
-			
-			//clickButton("Jane Aaron", "text", "text");
+
 			pageSource = iosExpandAllDirectory();
-			//pageSource = getSourceOfPage();
-			//Assert.assertTrue(checkNoCaseList("Aaron, Jane", pageSource, "Contains"));
+
 		} else {
-			//clickButtonByXpathTitleName("Aaron, Jane");
 			pageSource = androidGetMemberInfo();
-			//System.out.println(pageSource);
 			Assert.assertTrue(checkNoCaseList("Aaron, Jane", pageSource, "Contains"));
 		}
 
 		//This is for debug
 		//printPageSource();
-		
 
-		//Assert.assertTrue(checkNoCaseList("Jane Aaron", pageSource, "Equals"));
-		//Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Equals"));		
-		//Assert.assertTrue(checkNoCaseList("CONTACT INFORMATION", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Fagamalo", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("555-555-5555", pageSource, "Contains"));
-		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("555-555-1234", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("no-reply@ldschurch.org", pageSource, "Contains"));
-		//Assert.assertTrue(checkNoCaseList("PERSONAL", pageSource, "Contains"));
-		
-
-
-		
-		
-		
-		
 
 		//Leadership Should be able to see this information
 		//Membership Information
 		if (memberShipInfo) {
 			Assert.assertTrue(checkNoCaseList("MEMBERSHIP INFORMATION", pageSource, "Contains"));
 		} else {
-			if (getRunningOS().equals("mac")) {
-				Assert.assertFalse(checkNoCaseList("MEMBERSHIP INFORMATION", pageSource, "Contains"));
-			}else {
-				Assert.assertFalse(checkNoCaseList("MEMBERSHIP INFORMATION", pageSource, "Contains"));
-			}
-			
+
+			Assert.assertFalse(checkNoCaseList("MEMBERSHIP INFORMATION", pageSource, "Contains"));
 		}
 		
 		//Full Name
@@ -8509,7 +8538,6 @@ public class LDSTools {
 			Assert.assertTrue(checkNoCaseList("Relief Society", pageSource, "Contains"));
 
 			//Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Contains"));
-			//Assert.assertTrue(checkNoCaseList("January 17, 2016", pageSource, "Contains"));
 			Assert.assertTrue(checkNoCaseList("Sustained", pageSource, "Contains"));
 			Assert.assertTrue(checkNoCaseList("Set Apart", pageSource, "Contains"));
 
@@ -8524,17 +8552,12 @@ public class LDSTools {
 			Assert.assertFalse(checkNoCaseList("Class Assignments", pageSource, "Contains"));
 			Assert.assertFalse(checkNoCaseList("Gospel Doctrine", pageSource, "Contains"));
 			//Assert.assertFalse(checkNoCaseList("Relief Society", pageSource, "Contains"));
-			
-			//Assert.assertTrue(checkNoCaseList("Fagamalo 1st Ward", pageSource, "Contains"));
-			//Assert.assertTrue(checkNoCaseList("January 17, 2016", pageSource, "Contains"));
+
 			Assert.assertFalse(checkNoCaseList("Sustained", pageSource, "Contains"));
 			Assert.assertFalse(checkNoCaseList("Set Apart", pageSource, "Contains"));
 			
 		}
-		
-		
 
-		
 		//Birth Date
 		if (birthDate){
 			Assert.assertTrue(checkNoCaseList("November 11, 1960", pageSource, "Contains"));
@@ -8596,12 +8619,10 @@ public class LDSTools {
 			//clickButtonByXpath("SearchCollapse");
 		} else {
 			pressBackToRoot();
-			clickButtonByXpath("SearchCollapse");
+			//clickButtonByXpath("SearchCollapse");
+			clickButton("SearchCollapse", "xpath", "xpath");
 			clickButton("CollapseButton", "xpath", "xpath");
 		}
-
-		
-		
 		
 	}
 	
@@ -12732,7 +12753,8 @@ public class LDSTools {
 	
 	public void scrollDownOnePage() throws Exception {
 		TouchAction mySwipe = new TouchAction(driver);
-		mySwipe.tap(50,getScrollStart()).moveTo(0, getScrollEnd()).waitAction(Duration.ofMillis(2000)).release().perform();
+		//mySwipe.tap(50,getScrollStart()).moveTo(50, getScrollEnd()).waitAction(Duration.ofMillis(2000)).release().perform();
+		mySwipe.press(50,getScrollStart()).moveTo(50, getScrollEnd()).release().perform();
 		//driver.swipe(0, getScrollStart(), 0, getScrollEnd(), 1000);
 	}
 	
@@ -12853,7 +12875,7 @@ public class LDSTools {
         Double screenHeightStart = dimensions.getHeight() * 0.8;
         scrollStart = screenHeightStart.intValue();
 
-		//System.out.println("Scroll Start: " + scrollStart);
+		System.out.println("Scroll Start: " + scrollStart);
 
         return scrollStart;
 
@@ -12868,7 +12890,7 @@ public class LDSTools {
         Double screenHeightEnd = dimensions.getHeight() * 0.2;
         scrollEnd = screenHeightEnd.intValue();
 
-		//System.out.println("Scroll End: " + scrollEnd);
+		System.out.println("Scroll End: " + scrollEnd);
         
         return scrollEnd;
 
@@ -12885,10 +12907,10 @@ public class LDSTools {
                         + "new UiSelector().text(\"" + myElement + "\"));"));
     	    }
     	    
-    	    if (!radioGroup.isDisplayed()) {
-    	    	radioGroup = (MobileElement) list.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
-                        + "new UiSelector().text(\"" + myElement + "\"));"));
-    	    }
+    	    //if (!radioGroup.isDisplayed()) {
+    	    //	radioGroup = (MobileElement) list.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
+            //            + "new UiSelector().text(\"" + myElement + "\"));"));
+    	    //}
 
     	    assertNotNull(radioGroup.getLocation());
     	}
@@ -13584,7 +13606,10 @@ public class LDSTools {
 			STFService mySTFService = new STFService("http://10.109.33.175:7100", "5ac32afb2fa24289945dea68380877d0be396916fbf04a65b30e8b46e6fda014");
 			DeviceApi myDevice = new DeviceApi(mySTFService);
 			System.out.println("SERIAL NUMBER: " + deviceSerial);
-			myDevice.releaseDevice(deviceSerial);
+			if (!deviceSerial.isEmpty()) {
+				myDevice.releaseDevice(deviceSerial);
+			}
+
 			
 		}
 		

@@ -19,7 +19,24 @@ public class AppiumService {
 	public void startAppiumService(String os, int myPort) throws Exception {
 		System.out.println("OS: " + os);
 		System.out.println("PORT: " + myPort);
+
+		System.out.println("Creating Appium Service");
+		File appiumLogFile = new File("screenshot/myAppiumLog.txt");
+		new FileOutputStream(appiumLogFile, false).close();
+		myAppiumService = new AppiumServiceBuilder()
+				.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
+				.usingPort(myPort)
+				.withIPAddress("127.0.0.1")
+				.withLogFile(appiumLogFile)
+				.withArgument(GeneralServerFlag.LOG_LEVEL, "error")
+				.build();
+		System.out.println("Starting Appium");
+		myAppiumService.start();
+
+
+
 		//Android Setup
+		/*
 		if (os.equals("android")) {
 			System.out.println("Creating Android Appium Service");
 			File appiumLogFile = new File("screenshot/myAppiumLog.txt");
@@ -46,7 +63,7 @@ public class AppiumService {
 					.build();
 			
 			myAppiumService.start();
-		}
+		}*/
 	}
 	
 	public boolean appiumServiceRunning() {
