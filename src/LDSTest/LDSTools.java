@@ -5547,7 +5547,7 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("Birthday List", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Home Teaching", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Members Moved In", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Members Moved Out", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("Members Moved Out", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Members with Callings", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("New Members", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Temple Recommend Status", pageSource, "Contains"));
@@ -5559,7 +5559,7 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Members Moved In");
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Alex", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Dobrinz", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Skywalker, Luke", pageSource, "Contains"));
 		
 		pressBackKey();
