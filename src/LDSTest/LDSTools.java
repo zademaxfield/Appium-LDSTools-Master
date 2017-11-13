@@ -532,7 +532,9 @@ public class LDSTools {
 		//AssistantWardClerkMembershipReport(os);
 
 
-		NoCallingMemberDirectory(os);
+		//NoCallingMemberDirectory(os);
+
+		//TODO: Needs work!!
 		//NoCallingMemberMissionary(os);
 		
 		
@@ -589,7 +591,7 @@ public class LDSTools {
 		//JonPug(os);
 		//KevinClawson(os);
 		//KevinGPalmer(os);
-		//LarkinPalmer(os);
+		LarkinPalmer(os);
 		//LarryJensen(os);
 		//RalphHowes(os);
 		//AlbequerqueSync(os);
@@ -8135,7 +8137,8 @@ public class LDSTools {
 
 				Thread.sleep(2000);
 				
-				myScroll("Network Environment");
+				//myScroll("Network Environment");
+				newScrollToElement("Network Environment");
 				//scrollToElement("Network Environment");
 				clickButton("Network Environment", "text", "text");
 				//driver.scrollToExact("Network Environment").click();
@@ -8144,7 +8147,8 @@ public class LDSTools {
 				clickButtonByXpathTitleName(chooseNetwork);
 				Thread.sleep(2000);
 				
-				myScroll("px_i");
+				//myScroll("px_i");
+				newScrollToElement("px_i");
 				//scrollToElement("px_i");
 				clickButton("px_i", "text", "text");
 				//driver.scrollToExact("px_i").click();
@@ -8160,7 +8164,8 @@ public class LDSTools {
 				//scrollDownTEST(300);
 				//driver.scrollToExact("px_u").click();
 				//scrollDown("px_u", 130 );
-				myScroll("px_u");
+				//myScroll("px_u");
+				newScrollToElement("px_u");
 				clickButton("px_u", "textAtt", "xpath");
 				Thread.sleep(2000);
 				sendTextbyXpath("AlertEditText", units);
@@ -8170,7 +8175,8 @@ public class LDSTools {
 				
 				//driver.scrollToExact("px_p").click();
 				//scrollDown("px_p", 130 );
-				myScroll("px_p");
+				//myScroll("px_p");
+				newScrollToElement("px_p");
 				clickButton("px_p", "textAtt", "xpath");
 				Thread.sleep(2000);
 				sendTextbyXpath("AlertEditText", positions);
