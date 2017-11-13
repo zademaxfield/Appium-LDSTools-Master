@@ -91,7 +91,7 @@ public class LDSWeb {
 		myList = getAllMembersOnPageDirectory("Ward Leaders", "High Priests Group", true);
 		
 		for(String oneUser : myList){
-			System.out.println("Found User: " + oneUser);
+			System.out.println("Web Found User: " + oneUser);
 		}
 		*/
 		
@@ -159,7 +159,7 @@ public class LDSWeb {
 		List<String> myList = new ArrayList<String>();
 		myList = getAllMembersOnPage("ReportsMenu", "Member List", myUserName, myPassword);
 		for(String oneUser : myList){
-			System.out.println("Found User: " + oneUser);
+			System.out.println("Web Found User: " + oneUser);
 		}
 		*/
 		
@@ -1094,7 +1094,7 @@ public class LDSWeb {
 		}
 
 		for(String oneUser : foundUsers){
-			System.out.println("Found User: " + oneUser);
+			System.out.println("Web Found User: " + oneUser);
 			
 		}
 
@@ -1128,7 +1128,7 @@ public class LDSWeb {
 		}
 
 		for(String oneUser : foundUsers){
-			System.out.println("Found User: " + oneUser);
+			System.out.println("Web Found User: " + oneUser);
 			
 		}
 
@@ -1151,7 +1151,7 @@ public class LDSWeb {
 		}
 
 		for(String oneUser : foundUsers){
-			System.out.println("Found User: " + oneUser);
+			System.out.println("Web Found User: " + oneUser);
 			
 		}
 
@@ -1201,7 +1201,7 @@ public class LDSWeb {
 
 
 		for(String oneUser : foundUsers){
-			System.out.println("Found User: " + oneUser);
+			System.out.println("Web Found User: " + oneUser);
 			
 		}
 
@@ -1248,7 +1248,7 @@ public class LDSWeb {
 		}
 		
 		for(String oneUser : foundUsers){
-			System.out.println("Found User: " + oneUser);
+			System.out.println("Web Found User: " + oneUser);
 			
 		}
 
@@ -1278,7 +1278,7 @@ public class LDSWeb {
 		
 		
 		for(String oneUser : foundUsers){
-			System.out.println("Found User: " + oneUser);
+			System.out.println("Web Found User: " + oneUser);
 			
 		}
 		
@@ -1365,7 +1365,7 @@ public class LDSWeb {
 		*/
 		
 		for(String oneUser : foundUsers){
-			System.out.println("Found User: " + oneUser);
+			System.out.println("Web Found User: " + oneUser);
 			
 		}
 		
@@ -1419,7 +1419,7 @@ public class LDSWeb {
 		
 		/*
 		for(String oneUser : foundUsers){
-			System.out.println("Found User: " + oneUser);
+			System.out.println("Web Found User: " + oneUser);
 			
 		}
 		*/
@@ -2384,7 +2384,7 @@ public class LDSWeb {
 		try {
 			FileWriter writer = new FileWriter(myFileName, true);
 			for(String oneUser : foundUsers){
-				System.out.println("Found User: " + oneUser);
+				System.out.println("Web Found User: " + oneUser);
 				writer.append(menuItem);
 				writer.append(';');
 				writer.append(myReport);
