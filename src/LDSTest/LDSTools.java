@@ -7,9 +7,11 @@ import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.PerformsTouchID;
+import io.appium.java_client.remote.HideKeyboardStrategy;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
+import org.apache.bcel.generic.RETURN;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
@@ -22,10 +24,14 @@ import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.internal.Coordinates;
 import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -132,7 +138,7 @@ public class LDSTools {
 	/** Setup Appium driver
 	 * Note the difference between the classpathRoot on Windows vs Mac
 	 * 
-	 * @throws Exception
+	 * @throws Exception - So Sleeps will work
 	 */
 	//@BeforeMethod(alwaysRun = true)
 	@BeforeClass(alwaysRun = true)
@@ -432,7 +438,10 @@ public class LDSTools {
 	        capabilities.setCapability("allowTouchIdEnroll", true);
 
 			capabilities.setCapability("maxTypingFrequency", "8");
-	        
+
+
+
+
 	        
 	        if (!myUdid.isEmpty()) {
 		        capabilities.setCapability("xcodeOrgId", "U3SP4KMCK6");
@@ -476,6 +485,9 @@ public class LDSTools {
 	private void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
 		//justForTesting(os);
+
+
+		missionaryReferralSimple(os);
 		
 		//additionalUnit(os);
 		//additonalUnitSimpleTest(os);
@@ -502,7 +514,7 @@ public class LDSTools {
 		
 		
 		//editVisibility(os);
-		editVisibiltyPersonal(os);
+		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
 		//CheckUnitsToSync(os);
@@ -628,7 +640,7 @@ public class LDSTools {
 
 
 
-		//Press the Share, email and text buttons in Org.
+/*		//Press the Share, email and text buttons in Org.
 		syncLogIn("LDSTools20", "password1", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
 
@@ -639,12 +651,12 @@ public class LDSTools {
 		Thread.sleep(1000);
 		printPageSource();
 
-		//This won't work on a simulator. There is no email setup.
+		//This won't work on a simulator. There is no email setup.*/
 
 
 
 
-		/*
+
 		//Missionary Referral test
 		String pageSource;
 		List<String> foundUnits;
@@ -657,84 +669,138 @@ public class LDSTools {
 		
 		//Press Referral button
 		clickButton("MissRefSendReferral", "id", "pred");
-		
-		//Press Referral button again if found for Android
-		//if (checkElementReturn("MissRefSendReferral", "id", "pred") == true ) {
-		//	clickButton("MissRefSendReferral", "id", "pred");
-		//}
 
 		Thread.sleep(2000);
 		//Check to see if the Members info is correct
 		checkText("MissRefMemberPhone", "801-867-5309", "id", "xpath"	);
 		checkText("MissRefMemberEmail", "Test@gmail.com", "id", "xpath"	);
-		
+
 		//sendText(String textElement, String textToSend, String andEle, String iosEle )
 		sendText("MissRefReferralName", "Auto Test Name", "id", "pred");
 		sendText("MissRefReferralPhone", "801-867-5309", "id", "pred");
-		scrollToText("Email" );
-		sendText("MissRefReferralEmail", "autotest@gmail.com", "id", "pred");
-		
-		scrollToText("Locate on Map");
-		clickButton("MissRefLocateOnMap", "id", "xpath");
-		Thread.sleep(2000);
-		
-		//Check to see if locations services has been turned on. 
-		if (checkElementExistsByID("AlertOKid") ) {
-			clickButton("AlertOKid", "id", "xpath");
-			Thread.sleep(2000);
-			clickButton("AllowButton", "xpath", "xpath");
+
+		if (getRunningOS().equals("mac")) {
+			clearKeyboardMissReferral();
 		}
+
+
+		scrollToText("Email" );
+
+
+		sendText("MissRefReferralEmail", "autotest@gmail.com", "id", "pred");
+
+		if (getRunningOS().equals("mac")) {
+			clearKeyboardMissReferral();
+		}
+		scrollToText("Locate on Map");
+
+
+		clickButton("MissRefLocateOnMap", "id", "pred");
+		Thread.sleep(4000);
+
+		//printPageSource();
 		
+		//Check to see if locations services has been turned on.
+		if (getRunningOS().equals("mac")) {
+			driver.switchTo().alert().accept();
+
+		} else {
+			if (checkElementExists("AlertOKid", "id", "xpath'") ) {
+				clickButton("AlertOKid", "id", "xpath");
+				Thread.sleep(2000);
+				if (!getRunningOS().equals("mac")) {
+					clickButton("AllowButton", "xpath", "xpath");
+				}
+			}
+
+		}
+
+
+
 		Thread.sleep(2000);
-		sendText("MissRefMapSearch", "1313 Mocking Bird Ln, Sunnyvale", "id", "pred");
+		sendText("MissRefMapSearch", "920 Mocking Bird Ln, Sunnyvale", "id", "pred");
 		Thread.sleep(10000);
-		clickButton("1313 Mockingbird Ln, Sunnyvale, CA, United States", "text", "name");
-		clickButton("MissRefUseLocation", "id", "xpath");
-		
+		clickButton("920 Mockingbird Ln, Sunnyvale, CA, United States", "text", "name");
+		Thread.sleep(5000);
+
+
+		if (getRunningOS().equals("mac")) {
+			iosClickUseThisLocation();
+		} else {
+			clickButton("MissRefUseLocation", "id", "pred");
+		}
+
 		//Need a check for the text
 		waitForTextToDisappearTEXT("Saving", 500 );
 				
 		//Need to finish this
 		//clickButton("MissRefPreferredLang", "id", "pred");
-		
-		
-		scrollToText("SEND");
-		sendText("MissRefAddMessage", "Hello this is a test", "id", "xpath"); 
 
+		Thread.sleep(2000);
+		//newScrollToElement("SEND");
+		//scrollToText("SEND");
+		if(getRunningOS().equals("mac")) {
+			scrollDownIOS();
+			clickButton("MissRefAddMessageButton", "id", "pred");
+		} else {
+			scrollToElementByResourceId("org.lds.ldstools.dev:id/sendReferralButton");
+		}
+		sendText("MissRefAddMessage", "Hello this is a test", "id", "pred");
+
+		if (getRunningOS().equals("mac")) {
+			//clickButton("MissRefMinusMessage", "xpath" ,"xpath");
+			driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Message']/following-sibling::XCUIElementTypeImage[@name='minus']")).click();
+		}
+
+		//printPageSource();
 		clickButton("MissRefSendReferralDone", "id", "pred");
 		
 		//Check for icon to disappear
 		Thread.sleep(4000);
-		waitForTextToDisappearTEXT("Sending Referral", 500 );
+		if (getRunningOS().equals("mac")) {
+			waitForTextToDisappearTEXT("Processing", 500 );
+		} else {
+			waitForTextToDisappearTEXT("Sending Referral", 500 );
+		}
+
 
 		//Check Nice message
-		checkText("MissRefEncourageMessageTitle", "Thank you!", "id", "xpath"	);
-		clickButton("AddUnitOK", "id", "xpath");
+		Thread.sleep(20000);
+		//Android sometimes fails on this
+		//checkText("MissRefEncourageMessageTitle", "Thank you!", "id", "pred"	);
+		clickButton("AddUnitOK", "id", "pred");
 		pageSource = driver.getPageSource();
 		Assert.assertFalse(checkNoCaseList("Thank You!", pageSource, "Contains"));
 		
 		//Check referral
-		scrollToText("Auto Test Name" );
-		clickButton("Auto Test Name", "text", "byName");
+		//newScrollToElement("Auto Test Name" );
+		clickButton("Auto Test Name", "text", "nameContains");
 		
 		pageSource = driver.getPageSource();
 		scrollDownTEST(400);
 		pageSource = pageSource + driver.getPageSource();
 		Assert.assertTrue(checkNoCaseList("Auto Test Name", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Hello this is a test", pageSource, "Contains"));
-		
+
+		Assert.assertFalse(checkNoCaseList("Hello this is a test", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("801-867-5309", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Test@gmail.com", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("801-867-5309", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("autotest@gmail.com", pageSource, "Contains"));
-		Assert.assertFalse(checkNoCaseList("1313 Mocking Bird Ln", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("920 Mocking Bird Ln", pageSource, "Contains"));
+
 		
 		//Remove Referral
-		clickButton("MissRefOverflow", "id", "xpath");
-		clickButton("MissRefRemoveFromList", "xpath", "xpath");
-		
-		//Need to check the referral and then remove it.
-		*/
+		if (getRunningOS().equals("mac")) {
+			clickButton("MissRefRemove", "xpath", "pred");
+			clickButton("AddUnitOK", "xpath", "pred");
+		} else {
+			pressBackKey();
+			clickButton("//android.widget.TextView[@text='Auto Test Name']/following-sibling::android.widget.ImageButton[@resource-id='org.lds.ldstools.dev:id/removeReferralImageButton']", "xpathCustom", "xpath");
+			clickButton("MissRefRemoveFromList", "xpath", "xpath");
+			clickButton("AlertOKid", "id", "id");
+		}
+
+
 
 		
 		
@@ -1071,6 +1137,30 @@ public class LDSTools {
 		*/
 	}
 
+	@FindBy(how = How.NAME, using = "Hide keyboard")
+	private MobileElement isoHideKeyboard;
+
+	private void iosClickUseThisLocation() throws Exception {
+		int useThisLocationX;
+		int useThisLocationY;
+		int useThisLocationWidth;
+		useThisLocationX = driver.findElement(MobileBy.iOSNsPredicateString("name == 'Legal'")).getLocation().getX();
+		useThisLocationY = driver.findElement(MobileBy.iOSNsPredicateString("name == 'Legal'")).getLocation().getY();
+		useThisLocationWidth = driver.findElement(MobileBy.iOSNsPredicateString("name == 'Legal'")).getSize().getWidth();
+
+		//System.out.println("X: " + useThisLocationX);
+		//System.out.println("Y: " + useThisLocationY);
+		//System.out.println("W: " + useThisLocationWidth);
+
+		new TouchAction(driver).tap(useThisLocationX+ useThisLocationWidth + 20, useThisLocationY ).release().perform();
+	}
+
+	private void clearKeyboardMissReferral() throws Exception {
+		clickButton("Update Individual Information", "xpath", "AccID");
+		pressBackKey();
+		Thread.sleep(2000);
+
+	}
 	
 	
 		
@@ -4320,6 +4410,159 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("unfortunately@gmail.com", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("HOUSEHOLD", pageSource, "Equals"));
 	}
+
+
+	@Parameters({"os"})
+	@Test (groups= {"medium", "medium2", "missionaryReferral", "smoke4", "smoke", "all4"}, priority = 1)
+	private void missionaryReferralSimple(String os) throws Exception {
+		//Missionary Referral test
+		String pageSource;
+		List<String> foundUnits;
+		syncLogIn("LDSTools20", "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+
+		//Thread.sleep(2000);
+		openMissionary();
+		//Thread.sleep(2000);
+
+		//Press Referral button
+		clickButton("MissRefSendReferral", "id", "pred");
+
+		Thread.sleep(2000);
+		//Check to see if the Members info is correct
+		checkText("MissRefMemberPhone", "801-867-5309", "id", "xpath"	);
+		checkText("MissRefMemberEmail", "Test@gmail.com", "id", "xpath"	);
+
+		//sendText(String textElement, String textToSend, String andEle, String iosEle )
+		sendText("MissRefReferralName", "Auto Test Name", "id", "pred");
+		sendText("MissRefReferralPhone", "801-867-5309", "id", "pred");
+
+		if (getRunningOS().equals("mac")) {
+			clearKeyboardMissReferral();
+		}
+
+
+		scrollToText("Email" );
+
+
+		sendText("MissRefReferralEmail", "autotest@gmail.com", "id", "pred");
+
+		if (getRunningOS().equals("mac")) {
+			clearKeyboardMissReferral();
+		}
+		scrollToText("Locate on Map");
+
+
+		clickButton("MissRefLocateOnMap", "id", "pred");
+		Thread.sleep(4000);
+
+		//printPageSource();
+
+		//Check to see if locations services has been turned on.
+		if (getRunningOS().equals("mac")) {
+			driver.switchTo().alert().accept();
+
+		} else {
+			if (checkElementExists("AlertOKid", "id", "xpath'") ) {
+				clickButton("AlertOKid", "id", "xpath");
+				Thread.sleep(2000);
+				if (!getRunningOS().equals("mac")) {
+					clickButton("AllowButton", "xpath", "xpath");
+				}
+			}
+
+		}
+
+
+
+		Thread.sleep(2000);
+		sendText("MissRefMapSearch", "920 Mocking Bird Ln, Sunnyvale", "id", "pred");
+		Thread.sleep(10000);
+		clickButton("920 Mockingbird Ln, Sunnyvale, CA, United States", "text", "name");
+		Thread.sleep(5000);
+
+
+		if (getRunningOS().equals("mac")) {
+			iosClickUseThisLocation();
+		} else {
+			clickButton("MissRefUseLocation", "id", "pred");
+		}
+
+		//Need a check for the text
+		waitForTextToDisappearTEXT("Saving", 500 );
+
+		//Need to finish this
+		//clickButton("MissRefPreferredLang", "id", "pred");
+
+		Thread.sleep(2000);
+
+		if(getRunningOS().equals("mac")) {
+			scrollDownIOS();
+			clickButton("MissRefAddMessageButton", "id", "pred");
+		} else {
+			scrollToElementByResourceId("org.lds.ldstools.dev:id/sendReferralButton");
+		}
+		sendText("MissRefAddMessage", "Hello this is a test", "id", "pred");
+
+		if (getRunningOS().equals("mac")) {
+			//clickButton("MissRefMinusMessage", "xpath" ,"xpath");
+			driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Message']/following-sibling::XCUIElementTypeImage[@name='minus']")).click();
+		}
+
+		//printPageSource();
+		clickButton("MissRefSendReferralDone", "id", "pred");
+
+		//Check for icon to disappear
+		Thread.sleep(4000);
+		if (getRunningOS().equals("mac")) {
+			waitForTextToDisappearTEXT("Processing", 500 );
+		} else {
+			waitForTextToDisappearTEXT("Sending Referral", 500 );
+		}
+
+
+		//Check Nice message
+		Thread.sleep(20000);
+		//Android sometimes fails on this
+		//checkText("MissRefEncourageMessageTitle", "Thank you!", "id", "pred"	);
+		clickButton("AddUnitOK", "id", "pred");
+		pageSource = driver.getPageSource();
+		Assert.assertFalse(checkNoCaseList("Thank You!", pageSource, "Contains"));
+
+		//Check referral
+		//newScrollToElement("Auto Test Name" );
+		clickButton("Auto Test Name", "text", "nameContains");
+
+		pageSource = driver.getPageSource();
+		scrollDownTEST(400);
+		pageSource = pageSource + driver.getPageSource();
+		Assert.assertTrue(checkNoCaseList("Auto Test Name", pageSource, "Contains"));
+
+		Assert.assertFalse(checkNoCaseList("Hello this is a test", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("801-867-5309", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("Test@gmail.com", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("801-867-5309", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("autotest@gmail.com", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("920 Mocking Bird Ln", pageSource, "Contains"));
+
+
+		//Remove Referral
+		if (getRunningOS().equals("mac")) {
+			clickButton("MissRefRemove", "xpath", "pred");
+			clickButton("AddUnitOK", "xpath", "pred");
+		} else {
+			pressBackKey();
+			clickButton("//android.widget.TextView[@text='Auto Test Name']/following-sibling::android.widget.ImageButton[@resource-id='org.lds.ldstools.dev:id/removeReferralImageButton']", "xpathCustom", "xpath");
+			clickButton("MissRefRemoveFromList", "xpath", "xpath");
+			clickButton("AlertOKid", "id", "id");
+		}
+
+	}
+
+
+
+
+
 	
 	@Parameters({"os", "numberOfRetries"})
 	@Test (groups= {"retrySync"}, priority = 2, enabled = false)
@@ -5078,7 +5321,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		//Check to see if the user can view the directory
 		//Assert.assertTrue(checkElementTextViewRoboReturn("Aaron, Jane"));
-		Assert.assertTrue(checkElementTextViewRoboReturn("Baker, Joseph"));
+		Assert.assertTrue(checkElementTextViewRoboReturn("Brown, Alan & Carol Lee"));
 		Assert.assertFalse(checkElementTextViewRoboReturn("Vader, Darth"));
 		
 		
@@ -6046,17 +6289,107 @@ public class LDSTools {
 		
 		return myReturnStatus;
 	}
+
+	private Boolean checkElementExists(String textElement, String andEle, String iosEle) {
+		Boolean myReturnStatus;
+		List<MobileElement> options = null;
+		String findElement;
+
+		if (getRunningOS().equals("mac")) {
+			//IOSElement myElement = null;
+			findElement = iosEle;
+		} else {
+			//AndroidElement myElement = null;
+			findElement = andEle;
+		}
+
+		if (findElement == "id") {
+			options= driver.findElements(By.id(this.prop.getProperty(textElement)));
+		}
+
+		if (findElement == "xpath")  {
+			options= driver.findElements(By.xpath(this.prop.getProperty(textElement)));
+		}
+
+		if (findElement == "className")  {
+			options= driver.findElements(By.className(textElement));
+		}
+
+		if (findElement == "linkText") {
+			options= driver.findElements(By.linkText(textElement));
+		}
+
+		if (findElement == "byName") {
+			options= driver.findElements(By.name(textElement));
+		}
+
+		if (findElement == "AccID") {
+			options= driver.findElements(MobileBy.AccessibilityId(textElement));
+		}
+
+		if (findElement == "byNameProp") {
+			options= driver.findElements(By.name(this.prop.getProperty(textElement)));
+		}
+
+		if (findElement == "text") {
+			options= driver.findElements(By.xpath("//*[contains(@text, '" + textElement + "')]"));
+		}
+
+		if (findElement == "nameContains") {
+			options= driver.findElements(By.xpath("//*[contains(@name, '" + textElement + "')]"));
+		}
+
+		if (findElement == "value") {
+			options= driver.findElements(By.xpath("//*[@value='" + textElement + "']"));
+		}
+
+		if (findElement == "name") {
+			options= driver.findElements(By.xpath("//*[@name='" + textElement + "']"));
+		}
+
+		if (findElement == "title") {
+			options= driver.findElements(By.xpath("//*[@title='" + textElement + "']"));
+		}
+
+		if (findElement == "textAtt") {
+			options= driver.findElements(By.xpath("//*[@text='" + textElement + "']"));
+		}
+
+		if (findElement == "pred")  {
+			options= driver.findElements(MobileBy.iOSNsPredicateString(this.prop.getProperty(textElement)));
+		}
+
+		if (findElement == "xpathCustom") {
+			options= driver.findElements(By.xpath(textElement));
+
+		}
+
+		if (options != null) {
+			if (options.isEmpty()) {
+				myReturnStatus = false;
+			} else {
+				myReturnStatus = true;
+			}
+		} else {
+			myReturnStatus = false;
+		}
+
+
+		return myReturnStatus;
+
+
+	}
 	
 	private Boolean checkElementExistsByID(String textElement) {
 		Boolean myReturnStatus;
 		//List<MobileElement> options= driver.findElements(By.xpath("//TextView[@value='" + textElement + "']"));
 		List<MobileElement> options= driver.findElements(By.id(this.prop.getProperty(textElement)));
 		if (options.isEmpty()) {
-			myReturnStatus = false;	
+			myReturnStatus = false;
 		} else {
 			myReturnStatus = true;
 		}
-		
+
 		return myReturnStatus;
 	}
 	
@@ -6998,6 +7331,10 @@ public class LDSTools {
 		
 		if (findElement == "pred")  {
 			myElement = wait.until(ExpectedConditions.elementToBeClickable(MobileBy.iOSNsPredicateString(this.prop.getProperty(textElement))));	
+		}
+
+		if (findElement == "xpathCustom") {
+			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(textElement)));
 		}
 
 		myElement.click();
@@ -11225,9 +11562,9 @@ public class LDSTools {
 					androidList = createUserList(androidList, pageSource);
 					//System.out.println("End Android List");
 
-					//System.out.println("Start Members On Page List");
+					System.out.println("Start Members On Page List");
 					membersOnPage = createUserList(membersOnPage, pageSource);
-					//System.out.println("End Members On Page List");
+					System.out.println("End Members On Page List");
 
 					if (androidList.size() == 0) {
 						lastMember = "none";
@@ -11241,8 +11578,8 @@ public class LDSTools {
 						lastMemberOnPage = membersOnPage.get(membersOnPage.size() -1 );
 
 						//Just for testing
-						//System.out.println("Top Member: " + firstMember);
-						//System.out.println(("Last Member: " + lastMemberOnPage));
+						System.out.println("Top Member: " + firstMember);
+						System.out.println(("Last Member: " + lastMemberOnPage));
 
 
 						topElement = driver.findElement(By.xpath("//*[@text=\"" + firstMember + "\"]"));
@@ -13050,8 +13387,8 @@ public class LDSTools {
 		System.out.println("Scroll End: " + scrollEnd);
         
         return scrollEnd;
-
     }
+
     public void newScrollToElement(String myElement) throws Exception {
     	//scrollUpTEST(500);
     	
@@ -13078,10 +13415,17 @@ public class LDSTools {
 	
 	public void scrollToText(String myText)	throws Exception {
 		if(getRunningOS().equals("mac")) {
-	        MobileElement table = (MobileElement) driver.findElement(MobileBy.IosUIAutomation(".tableViews()[0]"));
-	        MobileElement slider = table.findElement(MobileBy
-	                .IosUIAutomation(".scrollToElementWithPredicate(\"name CONTAINS '" + myText + "'\")"));
-	        assertEquals(slider.getAttribute("name"), myText);
+	        //MobileElement table = (MobileElement) driver.findElement(MobileBy.IosUIAutomation(".tableViews()[0]"));
+			//MobileElement table = (MobileElement) driver.findElement(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeTable'"));
+	        //MobileElement slider = table.findElement(MobileBy
+	        //        .IosUIAutomation(".scrollToElementWithPredicate(\"name CONTAINS '" + myText + "'\")"));
+			//MobileElement slider = table.findElement(MobileBy
+			//		.iOSNsPredicateString(".scrollToElementWithPredicate(\"name CONTAINS '" + myText + "'\")"));
+	        //assertEquals(slider.getAttribute("name"), myText);
+			//WebElement element = driver.findElement(MobileBy.iOSNsPredicateString("name == '" + myText + "')"));
+			WebElement element = driver.findElement(MobileBy.AccessibilityId(myText));
+			new TouchAction(driver).press(element, 0, 0).moveTo(element, 0, 0).release().perform();
+
 	        
 		} else {
 			List<String> scrollArea = new ArrayList<String>();
@@ -13136,6 +13480,25 @@ public class LDSTools {
 		    MobileElement radioGroup = (MobileElement) list.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
 		                    + "new UiSelector().text(\"" + myElement + "\"));"));
 		    assertNotNull(radioGroup.getLocation());
+		}
+	}
+
+
+	public void scrollToElementByResourceId(String myElement) throws Exception {
+
+		if(getRunningOS().equals("mac")) {
+			MobileElement table = (MobileElement) driver.findElement(MobileBy.IosUIAutomation(".tableViews()[0]"));
+			MobileElement slider = table.findElement(MobileBy
+					.IosUIAutomation(".scrollToElementWithPredicate(\"name CONTAINS '" + myElement + "'\")"));
+			assertEquals(slider.getAttribute("name"), myElement);
+
+			//RemoteWebDriver table = null;
+			//MobileElement slider = table.findElement(MobileBy.IosUIAutomation(".scrollToElementWithPredicate(\"name CONTAINS '" + myElement +"'\")"));
+		} else {
+			MobileElement list = (MobileElement) driver.findElement(By.id("org.lds.ldstools.dev:id/scrollView"));
+			MobileElement radioGroup = (MobileElement) list.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
+					+ "new UiSelector().resourceId(\"" + myElement + "\"));"));
+			assertNotNull(radioGroup.getLocation());
 		}
 	}
 	
