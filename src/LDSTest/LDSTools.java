@@ -487,7 +487,7 @@ public class LDSTools {
 		//justForTesting(os);
 
 
-		missionaryReferralSimple(os);
+		//missionaryReferralSimple(os);
 		
 		//additionalUnit(os);
 		//additonalUnitSimpleTest(os);
@@ -534,7 +534,7 @@ public class LDSTools {
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
-		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
+		LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os);
 
@@ -9275,8 +9275,8 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Members with Callings");
 		Thread.sleep(2000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Aaron, Jane", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Relief Society", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("AFPEighteen, Member", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Sunday School", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("11 months", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Skywalker, Anakin", pageSource, "Equals"));
 	
@@ -9335,7 +9335,7 @@ public class LDSTools {
 		//System.out.println("Getting Page Source");
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("AFPFive, Wife", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("AFPFive, Wife", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("AFPEleven, Member", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("D2, R2", pageSource, "Contains"));
 		
@@ -9366,7 +9366,7 @@ public class LDSTools {
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
 		//Assert.assertTrue(checkNoCaseList("AFPEighteen, Member", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("AFPFive, Wife", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("AFPMisc, Frank", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Organa, Leia", pageSource, "Contains"));
 
 		Thread.sleep(1000);
