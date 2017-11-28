@@ -533,8 +533,8 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		//LeaderBishopricDirectory("ngiBPC1", false, os);
-		LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
+		LeaderBishopricDirectory("ngiBPC1", false, os);
+		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os);
 
@@ -3318,7 +3318,7 @@ public class LDSTools {
 		
 		searchForUser("Aaron, Jane");
 		if (getRunningOS().equals("mac")) {
-			clickButton("Jane Aaron (56)", "textAtt", "AccID");
+			clickButton("Jane Aaron (57)", "textAtt", "AccID");
 			clickButton("Add to Contacts", "textAtt", "AccID");
 		} else {
 			clickButton("Menu", "xpath", "xpath");
@@ -8839,8 +8839,8 @@ public class LDSTools {
 				//clickButtonByXpathTitleName("Jane Aaron");
 				clickButton("Jane Aaron", "AccID", "AccID");
 			} else {
-				//clickButtonByXpathTitleName("Jane Aaron (56)");
-				clickButton("Jane Aaron (56)", "AccID", "AccID");
+				//clickButtonByXpathTitleName("Jane Aaron (57)");
+				clickButton("Jane Aaron (57)", "AccID", "AccID");
 			}
 
 			pageSource = iosExpandAllDirectory();
@@ -9275,7 +9275,7 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Members with Callings");
 		Thread.sleep(2000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("AFPEighteen, Member", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Aaron, Jane", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Sunday School", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("11 months", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Skywalker, Anakin", pageSource, "Equals"));
