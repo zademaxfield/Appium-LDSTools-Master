@@ -487,7 +487,7 @@ public class LDSTools {
 		//justForTesting(os);
 
 
-		//missionaryReferralSimple(os);
+		missionaryReferralSimple(os);
 		
 		//additionalUnit(os);
 		//additonalUnitSimpleTest(os);
@@ -533,7 +533,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		LeaderBishopricDirectory("ngiBPC1", false, os);
+		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os);
@@ -4430,7 +4430,7 @@ public class LDSTools {
 
 		Thread.sleep(2000);
 		//Check to see if the Members info is correct
-		checkText("MissRefMemberPhone", "801-867-5309", "id", "xpath"	);
+		checkText("MissRefMemberPhone", "1 (385) 800-1324", "id", "xpath"	);
 		checkText("MissRefMemberEmail", "Test@gmail.com", "id", "xpath"	);
 
 		//sendText(String textElement, String textToSend, String andEle, String iosEle )
@@ -4527,7 +4527,7 @@ public class LDSTools {
 		//checkText("MissRefEncourageMessageTitle", "Thank you!", "id", "pred"	);
 		clickButton("AddUnitOK", "id", "pred");
 		pageSource = driver.getPageSource();
-		Assert.assertFalse(checkNoCaseList("Thank You!", pageSource, "Contains"));
+		//Assert.assertFalse(checkNoCaseList("Thank You!", pageSource, "Contains"));
 
 		//Check referral
 		//newScrollToElement("Auto Test Name" );
