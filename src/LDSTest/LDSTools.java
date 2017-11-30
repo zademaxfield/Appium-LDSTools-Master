@@ -9099,7 +9099,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Ward Mission Leader", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Kitara, Lafaele", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("Kitara, Lafaele", pageSource, "Contains"));
 		pressBackKey();
 		
 		
