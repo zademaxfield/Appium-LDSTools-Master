@@ -484,10 +484,10 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	private void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		//justForTesting(os);
+		justForTesting(os);
 
 
-		missionaryReferralSimple(os);
+		//missionaryReferralSimple(os);
 		
 		//additionalUnit(os);
 		//additonalUnitSimpleTest(os);
@@ -658,6 +658,7 @@ public class LDSTools {
 
 
 		//Missionary Referral test
+		// No name or location
 		String pageSource;
 		List<String> foundUnits;
 		syncLogIn("LDSTools20", "password1", "UAT", os );
@@ -672,133 +673,50 @@ public class LDSTools {
 
 		Thread.sleep(2000);
 		//Check to see if the Members info is correct
-		checkText("MissRefMemberPhone", "801-867-5309", "id", "xpath"	);
+		checkText("MissRefMemberPhone", "1 (385) 800-1324", "id", "xpath"	);
 		checkText("MissRefMemberEmail", "Test@gmail.com", "id", "xpath"	);
 
 		//sendText(String textElement, String textToSend, String andEle, String iosEle )
-		sendText("MissRefReferralName", "Auto Test Name", "id", "pred");
-		sendText("MissRefReferralPhone", "801-867-5309", "id", "pred");
+		//sendText("MissRefReferralName", "Auto Test Name", "id", "pred");
+		sendText("MissRefReferralPhone", "Goat Goat", "id", "pred");
 
 		if (getRunningOS().equals("mac")) {
 			clearKeyboardMissReferral();
 		}
 
+		missionaryReferralSendButton();
 
-		scrollToText("Email" );
-
-
-		sendText("MissRefReferralEmail", "autotest@gmail.com", "id", "pred");
-
+		//Check Error
 		if (getRunningOS().equals("mac")) {
-			clearKeyboardMissReferral();
-		}
-		scrollToText("Locate on Map");
-
-
-		clickButton("MissRefLocateOnMap", "id", "pred");
-		Thread.sleep(4000);
-
-		//printPageSource();
-		
-		//Check to see if locations services has been turned on.
-		if (getRunningOS().equals("mac")) {
-			driver.switchTo().alert().accept();
-
-		} else {
-			if (checkElementExists("AlertOKid", "id", "xpath'") ) {
-				clickButton("AlertOKid", "id", "xpath");
-				Thread.sleep(2000);
-				if (!getRunningOS().equals("mac")) {
-					clickButton("AllowButton", "xpath", "xpath");
-				}
+			if (checkElementExists("MissRefErrorAlert", "xpath", "pred")) {
+				clickButton("AddUnitOK", "xpath", "pred");
 			}
-
-		}
-
-
-
-		Thread.sleep(2000);
-		sendText("MissRefMapSearch", "920 Mocking Bird Ln, Sunnyvale", "id", "pred");
-		Thread.sleep(10000);
-		clickButton("920 Mockingbird Ln, Sunnyvale, CA, United States", "text", "name");
-		Thread.sleep(5000);
-
-
-		if (getRunningOS().equals("mac")) {
-			iosClickUseThisLocation();
 		} else {
-			clickButton("MissRefUseLocation", "id", "pred");
-		}
+			if (checkElementExists("MissRefIncludeMessage", "id", "pred")) {
+				checkText("MissRefIncludeMessage",
+						"Please include as much information as possible. A name and location description are required.",
+						"id",
+						"pred");
+				scrollToTop();
+				scrollToText("Phone");
+				printPageSource();
 
-		//Need a check for the text
-		waitForTextToDisappearTEXT("Saving", 500 );
-				
-		//Need to finish this
-		//clickButton("MissRefPreferredLang", "id", "pred");
-
-		Thread.sleep(2000);
-		//newScrollToElement("SEND");
-		//scrollToText("SEND");
-		if(getRunningOS().equals("mac")) {
-			scrollDownIOS();
-			clickButton("MissRefAddMessageButton", "id", "pred");
-		} else {
-			scrollToElementByResourceId("org.lds.ldstools.dev:id/sendReferralButton");
-		}
-		sendText("MissRefAddMessage", "Hello this is a test", "id", "pred");
-
-		if (getRunningOS().equals("mac")) {
-			//clickButton("MissRefMinusMessage", "xpath" ,"xpath");
-			driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Message']/following-sibling::XCUIElementTypeImage[@name='minus']")).click();
-		}
-
-		//printPageSource();
-		clickButton("MissRefSendReferralDone", "id", "pred");
-		
-		//Check for icon to disappear
-		Thread.sleep(4000);
-		if (getRunningOS().equals("mac")) {
-			waitForTextToDisappearTEXT("Processing", 500 );
-		} else {
-			waitForTextToDisappearTEXT("Sending Referral", 500 );
+			}
 		}
 
 
-		//Check Nice message
-		Thread.sleep(20000);
-		//Android sometimes fails on this
-		//checkText("MissRefEncourageMessageTitle", "Thank you!", "id", "pred"	);
-		clickButton("AddUnitOK", "id", "pred");
-		pageSource = driver.getPageSource();
-		Assert.assertFalse(checkNoCaseList("Thank You!", pageSource, "Contains"));
-		
-		//Check referral
-		//newScrollToElement("Auto Test Name" );
-		clickButton("Auto Test Name", "text", "nameContains");
-		
-		pageSource = driver.getPageSource();
-		scrollDownTEST(400);
-		pageSource = pageSource + driver.getPageSource();
-		Assert.assertTrue(checkNoCaseList("Auto Test Name", pageSource, "Contains"));
 
-		Assert.assertFalse(checkNoCaseList("Hello this is a test", pageSource, "Contains"));
-		Assert.assertFalse(checkNoCaseList("801-867-5309", pageSource, "Contains"));
-		Assert.assertFalse(checkNoCaseList("Test@gmail.com", pageSource, "Contains"));
-		Assert.assertFalse(checkNoCaseList("801-867-5309", pageSource, "Contains"));
-		Assert.assertFalse(checkNoCaseList("autotest@gmail.com", pageSource, "Contains"));
-		Assert.assertFalse(checkNoCaseList("920 Mocking Bird Ln", pageSource, "Contains"));
 
-		
-		//Remove Referral
-		if (getRunningOS().equals("mac")) {
-			clickButton("MissRefRemove", "xpath", "pred");
-			clickButton("AddUnitOK", "xpath", "pred");
-		} else {
-			pressBackKey();
-			clickButton("//android.widget.TextView[@text='Auto Test Name']/following-sibling::android.widget.ImageButton[@resource-id='org.lds.ldstools.dev:id/removeReferralImageButton']", "xpathCustom", "xpath");
-			clickButton("MissRefRemoveFromList", "xpath", "xpath");
-			clickButton("AlertOKid", "id", "id");
-		}
+
+		pressBackKey();
+
+
+
+
+
+
+
+
 
 
 
@@ -1135,6 +1053,17 @@ public class LDSTools {
 		myList = myWeb.getMembersAndAge("ReportsMenu", "Birthday List");
 		compareWebData(myList, androidList, false);
 		*/
+	}
+
+	private void missionaryReferralSendButton() throws Exception {
+		if(getRunningOS().equals("mac")) {
+			scrollDownIOS();
+		} else {
+			scrollToElementByResourceId("org.lds.ldstools.dev:id/sendReferralButton");
+		}
+
+		//printPageSource();
+		clickButton("MissRefSendReferralDone", "id", "pred");
 	}
 
 	@FindBy(how = How.NAME, using = "Hide keyboard")
@@ -13462,9 +13391,15 @@ public class LDSTools {
 				}
 			}
 		}
+	}
 
+	private void scrollToTop() throws Exception {
+		TouchAction mySwipe = new TouchAction(driver);
+		mySwipe.press(100,getScrollEnd()).moveTo(100, getScrollStart()).release().perform();
 
 	}
+
+
 	
 	public void scrollToElement(String myElement) throws Exception {
 		if(getRunningOS().equals("mac")) {
