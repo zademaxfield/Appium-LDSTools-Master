@@ -484,7 +484,7 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	private void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		justForTesting(os);
+		//justForTesting(os);
 
 
 		//missionaryReferralSimple(os);
@@ -535,7 +535,7 @@ public class LDSTools {
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
-		//LeaderBishopricReport("ngiBPC1", false, os);
+		LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os);
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
@@ -9205,7 +9205,7 @@ public class LDSTools {
 		Thread.sleep(2000);
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Aaron, Jane", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Sunday School", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Relief Society", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("11 months", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Skywalker, Anakin", pageSource, "Equals"));
 	
@@ -9385,7 +9385,7 @@ public class LDSTools {
 			}
 			Thread.sleep(2000);
 			pageSource = getSourceOfPage();
-			Assert.assertTrue(checkNoCaseList("Lavea, Meise", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("Kitara, Seigafo", pageSource, "Contains"));
 			Assert.assertFalse(checkNoCaseList("Jinn, Qui-Gon", pageSource, "Contains"));
 			//Assert.assertTrue(checkElementTextViewReturn("Tutunoa, Lusi"));
 			//Assert.assertFalse(checkElementTextViewReturn("Jinn, Qui-Gon"));
