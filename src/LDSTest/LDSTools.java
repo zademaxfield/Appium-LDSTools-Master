@@ -487,7 +487,7 @@ public class LDSTools {
 		//justForTesting(os);
 
 
-		//missionaryReferralSimple(os);
+		missionaryReferralSimple(os);
 		
 		//additionalUnit(os);
 		//additonalUnitSimpleTest(os);
@@ -507,7 +507,7 @@ public class LDSTools {
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
 		//editCurrentUser(os);
-		editCurrentUserCancel(os);
+		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
 		//editOtherUserInvalidEmail(os);
@@ -1069,19 +1069,26 @@ public class LDSTools {
 	@FindBy(how = How.NAME, using = "Hide keyboard")
 	private MobileElement isoHideKeyboard;
 
-	private void iosClickUseThisLocation() throws Exception {
+	private void  iosClickUseThisLocation() throws Exception {
 		int useThisLocationX;
 		int useThisLocationY;
 		int useThisLocationWidth;
-		useThisLocationX = driver.findElement(MobileBy.iOSNsPredicateString("name == 'Legal'")).getLocation().getX();
-		useThisLocationY = driver.findElement(MobileBy.iOSNsPredicateString("name == 'Legal'")).getLocation().getY();
-		useThisLocationWidth = driver.findElement(MobileBy.iOSNsPredicateString("name == 'Legal'")).getSize().getWidth();
+		int useThisLocationHeight;
+		//useThisLocationX = driver.findElement(MobileBy.iOSNsPredicateString("name == 'Legal'")).getLocation().getX();
+		//useThisLocationY = driver.findElement(MobileBy.iOSNsPredicateString("name == 'Legal'")).getLocation().getY();
+		//useThisLocationWidth = driver.findElement(MobileBy.iOSNsPredicateString("name == 'Legal'")).getSize().getWidth();
+
+		useThisLocationX = driver.findElement(MobileBy.iOSNsPredicateString("name == 'Search results'")).getLocation().getX();
+		useThisLocationY = driver.findElement(MobileBy.iOSNsPredicateString("name == 'Search results'")).getLocation().getY();
+		useThisLocationWidth = driver.findElement(MobileBy.iOSNsPredicateString("name == 'Search results'")).getSize().getWidth();
+		useThisLocationHeight = driver.findElement(MobileBy.iOSNsPredicateString("name == 'Search results'")).getSize().getHeight();
 
 		//System.out.println("X: " + useThisLocationX);
 		//System.out.println("Y: " + useThisLocationY);
 		//System.out.println("W: " + useThisLocationWidth);
 
-		new TouchAction(driver).tap(useThisLocationX+ useThisLocationWidth + 20, useThisLocationY ).release().perform();
+		//new TouchAction(driver).tap(useThisLocationX+ useThisLocationWidth + 20, useThisLocationY ).release().perform();
+		new TouchAction(driver).tap(useThisLocationX, useThisLocationY - 50 ).release().perform();
 	}
 
 	private void clearKeyboardMissReferral() throws Exception {
@@ -4436,6 +4443,7 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			//clickButton("MissRefMinusMessage", "xpath" ,"xpath");
 			driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Message']/following-sibling::XCUIElementTypeImage[@name='minus']")).click();
+			scrollDownIOS();
 		}
 
 		//printPageSource();
