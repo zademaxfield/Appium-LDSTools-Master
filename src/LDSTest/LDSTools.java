@@ -429,7 +429,7 @@ public class LDSTools {
 	        
 	        
 	        //capabilities.setCapability("platformVersion", "10.3");
-	        capabilities.setCapability("platformVersion", "11.1");
+	        capabilities.setCapability("platformVersion", "11.2");
 	        capabilities.setCapability("nativeInstrumentsLib", false);
 	        
 	        //capabilities.setCapability("autoAcceptAlerts", true);
@@ -507,7 +507,7 @@ public class LDSTools {
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
 		//editCurrentUser(os);
-		//editCurrentUserCancel(os);
+		editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
 		//editOtherUserInvalidEmail(os);
@@ -535,7 +535,7 @@ public class LDSTools {
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
-		LeaderBishopricReport("ngiBPC1", false, os);
+		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os);
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
@@ -3427,9 +3427,9 @@ public class LDSTools {
 		Assert.assertFalse(checkNoCaseList("home@gmail.com", pageSource, "Contains"));
 	}
 
-	//TODO: This test is failing on the cancel button it isn't really canceling the edit. Works on a manual test.
+
 	@Parameters({"os"})
-	@Test (groups= {"editSettings", "all1"}, priority = 2, enabled = false)
+	@Test (groups= {"editSettings", "all1"}, priority = 2)
 	public void editCurrentUserCancel(String os) throws Exception {
 		String pageSource;
 		//Edit own information
