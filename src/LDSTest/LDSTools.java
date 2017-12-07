@@ -48,6 +48,7 @@ import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 //import static org.testng.Assert.assertEquals;
 //import static org.testng.AssertJUnit.assertNotNull;
 
@@ -484,10 +485,10 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	private void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		//justForTesting(os);
+		justForTesting(os);
 
 
-		missionaryReferralSimple(os);
+		//missionaryReferralSimple(os);
 		
 		//additionalUnit(os);
 		//additonalUnitSimpleTest(os);
@@ -619,6 +620,75 @@ public class LDSTools {
 	 */
 	private void justForTesting(String os) throws Exception {
 
+		//TODO: Need to figure out when the remind me later isn't working on Android
+		//Simple temple reminder test
+		String pageSource;
+		//Temple Recommend Reminder
+		syncLogIn("ngiBPC1", "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+
+
+
+		if (getRunningOS().equals("mac")) {
+			openHelp();
+			clickButton("DeveloperSettings", "xpath", "pred");
+
+			clickButton("SetTempleRecommendStatus", "xpath", "pred");
+			clickButton("TempleActiveExpired", "xpath", "pred");
+			clickButton("SetTempleRecommendExpiration", "xpath", "pred");
+			sendText("TempleDaysUntilExpiration", "15", "xpath", "pred");
+			clickButton("AddUnitOK", "xpath", "pred");
+
+			pressBackKey();
+			pressBackKey();
+
+			openSettings();
+			clickButton("SettingsTempleRecommendReminder", "xpath", "xpath");
+			clickButton("6weeks", "xpath", "pred");
+
+			openTemples();
+			assertTrue(checkElementReturn("Set a Temple Recommend Expiration Reminder", "contName", "contName"));
+			assertTrue(checkElementReturn("Would you like to be reminded before your temple recommend expires?", "contName", "contName"));
+
+			clickButton("TempleExpirationReminderYes", "xpath", "pred");
+
+		} else {
+			openSettings();
+			newScrollToElement("Temple Recommend Status");
+			clickButton("Reset All Temple Preferences", "textAtt", "textAtt");
+			Thread.sleep(4000);
+			clickButton("Override temple recommend expiration", "textAtt", "textAtt");
+			sendText("TempleDaysTilExpiration", "15", "xpath", "pred");
+			//sendText("Days til expiration", "10", "text", "text");
+			clickButton("AlertOKid", "id", "pred");
+			clickButton("Temple Recommend Status", "textAtt", "pred");
+			clickButton("TempleActive", "xpath", "pred");
+			pressBackKey();
+			openSettings();
+			clickButton("TempleShowTempleRecommendExpiration", "xpath", "pred");
+			pressBackKey();
+			openTemples();
+
+		}
+
+
+
+		//assertTrue(checkElementReturn("TempleReminderMeLater", "id", "pred"));
+		assertTrue(checkElementReturn("TempleContactBishopric", "id", "pred"));
+		assertTrue(checkElementReturn("TempleGotItThanks", "id", "pred"));
+
+
+		clickButton("TempleContactBishopric", "id", "pred");
+
+		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("Ami, Samu", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("Skywalker, Luke", pageSource, "Contains"));
+
+
+		Thread.sleep(5000);
+
+
+
 		/*
 		//Page Down Test
 		int pageSize;
@@ -657,7 +727,7 @@ public class LDSTools {
 
 
 
-		//Missionary Referral test
+		/*//Missionary Referral test
 		// No name or location
 		String pageSource;
 		List<String> foundUnits;
@@ -710,7 +780,7 @@ public class LDSTools {
 
 		pressBackKey();
 
-
+*/
 
 
 
@@ -5995,6 +6065,9 @@ public class LDSTools {
 			myText = driver.findElement(By.xpath(this.prop.getProperty(textElement))).getAttribute("value");
 			//System.out.println("VALUE: " + myText);
 		}
+		if (findElement == "name") {
+			myText = driver.findElement(By.xpath("//*[contains(name(), '" + textElement + "')]")).getText();
+		}
 		
 		System.out.println("TEXT FOUND: " + myText);
 		
@@ -7146,7 +7219,7 @@ public class LDSTools {
 
 	/** clickLastTextViewRoboReturn(String textElement)
 	 * This will match the last element found 
-	 * 
+	 * TempleContactBishopric
 	 * @param textElement - text of an element
 	 */
 	private void clickLastTextViewRoboReturn(String textElement) {
@@ -11938,6 +12011,19 @@ public class LDSTools {
 			Thread.sleep(1000);
 			myScroll("Settings");
 			clickButtonByXpath("DrawerSettings");
+		}
+	}
+
+	private void openHelp() throws Exception {
+		if (getRunningOS().equals("mac")) {
+			clickButton("More", "byName", "byName");
+			clickButton("Help", "byName", "byName");
+		} else {
+			clickButtonByXpath("Drawer");
+			checkForLater();
+			Thread.sleep(1000);
+			myScroll("Help");
+			clickButtonByXpath("DrawerHELP");
 		}
 	}
 	

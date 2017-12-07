@@ -121,8 +121,29 @@ public class LDSWeb {
 		} catch(IOException e) {
 			 e.printStackTrace();
 		}
-		
 		*/
+
+
+/*		List<String> myTempleList = new ArrayList<String>();
+		String mySource;
+		openGuiMap();
+		setUp();
+
+		Thread.sleep(4000);
+		//openWebPage("https://uat.lds.org");
+		openWebPage("https://www.lds.org");
+		//Thread.sleep(4000);
+		clickElement("MyAccountAndWard", "id");
+		clickElement("My Temple", "linkText");
+		clickElement("Find a Temple", "linkText");
+		clickElement("Temple List", "linkText");
+
+		mySource = getSourceOfMember("AllTemplesTable");
+		myTempleList = getAllTemples(mySource);
+
+		for (String myTemple : myTempleList) {
+			System.out.println(myTemple);
+		}*/
 		
 		/*
 		String url = "https://uat.lds.org/mls/mbr/?lang=eng";
