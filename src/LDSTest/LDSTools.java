@@ -46,9 +46,7 @@ import java.net.URL;
 import java.time.Duration;
 import java.util.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 //import static org.testng.Assert.assertEquals;
 //import static org.testng.AssertJUnit.assertNotNull;
 
@@ -495,6 +493,8 @@ public class LDSTools {
 		//addUnitsRecent(os);
 		
 		//myTempleSimpleTest(os);
+		//templeRecommendReminder25Days(os);
+		//templeRecommendReminderRemindLater(os);
 		
 
 		//LeaderNonBishopricTEST("LDSTools29", "Relief Society Pres", os);
@@ -620,72 +620,38 @@ public class LDSTools {
 	 */
 	private void justForTesting(String os) throws Exception {
 
-		//TODO: Need to figure out when the remind me later isn't working on Android
-		//Simple temple reminder test
+		//TODO: Got it Thanks
+		//TODO: Other days before expire
+		//TODO: Ohter Status
+		//Temple Reminder Choose Remind Me Later
 		String pageSource;
 		//Temple Recommend Reminder
 		syncLogIn("ngiBPC1", "password1", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
 
 
+		enableTempleRecommendReminder("25", "TempleActive");
 
-		if (getRunningOS().equals("mac")) {
-			openHelp();
-			clickButton("DeveloperSettings", "xpath", "pred");
-
-			clickButton("SetTempleRecommendStatus", "xpath", "pred");
-			clickButton("TempleActiveExpired", "xpath", "pred");
-			clickButton("SetTempleRecommendExpiration", "xpath", "pred");
-			sendText("TempleDaysUntilExpiration", "15", "xpath", "pred");
-			clickButton("AddUnitOK", "xpath", "pred");
-
-			pressBackKey();
-			pressBackKey();
-
-			openSettings();
-			clickButton("SettingsTempleRecommendReminder", "xpath", "xpath");
-			clickButton("6weeks", "xpath", "pred");
-
-			openTemples();
-			assertTrue(checkElementReturn("Set a Temple Recommend Expiration Reminder", "contName", "contName"));
-			assertTrue(checkElementReturn("Would you like to be reminded before your temple recommend expires?", "contName", "contName"));
-
-			clickButton("TempleExpirationReminderYes", "xpath", "pred");
-
-		} else {
-			openSettings();
-			newScrollToElement("Temple Recommend Status");
-			clickButton("Reset All Temple Preferences", "textAtt", "textAtt");
-			Thread.sleep(4000);
-			clickButton("Override temple recommend expiration", "textAtt", "textAtt");
-			sendText("TempleDaysTilExpiration", "15", "xpath", "pred");
-			//sendText("Days til expiration", "10", "text", "text");
-			clickButton("AlertOKid", "id", "pred");
-			clickButton("Temple Recommend Status", "textAtt", "pred");
-			clickButton("TempleActive", "xpath", "pred");
-			pressBackKey();
-			openSettings();
-			clickButton("TempleShowTempleRecommendExpiration", "xpath", "pred");
-			pressBackKey();
-			openTemples();
-
-		}
+		//Check the temple reminder
+		Thread.sleep(2000);
 
 
-
-		//assertTrue(checkElementReturn("TempleReminderMeLater", "id", "pred"));
+		assertTrue(checkElementReturn("TempleReminderMeLater", "id", "pred"));
 		assertTrue(checkElementReturn("TempleContactBishopric", "id", "pred"));
 		assertTrue(checkElementReturn("TempleGotItThanks", "id", "pred"));
 
+		//Select Contact Bishopric
+		clickButton("TempleReminderMeLater", "id", "pred");
 
-		clickButton("TempleContactBishopric", "id", "pred");
-
+		//Verify Bishopric
+		Thread.sleep(2000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Ami, Samu", pageSource, "Contains"));
-		Assert.assertFalse(checkNoCaseList("Skywalker, Luke", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Samoa", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Pesega", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("Samu", pageSource, "Contains"));
 
 
-		Thread.sleep(5000);
+
 
 
 
@@ -4566,6 +4532,68 @@ public class LDSTools {
 
 	}
 
+	@Parameters({"os"})
+	@Test (groups= {"medium", "medium2", "templeRecommend", "smoke4", "smoke", "all4"}, priority = 1)
+	public void templeRecommendReminder25Days(String os) throws Exception {
+		//Simple temple reminder test
+		String pageSource;
+		//Temple Recommend Reminder
+		syncLogIn("ngiBPC1", "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+
+
+		enableTempleRecommendReminder("25", "TempleActive");
+
+
+		//Check the temple reminder
+		Thread.sleep(2000);
+		assertTrue(checkElementReturn("TempleReminderMeLater", "id", "pred"));
+		assertTrue(checkElementReturn("TempleContactBishopric", "id", "pred"));
+		assertTrue(checkElementReturn("TempleGotItThanks", "id", "pred"));
+
+		//Select Contact Bishopric
+		clickButton("TempleContactBishopric", "id", "pred");
+
+		//Verify Bishopric
+		Thread.sleep(2000);
+		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("Samu", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Ami", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("Skywalker, Luke", pageSource, "Contains"));
+
+
+	}
+
+	@Parameters({"os"})
+	@Test (groups= {"medium", "medium3", "templeRecommend","all3"}, priority = 1)
+	public void templeRecommendReminderRemindLater(String os) throws Exception {
+		//Temple Reminder Choose Remind Me Later
+		String pageSource;
+		//Temple Recommend Reminder
+		syncLogIn("ngiBPC1", "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+
+
+		enableTempleRecommendReminder("25", "TempleActive");
+
+		//Check the temple reminder
+		Thread.sleep(2000);
+
+
+		assertTrue(checkElementReturn("TempleReminderMeLater", "id", "pred"));
+		assertTrue(checkElementReturn("TempleContactBishopric", "id", "pred"));
+		assertTrue(checkElementReturn("TempleGotItThanks", "id", "pred"));
+
+		//Select Contact Bishopric
+		clickButton("TempleReminderMeLater", "id", "pred");
+
+		//Verify Bishopric
+		Thread.sleep(2000);
+		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("Samoa", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Pesega", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("Samu", pageSource, "Contains"));
+	}
 
 
 
@@ -8323,6 +8351,74 @@ public class LDSTools {
 	//************************************************************
 	//*************** Start of command sequences *****************
 	//************************************************************
+
+
+
+
+	//TempleActive
+	private void enableTempleRecommendReminder(String numberOfDays, String recommendStatus) throws Exception {
+		if (getRunningOS().equals("mac")) {
+			//Go to Developer Settings
+			openHelp();
+			clickButton("DeveloperSettings", "xpath", "pred");
+
+			//Set the Temple Recommend Status
+			clickButton("SetTempleRecommendStatus", "xpath", "pred");
+			clickButton(recommendStatus, "xpath", "pred");
+
+			//Set the number of Days until expired
+			clickButton("SetTempleRecommendExpiration", "xpath", "pred");
+			sendText("TempleDaysUntilExpiration", numberOfDays, "xpath", "pred");
+			clickButton("AddUnitOK", "xpath", "pred");
+
+			pressBackKey();
+			pressBackKey();
+
+			//Open Settings
+			openSettings();
+			clickButton("SettingsTempleRecommendReminder", "xpath", "xpath");
+			clickButton("6weeks", "xpath", "pred");
+
+			//Set Reminder to YES
+			openTemples();
+			assertTrue(checkElementReturn("Set a Temple Recommend Expiration Reminder", "contName", "contName"));
+			assertTrue(checkElementReturn("Would you like to be reminded before your temple recommend expires?", "contName", "contName"));
+
+			clickButton("TempleExpirationReminderYes", "xpath", "pred");
+
+		} else {
+			//Open Settings
+			openSettings();
+
+			//Scroll down and Reset Temple Preferences
+			newScrollToElement("Temple Recommend Status");
+			clickButton("Reset All Temple Preferences", "textAtt", "textAtt");
+			Thread.sleep(2000);
+
+			//Set the Recommend Status
+			clickButton("Temple Recommend Status", "textAtt", "pred");
+			clickButton(recommendStatus, "xpath", "pred");
+			Thread.sleep(2000);
+
+
+			//Set the Number of days for the expiration
+			clickButton("Override temple recommend expiration", "textAtt", "textAtt");
+			Thread.sleep(3000);
+			sendText("TempleDaysTilExpiration", numberOfDays, "xpath", "pred");
+			//sendText("Days til expiration", "10", "text", "text");
+			clickButton("AlertOKid", "id", "pred");
+			pressBackKey();
+
+			//Open Settings and enable Recommend
+			openSettings();
+			clickButton("TempleShowTempleRecommendExpiration", "xpath", "pred");
+			//newScrollToElement("Override temple recommend expiration");
+
+			pressBackKey();
+			openTemples();
+
+		}
+	}
 	
 	private void enableDeveloperSettings(String chooseNetwork) throws Exception {
 		if (getRunningOS().equals("mac")) {
@@ -8333,7 +8429,7 @@ public class LDSTools {
 			if (!checkElementNameReturn("Developer Settings")) {
 				for (int x = 1; x <= 5; x++ ) {
 					//clickButtonByXpath("EnableDevSettings");
-					clickButton("EnableDevSettings", "xpath", "pred");
+					clickButton("EnableDevSettings", "xpath", "xpath");
 					//System.out.println("COUNT: " + x);
 				}
 			} else {
