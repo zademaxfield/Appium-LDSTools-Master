@@ -620,17 +620,16 @@ public class LDSTools {
 	 */
 	private void justForTesting(String os) throws Exception {
 
-		//TODO: Got it Thanks
-		//TODO: Other days before expire
-		//TODO: Ohter Status
-		//Temple Reminder Choose Remind Me Later
+		//Temple Reminder 15 days before expiration
+		//Set expiration for 4 weeks - check temple
+		//Set expiration for 2 weeks - check temple
 		String pageSource;
 		//Temple Recommend Reminder
 		syncLogIn("ngiBPC1", "password1", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
 
 
-		enableTempleRecommendReminder("25", "TempleActive");
+		enableTempleRecommendReminder("15", "TempleActive", "4weeks");
 
 		//Check the temple reminder
 		Thread.sleep(2000);
@@ -640,15 +639,34 @@ public class LDSTools {
 		assertTrue(checkElementReturn("TempleContactBishopric", "id", "pred"));
 		assertTrue(checkElementReturn("TempleGotItThanks", "id", "pred"));
 
+		openSettings();
+
+		if (getRunningOS().equals("mac")) {
+			clickButton("SettingsTempleRecommendReminder", "xpath", "xpath");
+			clickButton("2weeks", "xpath", "pred");
+		} else {
+			clickButton("TempleRemindMe", "xpath", "pred");
+			clickButton("2weeks", "xpath", "pred");
+		}
+
+		pressBackKey();
+
+		openTemples();
+
+		assertFalse(checkElementReturn("TempleReminderMeLater", "id", "pred"));
+		assertFalse(checkElementReturn("TempleContactBishopric", "id", "pred"));
+		assertFalse(checkElementReturn("TempleGotItThanks", "id", "pred"));
+
+
 		//Select Contact Bishopric
-		clickButton("TempleReminderMeLater", "id", "pred");
+		//clickButton("TempleContactBishopric", "id", "pred");
 
 		//Verify Bishopric
-		Thread.sleep(2000);
-		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Samoa", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("Pesega", pageSource, "Contains"));
-		Assert.assertFalse(checkNoCaseList("Samu", pageSource, "Contains"));
+		//Thread.sleep(2000);
+		//pageSource = getSourceOfPage();
+		//Assert.assertTrue(checkNoCaseList("Ami", pageSource, "Contains"));
+		//Assert.assertTrue(checkNoCaseList("Samu", pageSource, "Contains"));
+		//Assert.assertFalse(checkNoCaseList("Skywalker", pageSource, "Contains"));
 
 
 
@@ -4542,7 +4560,7 @@ public class LDSTools {
 		pinPage("1", "1", "3", "3", true);
 
 
-		enableTempleRecommendReminder("25", "TempleActive");
+		enableTempleRecommendReminder("25", "TempleActive", "6weeks");
 
 
 		//Check the temple reminder
@@ -4560,8 +4578,37 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("Samu", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("Ami", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Skywalker, Luke", pageSource, "Contains"));
+	}
+
+	@Parameters({"os"})
+	@Test (groups= {"medium", "medium1", "templeRecommend","all1"}, priority = 1)
+	public void templeRecmmendReminder5Days(String os) throws Exception {
+		//Temple Reminder 5 days before expiration
+		String pageSource;
+		//Temple Recommend Reminder
+		syncLogIn("ngiBPC1", "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
 
 
+		enableTempleRecommendReminder("5", "TempleActive", "6weeks");
+
+		//Check the temple reminder
+		Thread.sleep(2000);
+
+
+		//assertTrue(checkElementReturn("TempleReminderMeLater", "id", "pred"));
+		assertTrue(checkElementReturn("TempleContactBishopric", "id", "pred"));
+		assertTrue(checkElementReturn("TempleGotItThanks", "id", "pred"));
+
+		//Select Contact Bishopric
+		clickButton("TempleContactBishopric", "id", "pred");
+
+		//Verify Bishopric
+		Thread.sleep(2000);
+		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("Ami", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Samu", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("Skywalker", pageSource, "Contains"));
 	}
 
 	@Parameters({"os"})
@@ -4574,7 +4621,7 @@ public class LDSTools {
 		pinPage("1", "1", "3", "3", true);
 
 
-		enableTempleRecommendReminder("25", "TempleActive");
+		enableTempleRecommendReminder("25", "TempleActive", "6weeks");
 
 		//Check the temple reminder
 		Thread.sleep(2000);
@@ -4595,8 +4642,78 @@ public class LDSTools {
 		Assert.assertFalse(checkNoCaseList("Samu", pageSource, "Contains"));
 	}
 
+	@Parameters({"os"})
+	@Test (groups= {"medium", "medium2", "templeRecommend","all2"}, priority = 1)
+	public void templeRecommendReminderGotItThanks(String os) throws Exception {
+		//Temple Reminder Choose Got it Thanks
+		String pageSource;
+		//Temple Recommend Reminder
+		syncLogIn("ngiBPC1", "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
 
 
+		enableTempleRecommendReminder("25", "TempleActive", "6weeks");
+
+		//Check the temple reminder
+		Thread.sleep(2000);
+
+
+		assertTrue(checkElementReturn("TempleReminderMeLater", "id", "pred"));
+		assertTrue(checkElementReturn("TempleContactBishopric", "id", "pred"));
+		assertTrue(checkElementReturn("TempleGotItThanks", "id", "pred"));
+
+		//Select Contact Bishopric
+		clickButton("TempleGotItThanks", "id", "pred");
+
+		//Verify Bishopric
+		Thread.sleep(2000);
+		pageSource = getSourceOfPage();
+		Assert.assertTrue(checkNoCaseList("Samoa", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Pesega", pageSource, "Contains"));
+		Assert.assertFalse(checkNoCaseList("Samu", pageSource, "Contains"));
+	}
+
+	@Parameters({"os"})
+	@Test (groups= {"medium", "medium4", "templeRecommend","all4"}, priority = 1)
+	public void templeRecommendReminderDurationTest(String os) throws Exception {
+		//Temple Reminder 15 days before expiration
+		//Set expiration for 4 weeks - check temple
+		//Set expiration for 2 weeks - check temple
+		String pageSource;
+		//Temple Recommend Reminder
+		syncLogIn("ngiBPC1", "password1", "UAT", os );
+		pinPage("1", "1", "3", "3", true);
+
+
+		enableTempleRecommendReminder("15", "TempleActive", "4weeks");
+
+		//Check the temple reminder
+		Thread.sleep(2000);
+
+
+		assertTrue(checkElementReturn("TempleReminderMeLater", "id", "pred"));
+		assertTrue(checkElementReturn("TempleContactBishopric", "id", "pred"));
+		assertTrue(checkElementReturn("TempleGotItThanks", "id", "pred"));
+
+		openSettings();
+
+		if (getRunningOS().equals("mac")) {
+			clickButton("SettingsTempleRecommendReminder", "xpath", "xpath");
+			clickButton("2weeks", "xpath", "pred");
+		} else {
+			clickButton("TempleRemindMe", "xpath", "pred");
+			clickButton("2weeks", "xpath", "pred");
+		}
+
+		pressBackKey();
+
+		openTemples();
+
+		assertFalse(checkElementReturn("TempleReminderMeLater", "id", "pred"));
+		assertFalse(checkElementReturn("TempleContactBishopric", "id", "pred"));
+		assertFalse(checkElementReturn("TempleGotItThanks", "id", "pred"));
+
+	}
 
 	
 	@Parameters({"os", "numberOfRetries"})
@@ -8356,7 +8473,7 @@ public class LDSTools {
 
 
 	//TempleActive
-	private void enableTempleRecommendReminder(String numberOfDays, String recommendStatus) throws Exception {
+	private void enableTempleRecommendReminder(String numberOfDays, String recommendStatus, String numberOfWeeks) throws Exception {
 		if (getRunningOS().equals("mac")) {
 			//Go to Developer Settings
 			openHelp();
@@ -8377,7 +8494,7 @@ public class LDSTools {
 			//Open Settings
 			openSettings();
 			clickButton("SettingsTempleRecommendReminder", "xpath", "xpath");
-			clickButton("6weeks", "xpath", "pred");
+			clickButton(numberOfWeeks, "xpath", "pred");
 
 			//Set Reminder to YES
 			openTemples();
@@ -8412,6 +8529,8 @@ public class LDSTools {
 			//Open Settings and enable Recommend
 			openSettings();
 			clickButton("TempleShowTempleRecommendExpiration", "xpath", "pred");
+			clickButton("TempleRemindMe", "xpath", "pred");
+			clickButton(numberOfWeeks, "xpath", "pred");
 			//newScrollToElement("Override temple recommend expiration");
 
 			pressBackKey();
