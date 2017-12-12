@@ -483,7 +483,7 @@ public class LDSTools {
 	@Test (groups= {"jft"})
 	private void simpleTest(String os) throws Exception {
 		Thread.sleep(4000);
-		justForTesting(os);
+		//justForTesting(os);
 
 
 		//missionaryReferralSimple(os);
@@ -537,7 +537,7 @@ public class LDSTools {
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
-		//LeaderBishopricHTVT("ngiBPC1", false, os);
+		LeaderBishopricHTVT("ngiBPC1", false, os);
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//LeaderBishopricReport("ngiBPC2", false, os); //Bishopric 2nd Counselor  
@@ -657,6 +657,7 @@ public class LDSTools {
 		assertFalse(checkElementReturn("TempleContactBishopric", "id", "pred"));
 		assertFalse(checkElementReturn("TempleGotItThanks", "id", "pred"));
 
+		Thread.sleep(20000);
 
 		//Select Contact Bishopric
 		//clickButton("TempleContactBishopric", "id", "pred");

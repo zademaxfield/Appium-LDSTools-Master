@@ -11,7 +11,8 @@
 	<test name="Smoke Test 1" thread-count="4" parallel="instances">
 	    <parameter name="os" value="android" />
 	    <parameter name="fileName" value="ldstools-alpha.apk" />
-	    <parameter name="testDevice" value="STF-Pool" />
+	    <!--<parameter name="testDevice" value="STF-Pool" />-->
+		<parameter name="testDevice" value="STF-00765a54959507be" /> <!-- Nexus 4 -->
 	    <parameter name="startSleepTime" value="0200" />
 
 	    <!-- Excluding Headers tests for now they are broken -->
@@ -30,7 +31,8 @@
 	<test name="Smoke Test 2" thread-count="4" parallel="instances">
 	    <parameter name="os" value="android" />
 	    <parameter name="fileName" value="ldstools-alpha.apk" />
-	    <parameter name="testDevice" value="STF-Pool" />
+	    <!--<parameter name="testDevice" value="STF-Pool" />-->
+		<parameter name="testDevice" value="STF-03aadbed215c8e5f" /> <!-- Nexus 5 -->
 	    <parameter name="startSleepTime" value="60000" />
 
 		<groups>
@@ -48,7 +50,8 @@
 	<test name="Smoke Test 3" thread-count="4" parallel="instances">
 	    <parameter name="os" value="android" />
 	    <parameter name="fileName" value="ldstools-alpha.apk" />
-	    <parameter name="testDevice" value="STF-Pool" />
+	    <!--<parameter name="testDevice" value="STF-Pool" />-->
+		<parameter name="testDevice" value="STF-ZX1G229FWM" /> <!-- Nexus 6 -->
 	    <parameter name="startSleepTime" value="120000" />
 
 		<groups>
@@ -66,7 +69,8 @@
 	<test name="Smoke Test 4" thread-count="4" parallel="instances">
 	    <parameter name="os" value="android" />
 	    <parameter name="fileName" value="ldstools-alpha.apk" />
-	    <parameter name="testDevice" value="STF-Pool" />
+	    <!--<parameter name="testDevice" value="STF-Pool" />-->
+		<parameter name="testDevice" value="STF-8XV5T15A30006448" /> <!-- Nexus 6p -->
 	    <parameter name="startSleepTime" value="180000" />
 
 		<groups>
