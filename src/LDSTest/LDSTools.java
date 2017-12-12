@@ -8560,7 +8560,7 @@ public class LDSTools {
 			if (!checkElementNameReturn("Environment: UAT")) {
 				clickButton("Environment: Prod", "byName", "AccID");
 				//clickButtonByXpath("Proxy");
-				clickButton("Proxy", "byName", "AccID");
+				//clickButton("Proxy", "byName", "AccID");
 				//clickButtonByXpath(chooseNetwork);
 				clickButton(chooseNetwork, "byName", "AccID");
 				pressBackKey();
@@ -8682,34 +8682,10 @@ public class LDSTools {
 		System.out.println("User Name: " + userName);
 		if (!getRunningOS().equals("mac")) {
 			if (!chooseNetwork.equals("Production")) {
-				
-				Thread.sleep(1000);
+				enableDeveloperSettings(chooseNetwork);
 				clickButtonByXpath("Menu");
 				clickButtonByXpath("OverflowSettings");
-				newScrollToElement("About");
-				//scrollToElement("About");
-				clickButton("About", "textAtt", "textAtt");
-				
-				
-				//New way to enable dev settings
-				for (int x = 1; x <= 7; x++ ) {
-					clickButton("AboutLogo", "id", "id");
-					//System.out.println("COUNT: " + x);
-				}
-				pressBackKey();
-				
-
-				Thread.sleep(2000);
-				
-				//myScroll("Network Environment");
-				newScrollToElement("Network Environment");
-				//scrollToElement("Network Environment");
-				clickButton("Network Environment", "text", "text");
-				//driver.scrollToExact("Network Environment").click();
-				//scrollDown("Network Environment", 100 );
-				//Thread.sleep(2000);
-				clickButtonByXpathTitleName(chooseNetwork);
-				Thread.sleep(2000);
+				//clickButton("Developer Settings", "byName", "AccID");
 				
 				//myScroll("px_i");
 				newScrollToElement("px_i");
@@ -8771,33 +8747,9 @@ public class LDSTools {
 			chooseNetwork = "Proxy";
 			MobileElement myElement; 
 			if (!chooseNetwork.equals("Production")) {
-				Thread.sleep(1000);
-				//clickButtonByXpath("TopHelp");
+				enableDeveloperSettings(chooseNetwork);
 				clickButton("TopHelp", "xpath", "pred");
-
-
-
-				//New way to enable dev settings
-				if (!checkElementNameReturn("Developer Settings")) {
-					for (int x = 1; x <= 5; x++ ) {
-						//clickButtonByXpath("EnableDevSettings");
-						clickButton("EnableDevSettings", "xpath", "pred");
-						//System.out.println("COUNT: " + x);
-					}
-				} else {
-					clickButton("Developer Settings", "byName", "AccID");
-				}
-
-				
-				//clickButtonByXpath("DevEnviroment");
-				clickButton("Environment: Prod", "byName", "byName");
-				//clickButtonByXpath("Proxy");
-				//clickButton("Proxy", "byName", "byName");
-				//clickButtonByXpath(chooseNetwork);
-				clickButton(chooseNetwork, "byName", "byName");
-				
-				
-				pressBackKey();
+				clickButton("Developer Settings", "byName", "AccID");
 	
 				//clickButtonByXpath("TopDeveloper");
 				//Thread.sleep(2000);
