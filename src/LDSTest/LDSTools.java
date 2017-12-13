@@ -514,7 +514,7 @@ public class LDSTools {
 		//editOtherUserInvalidEmail(os);
 		
 		
-		//editVisibility(os);
+		editVisibility(os);
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
@@ -537,7 +537,7 @@ public class LDSTools {
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
-		LeaderBishopricHTVT("ngiBPC1", false, os);
+		//LeaderBishopricHTVT("ngiBPC1", false, os);
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//LeaderBishopricReport("ngiBPC2", false, os); //Bishopric 2nd Counselor  
@@ -3949,7 +3949,7 @@ public class LDSTools {
 		
 		
 		syncLogIn("LDSTools5", "toolstester", "UAT", os );
-		Thread.sleep(2000);
+		Thread.sleep(5000);
 		
 		//true will setup ping for a non-leader
 		pinPage("1", "1", "3", "3", true);
@@ -11309,7 +11309,7 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Sign Out");
 		clickButton("SignOutOK", "xpath", "xpath");
 		Thread.sleep(2000);
-		checkForAlert();
+		//checkForAlert();
 		if (getRunningOS().equals("mac")) {
 			driver.resetApp();
 		}
@@ -11489,12 +11489,14 @@ public class LDSTools {
 	
 	private void checkForAlertOK() throws Exception {
 		//Check to see if we are getting a warning
+		System.out.println("Checking for Alert");
 		if (getRunningOS().equals("mac")) {
 			if (checkElementExistsByXpath("AlertMessageCheck")) {
 				clickButton("AlertOK", "xpath", "xpath");
 			}
 		} else {
 			if (checkElementExistsByXpath("AlertMessageCheck")) {
+				System.out.println("Alert Found trying to hit OK");
 				clickButton("AlertOK", "xpath", "xpath");
 				//clickButton("AlertOKid", "id", "xpath");
 				//driver.switchTo().alert().accept();
