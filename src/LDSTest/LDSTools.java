@@ -507,7 +507,7 @@ public class LDSTools {
 		//bishopMemberOfSeparateStake(os);
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
-		//editCurrentUser(os);
+		editCurrentUser(os);
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
@@ -535,7 +535,7 @@ public class LDSTools {
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
-		LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
+		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os);
 
@@ -4552,7 +4552,7 @@ public class LDSTools {
 	}
 
 	@Parameters({"os"})
-	@Test (groups= {"medium", "medium2", "templeRecommend", "smoke4", "smoke", "all4"}, priority = 1)
+	@Test (groups= {"medium", "medium1", "templeRecommend", "smoke1", "smoke", "all1"}, priority = 1)
 	public void templeRecommendReminder25Days(String os) throws Exception {
 		//Simple temple reminder test
 		String pageSource;
@@ -12300,7 +12300,10 @@ public class LDSTools {
 			Thread.sleep(4000);
 		}
 
-		checkForAlert();
+		//checkForAlert();
+		if (checkElementExists("AlertOKid", "id", "xpath")) {
+			clickButton("AlertOKid", "id", "xpath");
+		}
 	}
 	
 	private String getLastIcon() throws Exception {
