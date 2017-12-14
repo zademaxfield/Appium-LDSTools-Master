@@ -13,6 +13,7 @@ import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import org.apache.bcel.generic.RETURN;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Attribute;
@@ -493,7 +494,7 @@ public class LDSTools {
 		//addUnitsRecent(os);
 		
 		//myTempleSimpleTest(os);
-		//templeRecommendReminder25Days(os);
+		templeRecommendReminder25Days(os);
 		//templeRecommendReminderRemindLater(os);
 		
 
@@ -507,7 +508,7 @@ public class LDSTools {
 		//bishopMemberOfSeparateStake(os);
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
-		editCurrentUser(os);
+		//editCurrentUser(os);
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
@@ -629,33 +630,18 @@ public class LDSTools {
 		pinPage("1", "1", "3", "3", true);
 
 
-		enableTempleRecommendReminder("15", "TempleActive", "4weeks");
+		enableTempleRecommendReminder("35", "TempleActive", "4weeks");
 
 		//Check the temple reminder
 		Thread.sleep(2000);
 
-
-		assertTrue(checkElementReturn("TempleReminderMeLater", "id", "pred"));
-		assertTrue(checkElementReturn("TempleContactBishopric", "id", "pred"));
-		assertTrue(checkElementReturn("TempleGotItThanks", "id", "pred"));
-
-		openSettings();
-
-		if (getRunningOS().equals("mac")) {
-			clickButton("SettingsTempleRecommendReminder", "xpath", "xpath");
-			clickButton("2weeks", "xpath", "pred");
-		} else {
-			clickButton("TempleRemindMe", "xpath", "pred");
-			clickButton("2weeks", "xpath", "pred");
-		}
-
-		pressBackKey();
-
-		openTemples();
-
 		assertFalse(checkElementReturn("TempleReminderMeLater", "id", "pred"));
 		assertFalse(checkElementReturn("TempleContactBishopric", "id", "pred"));
 		assertFalse(checkElementReturn("TempleGotItThanks", "id", "pred"));
+
+		clickButton("TempleTabAll", "xpath", "xpath");
+
+
 
 		Thread.sleep(20000);
 
@@ -13587,23 +13573,44 @@ public class LDSTools {
 
     public void newScrollToElement(String myElement) throws Exception {
     	//scrollUpTEST(500);
-    	
-    	if (!checkElementReturn(myElement, "text", "text")) {
-    	    MobileElement list = (MobileElement) driver.findElement(By.id("org.lds.ldstools.dev:id/list"));
-    	    MobileElement radioGroup = (MobileElement) list.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
-    	                    + "new UiSelector().text(\"" + myElement + "\"));"));
+		int myCounter = 1;
+
+		if (!checkElementReturn(myElement, "text", "text")) {
+			MobileElement list = (MobileElement) driver.findElement(By.id("org.lds.ldstools.dev:id/list"));
+			MobileElement radioGroup = (MobileElement) list.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
+					+ "new UiSelector().text(\"" + myElement + "\"));"));
+
+			while (!radioGroup.isDisplayed() || (myCounter > 4)) {
+				System.out.println("OVERFLOW SCROLL: " + myCounter);
+				radioGroup = (MobileElement) list.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
+						+ "new UiSelector().text(\"" + myElement + "\"));"));
+				myCounter++;
+			}
+			assertNotNull(radioGroup.getLocation());
+		}
+
+
+
+
+/*		if (!checkElementReturn(myElement, "text", "text")) {
+
     	    if (!radioGroup.isDisplayed()) {
-    	    	radioGroup = (MobileElement) list.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
-                        + "new UiSelector().text(\"" + myElement + "\"));"));
+    	    	//radioGroup = (MobileElement) list.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
+                //        + "new UiSelector().text(\"" + myElement + "\"));"));
+				System.out.println("OVERFLOW SCROLL!!!!!!!");
+				radioGroup = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)" +
+						".instance(0)).scrollIntoView(new UiSelector().text(\"" + myElement + "\").instance(0))"));
     	    }
+
+
     	    
     	    //if (!radioGroup.isDisplayed()) {
     	    //	radioGroup = (MobileElement) list.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
             //            + "new UiSelector().text(\"" + myElement + "\"));"));
     	    //}
 
-    	    assertNotNull(radioGroup.getLocation());
-    	}
+
+    	}*/
 
 
     }
