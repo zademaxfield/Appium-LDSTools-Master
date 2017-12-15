@@ -13580,7 +13580,7 @@ public class LDSTools {
 			MobileElement radioGroup = (MobileElement) list.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
 					+ "new UiSelector().text(\"" + myElement + "\"));"));
 
-			while (!radioGroup.isDisplayed() || (myCounter > 4)) {
+			while (!radioGroup.isDisplayed() || (myCounter < 4)) {
 				System.out.println("OVERFLOW SCROLL: " + myCounter);
 				radioGroup = (MobileElement) list.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
 						+ "new UiSelector().text(\"" + myElement + "\"));"));
