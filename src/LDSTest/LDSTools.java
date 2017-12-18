@@ -495,7 +495,10 @@ public class LDSTools {
 		
 		//myTempleSimpleTest(os);
 		templeRecommendReminder25Days(os);
+		//templeRecmmendReminder5Days(os);
 		//templeRecommendReminderRemindLater(os);
+		//templeRecommendReminderGotItThanks(os);
+		//templeRecommendReminderDurationTest(os);
 		
 
 		//LeaderNonBishopricTEST("LDSTools29", "Relief Society Pres", os);
@@ -640,8 +643,11 @@ public class LDSTools {
 		assertFalse(checkElementReturn("TempleGotItThanks", "id", "pred"));
 
 		clickButton("TempleTabAll", "xpath", "xpath");
-
-
+		sendText("TempleFindTemple", "Cedar City", "id", "pred");
+		checkText("TempleResultsFirst", "Cedar City Utah Temple", "id", "pred");
+		clickButton("TempleClearSearch", "id", "pred");
+		sendText("TempleFindTemple", "Montreal Quebec", "id", "pred");
+		checkText("TempleResultsFirst", "Montreal Quebec Temple", "id", "pred");
 
 		Thread.sleep(20000);
 
@@ -13574,16 +13580,27 @@ public class LDSTools {
     public void newScrollToElement(String myElement) throws Exception {
     	//scrollUpTEST(500);
 		int myCounter = 1;
+		int myLoopStatus = 0;
 
 		if (!checkElementReturn(myElement, "text", "text")) {
 			MobileElement list = (MobileElement) driver.findElement(By.id("org.lds.ldstools.dev:id/list"));
 			MobileElement radioGroup = (MobileElement) list.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
 					+ "new UiSelector().text(\"" + myElement + "\"));"));
 
-			while (!radioGroup.isDisplayed() | (myCounter < 5)) {
+			while (myLoopStatus == 0) {
 				System.out.println("OVERFLOW SCROLL: " + myCounter);
 				radioGroup = (MobileElement) list.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("
 						+ "new UiSelector().text(\"" + myElement + "\"));"));
+
+
+				if (radioGroup.isDisplayed()) {
+					myLoopStatus = 1;
+				}
+
+				if (myCounter > 5 ) {
+					myLoopStatus = 1;
+				}
+
 				myCounter++;
 			}
 			assertNotNull(radioGroup.getLocation());
