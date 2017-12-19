@@ -12,6 +12,7 @@ import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
 //import org.apache.bcel.generic.RETURN;
+//import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -493,7 +494,7 @@ public class LDSTools {
 		//additonalUnitSimpleTest(os);
 		//addUnitsRecent(os);
 		
-		myTempleSimpleTest(os);
+		//myTempleSimpleTest(os);
 		//templeRecommendReminder25Days(os);
 		//templeRecmmendReminder5Days(os);
 		//templeRecommendReminderRemindLater(os);
@@ -538,7 +539,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		//LeaderBishopricDirectory("ngiBPC1", false, os);
+		LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os);
@@ -8098,6 +8099,7 @@ public class LDSTools {
 			//System.out.println("Distance: " + scrollDistance);
 			TouchAction actions = new TouchAction(driver);
 			actions.press(0, screenHeight).moveTo(0, -scrollDistance).release().perform();
+			//actions.press(PointOption.point(0, screenHeight)).moveTo(PointOption.point(0, 100)).release().perform();
 
 			//actions.press(screenWidth, screenHeight).moveTo(screenWidth, -scrollDistance).waitAction(Duration.ofMillis(2000)).release().perform();
 			//actions.press(screenWidth, screenHeight).moveTo(screenWidth, -50).waitAction(Duration.ofMillis(2000)).release().perform();
@@ -12321,7 +12323,7 @@ public class LDSTools {
 		Thread.sleep(1000);
 		myPageSource = getSourceOfPage();
 		
-		scrollDownTEST(800);
+		scrollDownTEST(200);
 		
 		clickButtonByXpath("TabHousehold");
 		//clickButton("HOUSEHOLD", "text", "text");
