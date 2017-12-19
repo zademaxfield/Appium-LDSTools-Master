@@ -11,7 +11,7 @@ import io.appium.java_client.remote.HideKeyboardStrategy;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
-import org.apache.bcel.generic.RETURN;
+//import org.apache.bcel.generic.RETURN;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -493,8 +493,8 @@ public class LDSTools {
 		//additonalUnitSimpleTest(os);
 		//addUnitsRecent(os);
 		
-		//myTempleSimpleTest(os);
-		templeRecommendReminder25Days(os);
+		myTempleSimpleTest(os);
+		//templeRecommendReminder25Days(os);
 		//templeRecmmendReminder5Days(os);
 		//templeRecommendReminderRemindLater(os);
 		//templeRecommendReminderGotItThanks(os);
