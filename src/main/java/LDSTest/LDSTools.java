@@ -7,6 +7,7 @@ import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.PerformsTouchID;
+import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.remote.HideKeyboardStrategy;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
@@ -618,13 +619,14 @@ public class LDSTools {
 
 	}
 
-
 	/** justForTesting - Just for testing
 	 * @param os - operating system
 	 * @throws Exception - So Thread.Sleep works
 	 */
 	private void justForTesting(String os) throws Exception {
 
+
+/*
 		//Temple Reminder 15 days before expiration
 		//Set expiration for 4 weeks - check temple
 		//Set expiration for 2 weeks - check temple
@@ -661,6 +663,7 @@ public class LDSTools {
 		//Assert.assertTrue(checkNoCaseList("Ami", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("Samu", pageSource, "Contains"));
 		//Assert.assertFalse(checkNoCaseList("Skywalker", pageSource, "Contains"));
+*/
 
 
 
@@ -1184,6 +1187,8 @@ public class LDSTools {
 	//public void Bishopric1stCounselor(String os) throws Exception {
 	//	LeaderBishopric("ngiBPC1", false, os); //Bishopric 1st Counselor
 	//}
+
+
 
 	@Parameters({"os"})
 	@Test (groups= {"medium", "medium1", "smoke3", "smoke", "all3"}, priority = 1)
@@ -2429,7 +2434,7 @@ public class LDSTools {
 	 * @param os
 	 * @throws Exception
 	 */
-	private void LeaderBishopricDirectory(String leaderLogin, Boolean priorUnit, String os) throws Exception {
+	public void LeaderBishopricDirectory(String leaderLogin, Boolean priorUnit, String os) throws Exception {
 
 		syncLogIn(leaderLogin, "password1", "UAT", os );
 		pinPage("1", "1", "3", "3", true);
@@ -7423,70 +7428,74 @@ public class LDSTools {
 			//AndroidElement myElement = null;
 			findElement = andEle;
 		}
-		
-		if (findElement == "id") {
-			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.id(this.prop.getProperty(textElement))));
-		}
-		
-		if (findElement == "xpath")  {
-			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(this.prop.getProperty(textElement))));	
-		}
-		
-		if (findElement == "className")  {
-			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.className(textElement)));
+
+		switch (findElement) {
+			case "id" :
+				myElement = wait.until(ExpectedConditions.elementToBeClickable(By.id(this.prop.getProperty(textElement))));
+				break;
+
+			case "pred" :
+				myElement = wait.until(ExpectedConditions.elementToBeClickable(MobileBy.iOSNsPredicateString(this.prop.getProperty(textElement))));
+				break;
+
+			case "xpath" :
+				myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(this.prop.getProperty(textElement))));
+				break;
+
+			case "className" :
+				myElement = wait.until(ExpectedConditions.elementToBeClickable(By.className(textElement)));
+				break;
+
+			case "linkText" :
+				myElement = wait.until(ExpectedConditions.elementToBeClickable(By.linkText(textElement)));
+				break;
+
+			case "byName" :
+				myElement = wait.until(ExpectedConditions.elementToBeClickable(By.name(textElement)));
+				break;
+
+			case "AccID" :
+				myElement = wait.until(ExpectedConditions.elementToBeClickable(MobileBy.AccessibilityId(textElement)));
+				break;
+
+			case "byNameProp" :
+				myElement = wait.until(ExpectedConditions.elementToBeClickable(By.name(this.prop.getProperty(textElement))));
+				break;
+
+			case "text" :
+				myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@text, '" + textElement + "')]")));
+				break;
+
+			case "nameContains" :
+				myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@name, '" + textElement + "')]")));
+				break;
+
+			case "value" :
+				myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@value='" + textElement + "']")));
+				break;
+
+			case "name" :
+				myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@name='" + textElement + "']")));
+				break;
+
+			case "title" :
+				myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@title='" + textElement + "']")));
+				break;
+
+			case "textAtt" :
+				myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@text='" + textElement + "']")));
+				break;
+
+			case "xpathCustom" :
+				myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(textElement)));
+				break;
+
 		}
 
-		if (findElement == "linkText") {
-			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.linkText(textElement)));
-		}
-		
-		if (findElement == "byName") {
-			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.name(textElement)));
-		}
-		
-		if (findElement == "AccID") {
-			myElement = wait.until(ExpectedConditions.elementToBeClickable(MobileBy.AccessibilityId(textElement)));
-		}
-		
-		if (findElement == "byNameProp") {
-			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.name(this.prop.getProperty(textElement))));
-		}
-		
-		if (findElement == "text") {
-			//myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(), '" + textElement + "')]")));
-			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@text, '" + textElement + "')]")));
-		} 
-		
-		if (findElement == "nameContains") {
-			//myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(), '" + textElement + "')]")));
-			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@name, '" + textElement + "')]")));
-		} 
-		
-		if (findElement == "value") {
-			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@value='" + textElement + "']")));
-		} 
-		
-		if (findElement == "name") {
-			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@name='" + textElement + "']")));
-		} 
-		
-		if (findElement == "title") {
-			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@title='" + textElement + "']")));
-		} 
-		
-		if (findElement == "textAtt") {
-			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@text='" + textElement + "']")));
-		} 
-		
-		if (findElement == "pred")  {
-			myElement = wait.until(ExpectedConditions.elementToBeClickable(MobileBy.iOSNsPredicateString(this.prop.getProperty(textElement))));	
-		}
 
-		if (findElement == "xpathCustom") {
-			myElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(textElement)));
+		if (myElement != null) {
+			myElement.click();
 		}
-
-		myElement.click();
 
 	}
 
@@ -14678,7 +14687,7 @@ public class LDSTools {
 		}
 
 	}
-	
+
 	/*
 	//Need this class to get the touch stuff to work with Appium - Android
 	public class AppiumSwipeableDriver extends AppiumDriver implements HasTouchScreen{
