@@ -515,7 +515,7 @@ public class LDSTools {
 		//bishopMemberOfSeparateStake(os);
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
-		//editCurrentUser(os);
+		editCurrentUser(os);
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
@@ -542,7 +542,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		LeaderBishopricDirectory("ngiBPC1", false, os);
+		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os);
@@ -2733,7 +2733,7 @@ public class LDSTools {
 				assertEquals(checkUser, 1);
 				//Thread.sleep(2000);
 				//Collapse the search 
-				clickButtonByXpath("SearchCollapse");
+				clickButton("SearchCollapse", "id", "xpath");
 			}
 		} else {
 			
@@ -2750,7 +2750,7 @@ public class LDSTools {
 				assertEquals(checkUser, 1);
 				Thread.sleep(2000);
 				//Collapse the search 
-				clickButtonByXpath("SearchCollapse");
+				clickButton("SearchCollapse", "id", "xpath");
 			}
 		}
 	}
@@ -3936,7 +3936,7 @@ public class LDSTools {
 
 		//Collapse the search 
 		if (getRunningOS().equals("mac")) {
-			clickButtonByXpath("SearchCollapse");
+			clickButton("SearchCollapse", "id", "xpath");
 		} else {
 			backToDirectory() ;
 		}
@@ -5009,7 +5009,7 @@ public class LDSTools {
 		Assert.assertTrue(checkElementReturn("Tautinoga Faapili", "textAtt", "value"));
 		Assert.assertTrue(checkElementReturn("Mapusaga Faapili", "textAtt", "value"));
 		pressBackKey();
-		clickButtonByXpath("SearchCollapse");
+		clickButton("SearchCollapse", "id", "xpath");
 		//pressBackKey();
 		
 		//Change to another Ward
@@ -5047,7 +5047,7 @@ public class LDSTools {
 		//Assert.assertTrue(checkElementReturn("Pioneer Aumoto", "textAtt", "value"));
 		pressBackKey();
 		Thread.sleep(1000);
-		clickButtonByXpath("SearchCollapse");
+		clickButton("SearchCollapse", "id", "xpath");
 		
 
 	}
@@ -8442,8 +8442,12 @@ public class LDSTools {
 			//	clickButton("Back", "byName", "byName");	
 			//}	
 		} else {
-			//driver.navigate().back();
-			clickButton("NewBackButton", "xpath", "xpath");
+			driver.navigate().back();
+			//clickButton("NewBackButton", "xpath", "xpath");
+
+
+
+			=
 			/*
 			Thread.sleep(1000);
 			//driver.context("NATIVE_APP");
@@ -9152,10 +9156,10 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			pressBackKey();
 			//pressBackToRoot();
-			//clickButtonByXpath("SearchCollapse");
+			//clickButton("SearchCollapse", "id", "xpath");
 		} else {
 			pressBackToRoot();
-			//clickButtonByXpath("SearchCollapse");
+			//clickButton("SearchCollapse", "id", "xpath");
 			clickButton("SearchCollapse", "id", "xpath");
 			//clickButton("CollapseButton", "xpath", "xpath");
 		}
@@ -12594,20 +12598,25 @@ public class LDSTools {
 		int myCounter = 1;
 		//backButtonCheck = checkElementExistsByXpath("TopBack"); 
 		backButtonCheck = checkElementExistsByXpath("NewBackButton"); 
-		//System.out.println("Back Button Check - before loop: " + backButtonCheck);
+		System.out.println("Back Button Check - before loop: " + backButtonCheck);
 		
 		while ((backButtonCheck == true) && (myCounter < 5 ))  {
 			Thread.sleep(1000);
-			//System.out.println("Pressing Back Key " + myCounter);
+			System.out.println("Pressing Back Key " + myCounter);
 			pressBackKey();
 			Thread.sleep(2000);
-			//System.out.println("Back Key pressed");
+			System.out.println("Back Key pressed");
 			//System.out.println("Checking for back key....");
 			//backButtonCheck = checkElementExistsByXpath("TopBack");
 			//backButtonCheck = checkElementExistsByXpath("NewBackButton");
 			//printPageSource();
-			menuTitle = getText("MenuTitle", "xpath", "xpath");
-			//System.out.println("MENU TITLE: " + menuTitle);
+			if (checkElementExistsByXpath("MenuTitle")) {
+				menuTitle = getText("MenuTitle", "xpath", "xpath");
+			} else {
+				menuTitle = "No Title";
+			}
+
+			System.out.println("MENU TITLE: " + menuTitle);
 
 			switch (menuTitle) {
 				case "Directory" :
@@ -12639,7 +12648,7 @@ public class LDSTools {
 			}
 			
 			Thread.sleep(2000);
-			//System.out.println("Back Button Check in loop: "+ myCounter + " Check: " + backButtonCheck);
+			System.out.println("Back Button Check in loop: "+ myCounter + " Check: " + backButtonCheck);
 			myCounter++;
 		}
 		
@@ -12658,17 +12667,18 @@ public class LDSTools {
 			clickByCords("Clear text");
 			//clickButton("SearchClearText", "xpath", "xpath");
 			clickButton("Cancel", "byName", "byName");
-			//clickButtonByXpath("SearchCollapse");
+			//clickButton("SearchCollapse", "id", "xpath");
 		} else {
 			//System.out.println("Start of Back To Root");
 			pressBackToRoot();
 			//System.out.println("End of Back To Root");
 			Thread.sleep(3000);
 			//System.out.println("Start of Search Collapse");
-			clickButtonByXpath("SearchCollapse");
+			//clickButton("SearchCollapse", "id", "xpath");
+			clickButton("SearchCollapse", "id", "xpath");
 			//System.out.println("End of Search Collapse");
-			Thread.sleep(1000);
-			clickButton("CollapseButton", "xpath", "xpath");
+			//Thread.sleep(1000);
+			//clickButton("CollapseButton", "xpath", "xpath");
 		}
 		Thread.sleep(2000);
 	}
