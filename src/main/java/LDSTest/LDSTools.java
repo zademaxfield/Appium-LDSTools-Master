@@ -14,6 +14,8 @@ import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
 //import org.apache.bcel.generic.RETURN;
 //import io.appium.java_client.touch.offset.PointOption;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -8100,14 +8102,22 @@ public class LDSTools {
 			screenWidth = screenWidth / 4;
 			//screenWidth = screenWidth - 75;
 			//screenHeight = screenHeight / 2;
-			screenHeight = screenHeight - 100;
+			screenHeight = screenHeight - 200;
 			//scrollDistance = screenHeight - scrollDistance;
+			scrollDistance = screenHeight / 2;
+			scrollDistance = -scrollDistance;
 			
 			//System.out.println("Width: " + screenWidth);
 			//System.out.println("Height: " + screenHeight);
 			//System.out.println("Distance: " + scrollDistance);
 			TouchAction actions = new TouchAction(driver);
-			actions.press(0, screenHeight).moveTo(0, -scrollDistance).release().perform();
+			//actions.press(0, screenHeight).moveTo(0, -scrollDistance).release().perform();
+			//actions.press(0, screenHeight).moveTo(0, scrollDistance).release().perform();
+			actions.press(PointOption.point(screenWidth, screenHeight))
+					.moveTo(PointOption.point(screenWidth, scrollDistance))
+					.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(2)))
+					.release()
+					.perform();
 			//actions.press(PointOption.point(0, screenHeight)).moveTo(PointOption.point(0, 100)).release().perform();
 
 			//actions.press(screenWidth, screenHeight).moveTo(screenWidth, -scrollDistance).waitAction(Duration.ofMillis(2000)).release().perform();
@@ -8432,8 +8442,8 @@ public class LDSTools {
 			//	clickButton("Back", "byName", "byName");	
 			//}	
 		} else {
-			driver.navigate().back();
-			
+			//driver.navigate().back();
+			clickButton("NewBackButton", "xpath", "xpath");
 			/*
 			Thread.sleep(1000);
 			//driver.context("NATIVE_APP");
@@ -9145,8 +9155,8 @@ public class LDSTools {
 		} else {
 			pressBackToRoot();
 			//clickButtonByXpath("SearchCollapse");
-			clickButton("SearchCollapse", "xpath", "xpath");
-			clickButton("CollapseButton", "xpath", "xpath");
+			clickButton("SearchCollapse", "id", "xpath");
+			//clickButton("CollapseButton", "xpath", "xpath");
 		}
 		
 	}
@@ -12579,6 +12589,7 @@ public class LDSTools {
 	
 	private void pressBackToRoot() throws Exception {
 		Boolean backButtonCheck;
+		String menuTitle;
 		int myCounter = 1;
 		//backButtonCheck = checkElementExistsByXpath("TopBack"); 
 		backButtonCheck = checkElementExistsByXpath("NewBackButton"); 
@@ -12592,9 +12603,38 @@ public class LDSTools {
 			//System.out.println("Back Key pressed");
 			//System.out.println("Checking for back key....");
 			//backButtonCheck = checkElementExistsByXpath("TopBack");
-			backButtonCheck = checkElementExistsByXpath("NewBackButton");
-			if (checkElementExistsByXpath("MenuSortOptions") == true) {
-				backButtonCheck = false;
+			//backButtonCheck = checkElementExistsByXpath("NewBackButton");
+			//printPageSource();
+			menuTitle = getText("MenuTitle", "xpath", "xpath");
+			//System.out.println("MENU TITLE: " + menuTitle);
+
+			switch (menuTitle) {
+				case "Directory" :
+					backButtonCheck = false;
+					break;
+				case "Organizations" :
+					backButtonCheck = false;
+					break;
+				case "Calendar" :
+					backButtonCheck = false;
+					break;
+				case "Reports" :
+					backButtonCheck = false;
+					break;
+				case "Lists" :
+					backButtonCheck = false;
+					break;
+				case "Missionary" :
+					backButtonCheck = false;
+					break;
+				case "Meetinghouses" :
+					backButtonCheck = false;
+					break;
+				case "Temples" :
+					backButtonCheck = false;
+					break;
+				default :
+					backButtonCheck = true;
 			}
 			
 			Thread.sleep(2000);
