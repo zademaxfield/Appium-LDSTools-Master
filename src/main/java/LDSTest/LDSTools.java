@@ -8668,7 +8668,8 @@ public class LDSTools {
 			
 			unitsToSync();
 
-			waitForTextToDisappearPopUp( 500);
+			waitForTextToDisappearTEXT("Stop Sync", 500 );
+			//waitForTextToDisappearPopUp( 500);
 			Thread.sleep(8000);
 		}
 	}
