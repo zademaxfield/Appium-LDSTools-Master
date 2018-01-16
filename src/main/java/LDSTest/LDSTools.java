@@ -515,7 +515,7 @@ public class LDSTools {
 		//bishopMemberOfSeparateStake(os);
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
-		editCurrentUser(os);
+		//editCurrentUser(os);
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
@@ -544,7 +544,7 @@ public class LDSTools {
 		
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
-		//LeaderBishopricReport("ngiBPC1", false, os);
+		LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os);
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
@@ -9434,7 +9434,7 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Members Moved In");
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Fati", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Ami", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("February", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Skywalker, Luke", pageSource, "Equals"));
 
@@ -9562,7 +9562,7 @@ public class LDSTools {
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
 		//Assert.assertTrue(checkNoCaseList("AFPEighteen, Member", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("AFPMisc, Frank", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("AFPEighteen", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Organa, Leia", pageSource, "Contains"));
 
 		Thread.sleep(1000);
@@ -9586,9 +9586,9 @@ public class LDSTools {
 		openReports();
 		clickButtonByXpathTitleName("New Members");
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Numia, Sailiai", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("43", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("F", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Manumalo, Siui", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("32", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("M", pageSource, "Contains"));
 		if (newUnit == true){
 			Assert.assertTrue(checkNoCaseList("April 16, 2017", pageSource, "Contains"));
 		} else {
