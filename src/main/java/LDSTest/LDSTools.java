@@ -542,9 +542,9 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		//LeaderBishopricDirectory("ngiBPC1", false, os);
+		LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
-		LeaderBishopricReport("ngiBPC1", false, os);
+		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os);
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
@@ -11624,7 +11624,7 @@ public class LDSTools {
 				//System.out.println("Orig Page Size: " + pageSize);
 				//pageSize = pageSize / 2;
 				pageSize = pageSize / 2;
-				System.out.println("Page Size: " + pageSize);
+				//System.out.println("Page Size: " + pageSize);
 				//pageSize = (pageSize / 2 ) + pageSize;
 				//System.out.println("3/4 Page Size: " + pageSize);
 				//pageSize = -pageSize;
@@ -11646,8 +11646,8 @@ public class LDSTools {
 						pageSource = pageSource + getSourceOfPage();
 						androidList = createUserList(androidList, pageSource);
 						lastMemberCheck = androidList.get(androidList.size() - 1 );
-						System.out.println("Last Member: " + lastMember);
-						System.out.println("Last Member Check: " + lastMemberCheck);
+						//System.out.println("Last Member: " + lastMember);
+						//System.out.println("Last Member Check: " + lastMemberCheck);
 					}
 
 				} while (!lastMember.equals(lastMemberCheck));
