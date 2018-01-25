@@ -515,7 +515,7 @@ public class LDSTools {
 		//bishopMemberOfSeparateStake(os);
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
-		//editCurrentUser(os);
+		editCurrentUser(os);
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
@@ -542,7 +542,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		LeaderBishopricDirectory("ngiBPC1", false, os);
+		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os);
@@ -3412,7 +3412,7 @@ public class LDSTools {
 		
 		
 		if (getRunningOS().equals("mac")) {
-			clickButtonByXpathTitleName("LDS44 Tools (37)");
+			clickButtonByXpathTitleName("LDS44 Tools (38)");
 			Thread.sleep(2000);
 			pageSource = iosExpandAllDirectory();
 			//pageSource = getSourceOfPage();
@@ -3442,7 +3442,7 @@ public class LDSTools {
 		//clickButtonByXpathTitleName("LDS44 Tools");
 		
 		if (getRunningOS().equals("mac")) {
-			clickButtonByXpathTitleName("LDS44 Tools (37)");
+			clickButtonByXpathTitleName("LDS44 Tools (38)");
 			pageSource = iosExpandAllDirectory();
 			//pageSource = getSourceOfPage();
 			Assert.assertTrue(checkNoCaseList("LDS44 Tools", pageSource, "Contains"));
@@ -3473,7 +3473,7 @@ public class LDSTools {
 		//clickButtonByXpathTitleName("LDS44 Tools");
 		
 		if (getRunningOS().equals("mac")) {
-			clickButtonByXpathTitleName("LDS44 Tools (37)");
+			clickButtonByXpathTitleName("LDS44 Tools (38)");
 			pageSource = iosExpandAllDirectory();
 			//pageSource = getSourceOfPage();
 			Assert.assertTrue(checkNoCaseList("LDS44 Tools", pageSource, "Contains"));
@@ -3540,7 +3540,7 @@ public class LDSTools {
 		Thread.sleep(3000);
 
 		if (getRunningOS().equals("mac")) {
-			clickButtonByXpathTitleName("LDS44 Tools (37)");
+			clickButtonByXpathTitleName("LDS44 Tools (38)");
 			pageSource = iosExpandAllDirectory();
 			//pageSource = getSourceOfPage();
 			Assert.assertTrue(checkNoCaseList("LDS44 Tools", pageSource, "Contains"));
@@ -12589,7 +12589,7 @@ public class LDSTools {
 		Thread.sleep(1000);
 		
 		clickButton("MenuSave", "id", "xpath");
-		Thread.sleep(2000);
+		Thread.sleep(6000);
 	}
 	
 	private void pressBackToRoot() throws Exception {
