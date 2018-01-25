@@ -1043,7 +1043,6 @@ public class LDSWeb {
 		WebElement mySelect = driver.findElement(By.xpath("//input[contains(@value, '" + districtName + "')]/../following-sibling::td/select[@ng-model='district.districtLeader']"));		
 		//WebElement mySelect = driver.findElement(By.xpath(this.prop.getProperty("DistrictSupervisorSelect")));
 		Select testSelect = new Select(mySelect);
-		
 		/*
 		List<WebElement> options= testSelect.getOptions();
 		for (int i = 0; i < options.size(); i++) {

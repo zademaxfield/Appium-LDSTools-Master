@@ -9259,7 +9259,7 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("Young Women", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("Sunday School", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("Primary", pageSource, "Equals"));
-		Assert.assertTrue(checkNoCaseList("Ward Missionaries", pageSource, "Equals"));
+		//Assert.assertTrue(checkNoCaseList("Ward Missionaries", pageSource, "Equals"));
 		Assert.assertTrue(checkNoCaseList("Other Callings", pageSource, "Equals"));
 
 		myWeb.openPageLogIn("https://uat.lds.org/mls/mbr/?lang=eng", myUserName, myPassword);
@@ -9281,8 +9281,8 @@ public class LDSTools {
 		getPrimaryInfo();
 
 
-
-		//Ward Missionaries
+// Ward Missionaries are not assigned to this ward anymore
+/*		//Ward Missionaries
 		if (getRunningOS().equals("mac")){
 			clickButtonByXpathTitleName("Ward Missionaries");
 		} else {
@@ -9296,7 +9296,7 @@ public class LDSTools {
 		pageSource = getSourceOfPage();
 		Assert.assertTrue(checkNoCaseList("Ward Mission Leader", pageSource, "Contains"));
 		//Assert.assertTrue(checkNoCaseList("Kitara, Lafaele", pageSource, "Contains"));
-		pressBackKey();
+		pressBackKey();*/
 		
 		
 		//Other Callings
