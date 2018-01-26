@@ -493,7 +493,7 @@ public class LDSTools {
 
 		//missionaryReferralSimple(os);
 		
-		//additionalUnit(os);
+		additionalUnit(os);
 		//additonalUnitSimpleTest(os);
 		//addUnitsRecent(os);
 		
@@ -534,7 +534,7 @@ public class LDSTools {
 		//AssistantWardClerkMembershipDirectory(os);
 		//LeaderNonBishopricReport("LDSTools20", "High Priest Group", os);
 		//LeaderNonBishopricHTVT("LDSTools20", "High Priest Group", os);
-		LeaderNonBishopricDirectory("LDSTools16", "High Priest Group", os);
+		//LeaderNonBishopricDirectory("LDSTools16", "High Priest Group", os);
 		//LeaderNonBishopricDirectory("LDSTools39", "Ward Council", os);
 		//LeaderNonBishopricHTVT("LDSTools26", "Relief Society Pres", os);
 		//LeaderNonBishopricMissionary("LDSTools20", "High Priest Group", os);
@@ -3938,7 +3938,8 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			clickButton("SearchCollapse", "id", "xpath");
 		} else {
-			backToDirectory() ;
+			//backToDirectory() ;
+			clickButton("SearchCollapse", "id", "xpath");
 		}
 		
 		
@@ -5955,7 +5956,7 @@ public class LDSTools {
 		clickButtonByXpathTitleName("Members Moved In");
 		Thread.sleep(1000);
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Dobrinz", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Akpan", pageSource, "Contains"));
 		Assert.assertFalse(checkNoCaseList("Skywalker, Luke", pageSource, "Contains"));
 		
 		pressBackKey();
@@ -5969,7 +5970,7 @@ public class LDSTools {
 			clickButton("MissAssignedTab", "xpath", "xpath");
 		}
 		pageSource = getSourceOfPage();
-		Assert.assertTrue(checkNoCaseList("Preston", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("Matthew", pageSource, "Contains"));
 
 	}
 	
