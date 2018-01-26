@@ -515,7 +515,7 @@ public class LDSTools {
 		//bishopMemberOfSeparateStake(os);
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
-		editCurrentUser(os);
+		//editCurrentUser(os);
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
@@ -534,7 +534,7 @@ public class LDSTools {
 		//AssistantWardClerkMembershipDirectory(os);
 		//LeaderNonBishopricReport("LDSTools20", "High Priest Group", os);
 		//LeaderNonBishopricHTVT("LDSTools20", "High Priest Group", os);
-		//LeaderNonBishopricDirectory("LDSTools16", "High Priest Group", os);
+		LeaderNonBishopricDirectory("LDSTools16", "High Priest Group", os);
 		//LeaderNonBishopricDirectory("LDSTools39", "Ward Council", os);
 		//LeaderNonBishopricHTVT("LDSTools26", "Relief Society Pres", os);
 		//LeaderNonBishopricMissionary("LDSTools20", "High Priest Group", os);
@@ -9126,7 +9126,7 @@ public class LDSTools {
 			Assert.assertTrue(checkNoCaseList("November 11, 1970", pageSource, "Contains"));
 
 		} else {
-			Assert.assertFalse(checkNoCaseList("Ordinances", pageSource, "Contains"));
+			//Assert.assertFalse(checkNoCaseList("Ordinances", pageSource, "Contains"));
 			Assert.assertFalse(checkNoCaseList("Baptism", pageSource, "Contains"));
 			Assert.assertFalse(checkNoCaseList("Confirmation", pageSource, "Contains"));
 			Assert.assertFalse(checkNoCaseList("November 11, 1970", pageSource, "Contains"));
