@@ -14,6 +14,8 @@ import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
 //import org.apache.bcel.generic.RETURN;
 //import io.appium.java_client.touch.offset.PointOption;
+import io.appium.java_client.touch.LongPressOptions;
+import io.appium.java_client.touch.TapOptions;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.io.FileUtils;
@@ -493,7 +495,7 @@ public class LDSTools {
 
 		//missionaryReferralSimple(os);
 		
-		additionalUnit(os);
+		//additionalUnit(os);
 		//additonalUnitSimpleTest(os);
 		//addUnitsRecent(os);
 		
@@ -512,7 +514,7 @@ public class LDSTools {
 		//LeaderBishopric("ngiBPC2", false, os); //Bishopric 2nd Counselor 
 		//LeaderBishopric("ngiWB1", true, os); //Bishop shows Stake View - something wrong with the account
 		//LeaderBishopric("ngiMC1", true, os); //Assistant Ward Clerk - Membership
-		//bishopMemberOfSeparateStake(os);
+		bishopMemberOfSeparateStake(os);
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
 		//editCurrentUser(os);
@@ -1141,7 +1143,8 @@ public class LDSTools {
 		//System.out.println("W: " + useThisLocationWidth);
 
 		//new TouchAction(driver).tap(useThisLocationX+ useThisLocationWidth + 20, useThisLocationY ).release().perform();
-		new TouchAction(driver).tap(useThisLocationX, useThisLocationY - 50 ).release().perform();
+		//new TouchAction(driver).tap(useThisLocationX, useThisLocationY - 50 ).release().perform();
+		new TouchAction(driver).press(PointOption.point(useThisLocationX, useThisLocationY - 50)).release().perform();
 	}
 
 	private void clearKeyboardMissReferral() throws Exception {
@@ -2641,7 +2644,7 @@ public class LDSTools {
 		Assert.assertTrue(checkNoCaseList("888-0028-7023", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("RECORD NUMBER", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("January 1, 1980", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("37", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("38", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("BIRTH DATE", pageSource, "Contains"));
 		
 
@@ -8160,7 +8163,8 @@ public class LDSTools {
 			scrollDistance = screenHeight - 100;
 
 			TouchAction actions = new TouchAction(driver);
-			actions.press(screenWidth, screenHeight).moveTo(0, -scrollDistance).waitAction(Duration.ofMillis(2000)).release().perform();
+			//actions.press(screenWidth, screenHeight).moveTo(0, -scrollDistance).waitAction(Duration.ofMillis(2000)).release().perform();
+			actions.press(PointOption.point(screenWidth, screenHeight)).moveTo(PointOption.point(screenWidth, - scrollDistance)).release().perform();
 			Thread.sleep(5000);
 		}
 
@@ -8185,7 +8189,8 @@ public class LDSTools {
 
 		TouchAction mySwipe = new TouchAction(driver);
 		//mySwipe.tap(screenWidth,screenHeight).moveTo(screenWidth, scrollDistance).waitAction(Duration.ofMillis(2000)).release().perform();
-		mySwipe.press(screenWidth,screenHeight).moveTo(screenWidth, scrollDistance).release().perform();
+		//mySwipe.press(screenWidth,screenHeight).moveTo(screenWidth, scrollDistance).release().perform();
+		mySwipe.press(PointOption.point(screenWidth, screenHeight)).moveTo(PointOption.point(screenWidth, scrollDistance)).release().perform();
 		//driver.swipe(screenWidth, screenHeight, screenWidth, scrollDistance, 2000);
 
 		Thread.sleep(2000);
@@ -8330,7 +8335,9 @@ public class LDSTools {
 		
 		
 		TouchAction actions = new TouchAction(driver);
-		actions.press(screenWidth, screenHeight).moveTo(0, scrollDistance).release().perform();
+		//actions.press(screenWidth, screenHeight).moveTo(0, scrollDistance).release().perform();
+		actions.press(PointOption.point(screenWidth, screenHeight)).moveTo(PointOption.point(0, scrollDistance)).release().perform();
+
 		
 		/*
 		actions.down(screenWidth, screenHeight);
@@ -8373,52 +8380,24 @@ public class LDSTools {
 		actions.perform();
 	}
 	
-	/** longPressByTextView(String textElement)
-	 * This will perform a long press on //TextView text
-	 * 
-	 * @param textElement - text of an element
-	 */
-	private void longPressByTextView(String textElement) {
-		//MobileElement myElement = driver.findElement(By.xpath("//*[@value='" + textElement + "']"));
-		//MobileElement myElement = driver.findElement(By.xpath("//*[contains(@value, '" + textElement + "')]"));
-		//AppiumDriver myElement = driver.findElement(By.xpath("//*[contains(@text, '" + textElement + "')]"));
-		
-		MobileElement myElement = driver.findElement(By.xpath("//*[contains(@text, '" + textElement + "')]"));
-		
-		
-		//MobileElement myElement = driver.findElement(By.id("signin_instructions"));
-		//MobileElement muElements = (MobileElement) driver.findElements(By.id("signin_instructions"));
-
-		//This was doing a longpress on the wrong element
-		//TouchActions longPress = new TouchActions(driver).longPress(myElement);
-		//longPress.perform();
-		TouchAction action = new TouchAction(driver);
-		action.longPress(myElement).release().perform();
-		
-		
-		//driver.tap(2, myElement, 3);
-
-		//TouchActions actions = new TouchActions(driver);
-		//actions.longPress(myElement).release().perform();
-		
-		//actions.longPress(myElement).release().perform();
-		
-		/*
-		Point p=myElement.getLocation();
-		//System.out.println("X: " + p.x + "Y: " + p.y);
-		actions.down(p.x, p.y);
-		actions.pause(2000);
-		actions.up(p.x, p.y);
-		actions.perform();
-		*/
-		
-	}
-	
-	private void longPressByID(String textElement) {
-		MobileElement myElement = driver.findElement(By.id(this.prop.getProperty(textElement)));
-		TouchAction action = new TouchAction(driver);
-		action.longPress(myElement).release().perform();
-	}
+//	/** longPressByTextView(String textElement)
+//	 * This will perform a long press on //TextView text
+//	 *
+//	 * @param textElement - text of an element
+//	 */
+//	private void longPressByTextView(String textElement) {
+//		MobileElement myElement = driver.findElement(By.xpath("//*[contains(@text, '" + textElement + "')]"));
+//
+//		TouchAction action = new TouchAction(driver);
+//		action.longPress(myElement).release().perform();
+//
+//	}
+//
+//	private void longPressByID(String textElement) {
+//		MobileElement myElement = driver.findElement(By.id(this.prop.getProperty(textElement)));
+//		TouchAction action = new TouchAction(driver);
+//		action.longPress(myElement).release().perform();
+//	}
 	
 	
 
@@ -9369,7 +9348,8 @@ public class LDSTools {
 			//clickButton("6:00 PM", "text", "name");
 			//driver.scrollTo("Worldwide Devotional for Young Adults");
 			TouchAction mySwipe = new TouchAction(driver);
-			mySwipe.tap(50,500).moveTo(50, 100).waitAction(Duration.ofMillis(2000)).release().perform();
+			//mySwipe.tap(50,500).moveTo(50, 100).waitAction(Duration.ofMillis(2000)).release().perform();
+			mySwipe.press(PointOption.point(50,500)).moveTo(PointOption.point(50,-100)).release().perform();
 			//driver.swipe(50, 500, 50, 100, 750);
 			//driver.scrollToExact("Worldwide Devotional for Young Adults");
 			clickButton("Worldwide Devotional for Young Adults", "text", "nameContains");
@@ -9683,7 +9663,7 @@ public class LDSTools {
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("Unit Statistics");
 		} else {
-			scrollDownTEST(100);
+			scrollDownTEST(400);
 			//scrollToElementMemberList("Unit Statistics");
 			//driver.scrollToExact("Unit Statistics");
 			clickButtonByXpathTitleName("Unit Statistics");
@@ -11786,6 +11766,7 @@ public class LDSTools {
 
 						//Move the bottom element to the top element
 						mySwipe.press(bottomElement).waitAction(Duration.ofMillis(300)).moveTo(topElement).waitAction(Duration.ofMillis(3000)).release().perform();
+
 						Thread.sleep(1000);
 
 						//Get the new list and add it to androidList
@@ -12690,7 +12671,8 @@ public class LDSTools {
 		
 		myElement = driver.findElement(By.name(elementName));
 		Point myPoint = myElement.getLocation();
-		myAction.press(myPoint.x, myPoint.y).release();
+		//myAction.press(myPoint.x, myPoint.y).release();
+		myAction.press(PointOption.point(myPoint.x, myPoint.y)).release();
 		driver.performTouchAction(myAction);
 	}
 	
@@ -12700,7 +12682,8 @@ public class LDSTools {
 	
 		myElement = driver.findElement(By.xpath("//*[contains(@text, '" + elementName + "')]"));
 		Point myPoint = myElement.getLocation();
-		myAction.press(myPoint.x, myPoint.y).release();
+		//myAction.press(myPoint.x, myPoint.y).release();
+		myAction.press(PointOption.point(myPoint.x, myPoint.y)).release();
 		driver.performTouchAction(myAction);
 	}
 	
@@ -13499,7 +13482,8 @@ public class LDSTools {
 	public void scrollDownOnePage() throws Exception {
 		TouchAction mySwipe = new TouchAction(driver);
 		//mySwipe.tap(50,getScrollStart()).moveTo(50, getScrollEnd()).waitAction(Duration.ofMillis(2000)).release().perform();
-		mySwipe.press(50,getScrollStart()).moveTo(50, getScrollEnd()).release().perform();
+		//mySwipe.press(50,getScrollStart()).moveTo(50, getScrollEnd()).release().perform();
+		mySwipe.press(PointOption.point(50, getScrollStart())).moveTo(PointOption.point(50,getScrollEnd())).release().perform();
 		//driver.swipe(0, getScrollStart(), 0, getScrollEnd(), 1000);
 	}
 	
