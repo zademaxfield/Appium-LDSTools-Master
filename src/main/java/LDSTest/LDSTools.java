@@ -539,7 +539,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		LeaderBishopricDirectory("ngiBPC1", false, os);
+		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os);
@@ -580,7 +580,7 @@ public class LDSTools {
 		
 		
 		//Header Tests
-		//JeffAnderson(os);
+		JeffAnderson(os);
 		//ChristieWhiting(os);
 		//CliffHigby(os);
 		//KevinPalmer(os);
@@ -8878,6 +8878,8 @@ public class LDSTools {
 
 			Thread.sleep(2000);
 		}
+
+		testForAlert();
 
 		if (getRunningOS().equals("mac")) {
 			clickButton("Done", "id", "pred");
