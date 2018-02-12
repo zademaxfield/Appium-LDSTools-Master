@@ -491,8 +491,8 @@ public class LDSTools {
 
 		//missionaryReferralSimple(os);
 		
-		//additionalUnit(os);
-		additonalUnitSimpleTest(os);
+		additionalUnit(os);
+		//additonalUnitSimpleTest(os);
 		//addUnitsRecent(os);
 		
 		//myTempleSimpleTest(os);
@@ -8105,7 +8105,7 @@ public class LDSTools {
 			screenHeight = screenHeight - 200;
 			//scrollDistance = screenHeight - scrollDistance;
 			scrollDistance = screenHeight / 2;
-			scrollDistance = -scrollDistance;
+			//scrollDistance = -scrollDistance;
 			
 			//System.out.println("Width: " + screenWidth);
 			//System.out.println("Height: " + screenHeight);
