@@ -229,6 +229,7 @@ public class LDSTools {
 					deviceSerial = deviceList.get(new Random().nextInt(deviceList.size()));
 					System.out.println("DEVICE TO USE: " + deviceSerial);
 					deviceSerial = deviceSerial.replace("\"", "");
+
 				} 
 
 				
@@ -420,7 +421,7 @@ public class LDSTools {
 	        
 	        
 	        
-	        capabilities.setCapability("newCommandTimeout", 600);
+	        capabilities.setCapability("newCommandTimeout", 1000);
 	        capabilities.setCapability("app", app.getAbsolutePath());
 	        //capabilities.setCapability("appPackage", myAppPackage);
 	        //capabilities.setCapability("appPackage", "org.lds.ldstools.dev");
@@ -491,7 +492,7 @@ public class LDSTools {
 		//missionaryReferralSimple(os);
 		
 		//additionalUnit(os);
-		//additonalUnitSimpleTest(os);
+		additonalUnitSimpleTest(os);
 		//addUnitsRecent(os);
 		
 		//myTempleSimpleTest(os);
@@ -542,7 +543,7 @@ public class LDSTools {
 		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
-		LeaderBishopricHTVT("ngiBPC1", false, os);
+		//LeaderBishopricHTVT("ngiBPC1", false, os);
 
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//LeaderBishopricReport("ngiBPC2", false, os); //Bishopric 2nd Counselor  
@@ -13532,6 +13533,7 @@ public class LDSTools {
 		int myScrollStart; 
 		TouchAction actions = new TouchAction(driver);
 		WebElement myBottomElement;
+		Point myLocation;
 		
 		do {
 			//Check to see if the text is on the page
@@ -13545,8 +13547,15 @@ public class LDSTools {
 				//actions.press(screenWidth, screenHeight).moveTo(0, -scrollDistance).release().perform();
 
 				//actions.press(screenWidth, screenHeight).moveTo(0, -scrollDistance).waitAction(2000).release().perform();
+				myLocation = myBottomElement.getLocation();
+
 				
-				actions.press(myBottomElement).moveTo(0, -60).waitAction(Duration.ofMillis(2000)).release().perform();
+				//actions.press(myBottomElement).moveTo(0, -60).waitAction(Duration.ofMillis(2000)).release().perform();
+				actions.press(PointOption.point(myLocation.getX(), myLocation.getY()))
+						.moveTo(PointOption.point(myLocation.getX(),myLocation.getY() - 60))
+						.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(2)))
+						.release().perform();
+
 
 
 				bottomElement2 = scrollCheckUnitList();
