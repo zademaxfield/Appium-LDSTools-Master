@@ -491,7 +491,7 @@ public class LDSTools {
 
 		//missionaryReferralSimple(os);
 		
-		additionalUnit(os);
+		//additionalUnit(os);
 		//additonalUnitSimpleTest(os);
 		//addUnitsRecent(os);
 		
@@ -522,7 +522,7 @@ public class LDSTools {
 		
 		//editVisibility(os);
 		//editVisibiltyPersonal(os);
-		//editVisibiltyHousehold(os);
+		editVisibiltyHousehold(os);
 		
 		//CheckUnitsToSync(os);
 		
@@ -549,6 +549,7 @@ public class LDSTools {
 		//LeaderBishopricReport("ngiBPC2", false, os); //Bishopric 2nd Counselor  
 		
 		//AssistantWardClerkMembershipReport(os);
+		//SundaySchoolPresidentMissionary(os);
 
 
 		//NoCallingMemberDirectory(os);
@@ -4356,8 +4357,11 @@ public class LDSTools {
 		
 		resetVisibility();
 		
-		clickButton("MenuSave", "id", "xpath");
-		Thread.sleep(2000);
+		//clickButton("MenuSave", "id", "xpath");
+		//Thread.sleep(3000);
+		//Need a check for the text
+		//waitForTextToDisappearTEXT("Saving", 500 );
+		Thread.sleep(1000);
 		backToDirectory();
 		
 		//Log out 
