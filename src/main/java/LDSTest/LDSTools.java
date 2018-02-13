@@ -505,7 +505,7 @@ public class LDSTools {
 
 		//LeaderNonBishopricTEST("LDSTools29", "Relief Society Pres", os);
 		//LeaderNonBishopric("LDSTools16", "High Priest Group", os);
-		//under18HeadofHouse(os);	
+		//under18HeadofHouse(os);
 		//LeaderBishopric("ngiBPC1", false, os); //Bishopric 1st Counselor  
 		//LeaderBishopric("ngiBPC2", false, os); //Bishopric 2nd Counselor 
 		//LeaderBishopric("ngiWB1", true, os); //Bishop shows Stake View - something wrong with the account
@@ -520,9 +520,9 @@ public class LDSTools {
 		//editOtherUserInvalidEmail(os);
 		
 		
-		//editVisibility(os);
+		editVisibility(os);
 		//editVisibiltyPersonal(os);
-		editVisibiltyHousehold(os);
+		//editVisibiltyHousehold(os);
 		
 		//CheckUnitsToSync(os);
 		
@@ -550,6 +550,8 @@ public class LDSTools {
 		
 		//AssistantWardClerkMembershipReport(os);
 		//SundaySchoolPresidentMissionary(os);
+		//PrimaryPresidentMissionary(os);
+		//EldersQuorumFirstCounselorHTVT(os);
 
 
 		//NoCallingMemberDirectory(os);
@@ -2573,7 +2575,7 @@ public class LDSTools {
 		searchForUser("Tools, LDS6");
 		
 		if (getRunningOS().equals("mac")) {
-			clickButtonByXpathTitleName("LDS6 Tools (17)");
+			clickButtonByXpathTitleName("LDS6 Tools (18)");
 			Thread.sleep(2000);
 			pageSource = iosExpandAllDirectory();
 			//pageSource = getSourceOfPage();
@@ -2628,8 +2630,9 @@ public class LDSTools {
 		
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpathTitleName("LDS2 Tools (38)");
-			pageSource = getSourceOfPage();
-			Assert.assertTrue(checkNoCaseList("Tools, LDS2", pageSource, "Contains"));
+			pageSource = iosExpandAllDirectory();
+			Assert.assertTrue(checkNoCaseList("LDS2", pageSource, "Contains"));
+			Assert.assertTrue(checkNoCaseList("Tools", pageSource, "Contains"));
 		} else {
 			//clickButtonByXpathTitleName("Tools, LDS2");
 			pageSource = androidGetMemberInfo();
@@ -2638,7 +2641,7 @@ public class LDSTools {
 		
 		//Check the users name, address membership number etc...
 		Assert.assertTrue(checkNoCaseList("MEMBERSHIP INFORMATION", pageSource, "Contains"));
-		Assert.assertTrue(checkNoCaseList("888-0028-7023", pageSource, "Contains"));
+		Assert.assertTrue(checkNoCaseList("8019675306", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("RECORD NUMBER", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("January 1, 1980", pageSource, "Contains"));
 		Assert.assertTrue(checkNoCaseList("38", pageSource, "Contains"));
@@ -3985,7 +3988,7 @@ public class LDSTools {
 		
 		
 		
-		clickButton("MenuSave", "id", "xpath");
+		//clickButton("MenuSave", "id", "xpath");
 		//Thread.sleep(1000);
 		//clickButton("MenuSave", "id", "xpath");
 
