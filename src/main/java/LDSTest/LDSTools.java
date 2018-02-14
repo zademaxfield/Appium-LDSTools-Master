@@ -8891,6 +8891,8 @@ public class LDSTools {
 		testForAlert();
 
 		if (getRunningOS().equals("mac")) {
+			//It is taking a while for the Whats New screen to appear. 
+			Thread.sleep(8000);
 			clickButton("Done", "id", "pred");
 		}
 
