@@ -513,7 +513,7 @@ public class LDSTools {
 		//bishopMemberOfSeparateStake(os);
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
-		//editCurrentUser(os);
+		editCurrentUser(os);
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
@@ -540,7 +540,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		LeaderBishopricDirectory("ngiBPC1", false, os);
+		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os);
@@ -8861,6 +8861,16 @@ public class LDSTools {
 			pressTouchID();
 			touchIDCheck = 1;
 		}
+
+		//Check for Done Page
+		if (checkElementReturn("Done", "id", "pred")) {
+			clickButton("Done", "id", "pred");
+			if (!getRunningOS().equals("mac")) {
+				clickButton("AllowButton", "xpath", "text");
+				clickButton("AllowButton", "xpath", "text");
+			}
+		}
+
 		
 		if (touchIDCheck == 0 )	 {
 			testForAlert();
@@ -8879,10 +8889,12 @@ public class LDSTools {
 				clickButton("PinKey" + digit3, "id", "pred");
 				clickButton("PinKey" + digit4, "id", "pred");
 			} else {
-				clickButton("PinKey" + digit1, "id", "pred");
-				clickButton("PinKey" + digit2, "id", "pred");
-				clickButton("PinKey" + digit3, "id", "pred");
-				clickButton("PinKey" + digit4, "id", "pred");
+				if (checkElementReturn("PinKey" + digit1, "id", "pred")) {
+					clickButton("PinKey" + digit1, "id", "pred");
+					clickButton("PinKey" + digit2, "id", "pred");
+					clickButton("PinKey" + digit3, "id", "pred");
+					clickButton("PinKey" + digit4, "id", "pred");
+				}
 			}
 
 			Thread.sleep(2000);
@@ -8890,15 +8902,18 @@ public class LDSTools {
 
 		testForAlert();
 
-		//It is taking a while for the Whats New screen to appear.
-		Thread.sleep(8000);
-		clickButton("Done", "id", "pred");
+		//Check for Done Page
+		if (checkElementReturn("Done", "id", "pred")) {
+			clickButton("Done", "id", "pred");
+			if (!getRunningOS().equals("mac")) {
+				clickButton("AllowButton", "xpath", "text");
+				clickButton("AllowButton", "xpath", "text");
+			}
+		}
 
 
 		
 		if (!getRunningOS().equals("mac")) {
-			clickButton("AllowButton", "xpath", "text");
-			clickButton("AllowButton", "xpath", "text");
 			Thread.sleep(2000);
 			//pressBackKey();
 			checkForLater();
