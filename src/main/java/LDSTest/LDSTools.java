@@ -520,7 +520,7 @@ public class LDSTools {
 		//editOtherUserInvalidEmail(os);
 		
 		
-		editVisibility(os);
+		//editVisibility(os);
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
@@ -540,7 +540,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		//LeaderBishopricDirectory("ngiBPC1", false, os);
+		LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os);
@@ -8890,15 +8890,15 @@ public class LDSTools {
 
 		testForAlert();
 
-		if (getRunningOS().equals("mac")) {
-			//It is taking a while for the Whats New screen to appear. 
-			Thread.sleep(8000);
-			clickButton("Done", "id", "pred");
-		}
+		//It is taking a while for the Whats New screen to appear.
+		Thread.sleep(8000);
+		clickButton("Done", "id", "pred");
 
 
 		
 		if (!getRunningOS().equals("mac")) {
+			clickButton("AllowButton", "xpath", "text");
+			clickButton("AllowButton", "xpath", "text");
 			Thread.sleep(2000);
 			//pressBackKey();
 			checkForLater();
