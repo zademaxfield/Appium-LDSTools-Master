@@ -513,7 +513,7 @@ public class LDSTools {
 		//bishopMemberOfSeparateStake(os);
 		//LeaderBishopricDrawerOrgMissionary("ngiMC1", false, os); //Assistant Ward Clerk - Membership 
 		
-		editCurrentUser(os);
+		//editCurrentUser(os);
 		//editCurrentUserCancel(os);
 		//editOtherUser(os);
 		//editOtherUserInvalidPhone(os);
@@ -548,11 +548,16 @@ public class LDSTools {
 		//LeaderBishopricReport("ngiMC1", true, os); //Assistant Ward Clerk - Membership
 		//LeaderBishopricReport("ngiBPC2", false, os); //Bishopric 2nd Counselor  
 		
-		//AssistantWardClerkMembershipReport(os);
-		//SundaySchoolPresidentMissionary(os);
-		//PrimaryPresidentMissionary(os);
-		//EldersQuorumFirstCounselorHTVT(os);
+		AssistantWardClerkMembershipReport(os);
 
+		//SundaySchoolPresidentMissionary(os);
+
+		//PrimaryPresidentMissionary(os);
+
+		//EldersQuorumFirstCounselorHTVT(os);
+		//EldersQuorumSecretaryDirectory(os);
+
+		//HighPriestsGroupLeaderReport(os);
 
 		//NoCallingMemberDirectory(os);
 
@@ -4361,8 +4366,8 @@ public class LDSTools {
 		
 		resetVisibility();
 		
-		//clickButton("MenuSave", "id", "xpath");
-		//Thread.sleep(3000);
+		clickButton("MenuSave", "id", "xpath");
+		Thread.sleep(3000);
 		//Need a check for the text
 		//waitForTextToDisappearTEXT("Saving", 500 );
 		Thread.sleep(1000);
@@ -6289,6 +6294,10 @@ public class LDSTools {
 		
 		if (findElement == "pred")  {
 			options= driver.findElements(MobileBy.iOSNsPredicateString(this.prop.getProperty(textElement)));	
+		}
+
+		if (findElement == "AccID") {
+			options= driver.findElements(MobileBy.AccessibilityId(textElement));
 		}
 
 		
@@ -8837,38 +8846,59 @@ public class LDSTools {
 	private void pinPage(String digit1, String digit2, String digit3, String digit4, Boolean nonLeaderPin ) throws Exception {
 		int touchIDCheck = 0; // 0 = no touch ID
 
-		//Check for Touch ID then press the ID
+		testForAlert();
+
+		//Check for Face ID then Disable Face ID
 		//System.out.println("Check for Enable Touch ID Button.");
-		if (checkElementReturn("Would you like to do this now", "contValue", "contValue")) {
-			//System.out.println("Enable Touch ID Button found, hitting the button");
-			clickButton("Yes", "byName", "byName");
+		if (checkElementReturn("Disable Face ID", "contValue", "AccID")) {
+			System.out.println("Face ID found hitting disable");
+			clickButton("Disable Face ID", "byName", "AccID");
 			Thread.sleep(2000);
+			clickButton("OK", "byName", "AccID");
 		}
-		
-		
+
+		//Check for Touch ID then press the ID
+		if (checkElementReturn("DisableTouchID", "contValue", "pred")) {
+			//System.out.println("Enable Touch ID Button found, hitting the button");
+			clickButton("DisableTouchID", "id", "pred");
+			Thread.sleep(2000);
+			clickButton("OK", "byName", "AccID");
+		}
+
 		//Check for Touch ID then press the ID
 		//System.out.println("Check for Enable Touch ID Button.");
-		if (checkElementReturn("EnableTouchID", "id", "pred")) {
+		if (checkElementReturn("EnableTouchID", "contValue", "pred")) {
 			//System.out.println("Enable Touch ID Button found, hitting the button");
 			clickButton("EnableTouchID", "id", "pred");
 			Thread.sleep(4000);
 		}
-		
-		//Check for Touch ID then press the ID
-		//System.out.println("Check for Press Touch ID");
-		if (checkElementReturn("TouchIDFound", "id", "xpath")) {
-			//System.out.println("Press Touch ID found!");
-			pressTouchID();
-			touchIDCheck = 1;
-		}
 
-		//Check for Done Page
+
+		
+//		//Check for Touch ID then press the ID
+//		//System.out.println("Check for Press Touch ID");
+//		if (checkElementReturn("TouchIDFound", "id", "xpath")) {
+//			//System.out.println("Press Touch ID found!");
+//			pressTouchID();
+//			touchIDCheck = 1;
+//		}
+
+		//Check for Whats New Page
 		if (checkElementReturn("Done", "id", "pred")) {
 			clickButton("Done", "id", "pred");
 			if (!getRunningOS().equals("mac")) {
-				clickButton("AllowButton", "xpath", "text");
-				clickButton("AllowButton", "xpath", "text");
+				Thread.sleep(2000);
+				if (checkElementReturn("AllowButton", "xpath", "text")) {
+					clickButton("AllowButton", "xpath", "text");
+					clickButton("AllowButton", "xpath", "text");
+				}
 			}
+		}
+
+		//Use PIN for non-leader positions
+		if (checkElementReturn("OK", "textAtt", "pred")) {
+			clickButton("OK", "textAtt", "pred");
+			Thread.sleep(2000);
 		}
 
 		
@@ -8902,12 +8932,15 @@ public class LDSTools {
 
 		testForAlert();
 
-		//Check for Done Page
+		//Check for Whats New Page
 		if (checkElementReturn("Done", "id", "pred")) {
 			clickButton("Done", "id", "pred");
 			if (!getRunningOS().equals("mac")) {
-				clickButton("AllowButton", "xpath", "text");
-				clickButton("AllowButton", "xpath", "text");
+				Thread.sleep(2000);
+				if (checkElementReturn("AllowButton", "xpath", "text")) {
+					clickButton("AllowButton", "xpath", "text");
+					clickButton("AllowButton", "xpath", "text");
+				}
 			}
 		}
 
