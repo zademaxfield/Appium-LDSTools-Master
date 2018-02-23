@@ -520,7 +520,7 @@ public class LDSTools {
 		//editOtherUserInvalidEmail(os);
 		
 		
-		//editVisibility(os);
+		editVisibility(os);
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
@@ -540,7 +540,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		LeaderBishopricDirectory("ngiBPC1", false, os);
+		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os);
@@ -553,6 +553,7 @@ public class LDSTools {
 		//SundaySchoolPresidentMissionary(os);
 
 		//PrimaryPresidentMissionary(os);
+		//YoungMenPresidentMissionary(os);
 
 		//EldersQuorumFirstCounselorHTVT(os);
 		//EldersQuorumSecretaryDirectory(os);
@@ -1209,25 +1210,25 @@ public class LDSTools {
 
 	
 	@Parameters({"os"})
-	@Test (groups= {"medium", "medium1", "bishopric", "smoke1", "smoke", "all1"}, priority = 1)
+	@Test (groups= {"medium", "medium1", "bishopric", "smoke", "all1"}, priority = 1)
 	public void Bishopric1stCounselorDirectory(String os) throws Exception {
 		LeaderBishopricDirectory("ngiBPC1", false, os); //Bishopric 1st Counselor  
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"medium", "medium2", "bishopric", "smoke2", "smoke", "all1"}, priority = 1)
+	@Test (groups= {"medium", "medium2", "bishopric", "smoke", "all1"}, priority = 1)
 	public void Bishopric1stCounselorMissionary(String os) throws Exception {
 		LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os); //Bishopric 1st Counselor  
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"medium", "medium3", "bishopric", "smoke3", "smoke", "all1"}, priority = 1)
+	@Test (groups= {"medium", "medium3", "bishopric", "smoke", "all1"}, priority = 1)
 	public void Bishopric1stCounselorReport(String os) throws Exception {
 		LeaderBishopricReport("ngiBPC1", false, os); //Bishopric 1st Counselor  
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"medium", "medium4", "bishopric", "smoke4", "smoke", "all1"}, priority = 1)
+	@Test (groups= {"medium", "medium4", "bishopric", "smoke", "all1"}, priority = 1)
 	public void Bishopric1stCounselorHTVT(String os) throws Exception {
 		LeaderBishopricHTVT("ngiBPC1", false, os); //Bishopric 1st Counselor  
 	}
@@ -1316,25 +1317,25 @@ public class LDSTools {
 	// **************** High Priest Group Leader *************************
 	
 	@Parameters({"os"})
-	@Test (groups= {"medium", "medium4", "high priest", "myTest", "all4"}, priority = 1)
+	@Test (groups= {"medium", "medium4", "high priest", "myTest", "all4", "smoke1"}, priority = 1)
 	public void HighPriestsGroupLeaderDirectory(String os) throws Exception {
 		LeaderNonBishopricDirectory("LDSTools16", "High Priest Group", os);
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"medium", "medium3", "high priest", "all4"}, priority = 1)
+	@Test (groups= {"medium", "medium3", "high priest", "all4", "smoke2"}, priority = 1)
 	public void HighPriestsGroupLeaderMissionary(String os) throws Exception {
 		LeaderNonBishopricMissionary("LDSTools16", "High Priest Group", os);
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"medium", "medium2", "high priest", "all4"}, priority = 1)
+	@Test (groups= {"medium", "medium2", "high priest", "all4", "smoke3"}, priority = 1)
 	public void HighPriestsGroupLeaderReport(String os) throws Exception {
 		LeaderNonBishopricReport("LDSTools16", "High Priest Group", os);
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"medium", "medium1", "high priest", "all4"}, priority = 1)
+	@Test (groups= {"medium", "medium1", "high priest", "all4", "smoke4"}, priority = 1)
 	public void HighPriestsGroupLeaderHTVT(String os) throws Exception {
 		LeaderNonBishopricHTVT("LDSTools16", "High Priest Group", os);
 	}
@@ -1660,25 +1661,25 @@ public class LDSTools {
 	// **************** Relief Society President  *************************
 	
 	@Parameters({"os"})
-	@Test (groups= {"medium", "medium2", "relief society", "all2"}, priority = 1)
+	@Test (groups= {"medium", "medium2", "relief society", "all2", "smoke1"}, priority = 1)
 	public void ReliefSocietyPresidentDirectory(String os) throws Exception {
 		LeaderNonBishopricDirectory("LDSTools26", "Relief Society Pres", os);
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"medium", "medium1", "relief society", "all2"}, priority = 1)
+	@Test (groups= {"medium", "medium1", "relief society", "all2", "smoke2"}, priority = 1)
 	public void ReliefSocietyPresidentMissionary(String os) throws Exception {
 		LeaderNonBishopricMissionary("LDSTools26", "Relief Society Pres", os);
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"medium", "medium4", "relief society", "all2"}, priority = 1)
+	@Test (groups= {"medium", "medium4", "relief society", "all2", "smoke3"}, priority = 1)
 	public void ReliefSocietyPresidentReport(String os) throws Exception {
 		LeaderNonBishopricReport("LDSTools26", "Relief Society Pres", os);
 	}
 	
 	@Parameters({"os"})
-	@Test (groups= {"medium", "medium3", "relief society", "all2"}, priority = 1)
+	@Test (groups= {"medium", "medium3", "relief society", "all2", "smoke4"}, priority = 1)
 	public void ReliefSocietyPresidentHTVT(String os) throws Exception {
 		LeaderNonBishopricHTVT("LDSTools26", "Relief Society Pres", os);
 	}
