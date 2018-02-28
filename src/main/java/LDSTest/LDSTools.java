@@ -489,7 +489,7 @@ public class LDSTools {
 		//justForTesting(os);
 
 
-		//missionaryReferralSimple(os);
+		missionaryReferralSimple(os);
 		
 		//additionalUnit(os);
 		//additonalUnitSimpleTest(os);
@@ -540,7 +540,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		LeaderBishopricDirectory("ngiBPC1", false, os);
+		//LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os);
@@ -559,6 +559,7 @@ public class LDSTools {
 		//EldersQuorumSecretaryDirectory(os);
 
 		//HighPriestsGroupLeaderReport(os);
+		//HighPriestsGroupLeaderHTVT(os);
 
 		//NoCallingMemberDirectory(os);
 
@@ -10860,7 +10861,8 @@ public class LDSTools {
 			}
 			Thread.sleep(1000);
 			//Assert.assertTrue(checkElementReturn("Apofasa, Sasa'a", "textAtt", "value"));
-			Assert.assertTrue(checkElementReturn("AFPSix, Husband", "textAtt", "value"));
+			//Assert.assertTrue(checkElementReturn("AFPSix, Husband", "textAtt", "value"));
+			Assert.assertTrue(checkElementReturn("Apofasa, Vini & Fetoai", "textAtt", "value"));
 			//Assert.assertTrue(checkElementReturn("AFPMisc, Member15", "textAtt", "value"));
 			if (!getRunningOS().equals("mac")) {
 				clickButton("HTVTRemoveFiltersButton", "id", "xpath");
