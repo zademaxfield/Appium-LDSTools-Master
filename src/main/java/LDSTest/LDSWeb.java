@@ -249,6 +249,7 @@ public class LDSWeb {
 		// Create Companionship
 		addCompanionshipHTVT("lds26");
 		addCompanionshipHTVT("lds27");
+		addCompanionshipHTVT("lds12");
 		
 		//Add Households to Companionship
 		addHouseholdHTVT("lds38");
@@ -288,9 +289,24 @@ public class LDSWeb {
 		addHouseholdHTVT("afpten");
 		addHouseholdHTVT("lds23");
 		addHouseholdHTVT("lds24");
+		addHouseholdHTVT("lds5");
+		addHouseholdHTVT("lds11");
 		
 		clickDistrictSaveButton("District 1");
 		//clickElement("MemberSave", "xpath");
+
+		selectDistrictHTVT("District 2");
+
+		// Create Companionship
+		addCompanionshipHTVT("lds11");
+		addCompanionshipHTVT("lds23");
+
+		//Add Households to Companionship
+		addHouseholdHTVT("lds21");
+		addHouseholdHTVT("lds22");
+
+		//clickElement("MemberSave", "xpath");
+		clickDistrictSaveButton("District 2");
 		
 		Thread.sleep(2000);
 		clickElement("LCRHomeButton", "xpath");
@@ -352,6 +368,7 @@ public class LDSWeb {
 		Thread.sleep(4000);
 		
 		addDistrict("District 1", "Tools, LDS51" );
+		addDistrict("District 2", "Tools, LDS21" );
 		
 		Thread.sleep(2000);
 		clickElement("LCRHomeButton", "xpath");
@@ -501,6 +518,9 @@ public class LDSWeb {
 		addMemberToOrg("lds51");
 		addMemberToOrg("lds31");
 		addMemberToOrg("lds32");
+		addMemberToOrg("lds5");
+		addMemberToOrg("lds6");
+		addMemberToOrg("lds11");
 		
 		
 		clickElement("Organizations", "linkText");
@@ -517,7 +537,8 @@ public class LDSWeb {
 		addMemberToOrg("lds30");
 		addMemberToOrg("lds52");
 		addMemberToOrg("lds53");
-		
+		addMemberToOrg("lds53");
+		addMemberToOrg("lds12");
 		
 		addMemberToOrg("aaron");
 		
