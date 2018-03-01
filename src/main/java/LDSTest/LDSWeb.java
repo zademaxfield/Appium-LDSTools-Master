@@ -302,8 +302,8 @@ public class LDSWeb {
 		addCompanionshipHTVT("lds23");
 
 		//Add Households to Companionship
-		addHouseholdHTVT("lds21");
-		addHouseholdHTVT("lds22");
+		addHouseholdHTVT("lds14");
+		addHouseholdHTVT("lds15");
 
 		//clickElement("MemberSave", "xpath");
 		clickDistrictSaveButton("District 2");
@@ -368,7 +368,7 @@ public class LDSWeb {
 		Thread.sleep(4000);
 		
 		addDistrict("District 1", "Tools, LDS51" );
-		addDistrict("District 2", "Tools, LDS21" );
+		addDistrict("District 2", "Tools, LDS22" );
 		
 		Thread.sleep(2000);
 		clickElement("LCRHomeButton", "xpath");
@@ -393,25 +393,25 @@ public class LDSWeb {
 		Thread.sleep(2000);
 		waitForTextToDisappear("Loading", 500, "id" );
 		clickElement("High Priests Group Leadership", "linkText");
-		
-		
+
+
 		addMemberToCalling("First Assistant", "lds17");
 		addMemberToCalling("Second Assistant", "lds18");
 		addMemberToCalling("Group Secretary", "lds19");
 		clickElement("Clear Filters", "linkText");
-		
-	
-		
+
+
+
 		clickElement("Organizations", "linkText");
 		Thread.sleep(4000);
 		clickElement("High Priests Group", "linkText");
 		Thread.sleep(2000);
 		waitForTextToDisappear("Loading", 500, "id" );
 		clickElement("Home Teaching District Supervisors", "linkText");
-		
+
 		addMemberToCalling("District Supervisor", "lds50");
 		clickElement("Clear Filters", "linkText");
-		
+
 		
 		
 		
@@ -537,7 +537,7 @@ public class LDSWeb {
 		addMemberToOrg("lds30");
 		addMemberToOrg("lds52");
 		addMemberToOrg("lds53");
-		addMemberToOrg("lds53");
+
 		addMemberToOrg("lds12");
 		
 		addMemberToOrg("aaron");

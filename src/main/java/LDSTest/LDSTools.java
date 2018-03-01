@@ -489,7 +489,7 @@ public class LDSTools {
 		//justForTesting(os);
 
 
-		missionaryReferralSimple(os);
+		//missionaryReferralSimple(os);
 		
 		//additionalUnit(os);
 		//additonalUnitSimpleTest(os);
@@ -540,7 +540,7 @@ public class LDSTools {
 		//LeaderNonBishopricHTVT("LDSTools39", "Ward Council", os); //Sunday School Pres
 		//LeaderNonBishopricReport("LDSTools32", "Ward Council", os);
 		
-		//LeaderBishopricDirectory("ngiBPC1", false, os);
+		LeaderBishopricDirectory("ngiBPC1", false, os);
 		//LeaderBishopricDrawerOrgMissionary("ngiBPC1", false, os);
 		//LeaderBishopricReport("ngiBPC1", false, os);
 		//LeaderBishopricHTVT("ngiBPC1", false, os);
