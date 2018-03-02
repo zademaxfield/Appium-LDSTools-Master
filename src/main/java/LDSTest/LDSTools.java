@@ -496,7 +496,7 @@ public class LDSTools {
 		//addUnitsRecent(os);
 		
 		//myTempleSimpleTest(os);
-		//templeRecommendReminder25Days(os);
+		templeRecommendReminder25Days(os);
 		//templeRecmmendReminder5Days(os);
 		//templeRecommendReminderRemindLater(os);
 		//templeRecommendReminderGotItThanks(os);
@@ -524,7 +524,7 @@ public class LDSTools {
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
-		CheckUnitsToSync(os);
+		//CheckUnitsToSync(os);
 		
 		//Works in IOS not in Android - need to fix the scrolling problem
 		//checkAllUsersFromWeb(os);
@@ -4585,13 +4585,18 @@ public class LDSTools {
 
 
 		//Check the temple reminder
-		Thread.sleep(2000);
+		Thread.sleep(6000);
 		assertTrue(checkElementReturn("TempleReminderMeLater", "id", "pred"));
 		assertTrue(checkElementReturn("TempleContactBishopric", "id", "pred"));
 		assertTrue(checkElementReturn("TempleGotItThanks", "id", "pred"));
 
 		//Select Contact Bishopric
-		clickButton("TempleContactBishopric", "id", "pred");
+		if (getRunningOS().equals("mac")) {
+			clickByCords("Contact bishopric");
+		} else {
+			clickButton("TempleContactBishopric", "id", "pred");
+		}
+
 
 		//Verify Bishopric
 		Thread.sleep(2000);
@@ -4621,8 +4626,11 @@ public class LDSTools {
 		assertTrue(checkElementReturn("TempleContactBishopric", "id", "pred"));
 		assertTrue(checkElementReturn("TempleGotItThanks", "id", "pred"));
 
-		//Select Contact Bishopric
-		clickButton("TempleContactBishopric", "id", "pred");
+		if (getRunningOS().equals("mac")) {
+			clickByCords("Contact bishopric");
+		} else {
+			clickButton("TempleContactBishopric", "id", "pred");
+		}
 
 		//Verify Bishopric
 		Thread.sleep(2000);
@@ -4692,8 +4700,12 @@ public class LDSTools {
 		assertTrue(checkElementReturn("TempleContactBishopric", "id", "pred"));
 		assertTrue(checkElementReturn("TempleGotItThanks", "id", "pred"));
 
-		//Select Contact Bishopric
-		clickButton("TempleGotItThanks", "id", "pred");
+		//Select Got it, thanks
+		if (getRunningOS().equals("mac")) {
+			clickByCords("Got it, thanks");
+		} else {
+			clickButton("TempleGotItThanks", "id", "pred");
+		}
 
 		//Verify Bishopric
 		Thread.sleep(2000);
@@ -12744,6 +12756,8 @@ public class LDSTools {
 		
 		myElement = driver.findElement(By.name(elementName));
 		Point myPoint = myElement.getLocation();
+		System.out.println("X: " + myPoint.x);
+		System.out.println("Y: " + myPoint.y);
 		//myAction.press(myPoint.x, myPoint.y).release();
 		myAction.press(PointOption.point(myPoint.x, myPoint.y)).release();
 		driver.performTouchAction(myAction);
@@ -12755,6 +12769,7 @@ public class LDSTools {
 	
 		myElement = driver.findElement(By.xpath("//*[contains(@text, '" + elementName + "')]"));
 		Point myPoint = myElement.getLocation();
+
 		//myAction.press(myPoint.x, myPoint.y).release();
 		myAction.press(PointOption.point(myPoint.x, myPoint.y)).release();
 		driver.performTouchAction(myAction);
