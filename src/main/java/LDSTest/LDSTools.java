@@ -522,9 +522,9 @@ public class LDSTools {
 		
 		//editVisibility(os);
 		//editVisibiltyPersonal(os);
-		editVisibiltyHousehold(os);
+		//editVisibiltyHousehold(os);
 		
-		//CheckUnitsToSync(os);
+		CheckUnitsToSync(os);
 		
 		//Works in IOS not in Android - need to fix the scrolling problem
 		//checkAllUsersFromWeb(os);
@@ -565,6 +565,8 @@ public class LDSTools {
 		//HighPriestsGroupLeaderHTVT(os);
 
 		//NoCallingMemberDirectory(os);
+
+		//Bishopric1stCounselorMissionary(os);
 
 		//TODO: Needs work!!
 		//NoCallingMemberMissionary(os);
@@ -5487,8 +5489,9 @@ public class LDSTools {
 	
 	
 	//TODO: Cannot see Freetown Stake and Temple Recommend Status - Active problems
+	//Todo: The sync will never finish for some reason.
 	@Parameters({"os"})
-	@Test (groups= {"header", "all1"}, priority = 3)
+	@Test (groups= {"header", "all1"}, priority = 3, enabled = false)
 	public void ElderKacher(String os) throws Exception {
 		loginProxyData("2178152043",
 				"/7u253707/5u516244/",
@@ -5725,35 +5728,28 @@ public class LDSTools {
 			if (!chooseNetwork.equals("Production")) {
 				Thread.sleep(1000);
 				//clickButtonByXpath("TopHelp");
+
 				clickButton("TopHelp", "xpath", "pred");
 
 				//New way to enable dev settings
 				if (!checkElementNameReturn("Developer Settings")) {
 					for (int x = 1; x <= 5; x++ ) {
-						//clickButtonByXpath("EnableDevSettings");
-						clickButton("EnableDevSettings", "xpath", "pred");
-						//System.out.println("COUNT: " + x);
+						clickButton("EnableDevSettings", "xpath", "xpath");
 					}
 				} else {
 					clickButton("Developer Settings", "byName", "AccID");
 				}
-				
-				
-				clickButton("Environment: Prod", "byName", "byName");
-				clickButton("Proxy", "byName", "byName");
-				clickButton(chooseNetwork, "byName", "byName");
 
-				pressBackKey();
-				
-				//clickButtonByXpathTitleNameContains("Environment");
-				//clickButtonByXpath("Proxy");
-				//clickButtonByXpath(chooseNetwork);
-				//clickButtonByXpath("TopDeveloper");
-				
-				//scrollToElement("Set Max Units");
+
+				if (!checkElementNameReturn("Environment: UAT")) {
+					clickButton("Environment: Prod", "byName", "AccID");
+					clickButton(chooseNetwork, "byName", "AccID");
+					pressBackKey();
+				}
+
+
 				scrollDownIOS();
-				//driver.scrollTo("Set Max Units");
-				//clickButtonByXpathTitleNameContains("Set Max Units");
+
 				clickButton("Set Max Units", "xpath", "AccID");
 				Thread.sleep(2000);
 				sendTextbyXpath("SetMaxUnits", "3");
@@ -5761,8 +5757,6 @@ public class LDSTools {
 				
 				pressBackKey();
 				pressBackKey();
-				//clickButtonByXpath("TopHelp");
-				//clickButtonByXpath("TopSignIn");
 				
 			}
 			
