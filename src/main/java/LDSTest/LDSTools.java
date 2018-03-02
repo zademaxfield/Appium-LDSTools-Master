@@ -498,7 +498,7 @@ public class LDSTools {
 		//myTempleSimpleTest(os);
 		//templeRecommendReminder25Days(os);
 		//templeRecmmendReminder5Days(os);
-		templeRecommendReminderRemindLater(os);
+		//templeRecommendReminderRemindLater(os);
 		//templeRecommendReminderGotItThanks(os);
 		//templeRecommendReminderDurationTest(os);
 		
@@ -522,7 +522,7 @@ public class LDSTools {
 		
 		//editVisibility(os);
 		//editVisibiltyPersonal(os);
-		//editVisibiltyHousehold(os);
+		editVisibiltyHousehold(os);
 		
 		//CheckUnitsToSync(os);
 		
@@ -530,6 +530,9 @@ public class LDSTools {
 		//checkAllUsersFromWeb(os);
 		
 		//AssistantWardClerkMembershipDirectory(os);
+		//AssistantWardClerkMembershipMissionary(os);
+
+
 		//LeaderNonBishopricReport("LDSTools20", "High Priest Group", os);
 		//LeaderNonBishopricHTVT("LDSTools20", "High Priest Group", os);
 		//LeaderNonBishopricDirectory("LDSTools16", "High Priest Group", os);
@@ -4369,10 +4372,10 @@ public class LDSTools {
 		resetVisibility();
 		
 		clickButton("MenuSave", "id", "xpath");
-		Thread.sleep(3000);
+		Thread.sleep(6000);
 		//Need a check for the text
-		//waitForTextToDisappearTEXT("Saving", 500 );
-		Thread.sleep(1000);
+		waitForTextToDisappearTEXT("Saving", 500 );
+		Thread.sleep(2000);
 		backToDirectory();
 		
 		//Log out 
@@ -7911,6 +7914,7 @@ public class LDSTools {
 		//printPageSource();
 		if (getRunningOS().equals("mac")) {
 			wait.until(ExpectedConditions.invisibilityOfElementLocated(MobileBy.iOSNsPredicateString("label CONTAINS '"+ textElement + "'")));
+			wait.until(ExpectedConditions.invisibilityOfElementLocated(MobileBy.iOSNsPredicateString("name CONTAINS '"+ textElement + "'")));
 		} else {
 			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(@text, '" + textElement + "')]")));
 		}
@@ -8866,7 +8870,11 @@ public class LDSTools {
 			System.out.println("Face ID found hitting disable");
 			clickButton("Disable Face ID", "byName", "AccID");
 			Thread.sleep(2000);
-			clickButton("OK", "byName", "AccID");
+			//This is for non leadership accounts on an iPhone X
+			if (checkElementReturn("OK", "byName", "AccID")) {
+				clickButton("OK", "byName", "AccID");
+			}
+
 		}
 
 		//Check for Touch ID then press the ID
