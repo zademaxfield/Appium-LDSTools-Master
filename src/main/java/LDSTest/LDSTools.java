@@ -489,7 +489,7 @@ public class LDSTools {
 		//justForTesting(os);
 
 
-		missionaryReferralSimple(os);
+		//missionaryReferralSimple(os);
 		
 		//additionalUnit(os);
 		//additonalUnitSimpleTest(os);
@@ -498,7 +498,7 @@ public class LDSTools {
 		//myTempleSimpleTest(os);
 		//templeRecommendReminder25Days(os);
 		//templeRecmmendReminder5Days(os);
-		//templeRecommendReminderRemindLater(os);
+		templeRecommendReminderRemindLater(os);
 		//templeRecommendReminderGotItThanks(os);
 		//templeRecommendReminderDurationTest(os);
 		
@@ -4647,8 +4647,17 @@ public class LDSTools {
 		assertTrue(checkElementReturn("TempleContactBishopric", "id", "pred"));
 		assertTrue(checkElementReturn("TempleGotItThanks", "id", "pred"));
 
-		//Select Contact Bishopric
-		clickButton("TempleReminderMeLater", "id", "pred");
+		//pageSource = getSourceOfPage();
+		//listAllElements(pageSource);
+
+		//Select Remind me later
+		if (getRunningOS().equals("mac")) {
+			clickByCords("Remind me later");
+		} else {
+			clickButton("TempleReminderMeLater", "id", "pred");
+		}
+
+
 
 		//Verify Bishopric
 		Thread.sleep(2000);
@@ -8511,6 +8520,7 @@ public class LDSTools {
 
 			//Set Reminder to YES
 			openTemples();
+			Thread.sleep(4000);
 			assertTrue(checkElementReturn("Set a Temple Recommend Expiration Reminder", "contName", "contName"));
 			assertTrue(checkElementReturn("Would you like to be reminded before your temple recommend expires?", "contName", "contName"));
 
