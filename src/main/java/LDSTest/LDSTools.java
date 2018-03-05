@@ -496,7 +496,7 @@ public class LDSTools {
 		//addUnitsRecent(os);
 		
 		//myTempleSimpleTest(os);
-		templeRecommendReminder25Days(os);
+		//templeRecommendReminder25Days(os);
 		//templeRecmmendReminder5Days(os);
 		//templeRecommendReminderRemindLater(os);
 		//templeRecommendReminderGotItThanks(os);
@@ -520,7 +520,7 @@ public class LDSTools {
 		//editOtherUserInvalidEmail(os);
 		
 		
-		//editVisibility(os);
+		editVisibility(os);
 		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
@@ -563,6 +563,8 @@ public class LDSTools {
 
 		//HighPriestsGroupLeaderReport(os);
 		//HighPriestsGroupLeaderHTVT(os);
+
+		//YoungWomenFirstCounselorDirectory(os);
 
 		//NoCallingMemberDirectory(os);
 
@@ -3901,7 +3903,8 @@ public class LDSTools {
 		Thread.sleep(2000);
 		//This will reset the visibility back to Stake
 		resetVisibility();
-		
+		editUserOpen();
+
 		if (getRunningOS().equals("mac")) {
 			clickButton("HouseholdVisibilityLimit", "id", "xpath");
 			Thread.sleep(2000);
@@ -4059,8 +4062,9 @@ public class LDSTools {
 		
 		//This will reset the visibility back to Stake (just in case something went wrong)
 		resetVisibility();
+		editUserOpen();
 
-		
+
 		//Set the Personal Settings to Private-Leadership Only
 		
 		
@@ -4255,8 +4259,9 @@ public class LDSTools {
 		
 		//This will reset the visibility back to Stake (just in case something went wrong)
 		resetVisibility();
-		
-		
+		editUserOpen();
+
+
 		if (getRunningOS().equals("mac")) {
 			clickButtonByXpath("HouseholdVisibility");
 			Thread.sleep(2000);
@@ -4589,6 +4594,9 @@ public class LDSTools {
 		assertTrue(checkElementReturn("TempleReminderMeLater", "id", "pred"));
 		assertTrue(checkElementReturn("TempleContactBishopric", "id", "pred"));
 		assertTrue(checkElementReturn("TempleGotItThanks", "id", "pred"));
+
+		pageSource = getSourceOfPage();
+		listAllElements(pageSource);
 
 		//Select Contact Bishopric
 		if (getRunningOS().equals("mac")) {
@@ -11528,11 +11536,11 @@ public class LDSTools {
 	
 			
 		}
-		
 
+		Thread.sleep(4000);
 		clickButton("MenuSave", "id", "xpath");
 		Thread.sleep(4000);
-		editUserOpen(); 
+
 
 
 	}
@@ -12756,8 +12764,8 @@ public class LDSTools {
 		
 		myElement = driver.findElement(By.name(elementName));
 		Point myPoint = myElement.getLocation();
-		System.out.println("X: " + myPoint.x);
-		System.out.println("Y: " + myPoint.y);
+//		System.out.println("X: " + myPoint.x);
+//		System.out.println("Y: " + myPoint.y);
 		//myAction.press(myPoint.x, myPoint.y).release();
 		myAction.press(PointOption.point(myPoint.x, myPoint.y)).release();
 		driver.performTouchAction(myAction);
