@@ -521,8 +521,8 @@ public class LDSTools {
 		
 		
 		//editVisibility(os);
-		//editVisibiltyPersonal(os);
-		editVisibiltyHousehold(os);
+		editVisibiltyPersonal(os);
+		//editVisibiltyHousehold(os);
 		
 		//CheckUnitsToSync(os);
 		
@@ -4169,7 +4169,7 @@ public class LDSTools {
 		
 		
 		Thread.sleep(1000);
-		clickButton("MenuSave", "id", "xpath");
+		//clickButton("MenuSave", "id", "xpath");
 		//Thread.sleep(1000);
 		//clickButton("MenuSave", "id", "xpath");
 
