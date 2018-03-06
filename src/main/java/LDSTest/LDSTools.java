@@ -520,9 +520,9 @@ public class LDSTools {
 		//editOtherUserInvalidEmail(os);
 		
 		
-		editVisibility(os);
+		//editVisibility(os);
 		//editVisibiltyPersonal(os);
-		//editVisibiltyHousehold(os);
+		editVisibiltyHousehold(os);
 		
 		//CheckUnitsToSync(os);
 		
@@ -4378,8 +4378,8 @@ public class LDSTools {
 		
 		resetVisibility();
 		
-		clickButton("MenuSave", "id", "xpath");
-		Thread.sleep(6000);
+		//clickButton("MenuSave", "id", "xpath");
+		//Thread.sleep(6000);
 		//Need a check for the text
 		waitForTextToDisappearTEXT("Saving", 500 );
 		Thread.sleep(2000);
