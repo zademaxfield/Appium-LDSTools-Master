@@ -4076,6 +4076,7 @@ public class LDSTools {
 			clickButtonByXpath("PrivateVisibility");
 			Thread.sleep(1000);
 			clickButtonByXpath("DoneButton");
+			Thread.sleep(2000);
 			
 		} else {
 			clickButtonByXpathTitleNameNoCase("Privacy");
@@ -4088,6 +4089,7 @@ public class LDSTools {
 			
 			clickButton("PrivacyPersonalEmail", "xpath", "xpath");
 			clickButton("PrivacyPrivateVisibility", "xpath", "xpath");
+			Thread.sleep(2000);
 		
 		}
 
