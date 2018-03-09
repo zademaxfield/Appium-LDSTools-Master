@@ -4069,6 +4069,7 @@ public class LDSTools {
 		
 		
 		if (getRunningOS().equals("mac")) {
+			Thread.sleep(2000);
 			clickButtonByXpath("PersonlVisibility");
 			Thread.sleep(2000);
 			clickButtonByXpath("EditAllVisibility");
