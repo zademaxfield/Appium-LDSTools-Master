@@ -4446,7 +4446,7 @@ public class LDSTools {
 
 		Thread.sleep(2000);
 		//Check to see if the Members info is correct
-		checkText("MissRefMemberPhone", "(385) 800-1324", "id", "xpath"	);
+		checkText("MissRefMemberPhone", "(385) 800-1234", "id", "xpath"	);
 		checkText("MissRefMemberEmail", "Test@gmail.com", "id", "xpath"	);
 
 		//sendText(String textElement, String textToSend, String andEle, String iosEle )
