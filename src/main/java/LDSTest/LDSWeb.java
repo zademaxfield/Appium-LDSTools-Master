@@ -354,7 +354,7 @@ public class LDSWeb {
 		clickElement("QuorumAuxHighPriest", "xpath");
 		Thread.sleep(4000);
 
-		addDistrict("District 1", "Tools, LDS50" );
+		addDistrict("District 1", "Muipu Faapili" );
 
 		clickElement("QuorumAuxSelect", "xpath");
 		clickElement("QuorumAuxReliefSociety", "xpath");
@@ -501,7 +501,7 @@ public class LDSWeb {
 		addMemberToOrg("lds18");
 		addMemberToOrg("lds19");
 		addMemberToOrg("lds20");
-		addMemberToOrg("lds50");
+		//addMemberToOrg("lds50");
 		
 		clickElement("Organizations", "linkText");
 		Thread.sleep(4000);
@@ -609,6 +609,8 @@ public class LDSWeb {
 		
 		//openWebPage("https://www.lds.org");
 		Thread.sleep(2000);
+		System.out.println("User Name: " + userName);
+		System.out.println("Password: " + passWord);
 
 		driver.findElement(By.id(this.prop.getProperty("UserName"))).sendKeys(userName);
 		//Thread.sleep(1000);

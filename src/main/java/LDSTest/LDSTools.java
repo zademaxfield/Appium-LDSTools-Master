@@ -489,7 +489,7 @@ public class LDSTools {
 		//justForTesting(os);
 
 
-		//missionaryReferralSimple(os);
+		missionaryReferralSimple(os);
 		
 		//additionalUnit(os);
 		//additonalUnitSimpleTest(os);
@@ -521,7 +521,7 @@ public class LDSTools {
 		
 		
 		//editVisibility(os);
-		editVisibiltyPersonal(os);
+		//editVisibiltyPersonal(os);
 		//editVisibiltyHousehold(os);
 		
 		//CheckUnitsToSync(os);
